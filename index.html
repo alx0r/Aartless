@@ -101,75 +101,82 @@
             </li>
         </ul>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sigma.js/2.1.0/sigma.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chroma-js@2.1.0/chroma.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/graphology/0.24.1/graphology.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/graphology-layout-force/worker.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sigma@2.1.0/build/sigma.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sigma/build/plugins/sigma.layout.forceAtlas2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/uuid@8.3.2/dist/umd/uuid.min.js"></script>
     <script>
-        // Initialize sigma
-        var s = new sigma({
-            container: 'sigma-container',
-            settings: {
-                defaultNodeColor: '#00FF00',
-                defaultEdgeColor: '#666',
-                edgeColor: 'default',
-                labelThreshold: 10
-            }
-        });
+        // Initialize the interactive graph
+        document.addEventListener("DOMContentLoaded", function() {
+            const container = document.getElementById("sigma-container");
 
-        // Add nodes and edges
-        s.graph.addNode({
-            id: 'n0',
-            label: 'Node 0',
-            x: 0,
-            y: 0,
-            size: 3
-        }).addNode({
-            id: 'n1',
-            label: 'Node 1',
-            x: 3,
-            y: 1,
-            size: 2
-        }).addNode({
-            id: 'n2',
-            label: 'Node 2',
-            x: 1,
-            y: 3,
-            size: 1
-        }).addEdge({
-            id: 'e0',
-            source: 'n0',
-            target: 'n1'
-        }).addEdge({
-            id: 'e1',
-            source: 'n1',
-            target: 'n2'
-        }).addEdge({
-            id: 'e2',
-            source: 'n2',
-            target: 'n0'
-        });
+            // Create a sample graph
+            const graph = new graphology.Graph();
+            graph.addNode("n1", { x: 0, y: 0, size: 10, color: chroma.random().hex() });
+            graph.addNode("n2", { x: -5, y: 5, size: 10, color: chroma.random().hex() });
+            graph.addNode("n3", { x: 5, y: 5, size: 10, color: chroma.random().hex() });
+            graph.addNode("n4", { x: 0, y: 10, size: 10, color: chroma.random().hex() });
+            graph.addEdge("n1", "n2");
+            graph.addEdge("n2", "n4");
+            graph.addEdge("n4", "n3");
+            graph.addEdge("n3", "n1");
 
-        // Start ForceAtlas2
-        s.startForceAtlas2({
-            linLogMode: false,
-            outboundAttractionDistribution: false,
-            adjustSizes: false,
-            edgeWeightInfluence: 0,
-            scalingRatio: 1,
-            strongGravityMode: false,
-            gravity: 1,
-            barnesHutOptimize: true,
-            barnesHutTheta: 0.5,
-            slowDown: 1,
-            startingIterations: 1,
-            iterationsPerRender: 1,
-            worker: true
-        });
+            // Create the spring layout and start it
+            const layout = new ForceSupervisor(graph, { isNodeFixed: (_, attr) => attr.highlighted });
+            layout.start();
 
-        // Stop the layout after 5 seconds
-        setTimeout(function() {
-            s.stopForceAtlas2();
-        }, 5000);
+            // Create the sigma instance
+            const renderer = new sigma.Sigma(graph, container);
+
+            // Drag'n'drop feature
+            let draggedNode = null;
+            let isDragging = false;
+
+            renderer.on("downNode", (e) => {
+                isDragging = true;
+                draggedNode = e.node;
+                graph.setNodeAttribute(draggedNode, "highlighted", true);
+            });
+
+            renderer.getMouseCaptor().on("mousemovebody", (e) => {
+                if (!isDragging || !draggedNode) return;
+                const pos = renderer.viewportToGraph(e);
+                graph.setNodeAttribute(draggedNode, "x", pos.x);
+                graph.setNodeAttribute(draggedNode, "y", pos.y);
+                e.preventSigmaDefault();
+                e.original.preventDefault();
+                e.original.stopPropagation();
+            });
+
+            renderer.getMouseCaptor().on("mouseup", () => {
+                if (draggedNode) graph.removeNodeAttribute(draggedNode, "highlighted");
+                isDragging = false;
+                draggedNode = null;
+            });
+
+            renderer.getMouseCaptor().on("mousedown", () => {
+                if (!renderer.getCustomBBox()) renderer.setCustomBBox(renderer.getBBox());
+            });
+
+            // Create node and edge by click
+            renderer.on("clickStage", ({ event }) => {
+                const coordForGraph = renderer.viewportToGraph({ x: event.x, y: event.y });
+                const node = { ...coordForGraph, size: 10, color: chroma.random().hex() };
+                const closestNodes = graph.nodes().map(nodeId => {
+                    const attrs = graph.getNodeAttributes(nodeId);
+                    const distance = Math.pow(node.x - attrs.x, 2) + Math.pow(node.y - attrs.y, 2);
+                    return { nodeId, distance };
+                }).sort((a, b) => a.distance - b.distance).slice(0, 2);
+                const id = uuid.v4();
+                graph.addNode(id, node);
+                closestNodes.forEach(e => graph.addEdge(id, e.nodeId));
+            });
+
+            window.onStoryDown = () => {
+                renderer.kill();
+            };
+        });
     </script>
 </body>
 </html>

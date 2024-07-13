@@ -53,10 +53,10 @@
         a:hover {
             text-decoration: underline;
         }
-        .svg-container {
+        .sigma-container {
             width: 100%;
             max-width: 800px;
-            height: 300px;
+            height: 400px;
             margin-bottom: 20px;
             background-color: #222;
             border: 2px solid #666;
@@ -66,7 +66,7 @@
 </head>
 <body>
     <h1>My LinkedIn Articles</h1>
-    <div class="svg-container" id="svg-container"></div>
+    <div class="sigma-container" id="sigma-container"></div>
     <div class="container">
         <ul>
             <li>
@@ -101,37 +101,75 @@
             </li>
         </ul>
     </div>
-    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sigma.js/2.1.0/sigma.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sigma@2.1.0/build/sigma.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sigma/build/plugins/sigma.layout.forceAtlas2.min.js"></script>
     <script>
-        // Set up the SVG element
-        const svg = d3.select("#svg-container")
-            .append("svg")
-            .attr("width", "100%")
-            .attr("height", "100%")
-            .attr("viewBox", "0 0 800 300");
+        // Initialize sigma
+        var s = new sigma({
+            container: 'sigma-container',
+            settings: {
+                defaultNodeColor: '#00FF00',
+                defaultEdgeColor: '#666',
+                edgeColor: 'default',
+                labelThreshold: 10
+            }
+        });
 
-        // Create an elastic circle
-        const circle = svg.append("circle")
-            .attr("cx", 400)
-            .attr("cy", 150)
-            .attr("r", 50)
-            .attr("fill", "limegreen")
-            .call(d3.drag()
-                .on("start", dragstarted)
-                .on("drag", dragged)
-                .on("end", dragended));
+        // Add nodes and edges
+        s.graph.addNode({
+            id: 'n0',
+            label: 'Node 0',
+            x: 0,
+            y: 0,
+            size: 3
+        }).addNode({
+            id: 'n1',
+            label: 'Node 1',
+            x: 3,
+            y: 1,
+            size: 2
+        }).addNode({
+            id: 'n2',
+            label: 'Node 2',
+            x: 1,
+            y: 3,
+            size: 1
+        }).addEdge({
+            id: 'e0',
+            source: 'n0',
+            target: 'n1'
+        }).addEdge({
+            id: 'e1',
+            source: 'n1',
+            target: 'n2'
+        }).addEdge({
+            id: 'e2',
+            source: 'n2',
+            target: 'n0'
+        });
 
-        function dragstarted(event) {
-            d3.select(this).raise().attr("stroke", "black");
-        }
+        // Start ForceAtlas2
+        s.startForceAtlas2({
+            linLogMode: false,
+            outboundAttractionDistribution: false,
+            adjustSizes: false,
+            edgeWeightInfluence: 0,
+            scalingRatio: 1,
+            strongGravityMode: false,
+            gravity: 1,
+            barnesHutOptimize: true,
+            barnesHutTheta: 0.5,
+            slowDown: 1,
+            startingIterations: 1,
+            iterationsPerRender: 1,
+            worker: true
+        });
 
-        function dragged(event) {
-            d3.select(this).attr("cx", event.x).attr("cy", event.y);
-        }
-
-        function dragended(event) {
-            d3.select(this).attr("stroke", null);
-        }
+        // Stop the layout after 5 seconds
+        setTimeout(function() {
+            s.stopForceAtlas2();
+        }, 5000);
     </script>
 </body>
 </html>

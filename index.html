@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alexander Teggin's Page</title>
     <style>
-        /* Global styles */
         body {
-            font-family: Arial, sans-serif;
+            font-family: "Arial", sans-serif;
+            line-height: 1.6;
             background-color: #000;
-            color: #0F0;
+            color: #00FF00;
             margin: 0;
             padding: 20px;
             display: flex;
@@ -17,14 +17,11 @@
             align-items: center;
             min-height: 100vh;
         }
-        a {
-            color: #0F0;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-        .header, .container, .footer {
+        .header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
             max-width: 800px;
             width: 100%;
             margin-bottom: 20px;
@@ -35,77 +32,107 @@
             margin-bottom: 20px;
             box-shadow: 0 0 10px rgba(0, 255, 0, 0.8);
         }
-        .header h1, .header p {
-            text-align: center;
+        .header h1 {
+            color: #00FF00;
+            margin-bottom: 10px;
+        }
+        .header p {
+            font-size: 1.2em;
+            margin-bottom: 20px;
         }
         .container {
             background: #333;
             padding: 20px;
             border: 2px solid #666;
             border-radius: 10px;
+            max-width: 800px;
+            width: 100%;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            margin-bottom: 20px;
         }
-        .container h2 {
-            color: #0F0;
-        }
-        .container p {
-            margin-bottom: 10px;
-            color: #0F0; /* Default text color */
-        }
-        .container ul {
+        ul {
             list-style-type: none;
             padding: 0;
         }
-        .container li {
+        li {
             margin: 10px 0;
+            border: 2px solid #666;
             padding: 10px;
             border-radius: 5px;
             background: #555;
             transition: background 0.3s;
+            position: relative;
+            overflow: hidden;
         }
-        .container li:hover {
+        li:hover {
             background: #666;
+        }
+        a {
+            text-decoration: none;
+            color: #00FF00;
+            font-weight: bold;
+            position: relative;
+            z-index: 1;
+            display: inline-block;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .matrix-hover::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #00FF00;
+            opacity: 0;
+            transition: top 0.3s, opacity 0.3s;
+        }
+        .matrix-hover:hover::after {
+            top: 0;
+            opacity: 0.1;
+            transition: top 0.3s, opacity 0.3s;
+        }
+        .matrix-hover:hover {
+            animation: matrix-drip 0.5s infinite;
+        }
+        @keyframes matrix-drip {
+            0% { text-shadow: 0 0 2px #00FF00, 0 0 5px #00FF00, 0 0 10px #00FF00, 0 0 20px #00FF00; }
+            50% { text-shadow: 0 0 5px #00FF00, 0 0 10px #00FF00, 0 0 20px #00FF00, 0 0 30px #00FF00; }
+            100% { text-shadow: 0 0 2px #00FF00, 0 0 5px #00FF00, 0 0 10px #00FF00, 0 0 20px #00FF00; }
+        }
+        .sigma-container {
+            width: 100%;
+            max-width: 800px;
+            height: 400px;
+            margin-bottom: 20px;
+            background-color: #222;
+            border: 2px solid #666;
+            border-radius: 10px;
         }
         .footer {
             text-align: center;
             margin-top: auto;
             padding-top: 20px;
             font-size: 0.8em;
-            color: #0F0; /* Footer text color */
         }
-
-        /* Matrix hover effect */
-        body:hover {
-            color: #0F0; /* Default text color on hover */
+        .articles {
+            background-image: url('https://plus.unsplash.com/premium_photo-1682124702519-712f2094d90b?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+            background-size: cover;
+            background-position: center;
+            padding: 20px;
+            border: 2px solid #666;
+            border-radius: 10px;
+            margin-bottom: 20px;
         }
-        body:hover .matrix-hover {
-            animation: matrix-drip 0.5s infinite;
+        .articles h2 {
+            color: #00FF00;
+            margin-bottom: 10px;
         }
-        @keyframes matrix-drip {
-            0% {
-                text-shadow: 
-                    0 0 2px #00FF00, 
-                    0 0 5px #00FF00, 
-                    0 0 10px #00FF00, 
-                    0 0 20px #00FF00;
-                color: #00F;
-            }
-            50% {
-                text-shadow: 
-                    0 0 5px #00FF00, 
-                    0 0 10px #00FF00, 
-                    0 0 20px #00FF00, 
-                    0 0 30px #00FF00;
-                color: #F0F;
-            }
-            100% {
-                text-shadow: 
-                    0 0 2px #00FF00, 
-                    0 0 5px #00FF00, 
-                    0 0 10px #00FF00, 
-                    0 0 20px #00FF00;
-                color: #0F0;
-            }
+        .articles p {
+            color: #00FF00;
+            line-height: 1.6;
         }
     </style>
 </head>
@@ -141,39 +168,38 @@
         </p>
     </div>
 
-    <div class="container">
+    <div class="container articles">
         <h2>Articles</h2>
         <ul>
             <li>
-                <a href="#" class="matrix-hover">
+                <a href="https://www.linkedin.com/pulse/from-pygmalion-chatgpt-unraveling-threads-ai-language-teggin-rhtne/?lipi=urn%3Ali%3Apage%3Ad_flagship3_pulse_read%3B7PxK1r5dQT2S%2FXwgmKWpdg%3D%3D" class="matrix-hover">
                     Article 1
                 </a>
+                <p>From Pygmalion to ChatGPT: Unraveling the Threads of AI Language</p>
             </li>
             <li>
-                <a href="#" class="matrix-hover">
+                <a href="https://www.linkedin.com/pulse/enhancing-your-headset-wearables-8-essential-osint-overall-teggin-kj3sc/?lipi=urn%3Ali%3Apage%3Ad_flagship3_pulse_read%3B7PxK1r5dQT2S%2FXwgmKWpdg%3D%3D" class="matrix-hover">
                     Article 2
                 </a>
+                <p>Enhancing Your Headset and Wearables: 8 Essential OSINT Tips</p>
             </li>
             <li>
-                <a href="#" class="matrix-hover">
+                <a href="https://www.linkedin.com/pulse/convergence-spaces-tech-reimagining-co-working-hotels-teggin-y95ne/?lipi=urn%3Ali%3Apage%3Ad_flagship3_pulse_read%3B7PxK1r5dQT2S%2FXwgmKWpdg%3D%3D" class="matrix-hover">
                     Article 3
                 </a>
+                <p>Convergence Spaces: Tech and Reimagining Co-Working in Hotels</p>
             </li>
             <li>
-                <a href="#" class="matrix-hover">
+                <a href="https://www.linkedin.com/pulse/fall-of-fintech-7-factors-behind-curve-teggin-fhlne/?lipi=urn%3Ali%3Apage%3Ad_flagship3_pulse_read%3B7PxK1r5dQT2S%2FXwgmKWpdg%3D%3D" class="matrix-hover">
                     Article 4
                 </a>
-            </li>
-            <li>
-                <a href="#" class="matrix-hover">
-                    Article 5
-                </a>
+                <p>The Fall of Fintech: 7 Factors Behind the Curve</p>
             </li>
         </ul>
     </div>
 
     <div class="footer">
-        &copy; 2024 Alexander Teggin | <a href="mailto:alex@teggin.com">Contact</a>
+        <p>Connect with me on <a href="https://www.instagram.com/alexanderteggin">Instagram</a> and explore more articles on <a href="https://www.threads.net/@alexanderteggin">Threads</a>.</p>
     </div>
 </body>
 </html>

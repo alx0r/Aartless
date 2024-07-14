@@ -5,10 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alexander Teggin's Page</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
-
         body {
-            font-family: 'Roboto Mono', monospace;
+            font-family: "Arial", sans-serif;
             line-height: 1.6;
             background-color: #000;
             color: #00FF00;
@@ -18,70 +16,57 @@
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
-            overflow-x: hidden;
         }
-
         .header {
             display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center;
-            max-width: 100%;
+            max-width: 800px;
             width: 100%;
             margin-bottom: 20px;
-            animation: glitch 1s infinite;
         }
-
         .header img {
             max-width: 150px;
             border-radius: 50%;
             margin-bottom: 20px;
             box-shadow: 0 0 10px rgba(0, 255, 0, 0.8);
         }
-
         .header h1 {
             color: #00FF00;
             margin-bottom: 10px;
         }
-
         .header p {
             font-size: 1.2em;
             margin-bottom: 20px;
-            padding: 0 10px;
         }
-
         .container {
-            background: #111;
+            background: #333;
             padding: 20px;
-            border: 2px solid #00FF00;
+            border: 2px solid #666;
             border-radius: 10px;
-            max-width: 100%;
+            max-width: 800px;
             width: 100%;
-            box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
             margin-bottom: 20px;
         }
-
         ul {
             list-style-type: none;
             padding: 0;
         }
-
         li {
             margin: 10px 0;
-            border: 2px solid #00FF00;
+            border: 2px solid #666;
             padding: 10px;
             border-radius: 5px;
-            background: #111;
-            transition: background 0.3s, transform 0.3s;
+            background: #555;
+            transition: background 0.3s;
             position: relative;
             overflow: hidden;
         }
-
         li:hover {
-            background: #222;
-            transform: translateY(-5px);
+            background: #666;
         }
-
         a {
             text-decoration: none;
             color: #00FF00;
@@ -90,11 +75,9 @@
             z-index: 1;
             display: inline-block;
         }
-
         a:hover {
             text-decoration: underline;
         }
-
         .matrix-hover::after {
             content: '';
             position: absolute;
@@ -106,92 +89,65 @@
             opacity: 0;
             transition: top 0.3s, opacity 0.3s;
         }
-
         .matrix-hover:hover::after {
             top: 0;
             opacity: 0.1;
             transition: top 0.3s, opacity 0.3s;
         }
-
         .matrix-hover:hover {
             animation: matrix-drip 0.5s infinite;
         }
-
         @keyframes matrix-drip {
             0% { text-shadow: 0 0 2px #00FF00, 0 0 5px #00FF00, 0 0 10px #00FF00, 0 0 20px #00FF00; }
             50% { text-shadow: 0 0 5px #00FF00, 0 0 10px #00FF00, 0 0 20px #00FF00, 0 0 30px #00FF00; }
             100% { text-shadow: 0 0 2px #00FF00, 0 0 5px #00FF00, 0 0 10px #00FF00, 0 0 20px #00FF00; }
         }
-
-        @keyframes glitch {
-            0% { transform: translate(2px, 2px); }
-            20% { transform: translate(-2px, -2px); }
-            40% { transform: translate(-2px, 2px); }
-            60% { transform: translate(2px, -2px); }
-            80% { transform: translate(2px, 2px); }
-            100% { transform: translate(0, 0); }
-        }
-
-        .articles {
-            background-image: url('https://plus.unsplash.com/premium_photo-1682124702519-712f2094d90b?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
-            background-size: cover;
-            background-position: center;
-            padding: 20px;
-            border: 2px solid #00FF00;
-            border-radius: 10px;
+        .sigma-container {
+            width: 100%;
+            max-width: 800px;
+            height: 400px;
             margin-bottom: 20px;
+            background-color: #222;
+            border: 2px solid #666;
+            border-radius: 10px;
         }
-
-        .articles h2 {
-            color: #00FF00;
-            margin-bottom: 10px;
-        }
-
-        .articles p {
-            color: #00FF00;
-            line-height: 1.6;
-        }
-
         .footer {
             text-align: center;
             margin-top: auto;
             padding-top: 20px;
             font-size: 0.8em;
         }
-
-        .footer a {
+        .articles {
+            background-image: url('https://plus.unsplash.com/premium_photo-1682124702519-712f2094d90b?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+            background-size: cover;
+            background-position: center;
+            padding: 20px;
+            border: 2px solid #666;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .articles h2 {
             color: #00FF00;
-            text-decoration: underline;
+            margin-bottom: 10px;
+        }
+        .articles p {
+            color: #00FF00;
+            line-height: 1.6;
+        }
+        .audio-player {
+            width: 100%;
+            text-align: center;
+            margin-top: 20px;
+            padding-top: 10px;
+            border-top: 1px solid #00FF00;
         }
 
-        @media screen and (max-width: 600px) {
-            body {
-                padding: 10px;
-            }
-
-            .header p, .container, .articles {
-                padding: 15px;
-            }
-
-            .header img {
-                max-width: 100px;
-            }
-
-            .header p {
-                font-size: 1em;
-            }
-
-            .container {
-                padding: 15px;
-            }
-
-            .articles {
-                padding: 15px;
-            }
-
-            .articles h2, .articles p {
-                font-size: 0.9em;
-            }
+        audio {
+            width: 100%;
+            max-width: 300px;
+            outline: none;
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.8);
+            border-radius: 5px;
         }
     </style>
 </head>
@@ -199,7 +155,7 @@
     <div class="header">
         <img src="channels4_profile.jpg" alt="Profile Picture">
         <h1>Alexander Teggin</h1>
-        <p>Emerging Technology | Intelligence | Cyber-Strategy | New Media | Magic, Legederian & Alchemy </p>
+        <p>Emerging Technology | Intelligence | Cyber-Strategy | New Media</p>
     </div>
 
     <div class="container">
@@ -236,13 +192,14 @@
                 </a>
                 <p>From Pygmalion to ChatGPT: Unraveling the Threads of AI Language</p>
             </li>
-            <li><a href="https://www.linkedin.com/pulse/enhancing-your-headset-wearables-8-essential-osint-overall-teggin-kj3sc/?lipi=urn%3Ali%3Apage%3Ad_flagship3_pulse_read%3B7PxK1r5dQT2S%2FXwgmKWpdg%3D%3D" class="matrix-hover">
+            <li>
+                <a href="https://www.linkedin.com/pulse/enhancing-your-headset-wearables-8-essential-osint-overall-teggin-kj3sc/?lipi=urn%3Ali%3Apage%3Ad_flagship3_pulse_read%3B7PxK1r5dQT2S%2FXwgmKWpdg%3D%3D" class="matrix-hover">
                     Article 2
                 </a>
                 <p>Enhancing Your Headset and Wearables: 8 Essential OSINT Tips</p>
             </li>
             <li>
-                <a href="https://www.linkedin.com/pulse/convergence-spaces-tech-reimagining-co-working-hotels-teggin-y95ne/?lipi=urn%3Ali%3Apage%3Ad_flagship3_pulse_read%3B7PxK1r5dQT2S%2FXwgmKWpdg%3D%3D" class="matrix-hover">
+                 <a href="https://www.linkedin.com/pulse/convergence-spaces-tech-reimagining-co-working-hotels-teggin-y95ne/?lipi=urn%3Ali%3Apage%3Ad_flagship3_pulse_read%3B7PxK1r5dQT2S%2FXwgmKWpdg%3D%3D" class="matrix-hover">
                     Article 3
                 </a>
                 <p>Convergence Spaces: Tech and Reimagining Co-Working in Hotels</p>
@@ -258,6 +215,13 @@
 
     <div class="footer">
         <p>Connect with me on <a href="https://www.instagram.com/alexanderteggin">Instagram</a> and explore more articles on <a href="https://www.threads.net/@alexanderteggin">Threads</a>.</p>
+    </div>
+
+    <div class="audio-player">
+        <audio controls autoplay loop>
+            <source src="https://drive.google.com/uc?export=download&id=1VFhpgrV3qj5XeMl8EOjoQICWOuGXi42o" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
     </div>
 </body>
 </html>

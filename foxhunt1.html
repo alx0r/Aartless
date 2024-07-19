@@ -1,0 +1,138 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track the Fox - The Hunt Awaits</title>
+    <style>
+        :root {
+            --primary-blue: #0a1929;
+            --secondary-blue: #1e3a8a;
+            --primary-orange: #f97316;
+            --text-color: #e2e8f0;
+            --background-dark: #0a0a0a;
+            --shadow-color: rgba(0, 0, 0, 0.7);
+        }
+        body {
+            font-family: 'Courier New', monospace;
+            background-color: var(--background-dark);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+        .logo {
+            width: 150px;
+            height: auto;
+            margin-bottom: 20px;
+        }
+        h1 {
+            color: var(--primary-orange);
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        .image-container {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 30px;
+        }
+        .image-container img {
+            width: 45%;
+            max-width: 400px;
+            height: auto;
+            border: 2px solid var(--primary-orange);
+            box-shadow: 0 0 15px var(--primary-orange);
+        }
+        p {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        #countdown {
+            font-size: 2em;
+            color: var(--primary-orange);
+            margin-bottom: 30px;
+        }
+        form {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        input[type="email"] {
+            padding: 10px;
+            font-size: 1em;
+            width: 60%;
+            max-width: 300px;
+            background-color: var(--primary-blue);
+            color: var(--text-color);
+            border: 1px solid var(--primary-orange);
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 1em;
+            background-color: var(--primary-orange);
+            color: var(--background-dark);
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #e86305;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="https://i.imgur.com/OMCcU5x.jpeg/150/150" alt="Track the Fox Logo" class="logo">
+        <h1>The Digital Trail Begins...</h1>
+        <div class="image-container">
+            <img src="https://i.imgur.com/jNFXBmX.jpeg" alt="Mysterious Image 1">
+            <img src="https://i.imgur.com/9hi8MPi.jpeg" alt="Mysterious Image 2">
+        </div>
+        <p>Encrypted whispers. Hidden paths. The fox leaves its mark.</p>
+        <p>Are you ready to decode the silence?</p>
+        <div id="countdown">00:00:00:00</div>
+        <form id="signup-form">
+            <input type="email" id="email" placeholder="your@email.com" required>
+            <button type="submit">Join the Hunt</button>
+        </form>
+        <p>The unseen awaits those who dare to look.</p>
+    </div>
+
+    <script>
+        // Countdown Timer
+        function updateCountdown() {
+            const now = new Date();
+            const target = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 7, 0, 0, 0);
+            const diff = target - now;
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById('countdown').innerText = 
+                `${days.toString().padStart(2, '0')}:${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // Form submission
+        document.getElementById('signup-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            alert(`The hunt begins soon. Watch your inbox, ${email}.`);
+            // Here you would typically send this data to your server
+        });
+    </script>
+</body>
+</html>

@@ -87,6 +87,9 @@
         button:hover {
             background-color: #e86305;
         }
+        .hidden-message {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -94,8 +97,8 @@
         <img src="https://i.imgur.com/OMCcU5x.jpeg/150/150" alt="Track the Fox Logo" class="logo">
         <h1>The Digital Trail Begins...</h1>
         <div class="image-container">
-            <img src="https://i.imgur.com/jNFXBmX.jpeg" alt="Mysterious Image 1">
-            <img src="https://i.imgur.com/9hi8MPi.jpeg" alt="Mysterious Image 2">
+            <img src="https://i.imgur.com/jNFXBmX.jpeg" alt="Mysterious Image 1" ondblclick="revealStartDate()">
+            <img src="https://i.imgur.com/9hi8MPi.jpeg" alt="Mysterious Image 2" ondblclick="revealStartDate()">
         </div>
         <p>Encrypted whispers. Hidden paths. The fox leaves its mark.</p>
         <p>Are you ready to decode the silence?</p>
@@ -106,6 +109,24 @@
         </form>
         <p>In the realm of bits and bytes, cunning unveils truth.</p>
     </div>
+
+    <!-- Hidden encrypted message -->
+    <div class="hidden-message" id="encrypted-message">
+        VGhlIGZveCAncyBkZW4gaXMgaGlkZGVuIGluIHBsYWluIHNpZ2h0LiBMb29rIGZvciB0aGUgcGF0dGVybiBpbiB0aGUgbm9pc2U=
+    </div>
+
+    <!-- Secret email submission section (commented out) -->
+    <!--
+    <section id="secret-submission">
+        <h3>Congratulations, Fox Hunter!</h3>
+        <p>Good job! It's never safe to drop an email on a random site. But you can trust the Fox Hunt with this submission. Just unmask the ##s</p>
+        <form id="secret-form" onsubmit="return false;">
+            <label for="secret-email">Your Email:</label>
+            <input type="email" id="secret-email" name="secret-email" required>
+            <button type="submit" onclick="submitSecretEmail()">Submit</button>
+        </form>
+    </section>
+    -->
 
     <script>
         // Countdown Timer
@@ -133,6 +154,38 @@
             alert(`The hunt begins soon. Watch your inbox, ${email}.`);
             // Here you would typically send this data to your server
         });
+
+        // Easter egg: Reveal start date on double-click
+        function revealStartDate() {
+            alert("The hunt begins Monday at 9 AM. May the craftiest fox win!");
+        }
+
+        // Easter egg: Decode the hidden message when body background is changed
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.type === "attributes" && mutation.attributeName === "style") {
+                    const hiddenMessage = document.getElementById("encrypted-message").textContent;
+                    const decodedMessage = atob(hiddenMessage);
+                    alert("You've uncovered a hidden message: " + decodedMessage);
+                    // You can replace the alert with a more sophisticated reveal mechanism
+                    document.body.innerHTML += '<img src="/api/placeholder/400/300" alt="Reward Image">';
+                }
+            });
+        });
+
+        observer.observe(document.body, { attributes: true });
+
+        // Function for secret email submission
+        function submitSecretEmail() {
+            const email = document.getElementById('secret-email').value;
+            if (email) {
+                alert('Congratulations! Your secret submission has been received.');
+                // Here you would typically send the email to your server
+                // but for security reasons, we're just showing an alert
+            } else {
+                alert('Please enter a valid email address.');
+            }
+        }
     </script>
 </body>
 </html>

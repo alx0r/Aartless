@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,113 +6,125 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mirror Mirror - Your AI Shopping Companion</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    .mirror-effect {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .mirror-effect::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to right, rgba(255,255,255,0.5), rgba(255,255,255,0), rgba(255,255,255,0.5));
+      transform: translateX(-100%) rotate(15deg);
+      transition: all 0.8s ease-in-out;
+    }
+
+    .mirror-effect:hover::before {
+      transform: translateX(100%) rotate(15deg);
+    }
+  </style>
 </head>
-<body>
-  <div class="bg-gray-100 min-h-screen">
-    <header class="bg-white shadow">
-      <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-        <div class="flex items-center justify-between">
-          <div class="flex items-center">
-            <img src="https://www.bing.com/images/create/logo-header-design-concept-for-27mirror-mirror27-ai-/1-66b541d5320740bc9e8ae54a1e3c68e9?id=t92HkkL8KoHqo66oNAjUsg.u0%2Fz1mLY3am9l6QO8LjmEA&view=detailv2&idpp=genimg&noidpclose=1&thid=OIG1.cvplXhrUiQtgmCOJPgrj&skey=-Rn1gJvgjHxuCkrBrMNuDi3p3fCrxp_UOq-IAJHYI1w&form=SYDBIC&ssp=1&safesearch=moderate&setlang=en&cc=NL&pc=SANSAAND" alt="Mirror Mirror Logo" class="h-8 w-auto">
-            <h1 class="text-xl font-bold text-gray-900 ml-4">Mirror Mirror</h1>
-          </div>
-          <p class="text-gray-500">Your AI Shopping Companion</p>
+<body class="bg-gray-50 text-gray-800">
+  <div class="max-w-7xl mx-auto">
+    <header class="bg-white shadow-lg py-6 px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center">
+          <img src="https://www.bing.com/images/create/logo-header-design-concept-for-27mirror-mirror27-ai-/1-66b541d5320740bc9e8ae54a1e3c68e9?id=t92HkkL8KoHqo66oNAjUsg.u0%2Fz1mLY3am9l6QO8LjmEA&view=detailv2&idpp=genimg&noidpclose=1&thid=OIG1.cvplXhrUiQtgmCOJPgrj&skey=-Rn1gJvgjHxuCkrBrMNuDi3p3fCrxp_UOq-IAJHYI1w&form=SYDBIC&ssp=1&safesearch=moderate&setlang=en&cc=NL&pc=SANSAAND" alt="Mirror Mirror Logo" class="h-10 w-auto">
+          <h1 class="text-2xl font-bold text-gray-900 ml-4">Mirror Mirror</h1>
         </div>
+        <p class="text-gray-600">Your AI Shopping Companion</p>
       </div>
     </header>
 
-    <main>
-      <section class="py-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 class="text-3xl font-bold text-gray-900 mb-6">Welcome to Mirror Mirror</h2>
-          <p class="text-lg text-gray-700 mb-8">
-            Mirror Mirror is an AI-powered shopping assistant that helps you make confident and satisfying purchasing decisions.
-          </p>
+    <main class="bg-white shadow-lg rounded-lg mx-4 sm:mx-6 lg:mx-8 my-12">
+      <section class="py-12 px-6 sm:px-12 lg:px-16">
+        <h2 class="text-4xl font-bold text-gray-900 mb-6">Welcome to Mirror Mirror</h2>
+        <p class="text-lg text-gray-700 mb-8">
+          Mirror Mirror is an AI-powered shopping assistant that helps you make confident and satisfying purchasing decisions.
+        </p>
 
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div>
-              <h3 class="text-2xl font-bold text-gray-900 mb-4">How it Works</h3>
-              <p class="text-gray-700 mb-6">
-                Our intelligent chatbot uses computer vision, natural language processing, and personalization algorithms to provide tailored product analysis and recommendations. By understanding your preferences and context, Mirror Mirror delivers a conversational shopping experience that increases your purchase confidence and reduces returns.
-              </p>
-              <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
-                Try Mirror Mirror
-              </button>
-            </div>
-            <div>
-              <h3 class="text-2xl font-bold text-gray-900 mb-4">Key Features</h3>
-              <ul class="list-disc pl-6 text-gray-700 space-y-2">
-                <li>Visual product analysis</li>
-                <li>Personalized recommendations</li>
-                <li>Conversational interface</li>
-                <li>Continuous learning</li>
-              </ul>
-            </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div>
+            <h3 class="text-2xl font-bold text-gray-900 mb-4">How it Works</h3>
+            <p class="text-gray-700 mb-6">
+              Our intelligent chatbot uses computer vision, natural language processing, and personalization algorithms to provide tailored product analysis and recommendations. By understanding your preferences and context, Mirror Mirror delivers a conversational shopping experience that increases your purchase confidence and reduces returns.
+            </p>
+            <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mirror-effect">
+              Try Mirror Mirror
+            </button>
+          </div>
+          <div>
+            <h3 class="text-2xl font-bold text-gray-900 mb-4">Key Features</h3>
+            <ul class="list-disc pl-6 text-gray-700 space-y-2">
+              <li>Visual product analysis</li>
+              <li>Personalized recommendations</li>
+              <li>Conversational interface</li>
+              <li>Continuous learning</li>
+            </ul>
           </div>
         </div>
       </section>
 
-      <section class="bg-white py-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 class="text-3xl font-bold text-gray-900 mb-6">Mirror Mirror in Action</h2>
-          <div class="aspect-w-16 aspect-h-9">
-            <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <section class="bg-gray-50 py-12 px-6 sm:px-12 lg:px-16">
+        <h2 class="text-4xl font-bold text-gray-900 mb-6">Mirror Mirror in Action</h2>
+        <div class="aspect-w-16 aspect-h-9 mirror-effect">
+          <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+      </section>
+
+      <section class="py-12 px-6 sm:px-12 lg:px-16">
+        <h2 class="text-4xl font-bold text-gray-900 mb-6">The Mirror Mirror Experience</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div class="mirror-effect">
+            <img src="/api/placeholder/400/320" alt="Mirror Mirror App Screenshot" class="rounded-lg shadow-lg">
+          </div>
+          <div>
+            <h3 class="text-2xl font-bold text-gray-900 mb-4">Personalized Shopping Assistant</h3>
+            <p class="text-gray-700 mb-6">
+              Mirror Mirror learns your unique style and preferences to provide tailored product recommendations and analysis. Our conversational interface makes the shopping experience feel natural and empowering.
+            </p>
+            <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mirror-effect">
+              Explore the App
+            </button>
           </div>
         </div>
       </section>
 
-      <section class="py-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 class="text-3xl font-bold text-gray-900 mb-6">The Mirror Mirror Experience</h2>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div>
-              <img src="/api/placeholder/400/320" alt="Mirror Mirror App Screenshot" class="rounded-lg shadow-lg">
-            </div>
-            <div>
-              <h3 class="text-2xl font-bold text-gray-900 mb-4">Personalized Shopping Assistant</h3>
-              <p class="text-gray-700 mb-6">
-                Mirror Mirror learns your unique style and preferences to provide tailored product recommendations and analysis. Our conversational interface makes the shopping experience feel natural and empowering.
-              </p>
-              <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
-                Explore the App
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="bg-gray-100 py-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 class="text-3xl font-bold text-gray-900 mb-6">What Our Customers Say</h2>
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div class="bg-white rounded-lg shadow-lg p-6">
-              <blockquote class="text-gray-700 italic mb-4">"Mirror Mirror has completely changed the way I shop online. I feel so much more confident in my purchases now."</blockquote>
-              <div class="flex items-center">
-                <img src="/api/placeholder/48/48" alt="Customer Avatar" class="h-10 w-10 rounded-full mr-4">
-                <div>
-                  <p class="font-bold text-gray-900">John Doe</p>
-                  <p class="text-gray-500">Fashion Enthusiast</p>
-                </div>
+      <section class="bg-gray-50 py-12 px-6 sm:px-12 lg:px-16">
+        <h2 class="text-4xl font-bold text-gray-900 mb-6">What Our Customers Say</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div class="bg-white rounded-lg shadow-lg p-6 mirror-effect">
+            <blockquote class="text-gray-700 italic mb-4">"Mirror Mirror has completely changed the way I shop online. I feel so much more confident in my purchases now."</blockquote>
+            <div class="flex items-center">
+              <img src="/api/placeholder/48/48" alt="Customer Avatar" class="h-10 w-10 rounded-full mr-4">
+              <div>
+                <p class="font-bold text-gray-900">John Doe</p>
+                <p class="text-gray-500">Fashion Enthusiast</p>
               </div>
             </div>
-            <div class="bg-white rounded-lg shadow-lg p-6">
-              <blockquote class="text-gray-700 italic mb-4">"I used to dread online shopping, but Mirror Mirror makes it a breeze. The recommendations are spot on every time."</blockquote>
-              <div class="flex items-center">
-                <img src="/api/placeholder/48/48" alt="Customer Avatar" class="h-10 w-10 rounded-full mr-4">
-                <div>
-                  <p class="font-bold text-gray-900">Jane Smith</p>
-                  <p class="text-gray-500">Busy Professional</p>
-                </div>
+          </div>
+          <div class="bg-white rounded-lg shadow-lg p-6 mirror-effect">
+            <blockquote class="text-gray-700 italic mb-4">"I used to dread online shopping, but Mirror Mirror makes it a breeze. The recommendations are spot on every time."</blockquote>
+            <div class="flex items-center">
+              <img src="/api/placeholder/48/48" alt="Customer Avatar" class="h-10 w-10 rounded-full mr-4">
+              <div>
+                <p class="font-bold text-gray-900">Jane Smith</p>
+                <p class="text-gray-500">Busy Professional</p>
               </div>
             </div>
-            <div class="bg-white rounded-lg shadow-lg p-6">
-              <blockquote class="text-gray-700 italic mb-4">"Mirror Mirror has saved me so much time and money. I no longer have to worry about making the wrong clothing choices."</blockquote>
-              <div class="flex items-center">
-                <img src="/api/placeholder/48/48" alt="Customer Avatar" class="h-10 w-10 rounded-full mr-4">
-                <div>
-                  <p class="font-bold text-gray-900">Michael Johnson</p>
-                  <p class="text-gray-500">College Student</p>
-                </div>
+          </div>
+          <div class="bg-white rounded-lg shadow-lg p-6 mirror-effect">
+            <blockquote class="text-gray-700 italic mb-4">"Mirror Mirror has saved me so much time and money. I no longer have to worry about making the wrong clothing choices."</blockquote>
+            <div class="flex items-center">
+              <img src="/api/placeholder/48/48" alt="Customer Avatar" class="h-10 w-10 rounded-full mr-4">
+              <div>
+                <p class="font-bold text-gray-900">Michael Johnson</p>
+                <p class="text-gray-500">College Student</p>
               </div>
             </div>
           </div>
@@ -150,3 +163,5 @@
   </script>
 </body>
 </html>
+```
+

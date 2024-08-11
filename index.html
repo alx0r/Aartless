@@ -98,9 +98,49 @@
         .sender-form-field {
             margin-top: 10px;
         }
+        .rss-feed {
+            background: #000;
+            padding: 20px;
+            border: 2px solid #666;
+            border-radius: 10px;
+            max-width: 800px;
+            width: 100%;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            margin-bottom: 20px;
+        }
+        .rss-feed h2 {
+            margin-bottom: 10px;
+            font-size: 1.5em;
+        }
     </style>
 </head>
 <body>
+    <div class="header">
+        <img src="channels4_profile.jpg" alt="Profile Picture">
+        <h1>Alexander Teggin</h1>
+        <p>Emerging Technology | Intelligence | Cyber-Strategy | New Media</p>
+    </div>
+
+    <div class="container">
+        <h2>About Me: Pioneering the Digital Frontier</h2>
+        <p>As a Cyber Media Strategist and New Media Researcher based in Amsterdam, I navigate the intricate landscape where technology, media, and business converge. My expertise lies in transforming cutting-edge digital innovations into strategic advantages for global brands.</p>
+        <p>My work spans:</p>
+        <ul>
+            <li>Emerging technologies (AI, blockchain, IoT, quantum computing)</li>
+            <li>Digital governance and ethics</li>
+            <li>Cybersecurity and data privacy</li>
+            <li>Augmented and virtual reality applications</li>
+            <li>Social media dynamics and digital marketing</li>
+            <li>Human-computer interaction and UX design</li>
+            <li>Digital transformation strategies</li>
+            <li>Sustainable tech and green IT initiatives</li>
+            <li>Fintech and digital currencies</li>
+            <li>Smart city technologies and urban digitalization</li>
+        </ul>
+        <p><strong>Unlock the Digital Enigma</strong><br>
+        For those daring to venture deeper into the digital unknown, I curate a secret newsletter. It's where I share insights too revolutionary for the public eye, predictions that challenge the status quo, and strategies that could reshape industries.</p>
+    </div>
+
     <div class="newsletter">
         <h2>Newsletter Sign Up</h2>
         <form>
@@ -120,35 +160,6 @@
             </script>
             <div class="sender-form-field" data-sender-form-id="lzpagnoeaqzmmbk0wcf"></div>
         </form>
-    </div>
-
-    <div class="header">
-        <img src="channels4_profile.jpg" alt="Profile Picture">
-        <h1>Alexander Teggin</h1>
-        <p>Emerging Technology | Intelligence | Cyber-Strategy | New Media</p>
-    </div>
-
-    <div class="container">
-        <h2>About Me: Pioneering the Digital Frontier</h2>
-        <p>
-            As a Cyber Media Strategist and New Media Researcher based in Amsterdam, I navigate the intricate landscape where technology, media, and business converge. My expertise lies in transforming cutting-edge digital innovations into strategic advantages for global brands.
-        </p>
-        <p>My work spans:</p>
-        <ul>
-            <li>Emerging technologies (AI, blockchain, IoT, quantum computing)</li>
-            <li>Digital governance and ethics</li>
-            <li>Cybersecurity and data privacy</li>
-            <li>Augmented and virtual reality applications</li>
-            <li>Social media dynamics and digital marketing</li>
-            <li>Human-computer interaction and UX design</li>
-            <li>Digital transformation strategies</li>
-            <li>Sustainable tech and green IT initiatives</li>
-            <li>Fintech and digital currencies</li>
-            <li>Smart city technologies and urban digitalization</li>
-        </ul>
-        <p>With a foundation in academia and extensive real-world experience, I bring a unique perspective to every project. My approach combines analytical rigor with creative problem-solving, ensuring solutions that are not just innovative, but also practical and purpose-driven.</p>
-        <p><strong>Unlock the Digital Enigma</strong><br>
-        For those daring to venture deeper into the digital unknown, I curate a secret newsletter. It's where I share insights too revolutionary for the public eye, predictions that challenge the status quo, and strategies that could reshape industries.</p>
     </div>
 
     <div class="container articles">
@@ -173,6 +184,37 @@
                 <p>Discover how to maximize the potential of your headsets as versatile tools for digital activities with these essential OSINT tips.</p>
             </li>
         </ul>
+    </div>
+
+    <div class="rss-feed">
+        <h2>Latest Cyber News</h2>
+        <div id="rss-feed"></div>
+        <script>
+            function fetchRSS(url) {
+                fetch(url)
+                    .then(response => response.text())
+                    .then(str => (new window.DOMParser()).parseFromString(str, "text/xml"))
+                    .then(data => {
+                        const items = data.querySelectorAll("item");
+                        const feedContainer = document.getElementById("rss-feed");
+                        feedContainer.innerHTML = '';
+                        items.forEach(el => {
+                            const title = el.querySelector("title").innerHTML;
+                            const link = el.querySelector("link").innerHTML;
+                            const description = el.querySelector("description").innerHTML;
+                            feedContainer.innerHTML += `
+                                <div>
+                                    <a href="${link}" target="_blank">${title}</a>
+                                    <p>${description}</p>
+                                </div>
+                            `;
+                        });
+                    })
+                    .catch(err => console.log('Failed to fetch RSS feed:', err));
+            }
+
+            fetchRSS('https://example.com/rss'); // Replace with the actual RSS feed URL
+        </script>
     </div>
 
     <div class="footer">

@@ -102,23 +102,6 @@
             margin-bottom: 15px;
         }
 
-        .rss-feed {
-            background: #111;
-            padding: 20px;
-            border-radius: 10px;
-            max-width: 800px;
-            width: 100%;
-            box-shadow: 0 0 10px rgba(0, 255, 0, 0.2);
-            margin-bottom: 30px;
-        }
-
-        .rss-feed h2 {
-            font-size: 1.8em;
-            margin-bottom: 15px;
-            border-bottom: 2px solid #00FF00;
-            padding-bottom: 10px;
-        }
-
         .footer {
             text-align: center;
             margin-top: auto;
@@ -153,7 +136,7 @@
             <li>Smart city technologies and urban digitalization</li>
         </ul>
         <p><strong>Unlock the Digital Enigma</strong><br>
-            For those daring to venture deeper into the digital unknown, I curate a secret newsletter. It's where I share insights too revolutionary for the public eye, predictions that challenge the status quo, and strategies that could reshape industries.</p>
+            For those daring to venture deeper into the digital unknowns, I curate a secret newsletter. It's where I share my best insights, predictions and strategies that could reshape the future.</p>
     </div>
 
     <div class="newsletter">
@@ -199,46 +182,6 @@
                 <p>Discover how to maximize the potential of your headsets as versatile tools for digital activities with these essential OSINT tips.</p>
             </li>
         </ul>
-    </div>
-
-    <div class="rss-feed">
-        <h2>Latest Cyber News</h2>
-        <div id="rss-feed"></div>
-        <script>
-            function fetchRSS(url) {
-                fetch(url)
-                    .then(response => response.text())
-                    .then(str => (new window.DOMParser()).parseFromString(str, "text/xml"))
-                    .then(data => {
-                        const items = data.querySelectorAll("item");
-                        const feedContainer = document.getElementById("rss-feed");
-                        feedContainer.innerHTML = '';
-                        items.forEach(el => {
-                            const title = el.querySelector("title").innerHTML;
-                            const link = el.querySelector("link").innerHTML;
-                            const description = el.querySelector("description").innerHTML;
-                            feedContainer.innerHTML += `
-                                <div>
-                                    <a href="${link}" target="_blank">${title}</a>
-                                    <p>${description}</p>
-                                </div>
-                            `;
-                        });
-                    })
-                    .catch(err => console.log('Failed to fetch RSS feed:', err));
-            }
-
-            const rssUrls = [
-                'https://krebsonsecurity.com/feed/',
-                'https://feeds.feedburner.com/TheHackersNews',
-                'http://feeds.feedburner.com/TechCrunch/',
-                'https://arstechnica.com/feed/',
-                'https://feeds.securityweek.com/securityweek',
-                'https://www.cisomag.com/feed/'
-            ];
-
-            rssUrls.forEach(url => fetchRSS(url));
-        </script>
     </div>
 
     <div class="footer">

@@ -21,7 +21,7 @@
             background-color: var(--background-color);
             color: var(--text-color);
             line-height: 1.6;
-            overflow-x: hidden;
+            scroll-behavior: smooth;
         }
 
         .container {
@@ -40,7 +40,7 @@
             list-style-type: none;
             padding: 0;
             display: flex;
-            justify-content: center;
+            justify-content: flex-end;
         }
 
         nav ul li {
@@ -60,24 +60,48 @@
         }
 
         .hero {
+            background: var(--secondary-color);
+            color: white;
             text-align: center;
-            padding: 4rem 0;
-            background-color: var(--background-color);
+            padding: 6rem 0;
         }
 
-        .hero h1 {
-            font-size: 4rem; 
+        h1, h2 {
             font-family: 'Montserrat', sans-serif;
+            margin-bottom: 0.5rem;
+            line-height: 1.2;
+        }
+
+        h1 { 
+            font-size: 4rem; 
             font-weight: 900;
             text-transform: uppercase;
             letter-spacing: -2px;
             margin-bottom: 1rem;
         }
 
-        .hero .tagline {
+        h2 { 
+            font-size: 2.5rem; 
+            color: var(--primary-color);
+            position: relative;
+            display: inline-block;
+        }
+
+        h2::after {
+            content: '';
+            display: block;
+            width: 50%;
+            height: 4px;
+            background-color: var(--accent-color);
+            position: absolute;
+            bottom: -10px;
+            left: 25%;
+        }
+
+        .tagline {
             font-size: 1.5rem;
-            font-weight: 600;
             margin-bottom: 2rem;
+            font-weight: 600;
         }
 
         .cta-button {
@@ -103,41 +127,36 @@
 
         section {
             padding: 5rem 0;
-            text-align: center;
         }
 
-        .mission, .values, .contact {
-            background-color: white;
+        section p, section ul {
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 2rem auto;
+        }
+
+        section ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        section li {
+            margin-bottom: 1rem;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        section li::before {
+            content: '⚡';
+            position: absolute;
+            left: 0;
+            color: var(--accent-color);
         }
 
         .services {
             background-color: var(--secondary-color);
             clip-path: polygon(0 5%, 100% 0, 100% 95%, 0 100%);
             padding: 8rem 0;
-        }
-
-        .mission p, .values ul {
-            font-size: 1.1rem;
-            max-width: 800px;
-            margin: 2rem auto;
-        }
-
-        .values ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        .values li {
-            margin-bottom: 1rem;
-            padding-left: 30px;
-            position: relative;
-        }
-
-        .values li::before {
-            content: '⚡';
-            position: absolute;
-            left: 0;
-            color: var(--accent-color);
         }
 
         .services ul {
@@ -199,43 +218,22 @@
         }
 
         @media (max-width: 768px) {
-            nav ul {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            nav ul li {
-                margin: 10px 0;
-            }
-
-            h1 {
-                font-size: 2.5rem;
-            }
-
-            .cta-button {
-                padding: 10px 20px;
-                font-size: 1rem;
-            }
-
-            .services li {
-                flex-basis: 100%;
-            }
-
-            .container {
-                padding: 0 10px;
-            }
+            h1 { font-size: 3rem; }
+            h2 { font-size: 2rem; }
+            .services li { flex-basis: 100%; }
         }
 
-        /* Scroll animation classes */
-        .mission, .values, .services, .contact {
-            opacity: 0;
-            transform: translateY(50px);
-            transition: all 0.6s ease-out;
-        }
-
-        .mission.in-view, .values.in-view, .services.in-view, .contact.in-view {
+        /* Scroll animations */
+        .in-view {
             opacity: 1;
             transform: translateY(0);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        section {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
         }
     </style>
 </head>
@@ -244,10 +242,10 @@
         <div class="container">
             <nav>
                 <ul>
-                    <li><a href="#">Who We Are</a></li>
-                    <li><a href="#">Our Thinking</a></li>
-                    <li><a href="#">Pricing</a></li>
-                    <li><a href="#">Contact</a></li>
+                    <li><a href="#who-we-are">Who We Are</a></li>
+                    <li><a href="#our-thinking">Our Thinking</a></li>
+                    <li><a href="#pricing">Pricing</a></li>
+                    <li><a href="#contact">Contact</a></li>
                 </ul>
             </nav>
         </div>
@@ -262,68 +260,47 @@
             </div>
         </section>
 
-        <section id="mission" class="mission">
+        <section id="who-we-are" class="mission">
             <div class="container">
-                <h2>Our Mission</h2>
+                <h2>Who We Are</h2>
                 <p>At Wolf and Lily Digital Agency, we harness the power of cutting-edge AI to revolutionize digital marketing. Born in the vibrant tech hubs of Cape Town and Amsterdam, we've witnessed firsthand the rapid mobility of AI, transforming the digital landscape. Our bespoke AI models and traditional marketing expertise offer unparalleled personalization and efficiency. We're committed to delivering fast, cost-effective, and data-driven results, ensuring our clients stay ahead in the ever-evolving digital landscape. With AI at our core, we bring your vision to life with precision and innovation, providing a seamless blend of technology and creativity for exceptional success. We aim to offer a quick, efficient, lightweight remote mobile bespoke model, positioning ourselves as a disruptive agency ready to deliver solutions swiftly and economically.</p>
             </div>
         </section>
 
-        <section class="values">
+        <section id="our-thinking" class="values">
             <div class="container">
-                <h2>Why Choose Us?</h2>
+                <h2>Our Thinking</h2>
                 <ul>
-                    <li>Unleash the Power of AI</li>
-                    <li>Fast, Efficient, and Cost-Effective</li>
-                    <li>Bespoke Solutions Tailored to You</li>
-                    <li>Innovative and Disruptive</li>
-                    <li>Your Success, Our Mission</li>
+                    <li><strong>Innovation:</strong> Pushing the boundaries of digital marketing</li>
+                    <li><strong>Efficiency:</strong> Delivering high-quality results quickly</li>
+                    <li><strong>Transparency:</strong> Clear communication in all aspects of our work</li>
+                    <li><strong>Adaptability:</strong> Staying ahead of industry trends</li>
+                    <li><strong>Client-centric:</strong> Tailoring our approach to each client's needs</li>
                 </ul>
             </div>
-        </section>
-
-        <section id="services" class="services">
+        </<section id="pricing" class="services">
             <div class="container">
-                <h2>Our Services</h2>
+                <h2>Pricing</h2>
                 <ul>
-                    <li>
-                        <h3>Digital Media Marketing</h3>
-                        <p>Maximize your online presence with our strategic digital media marketing solutions.</p>
-                    </li>
-                    <li>
-                        <h3>AI Content Systems</h3<p>Transform your content creation process with our AI-driven content systems for unparalleled efficiency.</p>
-                    </li>
-                    <li>
-                        <h3>AI Custom Modeling</h3>
-                        <p>Leverage custom AI models tailored to your specific business needs for optimized results.</p>
-                    </li>
-                    <li>
-                        <h3>Email and PPC Performance Optimization</h3>
-                        <p>Boost your email and PPC campaigns with data-driven insights and advanced AI techniques.</p>
-                    </li>
-                    <li>
-                        <h3>OSINT and Intelligence Reporting</h3>
-                        <p>Gain critical insights with our advanced OSINT and intelligence reporting services.</p>
-                    </li>
-                    <li>
-                        <h3>Data Analysis</h3>
-                        <p>Unlock the power of your data with our comprehensive analysis and actionable insights.</p>
-                    </li>
-                    <li>
-                        <h3>Social Media Management</h3>
-                        <p>Enhance your brand's social media presence with our expert management and engaging content strategies.</p>
-                    </li>
+                    <li>Digital Media Marketing: Tailored campaigns to boost your brand's online presence.</li>
+                    <li>AI Content Systems: Cutting-edge AI tools for content generation and optimization.</li>
+                    <li>AI Custom Modeling: Bespoke AI solutions to meet your specific needs.</li>
+                    <li>Email and PPC Performance Optimization: Maximize your ROI with targeted email and PPC strategies.</li>
+                    <li>OSINT and Intelligence Reporting: Comprehensive intelligence solutions for informed decision-making.</li>
+                    <li>Data Analysis: Advanced data analytics to drive strategic decisions.</li>
+                    <li>Social Media Management: Effective strategies to enhance your social media footprint.</li>
                 </ul>
             </div>
         </section>
 
         <section id="contact" class="contact">
             <div class="container">
-                <h2>Contact Us</h2>
+                <h2>Get in Touch</h2>
                 <form action="mailto:openai.quickstep197@passinbox.com" method="post" enctype="text/plain">
-                    <input type="text" name="name" placeholder="Your Name" required>
-                    <input type="email" name="email" placeholder="Your Email" required>
-                    <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+                    <input type="text" placeholder="Your Name" required>
+                    <input type="email" placeholder="Your Email" required>
+                    <input type="text" placeholder="Subject">
+                    <textarea placeholder="Your Message" rows="5" required></textarea>
                     <button type="submit" class="cta-button">Send Message</button>
                 </form>
             </div>
@@ -331,29 +308,33 @@
     </main>
 
     <footer>
-        <p>&copy; 2024 Wolf and Lily Digital Agency. All rights reserved.</p>
+        <div class="container">
+            <p>&copy; 2024 Wolf and Lily Digital Agency. All rights reserved.</p>
+        </div>
     </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const sections = document.querySelectorAll('.mission, .values, .services, .contact');
-            
-            const options = {
-                threshold: 0.25
-            };
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('nav ul li a');
 
-            const observer = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('in-view');
-                        observer.unobserve(entry.target);
+            function onScroll() {
+                const scrollPos = window.scrollY + 100; // Adjust for better visibility
+
+                sections.forEach(section => {
+                    if (section.offsetTop <= scrollPos && (section.offsetTop + section.offsetHeight) > scrollPos) {
+                        navLinks.forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href').includes(section.id)) {
+                                link.classList.add('active');
+                            }
+                        });
                     }
                 });
-            }, options);
+            }
 
-            sections.forEach(section => {
-                observer.observe(section);
-            });
+            window.addEventListener('scroll', onScroll);
+            onScroll(); // Trigger scroll event on page load
         });
     </script>
 </body>

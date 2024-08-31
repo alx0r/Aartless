@@ -21,7 +21,7 @@
             background-color: var(--background-color);
             color: var(--text-color);
             line-height: 1.6;
-            scroll-behavior: smooth;
+            overflow-x: hidden;
         }
 
         .container {
@@ -34,18 +34,13 @@
             background-color: var(--primary-color);
             color: white;
             padding: 1rem 0;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
         }
 
         nav ul {
             list-style-type: none;
             padding: 0;
             display: flex;
-            justify-content: flex-end;
-            margin: 0;
+            justify-content: center;
         }
 
         nav ul li {
@@ -65,50 +60,24 @@
         }
 
         .hero {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white;
             text-align: center;
-            padding: 6rem 0;
-            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
-            margin-top: 60px;
+            padding: 4rem 0;
+            background-color: var(--background-color);
         }
 
-        h1, h2 {
-            font-family: 'Montserrat', sans-serif;
-            margin-bottom: 0.5rem;
-            line-height: 1.2;
-        }
-
-        h1 { 
+        .hero h1 {
             font-size: 4rem; 
+            font-family: 'Montserrat', sans-serif;
             font-weight: 900;
             text-transform: uppercase;
             letter-spacing: -2px;
             margin-bottom: 1rem;
         }
 
-        h2 { 
-            font-size: 2.5rem; 
-            color: var(--primary-color);
-            position: relative;
-            display: inline-block;
-        }
-
-        h2::after {
-            content: '';
-            display: block;
-            width: 50%;
-            height: 4px;
-            background-color: var(--accent-color);
-            position: absolute;
-            bottom: -10px;
-            left: 25%;
-        }
-
-        .tagline {
+        .hero .tagline {
             font-size: 1.5rem;
-            margin-bottom: 2rem;
             font-weight: 600;
+            margin-bottom: 2rem;
         }
 
         .cta-button {
@@ -132,20 +101,19 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
 
-        .mission, .values, .services, .contact {
+        section {
             padding: 5rem 0;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 1s ease-out, transform 1s ease-out;
+            text-align: center;
         }
 
-        .mission.in-view, .values.in-view, .services.in-view, .contact.in-view {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .mission, .values {
+        .mission, .values, .contact {
             background-color: white;
+        }
+
+        .services {
+            background-color: var(--secondary-color);
+            clip-path: polygon(0 5%, 100% 0, 100% 95%, 0 100%);
+            padding: 8rem 0;
         }
 
         .mission p, .values ul {
@@ -170,12 +138,6 @@
             position: absolute;
             left: 0;
             color: var(--accent-color);
-        }
-
-        .services {
-            background-color: var(--secondary-color);
-            clip-path: polygon(0 5%, 100% 0, 100% 95%, 0 100%);
-            padding: 8rem 0;
         }
 
         .services ul {
@@ -237,9 +199,43 @@
         }
 
         @media (max-width: 768px) {
-            h1 { font-size: 3rem; }
-            h2 { font-size: 2rem; }
-            .services li { flex-basis: 100%; }
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            nav ul li {
+                margin: 10px 0;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .cta-button {
+                padding: 10px 20px;
+                font-size: 1rem;
+            }
+
+            .services li {
+                flex-basis: 100%;
+            }
+
+            .container {
+                padding: 0 10px;
+            }
+        }
+
+        /* Scroll animation classes */
+        .mission, .values, .services, .contact {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.6s ease-out;
+        }
+
+        .mission.in-view, .values.in-view, .services.in-view, .contact.in-view {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 </head>
@@ -257,103 +253,107 @@
         </div>
     </header>
 
-    <section id="home" class="hero">
-        <div class="container">
-            <h1>Wolf and Lily</h1>
-            <p class="tagline">Where AI Meets Creativity</p>
-            <a href="#contact" class="cta-button">Let's Go</a>
-        </div>
-    </section>
+    <main>
+        <section id="home" class="hero">
+            <div class="container">
+                <h1>Wolf and Lily</h1>
+                <p class="tagline">Where AI Meets Creativity</p>
+                <a href="#contact" class="cta-button">Get Started</a>
+            </div>
+        </section>
 
-    <section id="mission" class="mission">
-        <div class="container">
-            <h2>Mission - Solution - Success</h2>
-            <p>At Wolf and Lily Digital Agency, we harness the power of cutting-edge AI to revolutionize digital marketing. Born in the vibrant tech hubs of Cape Town and Amsterdam, we've witnessed firsthand the rapid mobility of AI, transforming the digital landscape. Our bespoke AI models and traditional marketing expertise offer unparalleled personalization and efficiency. We're committed to delivering fast, cost-effective, and data-driven results, ensuring our clients stay ahead in the ever-evolving digital landscape. With AI at our core, we bring your vision to life with precision and innovation, providing a seamless blend of technology and creativity for exceptional success. We aim to offer a quick, efficient, lightweight remote mobile bespoke model, positioning ourselves as a disruptive agency ready to deliver solutions swiftly and economically.</p>
-        </div>
-    </section>
+        <section id="mission" class="mission">
+            <div class="container">
+                <h2>Our Mission</h2>
+                <p>At Wolf and Lily Digital Agency, we harness the power of cutting-edge AI to revolutionize digital marketing. Born in the vibrant tech hubs of Cape Town and Amsterdam, we've witnessed firsthand the rapid mobility of AI, transforming the digital landscape. Our bespoke AI models and traditional marketing expertise offer unparalleled personalization and efficiency. We're committed to delivering fast, cost-effective, and data-driven results, ensuring our clients stay ahead in the ever-evolving digital landscape. With AI at our core, we bring your vision to life with precision and innovation, providing a seamless blend of technology and creativity for exceptional success. We aim to offer a quick, efficient, lightweight remote mobile bespoke model, positioning ourselves as a disruptive agency ready to deliver solutions swiftly and economically.</p>
+            </div>
+        </section>
 
-    <section id="values" class="values">
-        <div class="container">
-            <h2>Why Choose Us?</h2>
-            <ul>
-                <li>Unleash the Power of AI</li>
-                <li>Fast, Efficient, and Cost-Effective</li>
-                <li>Bespoke Solutions Tailored to You</li>
-                <li>Innovative and Disrupt<li>Innovative and Disruptive</li>
-                <li>Your Success, Our Mission</li>
-            </ul>
-        </div>
-    </section>
+        <section class="values">
+            <div class="container">
+                <h2>Why Choose Us?</h2>
+                <ul>
+                    <li>Unleash the Power of AI</li>
+                    <li>Fast, Efficient, and Cost-Effective</li>
+                    <li>Bespoke Solutions Tailored to You</li>
+                    <li>Innovative and Disruptive</li>
+                    <li>Your Success, Our Mission</li>
+                </ul>
+            </div>
+        </section>
 
-    <section id="services" class="services">
-        <div class="container">
-            <h2>Our Services</h2>
-            <ul>
-                <li>
-                    <h3>Digital Media Marketing</h3>
-                    <p>Maximize your online presence with our strategic digital media marketing solutions.</p>
-                </li>
-                <li>
-                    <h3>AI Content Systems</h3>
-                    <p>Leverage AI-driven content systems for personalized, engaging, and dynamic content.</p>
-                </li>
-                <li>
-                    <h3>AI Custom Modeling</h3>
-                    <p>Create bespoke AI models tailored to your unique business needs and goals.</p>
-                </li>
-                <li>
-                    <h3>Email and PPC Performance Optimization</h3>
-                    <p>Boost your ROI with optimized email campaigns and pay-per-click strategies.</p>
-                </li>
-                <li>
-                    <h3>OSINT and Intelligence Reporting</h3>
-                    <p>Gain actionable insights with our comprehensive OSINT and intelligence reporting services.</p>
-                </li>
-                <li>
-                    <h3>Data Analysis</h3>
-                    <p>Transform your data into valuable business insights with our expert data analysis services.</p>
-                </li>
-                <li>
-                    <h3>Social Media Management</h3>
-                    <p>Enhance your social media presence and engagement with our professional management services.</p>
-                </li>
-            </ul>
-        </div>
-    </section>
+        <section id="services" class="services">
+            <div class="container">
+                <h2>Our Services</h2>
+                <ul>
+                    <li>
+                        <h3>Digital Media Marketing</h3>
+                        <p>Maximize your online presence with our strategic digital media marketing solutions.</p>
+                    </li>
+                    <li>
+                        <h3>AI Content Systems</h3<p>Transform your content creation process with our AI-driven content systems for unparalleled efficiency.</p>
+                    </li>
+                    <li>
+                        <h3>AI Custom Modeling</h3>
+                        <p>Leverage custom AI models tailored to your specific business needs for optimized results.</p>
+                    </li>
+                    <li>
+                        <h3>Email and PPC Performance Optimization</h3>
+                        <p>Boost your email and PPC campaigns with data-driven insights and advanced AI techniques.</p>
+                    </li>
+                    <li>
+                        <h3>OSINT and Intelligence Reporting</h3>
+                        <p>Gain critical insights with our advanced OSINT and intelligence reporting services.</p>
+                    </li>
+                    <li>
+                        <h3>Data Analysis</h3>
+                        <p>Unlock the power of your data with our comprehensive analysis and actionable insights.</p>
+                    </li>
+                    <li>
+                        <h3>Social Media Management</h3>
+                        <p>Enhance your brand's social media presence with our expert management and engaging content strategies.</p>
+                    </li>
+                </ul>
+            </div>
+        </section>
 
-    <section id="contact" class="contact">
-        <div class="container">
-            <h2>Contact Us</h2>
-            <form action="mailto:openai.quickstep197@passinbox.com" method="post" enctype="text/plain">
-                <input type="text" name="name" placeholder="Your Name" required>
-                <input type="email" name="email" placeholder="Your Email" required>
-                <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
-                <button type="submit" class="cta-button">Send Message</button>
-            </form>
-        </div>
-    </section>
+        <section id="contact" class="contact">
+            <div class="container">
+                <h2>Contact Us</h2>
+                <form action="mailto:openai.quickstep197@passinbox.com" method="post" enctype="text/plain">
+                    <input type="text" name="name" placeholder="Your Name" required>
+                    <input type="email" name="email" placeholder="Your Email" required>
+                    <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+                    <button type="submit" class="cta-button">Send Message</button>
+                </form>
+            </div>
+        </section>
+    </main>
 
     <footer>
-        <div class="container">
-            <p>&copy; 2024 Wolf and Lily Digital Agency. All rights reserved.</p>
-        </div>
+        <p>&copy; 2024 Wolf and Lily Digital Agency. All rights reserved.</p>
     </footer>
 
     <script>
-        const sections = document.querySelectorAll('.mission, .values, .services, .contact');
+        document.addEventListener('DOMContentLoaded', function() {
+            const sections = document.querySelectorAll('.mission, .values, .services, .contact');
+            
+            const options = {
+                threshold: 0.25
+            };
 
-        const observer = new IntersectionObserver(entries => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('in-view');
-                }
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('in-view');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, options);
+
+            sections.forEach(section => {
+                observer.observe(section);
             });
-        }, {
-            threshold: 0.2
-        });
-
-        sections.forEach(section => {
-            observer.observe(section);
         });
     </script>
 </body>

@@ -21,6 +21,7 @@
             background-color: var(--background-color);
             color: var(--text-color);
             line-height: 1.6;
+            scroll-behavior: smooth;
         }
 
         .container {
@@ -33,6 +34,10 @@
             background-color: var(--primary-color);
             color: white;
             padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
         }
 
         nav ul {
@@ -40,6 +45,7 @@
             padding: 0;
             display: flex;
             justify-content: flex-end;
+            margin: 0;
         }
 
         nav ul li {
@@ -59,13 +65,12 @@
         }
 
         .hero {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
             text-align: center;
             padding: 6rem 0;
-        }
-
-        .hero img {
-            max-width: 100%;
-            height: auto;
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+            margin-top: 60px;
         }
 
         h1, h2 {
@@ -129,6 +134,14 @@
 
         .mission, .values, .services, .contact {
             padding: 5rem 0;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+
+        .mission.in-view, .values.in-view, .services.in-view, .contact.in-view {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .mission, .values {
@@ -228,37 +241,6 @@
             h2 { font-size: 2rem; }
             .services li { flex-basis: 100%; }
         }
-
-        @keyframes neon {
-    0% {
-        text-shadow: 
-            0 0 5px var(--accent-color),
-            0 0 10px var(--accent-color),
-            0 0 20px var(--accent-color),
-            0 0 40px var(--accent-color),
-            0 0 80px var(--accent-color),
-            0 0 90px var(--accent-color),
-            0 0 100px var(--accent-color),
-            0 0 150px var(--accent-color);
-        color: var(--accent-color);
-    }
-    100% {
-        text-shadow: 
-            0 0 10px var(--accent-color),
-            0 0 20px var(--accent-color),
-            0 0 30px var(--accent-color),
-            0 0 40px var(--accent-color),
-            0 0 70px var(--accent-color),
-            0 0 80px var(--accent-color),
-            0 0 100px var(--accent-color),
-            0 0 150px var(--accent-color);
-        color: var(--accent-color);
-    }
-}
-
-.neon {
-    animation: neon 3s ease-in-out infinite alternate;
-}
     </style>
 </head>
 <body>
@@ -277,15 +259,11 @@
 
     <section id="home" class="hero">
         <div class="container">
-            <h1 class="neon">Wolf and Lily</h1>
-            <p class="tagline neon">Where AI Meets Creativity</p>
+            <h1>Wolf and Lily</h1>
+            <p class="tagline">Where AI Meets Creativity</p>
             <a href="#contact" class="cta-button">Get Started</a>
         </div>
     </section>
-
-    <div class="hero-image">
-        <img src="https://i.imgur.com/qkQJfUm.jpeg" alt="Hero Image">
-    </div>
 
     <section id="mission" class="mission">
         <div class="container">
@@ -301,7 +279,7 @@
                 <li>Unleash the Power of AI</li>
                 <li>Fast, Efficient, and Cost-Effective</li>
                 <li>Bespoke Solutions Tailored to You</li>
-                <li>Innovative and Disruptive</li>
+                <li>Innovative and Disrupt<li>Innovative and Disruptive</li>
                 <li>Your Success, Our Mission</li>
             </ul>
         </div>
@@ -309,35 +287,35 @@
 
     <section id="services" class="services">
         <div class="container">
-            <h2>What We Offer</h2>
+            <h2>Our Services</h2>
             <ul>
                 <li>
                     <h3>Digital Media Marketing</h3>
-                    <p>Leverage the power of AI to craft campaigns that captivate and convert, ensuring your brand stands out in the digital realm.</p>
+                    <p>Maximize your online presence with our strategic digital media marketing solutions.</p>
                 </li>
                 <li>
                     <h3>AI Content Systems</h3>
-                    <p>From generating engaging articles to managing content strategies, our AI systems provide top-notch content solutions.</p>
+                    <p>Leverage AI-driven content systems for personalized, engaging, and dynamic content.</p>
                 </li>
                 <li>
                     <h3>AI Custom Modeling</h3>
-                    <p>Our custom AI models deliver insights and predictions tailored to your unique business needs, driving smarter decisions.</p>
+                    <p>Create bespoke AI models tailored to your unique business needs and goals.</p>
                 </li>
                 <li>
                     <h3>Email and PPC Performance Optimization</h3>
-                    <p>Maximize your ROI with AI-driven email and PPC campaigns that target the right audience with pinpoint accuracy.</p>
+                    <p>Boost your ROI with optimized email campaigns and pay-per-click strategies.</p>
                 </li>
                 <li>
                     <h3>OSINT and Intelligence Reporting</h3>
-                    <p>Stay ahead with our comprehensive OSINT and intelligence reports, providing critical insights into your competitive landscape.</p>
+                    <p>Gain actionable insights with our comprehensive OSINT and intelligence reporting services.</p>
                 </li>
                 <li>
                     <h3>Data Analysis</h3>
-                    <p>Turn data into actionable insights with our advanced AI-driven data analysis services.</p>
+                    <p>Transform your data into valuable business insights with our expert data analysis services.</p>
                 </li>
                 <li>
                     <h3>Social Media Management</h3>
-                    <p>Engage your audience and grow your online presence with our AI-enhanced social media management services.</p>
+                    <p>Enhance your social media presence and engagement with our professional management services.</p>
                 </li>
             </ul>
         </div>
@@ -360,5 +338,23 @@
             <p>&copy; 2024 Wolf and Lily Digital Agency. All rights reserved.</p>
         </div>
     </footer>
+
+    <script>
+        const sections = document.querySelectorAll('.mission, .values, .services, .contact');
+
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                }
+            });
+        }, {
+            threshold: 0.2
+        });
+
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+    </script>
 </body>
 </html>

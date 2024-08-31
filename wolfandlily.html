@@ -60,7 +60,7 @@
         }
 
         .hero {
-            background: var(--secondary-color);
+            background-color: var(--secondary-color);
             color: white;
             text-align: center;
             padding: 6rem 0;
@@ -278,7 +278,9 @@
                     <li><strong>Client-centric:</strong> Tailoring our approach to each client's needs</li>
                 </ul>
             </div>
-        </<section id="pricing" class="services">
+        </section>
+
+        <section id="pricing" class="services">
             <div class="container">
                 <h2>Pricing</h2>
                 <ul>
@@ -335,6 +337,19 @@
 
             window.addEventListener('scroll', onScroll);
             onScroll(); // Trigger scroll event on page load
+
+            // Add in-view class on scroll
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('in-view');
+                    }
+                });
+            });
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
         });
     </script>
 </body>

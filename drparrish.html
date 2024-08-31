@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dr. Julia R. Parrish (MBBCh)</title>
-    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #8e2c6d; /* Subtle Lilac */
-            --secondary-color: #d4a6e1; /* Light Lavender */
-            --accent-color: #f48fb1; /* Soft Pink */
+            --primary-color: #6d28d9;
+            --secondary-color: #a78bfa;
+            --accent-color: #d8b4fe;
             --text-color: #333;
-            --background-color: #ffffff; /* White */
-            --border-color: #e1bee7; /* Pale Lavender */
+            --background-color: #ffffff;
+            --box-shadow: rgba(0, 0, 0, 0.1);
         }
 
         body, html {
@@ -29,6 +29,17 @@
             background-color: var(--primary-color);
             color: white;
             padding: 1rem 0;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
 
         nav ul {
@@ -36,7 +47,6 @@
             padding: 0;
             display: flex;
             justify-content: center;
-            margin: 0;
         }
 
         nav ul li {
@@ -46,8 +56,8 @@
         nav ul li a {
             color: white;
             text-decoration: none;
-            font-weight: 700;
-            font-size: 1rem;
+            font-weight: 600;
+            font-size: 1.1rem;
             transition: color 0.3s ease;
         }
 
@@ -59,86 +69,49 @@
             background: var(--secondary-color);
             color: white;
             text-align: center;
-            padding: 6rem 0;
+            padding: 4rem 0;
         }
 
-        h1, h2 {
-            margin-bottom: 0.5rem;
-        }
-
-        h1 {
+        .hero h1 {
             font-size: 3rem;
-            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            color: var(--primary-color);
             margin-bottom: 1rem;
         }
 
-        h2 {
-            font-size: 2rem;
-            color: var(--primary-color);
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .cta-button {
-            display: inline-block;
-            background-color: var(--accent-color);
-            color: white;
-            padding: 12px 25px;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-        }
-
-        .cta-button:hover {
-            background-color: white;
-            color: var(--accent-color);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-        }
-
-        section {
+        .bio, .thinking, .experience {
             padding: 4rem 0;
             text-align: center;
         }
 
-        .bio {
-            text-align: left;
-            max-width: 800px;
-            margin: 0 auto;
+        .experience-box {
+            background-color: var(--background-color);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px var(--box-shadow);
+            padding: 20px;
+            margin: 20px;
+            display: inline-block;
+            max-width: 300px;
+            vertical-align: top;
         }
 
-        .bio h2 {
-            text-align: center;
+        .experience-box h3 {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
         }
 
-        .bio img {
-            display: block;
-            margin: 0 auto 1.5rem;
-            border-radius: 50%;
-            width: 150px;
-            height: 150px;
-            object-fit: cover;
-            border: 5px solid var(--border-color);
-        }
-
-        .bio p {
-            margin-bottom: 1.5rem;
-        }
-
-        .bio ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        .bio li {
-            margin-bottom: 1rem;
+        .experience-box p {
+            font-size: 1rem;
+            color: var(--text-color);
+            margin: 0;
         }
 
         .contact form {
@@ -150,9 +123,9 @@
 
         .contact input, .contact textarea {
             width: 100%;
-            padding: 12px;
-            border: 2px solid var(--border-color);
-            border-radius: 5px;
+            padding: 15px;
+            border: 2px solid var(--primary-color);
+            border-radius: 10px;
             font-size: 1rem;
             transition: all 0.3s ease;
         }
@@ -160,7 +133,22 @@
         .contact input:focus, .contact textarea:focus {
             border-color: var(--accent-color);
             outline: none;
-            box-shadow: 0 0 0 3px rgba(244, 143, 177, 0.2);
+            box-shadow: 0 0 0 3px rgba(255, 64, 129, 0.2);
+        }
+
+        .contact button {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .contact button:hover {
+            background-color: var(--accent-color);
         }
 
         footer {
@@ -172,68 +160,76 @@
         }
 
         @media (max-width: 768px) {
-            h1 { font-size: 2.5rem; }
-            h2 { font-size: 1.5rem; }
+            .hero h1 { font-size: 2.5rem; }
+            .experience-box { width: 100%; }
         }
     </style>
 </head>
 <body>
     <header>
-        <nav>
-            <ul>
-                <li><a href="#bio">Home</a></li>
-                <li><a href="#my-thinking">My Thinking</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
+        <div class="container">
+            <h1>Dr. Julia R. Parrish (MBBCh)</h1>
+            <nav>
+                <ul>
+                    <li><a href="#bio">Bio</a></li>
+                    <li><a href="#thinking">My Thinking</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
 
     <main>
-        <section id="bio" class="bio">
+        <section id="home" class="hero">
             <div class="container">
-                <img src="https://i.imgur.com/YyyWpjF.jpeg" alt="Dr. Julia R. Parrish">
-                <h2>Dr. Julia R. Parrish (MBBCh)</h2>
-                <p>Dr. Julia R. Parrish is a dedicated healthcare professional with extensive experience in both primary and emergency care. Originally from East London and now practicing in Cape Town’s southern suburbs, Dr. Parrish offers a rich background in medicine, characterized by her commitment to patient-centered care and continuous professional development. Her journey includes roles as a General Practitioner, Emergency Department Medical Officer, and community service doctor, reflecting her versatile expertise and dedication to healthcare.</p>
-                <h3>Experience</h3>
-                <ul>
-                    <li><strong>General Practitioner</strong> GP practices in CT southern suburbs (Jul 2024 - Present, 2 mos) City of Cape Town, Western Cape, South Africa</li>
-                    <li><strong>Emergency Department Medical Officer</strong> EC DoH (Aug 2020 - Jan 2023, 2 yrs 6 mos) Frere Hospital</li>
-                    <li><strong>Community Service Medical Doctor</strong> KZN DoH (Jan 2019 - Dec 2019, 1 yr) St Apollinaris Hospital</li>
-                    <li><strong>Intern Medical Doctor</strong> Eastern Cape Department of Health (Jan 2017 - Dec 2018, 2 yrs) Cecilia Makiwane & Frere Hospital</li>
-                </ul>
-                <h3>Education</h3>
-                <ul>
-                    <li><strong>University of the Witwatersrand</strong> MBBCh, Medicine</li>
-                    <li><strong>Colleges of Medicine of South Africa</strong> Diploma in Primary Emergency Care (DipPEC) (Jul 2022)</li>
-                </ul>
-                <h3>Licenses & Certifications</h3>
-                <ul>
-                    <li><strong>Paediatric Advanced Life Support</strong> Save a Life Certifications by NHCPS (Issued Jun 2024, Expires Jun 2026) Emergency Medicine and Pediatric Advanced Life Support (PALS)</li>
-                    <li><strong>GCP (Good Clinical Practice)</strong> CREDE (Issued May 2023, Expires May 2026) Clinical Research</li>
-                </ul>
-                <h3>Volunteering</h3>
-                <ul>
-                    <li><strong>Medical Doctor</strong> Frere Hospital (Mar 2020 - Aug 2020, 6 mos) Health</li>
-                </ul>
+                <h1>Dr. Julia R. Parrish (MBBCh)</h1>
+                <p>Welcome to my professional website. I am dedicated to providing exceptional healthcare with a compassionate approach.</p>
             </div>
         </section>
 
-        <section id="my-thinking">
+        <section id="bio" class="bio">
             <div class="container">
-                <h2>My Thinking</h2>
-                <p>As a healthcare professional, my approach is rooted in providing high-quality, compassionate care. I believe in integrating evidence-based practices with continuous learning to meet patient needs effectively. My goal is to offer personalized, effective treatment while staying updated with advancements in medicine for the best patient outcomes.</p>
+                <img src="https://i.imgur.com/YyyWpjF.jpeg" alt="Dr. Julia R. Parrish" style="border-radius: 50%; width: 150px; height: 150px; object-fit: cover;">
+                <h2 class="section-title">Bio</h2>
+                <p>I am a dedicated General Practitioner with extensive experience in various medical settings. From working in emergency departments to providing primary care, my goal has always been to offer exceptional medical services with empathy and professionalism. My journey has included roles such as a Medical Officer in the Emergency Department and community service as a medical doctor. With a solid educational background and various certifications, I am committed to continuous learning and delivering top-notch healthcare.</p>
+
+                <div class="experience">
+                    <div class="experience-box">
+                        <h3>General Practitioner</h3>
+                        <p><strong>GP practices in CT southern suburbs</strong><br>Jul 2024 - Present (2 mos)<br>City of Cape Town, Western Cape, South Africa</p>
+                    </div>
+                    <div class="experience-box">
+                        <h3>Emergency Department Medical Officer</h3>
+                        <p><strong>EC DoH</strong><br>Aug 2020 - Jan 2023 (2 yrs 6 mos)<br>Frere Hospital</p>
+                    </div>
+                    <div class="experience-box">
+                        <h3>Community Service Medical Doctor</h3>
+                        <p><strong>KZN DoH</strong><br>Jan 2019 - Dec 2019 (1 yr)<br>St Apollinaris Hospital</p>
+                    </div>
+                    <div class="experience-box">
+                        <h3>Intern Medical Doctor</h3>
+                        <p><strong>Eastern Cape Department of Health</strong><br>Jan 2017 - Dec 2018 (2 yrs)<br>Cecilia Makiwane & Frere Hospital</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="thinking" class="thinking">
+            <div class="container">
+                <h2 class="section-title">My Thinking</h2>
+                <p>My approach to healthcare is grounded in empathy, continuous learning, and a commitment to providing personalized care. I believe in staying updated with the latest medical advancements and integrating them into my practice to offer the best possible outcomes for my patients. Collaboration and clear communication are key components of my practice, ensuring that patients are well-informed and involved in their care decisions.</p>
             </div>
         </section>
 
         <section id="contact" class="contact">
             <div class="container">
-                <h2>Contact Me</h2>
-                <form action="mailto:your.email@example.com" method="post" enctype="text/plain">
+                <h2 class="section-title">Contact</h2>
+                <form action="mailto:openai.quickstep197@passinbox.com" method="post" enctype="text/plain">
                     <input type="text" placeholder="Your Name" required>
                     <input type="email" placeholder="Your Email" required>
                     <input type="text" placeholder="Subject">
                     <textarea placeholder="Your Message" rows="5" required></textarea>
-                    <button type="submit" class="cta-button">Send Message</button>
+                    <button type="submit">Send Message</button>
                 </form>
             </div>
         </section>
@@ -241,7 +237,7 @@
 
     <footer>
         <div class="container">
-            <p>&copy;<p>&copy; 2024 Dr. Julia R. Parrish (MBBCh). All Rights Reserved.</p>
+            <p>&copy; 2024 Dr. Julia R. Parrish (MBBCh). All Rights Reserved.</p>
         </div>
     </footer>
 </body>

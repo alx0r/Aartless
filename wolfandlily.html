@@ -35,29 +35,22 @@
             padding: 1rem 0;
         }
 
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
         nav ul {
             list-style-type: none;
             padding: 0;
-            margin: 0;
             display: flex;
-            gap: 20px;
+            justify-content: flex-end;
         }
 
         nav ul li {
-            margin: 0;
+            margin-left: 20px;
         }
 
         nav ul li a {
             color: white;
             text-decoration: none;
             font-weight: 600;
-            font-size: 1rem;
+            font-size: 1.1rem;
             transition: color 0.3s ease;
         }
 
@@ -70,7 +63,18 @@
             padding: 6rem 0;
         }
 
-        .hero h1 { 
+        .hero img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        h1, h2 {
+            font-family: 'Montserrat', sans-serif;
+            margin-bottom: 0.5rem;
+            line-height: 1.2;
+        }
+
+        h1 { 
             font-size: 4rem; 
             font-weight: 900;
             text-transform: uppercase;
@@ -78,7 +82,25 @@
             margin-bottom: 1rem;
         }
 
-        .hero .tagline {
+        h2 { 
+            font-size: 2.5rem; 
+            color: var(--primary-color);
+            position: relative;
+            display: inline-block;
+        }
+
+        h2::after {
+            content: '';
+            display: block;
+            width: 50%;
+            height: 4px;
+            background-color: var(--accent-color);
+            position: absolute;
+            bottom: -10px;
+            left: 25%;
+        }
+
+        .tagline {
             font-size: 1.5rem;
             margin-bottom: 2rem;
             font-weight: 600;
@@ -103,16 +125,6 @@
             color: var(--accent-color);
             transform: translateY(-3px);
             box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-        }
-
-        .hero-image-container {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .hero-image-container img {
-            max-width: 100%;
-            height: auto;
         }
 
         .mission, .values, .services, .contact {
@@ -212,18 +224,37 @@
         }
 
         @media (max-width: 768px) {
-            nav ul {
-                flex-direction: column;
-                gap: 10px;
-            }
+            h1 { font-size: 3rem; }
+            h2 { font-size: 2rem; }
+            .services li { flex-basis: 100%; }
+        }
 
-            .hero h1 { 
-                font-size: 3rem; 
+        @keyframes neon {
+            0%, 100% {
+                text-shadow: 
+                    0 0 5px #fff, 
+                    0 0 10px #fff, 
+                    0 0 20px var(--accent-color), 
+                    0 0 30px var(--accent-color), 
+                    0 0 40px var(--accent-color), 
+                    0 0 50px var(--accent-color), 
+                    0 0 60px var(--accent-color);
+                color: #fff;
             }
+            50% {
+                text-shadow: 
+                    0 0 2px #fff, 
+                    0 0 4px #fff, 
+                    0 0 8px var(--accent-color), 
+                    0 0 10px var(--accent-color), 
+                    0 0 20px var(--accent-color),0 0 30px var(--accent-color), 
+                    0 0 40px var(--accent-color);
+                color: var(--accent-color);
+            }
+        }
 
-            .services li { 
-                flex-basis: 100%; 
-            }
+        .neon {
+            animation: neon 1.5s ease-in-out infinite alternate;
         }
     </style>
 </head>
@@ -231,9 +262,6 @@
     <header>
         <div class="container">
             <nav>
-                <div class="logo">
-                    <h1>Wolf and Lily</h1>
-                </div>
                 <ul>
                     <li><a href="#">Who We Are</a></li>
                     <li><a href="#">Our Thinking</a></li>
@@ -244,87 +272,85 @@
         </div>
     </header>
 
-    <main>
-        <section class="hero">
-            <div class="container">
-                <h1>Wolf and Lily</h1>
-                <p class="tagline">Where AI Meets Creativity</p>
-                <a href="#contact" class="cta-button">Get Started</a>
-            </div>
-        </section>
-
-        <div class="hero-image-container">
-            <img src="https://i.imgur.com/qkQJfUm.jpeg" alt="Hero Image">
+    <section id="home" class="hero">
+        <div class="container">
+            <h1 class="neon">Wolf and Lily</h1>
+            <p class="tagline neon">Where AI Meets Creativity</p>
+            <a href="#contact" class="cta-button">Get Started</a>
         </div>
+    </section>
 
-        <section id="mission" class="mission">
-            <div class="container">
-                <h2>Our Mission</h2>
-                <p>At Wolf and Lily Digital Agency, we harness the power of cutting-edge AI to revolutionize digital marketing. Born in the vibrant tech hubs of Cape Town and Amsterdam, we've witnessed firsthand the rapid mobility of AI, transforming the digital landscape. Our bespoke AI models and traditional marketing expertise offer unparalleled personalization and efficiency. We're committed to delivering fast, cost-effective, and data-driven results, ensuring our clients stay ahead in the ever-evolving digital landscape. With AI at our core, we bring your vision to life with precision and innovation, providing a seamless blend of technology and creativity for exceptional success. We aim to offer a quick, efficient, lightweight remote mobile bespoke model, positioning ourselves as a disruptive agency ready to deliver solutions swiftly and economically.</p>
-            </div>
-        </section>
+    <div class="hero-image">
+        <img src="https://i.imgur.com/qkQJfUm.jpeg" alt="Hero Image">
+    </div>
 
-        <section class="values">
-            <div class="container">
-                <h2>Our Values</h2>
-                <ul>
-                    <li><strong>Innovation:</strong> Pushing the boundaries of digital marketing</li>
-                    <li><strong>Efficiency:</strong> Delivering high-quality results quickly</li>
-                    <li><strong>Transparency:</strong> Clear communication in all aspects of our work</li>
-                    <li><strong>Adaptability:</strong> Staying ahead of industry trends</li>
-                    <li><strong>Client-centric:</strong> Tailoring our approach to each client's needs</li>
-                </ul>
-            </div>
-        </section>
+    <section id="mission" class="mission">
+        <div class="container">
+            <h2>Our Mission</h2>
+            <p>At Wolf and Lily Digital Agency, we harness the power of cutting-edge AI to revolutionize digital marketing. Born in the vibrant tech hubs of Cape Town and Amsterdam, we've witnessed firsthand the rapid mobility of AI, transforming the digital landscape. Our bespoke AI models and traditional marketing expertise offer unparalleled personalization and efficiency. We're committed to delivering fast, cost-effective, and data-driven results, ensuring our clients stay ahead in the ever-evolving digital landscape. With AI at our core, we bring your vision to life with precision and innovation, providing a seamless blend of technology and creativity for exceptional success. We aim to offer a quick, efficient, lightweight remote mobile bespoke model, positioning ourselves as a disruptive agency ready to deliver solutions swiftly and economically.</p>
+        </div>
+    </section>
 
-        <section id="services" class="services">
-            <div class="container">
-                <h2>Our Services</h2>
-                <ul>
-                    <li>
-                        <h3>Digital Media Marketing</h3>
-                        <p>Boost your online presence with our innovative and targeted digital media strategies designed to engage and convert.</p>
-                    </li>
-                    <li>
-                        <h3>AI Content Systems</h<h3>AI Content Systems</h3>
-                        <p>Transform your content creation with AI-powered systems that deliver relevant, high-quality content efficiently and effectively.</p>
-                    </li>
-                    <li>
-                        <h3>AI Custom Modeling</h3>
-                        <p>Utilize bespoke AI models tailored to your unique business needs for unparalleled personalization and predictive analytics.</p>
-                    </li>
-                    <li>
-                        <h3>Email and PPC Performance Optimization</h3>
-                        <p>Maximize your ROI with our cutting-edge techniques in email marketing and pay-per-click campaigns for optimized performance.</p>
-                    </li>
-                    <li>
-                        <h3>OSINT and Intelligence Reporting</h3>
-                        <p>Gain valuable insights with our open-source intelligence and comprehensive reporting to stay ahead of the competition.</p>
-                    </li>
-                    <li>
-                        <h3>Data Analysis</h3>
-                        <p>Unlock the potential of your data with our advanced analysis techniques, providing actionable insights to drive your business forward.</p>
-                    </li>
-                    <li>
-                        <h3>Social Media Management</h3>
-                        <p>Enhance your brand’s presence on social media with our strategic management services, engaging your audience and growing your influence.</p>
-                    </li>
-                </ul>
-            </div>
-        </section>
+    <section id="values" class="values">
+        <div class="container">
+            <h2>Why Choose Us?</h2>
+            <ul>
+                <li>Unleash the Power of AI</li>
+                <li>Fast, Efficient, and Cost-Effective</li>
+                <li>Bespoke Solutions Tailored to You</li>
+                <li>Innovative and Disruptive</li>
+                <li>Your Success, Our Mission</li>
+            </ul>
+        </div>
+    </section>
 
-        <section id="contact" class="contact">
-            <div class="container">
-                <h2>Contact Us</h2>
-                <form action="mailto:openai.quickstep197@passinbox.com" method="post" enctype="text/plain">
-                    <input type="text" name="name" placeholder="Your Name" required>
-                    <input type="email" name="email" placeholder="Your Email" required>
-                    <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
-                    <button type="submit" class="cta-button">Send Message</button>
-                </form>
-            </div>
-        </section>
-    </main>
+    <section id="services" class="services">
+        <div class="container">
+            <h2>What We Offer</h2>
+            <ul>
+                <li>
+                    <h3>Digital Media Marketing</h3>
+                    <p>Leverage the power of AI to craft campaigns that captivate and convert, ensuring your brand stands out in the digital realm.</p>
+                </li>
+                <li>
+                    <h3>AI Content Systems</h3>
+                    <p>From generating engaging articles to managing content strategies, our AI systems provide top-notch content solutions.</p>
+                </li>
+                <li>
+                    <h3>AI Custom Modeling</h3>
+                    <p>Our custom AI models deliver insights and predictions tailored to your unique business needs, driving smarter decisions.</p>
+                </li>
+                <li>
+                    <h3>Email and PPC Performance Optimization</h3>
+                    <p>Maximize your ROI with AI-driven email and PPC campaigns that target the right audience with pinpoint accuracy.</p>
+                </li>
+                <li>
+                    <h3>OSINT and Intelligence Reporting</h3>
+                    <p>Stay ahead with our comprehensive OSINT and intelligence reports, providing critical insights into your competitive landscape.</p>
+                </li>
+                <li>
+                    <h3>Data Analysis</h3>
+                    <p>Turn data into actionable insights with our advanced AI-driven data analysis services.</p>
+                </li>
+                <li>
+                    <h3>Social Media Management</h3>
+                    <p>Engage your audience and grow your online presence with our AI-enhanced social media management services.</p>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2>Contact Us</h2>
+            <form action="mailto:openai.quickstep197@passinbox.com" method="post" enctype="text/plain">
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="email" name="email" placeholder="Your Email" required>
+                <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+                <button type="submit" class="cta-button">Send Message</button>
+            </form>
+        </div>
+    </section>
 
     <footer>
         <div class="container">

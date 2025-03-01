@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alicja Pawlowska - Newsletter</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Dark & Sophisticated Styles */
+        :root {
+            --primary-color: #8ab4f4; /* Muted, sophisticated blue for accent */
+            --primary-hover: #6698e7; /* Slightly darker hover */
+            --text-color: #f0f0f0; /* Off-white text for readability on dark bg */
+            --text-light: #ccc; /* Lighter text for secondary info */
+            --bg-color: #1e1e24; /* Deep charcoal background */
+            --bg-lighter: #282a36; /* Slightly lighter bg for sections */
+            --white: #fff; /* White (if needed, though off-white is preferred) */
+            --border-radius: 6px; /* Slightly less rounded corners for a sharper look */
+            --shadow: 0 3px 9px rgba(0, 0, 0, 0.3); /* Darker, subtler shadow */
+            --font-family: 'Roboto', sans-serif; /* A clean, modern font */
+        }
+
+        body {
+            font-family: var(--font-family);
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.7; /* Increased line height for better readability in dark mode */
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            padding: 70px 0 50px; /* Slightly reduced header padding */
+            background: var(--bg-lighter); /* Lighter background for header contrast */
+            color: var(--text-color);
+            box-shadow: none; /* Removed header box-shadow for cleaner look */
+            border-bottom: 1px solid var(--primary-color); /* Subtle border */
+        }
+
+        .header-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .logo-image {
+            width: 150px; /* Slightly smaller logo image */
+            height: auto;
+            margin-bottom: 15px;
+            border-radius: 50%; /* Circular logo for a modern touch */
+            border: 2px solid var(--primary-color); /* Border to make logo stand out */
+        }
+
+        .logo {
+            font-size: 34px; /* Slightly smaller logo font */
+            font-weight: 600; /* Lighter font weight for a sophisticated feel */
+            color: var(--text-color);
+            text-decoration: none;
+            letter-spacing: 0.3px;
+            display: inline-block;
+            transition: color 0.3s ease; /* Smooth color transition */
+        }
+
+        .logo:hover {
+            color: var(--primary-color); /* Hover color with primary accent */
+        }
+
+        /* Newsletter Section */
+        .newsletter-section {
+            padding: 60px 0; /* Reduced padding */
+            background: var(--bg-color); /* Dark background */
+        }
+
+        .newsletter {
+            background: var(--bg-lighter); /* Lighter background for newsletter box */
+            padding: 50px; /* Reduced padding */
+            box-shadow: var(--shadow);
+            margin: 0 auto;
+            max-width: 600px;
+            border-radius: var(--border-radius);
+            border-top: 3px solid var(--primary-color); /* Thinner border */
+        }
+
+        .newsletter h1 {
+            font-size: 28px; /* Reduced heading size */
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            letter-spacing: -0.3px;
+        }
+
+        .newsletter p {
+            font-size: 17px; /* Reduced paragraph size */
+            color: var(--text-light);
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .newsletter form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+
+        .newsletter input {
+            width: 100%;
+            padding: 14px 18px; /* Slightly smaller input padding */
+            margin-bottom: 18px;
+            border: 1px solid #555; /* Darker border */
+            border-radius: var(--border-radius);
+            font-size: 15px;
+            background-color: #333; /* Dark input background */
+            color: var(--text-color); /* Light text color for input */
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+            transition: border 0.3s, box-shadow 0.3s;
+        }
+
+        .newsletter input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 0 2px rgba(138, 180, 244, 0.3); /* Subtle focus shadow */
+        }
+
+        .newsletter button {
+            padding: 14px 24px; /* Slightly smaller button padding */
+            background: var(--primary-color);
+            color: var(--bg-color); /* Dark text on button */
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: 17px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            width: 100%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Darker button shadow */
+        }
+
+        .newsletter button:hover {
+            background: var(--primary-hover);
+            transform: translateY(-1px); /* Reduced hover lift */
+            box-shadow: 0 3px 7px rgba(0, 0, 0, 0.25); /* Darker hover shadow */
+        }
+
+        .newsletter button:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .privacy-note {
+            font-size: 13px;
+            color: var(--text-light);
+            margin-top: 20px;
+            opacity: 0.9;
+        }
+
+        /* Client Companies Section */
+        .companies-section {
+            padding: 60px 0;
+            background: var(--bg-color); /* Dark background */
+            border-bottom: 1px solid #333; /* Subtle section divider */
+        }
+
+        .companies-section h2 {
+            font-size: 26px; /* Reduced heading size */
+            margin-bottom: 30px;
+            color: var(--primary-color);
+            position: relative;
+            display: inline-block;
+        }
+
+        .companies-section h2:after {
+            content: '';
+            position: absolute;
+            width: 50px; /* Smaller underline */
+            height: 2px; /* Thinner underline */
+            background: var(--primary-color);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .companies-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 25px; /* Reduced gap */
+            margin-top: 30px;
+        }
+
+        .company-logo {
+            height: 50px; /* Smaller logos */
+            width: auto;
+            opacity: 0.7; /* More subdued logos */
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            filter: grayscale(100%); /* Keep grayscale */
+        }
+
+        .company-logo:hover {
+            opacity: 1; /* Full opacity on hover */
+            transform: scale(1.03); /* Subtle scale on hover */
+            filter: grayscale(0%); /* Remove grayscale on hover */
+        }
+
+        /* Testimonials Section */
+        .testimonials {
+            margin: 80px auto; /* Reduced margin */
+            max-width: 900px;
+        }
+
+        .testimonials h2 {
+            font-size: 26px; /* Reduced heading size */
+            margin-bottom: 30px;
+            color: var(--primary-color);
+            position: relative;
+            display: inline-block;
+        }
+
+        .testimonials h2:after {
+            content: '';
+            position: absolute;
+            width: 50px; /* Smaller underline */
+            height: 2px; /* Thinner underline */
+            background: var(--primary-color);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .testimonials-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 25px; /* Reduced gap */
+        }
+
+        .testimonial-box {
+            background: var(--bg-lighter); /* Lighter background for testimonial box */
+            padding: 30px 25px; /* Reduced padding */
+            box-shadow: var(--shadow);
+            border-radius: var(--border-radius);
+            flex: 1 1 300px;
+            max-width: 340px; /* Slightly reduced max-width */
+            text-align: left;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .testimonial-box:hover {
+            transform: translateY(-5px); /* Reduced hover lift */
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Darker hover shadow */
+        }
+
+        .testimonial-box:before {
+            content: '"';
+            font-size: 70px; /* Reduced quote size */
+            line-height: 1;
+            color: rgba(138, 180, 244, 0.1); /* Lighter quote color */
+            position: absolute;
+            top: 10px; /* Adjusted quote position */
+            left: 15px; /* Adjusted quote position */
+            font-family: Georgia, serif;
+        }
+
+        .testimonial-box p {
+            font-style: italic;
+            margin-bottom: 20px; /* Reduced margin */
+            color: var(--text-light);
+            position: relative;
+            z-index: 1;
+            line-height: 1.6;
+        }
+
+        .testimonial-box .author {
+            display: flex;
+            align-items: center;
+        }
+
+        .testimonial-box .author img {
+            width: 45px; /* Smaller author image */
+            height: 45px; /* Smaller author image */
+            border-radius: 50%;
+            margin-right: 12px; /* Reduced margin */
+            object-fit: cover;
+            border: 2px solid #444; /* Darker border for author image */
+            opacity: 0.8; /* Slightly subdued author image */
+        }
+
+        .testimonial-box .author-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .testimonial-box .name {
+            font-weight: bold;
+            font-size: 16px;
+            color: var(--primary-color);
+        }
+
+        .testimonial-box .title {
+            font-size: 13px;
+            color: var(--text-light);
+            margin-top: 2px;
+        }
+
+        /* Vault/Archive Section */
+        .vault-section {
+            padding: 70px 0;
+            background: var(--bg-lighter); /* Lighter background for vault section */
+            border-bottom: 1px solid #333; /* Section divider */
+        }
+
+        .vault-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .vault-section h2 {
+            font-size: 26px; /* Reduced heading size */
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            position: relative;
+            display: inline-block;
+        }
+
+        .vault-section h2:after {
+            content: '';
+            position: absolute;
+            width: 50px; /* Smaller underline */
+            height: 2px; /* Thinner underline */
+            background: var(--primary-color);
+            bottom: -8px; /* Adjusted underline position */
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .vault-description {
+            font-size: 17px; /* Reduced description size */
+            color: var(--text-light);
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0.9; /* Slightly more opaque description */
+        }
+
+        .vault-button {
+            display: inline-block;
+            padding: 14px 28px; /* Reduced button padding */
+            background: var(--primary-color);
+            color: var(--bg-color); /* Dark text on button */
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: 17px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Darker button shadow */
+        }
+
+        .vault-button:hover {
+            background: var(--primary-hover);
+            transform: translateY(-1px); /* Reduced hover lift */
+            box-shadow: 0 3px 7px rgba(0, 0, 0, 0.25); /* Darker hover shadow */
+        }
+
+        .vault-button i {
+            margin-right: 6px; /* Reduced icon margin */
+        }
+
+        .subscribers-note {
+            font-size: 13px;
+            color: var(--text-light);
+            margin-top: 15px;
+            font-style: italic;
+            opacity: 0.8;
+        }
+
+        .social-chicklets {
+            display: flex;
+            justify-content: center;
+            gap: 12px; /* Reduced gap */
+            margin: 30px 0 15px; /* Reduced margins */
+        }
+
+        .social-chicklet {
+            display: inline-flex;
+            align-items: center;
+            padding: 8px 14px; /* Reduced padding */
+            background: #333; /* Darker social chicklets */
+            color: var(--text-color); /* Light text color */
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: 400; /* Lighter font weight */
+            font-size: 14px; /* Reduced font size */
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Darker shadow */
+        }
+
+        .social-chicklet i {
+            font-size: 16px; /* Reduced icon size */
+            margin-right: 6px; /* Reduced icon margin */
+        }
+
+        .social-chicklet.linkedin {
+            background: #0077b5;
+            color: var(--text-color); /* Light text for LinkedIn */
+        }
+
+        .social-chicklet.twitter {
+            background: #1da1f2;
+            color: var(--text-color); /* Light text for Twitter */
+        }
+
+        .social-chicklet.github {
+            background: #444; /* Slightly lighter GitHub background */
+            color: var(--text-color); /* Light text for GitHub */
+        }
+
+        .social-chicklet:hover {
+            transform: translateY(-1px); /* Reduced hover lift */
+            box-shadow: 0 3px 7px rgba(0, 0, 0, 0.25); /* Darker hover shadow */
+        }
+
+        /* Footer with Copyright only */
+        footer {
+            background: var(--bg-color); /* Dark background for footer */
+            color: var(--text-light);
+            padding: 50px 0 40px; /* Reduced footer padding */
+            margin-top: 0;
+            border-top: 1px solid #333; /* Footer divider */
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .social-icons { /* Hiding footer social icons for this style */
+            display: none;
+        }
+
+        .copyright {
+            font-size: 13px;
+            color: var(--text-light);
+            margin-top: 0; /* Reduced margin */
+            opacity: 0.7;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            header {
+                padding: 50px 0 35px; /* Further reduced header padding */
+            }
+
+            .logo {
+                font-size: 30px; /* Reduced logo font size */
+            }
+
+            .newsletter {
+                padding: 30px 20px; /* Reduced newsletter padding */
+                margin: 0 10px; /* Reduced newsletter margin */
+            }
+
+            .newsletter h1 {
+                font-size: 25px; /* Reduced newsletter heading size */
+            }
+
+            .testimonial-box {
+                flex: 1 1 100%;
+            }
+
+            .testimonials h2 {
+                font-size: 24px; /* Reduced testimonials heading size */
+            }
+
+            .companies-container {
+                gap: 15px; /* Reduced company logos gap */
+            }
+
+            .company-logo {
+                height: 45px; /* Further reduced logo size */
+            }
+
+            footer {
+                padding: 40px 20px; /* Reduced footer padding */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .newsletter h1 {
+                font-size: 22px; /* Even smaller newsletter heading */
+            }
+
+            .newsletter p {
+                font-size: 15px; /* Smaller newsletter paragraph size */
+            }
+
+            .companies-container {
+                gap: 10px; /* Further reduced company logos gap */
+            }
+
+            .company-logo {
+                height: 35px; /* Even smaller company logos */
+            }
+
+            .social-chicklets {
+                flex-direction: column; /* Stack social chicklets on small screens */
+                align-items: center;
+            }
+
+            .social-chicklet {
+                width: 100%; /* Full width social chicklets on small screens */
+                text-align: center;
+                margin-bottom: 10px; /* Spacing between stacked chicklets */
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <img src="https://i.imgur.com/hkGNPnG.jpeg" alt="Alicja Pawlowska Logo" class="logo-image">
+                <a href="#" class="logo">Alicja Pawlowska</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="newsletter-section">
+        <div class="container">
+            <div class="newsletter">
+                <h1>Join My Newsletter</h1>
+                <p>Get the latest insights on open-source intelligence and cybersecurity directly to your inbox.</p>
+                <form action="#" method="POST">
+                    <label for="email-input" style="display: none;">Enter your email</label>
+                    <input type="email" id="email-input" placeholder="Enter your email" required>
+                    <button type="submit">Subscribe</button>
+                </form>
+                <p class="privacy-note">Your privacy is respected.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="companies-section">
+        <div class="container">
+            <h2> Leading Organizations reading our work </h2>
+            <div class="companies-container">
+                <img src="/api/placeholder/150/60" alt="Microsoft" class="company-logo">
+                <img src="/api/placeholder/150/60" alt="Google" class="company-logo">
+                <img src="/api/placeholder/150/60" alt="IBM" class="company-logo">
+                <img src="/api/placeholder/150/60" alt="Cisco" class="company-logo">
+                <img src="/api/placeholder/150/60" alt="Palantir" class="company-logo">
+                <img src="/api/placeholder/150/60" alt="FireEye" class="company-logo">
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials">
+        <div class="container">
+            <h2>What Readers Say</h2>
+            <div class="testimonials-container">
+                <div class="testimonial-box">
+                    <p>"Alicja's newsletter offers invaluable insights into the world of OSINT. Each edition is packed with actionable information that I can immediately apply to my work."</p>
+                    <div class="author">
+                        <img src="/api/placeholder/55/55" alt="Senja portrait">
+                        <div class="author-info">
+                            <span class="name">Senja Larsen</span>
+                            <span class="title">Senior Intelligence Analyst</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-box">
+                    <p>"Clear, concise, and cutting-edge. I've been following Alicja's work for years and her newsletter consistently delivers high-quality content that keeps me ahead of the curve."</p>
+                    <div class="author">
+                        <img src="/api/placeholder/55/55" alt="Reader portrait">
+                        <div class="author-info">
+                            <span class="name">Michael Chen</span>
+                            <span class="title">Cybersecurity Consultant</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="vault-section">
+        <div class="container">
+            <div class="vault-container">
+                <h2>Access the Vault</h2>
+                <p class="vault-description">Gain exclusive access to my complete archive of previously published newsletters, guides, and research reports.</p>
+
+                <a href="#" class="vault-button"><i class="fas fa-lock"></i> Enter the Vault</a>
+                <p class="subscribers-note">* Available to subscribers only</p>
+
+                <div class="social-chicklets">
+                    <a href="https://linkedin.com/in/YOUR_PROFILE" class="social-chicklet linkedin" target="_blank">
+                        <i class="fab fa-linkedin"></i> LinkedIn
+                    </a>
+                    <a href="https://twitter.com/YOUR_PROFILE" class="social-chicklet twitter" target="_blank">
+                        <i class="fab fa-x-twitter"></i> Twitter
+                    </a>
+                    <a href="https://github.com/YOUR_PROFILE" class="social-chicklet github" target="_blank">
+                        <i class="fab fa-github"></i> GitHub
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <p class="copyright">© 2025 Alicja Pawlowska | Powered by Ghost</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

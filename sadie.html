@@ -1,365 +1,106 @@
 <!DOCTYPE html>
-<html lang="en" class="no-js">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Consultation with Sadie – sadiebosworth</title>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Sadie Bosworth Atelier</title>
     <style>
-        /* Fonts Import - using system fallback and web-safe serif */
-        @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;700&display=swap');
-
-        :root {
-            --font-body-family: "Crimson Text", "Georgia", serif;
-            --font-body-style: normal;
-            --font-body-weight: 400;
-            --font-body-weight-bold: 700;
-            --font-heading-family: "Crimson Text", "Georgia", serif;
-            --color-base-text: 18, 18, 18;
-            --color-base-background-1: 255, 255, 255;
-            --color-base-accent-1: 70, 70, 70;
-            --color-base-accent-2: 206, 193, 168;
-            --page-width: 120rem;
-            --page-width-margin: 0rem;
-        }
-
-        *,
-        *::before,
-        *::after {
-            box-sizing: inherit;
-        }
-
-        html {
-            box-sizing: border-box;
-            font-size: calc(var(--font-body-scale, 1) * 62.5%);
-            height: 100%;
-        }
-
         body {
+            font-family: sans-serif;
             margin: 0;
-            font-size: 1.5rem;
-            letter-spacing: 0.06rem;
-            line-height: calc(1 + 0.8/var(--font-body-scale, 1));
-            font-family: var(--font-body-family);
-            font-style: var(--font-body-style);
-            font-weight: var(--font-body-weight);
-            color: rgb(var(--color-base-text));
-            background-color: rgb(var(--color-base-background-1));
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f4f4f4;
         }
 
-        .consultation-container {
-            max-width: var(--page-width);
-            margin: 0 auto;
-            padding: 2rem;
+        .container {
+            width: 80%;
+            max-width: 600px;
+            padding: 40px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
-        .consultation-header h1 {
-            font-family: var(--font-heading-family);
+        h1 {
             text-align: center;
-            color: rgb(var(--color-base-accent-1));
-            margin-bottom: 1rem;
+            margin-bottom: 30px;
         }
 
-        .consultation-description {
-            text-align: center;
-            max-width: 800px;
-            margin: 0 auto 2rem;
-            color: rgb(var(--color-base-accent-1));
+        p {
+            margin-bottom: 20px;
+            line-height: 1.6;
         }
 
-        .booking-form {
-            max-width: 500px;
-            margin: 0 auto;
-            background-color: rgba(var(--color-base-accent-2), 0.1);
-            padding: 2rem;
+        .contact-info {
+            margin-bottom: 30px;
+        }
+
+        .contact-info p {
+            margin-bottom: 10px;
+        }
+
+        form label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        form input,
+        form textarea {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
             border-radius: 4px;
+            box-sizing: border-box;
         }
 
-        .booking-form-group {
-            margin-bottom: 1.5rem;
-            position: relative;
-        }
-
-        .booking-form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: var(--font-body-weight-bold);
-            color: rgb(var(--color-base-accent-1));
-        }
-
-        .booking-form-group input,
-        .booking-form-group textarea {
-            width: 100%;
-            padding: 0.75rem;
-            border: 1px solid rgba(var(--color-base-accent-1), 0.2);
-            border-radius: 4px;
-            font-family: var(--font-body-family);
-            font-size: 1.4rem;
-            transition: border-color 0.3s ease;
-        }
-
-        .booking-form-group input:focus,
-        .booking-form-group textarea:focus {
-            outline: none;
-            border-color: rgb(var(--color-base-accent-1));
-        }
-
-        .booking-form-group textarea {
-            resize: vertical;
-            min-height: 100px;
-        }
-
-        .booking-form-group .error-text {
-            color: red;
-            font-size: 1.2rem;
-            margin-top: 0.5rem;
-            display: none;
-        }
-
-        .booking-form-group.invalid input,
-        .booking-form-group.invalid textarea {
-            border-color: red;
-        }
-
-        .booking-form-group.invalid .error-text {
-            display: block;
-        }
-
-        .booking-form-submit {
-            display: block;
-            width: 100%;
-            padding: 1rem;
-            background-color: rgb(var(--color-base-accent-1));
+        form button {
+            background-color: #333;
             color: white;
+            padding: 12px 20px;
             border: none;
             border-radius: 4px;
-            font-family: var(--font-body-family);
-            font-size: 1.6rem;
             cursor: pointer;
-            transition: background-color 0.3s ease, opacity 0.3s ease;
+            width: 100%;
         }
 
-        .booking-form-submit:hover {
-            background-color: rgba(var(--color-base-accent-1), 0.8);
-        }
-
-        .booking-form-submit:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        #form-message {
-            margin-top: 1rem;
-            text-align: center;
-            font-weight: var(--font-body-weight-bold);
-        }
-
-        .success-message {
-            color: green;
-        }
-
-        .error-message {
-            color: red;
-        }
-
-        .loading-spinner {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(var(--color-base-accent-1), 0.3);
-            border-radius: 50%;
-            border-top-color: rgb(var(--color-base-accent-1));
-            animation: spin 1s ease-in-out infinite;
-            margin-right: 10px;
-            vertical-align: middle;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        @media screen and (max-width: 600px) {
-            .booking-form {
-                padding: 1rem;
-            }
+        form button:hover {
+            background-color: #555;
         }
     </style>
 </head>
-
 <body>
-    <div class="consultation-container">
-        <div class="consultation-header">
-            <h1>Consultation with Sadie</h1>
+    <div class="container">
+        <h1>Contact Sadie Bosworth Atelier</h1>
+
+        <div class="contact-info">
+            <p>For inquiries, custom orders, or collaborations, please feel free to reach out. We aim to respond to all messages within 24-48 hours.</p>
+            <p><strong>Email:</strong> info@sadiebosworthatelier.com</p>
+            <p><strong>Address:</strong><br>
+                [Insert Physical Address Here if Applicable]<br>
+                [City, State/Province, Postal Code, Country]
+            </p>
         </div>
 
-        <div class="consultation-description">
-            <p>Bridal wear for the daring and unconventional. Sadie Bosworth Atelier specialises in
-                creating bridal gowns that are characterised by their distinctive style, unique
-                ethereal quality and unequaled attention-to-detail.</p>
-        </div>
+        <form action="mailto:info@sadiebosworthatelier.com" method="post" enctype="text/plain">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
 
-        <form id="booking-form" class="booking-form" novalidate>
-            <div class="booking-form-group" id="name-group">
-                <label for="name">Full Name</label>
-                <input type="text" id="name" name="name" required placeholder="Enter your full name" 
-                       minlength="2" maxlength="100">
-                <div class="error-text" id="name-error">Please enter a valid name (2-100 characters).</div>
-            </div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
 
-            <div class="booking-form-group" id="email-group">
-                <label for="email">Email Address</label>
-                <input type="email" id="email" name="email" required placeholder="Enter your email"
-                       pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
-                <div class="error-text" id="email-error">Please enter a valid email address.</div>
-            </div>
+            <label for="subject">Subject:</label>
+            <input type="text" id="subject" name="subject">
 
-            <div class="booking-form-group" id="phone-group">
-                <label for="phone">Phone Number</label>
-                <input type="tel" id="phone" name="phone" required placeholder="Enter your contact number"
-                       pattern="^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$">
-                <div class="error-text" id="phone-error">Please enter a valid phone number.</div>
-            </div>
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" rows="6" required></textarea>
 
-            <div class="booking-form-group" id="date-group">
-                <label for="date">Preferred Consultation Date</label>
-                <input type="date" id="date" name="date" required>
-                <div class="error-text" id="date-error">Please select a valid date.</div>
-            </div>
-
-            <div class="booking-form-group">
-                <label for="message">Additional Notes</label>
-                <textarea id="message" name="message" placeholder="Any additional details or preferences" 
-                          maxlength="500"></textarea>
-            </div>
-
-            <button type="submit" class="booking-form-submit">Book Consultation</button>
+            <button type="submit">Send Message</button>
         </form>
-
-        <div id="form-message"></div>
     </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const bookingForm = document.getElementById('booking-form');
-            const formMessage = document.getElementById('form-message');
-            const submitButton = document.querySelector('.booking-form-submit');
-
-            // Form validation function
-            function validateField(field) {
-                const group = field.closest('.booking-form-group');
-                
-                if (field.validity.valid) {
-                    group.classList.remove('invalid');
-                    return true;
-                } else {
-                    group.classList.add('invalid');
-                    return false;
-                }
-            }
-
-            // Validate all fields
-            function validateForm() {
-                const fields = bookingForm.querySelectorAll('input, textarea');
-                let isValid = true;
-
-                fields.forEach(field => {
-                    if (!validateField(field)) {
-                        isValid = false;
-                    }
-                });
-
-                return isValid;
-            }
-
-            // Add real-time validation
-            const validateFields = ['name', 'email', 'phone', 'date'];
-            validateFields.forEach(fieldName => {
-                const field = document.getElementById(fieldName);
-                field.addEventListener('input', () => validateField(field));
-                field.addEventListener('blur', () => validateField(field));
-            });
-
-            // Form submission handler
-            bookingForm.addEventListener('submit', async function(event) {
-                event.preventDefault();
-
-                // Validate form
-                if (!validateForm()) {
-                    return;
-                }
-
-                // Reset previous messages
-                formMessage.textContent = '';
-                formMessage.className = '';
-
-                // Disable submit button and show loading
-                submitButton.disabled = true;
-                submitButton.innerHTML = '<div class="loading-spinner"></div>Submitting...';
-
-                // Collect form data
-                const formData = new FormData(bookingForm);
-                const formDataObject = Object.fromEntries(formData.entries());
-
-                try {
-                    // Simulated booking submission with improved error handling
-                    const response = await simulateBookingSubmission(formDataObject);
-
-                    // Handle successful submission
-                    formMessage.textContent = 'Consultation request submitted. We will contact you shortly.';
-                    formMessage.classList.add('success-message');
-                    bookingForm.reset();
-                } catch (error) {
-                    // Handle submission error
-                    formMessage.textContent = error.message;
-                    formMessage.classList.add('error-message');
-                } finally {
-                    // Re-enable submit button
-                    submitButton.disabled = false;
-                    submitButton.textContent = 'Book Consultation';
-                }
-            });
-
-            // Simulated booking submission function
-            async function simulateBookingSubmission(bookingData) {
-                return new Promise((resolve, reject) => {
-                    // Validate required fields (additional check)
-                    const requiredFields = ['name', 'email', 'phone', 'date'];
-                    for (let field of requiredFields) {
-                        if (!bookingData[field] || bookingData[field].trim() === '') {
-                            reject(new Error('Please complete all required fields.'));
-                            return;
-                        }
-                    }
-
-                    // Simulate network delay
-                    setTimeout(() => {
-                        // Simulate potential scenarios
-                        const scenarios = [
-                            { success: true, message: 'Booking successful' },
-                            { success: false, message: 'Unable to submit consultation request. Please try again.' },
-                            { success: false, message: 'Server is currently unavailable. Please try again later.' }
-                        ];
-
-                        const scenario = scenarios[Math.floor(Math.random() * scenarios.length)];
-
-                        if (scenario.success) {
-                            // Log booking details (replace with actual submission logic)
-                            console.log('Booking submitted:', bookingData);
-                            resolve(scenario.message);
-                        } else {
-                            reject(new Error(scenario.message));
-                        }
-                    }, 1500);
-                });
-            }
-
-            // Date validation to prevent past dates
-            const dateInput = document.getElementById('date');
-            const today = new Date().toISOString().split('T')[0];
-            dateInput.setAttribute('min', today);
-        });
-    </script>
 </body>
 </html>

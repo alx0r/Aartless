@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en" class="no-js">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -138,8 +137,7 @@
             font-family: var(--font-body-family);
             font-size: 1.6rem;
             cursor: pointer;
-            transition: background-color 0.3s ease,
-            opacity 0.3s ease;
+            transition: background-color 0.3s ease, opacity 0.3s ease;
         }
 
         .booking-form-submit:hover {
@@ -178,13 +176,8 @@
         }
 
         @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            100% {
-                transform: rotate(360deg);
-            }
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         @media screen and (max-width: 600px) {
@@ -205,31 +198,27 @@
             <p>Bridal wear for the daring and unconventional. Sadie Bosworth Atelier specialises in
                 creating bridal gowns that are characterised by their distinctive style, unique
                 ethereal quality and unequaled attention-to-detail.</p>
-            <p>
-                <img src="http://sadiebosworthatelier.com/cdn/shop/files/Sadie_Bosworth_text_logo_black_2.png?height=628&pad_color=ffffff&v=1652962780&width=1200"
-                    alt="Sadie Bosworth Atelier logo">
-            </p>
         </div>
 
         <form id="booking-form" class="booking-form" novalidate>
             <div class="booking-form-group" id="name-group">
                 <label for="name">Full Name</label>
-                <input type="text" id="name" name="name" required placeholder="Enter your full name"
-                    minlength="2" maxlength="100">
+                <input type="text" id="name" name="name" required placeholder="Enter your full name" 
+                       minlength="2" maxlength="100">
                 <div class="error-text" id="name-error">Please enter a valid name (2-100 characters).</div>
             </div>
 
             <div class="booking-form-group" id="email-group">
                 <label for="email">Email Address</label>
                 <input type="email" id="email" name="email" required placeholder="Enter your email"
-                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
+                       pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
                 <div class="error-text" id="email-error">Please enter a valid email address.</div>
             </div>
 
             <div class="booking-form-group" id="phone-group">
                 <label for="phone">Phone Number</label>
                 <input type="tel" id="phone" name="phone" required placeholder="Enter your contact number"
-                    pattern="^[\+]?[(]?{3}[)]?[-\s\.]?{3}[-\s\.]?{4,6}$">
+                       pattern="^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$">
                 <div class="error-text" id="phone-error">Please enter a valid phone number.</div>
             </div>
 
@@ -241,8 +230,8 @@
 
             <div class="booking-form-group">
                 <label for="message">Additional Notes</label>
-                <textarea id="message" name="message"
-                    placeholder="Any additional details or preferences" maxlength="500"></textarea>
+                <textarea id="message" name="message" placeholder="Any additional details or preferences" 
+                          maxlength="500"></textarea>
             </div>
 
             <button type="submit" class="booking-form-submit">Book Consultation</button>
@@ -250,8 +239,9 @@
 
         <div id="form-message"></div>
     </div>
+
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             const bookingForm = document.getElementById('booking-form');
             const formMessage = document.getElementById('form-message');
             const submitButton = document.querySelector('.booking-form-submit');
@@ -259,7 +249,7 @@
             // Form validation function
             function validateField(field) {
                 const group = field.closest('.booking-form-group');
-
+                
                 if (field.validity.valid) {
                     group.classList.remove('invalid');
                     return true;
@@ -292,7 +282,7 @@
             });
 
             // Form submission handler
-            bookingForm.addEventListener('submit', async function (event) {
+            bookingForm.addEventListener('submit', async function(event) {
                 event.preventDefault();
 
                 // Validate form
@@ -372,5 +362,4 @@
         });
     </script>
 </body>
-
 </html>

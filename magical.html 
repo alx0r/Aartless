@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Learned Pig</title>
+  <style>
+    body {
+      font-family: monospace;
+      background-color: #0f380f;
+      color: #9bbc0f;
+      padding: 20px;
+      margin: 0;
+    }
+    h1 { color: #8bac0f; }
+    .lesson, .favorites {
+      border: 1px solid #8bac0f;
+      padding: 10px;
+      margin: 10px 0;
+    }
+    .ascii {
+      font-size: 12px;
+      white-space: pre;
+      background: #306230;
+      padding: 5px;
+    }
+    .btn {
+      background: #8bac0f;
+      border: none;
+      padding: 5px 10px;
+      color: #0f380f;
+      cursor: pointer;
+      font-weight: bold;
+      margin-top: 5px;
+    }
+    .btn:hover {
+      background: #aadd55;
+    }
+    .small { font-size: 12px; color: #bbbbbb; }
+  </style>
+</head>
+<body>
+
+  <h1>🐷 My Learned Pig</h1>
+  <p><strong>Today's Wisdom:</strong> <span id="wisdom"></span></p>
+
+  <div class="lesson">
+    <h2>🪄 Lesson: Basic Coin Palm</h2>
+    <div class="ascii">
+      ( )<br>\|/<br>/ \
+    </div>
+    <ol id="lesson-steps">
+      <li>Hold the coin at your fingertips.</li>
+      <li>Curl fingers inward while keeping tension low.</li>
+      <li>Relax the hand—do not grip.</li>
+      <li>Rehearse the transition in front of a mirror.</li>
+    </ol>
+    <button class="btn" onclick="saveFavorite()">★ Save to Favorites</button>
+  </div>
+
+  <div class="favorites">
+    <h3>📚 Favorite Tricks</h3>
+    <ul id="favorites-list">
+      <li class="small">No favorites yet!</li>
+    </ul>
+  </div>
+
+  <script>
+    const quotePool = [
+      "The fingers must learn what the mind cannot teach.",
+      "Magic without ethics is mere deception.",
+      "Every master was once a fumbling apprentice.",
+      "The coin obeys the patient hand.",
+      "Observe the angles in your mirror."
+    ];
+    
+    // Load wisdom
+    const seed = new Date().getDate();
+    document.getElementById("wisdom").textContent = quotePool[seed % quotePool.length];
+
+    // Save favorite
+    function saveFavorite() {
+      const trick = "Basic Coin Palm";
+      let favs = JSON.parse(localStorage.getItem("favorites")) || [];
+      if (!favs.includes(trick)) {
+        favs.push(trick);
+        localStorage.setItem("favorites", JSON.stringify(favs));
+        renderFavorites();
+      }
+    }
+
+    // Render favorites
+    function renderFavorites() {
+      const favs = JSON.parse(localStorage.getItem("favorites")) || [];
+      const container = document.getElementById("favorites-list");
+      container.innerHTML = "";
+      if (favs.length === 0) {
+        container.innerHTML = "<li class='small'>No favorites yet!</li>";
+        return;
+      }
+      favs.forEach(f => {
+        const li = document.createElement("li");
+        li.textContent = f;
+        container.appendChild(li);
+      });
+    }
+
+    // Initial load
+    renderFavorites();
+  </script>
+</body>
+</html>

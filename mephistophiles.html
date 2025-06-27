@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Guitar Bureau - Enter the Matrix</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700;900&display=swap');
         
         * {
             margin: 0;
@@ -15,11 +16,12 @@
         
         body {
             background: #000;
-            color: #00ff00;
-            font-family: 'Courier Prime', monospace;
+            color: #00ff41;
+            font-family: 'Inconsolata', monospace;
             overflow: hidden;
             height: 100vh;
             position: relative;
+            background-image: radial-gradient(circle at center, rgba(0, 30, 0, 0.8) 0%, rgba(0, 0, 0, 1) 70%);
         }
         
         .matrix-bg {
@@ -29,15 +31,17 @@
             width: 100%;
             height: 100%;
             pointer-events: none;
-            opacity: 0.2; /* Increased for slightly more visibility */
+            opacity: 0.2;
             z-index: -1;
         }
         
         .matrix-char {
             position: absolute;
-            font-size: 14px;
+            font-size: 16px;
             animation: fall linear infinite;
-            color: #00ff00;
+            color: #00ff41;
+            text-shadow: 0 0 8px rgba(0, 255, 65, 0.7);
+            opacity: 0.8;
         }
         
         @keyframes fall {
@@ -58,89 +62,22 @@
         }
         
         .logo {
-            font-size: 3rem;
-            font-weight: bold;
+            font-size: 4rem;
+            font-weight: 900;
             margin-bottom: 20px;
-            text-shadow: 0 0 20px #00ff00;
+            text-shadow: 0 0 20px #00ff41, 0 0 40px #00ff41;
             animation: pulse 2s infinite;
+            letter-spacing: -2px;
+            position: relative;
+        }
+        
+        .logo::after {
+            content: "_";
+            animation: blink 1s infinite;
+            position: absolute;
+            right: -15px;
         }
         
         @keyframes pulse {
             0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
-        }
-        
-        .subtitle {
-            font-size: 1.2rem;
-            margin-bottom: 40px;
-            opacity: 0.8;
-        }
-        
-        .warning {
-            font-size: 1rem;
-            margin-bottom: 30px;
-            color: #ff4444;
-            animation: flicker 3s infinite;
-        }
-        
-        @keyframes flicker {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-        
-        .form-container {
-            background: rgba(0, 255, 0, 0.05);
-            border: 2px solid #00ff00;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 0 30px rgba(0, 255, 0, 0.3);
-            backdrop-filter: blur(5px);
-        }
-        
-        .input-group {
-            margin-bottom: 20px;
-        }
-        
-        label {
-            display: block;
-            margin-bottom: 10px;
-            font-size: 1.1rem;
-        }
-        
-        input[type="text"] {
-            background: #000;
-            border: 2px solid #00ff00;
-            color: #00ff00;
-            padding: 12px;
-            font-size: 1rem;
-            font-family: 'Courier Prime', monospace;
-            width: 300px;
-            text-align: center;
-            border-radius: 5px;
-        }
-        
-        input[type="text"]:focus {
-            outline: none;
-            box-shadow: 0 0 15px #00ff00;
-            animation: glow 1s infinite alternate;
-        }
-        
-        @keyframes glow {
-            0% { box-shadow: 0 0 15px #00ff00; }
-            100% { box-shadow: 0 0 25px #00ff00, 0 0 35px #00ff00; }
-        }
-        
-        input[type="checkbox"] {
-            margin-right: 10px;
-            accent-color: #00ff00; /* Green checkbox for theme consistency */
-        }
-        
-        .agree-btn {
-            background: #000;
-            border: 3px solid #ff0000;
-            color: #ff0000;
-            padding: 15px 30px;
-            font-size: 1.2rem;
-            font-family: 'Courier Prime', monospace;
-            cursor: pointer;
-            border-radius
+            50% { opacity: 0.7; text-shadow: 

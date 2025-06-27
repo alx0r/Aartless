@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guitar Bureau - Enter the Matrix</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: #000;
+            color: #00ff00;
+            font-family: 'Courier Prime', monospace;
+            overflow: hidden;
+            height: 100vh;
+            position: relative;
+        }
+        
+        .matrix-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0.1;
+            z-index: -1;
+        }
+        
+        .matrix-char {
+            position: absolute;
+            font-size: 14px;
+            animation: fall linear infinite;
+            color: #00ff00;
+        }
+        
+        @keyframes fall {
+            0% { transform: translateY(-100vh); opacity: 1; }
+            100% { transform: translateY(100vh); opacity: 0; }
+        }
+        
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .logo {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px #00ff00;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            opacity: 0.8;
+        }
+        
+        .warning {
+            font-size: 1rem;
+            margin-bottom: 30px;
+            color: #ff4444;
+            animation: flicker 3s infinite;
+        }
+        
+        @keyframes flicker {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .form-container {
+            background: rgba(0, 255, 0, 0.05);
+            border: 2px solid #00ff00;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 30px rgba(0, 255, 0, 0.3);
+            backdrop-filter: blur(5px);
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        
+        input[type="text"] {
+            background: #000;
+            border: 2px solid #00ff00;
+            color: #00ff00;
+            padding: 12px;
+            font-size: 1rem;
+            font-family: 'Courier Prime', monospace;
+            width: 300px;
+            text-align: center;
+            border-radius: 5px;
+        }
+        
+        input[type="text"]:focus {
+            outline: none;
+            box-shadow: 0 0 15px #00ff00;
+            animation: glow 1s infinite alternate;
+        }
+        
+        @keyframes glow {
+            0% { box-shadow: 0 0 15px #00ff00; }
+            100% { box-shadow: 0 0 25px #00ff00, 0 0 35px #00ff00; }
+        }
+        
+        .agree-btn {
+            background: #000;
+            border: 3px solid #ff0000;
+            color: #ff0000;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            font-family: 'Courier Prime', monospace;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+        
+        .agree-btn:hover {
+            background: #ff0000;
+            color: #000;
+            box-shadow: 0 0 20px #ff0000;
+            transform: scale(1.05);
+        }
+        
+        .loading-screen {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+        }
+        
+        .loading-text {
+            font-size: 2rem;
+            margin-bottom: 30px;
+            animation: pulse 1s infinite;
+        }
+        
+        .progress-bar {
+            width: 400px;
+            height: 20px;
+            border: 2px solid #00ff00;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00ff00, #44ff44);
+            width: 0%;
+            animation: loading 8s ease-in-out infinite;
+        }
+        
+        @keyframes loading {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+        
+        .loading-messages {
+            font-size: 1rem;
+            height: 60px;
+        }
+        
+        .message {
+            opacity: 0;
+            animation: fadeInOut 2s ease-in-out infinite;
+        }
+        
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="matrix-bg" id="matrixBg"></div>
+    
+    <div class="container" id="entryScreen">
+        <div class="logo">GUITAR BUREAU</div>
+        <div class="subtitle">// Accessing Restricted Network //</div>
+        <div class="warning">WARNING: UNAUTHORIZED ACCESS DETECTED</div>
+        
+        <div class="form-container">
+            <p style="margin-bottom: 20px; font-size: 1.1rem;">Do you want to enter the Matrix?</p>
+            
+            <div class="input-group">
+                <label for="username">Enter Username:</label>
+                <input type="text" id="username" placeholder="your_handle_here" required>
+            </div>
+            
+            <button class="agree-btn" onclick="enterMatrix()">I AGREE TO EVERYTHING</button>
+        </div>
+    </div>
+    
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-text">ENTERING THE MATRIX...</div>
+        <div class="progress-bar">
+            <div class="progress-fill"></div>
+        </div>
+        <div class="loading-messages">
+            <div class="message" id="message1">Bypassing security protocols...</div>
+            <div class="message" id="message2" style="animation-delay: 2s;">Decrypting neural pathways...</div>
+            <div class="message" id="message3" style="animation-delay: 4s;">Reality.exe has stopped working...</div>
+            <div class="message" id="message4" style="animation-delay: 6s;">Welcome to the real world.</div>
+        </div>
+    </div>
+
+    <script>
+        // Create falling matrix characters
+        function createMatrixRain() {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()_+-=[]{}|;:,.<>?';
+            const matrixBg = document.getElementById('matrixBg');
+            
+            for (let i = 0; i < 50; i++) {
+                const char = document.createElement('div');
+                char.className = 'matrix-char';
+                char.textContent = chars[Math.floor(Math.random() * chars.length)];
+                char.style.left = Math.random() * 100 + '%';
+                char.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                char.style.animationDelay = Math.random() * 2 + 's';
+                matrixBg.appendChild(char);
+            }
+        }
+        
+        function enterMatrix() {
+            const username = document.getElementById('username').value;
+            
+            if (!username.trim()) {
+                alert('Username required to enter the Matrix');
+                return;
+            }
+            
+            // Hide entry screen and show loading
+            document.getElementById('entryScreen').style.display = 'none';
+            document.getElementById('loadingScreen').style.display = 'flex';
+            
+            // Add some dramatic effect
+            document.body.style.animation = 'pulse 0.5s ease-in-out';
+        }
+        
+        // Initialize matrix rain effect
+        createMatrixRain();
+        
+        // Regenerate matrix characters periodically
+        setInterval(() => {
+            const matrixBg = document.getElementById('matrixBg');
+            matrixBg.innerHTML = '';
+            createMatrixRain();
+        }, 10000);
+        
+        // Add typing sound effect simulation
+        document.getElementById('username').addEventListener('keypress', function() {
+            // Could add audio here if desired
+        });
+    </script>
+</body>
+</html>

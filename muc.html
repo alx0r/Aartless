@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mycological Research Project - Team Hub</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 20px;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            color: #2c3e50;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .project-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .info-card {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .info-card h3 {
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .phase-card, .equipment-card, .team-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .phase-card h2 {
+            color: #e74c3c;
+            border-bottom: 2px solid #e74c3c;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        .equipment-card h2 {
+            color: #3498db;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        .team-card h2 {
+            color: #27ae60;
+            border-bottom: 2px solid #27ae60;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        .phase-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+
+        .phase-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #e74c3c;
+        }
+
+        .phase-item h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .phase-item .phase-date {
+            background: #e74c3c;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .equipment-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .equipment-category {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #3498db;
+        }
+
+        .equipment-category h4 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .equipment-category ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .equipment-category li {
+            padding: 3px 0;
+            padding-left: 15px;
+            position: relative;
+        }
+
+        .equipment-category li:before {
+            content: "🧪";
+            position: absolute;
+            left: 0;
+        }
+
+        .strains-section {
+            background: #fff3cd;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #ffc107;
+            margin-bottom: 15px;
+        }
+
+        .strains-section h4 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+
+        .strain-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .strain-tag {
+            background: #ffc107;
+            color: #856404;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+
+        .alert-box {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        .alert-box.warning {
+            background: #fff3cd;
+            border-color: #ffeaa7;
+            color: #856404;
+        }
+
+        .alert-box h4 {
+            margin-bottom: 10px;
+        }
+
+        .quick-nav {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .quick-nav h4 {
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+
+        .quick-nav a {
+            display: block;
+            color: #667eea;
+            text-decoration: none;
+            padding: 5px 0;
+            font-size: 0.9em;
+        }
+
+        .quick-nav a:hover {
+            color: #764ba2;
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        .documentation-reminder {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .documentation-reminder h3 {
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .quick-nav {
+                position: static;
+                margin-bottom: 20px;
+            }
+            
+            .project-info {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="quick-nav">
+        <h4>Quick Navigation</h4>
+        <a href="#phases">Project Phases</a>
+        <a href="#equipment">Equipment</a>
+        <a href="#team">Team Info</a>
+        <a href="#safety">Safety Notes</a>
+        <a href="#documentation">Documentation</a>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1>🍄 Mycological Research Project</h1>
+            <p><strong>Home Environment Study - Cape Town</strong></p>
+            
+            <div class="project-info">
+                <div class="info-card">
+                    <h3>Start Date</h3>
+                    <p>July 4, 2025</p>
+                </div>
+                <div class="info-card">
+                    <h3>Location</h3>
+                    <p>Cape Town<br>(Rainy Season)</p>
+                </div>
+                <div class="info-card">
+                    <h3>Team Size</h3>
+                    <p>3 Researchers</p>
+                </div>
+                <div class="info-card">
+                    <h3>Special Expertise</h3>
+                    <p>Clinical Hygiene</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="phase-card full-width" id="phases">
+                <h2>📋 Project Phases Overview</h2>
+                
+                <div class="alert-box warning">
+                    <h4>⚠️ CRITICAL FIRST STEP - Regulatory Compliance</h4>
+                    <p>Before proceeding with any research activities, ensure compliance with South African regulations (GMO Act, Nagoya Protocol, DoA/DOH/DFFE permits). Contact relevant authorities if using GM organisms or indigenous strains.</p>
+                </div>
+
+                <div class="phase-grid">
+                    <div class="phase-item">
+                        <div class="phase-date">BEFORE JULY 4</div>
+                        <h3>Phase 1: Preparation & Sterile Setup</h3>
+                        <p><strong>Lead:</strong> Team member with clinical hygiene expertise</p>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li>Regulatory compliance check</li>
+                            <li>Designate sterile workspace</li>
+                            <li>Set up Still Air Box (SAB)</li>
+                            <li>Prepare perlite for SGFC</li>
+                            <li>Assign team roles</li>
+                        </ul>
+                    </div>
+
+                    <div class="phase-item">
+                        <div class="phase-date">JULY 4 START</div>
+                        <h3>Phase 2: Inoculation</h3>
+                        <p><strong>Duration:</strong> Single day procedure</p>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li>Personal sterilization protocols</li>
+                            <li>Syringe preparation & sterilization</li>
+                            <li>PF TEK Kit inoculation</li>
+                            <li>Labeling & dark storage setup</li>
+                            <li>Temperature control (20-27°C)</li>
+                        </ul>
+                    </div>
+
+                    <div class="phase-item">
+                        <div class="phase-date">4-6 WEEKS LATER</div>
+                        <h3>Phase 3: Fruiting</h3>
+                        <p><strong>Trigger:</strong> 100% colonization achieved</p>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li>Cake extraction & vermiculite removal</li>
+                            <li>Cold shock (6-12 hours in fridge)</li>
+                            <li>SGFC setup with prepared perlite</li>
+                            <li>Daily misting & fanning routine</li>
+                            <li>Harvest when veils break</li>
+                        </ul>
+                    </div>
+
+                    <div class="phase-item">
+                        <div class="phase-date">POST-HARVEST</div>
+                        <h3>Phases 4 & 5: Processing & QC</h3>
+                        <p><strong>Focus:</strong> Documentation & quality control</p>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li>Weighing & drying procedures</li>
+                            <li>Contamination assessment</li>
+                            <li>Lab notebook completion</li>
+                            <li>Data integrity (ALCOA+ principles)</li>
+                            <li>Equipment cleaning & storage</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="equipment-card" id="equipment">
+                <h2>🧪 Essential Equipment & Materials</h2>
+                
+                <div class="strains-section">
+                    <h4>🧬 Mushroom Strains (Liquid Culture Syringes)</h4>
+                    <div class="strain-list">
+                        <span class="strain-tag">APE (Albino Penis Envy)</span>
+                        <span class="strain-tag">Golden Teachers</span>
+                        <span class="strain-tag">Natal Super Strength</span>
+                        <span class="strain-tag">Penis Envy</span>
+                    </div>
+                </div>
+
+                <div class="equipment-list">
+                    <div class="equipment-category">
+                        <h4>🏠 Growing Kits</h4>
+                        <ul>
+                            <li>PF TEK Kit (Polyprop + heating cable)</li>
+                            <li>PF TEK Kit (Ziplock - Free)</li>
+                            <li>Shotgun Fruiting Chamber (SGFC)</li>
+                            <li>Perlite (2.5L included with SGFC)</li>
+                        </ul>
+                    </div>
+
+                    <div class="equipment-category">
+                        <h4>🛡️ Safety & PPE</h4>
+                        <ul>
+                            <li>Disposable lab coats</li>
+                            <li>Disposable gloves (multiple pairs)</li>
+                            <li>Face masks</li>
+                            <li>Safety goggles</li>
+                            <li>Hairnets</li>
+                        </ul>
+                    </div>
+
+                    <div class="equipment-category">
+                        <h4>🧽 Sterilization</h4>
+                        <ul>
+                            <li>70% Isopropyl Alcohol (spray bottle)</li>
+                            <li>Bleach (for 10% solution)</li>
+                            <li>Lighter/small torch</li>
+                            <li>Sterile gauze/paper towels</li>
+                            <li>Large clear plastic box (SAB)</li>
+                        </ul>
+                    </div>
+
+                    <div class="equipment-category">
+                        <h4>📊 Monitoring & Documentation</h4>
+                        <ul>
+                            <li>Thermometer</li>
+                            <li>Hygrometer</li>
+                            <li>Permanent markers</li>
+                            <li>Lab notebook (bound, numbered pages)</li>
+                            <li>Timer</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="team-card" id="team">
+                <h2>👥 Team Structure & Responsibilities</h2>
+                
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+                    <h4>🏥 Clinical Hygiene Lead</h4>
+                    <p><strong>Primary Responsibilities:</strong></p>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li>Oversee all sterile procedures</li>
+                        <li>Lead workspace disinfection</li>
+                        <li>Supervise syringe handling & inoculation</li>
+                        <li>Contamination detection & management</li>
+                        <li>PPE protocols enforcement</li>
+                    </ul>
+                </div>
+
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+                    <h4>📝 Documentation Specialist</h4>
+                    <p><strong>Primary Responsibilities:</strong></p>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li>Maintain lab notebook integrity</li>
+                        <li>Record all observations & data</li>
+                        <li>Photo documentation</li>
+                        <li>Quality control metrics</li>
+                        <li>Data backup & archival</li>
+                    </ul>
+                </div>
+
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 8px;">
+                    <h4>⚖️ Environmental Control Specialist</h4>
+                    <p><strong>Primary Responsibilities:</strong></p>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li>Temperature monitoring & control</li>
+                        <li>Humidity management</li>
+                        <li>SGFC maintenance (misting/fanning)</li>
+                        <li>Equipment calibration</li>
+                        <li>Cape Town weather adaptations</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="alert-box full-width" id="safety">
+                <h4>🚨 Critical Safety Reminders</h4>
+                <ul style="margin-left: 20px;">
+                    <li><strong>Never open contaminated containers</strong> - Discard immediately to prevent spore release</li>
+                    <li><strong>Sterile technique is paramount</strong> - One contamination can ruin entire batches</li>
+                    <li><strong>Cape Town rainy season considerations</strong> - Extra humidity control needed</li>
+                    <li><strong>Temperature maintenance</strong> - Use heating cables for 20-27°C range</li>
+                    <li><strong>Documentation before disposal</strong> - Record everything, even failures</li>
+                </ul>
+            </div>
+
+            <div class="documentation-reminder full-width" id="documentation">
+                <h3>📚 Documentation Standards (ALCOA+ Principles)</h3>
+                <p><strong>Remember:</strong> Attributable • Legible • Contemporaneous • Original • Accurate • Complete • Consistent • Enduring • Available</p>
+                <p>Record everything in permanent ink, never erase mistakes, include all data (even "bad" results), and maintain chronological order.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add smooth scrolling for navigation links
+        document.querySelectorAll('.quick-nav a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add current date highlighting
+        const today = new Date();
+        const july4 = new Date('2025-07-04');
+        const daysDiff = Math.ceil((july4 - today) / (1000 * 60 * 60 * 24));
+        
+        if (daysDiff > 0) {
+            const header = document.querySelector('.header p');
+            header.innerHTML += `<br><small style="color: #e74c3c; font-weight: bold;">⏰ ${daysDiff} days until project start</small>`;
+        } else if (daysDiff === 0) {
+            const header = document.querySelector('.header p');
+            header.innerHTML += `<br><small style="color: #27ae60; font-weight: bold;">🎯 PROJECT START DAY!</small>`;
+        }
+    </script>
+</body>
+</html>

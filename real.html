@@ -1,764 +1,419 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RealignPro - Professional Organisers in the Western Cape</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    :root {
-      --primary-color: #2c5530;
-      --secondary-color: #4a7c59;
-      --accent-color: #7db46c;
-      --light-green: #e8f5e8;
-      --text-dark: #1a1a1a;
-      --text-gray: #666;
-      --white: #ffffff;
-      --light-gray: #f8f9fa;
-    }
-
-    body {
-      font-family: 'Inter', sans-serif;
-      line-height: 1.6;
-      color: var(--text-dark);
-      background: var(--white);
-    }
-
-    /* Header Styles */
-    header {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(44, 85, 48, 0.1);
-      z-index: 1000;
-      transition: all 0.3s ease;
-    }
-
-    .nav-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 2rem;
-    }
-
-    .logo {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--primary-color);
-      text-decoration: none;
-    }
-
-    nav ul {
-      display: flex;
-      list-style: none;
-      gap: 2rem;
-    }
-
-    nav a {
-      color: var(--text-dark);
-      text-decoration: none;
-      font-weight: 500;
-      transition: color 0.3s ease;
-      position: relative;
-    }
-
-    nav a:hover {
-      color: var(--secondary-color);
-    }
-
-    nav a::after {
-      content: '';
-      position: absolute;
-      bottom: -5px;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: var(--accent-color);
-      transition: width 0.3s ease;
-    }
-
-    nav a:hover::after {
-      width: 100%;
-    }
-
-    .menu-toggle {
-      display: none;
-      background: none;
-      border: none;
-      font-size: 1.5rem;
-      cursor: pointer;
-      color: var(--primary-color);
-    }
-
-    /* Hero Section */
-    .hero {
-      background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-      color: var(--white);
-      padding: 8rem 2rem 6rem;
-      margin-top: 80px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" fill="rgba(255,255,255,0.05)"><polygon points="0,0 1000,100 1000,0"/></svg>');
-      background-size: cover;
-    }
-
-    .hero-content {
-      max-width: 1200px;
-      margin: 0 auto;
-      text-align: center;
-      position: relative;
-      z-index: 2;
-    }
-
-    .hero h1 {
-      font-size: clamp(2.5rem, 5vw, 4rem);
-      font-weight: 700;
-      margin-bottom: 1.5rem;
-      line-height: 1.2;
-    }
-
-    .hero p {
-      font-size: 1.2rem;
-      margin-bottom: 2rem;
-      opacity: 0.9;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .quote {
-      font-style: italic;
-      font-size: 1.1rem;
-      margin-top: 2rem;
-      opacity: 0.8;
-    }
-
-    .quote-author {
-      font-size: 0.9rem;
-      margin-top: 0.5rem;
-      font-weight: 500;
-    }
-
-    /* CTA Button */
-    .cta-button {
-      display: inline-block;
-      background: var(--accent-color);
-      color: var(--white);
-      padding: 1rem 2rem;
-      border-radius: 50px;
-      text-decoration: none;
-      font-weight: 600;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 15px rgba(125, 180, 108, 0.3);
-    }
-
-    .cta-button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(125, 180, 108, 0.4);
-    }
-
-    /* Section Styles */
-    section {
-      padding: 5rem 2rem;
-    }
-
-    .section-container {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .section-header {
-      text-align: center;
-      margin-bottom: 4rem;
-    }
-
-    .section-header h2 {
-      font-size: 2.5rem;
-      color: var(--primary-color);
-      margin-bottom: 1rem;
-      font-weight: 700;
-    }
-
-    .section-header p {
-      color: var(--text-gray);
-      font-size: 1.1rem;
-      max-width: 600px;
-      margin: 0 auto;
-    }
-
-    /* About Section */
-    .about-content {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4rem;
-      align-items: center;
-    }
-
-    .about-text {
-      font-size: 1.1rem;
-      line-height: 1.8;
-      color: var(--text-gray);
-    }
-
-    .about-text strong {
-      color: var(--primary-color);
-    }
-
-    .about-image {
-      background: var(--light-green);
-      height: 400px;
-      border-radius: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 3rem;
-      color: var(--secondary-color);
-    }
-
-    /* Services Section */
-    .services {
-      background: var(--light-gray);
-    }
-
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-    }
-
-    .service-card {
-      background: var(--white);
-      padding: 2.5rem;
-      border-radius: 15px;
-      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      text-align: center;
-    }
-
-    .service-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
-    }
-
-    .service-icon {
-      width: 80px;
-      height: 80px;
-      background: var(--light-green);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 1.5rem;
-      font-size: 2rem;
-      color: var(--secondary-color);
-    }
-
-    .service-card h3 {
-      color: var(--primary-color);
-      margin-bottom: 1rem;
-      font-size: 1.3rem;
-      font-weight: 600;
-    }
-
-    .service-card p {
-      color: var(--text-gray);
-      line-height: 1.6;
-    }
-
-    /* Testimonials */
-    .testimonials-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-      gap: 2rem;
-    }
-
-    .testimonial {
-      background: var(--white);
-      padding: 2.5rem;
-      border-radius: 15px;
-      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-      border-left: 4px solid var(--accent-color);
-    }
-
-    .testimonial-text {
-      font-style: italic;
-      font-size: 1.1rem;
-      color: var(--text-gray);
-      margin-bottom: 1.5rem;
-      line-height: 1.6;
-    }
-
-    .testimonial-author {
-      font-weight: 600;
-      color: var(--primary-color);
-    }
-
-    /* Contact Section */
-    .contact {
-      background: var(--primary-color);
-      color: var(--white);
-    }
-
-    .contact .section-header h2 {
-      color: var(--white);
-    }
-
-    .contact .section-header p {
-      color: rgba(255, 255, 255, 0.8);
-    }
-
-    .contact-content {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4rem;
-      align-items: start;
-    }
-
-    .contact-info h3 {
-      margin-bottom: 1.5rem;
-      font-size: 1.5rem;
-    }
-
-    .contact-item {
-      display: flex;
-      align-items: center;
-      margin-bottom: 1rem;
-      gap: 1rem;
-    }
-
-    .contact-item-icon {
-      width: 20px;
-      height: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .contact-form {
-      background: rgba(255, 255, 255, 0.1);
-      padding: 2.5rem;
-      border-radius: 15px;
-      backdrop-filter: blur(10px);
-    }
-
-    .form-group {
-      margin-bottom: 1.5rem;
-    }
-
-    .form-group label {
-      display: block;
-      margin-bottom: 0.5rem;
-      font-weight: 500;
-    }
-
-    .form-group input,
-    .form-group textarea {
-      width: 100%;
-      padding: 1rem;
-      border: 2px solid rgba(255, 255, 255, 0.2);
-      border-radius: 10px;
-      background: rgba(255, 255, 255, 0.1);
-      color: var(--white);
-      font-family: inherit;
-      transition: border-color 0.3s ease;
-    }
-
-    .form-group input::placeholder,
-    .form-group textarea::placeholder {
-      color: rgba(255, 255, 255, 0.6);
-    }
-
-    .form-group input:focus,
-    .form-group textarea:focus {
-      outline: none;
-      border-color: var(--accent-color);
-    }
-
-    .submit-btn {
-      background: var(--accent-color);
-      color: var(--white);
-      padding: 1rem 2rem;
-      border: none;
-      border-radius: 50px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      width: 100%;
-    }
-
-    .submit-btn:hover {
-      background: #6fa05c;
-      transform: translateY(-2px);
-    }
-
-    /* Footer */
-    footer {
-      background: var(--text-dark);
-      color: var(--white);
-      text-align: center;
-      padding: 2rem;
-    }
-
-    /* Back to Top Button */
-    .back-to-top {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      width: 50px;
-      height: 50px;
-      background: var(--accent-color);
-      color: var(--white);
-      border: none;
-      border-radius: 50%;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      transform: translateY(100px);
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 15px rgba(125, 180, 108, 0.3);
-    }
-
-    .back-to-top.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .back-to-top:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 25px rgba(125, 180, 108, 0.4);
-    }
-
-    /* Responsive Design */
-    @media (max-width: 768px) {
-      .menu-toggle {
-        display: block;
-      }
-
-      nav ul {
-        display: none;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        background: var(--white);
-        flex-direction: column;
-        padding: 1rem 2rem;
-        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-      }
-
-      nav ul.active {
-        display: flex;
-      }
-
-      .about-content,
-      .contact-content {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-      }
-
-      .hero {
-        padding: 6rem 1rem 4rem;
-      }
-
-      section {
-        padding: 3rem 1rem;
-      }
-
-      .testimonials-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    /* Animations */
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .fade-in-up {
-      animation: fadeInUp 0.6s ease forwards;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PC Build Guide 2025 - South Africa Edition</title>
+    <style>
+        body {
+            background-color: #0a0a0a;
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            line-height: 1.4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 120ch;
+            margin: 0 auto;
+            white-space: pre-wrap;
+        }
+        .header {
+            color: #ffff00;
+            text-shadow: 0 0 10px #ffff00;
+        }
+        .section {
+            border: 1px solid #00ff00;
+            margin: 20px 0;
+            padding: 10px;
+        }
+        .price {
+            color: #ff6600;
+            font-weight: bold;
+        }
+        .component {
+            color: #00ffff;
+        }
+        .total {
+            color: #ff00ff;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        .warning {
+            color: #ffff00;
+            background-color: #330000;
+            padding: 5px;
+            border-left: 3px solid #ffff00;
+        }
+        .ascii-art {
+            color: #888888;
+            font-size: 10px;
+        }
+        .use-cases {
+            color: #ff9999;
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <div class="nav-container">
-      <a href="#" class="logo">RealignPro</a>
-      <nav>
-        <button class="menu-toggle" onclick="toggleMenu()">☰</button>
-        <ul id="nav-menu">
-          <li><a href="#about">About</a></li>
-          <li><a href="#services">Services</a></li>
-          <li><a href="#testimonials">Testimonials</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </nav>
+    <div class="container">
+<div class="header">
+╔══════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                                                      ║
+║  ██████╗  ██████╗    ██████╗ ██╗   ██╗██╗██╗     ██████╗     ██████╗ ██╗   ██╗██╗██████╗ ███████╗  ║
+║  ██╔══██╗██╔════╝    ██╔══██╗██║   ██║██║██║     ██╔══██╗   ██╔════╝ ██║   ██║██║██╔══██╗██╔════╝  ║
+║  ██████╔╝██║         ██████╔╝██║   ██║██║██║     ██║  ██║   ██║  ███╗██║   ██║██║██║  ██║█████╗    ║
+║  ██╔═══╝ ██║         ██╔══██╗██║   ██║██║██║     ██║  ██║   ██║   ██║██║   ██║██║██║  ██║██╔══╝    ║
+║  ██║     ╚██████╗    ██████╔╝╚██████╔╝██║███████╗██████╔╝   ╚██████╔╝╚██████╔╝██║██████╔╝███████╗  ║
+║  ╚═╝      ╚═════╝    ╚═════╝  ╚═════╝ ╚═╝╚══════╝╚═════╝     ╚═════╝  ╚═════╝ ╚═╝╚═════╝ ╚══════╝  ║
+║                                                                                                      ║
+║                            SOUTH AFRICA EDITION - 2025 PRICING                                      ║
+╚══════════════════════════════════════════════════════════════════════════════════════════════════════╝
+</div>
+
+<div class="warning">
+⚠️  PRICING DISCLAIMER ⚠️
+Prices for PC components in South Africa are highly volatile and can vary significantly between 
+retailers. The following are estimated prices based on available data and are intended for budget 
+planning purposes. The exchange rate used for conversion is approximately R18.50 to $1, with 
+adjustments for import costs and local market trends. Some high-end components listed are not yet 
+available in South Africa; their prices are estimations based on their international MSRP.
+</div>
+
+<div class="ascii-art">
+    ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
+   ▐▌                          BUILD CONFIGURATIONS                          ▐▌
+    ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
+</div>
+
+<div class="section">
+<div class="header">
+╔═══════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║ 1. ULTIMATE HIGH-END GAMING (NO BUDGET LIMITS)                                                       ║
+╚═══════════════════════════════════════════════════════════════════════════════════════════════════════╝
+</div>
+
+This build represents the absolute pinnacle of current gaming performance. However, the specified CPU 
+and GPU are not yet released. The specifications have been adjusted to the best currently available 
+components in South Africa.
+
+<div class="total">Total Estimated Cost: ~R 235,000</div>
+
+<div class="component">• CPU:</div> AMD Ryzen 9 7950X3D - <span class="price">~R 13,000</span>
+  └─ Unbeatable gaming and productivity performance currently available
+
+<div class="component">• GPU:</div> NVIDIA RTX 4090 24GB - <span class="price">~R 45,000</span>
+  └─ The most powerful consumer GPU on the market for 4K and high-refresh-rate gaming
+
+<div class="component">• Motherboard:</div> ASUS ROG STRIX X670E-E GAMING WIFI - <span class="price">~R 11,500</span>
+  └─ Premium features and robust power delivery
+
+<div class="component">• RAM:</div> 64GB (2x32GB) DDR5-6000 CL30 - <span class="price">~R 6,500</span>
+  └─ Excellent performance for gaming and heavy multitasking
+
+<div class="component">• Storage:</div> 2x Samsung 990 Pro 4TB NVMe SSD - <span class="price">~R 14,000</span>
+  └─ 8TB of incredibly fast storage
+
+<div class="component">• Cooling:</div> Arctic Liquid Freezer III 360 AIO - <span class="price">~R 3,500</span>
+  └─ Top-tier thermal performance
+
+<div class="component">• Case:</div> Fractal Design North (Mesh) - <span class="price">~R 3,000</span>
+  └─ Stylish and excellent airflow
+
+<div class="component">• PSU:</div> be quiet! Dark Power 13 1200W 80+ Titanium - <span class="price">~R 8,000</span>
+  └─ High efficiency and reliability for a top-end build
+
+<div class="component">• Monitor 1:</div> ASUS ROG Swift OLED PG32UCDM 32" 4K 240Hz - <span class="price">~R 35,000</span>
+  └─ A premier OLED gaming monitor
+
+<div class="component">• Monitor 2:</div> MSI MPG 341CQPX 34" QD-OLED 240Hz Ultrawide - <span class="price">~R 25,000</span>
+  └─ Immersive ultrawide for secondary gaming and productivity
+
+<div class="component">• Audio:</div> Schiit Magni Heretic & Modi Multibit 2 + Sennheiser HD 800 S - <span class="price">~R 40,000+</span>
+  └─ Audiophile-grade setup, prices vary greatly with imports
+
+<div class="component">• Peripherals:</div> Keychron Mechanical Keyboard + Logitech G Pro X Superlight - <span class="price">~R 6,000</span>
+  └─ High-performance, enthusiast-grade peripherals
+</div>
+
+<div class="section">
+<div class="header">
+╔═══════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║ 2. SUPER VALUE GAMING BUILD                                                                           ║
+╚═══════════════════════════════════════════════════════════════════════════════════════════════════════╝
+</div>
+
+This is an excellent and well-balanced build for 1440p gaming. The component selection offers great 
+value for the South African market.
+
+<div class="total">Total Estimated Cost: ~R 34,000</div>
+
+<div class="component">• CPU:</div> AMD Ryzen 5 7600 - <span class="price">~R 4,500</span>
+  └─ A fantastic value gaming CPU that comes with a cooler
+
+<div class="component">• GPU:</div> NVIDIA GeForce RTX 4070 Super 12GB - <span class="price">~R 13,500</span>
+  └─ Perfect for high-refresh-rate 1440p gaming
+
+<div class="component">• Motherboard:</div> Gigabyte B650 GAMING X AX - <span class="price">~R 4,000</span>
+  └─ A solid motherboard with Wi-Fi and good features
+
+<div class="component">• RAM:</div> 32GB (2x16GB) DDR5-6000 CL36 - <span class="price">~R 2,500</span>
+  └─ The sweet spot for current gaming builds
+
+<div class="component">• Storage:</div> 2TB NVMe SSD (Kingston KC3000 or similar) - <span class="price">~R 3,000</span>
+  └─ A fast and spacious drive for games and applications
+
+<div class="component">• Cooling:</div> Included AMD Wraith Stealth Cooler - <span class="price">~R 0 - R 800</span>
+  └─ (or Thermalright Phantom Spirit 120 if available)
+
+<div class="component">• Case:</div> Fractal Pop Air - <span class="price">~R 1,800</span>
+  └─ A great case with excellent airflow and included fans
+
+<div class="component">• PSU:</div> Corsair RM750e 750W 80+ Gold - <span class="price">~R 2,500</span>
+  └─ A reliable and efficient power supply
+
+<div class="component">• Monitor:</div> LG 27GR75Q-B 27" 1440p 165Hz IPS - <span class="price">~R 5,500</span>
+  └─ A very popular and high-quality gaming monitor
+
+<div class="component">• Peripherals:</div> Redragon Mechanical Keyboard and Mouse Combo - <span class="price">~R 1,000</span>
+  └─ A solid budget-friendly option
+
+<div class="component">• Audio:</div> Basic Gaming Headset - <span class="price">~R 700</span>
+</div>
+
+<div class="section">
+<div class="header">
+╔═══════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║ 3. SOLID ALL-AROUND WORKHORSE                                                                        ║
+╚═══════════════════════════════════════════════════════════════════════════════════════════════════════╝
+</div>
+
+This build is a strong choice for a user who needs a PC for both productivity and gaming. The 
+components are well-selected for a smooth experience in both areas.
+
+<div class="total">Total Estimated Cost: ~R 45,000</div>
+
+<div class="component">• CPU:</div> AMD Ryzen 7 7700 - <span class="price">~R 6,500</span>
+  └─ 8 cores make this great for productivity, and it's also a capable gaming CPU
+
+<div class="component">• GPU:</div> NVIDIA GeForce RTX 4060 Ti 16GB - <span class="price">~R 10,500</span>
+  └─ Good for 1080p/1440p gaming and the 16GB of VRAM is beneficial for creative applications
+
+<div class="component">• Motherboard:</div> MSI PRO B650M-A WIFI - <span class="price">~R 3,500</span>
+  └─ A reliable micro-ATX board with necessary features
+
+<div class="component">• RAM:</div> 32GB (2x16GB) DDR5-6000 CL36 - <span class="price">~R 2,500</span>
+  └─ Ample memory for demanding applications and multitasking
+
+<div class="component">• Storage 1:</div> 1TB NVMe SSD (Kingston KC3000 or similar) - <span class="price">~R 1,800</span>
+  └─ For the OS and frequently used applications
+
+<div class="component">• Storage 2:</div> 2TB NVMe SSD (Kingston NV2 or similar) - <span class="price">~R 2,200</span>
+  └─ For projects, games, and other large files
+
+<div class="component">• Cooling:</div> Noctua NH-U12S Redux - <span class="price">~R 1,500</span>
+  └─ A quiet and very effective air cooler
+
+<div class="component">• Case:</div> Fractal Design Pop Air - <span class="price">~R 1,800</span>
+  └─ Clean aesthetics and good thermal performance
+
+<div class="component">• PSU:</div> Corsair RM850e 850W 80+ Gold - <span class="price">~R 2,800</span>
+  └─ Provides plenty of headroom and high efficiency
+
+<div class="component">• Monitor:</div> Dell UltraSharp U2723QE 27" 4K - <span class="price">~R 9,000</span>
+  └─ Excellent color accuracy and sharpness for professional work
+
+<div class="component">• Peripherals:</div> Keychron K2 Mechanical Keyboard + Logitech MX Master 3S - <span class="price">~R 4,000</span>
+  └─ A top-tier combination for productivity
+
+<div class="component">• Audio:</div> Audio-Technica ATH-M40x - <span class="price">~R 2,000</span>
+  └─ Great for monitoring and general listening
+
+<div class="component">• Webcam:</div> Logitech C920 - <span class="price">~R 1,500</span>
+
+<div class="component">• UPS:</div> CyberPower 1500VA/900W Line-interactive - <span class="price">~R 3,500</span>
+  └─ Essential for protecting your work from power outages
+</div>
+
+<div class="section">
+<div class="header">
+╔═══════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║ 4. BUDGET OPEN-SOURCE PERFORMANCE                                                                    ║
+╚═══════════════════════════════════════════════════════════════════════════════════════════════════════╝
+</div>
+
+A fantastic entry-level build that provides a great experience for 1080p gaming and general use, 
+especially with a Linux-based operating system.
+
+<div class="total">Total Estimated Cost: ~R 13,000</div>
+
+<div class="component">• CPU:</div> AMD Ryzen 5 5600G - <span class="price">~R 2,800</span>
+  └─ Good performance and includes integrated graphics to get you started
+
+<div class="component">• GPU:</div> AMD Radeon RX 6600 8GB - <span class="price">~R 4,500</span>
+  └─ An excellent value GPU for 1080p gaming
+
+<div class="component">• Motherboard:</div> Gigabyte B550M DS3H AC - <span class="price">~R 2,000</span>
+  └─ A good value motherboard with Wi-Fi
+
+<div class="component">• RAM:</div> 16GB (2x8GB) DDR4-3600 CL18 - <span class="price">~R 1,000</span>
+  └─ A fast kit of RAM that pairs well with the Ryzen 5000 series
+
+<div class="component">• Storage:</div> 1TB NVMe SSD (Crucial P3 Plus or similar) - <span class="price">~R 1,300</span>
+  └─ A significant upgrade over a SATA SSD for a small price increase
+
+<div class="component">• Cooling:</div> Included AMD Wraith Stealth Cooler - <span class="price">~R 0</span>
+
+<div class="component">• Case:</div> Cooler Master MasterBox Q300L - <span class="price">~R 900</span>
+  └─ A popular and affordable micro-ATX case
+
+<div class="component">• PSU:</div> Corsair CV550 550W 80+ Bronze - <span class="price">~R 1,000</span>
+  └─ A reliable power supply for this build
+
+<div class="component">• Monitor:</div> Dell S2421HGF 24" 1080p 144Hz - <span class="price">~R 3,000</span>
+  └─ A great value high-refresh-rate gaming monitor
+
+<div class="component">• Peripherals:</div> Basic Mechanical Keyboard and Mouse Combo - <span class="price">~R 800</span>
+
+<div class="component">• Operating System:</div> Linux (Ubuntu, Pop!_OS, etc.) - <span class="price">Free</span>
+</div>
+
+<div class="section">
+<div class="header">
+╔═══════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║ 5. ULTRA-MINIMAL CUSTOMIZABLE BUILD                                                                  ║
+╚═══════════════════════════════════════════════════════════════════════════════════════════════════════╝
+</div>
+
+This is a barebones build designed for basic computing tasks and to be upgraded over time. It's a 
+solid starting point for someone on a very tight budget.
+
+<div class="total">Total Estimated Cost: ~R 7,500</div>
+
+<div class="component">• CPU:</div> AMD Ryzen 5 4600G - <span class="price">~R 2,000</span>
+  └─ A capable 6-core APU for basic tasks and light gaming
+
+<div class="component">• GPU:</div> Integrated Radeon Vega Graphics - <span class="price">Included with CPU</span>
+
+<div class="component">• Motherboard:</div> Gigabyte A520M S2H - <span class="price">~R 1,300</span>
+  └─ A basic but functional motherboard
+
+<div class="component">• RAM:</div> 16GB (2x8GB) DDR4-3200 - <span class="price">~R 900</span>
+  └─ Sufficient memory for general use
+
+<div class="component">• Storage:</div> 500GB NVMe SSD (Kingston NV2 or similar) - <span class="price">~R 700</span>
+  └─ Faster than a SATA SSD and similarly priced
+
+<div class="component">• Case:</div> Basic Micro-ATX Tower - <span class="price">~R 600</span>
+  └─ A no-frills case to house the components
+
+<div class="component">• PSU:</div> 450W 80+ Bronze Certified - <span class="price">~R 700</span>
+  └─ Adequate power for the current components and a future budget GPU
+
+<div class="component">• Monitor:</div> Used 22-24" 1080p Monitor - <span class="price">~R 800 - R 1,200</span>
+  └─ Check local second-hand marketplaces
+
+<div class="component">• Peripherals:</div> Basic Keyboard and Mouse Combo - <span class="price">~R 300</span>
+
+<div class="component">• Operating System:</div> Linux Mint or similar lightweight distribution - <span class="price">Free</span>
+</div>
+
+<div class="ascii-art">
+    ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
+   ▐▌                          ALTERNATIVE USE CASES                          ▐▌
+    ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
+</div>
+
+<div class="section">
+<div class="header">COMMUNITY SHARED DESKTOP - ALTERNATIVE APPLICATIONS</div>
+
+<div class="use-cases">
+🎬 MEDIA & ENTERTAINMENT HUB
+├─ Home theater server - Plex/Jellyfin serving 4K content to multiple devices
+├─ Video editing station - Collaborative YouTube/TikTok content creation
+├─ Live streaming setup - Multi-camera OBS studio for community streams
+├─ Music production - DAW workstation with audio interfaces for band recording
+├─ VR space - Room-scale VR experiences that rotate between users
+└─ Retro arcade emulation - Massive ROM collection with custom controllers
+
+🧪 LEARNING & EXPERIMENTATION
+├─ AI/ML playground - Training models, running LLMs locally (Stable Diffusion, LLaMA)
+├─ 3D printing hub - CAD design, slicing, printer management
+├─ Electronics lab - Circuit simulation, Arduino/Raspberry Pi programming
+├─ Cryptocurrency node - Running blockchain validators or mining (if profitable)
+├─ Network lab - Virtual machines for cybersecurity training, penetration testing
+└─ Science simulations - Folding@home, climate modeling, physics simulations
+
+🏠 SMART HOME & AUTOMATION
+├─ Home Assistant server - Central hub for all IoT devices
+├─ Security system - NVR for cameras, facial recognition, motion detection
+├─ Network attached storage - Centralized backup for everyone's devices
+├─ Automated greenhouse - Sensor monitoring, grow light control
+└─ Energy monitoring - Solar panel optimization, usage analytics
+
+💼 COMMUNITY BUSINESS VENTURES
+├─ Rendering farm - Rent computing power for architectural visualizations
+├─ Video production service - Edit weddings/events for local clients
+├─ Digital art studio - NFT creation, graphic design commissions
+├─ Tutoring platform - Record educational content, virtual classrooms
+└─ E-commerce backend - Product photography, inventory management
+
+🔬 RESEARCH & DATA PROJECTS
+├─ Bioinformatics - DNA sequence analysis, protein folding
+├─ Weather station - Hyperlocal forecasting with sensor networks
+├─ Astronomy imaging - Telescope control, deep sky photography processing
+├─ Social science research - Survey data analysis, demographic studies
+└─ Historical preservation - Digitizing old photos/documents with AI upscaling
+
+🎨 CREATIVE COLLABORATION
+├─ Virtual art gallery - 3D spaces for showcasing community artwork
+├─ Podcast studio - Multi-track recording, automated editing workflows
+├─ Animation studio - Blender rendering farm for short films
+├─ Game development - Unity/Unreal collaborative projects
+└─ Digital museum - VR experiences of local history/culture
+
+🌐 COMMUNITY INFRASTRUCTURE
+├─ Local mesh network node - Disaster-resilient communications
+├─ Community wiki/forum - Local knowledge sharing platform
+├─ Skill-sharing marketplace - Internal gig economy platform
+├─ Event coordination - Digital signage, registration, live streaming
+└─ Maker space management - Tool checkout, project tracking, time billing
+
+🎯 SPECIALIZED APPLICATIONS
+├─ Flight simulator - Realistic aviation training with multiple monitors
+├─ Trading workstation - Real-time market analysis with multiple data feeds
+├─ Language learning lab - AI tutors, pronunciation analysis, cultural VR
+├─ Genealogy research - DNA analysis, historical record digitization
+└─ Urban planning - City simulation, traffic modeling, zoning analysis
+</div>
+</div>
+
+<div class="ascii-art">
+    ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
+   ▐▌                          QUICK COMPARISON                               ▐▌
+    ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
+</div>
+
+<div class="section">
+┌─────────────────┬──────────────┬────────────┬──────────────┬─────────────────┐
+│ Build Type      │ Gaming Perf  │ Multitask  │ Budget       │ Best For        │
+├─────────────────┼──────────────┼────────────┼──────────────┼─────────────────┤
+│ Ultimate        │ Maximum 4K   │ Excellent  │ R 235,000    │ Enthusiasts     │
+│ Value Gaming    │ Great 1440p  │ Good       │ R 34,000     │ Gamers          │
+│ All-Around      │ Good 1440p   │ Excellent  │ R 45,000     │ Professionals   │
+│ Budget Open     │ Decent 1080p │ Good       │ R 13,000     │ Linux users     │
+│ Ultra-Minimal   │ Basic/retro  │ Basic      │ R 7,500      │ Experimenters   │
+└─────────────────┴──────────────┴────────────┴──────────────┴─────────────────┘
+</div>
+
+<div class="header">
+╔═══════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║ GITHUB READY - SAVE AS .html FILE AND SHARE                                                          ║
+║ Created for South African PC builders - Exchange rate: R18.50/$1                                     ║
+║ Last updated: June 2025                                                                              ║
+╚═══════════════════════════════════════════════════════════════════════════════════════════════════════╝
+</div>
+
     </div>
-  </header>
-
-  <section class="hero">
-    <div class="hero-content">
-      <h1>Professional Organisation Services</h1>
-      <p>We help you declutter, organise, and create spaces that make you thrive. From homes to offices, we make it easy for you to see that getting organised is a sign of self-respect.</p>
-      <a href="#contact" class="cta-button">Get Started Today</a>
-      <div class="quote">
-        <div>"Getting organised is a sign of self-respect"</div>
-        <div class="quote-author">— Gabrielle Bernstein</div>
-      </div>
-    </div>
-  </section>
-
-  <section id="about">
-    <div class="section-container">
-      <div class="section-header">
-        <h2>About RealignPro</h2>
-        <p>Professional organisers serving the Western Cape</p>
-      </div>
-      <div class="about-content">
-        <div class="about-text">
-          <p><strong>RealignPro</strong> is here to help you do the work you feel you just can't do, either because of lack of time, grief, being despondent, lack of space or just lack of knowledge.</p>
-          <p>We make it easy for you to see that <strong>getting organised makes you thrive</strong>. Our professional team understands that everyone's situation is unique, and we approach each project with empathy, respect, and expertise.</p>
-          <p>Whether you're dealing with a major life transition, feeling overwhelmed by clutter, or simply want to create more functional spaces, we're here to support you every step of the way.</p>
-        </div>
-        <div class="about-image">
-          📦
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="services" class="services">
-    <div class="section-container">
-      <div class="section-header">
-        <h2>Our Services</h2>
-        <p>Comprehensive organisation solutions tailored to your needs</p>
-      </div>
-      <div class="services-grid">
-        <div class="service-card">
-          <div class="service-icon">🏠</div>
-          <h3>Home Organisation</h3>
-          <p>Transform your living spaces into organised, functional areas that promote peace and productivity. From bedrooms to kitchens, we help create systems that work for your lifestyle.</p>
-        </div>
-        <div class="service-card">
-          <div class="service-icon">💼</div>
-          <h3>Office Organisation</h3>
-          <p>Boost productivity with organised workspaces. We design filing systems, declutter offices, and create environments that enhance focus and efficiency.</p>
-        </div>
-        <div class="service-card">
-          <div class="service-icon">📱</div>
-          <h3>Digital Organisation</h3>
-          <p>Streamline your digital life with organised file systems, email management, and digital decluttering strategies that save time and reduce stress.</p>
-        </div>
-        <div class="service-card">
-          <div class="service-icon">📅</div>
-          <h3>Time Management</h3>
-          <p>Learn effective systems for managing your schedule, priorities, and daily routines to create more time for what matters most.</p>
-        </div>
-        <div class="service-card">
-          <div class="service-icon">💡</div>
-          <h3>Consulting & Coaching</h3>
-          <p>Personalised guidance and ongoing support to help you maintain organised systems and develop sustainable habits for long-term success.</p>
-        </div>
-        <div class="service-card">
-          <div class="service-icon">🎯</div>
-          <h3>Specialised Projects</h3>
-          <p>Support during major life transitions including moving, downsizing, estate management, and other situations requiring sensitive, professional assistance.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="testimonials">
-    <div class="section-container">
-      <div class="section-header">
-        <h2>What Our Clients Say</h2>
-        <p>Real stories from people whose lives we've helped transform</p>
-      </div>
-      <div class="testimonials-grid">
-        <div class="testimonial">
-          <div class="testimonial-text">"After working with RealignPro, I finally feel at peace in my own home. They didn't just organise my space – they helped me create systems that actually work for my busy lifestyle. I can't believe the difference it's made to my daily stress levels."</div>
-          <div class="testimonial-author">— Sarah M., Cape Town</div>
-        </div>
-        <div class="testimonial">
-          <div class="testimonial-text">"The team at RealignPro approached my situation with such understanding and professionalism. Going through my late mother's belongings was overwhelming, but they made the process manageable and respectful. I couldn't have done it without them."</div>
-          <div class="testimonial-author">— Michael K., Stellenbosch</div>
-        </div>
-        <div class="testimonial">
-          <div class="testimonial-text">"My home office was a disaster zone that was affecting my productivity and mental health. RealignPro completely transformed the space and taught me systems I can actually maintain. My work-life balance has never been better."</div>
-          <div class="testimonial-author">— Jennifer L., Paarl</div>
-        </div>
-        <div class="testimonial">
-          <div class="testimonial-text">"I was sceptical about hiring professional organisers, but RealignPro exceeded all my expectations. They listened to my needs, worked within my budget, and delivered results that have truly changed how I live. Worth every penny."</div>
-          <div class="testimonial-author">— David R., Somerset West</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="contact" class="contact">
-    <div class="section-container">
-      <div class="section-header">
-        <h2>Ready to Get Organised?</h2>
-        <p>Take the first step towards a more organised, peaceful life</p>
-      </div>
-      <div class="contact-content">
-        <div class="contact-info">
-          <h3>Get in Touch</h3>
-          <div class="contact-item">
-            <div class="contact-item-icon">📧</div>
-            <div>info@realignpro.co.za</div>
-          </div>
-          <div class="contact-item">
-            <div class="contact-item-icon">📱</div>
-            <div>+27 (0)21 XXX XXXX</div>
-          </div>
-          <div class="contact-item">
-            <div class="contact-item-icon">📍</div>
-            <div>Serving the Western Cape</div>
-          </div>
-          <p style="margin-top: 2rem; opacity: 0.8;">We offer free consultations to understand your needs and explain how we can help. No obligation – just honest advice from professionals who care.</p>
-        </div>
-        <form class="contact-form" onsubmit="handleSubmit(event)">
-          <div class="form-group">
-            <label for="name">Full Name</label>
-            <input type="text" id="name" name="name" required>
-          </div>
-          <div class="form-group">
-            <label for="email">Email Address</label>
-            <input type="email" id="email" name="email" required>
-          </div>
-          <div class="form-group">
-            <label for="phone">Phone Number</label>
-            <input type="tel" id="phone" name="phone">
-          </div>
-          <div class="form-group">
-            <label for="service">Service Needed</label>
-            <input type="text" id="service" name="service" placeholder="e.g., Home organisation, Office setup">
-          </div>
-          <div class="form-group">
-            <label for="message">Tell us about your project</label>
-            <textarea id="message" name="message" rows="4" placeholder="Describe your space, challenges, and goals..."></textarea>
-          </div>
-          <button type="submit" class="submit-btn">Request Free Consultation</button>
-        </form>
-      </div>
-    </div>
-  </section>
-
-  <footer>
-    <div class="section-container">
-      <p>&copy; 2025 RealignPro. Professional Organisation Services in the Western Cape. All rights reserved.</p>
-    </div>
-  </footer>
-
-  <button class="back-to-top" onclick="scrollToTop()" id="backToTop">↑</button>
-
-  <script>
-    // Mobile menu toggle
-    function toggleMenu() {
-      const menu = document.getElementById('nav-menu');
-      menu.classList.toggle('active');
-    }
-
-    // Smooth scrolling for navigation links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          target.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          });
-        }
-        // Close mobile menu if open
-        document.getElementById('nav-menu').classList.remove('active');
-      });
-    });
-
-    // Back to top button
-    window.addEventListener('scroll', function() {
-      const backToTop = document.getElementById('backToTop');
-      if (window.pageYOffset > 300) {
-        backToTop.classList.add('visible');
-      } else {
-        backToTop.classList.remove('visible');
-      }
-    });
-
-    function scrollToTop() {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    }
-
-    // Form submission
-    function handleSubmit(event) {
-      event.preventDefault();
-      const formData = new FormData(event.target);
-      const data = Object.fromEntries(formData);
-      
-      // Here you would typically send the data to your server
-      console.log('Form submitted:', data);
-      alert('Thank you for your inquiry! We\'ll be in touch soon to schedule your free consultation.');
-      
-      // Reset form
-      event.target.reset();
-    }
-
-    // Header scroll effect
-    window.addEventListener('scroll', function() {
-      const header = document.querySelector('header');
-      if (window.scrollY > 100) {
-        header.style.background = 'rgba(255, 255, 255, 0.98)';
-      } else {
-        header.style.background = 'rgba(255, 255, 255, 0.95)';
-      }
-    });
-
-    // Animation on scroll
-    function animateOnScroll() {
-      const elements = document.querySelectorAll('.service-card, .testimonial');
-      elements.forEach(element => {
-        const elementTop = element.getBoundingClientRect().top;
-        const elementVisible = 150;
-        
-        if (elementTop < window.innerHeight - elementVisible) {
-          element.classList.add('fade-in-up');
-        }
-      });
-    }
-
-    window.addEventListener('scroll', animateOnScroll);
-    animateOnScroll(); // Run once on load
-  </script>
 </body>
 </html>

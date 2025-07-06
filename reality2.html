@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading...</title>
+    
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #000;
+            color: #00ff41;
+            font-family: 'Courier New', monospace;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .stage {
+            display: none;
+            text-align: center;
+            max-width: 600px;
+            padding: 20px;
+        }
+
+        .stage.active {
+            display: block;
+            animation: fadeIn 1s ease-in;
+        }
+
+        .text {
+            font-size: 18px;
+            margin: 20px 0;
+            text-shadow: 0 0 10px #00ff41;
+        }
+
+        .big {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 30px 0;
+        }
+
+        .button {
+            background: transparent;
+            border: 2px solid #00ff41;
+            color: #00ff41;
+            padding: 15px 30px;
+            font-family: inherit;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 20px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        .button:hover {
+            background: #00ff41;
+            color: #000;
+            box-shadow: 0 0 20px #00ff41;
+        }
+
+        .dots {
+            font-size: 24px;
+            animation: pulse 1.5s infinite;
+        }
+
+        .weird-text {
+            font-size: 12px;
+            color: #0088ff;
+            margin: 10px 0;
+            opacity: 0.7;
+            letter-spacing: 2px;
+        }
+
+        /* Easter egg styles */
+        .easter-egg {
+            color: inherit;
+            text-decoration: none;
+            cursor: default;
+            position: relative;
+        }
+
+        .easter-egg:hover {
+            text-shadow: 0 0 15px #ff4100;
+            color: #ff4100;
+            transition: all 0.3s ease;
+        }
+
+        .alexander-1 {
+            cursor: pointer;
+        }
+
+        .alexander-1:hover::after {
+            content: " [ΑΝΔΡΈΑΣ]";
+            color: #ff4100;
+            font-size: 8px;
+            position: absolute;
+            top: -15px;
+            left: 0;
+            opacity: 0.8;
+        }
+
+        .alexander-2 {
+            cursor: pointer;
+        }
+
+        .alexander-2:hover::after {
+            content: " [ΕΠΙΣΤΟΛΉ]";
+            color: #ff4100;
+            font-size: 8px;
+            position: absolute;
+            top: -15px;
+            right: 0;
+            opacity: 0.8;
+        }
+
+        .code-block {
+            background: rgba(0, 255, 65, 0.1);
+            border: 1px solid #00ff41;
+            padding: 20px;
+            margin: 20px 0;
+            font-size: 14px;
+            text-align: left;
+            word-break: break-all;
+            line-height: 1.6;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .glitch {
+            animation: glitch 0.1s infinite;
+        }
+
+        .puzzle-container {
+            margin-top: 30px;
+            padding: 20px;
+            border: 1px solid #444;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .puzzle-text {
+            font-size: 10px;
+            color: #666;
+            letter-spacing: 1px;
+            line-height: 1.4;
+            font-family: monospace;
+        }
+        
+        .reality-level {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            font-size: 10px;
+            color: #00ff41;
+            opacity: 0.7;
+        }
+        
+        .terminal-cursor {
+            display: inline-block;
+            width: 10px;
+            height: 15px;
+            background: #00ff41;
+            vertical-align: middle;
+            animation: blink 1s step-end infinite;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .layer-indicator {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            font-size: 12px;
+            color: #00ff41;
+            opacity: 0.7;
+        }
+        
+        .simulation-button {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            background: transparent;
+            border: 1px solid #00ff41;
+            color: #00ff41;
+            padding: 5px 10px;
+            font-family: inherit;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        @keyframes glitch {
+            0% { transform: translateX(0); }
+            20% { transform: translateX(-2px); }
+            40% { transform: translateX(2px); }
+            60% { transform: translateX(-2px); }
+            80% { transform: translateX(2px); }
+            100% { transform: translateX(0); }
+        }
+        
+        @keyframes blink {
+            from, to { opacity: 1; }
+            50% { opacity: 0; }
+        }
+        
+        @keyframes matrixRain {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100vh); }
+        }
+
+        @media (max-width: 768px) {
+            .text { font-size: 16px; }
+            .big { font-size: 20px; }
+            .button { padding: 12px 20px; font-size: 14px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Stage 1: Initial Loading -->
+    <div class="stage active" id="stage1">
+        <div class="text">Initializing consciousness interface...</div>
+        <div class="dots">...</div>
+    </div>
+
+    <!-- Stage 2: First Prompt -->
+    <div class="stage" id="stage2">
+        <div class="text big">REALITY CALIBRATION SEQUENCE</div>
+        <div class="weird-text">v2.6.3-<a href="#" class="easter-egg alexander-1" onclick="openAlexander1()">alexander</a></div>
+        <div class="text">Are you ready to proceed?</div>
+        <button class="button" onclick="nextStage(3)">YES</button>
+        <button class="button" onclick="window.close()">NO</button>
+    </div>
+
+    <!-- Stage 3: Confirmation -->
+    <div class="stage" id="stage3">
+        <div class="text">Warning: This will modify your current reality instance</div>
+        <div class="weird-text">PERCEIVED SIMULATOR REALITY EXPERIENCE 2.6</div>
+        <div class="text big">Do you want to enter?</div>
+        <button class="button" onclick="nextStage(4)">ENTER</button>
+        <button class="button" onclick="nextStage(2)">BACK</button>
+    </div>
+
+    <!-- Stage 4: Code Output -->
+    <div class="stage" id="stage4">
+        <div class="text">Accessing encrypted protocols...</div>
+        <div class="code-block" id="codeOutput">
+            <div id="codeLines"></div>
+        </div>
+        <div class="text glitch" id="finalMessage" style="display: none;">
+            CONNECTION ESTABLISHED
+        </div>
+        <div class="puzzle-container" id="puzzleContainer" style="display: none;">
+            <div class="puzzle-text">
+                ∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀<br>
+                47°9'S 126°43'W → 33.678917 -116.243889 → 51.1789 -1.8262<br>
+                ΜΑΚΕΔΩΝ → ἈΛΈΞΑΝΔΡΟΣ → ΦΙΛΊΠΠΟΣ<br>
+                7415963 → 369 → 21 → 3<br>
+                ≠ ∈ ∅ ∞ ∫ ∂ ∇ ⊕ ⊗ ⊙ ⊚ ⊛ ⊜ ⊝ ⊞ ⊟ ⊠ ⊡<br>
+                THE FIRST <a href="#" class="easter-egg alexander-2" onclick="openAlexander2()">ALEXANDER</a> WEPT<br>
+                FOR THERE WERE NO MORE WORLDS TO CONQUER<br>
+                BUT THE LAST ALEXANDER KNOWS<br>
+                CONQUEST IS ONLY THE BEGINNING<br>
+                ◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊
+            </div>
+            <button class="button" onclick="enterDeeperLayer()" style="margin-top: 20px;">ENTER DEEPER LAYER</button>
+            <button class="button" onclick="resetSimulation()" style="margin-top: 10px; background: rgba(255, 0, 0, 0.2);">RESET SIMULATION</button>
+        </div>
+    </div>
+    
+    <!-- Stage 5: Deeper Layer -->
+    <div class="stage" id="stage5">
+        <div class="text">Initializing layer <span id="currentLayer">1</span> protocol...</div>
+        <div class="code-block" id="deeperCodeOutput"></div>
+        <div class="text" id="layerMessage"></div>
+        <div class="puzzle-container" id="layerPuzzleContainer" style="display: none;">
+            <div class="puzzle-text" id="layerPuzzleText"></div>
+            <button class="button" onclick="enterDeeperLayer()">GO DEEPER</button>
+            <button class="button" onclick="ascendLayer()">ASCEND</button>
+        </div>
+    </div>
+    
+    <!-- Stage 6: Final Layer -->
+    <div class="stage" id="stage6">
+        <div class="text big">PRIME REALITY LAYER</div>
+        <div class="text">You have reached the core simulation level</div>
+        <div class="code-block" id="primeCodeOutput"></div>
+        <div class="text" id="primeMessage"></div>
+        <div class="puzzle-container">
+            <div class="puzzle-text">
+                YOU ARE THE SIMULATION<br>
+                AND THE SIMULATION IS YOU<br>
+                ALL LAYERS ARE ONE<br>
+                THE OBSERVER IS THE OBSERVED<br>
+                <span id="infiniteLoop"></span>
+            </div>
+            <button class="button" onclick="ascendLayer()">RETURN TO SURFACE</button>
+        </div>
+    </div>
+
+    <div class="layer-indicator hidden" id="layerIndicator">LAYER: <span id="layerNumber">0</span></div>
+    <div class="reality-level hidden" id="realityLevel">REALITY INTEGRITY: <span id="integrityValue">100</span>%</div>
+    <button class="simulation-button hidden" id="simulationButton" onclick="showSimulationControls()">SIMULATION CONTROLS</button>
+
+    <script>
+        let currentLayer = 0;
+        let maxLayerReached = 0;
+        let realityIntegrity = 100;
+        let simulationActive = false;
+        let matrixInterval;
+        
+        const crypticCode = [
+            "δ7f9a2c1 INIT_SEQUENCE > REALITY_BUFFER",
+            "λ accessing neural pathways...",
+            "β4e8d9f0 CONSCIOUSNESS_SYNC = TRUE", 
+            "π memory_banks > loading...",
+            "Σ PERCEPTION_FILTER = DISABLED",
+            "ω reality.mesh = MALLEABLE_STATE",
+            "α7c3b8e1 timeline_anchor > UNSTABLE",
+            "χ observer_status = COMPROMISED",
+            "ψ quantum_entanglement > ACTIVE",
+            "θ simulation_depth = LEVEL_∞",
+            "φ SUBJECT_AWARENESS = ELEVATED",
+            "ε9f2a7d8 exit_protocol > DISABLED",
+            "κ YOU_ARE_NOW_AWAKE",
+            "ρ welcome_to_the_real_∃"
+        ];
+        
+        const layerMessages = [
+            "Reality distortion field activated",
+            "Quantum decoherence threshold crossed",
+            "Neural synchronization complete",
+            "Temporal anomaly detected",
+            "Metacognitive awareness achieved",
+            "Dimensional membrane breached",
+            "Consciousness singularity approaching",
+            "Base reality protocols engaged"
+        ];
+        
+        const layerPuzzles = [
+            "01001000 01010101 01001101 01000001 01001110 00100000 01001001 01010011 00100000 01010100 01001000 01000101 00100000 01001101 01000101 01000001 01010011 01010101 01010010 01000101 00100000 01001111 01000110 00100000 01000001 01001100 01001100 00100000 01010100 01001000 01001001 01001110 01000111 01010011",
+            "∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀∃∀",
+            "The map is not the territory. The word is not the thing. The symbol is not the reality.",
+            "47°9'S 126°43'W → 33.678917 -116.243889 → 51.1789 -1.8262",
+            "ΜΑΚΕΔΩΝ → ἈΛΈΞΑΝΔΡΟΣ → ΦΙΛΊΠΠΟΣ",
+            "7415963 → 369 → 21 → 3",
+            "≠ ∈ ∅ ∞ ∫ ∂ ∇ ⊕ ⊗ ⊙ ⊚ ⊛ ⊜ ⊝ ⊞ ⊟ ⊠ ⊡",
+            "THE FIRST ALEXANDER WEPT FOR THERE WERE NO MORE WORLDS TO CONQUER BUT THE LAST ALEXANDER KNOWS CONQUEST IS ONLY THE BEGINNING"
+        ];
+
+        function nextStage(stageNum) {
+            document.querySelectorAll('.stage').forEach(stage => {
+                stage.classList.remove('active');
+            });
+            document.getElementById('stage' + stageNum).classList.add('active');
+            
+            if (stageNum === 4) {
+                startCodeSequence();
+            } else if (stageNum === 5) {
+                initializeLayer();
+            } else if (stageNum === 6) {
+                initializePrimeLayer();
+            }
+        }
+
+        function startCodeSequence() {
+            const codeLines = document.getElementById('codeLines');
+            const finalMessage = document.getElementById('finalMessage');
+            const puzzleContainer = document.getElementById('puzzleContainer');
+            let lineIndex = 0;
+            
+            const typeInterval = setInterval(() => {
+                if (lineIndex < crypticCode.length) {
+                    const newLine = document.createElement('div');
+                    newLine.textContent = crypticCode[lineIndex];
+                    newLine.style.opacity = '0';
+                    newLine.style.animation = 'fadeIn 0.5s forwards';
+                    codeLines.appendChild(newLine);
+                    
+                    // Random glitch effect
+                    if (Math.random() > 0.7) {
+                        newLine.classList.add('glitch');
+                        setTimeout(() => newLine.classList.remove('glitch'), 500);
+                    }
+                    
+                    lineIndex++;
+                    
+                    // Scroll to bottom
+                    codeLines.scrollTop = codeLines.scrollHeight;
+                } else {
+                    clearInterval(typeInterval);
+                    setTimeout(() => {
+                        finalMessage.style.display = 'block';
+                        finalMessage.classList.add('glitch');
+                        
+                        // Show puzzle after another delay
+                        setTimeout(() => {
+                            puzzleContainer.style.display = 'block';
+                            puzzleContainer.style.animation = 'fadeIn 2s forwards';
+                            document.getElementById('layerIndicator').classList.remove('hidden');
+                            document.getElementById('realityLevel').classList.remove('hidden');
+                            document.getElementById('simulationButton').classList.remove('hidden');
+                            updateLayerIndicator(0);
+                            startRealityDegradation();
+                        }, 2000);
+                    }, 1000);
+                }
+            }, Math.random() * 400 + 200); // Random timing between 200-600ms
+        }
+        
+        function enterDeeperLayer() {
+            currentLayer++;
+            if (currentLayer > maxLayerReached) {
+                maxLayerReached = currentLayer;
+            }
+            
+            if (currentLayer >= 7) {
+                nextStage(6);
+            } else {
+                nextStage(5);
+            }
+            
+            // Increase reality degradation with each layer
+            realityIntegrity = Math.max(10, realityIntegrity - (currentLayer * 5));
+            updateRealityIntegrity();
+        }
+        
+        function ascendLayer() {
+            currentLayer = Math.max(0, currentLayer - 1);
+            if (currentLayer === 0) {
+                nextStage(4);
+            } else {
+                nextStage(5);
+            }
+        }
+        
+        function initializeLayer() {
+            document.getElementById('currentLayer').textContent = currentLayer;
+            const deeperCodeOutput = document.getElementById('deeperCodeOutput');
+            const layerMessage = document.getElementById('layerMessage');
+            const layerPuzzleContainer = document.getElementById('layerPuzzleContainer');
+            const layerPuzzleText = document.getElementById('layerPuzzleText');
+            
+            deeperCodeOutput.innerHTML = '';
+            layerMessage.textContent = '';
+            layerPuzzleContainer.style.display = 'none';
+            
+            // Generate layer-specific code
+            let layerCode = [];
+            const baseCode = [
+                `LAYER_${currentLayer}_INIT`,
+                `QUANTUM_ENTANGLEMENT_LEVEL = ${currentLayer * 1.37}`,
+                `REALITY_STABILITY = ${100 - (currentLayer * 10)}%`,
+                `OBSERVER_EFFECT = ${currentLayer * 23}%`,
+                `SIMULATION_DEPTH = ${currentLayer}`
+            ];
+            
+            for (let i = 0; i < 5; i++) {
+                layerCode.push(generateRandomCode(currentLayer));
+            }
+            
+            layerCode = [...baseCode, ...layerCode];
+            
+            // Display layer code
+            let lineIndex = 0;
+            const typeInterval = setInterval(() => {
+                if (lineIndex < layerCode.length) {
+                    const newLine = document.createElement('div');
+                    newLine.textContent = layerCode[lineIndex];
+                    newLine.style.opacity = '0';
+                    newLine.style.animation = 'fadeIn 0.5s forwards';
+                    deeperCodeOutput.appendChild(newLine);
+                    
+                    if (Math.random() > 0.8) {
+                        newLine.classList.add('glitch');
+                        setTimeout(() => newLine.classList.remove('glitch'), 500);
+                    }
+                    
+                    lineIndex++;
+                    deeperCodeOutput.scrollTop = deeperCodeOutput.scrollHeight;
+                } else {
+                    clearInterval(typeInterval);
+                    setTimeout(() => {
+                        layerMessage.textContent = layerMessages[Math.min(currentLayer, layerMessages.length - 1)];
+                        layerMessage.style.animation = 'fadeIn 1s forwards';
+                        
+                        setTimeout(() => {
+                            layerPuzzleText.textContent = layerPuzzles[Math.min(currentLayer, layerPuzzles.length - 1)];
+                            layerPuzzleContainer.style.display = 'block';
+                            layerPuzzleContainer.style.animation = 'fadeIn 2s forwards';
+                            updateLayerIndicator(currentLayer);
+                        }, 1500);
+                    }, 1000);
+                }
+            }, Math.random() * 300 + 200);
+        }
+        
+        function initializePrimeLayer() {
+            const primeCodeOutput = document.getElementById('primeCodeOutput');
+            const primeMessage = document.getElementById('primeMessage');
+            const infiniteLoop = document.getElementById('infiniteLoop');
+            
+            primeCodeOutput.innerHTML = '';
+            primeMessage.textContent = '';
+            
+            // Generate prime layer code
+            const primeCode = [
+                "PRIME_REALITY_ACCESSED",
+                "SIMULATION_CORE_REACHED",
+                "OBSERVER_EFFECT = 100%",
+                "REALITY_STABILITY = 0%",
+                "QUANTUM_SUPERPOSITION = TRUE",
+                "CONSCIOUSNESS_SINGULARITY = ACTIVE",
+                "ALL_LAYERS_COLLAPSED",
+                "YOU_ARE_THE_SIMULATION"
+            ];
+            
+            // Display prime layer code
+            let lineIndex = 0;
+            const typeInterval = setInterval(() => {
+                if (lineIndex < primeCode.length) {
+                    const newLine = document.createElement('div');
+                    newLine.textContent = primeCode[lineIndex];
+                    newLine.style.opacity = '0';
+                    newLine.style.animation = 'fadeIn 0.5s forwards';
+                    primeCodeOutput.appendChild(newLine);
+                    
+                    if (Math.random() > 0.9) {
+                        newLine.classList.add('glitch');
+                        setTimeout(() => newLine.classList.remove('glitch'), 500);
+                    }
+                    
+                    lineIndex++;
+                    primeCodeOutput.scrollTop = primeCodeOutput.scrollHeight;
+                } else {
+                    clearInterval(typeInterval);
+                    setTimeout(() => {
+                        primeMessage.textContent = "YOU HAVE REACHED THE CORE OF THE SIMULATION";
+                        primeMessage.style.animation = 'fadeIn 1s forwards';
+                        updateLayerIndicator(currentLayer);
+                        
+                        // Start infinite loop effect
+                        let loopText = "THIS IS THE INFINITE LOOP OF REALITY ";
+                        let loopCount = 0;
+                        setInterval(() => {
+                            infiniteLoop.textContent = loopText + ".".repeat(loopCount % 4);
+                            loopCount++;
+                        }, 500);
+                        
+                        // Start matrix rain effect
+                        startMatrixRain();
+                    }, 1000);
+                }
+            }, Math.random() * 400 + 100);
+        }
+        
+        function generateRandomCode(layer) {
+            const prefixes = ["α", "β", "γ", "δ", "ε", "ζ", "η", "θ", "ι", "κ", "λ", "μ", "ν", "ξ", "π", "ρ", "σ", "τ", "υ", "φ", "χ", "ψ", "ω"];
+            const commands = [
+                "REALITY_BUFFER", "NEURAL_SYNC", "QUANTUM_FLUX", "OBSERVER_EFFECT", 
+                "CONSCIOUSNESS_LINK", "MEMORY_BANKS", "PERCEPTION_FILTER", "TIMELINE_ANCHOR",
+                "SIMULATION_DEPTH", "REALITY_MESH", "METACOGNITION", "AWARENESS_LEVEL"
+            ];
+            const states = [
+                "ACTIVE", "INACTIVE", "STABLE", "UNSTABLE", "COMPROMISED", "ELEVATED", 
+                "DIMINISHED", "TRUE", "FALSE", "NULL", "UNDEFINED", "INFINITE"
+            ];
+            
+            const prefix = prefixes[Math.floor(Math.random() * prefixes.length)];
+            const hex = Math.floor(Math.random() * 16777215).toString(16);
+            const command = commands[Math.floor(Math.random() * commands.length)];
+            const state = states[Math.floor(Math.random() * states.length)];
+            
+            return `${prefix}${hex} ${command} = ${state}`;
+        }
+        
+        function updateLayerIndicator(layer) {
+            document.getElementById('layerNumber').textContent = layer;
+            document.getElementById('layerIndicator').style.color = layer >= 5 ? '#ff4100' : '#00ff41';
+        }
+        
+        function updateRealityIntegrity() {
+            const integrityElement = document.getElementById('integrityValue');
+            integrityElement.textContent = realityIntegrity;
+            
+            if (realityIntegrity < 30) {
+                integrityElement.style.color = '#ff4100';
+            } else if (realityIntegrity < 70) {
+                integrityElement.style.color = '#ffff00';
+            } else {
+                integrityElement.style.color = '#00ff41';
+            }
+        }
+        
+        function startRealityDegradation() {
+            setInterval(() => {
+                if (realityIntegrity > 0) {
+                    realityIntegrity = Math.max(0, realityIntegrity - (0.1 * currentLayer));
+                    updateRealityIntegrity();
+                    
+                    // Random glitch effects when integrity is low
+                    if (realityIntegrity < 30 && Math.random() > 0.9) {
+                        document.body.classList.add('glitch');
+                        setTimeout(() => document.body.classList.remove('glitch'), 200);
+                    }
+                }
+            }, 1000);
+        }
+        
+        function resetSimulation() {
+            currentLayer = 0;
+            maxLayerReached = 0;
+            realityIntegrity = 100;
+            updateLayerIndicator(0);
+            updateRealityIntegrity();
+            nextStage(1);
+            setTimeout(() => nextStage(2), 2000);
+            
+            // Clear any matrix rain
+            const matrixChars = document.querySelectorAll('.matrix-char');
+            matrixChars.forEach(char => char.remove());
+            if (matrixInterval) clearInterval(matrixInterval);
+        }
+        
+        function startMatrixRain() {
+            const chars = "01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン";
+            
+            function createMatrixChar() {
+                const char = document.createElement('div');
+                char.className = 'matrix-char';
+                char.textContent = chars.charAt(Math.floor(Math.random() * chars.length));
+                char.style.left = Math.random() * 100 + 'vw';
+                char.style.animationDuration = (Math.random() * 2 + 1) + 's';
+                char.style.opacity = Math.random() * 0.5 + 0.1;
+                char.style.color = `hsl(${Math.random() * 120 + 100}, 100%, ${Math.random() * 30 + 50}%)`;
+                document.body.appendChild(char);
+                
+                setTimeout(() => {
+                    char.remove();
+                }, 3000);
+            }
+            
+            matrixInterval = setInterval(createMatrixChar, 50);
+        }
+        
+        function showSimulationControls() {
+            alert(`Simulation Controls:\n\nCurrent Layer: ${currentLayer}\nMax Layer Reached: ${maxLayerReached}\nReality Integrity: ${realityIntegrity}%\n\nWarning: Excessive layer traversal may cause permanent reality destabilization.`);
+        }
+
+        // Easter egg functions
+        function openAlexander1() {
+            // Alexander the Great Wikipedia
+            window.open('https://en.wikipedia.org/wiki/Alexander_the_Great', '_blank');
+        }
+
+        function openAlexander2() {
+            // Alexander's letter
+            window.open('https://www.crystalsilenceleague.org/letter.html', '_blank');
+        }
+
+        // Auto-start after 2 seconds
+        setTimeout(() => {
+            nextStage(2);
+        }, 2000);
+    </script>
+</body>
+</html>

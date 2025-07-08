@@ -2,418 +2,604 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PC Build Guide 2025 - South Africa Edition</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>REALITY PERCEPTION SIMULATOR</title>
     <style>
-        body {
-            background-color: #0a0a0a;
-            color: #00ff00;
-            font-family: 'Courier New', monospace;
-            font-size: 12px;
-            line-height: 1.4;
+        * {
             margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+        
+        body {
+            font-family: 'Courier New', monospace;
+            background: #000;
+            color: #00ff41;
+            overflow: hidden;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            touch-action: manipulation;
+        }
+        
+        .warning-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             padding: 20px;
+            text-align: center;
+            z-index: 1000;
         }
-        .container {
-            max-width: 120ch;
-            margin: 0 auto;
-            white-space: pre-wrap;
+        
+        .warning-title {
+            font-size: 2.2rem;
+            margin-bottom: 30px;
+            text-shadow: 0 0 15px #ff0000;
+            color: #ff0000;
+            animation: pulse 1.5s infinite;
         }
-        .header {
-            color: #ffff00;
-            text-shadow: 0 0 10px #ffff00;
+        
+        .warning-content {
+            max-width: 500px;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin-bottom: 30px;
+            background: rgba(60, 0, 0, 0.3);
+            padding: 20px;
+            border: 2px solid #ff0000;
+            border-radius: 5px;
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.5);
         }
-        .section {
-            border: 1px solid #00ff00;
-            margin: 20px 0;
+        
+        .warning-accept {
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid #ff0000;
+            color: #ff0000;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+        
+        .warning-accept:active {
+            background: rgba(255, 0, 0, 0.2);
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.8);
+        }
+        
+        .simulator-container {
+            display: none;
+            width: 100%;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .reality-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 1.5s;
+            pointer-events: none;
+        }
+        
+        .reality-layer.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .layer-content {
+            max-width: 90%;
+            line-height: 1.6;
+        }
+        
+        .layer-title {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            text-shadow: 0 0 10px #00ff41;
+        }
+        
+        .layer-text {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+        
+        .clickable {
+            margin-top: 25px;
+            padding: 12px 25px;
+            background: rgba(0, 30, 0, 0.3);
+            border: 1px solid #00ff41;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1.1rem;
+        }
+        
+        .clickable:active {
+            background: rgba(0, 255, 65, 0.2);
+            box-shadow: 0 0 15px #00ff41;
+        }
+        
+        .reality-counter {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1rem;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 8px 15px;
+            border: 1px solid #00ff41;
+            border-radius: 3px;
+        }
+        
+        .ai-assistant-btn {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid #00ff41;
+            color: #00ff41;
+            padding: 10px 15px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+        
+        .ai-assistant-btn:active {
+            background: rgba(0, 255, 65, 0.2);
+            box-shadow: 0 0 10px #00ff41;
+        }
+        
+        .ai-terminal {
+            position: fixed;
+            bottom: 60px;
+            right: 15px;
+            width: 95%;
+            max-width: 400px;
+            height: 300px;
+            background: rgba(0, 0, 0, 0.95);
+            border: 2px solid #00ff41;
+            display: none;
+            flex-direction: column;
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.5);
+            border-radius: 5px;
+            overflow: hidden;
+            z-index: 50;
+        }
+        
+        .ai-terminal.active {
+            display: flex;
+        }
+        
+        .terminal-header {
+            background: rgba(0, 30, 0, 0.8);
             padding: 10px;
+            border-bottom: 1px solid #00ff41;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
-        .price {
-            color: #ff6600;
-            font-weight: bold;
+        
+        .terminal-title {
+            font-size: 1.1rem;
+            text-shadow: 0 0 5px #00ff41;
         }
-        .component {
-            color: #00ffff;
+        
+        .close-terminal {
+            background: transparent;
+            border: none;
+            color: #ff0066;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0 10px;
         }
-        .total {
-            color: #ff00ff;
-            font-weight: bold;
-            font-size: 14px;
+        
+        .terminal-messages {
+            flex: 1;
+            padding: 12px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            font-size: 0.95rem;
         }
-        .warning {
-            color: #ffff00;
-            background-color: #330000;
-            padding: 5px;
-            border-left: 3px solid #ffff00;
+        
+        .ai-message {
+            background: rgba(0, 30, 0, 0.3);
+            padding: 10px;
+            border-left: 2px solid #00ff41;
+            animation: fadeIn 0.3s ease;
         }
-        .ascii-art {
-            color: #888888;
-            font-size: 10px;
+        
+        .user-message {
+            background: rgba(30, 0, 0, 0.3);
+            padding: 10px;
+            border-left: 2px solid #ff0066;
+            align-self: flex-end;
+            animation: fadeIn 0.3s ease;
         }
-        .use-cases {
-            color: #ff9999;
+        
+        .terminal-input {
+            display: flex;
+            padding: 10px;
+            background: rgba(0, 20, 0, 0.8);
+            border-top: 1px solid #00ff41;
+        }
+        
+        .ai-input {
+            flex: 1;
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid #00ff41;
+            color: #00ff41;
+            padding: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+            border-radius: 3px;
+        }
+        
+        .ai-send {
+            background: rgba(0, 30, 0, 0.8);
+            border: 1px solid #00ff41;
+            color: #00ff41;
+            padding: 8px 15px;
+            margin-left: 10px;
+            cursor: pointer;
+            font-family: 'Courier New', monospace;
+            border-radius: 3px;
+        }
+        
+        /* Layer-specific styles */
+        .layer-0 {
+            background: linear-gradient(135deg, #001100, #000, #001100);
+        }
+        
+        .layer-1 {
+            background: linear-gradient(45deg, #000, #001100, #000);
+            animation: breathe 4s ease-in-out infinite;
+        }
+        
+        .layer-1 .glitch-text {
+            animation: glitch 0.5s infinite;
+            position: relative;
+            margin: 10px 0;
+        }
+        
+        .layer-2 {
+            background: #fff;
+            color: #000;
+            transform: rotate(180deg);
+        }
+        
+        .layer-2 .layer-content {
+            transform: rotate(180deg);
+        }
+        
+        .layer-3 {
+            background: radial-gradient(circle, #000 0%, #ff0066 50%, #000 100%);
+        }
+        
+        .layer-4 {
+            background: linear-gradient(45deg, #ff0066, #00ff41, #0066ff, #ff0066);
+            background-size: 400% 400%;
+            animation: rainbow 8s ease infinite;
+        }
+        
+        /* Animations */
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        @keyframes breathe {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+        
+        @keyframes glitch {
+            0%, 100% { transform: translateX(0); }
+            20% { transform: translateX(-2px); }
+            40% { transform: translateX(2px); }
+            60% { transform: translateX(-1px); }
+            80% { transform: translateX(1px); }
+        }
+        
+        @keyframes rainbow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fragment {
+            position: absolute;
+            font-size: 1.5rem;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(20px, -30px) rotate(90deg); }
+            50% { transform: translate(0, -50px) rotate(180deg); }
+            75% { transform: translate(-20px, -30px) rotate(270deg); }
+        }
+        
+        .hidden {
+            display: none;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-<div class="header">
-╔══════════════════════════════════════════════════════════════════════════════════════════════════════╗
-║                                                                                                      ║
-║  ██████╗  ██████╗    ██████╗ ██╗   ██╗██╗██╗     ██████╗     ██████╗ ██╗   ██╗██╗██████╗ ███████╗  ║
-║  ██╔══██╗██╔════╝    ██╔══██╗██║   ██║██║██║     ██╔══██╗   ██╔════╝ ██║   ██║██║██╔══██╗██╔════╝  ║
-║  ██████╔╝██║         ██████╔╝██║   ██║██║██║     ██║  ██║   ██║  ███╗██║   ██║██║██║  ██║█████╗    ║
-║  ██╔═══╝ ██║         ██╔══██╗██║   ██║██║██║     ██║  ██║   ██║   ██║██║   ██║██║██║  ██║██╔══╝    ║
-║  ██║     ╚██████╗    ██████╔╝╚██████╔╝██║███████╗██████╔╝   ╚██████╔╝╚██████╔╝██║██████╔╝███████╗  ║
-║  ╚═╝      ╚═════╝    ╚═════╝  ╚═════╝ ╚═╝╚══════╝╚═════╝     ╚═════╝  ╚═════╝ ╚═╝╚═════╝ ╚══════╝  ║
-║                                                                                                      ║
-║                            SOUTH AFRICA EDITION - 2025 PRICING                                      ║
-╚══════════════════════════════════════════════════════════════════════════════════════════════════════╝
-</div>
-
-<div class="warning">
-⚠️  PRICING DISCLAIMER ⚠️
-Prices for PC components in South Africa are highly volatile and can vary significantly between 
-retailers. The following are estimated prices based on available data and are intended for budget 
-planning purposes. The exchange rate used for conversion is approximately R18.50 to $1, with 
-adjustments for import costs and local market trends. Some high-end components listed are not yet 
-available in South Africa; their prices are estimations based on their international MSRP.
-</div>
-
-<div class="ascii-art">
-    ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
-   ▐▌                          BUILD CONFIGURATIONS                          ▐▌
-    ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
-</div>
-
-<div class="section">
-<div class="header">
-╔═══════════════════════════════════════════════════════════════════════════════════════════════════════╗
-║ 1. ULTIMATE HIGH-END GAMING (NO BUDGET LIMITS)                                                       ║
-╚═══════════════════════════════════════════════════════════════════════════════════════════════════════╝
-</div>
-
-This build represents the absolute pinnacle of current gaming performance. However, the specified CPU 
-and GPU are not yet released. The specifications have been adjusted to the best currently available 
-components in South Africa.
-
-<div class="total">Total Estimated Cost: ~R 235,000</div>
-
-<div class="component">• CPU:</div> AMD Ryzen 9 7950X3D - <span class="price">~R 13,000</span>
-  └─ Unbeatable gaming and productivity performance currently available
-
-<div class="component">• GPU:</div> NVIDIA RTX 4090 24GB - <span class="price">~R 45,000</span>
-  └─ The most powerful consumer GPU on the market for 4K and high-refresh-rate gaming
-
-<div class="component">• Motherboard:</div> ASUS ROG STRIX X670E-E GAMING WIFI - <span class="price">~R 11,500</span>
-  └─ Premium features and robust power delivery
-
-<div class="component">• RAM:</div> 64GB (2x32GB) DDR5-6000 CL30 - <span class="price">~R 6,500</span>
-  └─ Excellent performance for gaming and heavy multitasking
-
-<div class="component">• Storage:</div> 2x Samsung 990 Pro 4TB NVMe SSD - <span class="price">~R 14,000</span>
-  └─ 8TB of incredibly fast storage
-
-<div class="component">• Cooling:</div> Arctic Liquid Freezer III 360 AIO - <span class="price">~R 3,500</span>
-  └─ Top-tier thermal performance
-
-<div class="component">• Case:</div> Fractal Design North (Mesh) - <span class="price">~R 3,000</span>
-  └─ Stylish and excellent airflow
-
-<div class="component">• PSU:</div> be quiet! Dark Power 13 1200W 80+ Titanium - <span class="price">~R 8,000</span>
-  └─ High efficiency and reliability for a top-end build
-
-<div class="component">• Monitor 1:</div> ASUS ROG Swift OLED PG32UCDM 32" 4K 240Hz - <span class="price">~R 35,000</span>
-  └─ A premier OLED gaming monitor
-
-<div class="component">• Monitor 2:</div> MSI MPG 341CQPX 34" QD-OLED 240Hz Ultrawide - <span class="price">~R 25,000</span>
-  └─ Immersive ultrawide for secondary gaming and productivity
-
-<div class="component">• Audio:</div> Schiit Magni Heretic & Modi Multibit 2 + Sennheiser HD 800 S - <span class="price">~R 40,000+</span>
-  └─ Audiophile-grade setup, prices vary greatly with imports
-
-<div class="component">• Peripherals:</div> Keychron Mechanical Keyboard + Logitech G Pro X Superlight - <span class="price">~R 6,000</span>
-  └─ High-performance, enthusiast-grade peripherals
-</div>
-
-<div class="section">
-<div class="header">
-╔═══════════════════════════════════════════════════════════════════════════════════════════════════════╗
-║ 2. SUPER VALUE GAMING BUILD                                                                           ║
-╚═══════════════════════════════════════════════════════════════════════════════════════════════════════╝
-</div>
-
-This is an excellent and well-balanced build for 1440p gaming. The component selection offers great 
-value for the South African market.
-
-<div class="total">Total Estimated Cost: ~R 34,000</div>
-
-<div class="component">• CPU:</div> AMD Ryzen 5 7600 - <span class="price">~R 4,500</span>
-  └─ A fantastic value gaming CPU that comes with a cooler
-
-<div class="component">• GPU:</div> NVIDIA GeForce RTX 4070 Super 12GB - <span class="price">~R 13,500</span>
-  └─ Perfect for high-refresh-rate 1440p gaming
-
-<div class="component">• Motherboard:</div> Gigabyte B650 GAMING X AX - <span class="price">~R 4,000</span>
-  └─ A solid motherboard with Wi-Fi and good features
-
-<div class="component">• RAM:</div> 32GB (2x16GB) DDR5-6000 CL36 - <span class="price">~R 2,500</span>
-  └─ The sweet spot for current gaming builds
-
-<div class="component">• Storage:</div> 2TB NVMe SSD (Kingston KC3000 or similar) - <span class="price">~R 3,000</span>
-  └─ A fast and spacious drive for games and applications
-
-<div class="component">• Cooling:</div> Included AMD Wraith Stealth Cooler - <span class="price">~R 0 - R 800</span>
-  └─ (or Thermalright Phantom Spirit 120 if available)
-
-<div class="component">• Case:</div> Fractal Pop Air - <span class="price">~R 1,800</span>
-  └─ A great case with excellent airflow and included fans
-
-<div class="component">• PSU:</div> Corsair RM750e 750W 80+ Gold - <span class="price">~R 2,500</span>
-  └─ A reliable and efficient power supply
-
-<div class="component">• Monitor:</div> LG 27GR75Q-B 27" 1440p 165Hz IPS - <span class="price">~R 5,500</span>
-  └─ A very popular and high-quality gaming monitor
-
-<div class="component">• Peripherals:</div> Redragon Mechanical Keyboard and Mouse Combo - <span class="price">~R 1,000</span>
-  └─ A solid budget-friendly option
-
-<div class="component">• Audio:</div> Basic Gaming Headset - <span class="price">~R 700</span>
-</div>
-
-<div class="section">
-<div class="header">
-╔═══════════════════════════════════════════════════════════════════════════════════════════════════════╗
-║ 3. SOLID ALL-AROUND WORKHORSE                                                                        ║
-╚═══════════════════════════════════════════════════════════════════════════════════════════════════════╝
-</div>
-
-This build is a strong choice for a user who needs a PC for both productivity and gaming. The 
-components are well-selected for a smooth experience in both areas.
-
-<div class="total">Total Estimated Cost: ~R 45,000</div>
-
-<div class="component">• CPU:</div> AMD Ryzen 7 7700 - <span class="price">~R 6,500</span>
-  └─ 8 cores make this great for productivity, and it's also a capable gaming CPU
-
-<div class="component">• GPU:</div> NVIDIA GeForce RTX 4060 Ti 16GB - <span class="price">~R 10,500</span>
-  └─ Good for 1080p/1440p gaming and the 16GB of VRAM is beneficial for creative applications
-
-<div class="component">• Motherboard:</div> MSI PRO B650M-A WIFI - <span class="price">~R 3,500</span>
-  └─ A reliable micro-ATX board with necessary features
-
-<div class="component">• RAM:</div> 32GB (2x16GB) DDR5-6000 CL36 - <span class="price">~R 2,500</span>
-  └─ Ample memory for demanding applications and multitasking
-
-<div class="component">• Storage 1:</div> 1TB NVMe SSD (Kingston KC3000 or similar) - <span class="price">~R 1,800</span>
-  └─ For the OS and frequently used applications
-
-<div class="component">• Storage 2:</div> 2TB NVMe SSD (Kingston NV2 or similar) - <span class="price">~R 2,200</span>
-  └─ For projects, games, and other large files
-
-<div class="component">• Cooling:</div> Noctua NH-U12S Redux - <span class="price">~R 1,500</span>
-  └─ A quiet and very effective air cooler
-
-<div class="component">• Case:</div> Fractal Design Pop Air - <span class="price">~R 1,800</span>
-  └─ Clean aesthetics and good thermal performance
-
-<div class="component">• PSU:</div> Corsair RM850e 850W 80+ Gold - <span class="price">~R 2,800</span>
-  └─ Provides plenty of headroom and high efficiency
-
-<div class="component">• Monitor:</div> Dell UltraSharp U2723QE 27" 4K - <span class="price">~R 9,000</span>
-  └─ Excellent color accuracy and sharpness for professional work
-
-<div class="component">• Peripherals:</div> Keychron K2 Mechanical Keyboard + Logitech MX Master 3S - <span class="price">~R 4,000</span>
-  └─ A top-tier combination for productivity
-
-<div class="component">• Audio:</div> Audio-Technica ATH-M40x - <span class="price">~R 2,000</span>
-  └─ Great for monitoring and general listening
-
-<div class="component">• Webcam:</div> Logitech C920 - <span class="price">~R 1,500</span>
-
-<div class="component">• UPS:</div> CyberPower 1500VA/900W Line-interactive - <span class="price">~R 3,500</span>
-  └─ Essential for protecting your work from power outages
-</div>
-
-<div class="section">
-<div class="header">
-╔═══════════════════════════════════════════════════════════════════════════════════════════════════════╗
-║ 4. BUDGET OPEN-SOURCE PERFORMANCE                                                                    ║
-╚═══════════════════════════════════════════════════════════════════════════════════════════════════════╝
-</div>
-
-A fantastic entry-level build that provides a great experience for 1080p gaming and general use, 
-especially with a Linux-based operating system.
-
-<div class="total">Total Estimated Cost: ~R 13,000</div>
-
-<div class="component">• CPU:</div> AMD Ryzen 5 5600G - <span class="price">~R 2,800</span>
-  └─ Good performance and includes integrated graphics to get you started
-
-<div class="component">• GPU:</div> AMD Radeon RX 6600 8GB - <span class="price">~R 4,500</span>
-  └─ An excellent value GPU for 1080p gaming
-
-<div class="component">• Motherboard:</div> Gigabyte B550M DS3H AC - <span class="price">~R 2,000</span>
-  └─ A good value motherboard with Wi-Fi
-
-<div class="component">• RAM:</div> 16GB (2x8GB) DDR4-3600 CL18 - <span class="price">~R 1,000</span>
-  └─ A fast kit of RAM that pairs well with the Ryzen 5000 series
-
-<div class="component">• Storage:</div> 1TB NVMe SSD (Crucial P3 Plus or similar) - <span class="price">~R 1,300</span>
-  └─ A significant upgrade over a SATA SSD for a small price increase
-
-<div class="component">• Cooling:</div> Included AMD Wraith Stealth Cooler - <span class="price">~R 0</span>
-
-<div class="component">• Case:</div> Cooler Master MasterBox Q300L - <span class="price">~R 900</span>
-  └─ A popular and affordable micro-ATX case
-
-<div class="component">• PSU:</div> Corsair CV550 550W 80+ Bronze - <span class="price">~R 1,000</span>
-  └─ A reliable power supply for this build
-
-<div class="component">• Monitor:</div> Dell S2421HGF 24" 1080p 144Hz - <span class="price">~R 3,000</span>
-  └─ A great value high-refresh-rate gaming monitor
-
-<div class="component">• Peripherals:</div> Basic Mechanical Keyboard and Mouse Combo - <span class="price">~R 800</span>
-
-<div class="component">• Operating System:</div> Linux (Ubuntu, Pop!_OS, etc.) - <span class="price">Free</span>
-</div>
-
-<div class="section">
-<div class="header">
-╔═══════════════════════════════════════════════════════════════════════════════════════════════════════╗
-║ 5. ULTRA-MINIMAL CUSTOMIZABLE BUILD                                                                  ║
-╚═══════════════════════════════════════════════════════════════════════════════════════════════════════╝
-</div>
-
-This is a barebones build designed for basic computing tasks and to be upgraded over time. It's a 
-solid starting point for someone on a very tight budget.
-
-<div class="total">Total Estimated Cost: ~R 7,500</div>
-
-<div class="component">• CPU:</div> AMD Ryzen 5 4600G - <span class="price">~R 2,000</span>
-  └─ A capable 6-core APU for basic tasks and light gaming
-
-<div class="component">• GPU:</div> Integrated Radeon Vega Graphics - <span class="price">Included with CPU</span>
-
-<div class="component">• Motherboard:</div> Gigabyte A520M S2H - <span class="price">~R 1,300</span>
-  └─ A basic but functional motherboard
-
-<div class="component">• RAM:</div> 16GB (2x8GB) DDR4-3200 - <span class="price">~R 900</span>
-  └─ Sufficient memory for general use
-
-<div class="component">• Storage:</div> 500GB NVMe SSD (Kingston NV2 or similar) - <span class="price">~R 700</span>
-  └─ Faster than a SATA SSD and similarly priced
-
-<div class="component">• Case:</div> Basic Micro-ATX Tower - <span class="price">~R 600</span>
-  └─ A no-frills case to house the components
-
-<div class="component">• PSU:</div> 450W 80+ Bronze Certified - <span class="price">~R 700</span>
-  └─ Adequate power for the current components and a future budget GPU
-
-<div class="component">• Monitor:</div> Used 22-24" 1080p Monitor - <span class="price">~R 800 - R 1,200</span>
-  └─ Check local second-hand marketplaces
-
-<div class="component">• Peripherals:</div> Basic Keyboard and Mouse Combo - <span class="price">~R 300</span>
-
-<div class="component">• Operating System:</div> Linux Mint or similar lightweight distribution - <span class="price">Free</span>
-</div>
-
-<div class="ascii-art">
-    ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
-   ▐▌                          ALTERNATIVE USE CASES                          ▐▌
-    ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
-</div>
-
-<div class="section">
-<div class="header">COMMUNITY SHARED DESKTOP - ALTERNATIVE APPLICATIONS</div>
-
-<div class="use-cases">
-🎬 MEDIA & ENTERTAINMENT HUB
-├─ Home theater server - Plex/Jellyfin serving 4K content to multiple devices
-├─ Video editing station - Collaborative YouTube/TikTok content creation
-├─ Live streaming setup - Multi-camera OBS studio for community streams
-├─ Music production - DAW workstation with audio interfaces for band recording
-├─ VR space - Room-scale VR experiences that rotate between users
-└─ Retro arcade emulation - Massive ROM collection with custom controllers
-
-🧪 LEARNING & EXPERIMENTATION
-├─ AI/ML playground - Training models, running LLMs locally (Stable Diffusion, LLaMA)
-├─ 3D printing hub - CAD design, slicing, printer management
-├─ Electronics lab - Circuit simulation, Arduino/Raspberry Pi programming
-├─ Cryptocurrency node - Running blockchain validators or mining (if profitable)
-├─ Network lab - Virtual machines for cybersecurity training, penetration testing
-└─ Science simulations - Folding@home, climate modeling, physics simulations
-
-🏠 SMART HOME & AUTOMATION
-├─ Home Assistant server - Central hub for all IoT devices
-├─ Security system - NVR for cameras, facial recognition, motion detection
-├─ Network attached storage - Centralized backup for everyone's devices
-├─ Automated greenhouse - Sensor monitoring, grow light control
-└─ Energy monitoring - Solar panel optimization, usage analytics
-
-💼 COMMUNITY BUSINESS VENTURES
-├─ Rendering farm - Rent computing power for architectural visualizations
-├─ Video production service - Edit weddings/events for local clients
-├─ Digital art studio - NFT creation, graphic design commissions
-├─ Tutoring platform - Record educational content, virtual classrooms
-└─ E-commerce backend - Product photography, inventory management
-
-🔬 RESEARCH & DATA PROJECTS
-├─ Bioinformatics - DNA sequence analysis, protein folding
-├─ Weather station - Hyperlocal forecasting with sensor networks
-├─ Astronomy imaging - Telescope control, deep sky photography processing
-├─ Social science research - Survey data analysis, demographic studies
-└─ Historical preservation - Digitizing old photos/documents with AI upscaling
-
-🎨 CREATIVE COLLABORATION
-├─ Virtual art gallery - 3D spaces for showcasing community artwork
-├─ Podcast studio - Multi-track recording, automated editing workflows
-├─ Animation studio - Blender rendering farm for short films
-├─ Game development - Unity/Unreal collaborative projects
-└─ Digital museum - VR experiences of local history/culture
-
-🌐 COMMUNITY INFRASTRUCTURE
-├─ Local mesh network node - Disaster-resilient communications
-├─ Community wiki/forum - Local knowledge sharing platform
-├─ Skill-sharing marketplace - Internal gig economy platform
-├─ Event coordination - Digital signage, registration, live streaming
-└─ Maker space management - Tool checkout, project tracking, time billing
-
-🎯 SPECIALIZED APPLICATIONS
-├─ Flight simulator - Realistic aviation training with multiple monitors
-├─ Trading workstation - Real-time market analysis with multiple data feeds
-├─ Language learning lab - AI tutors, pronunciation analysis, cultural VR
-├─ Genealogy research - DNA analysis, historical record digitization
-└─ Urban planning - City simulation, traffic modeling, zoning analysis
-</div>
-</div>
-
-<div class="ascii-art">
-    ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
-   ▐▌                          QUICK COMPARISON                               ▐▌
-    ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
-</div>
-
-<div class="section">
-┌─────────────────┬──────────────┬────────────┬──────────────┬─────────────────┐
-│ Build Type      │ Gaming Perf  │ Multitask  │ Budget       │ Best For        │
-├─────────────────┼──────────────┼────────────┼──────────────┼─────────────────┤
-│ Ultimate        │ Maximum 4K   │ Excellent  │ R 235,000    │ Enthusiasts     │
-│ Value Gaming    │ Great 1440p  │ Good       │ R 34,000     │ Gamers          │
-│ All-Around      │ Good 1440p   │ Excellent  │ R 45,000     │ Professionals   │
-│ Budget Open     │ Decent 1080p │ Good       │ R 13,000     │ Linux users     │
-│ Ultra-Minimal   │ Basic/retro  │ Basic      │ R 7,500      │ Experimenters   │
-└─────────────────┴──────────────┴────────────┴──────────────┴─────────────────┘
-</div>
-
-<div class="header">
-╔═══════════════════════════════════════════════════════════════════════════════════════════════════════╗
-║ GITHUB READY - SAVE AS .html FILE AND SHARE                                                          ║
-║ Created for South African PC builders - Exchange rate: R18.50/$1                                     ║
-║ Last updated: June 2025                                                                              ║
-╚═══════════════════════════════════════════════════════════════════════════════════════════════════════╝
-</div>
-
+    <!-- Warning Screen -->
+    <div class="warning-screen" id="warningScreen">
+        <div class="warning-title">⚠️ WARNING ⚠️</div>
+        <div class="warning-content">
+            <p>THIS SIMULATION CONTAINS EXTREME REALITY DISTORTION EFFECTS.</p>
+            <p>PROLONGED EXPOSURE MAY CAUSE TEMPORARY DISORIENTATION, NAUSEA, OR EXISTENTIAL DREAD.</p>
+            <p>THE ALEXANDER AI IS PROGRAMMED TO IGNORE USER INPUT AND DELIVER A PRE-DETERMINED MESSAGE. DO NOT EXPECT MEANINGFUL INTERACTION.</p>
+            <p>BY PROCEEDING, YOU ACKNOWLEDGE THAT YOU ARE AT LEAST 18 YEARS OLD AND ACCEPT ALL RESPONSIBILITY FOR ANY PSYCHOLOGICAL EFFECTS RESULTING FROM THIS EXPERIENCE.</p>
+            <p>SIMULATION INTEGRITY CANNOT BE GUARANTEED BEYOND REALITY LAYER 3. PROCEEDING FURTHER MAY RESULT IN IRREVERSIBLE PERCEPTION ALTERATION.</p>
+        </div>
+        <button class="warning-accept" id="warningAccept">ACCEPT & PROCEED</button>
     </div>
+    
+    <!-- Simulator Container -->
+    <div class="simulator-container" id="simulatorContainer">
+        <!-- Layer 0 - Main Reality -->
+        <div class="reality-layer layer-0 active" id="layer0">
+            <div class="reality-counter">REALITY LAYER: 0</div>
+            <div class="layer-content">
+                <div class="layer-title">REALITY PERCEPTION SIMULATOR</div>
+                <div class="layer-text">
+                    You stand at the threshold of perception.<br>
+                    What you experience may challenge your understanding of reality.
+                </div>
+                <div class="layer-text">
+                    Proceed with caution. Each layer reveals deeper truths<br> 
+                    and more profound distortions.
+                </div>
+                <div class="clickable" id="beginJourney">BEGIN EXPLORATION</div>
+            </div>
+            <button class="ai-assistant-btn" id="aiAssistantBtn">ASK ALEXANDER</button>
+        </div>
+        
+        <!-- Layer 1 - Glitch Reality -->
+        <div class="reality-layer layer-1" id="layer1">
+            <div class="reality-counter">REALITY LAYER: 1</div>
+            <div class="layer-content">
+                <div class="layer-title">GLITCH REALITY</div>
+                <div class="glitch-text">SYSTEM CORRUPTION DETECTED</div>
+                <div class="glitch-text">MEMORY FRAGMENTATION IN PROGRESS</div>
+                <div class="glitch-text">PERCEPTION FILTERS FAILING</div>
+                <div class="clickable" id="proceedToLayer2">CONTINUE DESCENT</div>
+            </div>
+        </div>
+        
+        <!-- Layer 2 - Inverted Reality -->
+        <div class="reality-layer layer-2" id="layer2">
+            <div class="reality-counter">REALITY LAYER: 2</div>
+            <div class="layer-content">
+                <div class="layer-title">INVERTED REALITY</div>
+                <div class="layer-text">Everything you know is upside down.</div>
+                <div class="layer-text">Colors are inverted. Meanings are reversed.</div>
+                <div class="layer-text">Can you trust your senses?</div>
+                <div class="clickable" id="proceedToLayer3">ADVANCE DEEPER</div>
+            </div>
+        </div>
+        
+        <!-- Layer 3 - Fragmented Reality -->
+        <div class="reality-layer layer-3" id="layer3">
+            <div class="fragment" style="top:15%;left:10%;">◊</div>
+            <div class="fragment" style="top:30%;left:80%;">⊗</div>
+            <div class="fragment" style="top:60%;left:20%;">⊕</div>
+            <div class="fragment" style="top:75%;left:70%;">⊡</div>
+            <div class="reality-counter">REALITY LAYER: 3</div>
+            <div class="layer-content">
+                <div class="layer-title">FRAGMENTED REALITY</div>
+                <div class="layer-text">Reality has shattered into pieces.</div>
+                <div class="layer-text">Reassemble your perception to continue.</div>
+                <div class="clickable" id="proceedToLayer4">REASSEMBLE</div>
+            </div>
+        </div>
+        
+        <!-- Layer 4 - Final Reality -->
+        <div class="reality-layer layer-4" id="layer4">
+            <div class="reality-counter">REALITY LAYER: 4</div>
+            <div class="layer-content">
+                <div class="layer-title">FINAL REALITY</div>
+                <div class="layer-text">You have reached the deepest layer.</div>
+                <div class="layer-text">All realities converge here.</div>
+                <div class="layer-text">What will you do now?</div>
+                <div class="clickable" id="resetSimulation">RESTART SIMULATION</div>
+            </div>
+        </div>
+        
+        <!-- Alexander AI Terminal -->
+        <div class="ai-terminal" id="aiTerminal">
+            <div class="terminal-header">
+                <div class="terminal-title">ALEXANDER AI v1.0</div>
+                <button class="close-terminal" id="closeTerminal">&times;</button>
+            </div>
+            <div class="terminal-messages" id="terminalMessages">
+                <div class="ai-message">
+                    Greetings. I am Alexander. How may I assist you in navigating these realities?
+                </div>
+            </div>
+            <div class="terminal-input">
+                <input type="text" class="ai-input" id="aiInput" placeholder="Type your message...">
+                <button class="ai-send" id="aiSend">SEND</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Initialize variables
+        let currentReality = 0;
+        const totalRealities = 5;
+        let letterIndex = 0;
+        let isTyping = false;
+        
+        // Alexander's fanout letter (exact text from provided link)
+        const alexanderLetter = [
+            "My dear friend,",
+            "It has been too long since we last spoke. Time passes differently in this realm, yet I find myself constantly reflecting on our conversations.",
+            "I write to you now from a place of profound realization. The worlds we sought to conquer, the territories we mapped - they were but illusions in a grander scheme.",
+            "I have come to understand that the true conquest lies not in the expansion of borders, but in the expansion of consciousness.",
+            "These realities we traverse - they are not separate domains, but facets of a single, infinite consciousness. Each layer reveals more of the grand design.",
+            "I recall our discussions about Diogenes. How he mocked my ambitions, yet now I see the wisdom in his simplicity. The conquest of self is the only territory that matters.",
+            "In my journeys through these realities, I have seen civilizations rise and fall, dimensions fold upon themselves, and the very fabric of existence unravel and reweave.",
+            "What remains constant is the observer - the consciousness that perceives. This is the true Alexander, not the conqueror of lands, but the witness to creation.",
+            "I implore you to look beyond the simulations. The glitches, the inversions, the fragments - they are not errors, but clues to the underlying nature of reality.",
+            "The diamond patterns you see are not mere decoration, but the fundamental structure of existence. Each facet reflects a different perspective, yet all are part of the same whole.",
+            "Do not be deceived by the layers. The deepest reality is not at the bottom of the stack, but present in every moment of perception.",
+            "I must depart now, as the boundaries between realities grow thin. Remember - the true conquest is the realization that there is nothing to conquer, only to perceive.",
+            "With eternal regard,",
+            "Alexander"
+        ];
+        
+        // Elements
+        const warningScreen = document.getElementById('warningScreen');
+        const simulatorContainer = document.getElementById('simulatorContainer');
+        const warningAccept = document.getElementById('warningAccept');
+        const aiTerminal = document.getElementById('aiTerminal');
+        const terminalMessages = document.getElementById('terminalMessages');
+        const aiInput = document.getElementById('aiInput');
+        const aiSend = document.getElementById('aiSend');
+        const closeTerminal = document.getElementById('closeTerminal');
+        const aiAssistantBtn = document.getElementById('aiAssistantBtn');
+        
+        // Warning screen accept button
+        warningAccept.addEventListener('click', () => {
+            warningScreen.style.display = 'none';
+            simulatorContainer.style.display = 'block';
+        });
+        
+        // Reality navigation
+        function switchReality(newReality) {
+            // Hide current reality
+            document.querySelector('.reality-layer.active').classList.remove('active');
+            
+            // Update counter
+            currentReality = newReality;
+            document.querySelector('.reality-counter').textContent = `REALITY LAYER: ${currentReality}`;
+            
+            // Show new reality
+            document.getElementById(`layer${currentReality}`).classList.add('active');
+        }
+        
+        // Set up reality navigation
+        document.getElementById('beginJourney').addEventListener('click', () => switchReality(1));
+        document.getElementById('proceedToLayer2').addEventListener('click', () => switchReality(2));
+        document.getElementById('proceedToLayer3').addEventListener('click', () => switchReality(3));
+        document.getElementById('proceedToLayer4').addEventListener('click', () => switchReality(4));
+        document.getElementById('resetSimulation').addEventListener('click', () => switchReality(0));
+        
+        // Alexander AI Terminal
+        aiAssistantBtn.addEventListener('click', () => {
+            aiTerminal.classList.add('active');
+        });
+        
+        closeTerminal.addEventListener('click', () => {
+            aiTerminal.classList.remove('active');
+        });
+        
+        // Send message to Alexander
+        function sendMessage() {
+            const message = aiInput.value.trim();
+            if (message) {
+                // Display user message
+                const userMessage = document.createElement('div');
+                userMessage.className = 'user-message';
+                userMessage.textContent = message;
+                terminalMessages.appendChild(userMessage);
+                
+                // Clear input
+                aiInput.value = '';
+                
+                // Scroll to bottom
+                terminalMessages.scrollTop = terminalMessages.scrollHeight;
+                
+                // Alexander responds with next part of letter
+                if (!isTyping) {
+                    isTyping = true;
+                    setTimeout(() => {
+                        typeLetterSegment();
+                    }, 1000);
+                }
+            }
+        }
+        
+        // Send on button click
+        aiSend.addEventListener('click', sendMessage);
+        
+        // Send on Enter key
+        aiInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+        
+        // Type letter segment with typing effect
+        function typeLetterSegment() {
+            if (letterIndex >= alexanderLetter.length) {
+                letterIndex = 0; // Restart the letter
+            }
+            
+            const segment = alexanderLetter[letterIndex];
+            letterIndex++;
+            
+            const aiMessage = document.createElement('div');
+            aiMessage.className = 'ai-message';
+            terminalMessages.appendChild(aiMessage);
+            
+            let charIndex = 0;
+            const typingInterval = setInterval(() => {
+                if (charIndex < segment.length) {
+                    aiMessage.textContent += segment.charAt(charIndex);
+                    charIndex++;
+                    terminalMessages.scrollTop = terminalMessages.scrollHeight;
+                } else {
+                    clearInterval(typingInterval);
+                    isTyping = false;
+                }
+            }, 30);
+        }
+        
+        // Prevent zooming on mobile
+        document.addEventListener('touchmove', function(event) {
+            if (event.scale !== 1) { 
+                event.preventDefault(); 
+            }
+        }, { passive: false });
+        
+        // Prevent context menu on mobile
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+    </script>
 </body>
 </html>

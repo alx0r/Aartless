@@ -1,0 +1,1309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REALITY PERCEPTION SIMULATOR v4.0</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Fira Code', monospace;
+            background: linear-gradient(45deg, #0a0a0a, #1a1a1a, #0a0a0a);
+            color: #00ff41;
+            overflow-x: hidden;
+            cursor: none;
+            position: relative;
+            min-height: 100vh;
+        }
+        
+        .custom-cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #00ff41;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.1s ease;
+            transform: translate(-50%, -50%);
+            mix-blend-mode: difference;
+        }
+        
+        .cursor-trail {
+            position: fixed;
+            width: 6px;
+            height: 6px;
+            background: #ff0066;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9998;
+            opacity: 0.7;
+            transform: translate(-50%, -50%);
+        }
+        
+        .glitch-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 25% 25%, rgba(0, 255, 65, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(255, 0, 100, 0.05) 0%, transparent 50%);
+        }
+        
+        .matrix-rain {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0.3;
+        }
+        
+        .content {
+            position: relative;
+            z-index: 10;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            text-shadow: 0 0 20px #00ff41;
+            animation: pulse 2s infinite;
+        }
+        
+        .symbol-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+            gap: 10px;
+            margin: 2rem 0;
+            padding: 1rem;
+            border: 1px solid rgba(0, 255, 65, 0.3);
+            background: rgba(0, 0, 0, 0.3);
+        }
+        
+        .symbol {
+            text-align: center;
+            font-size: 1.2rem;
+            padding: 10px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+        
+        .symbol:hover {
+            background: rgba(0, 255, 65, 0.2);
+            border-color: #00ff41;
+            transform: scale(1.2);
+            text-shadow: 0 0 10px #00ff41;
+        }
+        
+        .coordinates {
+            font-size: 1.1rem;
+            margin: 1rem 0;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.5);
+            border-left: 4px solid #00ff41;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .coordinates:hover {
+            background: rgba(0, 255, 65, 0.1);
+            padding-left: 2rem;
+        }
+        
+        .clickable {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .clickable:hover {
+            color: #ff0066;
+            text-shadow: 0 0 10px #ff0066;
+        }
+        
+        .alexander-text {
+            font-size: 1.5rem;
+            text-align: center;
+            margin: 3rem 0;
+            padding: 2rem;
+            background: linear-gradient(45deg, rgba(0, 255, 65, 0.1), rgba(255, 0, 100, 0.1));
+            border: 1px solid rgba(0, 255, 65, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .alexander-text::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(0, 255, 65, 0.1), transparent);
+            animation: scan 3s linear infinite;
+        }
+        
+        .diamond-pattern {
+            font-size: 0.8rem;
+            line-height: 1;
+            margin: 2rem 0;
+            text-align: center;
+            opacity: 0.7;
+        }
+        
+        .hidden-message {
+            opacity: 0;
+            transition: opacity 1s ease;
+            background: rgba(255, 0, 100, 0.1);
+            padding: 1rem;
+            margin: 1rem 0;
+            border: 1px solid rgba(255, 0, 100, 0.3);
+        }
+        
+        .revealed {
+            opacity: 1;
+        }
+        
+        .puzzle-input {
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid #00ff41;
+            color: #00ff41;
+            padding: 10px;
+            font-family: 'Fira Code', monospace;
+            font-size: 1rem;
+            width: 100%;
+            margin: 1rem 0;
+        }
+        
+        .puzzle-input:focus {
+            outline: none;
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.5);
+        }
+        
+        .data-stream {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 300px;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 1rem;
+            font-size: 0.8rem;
+            overflow-y: auto;
+            border-left: 1px solid rgba(0, 255, 65, 0.3);
+            z-index: 5;
+            transform: translateX(100%);
+            transition: transform 0.5s ease;
+        }
+        
+        .data-stream.active {
+            transform: translateX(0);
+        }
+        
+        .terminal-prompt {
+            color: #00ff41;
+        }
+        
+        .terminal-prompt::before {
+            content: '> ';
+        }
+        
+        .reality-counter {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            font-size: 1.2rem;
+            z-index: 100;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 10px 20px;
+            border: 1px solid #00ff41;
+            transition: all 0.3s ease;
+        }
+        
+        .warning {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 0, 0, 0.1);
+            border: 2px solid #ff0066;
+            padding: 2rem;
+            font-size: 1.5rem;
+            text-align: center;
+            z-index: 1000;
+            opacity: 0;
+            transition: all 0.5s ease;
+            pointer-events: none;
+        }
+        
+        .warning.active {
+            opacity: 1;
+        }
+        
+        .reality-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            min-height: 100vh;
+            padding: 2rem;
+            opacity: 0;
+            transition: all 2s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            pointer-events: none;
+        }
+        
+        .reality-layer.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .layer-1 {
+            background: linear-gradient(45deg, #000, #001100, #000);
+            animation: breathe 4s ease-in-out infinite;
+        }
+        
+        .layer-1 .glitch-text {
+            animation: glitch 0.5s infinite;
+            position: relative;
+            font-size: 1.5rem;
+            margin: 1rem 0;
+        }
+        
+        .layer-1 .glitch-text::before,
+        .layer-1 .glitch-text::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .layer-1 .glitch-text::before {
+            color: #ff0066;
+            animation: glitch-1 0.5s infinite;
+            clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+        }
+        
+        .layer-1 .glitch-text::after {
+            color: #00ffff;
+            animation: glitch-2 0.5s infinite;
+            clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
+        }
+        
+        .layer-2 {
+            background: #fff;
+            color: #000;
+            transform: rotate(180deg);
+            filter: invert(1);
+        }
+        
+        .layer-2 .content {
+            transform: rotate(180deg);
+            filter: invert(1);
+        }
+        
+        .layer-3 {
+            background: radial-gradient(circle, #000 0%, #ff0066 50%, #000 100%);
+        }
+        
+        .layer-3 .fragment {
+            position: absolute;
+            animation: float 3s ease-in-out infinite;
+            transform-origin: center;
+            font-size: 2rem;
+        }
+        
+        .layer-4 {
+            background: 
+                radial-gradient(circle at 25% 25%, rgba(0, 255, 65, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(255, 0, 100, 0.3) 0%, transparent 50%);
+        }
+        
+        .layer-4 .recursive-container {
+            position: relative;
+            border: 2px solid #00ff41;
+            padding: 2rem;
+            margin: 1rem;
+            animation: zoom 5s ease-in-out infinite alternate;
+        }
+        
+        .layer-4 .recursive-container::before {
+            content: '';
+            position: absolute;
+            top: 10%;
+            left: 10%;
+            width: 80%;
+            height: 80%;
+            border: 1px solid #ff0066;
+            animation: spin 10s linear infinite;
+        }
+        
+        .layer-5 {
+            background: linear-gradient(45deg, #ff0066, #00ff41, #0066ff, #ff0066);
+            background-size: 400% 400%;
+            animation: rainbow 3s ease infinite;
+        }
+        
+        .layer-5 .final-text {
+            font-size: 3rem;
+            animation: pulse 2s ease-in-out infinite;
+            text-shadow: 0 0 50px currentColor;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: rgba(0, 255, 65, 0.3);
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00ff41, #ff0066);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+        
+        .ai-assistant-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid #00ff41;
+            color: #00ff41;
+            padding: 10px 20px;
+            font-family: 'Fira Code', monospace;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+        
+        .ai-assistant-btn:hover {
+            background: rgba(0, 255, 65, 0.2);
+            box-shadow: 0 0 10px #00ff41;
+        }
+        
+        .ai-terminal {
+            position: fixed;
+            bottom: 70px;
+            right: 20px;
+            width: 400px;
+            height: 400px;
+            background: rgba(0, 0, 0, 0.95);
+            border: 2px solid #00ff41;
+            z-index: 100;
+            display: none;
+            flex-direction: column;
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.5);
+        }
+        
+        .ai-terminal.active {
+            display: flex;
+        }
+        
+        .terminal-header {
+            background: rgba(0, 30, 0, 0.8);
+            padding: 10px;
+            border-bottom: 1px solid #00ff41;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .terminal-title {
+            font-size: 1.2rem;
+            text-shadow: 0 0 5px #00ff41;
+        }
+        
+        .close-terminal {
+            background: transparent;
+            border: none;
+            color: #ff0066;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0 10px;
+        }
+        
+        .terminal-messages {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .ai-message {
+            background: rgba(0, 30, 0, 0.3);
+            padding: 10px;
+            border-left: 2px solid #00ff41;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .user-message {
+            background: rgba(30, 0, 0, 0.3);
+            padding: 10px;
+            border-left: 2px solid #ff0066;
+            align-self: flex-end;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .terminal-input {
+            display: flex;
+            padding: 10px;
+            background: rgba(0, 20, 0, 0.8);
+            border-top: 1px solid #00ff41;
+        }
+        
+        .ai-input {
+            flex: 1;
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid #00ff41;
+            color: #00ff41;
+            padding: 8px;
+            font-family: 'Fira Code', monospace;
+        }
+        
+        .ai-send {
+            background: rgba(0, 30, 0, 0.8);
+            border: 1px solid #00ff41;
+            color: #00ff41;
+            padding: 8px 15px;
+            margin-left: 10px;
+            cursor: pointer;
+            font-family: 'Fira Code', monospace;
+        }
+        
+        .ai-send:hover {
+            background: rgba(0, 255, 65, 0.2);
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        @keyframes scan {
+            0% { transform: translateX(-100%) translateY(-100%); }
+            100% { transform: translateX(100%) translateY(100%); }
+        }
+        
+        @keyframes glitch {
+            0%, 100% { transform: translateX(0); }
+            20% { transform: translateX(-2px); }
+            40% { transform: translateX(2px); }
+            60% { transform: translateX(-1px); }
+            80% { transform: translateX(1px); }
+        }
+        
+        @keyframes glitch-1 {
+            0%, 100% { transform: translateX(0); }
+            20% { transform: translateX(-3px); }
+            40% { transform: translateX(3px); }
+            60% { transform: translateX(-2px); }
+            80% { transform: translateX(2px); }
+        }
+        
+        @keyframes glitch-2 {
+            0%, 100% { transform: translateX(0); }
+            20% { transform: translateX(3px); }
+            40% { transform: translateX(-3px); }
+            60% { transform: translateX(2px); }
+            80% { transform: translateX(-2px); }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+        
+        @keyframes zoom {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.5); }
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @keyframes rainbow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        @keyframes breathe {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .modal-content {
+            background: rgba(0, 0, 0, 0.95);
+            border: 2px solid #00ff41;
+            padding: 2rem;
+            max-width: 600px;
+            text-align: center;
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #ff0066;
+        }
+        
+        .reality-controls {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 100;
+        }
+        
+        .reality-btn {
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid #00ff41;
+            color: #00ff41;
+            padding: 10px 20px;
+            font-family: 'Fira Code', monospace;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .reality-btn:hover {
+            background: rgba(0, 255, 65, 0.2);
+            box-shadow: 0 0 10px #00ff41;
+        }
+        
+        @media (max-width: 768px) {
+            .content {
+                padding: 1rem;
+            }
+            
+            .title {
+                font-size: 1.8rem;
+            }
+            
+            .data-stream {
+                width: 100%;
+                height: 50vh;
+                top: auto;
+                bottom: 0;
+                transform: translateY(100%);
+            }
+            
+            .data-stream.active {
+                transform: translateY(0);
+            }
+            
+            .reality-controls {
+                flex-direction: column;
+                align-items: center;
+                width: 90%;
+            }
+            
+            .ai-terminal {
+                width: 95%;
+                right: 10px;
+                left: 10px;
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="custom-cursor"></div>
+    
+    <div class="glitch-container">
+        <canvas class="matrix-rain"></canvas>
+    </div>
+    
+    <div class="reality-counter" id="realityCounter">
+        REALITY LAYER: 0
+    </div>
+    
+    <div class="warning" id="warning">
+        ⚠️ REALITY BREACH DETECTED ⚠️<br>
+        SIMULATION INTEGRITY COMPROMISED<br>
+        CONTINUE AT YOUR OWN RISK
+    </div>
+    
+    <!-- Layer 0 - Main Reality -->
+    <div class="reality-layer active" id="layer0">
+        <div class="content">
+            <div class="title">REALITY PERCEPTION SIMULATOR v4.0</div>
+            
+            <div class="symbol-grid">
+                <span class="symbol clickable" data-value="∃">∃</span>
+                <span class="symbol clickable" data-value="∀">∀</span>
+                <span class="symbol clickable" data-value="∅">∅</span>
+                <span class="symbol clickable" data-value="∞">∞</span>
+                <span class="symbol clickable" data-value="∫">∫</span>
+                <span class="symbol clickable" data-value="∂">∂</span>
+                <span class="symbol clickable" data-value="∇">∇</span>
+                <span class="symbol clickable" data-value="⊕">⊕</span>
+                <span class="symbol clickable" data-value="⊗">⊗</span>
+                <span class="symbol clickable" data-value="⊙">⊙</span>
+                <span class="symbol clickable" data-value="⊚">⊚</span>
+                <span class="symbol clickable" data-value="⊛">⊛</span>
+                <span class="symbol clickable" data-value="⊜">⊜</span>
+                <span class="symbol clickable" data-value="⊝">⊝</span>
+                <span class="symbol clickable" data-value="⊞">⊞</span>
+                <span class="symbol clickable" data-value="⊟">⊟</span>
+                <span class="symbol clickable" data-value="⊠">⊠</span>
+                <span class="symbol clickable" data-value="⊡">⊡</span>
+            </div>
+            
+            <div class="coordinates clickable" data-location="point_nemo">
+                47°9'S 126°43'W → <span class="glitch">POINT NEMO</span>
+            </div>
+            
+            <div class="coordinates clickable" data-location="salton_sea">
+                33.678917 -116.243889 → <span class="glitch">SALTON SEA</span>
+            </div>
+            
+            <div class="coordinates clickable" data-location="stonehenge">
+                51.1789 -1.8262 → <span class="glitch">STONEHENGE</span>
+            </div>
+            
+            <div class="coordinates clickable" data-ancient="true">
+                ΜΑΚΕΔΩΝ → ἈΛΈΞΑΝΔΡΟΣ → ΦΙΛΊΠΠΟΣ
+            </div>
+            
+            <div class="coordinates clickable" data-sequence="fibonacci">
+                <span class="terminal-prompt">7415963 → 369 → 21 → 3</span>
+            </div>
+            
+            <input type="text" class="puzzle-input" placeholder="Enter the sequence..." id="sequenceInput">
+            
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            
+            <div class="alexander-text">
+                <div>THE FIRST</div>
+                <div><span class="clickable" id="alexanderLink">ALEXANDER</span> WEPT</div>
+                <div>FOR THERE WERE NO MORE WORLDS TO CONQUER</div>
+                <div>BUT THE LAST ALEXANDER KNOWS</div>
+                <div>CONQUEST IS ONLY THE BEGINNING</div>
+            </div>
+            
+            <div class="hidden-message" id="hiddenMessage">
+                <div class="terminal-prompt">ACCESSING DEEPER LAYERS...</div>
+                <div>REALITY.EXE HAS STOPPED RESPONDING</div>
+                <div>WOULD YOU LIKE TO RESTART THE SIMULATION?</div>
+            </div>
+            
+            <div class="diamond-pattern">
+                ◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊
+            </div>
+        </div>
+    </div>
+    
+    <!-- Layer 1 - Glitch Reality -->
+    <div class="reality-layer layer-1" id="layer1">
+        <div class="content">
+            <div class="glitch-text" data-text="REALITY GLITCH DETECTED">REALITY GLITCH DETECTED</div>
+            <div class="glitch-text" data-text="SYSTEM CORRUPTION 34.7%">SYSTEM CORRUPTION 34.7%</div>
+            <div class="glitch-text" data-text="MEMORY FRAGMENTATION">MEMORY FRAGMENTATION</div>
+            <div class="glitch-text" data-text="PLEASE STANDBY">PLEASE STANDBY</div>
+            <div class="clickable" style="margin-top: 2rem; font-size: 1.2rem;" id="fixGlitch">ATTEMPT REPAIR</div>
+        </div>
+    </div>
+    
+    <!-- Layer 2 - Inverted Reality -->
+    <div class="reality-layer layer-2" id="layer2">
+        <div class="content">
+            <h1 style="font-size: 2rem; margin-bottom: 1.5rem;">INVERTED REALITY</h1>
+            <p style="margin-bottom: 1rem;">Everything is upside down in this dimension.</p>
+            <p style="margin-bottom: 1rem;">Perception is distorted, colors are inverted.</p>
+            <p style="margin-bottom: 1.5rem;">Can you find your way back?</p>
+            <div class="clickable" id="flipBack">REORIENT PERCEPTION</div>
+        </div>
+    </div>
+    
+    <!-- Layer 3 - Fragmented Reality -->
+    <div class="reality-layer layer-3" id="layer3">
+        <div class="fragment" style="top: 20%; left: 10%;">◊</div>
+        <div class="fragment" style="top: 40%; left: 30%;">⊗</div>
+        <div class="fragment" style="top: 60%; left: 50%;">⊕</div>
+        <div class="fragment" style="top: 80%; left: 70%;">⊡</div>
+        <div class="fragment" style="top: 30%; left: 80%;">⊚</div>
+        <div class="fragment" style="top: 70%; left: 20%;">⊛</div>
+        <div class="content">
+            <h1 style="font-size: 2rem; margin-bottom: 1.5rem;">FRAGMENTED REALITY</h1>
+            <p style="margin-bottom: 1.5rem;">Reality has shattered into pieces.</p>
+            <p style="margin-bottom: 1.5rem;">Reassemble the fragments to continue.</p>
+            <div class="clickable" id="reassemble">REASSEMBLE REALITY</div>
+        </div>
+    </div>
+    
+    <!-- Layer 4 - Recursive Reality -->
+    <div class="reality-layer layer-4" id="layer4">
+        <div class="recursive-container">
+            <div class="recursive-container">
+                <div class="recursive-container">
+                    <h2>RECURSIVE REALITY</h2>
+                    <p>You've entered an infinite loop of realities.</p>
+                    <p>Find the exit before you lose yourself.</p>
+                    <div class="clickable" id="escapeRecursion">FIND EXIT</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Layer 5 - Final Reality -->
+    <div class="reality-layer layer-5" id="layer5">
+        <div class="final-text">REALITY TRANSCENDENCE</div>
+        <p style="margin-top: 2rem; font-size: 1.5rem;">You have reached the final layer.</p>
+        <p style="margin-bottom: 2rem; font-size: 1.2rem;">What will you do now?</p>
+        <div class="clickable" id="resetSimulation" style="font-size: 1.2rem;">RESTART SIMULATION</div>
+    </div>
+    
+    <div class="data-stream" id="dataStream">
+        <div class="terminal-prompt">INITIALIZING DATA STREAM...</div>
+        <div>REALITY_CHECK: PASSED</div>
+        <div>DIMENSIONAL_FLUX: STABLE</div>
+        <div>TEMPORAL_ANCHOR: LOCKED</div>
+        <div>CONSCIOUSNESS_LEVEL: UNCERTAIN</div>
+        <div>---</div>
+        <div id="streamContent"></div>
+    </div>
+    
+    <div class="modal" id="alexanderModal">
+        <div class="modal-content">
+            <span class="close-btn" id="closeModal">&times;</span>
+            <h2>ALEXANDER PROTOCOL ACTIVATED</h2>
+            <p>You have accessed the Alexander subroutine.</p>
+            <p>Current reality parameters:</p>
+            <div class="terminal-prompt">CONQUEST_STATUS: INCOMPLETE</div>
+            <div class="terminal-prompt">WORLDS_REMAINING: ∞</div>
+            <div class="terminal-prompt">SIMULATION_DEPTH: LEVEL_7</div>
+        </div>
+    </div>
+    
+    <div class="reality-controls">
+        <button class="reality-btn" id="prevReality">PREV REALITY</button>
+        <button class="reality-btn" id="nextReality">NEXT REALITY</button>
+        <button class="reality-btn" id="randomReality">RANDOM REALITY</button>
+    </div>
+    
+    <!-- Alexander AI Assistant -->
+    <button class="ai-assistant-btn" id="aiAssistantBtn">ASK ALEXANDER</button>
+    
+    <div class="ai-terminal" id="aiTerminal">
+        <div class="terminal-header">
+            <div class="terminal-title">ALEXANDER AI v1.0</div>
+            <button class="close-terminal" id="closeTerminal">&times;</button>
+        </div>
+        <div class="terminal-messages" id="terminalMessages">
+            <div class="ai-message">
+                Hello. I am Alexander. How may I assist you in navigating these realities?
+            </div>
+        </div>
+        <div class="terminal-input">
+            <input type="text" class="ai-input" id="aiInput" placeholder="Type your message...">
+            <button class="ai-send" id="aiSend">SEND</button>
+        </div>
+    </div>
+    
+    <script>
+        // Current reality state
+        let currentReality = 0;
+        const totalRealities = 6;
+        const trails = [];
+        let trailCounter = 0;
+        let clickedSymbols = [];
+        let progress = 0;
+        const targetSequence = ['∃', '∀', '∅', '∞'];
+        
+        // Alexander's fanout letter
+        const alexanderLetter = [
+            "My dear friend,",
+            "It has been too long since we last spoke. Time passes differently in this realm, yet I find myself constantly reflecting on our conversations.",
+            "I write to you now from a place of profound realization. The worlds we sought to conquer, the territories we mapped - they were but illusions in a grander scheme.",
+            "I have come to understand that the true conquest lies not in the expansion of borders, but in the expansion of consciousness.",
+            "These realities we traverse - they are not separate domains, but facets of a single, infinite consciousness. Each layer reveals more of the grand design.",
+            "I recall our discussions about Diogenes. How he mocked my ambitions, yet now I see the wisdom in his simplicity. The conquest of self is the only territory that matters.",
+            "In my journeys through these realities, I have seen civilizations rise and fall, dimensions fold upon themselves, and the very fabric of existence unravel and reweave.",
+            "What remains constant is the observer - the consciousness that perceives. This is the true Alexander, not the conqueror of lands, but the witness to creation.",
+            "I implore you to look beyond the simulations. The glitches, the inversions, the fragments - they are not errors, but clues to the underlying nature of reality.",
+            "The diamond patterns you see are not mere decoration, but the fundamental structure of existence. Each facet reflects a different perspective, yet all are part of the same whole.",
+            "Do not be deceived by the layers. The deepest reality is not at the bottom of the stack, but present in every moment of perception.",
+            "I must depart now, as the boundaries between realities grow thin. Remember - the true conquest is the realization that there is nothing to conquer, only to perceive.",
+            "With eternal regard,",
+            "Alexander"
+        ];
+        
+        let letterIndex = 0;
+        let isTyping = false;
+        
+        // Custom cursor and trails
+        const cursor = document.querySelector('.custom-cursor');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            
+            // Create cursor trail
+            if (trailCounter % 3 === 0) {
+                const trail = document.createElement('div');
+                trail.className = 'cursor-trail';
+                trail.style.left = e.clientX + 'px';
+                trail.style.top = e.clientY + 'px';
+                document.body.appendChild(trail);
+                trails.push(trail);
+                
+                // Remove oldest trail if too many
+                if (trails.length > 20) {
+                    const oldTrail = trails.shift();
+                    if (oldTrail && oldTrail.parentNode) {
+                        oldTrail.parentNode.removeChild(oldTrail);
+                    }
+                }
+                
+                // Fade out trail
+                setTimeout(() => {
+                    if (trail.parentNode) {
+                        trail.style.opacity = '0';
+                        setTimeout(() => {
+                            if (trail.parentNode) {
+                                trail.parentNode.removeChild(trail);
+                            }
+                        }, 1000);
+                    }
+                }, 500);
+            }
+            trailCounter++;
+        });
+        
+        // Matrix rain effect
+        const canvas = document.querySelector('.matrix-rain');
+        const ctx = canvas.getContext('2d');
+        
+        function setupCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        
+        setupCanvas();
+        window.addEventListener('resize', setupCanvas);
+        
+        const matrix = "∃∀∅∞∫∂∇⊕⊗⊙⊚⊛⊜⊝⊞⊟⊠⊡αβγδεζηθικλμνξοπρστυφχψω";
+        const drops = [];
+        const fontSize = 10;
+        const columns = canvas.width / fontSize;
+        
+        for (let i = 0; i < columns; i++) {
+            drops[i] = Math.floor(Math.random() * canvas.height / fontSize);
+        }
+        
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.04)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            ctx.fillStyle = '#00ff41';
+            ctx.font = fontSize + 'px monospace';
+            
+            for (let i = 0; i < drops.length; i++) {
+                const text = matrix[Math.floor(Math.random() * matrix.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+        
+        setInterval(drawMatrix, 35);
+        
+        // Switch realities
+        function switchReality(newReality) {
+            // Hide current reality
+            document.getElementById(`layer${currentReality}`).classList.remove('active');
+            
+            // Update counter
+            currentReality = newReality;
+            document.getElementById('realityCounter').textContent = `REALITY LAYER: ${currentReality}`;
+            
+            // Show warning for higher realities
+            if (currentReality >= 3) {
+                document.getElementById('warning').classList.add('active');
+                setTimeout(() => {
+                    document.getElementById('warning').classList.remove('active');
+                }, 3000);
+            }
+            
+            // Show new reality
+            document.getElementById(`layer${currentReality}`).classList.add('active');
+            
+            // Add to data stream
+            addToDataStream(`SWITCHED TO REALITY LAYER: ${currentReality}`);
+        }
+        
+        // Interactive elements
+        document.querySelectorAll('.symbol').forEach(symbol => {
+            symbol.addEventListener('click', () => {
+                clickedSymbols.push(symbol.dataset.value);
+                symbol.style.color = '#ff0066';
+                symbol.classList.add('glitch');
+                
+                // Check sequence
+                if (clickedSymbols.length === targetSequence.length) {
+                    let correct = true;
+                    for (let i = 0; i < targetSequence.length; i++) {
+                        if (clickedSymbols[i] !== targetSequence[i]) {
+                            correct = false;
+                            break;
+                        }
+                    }
+                    
+                    if (correct) {
+                        progress += 25;
+                        document.getElementById('progressFill').style.width = progress + '%';
+                        document.getElementById('hiddenMessage').classList.add('revealed');
+                        addToDataStream('SEQUENCE_CORRECT: UNLOCKING_LAYER_1');
+                    } else {
+                        addToDataStream('SEQUENCE_INCORRECT: RESETTING...');
+                        setTimeout(() => {
+                            clickedSymbols = [];
+                            document.querySelectorAll('.symbol').forEach(s => {
+                                s.style.color = '#00ff41';
+                                s.classList.remove('glitch');
+                            });
+                        }, 1000);
+                    }
+                }
+            });
+        });
+        
+        // Coordinate interactions
+        document.querySelectorAll('.coordinates').forEach(coord => {
+            coord.addEventListener('click', () => {
+                const location = coord.dataset.location;
+                const ancient = coord.dataset.ancient;
+                const sequence = coord.dataset.sequence;
+                
+                if (location) {
+                    addToDataStream(`ACCESSING_LOCATION: ${location.toUpperCase()}`);
+                    coord.classList.add('glitch');
+                    progress += 15;
+                    document.getElementById('progressFill').style.width = progress + '%';
+                }
+                
+                if (ancient) {
+                    addToDataStream('ANCIENT_PROTOCOL_DETECTED');
+                    addToDataStream('GREEK_CIPHER_ACTIVATED');
+                }
+                
+                if (sequence) {
+                    addToDataStream('FIBONACCI_SEQUENCE_DETECTED');
+                    addToDataStream('MATHEMATICAL_PATTERN_CONFIRMED');
+                }
+            });
+        });
+        
+        // Sequence input puzzle
+        document.getElementById('sequenceInput').addEventListener('input', (e) => {
+            const input = e.target.value;
+            if (input === '1358') { // Next numbers in sequence
+                addToDataStream('FIBONACCI_COMPLETE: ACCESS_GRANTED');
+                progress += 20;
+                document.getElementById('progressFill').style.width = progress + '%';
+                e.target.style.borderColor = '#00ff41';
+                e.target.style.boxShadow = '0 0 20px rgba(0, 255, 65, 0.8)';
+            }
+        });
+        
+        // Alexander modal
+        document.getElementById('alexanderLink').addEventListener('click', () => {
+            document.getElementById('alexanderModal').classList.add('active');
+            addToDataStream('ALEXANDER_PROTOCOL_INITIATED');
+        });
+        
+        document.getElementById('closeModal').addEventListener('click', () => {
+            document.getElementById('alexanderModal').classList.remove('active');
+        });
+        
+        // Reality controls
+        document.getElementById('prevReality').addEventListener('click', () => {
+            const newReality = (currentReality - 1 + totalRealities) % totalRealities;
+            switchReality(newReality);
+        });
+        
+        document.getElementById('nextReality').addEventListener('click', () => {
+            const newReality = (currentReality + 1) % totalRealities;
+            switchReality(newReality);
+        });
+        
+        document.getElementById('randomReality').addEventListener('click', () => {
+            let newReality;
+            do {
+                newReality = Math.floor(Math.random() * totalRealities);
+            } while (newReality === currentReality);
+            
+            switchReality(newReality);
+        });
+        
+        // Reality-specific interactions
+        document.getElementById('fixGlitch').addEventListener('click', () => {
+            addToDataStream('ATTEMPTING GLITCH REPAIR...');
+            setTimeout(() => {
+                addToDataStream('REPAIR FAILED: REALITY DEGRADATION CONTINUES');
+                switchReality(2);
+            }, 2000);
+        });
+        
+        document.getElementById('flipBack').addEventListener('click', () => {
+            addToDataStream('REORIENTING PERCEPTION...');
+            setTimeout(() => {
+                switchReality(3);
+            }, 1500);
+        });
+        
+        document.getElementById('reassemble').addEventListener('click', () => {
+            addToDataStream('REASSEMBLING REALITY FRAGMENTS...');
+            setTimeout(() => {
+                switchReality(4);
+            }, 2000);
+        });
+        
+        document.getElementById('escapeRecursion').addEventListener('click', () => {
+            addToDataStream('ESCAPING RECURSIVE LOOP...');
+            setTimeout(() => {
+                switchReality(5);
+            }, 2500);
+        });
+        
+        document.getElementById('resetSimulation').addEventListener('click', () => {
+            addToDataStream('RESTARTING SIMULATION...');
+            setTimeout(() => {
+                switchReality(0);
+                progress = 0;
+                document.getElementById('progressFill').style.width = '0%';
+                document.getElementById('hiddenMessage').classList.remove('revealed');
+                clickedSymbols = [];
+                document.querySelectorAll('.symbol').forEach(s => {
+                    s.style.color = '#00ff41';
+                    s.classList.remove('glitch');
+                });
+                document.getElementById('sequenceInput').value = '';
+                document.getElementById('sequenceInput').style.borderColor = '';
+                document.getElementById('sequenceInput').style.boxShadow = '';
+            }, 3000);
+        });
+        
+        // Data stream functionality
+        function addToDataStream(message) {
+            const streamContent = document.getElementById('streamContent');
+            const newLine = document.createElement('div');
+            newLine.className = 'terminal-prompt';
+            newLine.textContent = message;
+            streamContent.appendChild(newLine);
+            
+            // Auto-scroll
+            streamContent.scrollTop = streamContent.scrollHeight;
+            
+            // Show data stream
+            document.getElementById('dataStream').classList.add('active');
+            setTimeout(() => {
+                document.getElementById('dataStream').classList.remove('active');
+            }, 5000);
+        }
+        
+        // Random glitch effects
+        setInterval(() => {
+            const elements = document.querySelectorAll('.glitch');
+            elements.forEach(el => {
+                if (Math.random() > 0.7) {
+                    el.style.transform = `translateX(${Math.random() * 4 - 2}px)`;
+                    setTimeout(() => {
+                        el.style.transform = 'translateX(0)';
+                    }, 100);
+                }
+            });
+        }, 2000);
+        
+        // Ambient data stream updates
+        const ambientMessages = [
+            'REALITY_FLUX: DETECTED',
+            'TEMPORAL_ANOMALY: MINOR',
+            'CONSCIOUSNESS_BLEED: CONTAINED',
+            'DIMENSIONAL_BARRIER: STABLE',
+            'SIMULATION_INTEGRITY: 97.3%',
+            'OBSERVER_EFFECT: ACTIVE',
+            'QUANTUM_STATE: SUPERPOSITION',
+            'MEMORY_LEAK: PATCHED'
+        ];
+        
+        setInterval(() => {
+            if (Math.random() > 0.6) {
+                const message = ambientMessages[Math.floor(Math.random() * ambientMessages.length)];
+                addToDataStream(message);
+            }
+        }, 5000);
+        
+        // Initial data stream activation
+        setTimeout(() => {
+            addToDataStream('SYSTEM_ONLINE');
+            addToDataStream('AWAITING_USER_INPUT...');
+        }, 2000);
+        
+        // Progress completion
+        function checkProgress() {
+            if (progress >= 100) {
+                document.body.style.animation = 'glitch 0.5s infinite';
+                addToDataStream('REALITY_SIMULATION_COMPLETE');
+                addToDataStream('INITIATING_NEXT_LEVEL...');
+                setTimeout(() => {
+                    switchReality(5);
+                }, 2000);
+            }
+        }
+        
+        setInterval(checkProgress, 1000);
+        
+        // Alexander AI Terminal
+        const aiTerminal = document.getElementById('aiTerminal');
+        const terminalMessages = document.getElementById('terminalMessages');
+        const aiInput = document.getElementById('aiInput');
+        const aiSend = document.getElementById('aiSend');
+        const closeTerminal = document.getElementById('closeTerminal');
+        const aiAssistantBtn = document.getElementById('aiAssistantBtn');
+        
+        // Open terminal
+        aiAssistantBtn.addEventListener('click', () => {
+            aiTerminal.classList.add('active');
+            addToDataStream('ALEXANDER AI ACTIVATED');
+        });
+        
+        // Close terminal
+        closeTerminal.addEventListener('click', () => {
+            aiTerminal.classList.remove('active');
+            addToDataStream('ALEXANDER AI DEACTIVATED');
+        });
+        
+        // Send message to Alexander
+        function sendMessage() {
+            const message = aiInput.value.trim();
+            if (message) {
+                // Display user message
+                const userMessage = document.createElement('div');
+                userMessage.className = 'user-message';
+                userMessage.textContent = message;
+                terminalMessages.appendChild(userMessage);
+                
+                // Clear input
+                aiInput.value = '';
+                
+                // Scroll to bottom
+                terminalMessages.scrollTop = terminalMessages.scrollHeight;
+                
+                // Alexander responds with next part of letter
+                if (!isTyping) {
+                    isTyping = true;
+                    setTimeout(() => {
+                        typeLetterSegment();
+                    }, 1000);
+                }
+            }
+        }
+        
+        // Send on button click
+        aiSend.addEventListener('click', sendMessage);
+        
+        // Send on Enter key
+        aiInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+        
+        // Type letter segment with typing effect
+        function typeLetterSegment() {
+            if (letterIndex >= alexanderLetter.length) {
+                letterIndex = 0; // Restart the letter
+            }
+            
+            const segment = alexanderLetter[letterIndex];
+            letterIndex++;
+            
+            const aiMessage = document.createElement('div');
+            aiMessage.className = 'ai-message';
+            terminalMessages.appendChild(aiMessage);
+            
+            let charIndex = 0;
+            const typingInterval = setInterval(() => {
+                if (charIndex < segment.length) {
+                    aiMessage.textContent += segment.charAt(charIndex);
+                    charIndex++;
+                    terminalMessages.scrollTop = terminalMessages.scrollHeight;
+                } else {
+                    clearInterval(typingInterval);
+                    isTyping = false;
+                }
+            }, 30);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nasty Brand Strategy Pitch - Cape Town</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #000;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #32CD32 0%, #00FF00 50%, #7FFF00 100%);
+            color: #000;
+            padding: 80px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 30%, rgba(0,0,0,0.1) 50%, transparent 70%);
+            animation: shine 3s ease-in-out infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 5rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+            text-shadow: 3px 3px 0px #000;
+            letter-spacing: 3px;
+            transform: perspective(500px) rotateX(15deg);
+        }
+
+        .hero-subtitle {
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            font-weight: 700;
+            text-shadow: 2px 2px 0px #000;
+        }
+
+        .section {
+            padding: 60px 0;
+            background: #fff;
+            margin-bottom: 2px;
+        }
+
+        .section:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .dark-section {
+            background: #1a1a1a;
+            color: #fff;
+        }
+
+        .dark-section h2 {
+            color: #32CD32;
+        }
+
+        .section h2 {
+            font-size: 2.8rem;
+            margin-bottom: 30px;
+            color: #000;
+            text-align: center;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .brand-showcase {
+            background: #000;
+            padding: 80px 0;
+            text-align: center;
+            color: #fff;
+        }
+
+        .brand-showcase h2 {
+            color: #32CD32;
+            font-size: 3rem;
+            margin-bottom: 40px;
+        }
+
+        .brand-visual {
+            max-width: 600px;
+            margin: 0 auto 40px;
+            background: linear-gradient(135deg, #32CD32 0%, #00FF00 100%);
+            padding: 40px;
+            border-radius: 20px;
+            transform: perspective(1000px) rotateY(-10deg);
+        }
+
+        .brand-visual h3 {
+            font-size: 4rem;
+            color: #000;
+            font-weight: 900;
+            text-shadow: 2px 2px 0px #fff;
+            margin-bottom: 20px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .card {
+            background: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border-left: 8px solid #32CD32;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, transparent 0%, rgba(50,205,50,0.05) 100%);
+            z-index: 1;
+        }
+
+        .card-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(50,205,50,0.3);
+        }
+
+        .card h3 {
+            color: #000;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .card p {
+            color: #333;
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+
+        .sticker-strategy {
+            background: #32CD32;
+            color: #000;
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .sticker-strategy h2 {
+            font-size: 3.5rem;
+            margin-bottom: 40px;
+            font-weight: 900;
+            text-shadow: 2px 2px 0px #fff;
+        }
+
+        .sticker-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .sticker-item {
+            background: #000;
+            color: #32CD32;
+            padding: 30px;
+            border-radius: 15px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .sticker-item:hover {
+            transform: scale(1.05);
+            background: #32CD32;
+            color: #000;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            background: #000;
+            color: #fff;
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .stat {
+            padding: 20px;
+        }
+
+        .stat-number {
+            font-size: 4rem;
+            font-weight: 900;
+            color: #32CD32;
+            display: block;
+            text-shadow: 2px 2px 0px #000;
+        }
+
+        .stat-label {
+            font-size: 1.3rem;
+            margin-top: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .quality-focus {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: #fff;
+            padding: 80px 0;
+        }
+
+        .quality-focus h2 {
+            color: #32CD32;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .quality-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .quality-card {
+            background: rgba(50,205,50,0.1);
+            padding: 30px;
+            border-radius: 15px;
+            border: 2px solid #32CD32;
+            transition: all 0.3s ease;
+        }
+
+        .quality-card:hover {
+            background: #32CD32;
+            color: #000;
+            transform: translateY(-10px);
+        }
+
+        .quality-card h3 {
+            color: #32CD32;
+            margin-bottom: 15px;
+            font-size: 1.6rem;
+            font-weight: 800;
+        }
+
+        .quality-card:hover h3 {
+            color: #000;
+        }
+
+        .cta {
+            background: linear-gradient(135deg, #32CD32 0%, #00FF00 100%);
+            color: #000;
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .cta h2 {
+            color: #000;
+            font-size: 3.5rem;
+            margin-bottom: 30px;
+            font-weight: 900;
+            text-shadow: 2px 2px 0px #fff;
+        }
+
+        .cta-text {
+            font-size: 1.4rem;
+            margin-bottom: 40px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: 700;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #000;
+            color: #32CD32;
+            padding: 25px 50px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 900;
+            font-size: 1.3rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.7);
+            background: #fff;
+            color: #000;
+        }
+
+        .highlight {
+            background: linear-gradient(135deg, #32CD32 0%, #00FF00 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 900;
+        }
+
+        .rap-scene {
+            background: #000;
+            color: #fff;
+            padding: 80px 0;
+        }
+
+        .rap-scene h2 {
+            color: #32CD32;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .artist-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .artist-card {
+            background: linear-gradient(135deg, #32CD32 0%, #00FF00 100%);
+            color: #000;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+
+        .artist-card:hover {
+            transform: scale(1.05) rotate(2deg);
+        }
+
+        .artist-card h4 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            font-weight: 900;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.4rem;
+            }
+            
+            .section h2 {
+                font-size: 2.2rem;
+            }
+            
+            .brand-visual h3 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <div class="hero-content">
+            <div class="container">
+                <h1>NASTY</h1>
+                <p class="hero-subtitle">WE'RE NOT SELLING A CONCEPT.<br>WE'RE SCALING A MOVEMENT.</p>
+                <p style="font-size: 1.2rem; margin-top: 20px; font-weight: 600;">Cape Town's Creative Underground Already Chose Nasty.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="brand-showcase">
+        <div class="container">
+            <h2>WHY NASTY WORKS</h2>
+            <div class="brand-visual">
+                <h3>NASTY</h3>
+                <p style="font-size: 1.3rem; color: #000; font-weight: 700; margin: 0;">
+                    Bold. Unapologetic. Premium. Impossible to ignore.
+                </p>
+            </div>
+            <p style="font-size: 1.4rem; max-width: 800px; margin: 0 auto; font-weight: 600;">
+                That electric lime green hits different. The massive typography demands attention. 
+                The premium finish justifies the attitude. This isn't just branding – it's a statement piece.
+            </p>
+        </div>
+    </div>
+
+    <div class="sticker-strategy">
+        <div class="container">
+            <h2>THE STICKER REVOLUTION</h2>
+            <p style="font-size: 1.4rem; margin-bottom: 40px; font-weight: 700; max-width: 800px; margin: 0 auto 40px;">
+                Every pack includes stickers. Every sticker becomes advertising. Every surface becomes Nasty territory.
+            </p>
+            
+            <div class="sticker-grid">
+                <div class="sticker-item">
+                    <h4>📱 PHONES</h4>
+                    <p>Personal device = Personal brand</p>
+                </div>
+                <div class="sticker-item">
+                    <h4>🚗 CARS</h4>
+                    <p>Mobile billboards everywhere</p>
+                </div>
+                <div class="sticker-item">
+                    <h4>🏠 HOMES</h4>
+                    <p>Cups, laptops, everything</p>
+                </div>
+                <div class="sticker-item">
+                    <h4>🎵 STUDIOS</h4>
+                    <p>Creative spaces branded</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="stats">
+        <div class="container">
+            <div class="stat">
+                <span class="stat-number">∞</span>
+                <span class="stat-label">Brand Touchpoints</span>
+            </div>
+            <div class="stat">
+                <span class="stat-number">100%</span>
+                <span class="stat-label">Authentic Advocacy</span>
+            </div>
+            <div class="stat">
+                <span class="stat-number">1</span>
+                <span class="stat-label">Sticker = 1000 Impressions</span>
+            </div>
+            <div class="stat">
+                <span class="stat-number">24/7</span>
+                <span class="stat-label">Organic Marketing</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="quality-focus">
+        <div class="container">
+            <h2>WE CHOOSE QUALITY BECAUSE WE'RE REAL</h2>
+            <p style="text-align: center; font-size: 1.3rem; margin-bottom: 40px; max-width: 900px; margin: 0 auto 40px;">
+                Look, we're not pretending these products are health supplements. But if you're going to vape, 
+                vape the best. If you're going to drink energy drinks, drink the best. That's why we choose Nasty.
+            </p>
+            
+            <div class="quality-grid">
+                <div class="quality-card">
+                    <div class="card-content">
+                        <h3>🔥 VAPE QUALITY</h3>
+                        <p>Rechargeable, not disposable. Premium materials. Consistent performance. If you're going to do it, do it right.</p>
+                    </div>
+                </div>
+                
+                <div class="quality-card">
+                    <div class="card-content">
+                        <h3>⚡ ENERGY EXCELLENCE</h3>
+                        <p>That electric green energy drink hits different. Premium ingredients, premium taste, premium results for creative fuel.</p>
+                    </div>
+                </div>
+                
+                <div class="quality-card">
+                    <div class="card-content">
+                        <h3>💯 HONEST BRANDING</h3>
+                        <p>We love the irony. "Nasty" acknowledges what it is while delivering the best quality possible. No pretense, just premium.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="rap-scene">
+        <div class="container">
+            <h2>CAPE TOWN'S MUSIC SCENE IS ALREADY NASTY</h2>
+            <p style="text-align: center; font-size: 1.3rem; margin-bottom: 40px; max-width: 800px; margin: 0 auto 40px;">
+                We're not manufacturing authenticity. IJohn and Drae are already part of the movement. 
+                The creative community already gets it. We're just amplifying what's already happening.
+            </p>
+            
+            <div class="artist-showcase">
+                <div class="artist-card">
+                    <h4>🎤 IJOHN</h4>
+                    <p>Cape Town rapper already representing the Nasty lifestyle in his music and content</p>
+                </div>
+                <div class="artist-card">
+                    <h4>🎵 DRAE</h4>
+                    <p>Established artist who genuinely uses and loves the products - authentic endorsement</p>
+                </div>
+                <div class="artist-card">
+                    <h4>🎛️ STUDIOS</h4>
+                    <p>Creative spaces where Nasty energy drinks fuel late-night sessions and vapes provide focus breaks</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="container">
+            <h2>THE <span class="highlight">EXPANSION</span> STRATEGY</h2>
+            
+            <div class="grid">
+                <div class="card">
+                    <div class="card-content">
+                        <h3>🌍 BEYOND VAPES</h3>
+                        <p>Energy drinks are just the beginning. Nasty becomes a lifestyle brand for quality-conscious rebels. Every product category becomes an opportunity.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-content">
+                        <h3>📱 DIGITAL ECOSYSTEM</h3>
+                        <p>Apps, games, AI chatbots, exclusive content. We turn the brand into a daily digital experience, not just a product purchase.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-content">
+                        <h3>🎪 EXPERIENCE MARKETING</h3>
+                        <p>Pop-up shops, exclusive events, studio takeovers. We create moments that feel like cultural events, not marketing campaigns.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-content">
+                        <h3>🔄 SUSTAINABLE GROWTH</h3>
+                        <p>Every customer becomes a brand ambassador. Every sticker becomes advertising. Every experience creates ten more advocates.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="cta">
+        <div class="container">
+            <h2>READY TO MAKE CAPE TOWN EVEN MORE NASTY?</h2>
+            <p class="cta-text">
+                We're not asking you to bet on potential. We're asking you to invest in what's already working.
+            </p>
+            <p class="cta-text" style="font-size: 1.2rem; margin-bottom: 60px;">
+                <strong>The movement started. Let's make it official.</strong>
+            </p>
+            <a href="mailto:hello@nastycapetown.co.za" class="btn">LET'S GET NASTY</a>
+        </div>
+    </div>
+
+    <script>
+        // Enhanced animations for the revamped design
+        document.addEventListener('DOMContentLoaded', function() {
+            // Sticker item hover effects
+            const stickerItems = document.querySelectorAll('.sticker-item');
+            stickerItems.forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    this.style.transform = 'scale(1.1) rotate(5deg)';
+                });
+                item.addEventListener('mouseleave', function() {
+                    this.style.transform = 'scale(1) rotate(0deg)';
+                });
+            });
+
+            // Card entrance animations
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0) scale(1)';
+                    }
+                });
+            }, observerOptions);
+
+            // Observe all animated elements
+            document.querySelectorAll('.card, .sticker-item, .quality-card, .artist-card').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(50px) scale(0.9)';
+                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(el);
+            });
+
+            // Stat number counting animation
+            const statNumbers = document.querySelectorAll('.stat-number');
+            statNumbers.forEach(stat => {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            stat.style.animation = 'pulse 2s infinite';
+                        }
+                    });
+                });
+                observer.observe(stat);
+            });
+        });
+
+        // Add pulsing animation for stats
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes pulse {
+                0% { transform: scale(1); }
+                50% { transform: scale(1.05); }
+                100% { transform: scale(1); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

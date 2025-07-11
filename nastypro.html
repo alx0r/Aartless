@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE NASTIEST | Underground Creative Collective</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200;400;700&family=Montserrat:wght@300;500;800&family=Roboto+Mono:wght@300;700&display=swap');
+        
+        :root {
+            --nasty-green: #39FF14;
+            --dark-bg: #0a0a0a;
+            --darker-bg: #050505;
+            --gray: #1a1a1a;
+            --accent: #ff0066;
+            --text: #e0e0e0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: var(--dark-bg);
+            color: var(--text);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* ANIMATED BACKGROUND */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(57, 255, 20, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(57, 255, 20, 0.05) 0%, transparent 20%);
+            animation: bg-pulse 15s infinite alternate;
+        }
+        
+        @keyframes bg-pulse {
+            0% { opacity: 0.3; }
+            100% { opacity: 0.7; }
+        }
+        
+        /* HEADER & NAV */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 20px 0;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+            background: rgba(10, 10, 10, 0.8);
+            border-bottom: 1px solid rgba(57, 255, 20, 0.2);
+        }
+        
+        .header-scrolled {
+            padding: 15px 0;
+            box-shadow: 0 5px 30px rgba(0,0,0,0.5);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-family: 'Oswald', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--nasty-green);
+            text-decoration: none;
+            position: relative;
+            letter-spacing: -2px;
+            text-shadow: 0 0 15px rgba(57, 255, 20, 0.7);
+        }
+        
+        .logo:hover {
+            animation: logo-glitch 0.5s infinite;
+        }
+        
+        @keyframes logo-glitch {
+            0% { text-shadow: 0 0 15px var(--nasty-green); }
+            25% { transform: translateX(-3px); }
+            50% { transform: translateX(3px); color: var(--accent); }
+            75% { transform: translateY(-3px); }
+            100% { transform: translateY(3px); }
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            font-weight: 500;
+            letter-spacing: 1px;
+            position: relative;
+            padding: 5px 0;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--nasty-green);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: var(--nasty-green);
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        /* HERO SECTION */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            max-width: 800px;
+        }
+        
+        .hero-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: clamp(4rem, 12vw, 10rem);
+            font-weight: 700;
+            color: var(--nasty-green);
+            line-height: 0.9;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: -3px;
+            text-shadow: 0 0 30px rgba(57, 255, 20, 0.8);
+        }
+        
+        .hero-subtitle {
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            font-weight: 300;
+            margin-bottom: 30px;
+            color: var(--text);
+            max-width: 600px;
+        }
+        
+        .hero-tagline {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            font-weight: 400;
+            color: var(--nasty-green);
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 15px 40px;
+            background: transparent;
+            color: var(--nasty-green);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            border: 2px solid var(--nasty-green);
+            border-radius: 0;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            letter-spacing: 2px;
+        }
+        
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--nasty-green);
+            transition: all 0.4s ease;
+            z-index: -1;
+        }
+        
+        .cta-button:hover {
+            color: var(--dark-bg);
+        }
+        
+        .cta-button:hover::before {
+            left: 0;
+        }
+        
+        .hero-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            opacity: 0.1;
+            background-image: 
+                linear-gradient(rgba(57, 255, 20, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(57, 255, 20, 0.1) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+        
+        /* SECTION STYLES */
+        .section {
+            padding: 120px 0;
+            position: relative;
+        }
+        
+        .section-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 700;
+            color: var(--nasty-green);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+        }
+        
+        .section-subtitle {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            font-weight: 300;
+            margin-bottom: 60px;
+            max-width: 800px;
+        }
+        
+        .divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--nasty-green), transparent);
+            margin: 60px 0;
+            width: 100%;
+        }
+        
+        /* MOVEMENT SECTION */
+        .movement {
+            background: var(--darker-bg);
+        }
+        
+        .movement-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+        
+        .movement-card {
+            background: rgba(30, 30, 30, 0.5);
+            padding: 30px;
+            border-left: 3px solid var(--nasty-green);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+        
+        .movement-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            border-left-width: 6px;
+        }
+        
+        .movement-card h3 {
+            font-size: 1.8rem;
+            color: var(--nasty-green);
+            margin-bottom: 15px;
+            font-family: 'Oswald', sans-serif;
+        }
+        
+        /* TEAM SECTION */
+        .team {
+            background: var(--dark-bg);
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
+        }
+        
+        .team-member {
+            background: rgba(20, 20, 20, 0.7);
+            padding: 30px;
+            border: 1px solid rgba(57, 255, 20, 0.2);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(5px);
+        }
+        
+        .team-member:hover {
+            border-color: var(--nasty-green);
+            transform: translateY(-5px);
+        }
+        
+        .team-member h3 {
+            font-size: 1.8rem;
+            color: var(--nasty-green);
+            margin-bottom: 10px;
+            font-family: 'Oswald', sans-serif;
+        }
+        
+        .team-member .role {
+            font-size: 1.1rem;
+            color: var(--text);
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        
+        .team-member .studio {
+            font-family: 'Roboto Mono', monospace;
+            color: var(--nasty-green);
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        /* SERVICES SECTION */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+        
+        .service-category {
+            background: rgba(25, 25, 25, 0.7);
+            padding: 40px;
+            border: 1px solid rgba(57, 255, 20, 0.1);
+            transition: all 0.4s ease;
+            backdrop-filter: blur(5px);
+        }
+        
+        .service-category:hover {
+            border-color: var(--nasty-green);
+            transform: scale(1.02);
+        }
+        
+        .service-category h3 {
+            font-size: 1.8rem;
+            color: var(--nasty-green);
+            margin-bottom: 20px;
+            font-family: 'Oswald', sans-serif;
+        }
+        
+        .service-list {
+            list-style: none;
+        }
+        
+        .service-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(57, 255, 20, 0.1);
+            color: var(--text);
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .service-list li::before {
+            content: '▹';
+            color: var(--nasty-green);
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+        
+        /* COLLABORATION SECTION */
+        .collab {
+            background: var(--darker-bg);
+        }
+        
+        .collab-levels {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
+        }
+        
+        .collab-card {
+            background: rgba(30, 30, 30, 0.7);
+            padding: 40px 30px;
+            border: 1px solid rgba(57, 255, 20, 0.2);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(5px);
+        }
+        
+        .collab-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--nasty-green);
+        }
+        
+        .collab-card h3 {
+            font-size: 1.8rem;
+            color: var(--nasty-green);
+            margin-bottom: 20px;
+            font-family: 'Oswald', sans-serif;
+        }
+        
+        .collab-card ul {
+            list-style: none;
+        }
+        
+        .collab-card li {
+            padding: 8px 0;
+            display: flex;
+            align-items: center;
+        }
+        
+        .collab-card li::before {
+            content: '•';
+            color: var(--nasty-green);
+            margin-right: 10px;
+            font-size: 1.5rem;
+        }
+        
+        .level-number {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 5rem;
+            font-weight: 700;
+            color: rgba(57, 255, 20, 0.1);
+            z-index: -1;
+        }
+        
+        /* CONTACT SECTION */
+        .contact {
+            background: var(--dark-bg);
+            text-align: center;
+            padding: 100px 0;
+        }
+        
+        .contact-title {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            color: var(--nasty-green);
+            margin-bottom: 40px;
+        }
+        
+        .contact-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 60px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .contact-button {
+            display: inline-block;
+            padding: 18px 50px;
+            background: transparent;
+            color: var(--nasty-green);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            border: 2px solid var(--nasty-green);
+            transition: all 0.4s ease;
+            letter-spacing: 3px;
+        }
+        
+        .contact-button:hover {
+            background: var(--nasty-green);
+            color: var(--dark-bg);
+        }
+        
+        /* FOOTER */
+        footer {
+            background: var(--darker-bg);
+            padding: 60px 0 30px;
+            border-top: 1px solid rgba(57, 255, 20, 0.2);
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-logo {
+            font-family: 'Oswald', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--nasty-green);
+            margin-bottom: 20px;
+        }
+        
+        .footer-tagline {
+            font-size: 1.1rem;
+            max-width: 300px;
+            opacity: 0.8;
+        }
+        
+        .footer-section h4 {
+            font-size: 1.2rem;
+            color: var(--nasty-green);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            color: var(--text);
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            color: var(--nasty-green);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem;
+            opacity: 0.6;
+        }
+        
+        /* ANIMATIONS */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero {
+                text-align: center;
+            }
+            
+            .section {
+                padding: 80px 0;
+            }
+            
+            .section-subtitle {
+                margin-bottom: 40px;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+    
+    <header id="header">
+        <div class="container nav-container">
+            <a href="#" class="logo">NASTY</a>
+            <div class="nav-links">
+                <a href="#movement">Movement</a>
+                <a href="#team">Crew</a>
+                <a href="#services">Services</a>
+                <a href="#collab">Collaborate</a>
+                <a href="#contact">Connect</a>
+            </div>
+        </div>
+    </header>
+    
+    <section class="hero">
+        <div class="hero-grid"></div>
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">WE ARE THE NASTIEST</h1>
+                <p class="hero-subtitle">Cape Town's underground creative collective redefining brand culture through street authenticity</p>
+                <p class="hero-tagline">Already Making Waves • Mobile • Fast Turnaround</p>
+                <a href="#collab" class="cta-button">Join The Movement</a>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section movement" id="movement">
+        <div class="container">
+            <h2 class="section-title">Street Culture Integration</h2>
+            <p class="section-subtitle">We're not selling a concept - we're scaling a movement that's already happening</p>
+            
+            <div class="movement-grid">
+                <div class="movement-card fade-in">
+                    <h3>Premium Underground</h3>
+                    <p>That electric lime green hits different. The premium finish justifies the attitude. This isn't just branding - it's a lifestyle that's cool, conscious, and mysteriously exclusive.</p>
+                </div>
+                
+                <div class="movement-card fade-in">
+                    <h3>Sticker Territory</h3>
+                    <p>Every pack includes stickers that become mobile billboards. Personal devices become personal brands. We're claiming territory in the digital and physical worlds simultaneously.</p>
+                </div>
+                
+                <div class="movement-card fade-in">
+                    <h3>Digital Weapons</h3>
+                    <p>Transforming stickers and content into digital weapons, keeping the brand cool and mysterious without always focusing on restricted products.</p>
+                </div>
+                
+                <div class="movement-card fade-in">
+                    <h3>Viral Ecosystem</h3>
+                    <p>Embedding Nasty references in rap hooks that become viral TikTok challenges. From meme to merch in 48 hours, keeping the brand fresh and unpredictable.</p>
+                </div>
+            </div>
+            
+            <div class="divider"></div>
+            
+            <h2 class="section-title">Guerrilla Marketing Tactics</h2>
+            <div class="movement-grid">
+                <div class="movement-card fade-in">
+                    <h3>Nasty Aarts Magic</h3>
+                    <p>VIP magician "Aart" creating impossible moments with products - appearances, disappearances, and transformations that create unforgettable brand experiences.</p>
+                </div>
+                
+                <div class="movement-card fade-in">
+                    <h3>Viral Audio Engineering</h3>
+                    <p>Transforming product sounds (vape clicks, can openings) into viral audio experiences and beat elements that define street culture.</p>
+                </div>
+                
+                <div class="movement-card fade-in">
+                    <h3>Mobile Production</h3>
+                    <p>Gimbal & drone videography capturing authentic street moments. Real-time content creation with 48-hour turnaround from concept to execution.</p>
+                </div>
+                
+                <div class="movement-card fade-in">
+                    <h3>Limited Edition Drops</h3>
+                    <p>Exclusive sticker and merch drops at underground events - limited edition designs that become status symbols and collector's items.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section team" id="team">
+        <div class="container">
+            <h2 class="section-title">The Nastiest Crew</h2>
+            <p class="section-subtitle">Cape Town collective driving the underground movement</p>
+            
+            <div class="team-grid">
+                <div class="team-member fade-in">
+                    <h3>IJohn</h3>
+                    <div class="role">Cape Town Rapper & Face of NASTY</div>
+                    <div class="studio">@ijohnnasty</div>
+                </div>
+                
+                <div class="team-member fade-in">
+                    <h3>Drae</h3>
+                    <div class="role">Music Producer & Sound Architect</div>
+                    <div class="studio">@draenasty</div>
+                </div>
+                
+                <div class="team-member fade-in">
+                    <h3>Jethro</h3>
+                    <div class="role">Top Music Producer</div>
+                    <div class="studio">Paradigm Studios</div>
+                </div>
+                
+                <div class="team-member fade-in">
+                    <h3>Alexander Tegan</h3>
+                    <div class="role">Creative Director & Magician</div>
+                    <div class="studio">Performing as "Aart"</div>
+                </div>
+                
+                <div class="team-member fade-in">
+                    <h3>Beck</h3>
+                    <div class="role">Style Director</div>
+                    <div class="studio">Visual Brand Identity</div>
+                </div>
+                
+                <div class="team-member fade-in">
+                    <h3>Nate</h3>
+                    <div class="role">Art Direction</div>
+                    <div class="studio">Digital & Physical Design</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section" id="services">
+        <div class="container">
+            <h2 class="section-title">What We Bring</h2>
+            <p class="section-subtitle">Mobile, fast, and already happening - join us or watch from the sidelines</p>
+            
+            <div class="services-grid">
+                <div class="service-category fade-in">
+                    <h3>Content Creation</h3>
+                    <ul class="service-list">
+                        <li>Cinematic gimbal & drone videography</li>
+                        <li>High-energy skateboarding & rap videos</li>
+                        <li>Street culture documentation</li>
+                        <li>TikTok viral content creation</li>
+                        <li>48-hour trend turnaround</li>
+                        <li>WhatsApp sticker pack design</li>
+                    </ul>
+                </div>
+                
+                <div class="service-category fade-in">
+                    <h3>Music Production</h3>
+                    <ul class="service-list">
+                        <li>Paradigm Studios sessions</li>
+                        <li>Product sound integration</li>
+                        <li>Viral audio experiences</li>
+                        <li>Rap hook embedding</li>
+                        <li>Artist collaboration management</li>
+                        <li>Beat creation with product sounds</li>
+                    </ul>
+                </div>
+                
+                <div class="service-category fade-in">
+                    <h3>Digital Innovation</h3>
+                    <ul class="service-list">
+                        <li>Web development & design</li>
+                        <li>Mobile app development</li>
+                        <li>Digital sticker weaponization</li>
+                        <li>AI-powered campaigns</li>
+                        <li>Tech integration solutions</li>
+                        <li>Cross-platform strategies</li>
+                    </ul>
+                </div>
+                
+                <div class="service-category fade-in">
+                    <h3>Experience Design</h3>
+                    <ul class="service-list">
+                        <li>VIP "Nasty Aarts" magic performances</li>
+                        <li>Exclusive underground events</li>
+                        <li>Product launch experiences</li>
+                        <li>Pop-up shop design</li>
+                        <li>Studio takeover events</li>
+                        <li>Guerrilla marketing activations</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section collab" id="collab">
+        <div class="container">
+            <h2 class="section-title">Collaboration Tiers</h2>
+            <p class="section-subtitle">Choose your level of integration with the underground</p>
+            
+            <div class="collab-levels">
+                <div class="collab-card fade-in">
+                    <div class="level-number">1</div>
+                    <h3>Product Drop</h3>
+                    <ul>
+                        <li>Free products/merch for authentic integration</li>
+                        <li>Organic social media features</li>
+                        <li>Sticker inclusion in packs</li>
+                        <li>Basic guerrilla marketing</li>
+                    </ul>
+                </div>
+                
+                <div class="collab-card fade-in">
+                    <div class="level-number">2</div>
+                    <h3>Event Takeover</h3>
+                    <ul>
+                        <li>VIP event hosting with product placement</li>
+                        <li>"Nasty Aarts" magic performances</li>
+                        <li>Limited edition merch drops</li>
+                        <li>Professional event photography</li>
+                    </ul>
+                </div>
+                
+                <div class="collab-card fade-in">
+                    <div class="level-number">3</div>
+                    <h3>Creative Partnership</h3>
+                    <ul>
+                        <li>Co-created limited edition products</li>
+                        <li>Custom music production at Paradigm</li>
+                        <li>Full content campaign development</li>
+                        <li>Branded digital experiences</li>
+                    </ul>
+                </div>
+                
+                <div class="collab-card fade-in">
+                    <div class="level-number">4</div>
+                    <h3>Movement Scaling</h3>
+                    <ul>
+                        <li>Full integration into the underground movement</li>
+                        <li>VIP access to exclusive network</li>
+                        <li>Priority on all guerrilla marketing</li>
+                        <li>Custom tech/AI solutions</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2 class="contact-title">Ready To Get Nasty?</h2>
+            <p class="contact-subtitle">We're already making moves in the streets of Cape Town. Let's elevate your brand together with authentic underground integration.</p>
+            <a href="mailto:contact@nastiestcrew.com" class="contact-button">GET IN TOUCH</a>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="footer-logo">NASTY</div>
+                    <p class="footer-tagline">The premium alternative for those who live on the edge</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <div class="social-links">
+                        <a href="#" aria-label="Instagram">IG</a>
+                        <a href="#" aria-label="TikTok">TT</a>
+                        <a href="#" aria-label="Twitter">X</a>
+                        <a href="#" aria-label="YouTube">YT</a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Based In</h4>
+                    <p>Cape Town, South Africa</p>
+                    <p>Underground Scene</p>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                &copy; 2025 THE NASTIEST CREW. All rights reserved. For the underground.
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Scroll animations
+        const fadeElements = document.querySelectorAll('.fade-in');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        fadeElements.forEach(el => {
+            observer.observe(el);
+        });
+        
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 100) {
+                header.classList.add('header-scrolled');
+            } else {
+                header.classList.remove('header-scrolled');
+            }
+        });
+        
+        // Logo glitch easter egg
+        const logo = document.querySelector('.logo');
+        let clickCount = 0;
+        
+        logo.addEventListener('click', () => {
+            clickCount++;
+            if (clickCount === 5) {
+                document.body.style.animation = 'glitch 0.5s infinite';
+                setTimeout(() => {
+                    document.body.style.animation = '';
+                }, 2000);
+                clickCount = 0;
+            }
+        });
+        
+        // Konami code easter egg
+        const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+        let konamiIndex = 0;
+        
+        document.addEventListener('keydown', (e) => {
+            if (e.key === konamiCode[konamiIndex]) {
+                konamiIndex++;
+                if (konamiIndex === konamiCode.length) {
+                    document.documentElement.style.setProperty('--nasty-green', '#ff00ff');
+                    setTimeout(() => {
+                        document.documentElement.style.setProperty('--nasty-green', '#39FF14');
+                    }, 3000);
+                    konamiIndex = 0;
+                }
+            } else {
+                konamiIndex = 0;
+            }
+        });
+    </script>
+</body>
+</html>

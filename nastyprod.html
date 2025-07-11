@@ -3,1425 +3,1285 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nasty Brand Strategy - Cape Town</title>
+    <title>THE NASTIEST | Cape Town Underground Collective</title>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;400;700&family=Montserrat:wght@300;500;800&family=Roboto+Mono:wght@300;700&family=Bebas+Neue&family=Inter:wght@300;400;600;700;900&family=Urbanist:wght@700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Existing styles remain unchanged */
+        :root {
+            --nasty-green: #39FF14;
+            --dark-bg: #0a0a0a;
+            --darker-bg: #050505;
+            --gray: #1a1a1a;
+            --accent: #00FF7F;
+            --purple: #7D3CFF;
+            --red: #FF4136;
+            --yellow: #FFD700;
+            --text: #e0e0e0;
+        }
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
+        
         body {
-            font-family: 'Arial', sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: #000;
+            font-family: 'Montserrat', sans-serif;
+            background: var(--dark-bg);
+            color: var(--text);
             overflow-x: hidden;
+            line-height: 1.6;
         }
-
+        
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
         }
-
+        
+        /* ANIMATED BACKGROUND */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(57, 255, 20, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(57, 255, 20, 0.05) 0%, transparent 20%);
+            animation: bg-pulse 15s infinite alternate;
+        }
+        
+        @keyframes bg-pulse {
+            0% { opacity: 0.3; }
+            100% { opacity: 0.7; }
+        }
+        
+        /* HEADER & NAV */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 20px 0;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+            background: rgba(10, 10, 10, 0.8);
+            border-bottom: 1px solid rgba(57, 255, 20, 0.2);
+        }
+        
+        .header-scrolled {
+            padding: 15px 0;
+            box-shadow: 0 5px 30px rgba(0,0,0,0.5);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--nasty-green);
+            text-decoration: none;
+            position: relative;
+            letter-spacing: -2px;
+            text-shadow: 0 0 15px rgba(57, 255, 20, 0.7);
+        }
+        
+        .logo:hover {
+            animation: logo-glitch 0.5s infinite;
+        }
+        
+        @keyframes logo-glitch {
+            0% { text-shadow: 0 0 15px var(--nasty-green); }
+            25% { transform: translateX(-3px); }
+            50% { transform: translateX(3px); color: var(--accent); }
+            75% { transform: translateY(-3px); }
+            100% { transform: translateY(3px); }
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            font-weight: 500;
+            letter-spacing: 1px;
+            position: relative;
+            padding: 5px 0;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--nasty-green);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: var(--nasty-green);
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        /* HERO SECTION */
         .hero {
-            background: linear-gradient(135deg, #32CD32 0%, #00FF00 50%, #7FFF00 100%);
-            color: #000;
-            padding: 100px 0;
-            text-align: center;
+            height: 100vh;
+            display: flex;
+            align-items: center;
             position: relative;
             overflow: hidden;
         }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(45deg, transparent 30%, rgba(0,0,0,0.1) 50%, transparent 70%);
-            animation: shine 3s ease-in-out infinite;
-        }
-
-        @keyframes shine {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-        }
-
+        
         .hero-content {
             position: relative;
-            z-index: 2;
+            z-index: 10;
+            max-width: 900px;
+            text-align: center;
         }
-
-        .hero h1 {
-            font-size: 5rem;
-            font-weight: 900;
+        
+        .hero-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(4rem, 12vw, 10rem);
+            font-weight: 700;
+            color: var(--nasty-green);
+            line-height: 0.9;
             margin-bottom: 20px;
-            text-shadow: 3px 3px 0px #000;
+            text-transform: uppercase;
+            letter-spacing: -3px;
+            text-shadow: 0 0 30px rgba(57, 255, 20, 0.8);
+            animation: pulse 3s infinite;
+        }
+        
+        .hero-tagline {
+            font-family: 'Urbanist', sans-serif;
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            font-weight: 800;
+            margin-bottom: 20px;
+            text-transform: uppercase;
             letter-spacing: 3px;
-            transform: perspective(500px) rotateX(15deg);
-            animation: float 3s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: perspective(500px) rotateX(15deg) translateY(0); }
-            50% { transform: perspective(500px) rotateX(15deg) translateY(-20px); }
-        }
-
-        .hero-subtitle {
-            font-size: 1.8rem;
-            margin-bottom: 30px;
-            font-weight: 700;
-            text-shadow: 2px 2px 0px #000;
-        }
-
-        .section {
-            padding: 60px 0;
-            background: #fff;
-            margin-bottom: 2px;
-        }
-
-        .section:nth-child(even) {
-            background: #f8f9fa;
-        }
-
-        .dark-section {
-            background: #1a1a1a;
-            color: #fff;
-        }
-
-        .dark-section h2 {
-            color: #32CD32;
-        }
-
-        .section h2 {
-            font-size: 2.8rem;
-            margin-bottom: 30px;
-            color: #000;
-            text-align: center;
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        .brand-showcase {
-            background: #000;
-            padding: 80px 0;
-            text-align: center;
-            color: #fff;
-        }
-
-        .brand-showcase h2 {
-            color: #32CD32;
-            font-size: 3rem;
-            margin-bottom: 40px;
-        }
-
-        .brand-visual {
-            max-width: 600px;
-            margin: 0 auto 40px;
-            background: linear-gradient(135deg, #32CD32 0%, #00FF00 100%);
-            padding: 40px;
-            border-radius: 20px;
-            transform: perspective(1000px) rotateY(-10deg);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .brand-visual::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
-            animation: rotate 20s linear infinite;
-        }
-
-        @keyframes rotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .brand-visual h3 {
-            font-size: 4rem;
-            color: #000;
-            font-weight: 900;
-            text-shadow: 2px 2px 0px #fff;
-            margin-bottom: 20px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
-        }
-
-        .card {
-            background: #fff;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
-            border-left: 8px solid #32CD32;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, transparent 0%, rgba(50,205,50,0.05) 100%);
-            z-index: 1;
-        }
-
-        .card-content {
-            position: relative;
-            z-index: 2;
-        }
-
-        .card:hover {
-            transform: translateY(-15px) scale(1.02);
-            box-shadow: 0 25px 50px rgba(50,205,50,0.3);
-        }
-
-        .card h3 {
-            color: #000;
-            font-size: 1.8rem;
-            margin-bottom: 15px;
-            font-weight: 800;
-            text-transform: uppercase;
-        }
-
-        .card p {
-            color: #333;
-            line-height: 1.8;
-            font-size: 1.1rem;
-        }
-
-        .sticker-strategy {
-            background: #32CD32;
-            color: #000;
-            padding: 80px 0;
-            text-align: center;
-            position: relative;
-        }
-
-        .sticker-strategy::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23000' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
-            opacity: 0.1;
-        }
-
-        .sticker-strategy h2 {
-            font-size: 3.5rem;
-            margin-bottom: 40px;
-            font-weight: 900;
-            text-shadow: 2px 2px 0px #fff;
-            position: relative;
-            z-index: 2;
-        }
-
-        .sticker-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .sticker-item {
-            background: #000;
-            color: #32CD32;
-            padding: 30px;
-            border-radius: 15px;
-            font-weight: 700;
-            font-size: 1.2rem;
-            text-align: center;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .sticker-item::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 5px;
-            background: #32CD32;
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.3s ease;
-        }
-
-        .sticker-item:hover {
-            transform: scale(1.05);
-            background: #32CD32;
-            color: #000;
-        }
-
-        .sticker-item:hover::after {
-            transform: scaleX(1);
-        }
-
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 40px;
-            background: #000;
-            color: #fff;
-            padding: 60px 0;
-            text-align: center;
-        }
-
-        .stat {
-            padding: 20px;
-        }
-
-        .stat-number {
-            font-size: 4rem;
-            font-weight: 900;
-            color: #32CD32;
-            display: block;
-            text-shadow: 2px 2px 0px #000;
-        }
-
-        .stat-label {
-            font-size: 1.3rem;
-            margin-top: 10px;
-            font-weight: 700;
-            text-transform: uppercase;
-        }
-
-        .quality-focus {
-            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
-            color: #fff;
-            padding: 80px 0;
-        }
-
-        .quality-focus h2 {
-            color: #32CD32;
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .quality-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .quality-card {
-            background: rgba(50,205,50,0.1);
-            padding: 30px;
-            border-radius: 15px;
-            border: 2px solid #32CD32;
-            transition: all 0.3s ease;
-        }
-
-        .quality-card:hover {
-            background: #32CD32;
-            color: #000;
-            transform: translateY(-10px);
-        }
-
-        .quality-card h3 {
-            color: #32CD32;
-            margin-bottom: 15px;
-            font-size: 1.6rem;
-            font-weight: 800;
-        }
-
-        .quality-card:hover h3 {
-            color: #000;
-        }
-
-        .cta {
-            background: linear-gradient(135deg, #32CD32 0%, #00FF00 100%);
-            color: #000;
-            padding: 100px 0;
-            text-align: center;
-        }
-
-        .cta h2 {
-            color: #000;
-            font-size: 3.5rem;
-            margin-bottom: 30px;
-            font-weight: 900;
-            text-shadow: 2px 2px 0px #fff;
-        }
-
-        .cta-text {
-            font-size: 1.4rem;
-            margin-bottom: 40px;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-            font-weight: 700;
-        }
-
-        .btn {
-            display: inline-block;
-            background: #000;
-            color: #32CD32;
-            padding: 25px 50px;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 900;
-            font-size: 1.3rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            position: relative;
-            overflow: hidden;
-            z-index: 2;
-        }
-
-        .btn::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transform: translateX(-100%);
-            transition: transform 0.6s ease;
-            z-index: -1;
-        }
-
-        .btn:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.7);
-            background: #fff;
-            color: #000;
-        }
-
-        .btn:hover::after {
-            transform: translateX(100%);
-        }
-
-        .highlight {
-            background: linear-gradient(135deg, #32CD32 0%, #00FF00 100%);
+            background: linear-gradient(to right, var(--nasty-green), var(--accent));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-weight: 900;
         }
-
-        .rap-scene {
-            background: #000;
-            color: #fff;
-            padding: 80px 0;
-        }
-
-        .rap-scene h2 {
-            color: #32CD32;
-            text-align: center;
+        
+        .hero-subtitle {
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            font-weight: 300;
             margin-bottom: 40px;
+            color: var(--text);
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
         }
-
-        .artist-showcase {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
-        }
-
-        .artist-card {
-            background: linear-gradient(135deg, #32CD32 0%, #00FF00 100%);
-            color: #000;
-            padding: 30px;
-            border-radius: 15px;
-            text-align: center;
-            font-weight: 700;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .artist-card::before {
-            content: '';
-            position: absolute;
-            top: -10px;
-            left: -10px;
-            right: -10px;
-            bottom: -10px;
-            background: linear-gradient(45deg, #32CD32, #00FF00, #7FFF00, #32CD32);
-            background-size: 400% 400%;
-            z-index: -1;
-            animation: gradient 15s ease infinite;
-        }
-
-        @keyframes gradient {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .artist-card:hover {
-            transform: scale(1.05) rotate(2deg);
-        }
-
-        .artist-card h4 {
-            font-size: 2rem;
-            margin-bottom: 15px;
-            font-weight: 900;
-        }
-
-        /* New Team Section */
-        .team-section {
-            background: #000;
-            color: #fff;
-            padding: 80px 0;
-        }
-
-        .team-section h2 {
-            color: #32CD32;
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .team-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
-        }
-
-        .team-card {
-            background: rgba(50,205,50,0.1);
-            padding: 30px;
-            border-radius: 15px;
-            border: 2px solid #32CD32;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .team-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 5px;
-            background: #32CD32;
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.3s ease;
-        }
-
-        .team-card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .team-card:hover {
-            transform: translateY(-10px);
-            background: rgba(50,205,50,0.2);
-        }
-
-        .team-card h3 {
-            color: #32CD32;
-            margin-bottom: 15px;
-            font-size: 1.8rem;
-            font-weight: 800;
-        }
-
-        .team-card p {
-            color: #fff;
-            margin-bottom: 10px;
+        
+        .cta-button {
+            display: inline-block;
+            padding: 15px 40px;
+            background: transparent;
+            color: var(--nasty-green);
+            text-decoration: none;
+            font-weight: 600;
             font-size: 1.1rem;
-        }
-
-        .team-icon {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-            color: #32CD32;
-        }
-
-        /* Guerrilla Marketing Section */
-        .guerrilla-section {
-            background: linear-gradient(135deg, #32CD32 0%, #00FF00 100%);
-            color: #000;
-            padding: 80px 0;
-        }
-
-        .guerrilla-section h2 {
-            font-size: 3rem;
-            margin-bottom: 40px;
-            font-weight: 900;
-            text-shadow: 2px 2px 0px #fff;
-        }
-
-        .guerrilla-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .guerrilla-card {
-            background: rgba(0,0,0,0.8);
-            color: #32CD32;
-            padding: 30px;
-            border-radius: 15px;
+            text-transform: uppercase;
+            border: 2px solid var(--nasty-green);
+            border-radius: 50px;
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            letter-spacing: 2px;
+            margin: 10px;
         }
-
-        .guerrilla-card::after {
-            content: '';
+        
+        .cta-button:hover {
+            background: var(--nasty-green);
+            color: var(--dark-bg);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(57, 255, 20, 0.6);
+        }
+        
+        .particles {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle, rgba(50,205,50,0.1) 0%, transparent 70%);
+            pointer-events: none;
             z-index: 1;
         }
-
-        .guerrilla-card-content {
-            position: relative;
-            z-index: 2;
-        }
-
-        .guerrilla-card:hover {
-            transform: rotate(2deg) scale(1.05);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-        }
-
-        .guerrilla-card h3 {
-            font-size: 1.8rem;
-            margin-bottom: 15px;
-            font-weight: 800;
-        }
-
-        .guerrilla-card p {
-            font-size: 1.1rem;
-            line-height: 1.6;
-        }
-
-        .guerrilla-icon {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-            color: #32CD32;
-        }
-
-        /* VIP Magic Section */
-        .vip-section {
-            background: linear-gradient(135deg, #1a1a1a 0%, #000 100%);
-            color: #fff;
-            padding: 80px 0;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .vip-section::before {
-            content: '';
+        
+        .particle {
             position: absolute;
-            top: 0;
-            left: 0;
+            border-radius: 50%;
+            background: var(--nasty-green);
+            opacity: 0.7;
+        }
+        
+        /* SECTION STYLES */
+        .section {
+            padding: 120px 0;
+            position: relative;
+        }
+        
+        .section-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 700;
+            color: var(--nasty-green);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            text-align: center;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: var(--nasty-green);
+            margin: 15px auto;
+        }
+        
+        .section-subtitle {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            font-weight: 300;
+            margin-bottom: 60px;
+            max-width: 800px;
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--nasty-green), transparent);
+            margin: 60px 0;
             width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, rgba(50,205,50,0.1) 0%, transparent 70%);
-            animation: rotate 30s linear infinite;
         }
-
-        .vip-section h2 {
-            color: #32CD32;
-            text-align: center;
-            margin-bottom: 40px;
-            position: relative;
-            z-index: 2;
+        
+        /* MANIFESTO/MOVEMENT SECTION */
+        .movement {
+            background: var(--darker-bg);
         }
-
-        .vip-content {
-            max-width: 900px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 2;
-            text-align: center;
-        }
-
-        .vip-grid {
+        
+        .movement-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
+            gap: 40px;
+            margin-top: 60px;
         }
-
-        .vip-card {
-            background: rgba(50,205,50,0.15);
+        
+        .movement-card {
+            background: rgba(30, 30, 30, 0.5);
             padding: 30px;
+            border-left: 5px solid var(--nasty-green);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+        
+        .movement-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+        
+        .movement-card h3 {
+            font-size: 1.8rem;
+            color: var(--nasty-green);
+            margin-bottom: 15px;
+            font-family: 'Oswald', sans-serif;
+        }
+        
+        .movement-icon {
+            font-size: 2.5rem;
+            color: var(--nasty-green);
+            margin-bottom: 20px;
+        }
+        
+        /* TEAM SECTION */
+        .team {
+            background: var(--dark-bg);
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
+        }
+        
+        .team-member {
+            background: var(--gray);
+            padding: 30px;
+            border: 1px solid rgba(57, 255, 20, 0.2);
             border-radius: 15px;
-            border: 1px solid #32CD32;
-            transition: all 0.3s ease;
+            text-align: center;
+            transition: all 0.4s ease;
             position: relative;
             overflow: hidden;
         }
-
-        .vip-card:hover {
-            transform: translateY(-10px) scale(1.03);
-            background: rgba(50,205,50,0.25);
+        
+        .team-member:hover {
+            border-color: var(--nasty-green);
+            transform: translateY(-15px);
+            box-shadow: 0 20px 50px rgba(57, 255, 20, 0.3);
         }
-
-        .vip-card h3 {
-            color: #32CD32;
-            font-size: 1.8rem;
-            margin-bottom: 15px;
-            font-weight: 800;
-        }
-
-        .vip-card p {
-            font-size: 1.1rem;
-            line-height: 1.6;
-        }
-
-        .magic-profile {
+        
+        .team-image {
+            height: 200px;
+            background: linear-gradient(45deg, var(--nasty-green), var(--purple));
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 40px auto;
-            max-width: 600px;
-            background: rgba(0,0,0,0.7);
-            padding: 30px;
-            border-radius: 20px;
-            border: 2px solid #32CD32;
-            position: relative;
-            z-index: 2;
-        }
-
-        .magic-icon {
             font-size: 4rem;
-            color: #32CD32;
-            margin-right: 30px;
+            color: rgba(0, 0, 0, 0.3);
+            margin-bottom: 20px;
         }
-
-        .magic-text h3 {
-            font-size: 2.5rem;
+        
+        .team-member h3 {
+            font-size: 1.8rem;
+            color: var(--nasty-green);
             margin-bottom: 10px;
-            color: #32CD32;
+            font-family: 'Oswald', sans-serif;
         }
-
-        .magic-text p {
+        
+        .team-member .role {
+            font-size: 1.1rem;
+            color: var(--accent);
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+        
+        .team-member .studio {
+            font-family: 'Roboto Mono', monospace;
+            color: var(--nasty-green);
+            font-size: 0.9rem;
+            background: rgba(57, 255, 20, 0.1);
+            padding: 5px 15px;
+            border-radius: 20px;
+        }
+        
+        /* SERVICES/PHILOSOPHY SECTION */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+        
+        .service-category {
+            background: rgba(25, 25, 25, 0.7);
+            padding: 40px;
+            border: 1px solid rgba(57, 255, 20, 0.1);
+            transition: all 0.4s ease;
+            backdrop-filter: blur(5px);
+        }
+        
+        .service-category:hover {
+            border-color: var(--nasty-green);
+            transform: scale(1.02);
+        }
+        
+        .service-category h3 {
+            font-size: 1.8rem;
+            color: var(--nasty-green);
+            margin-bottom: 20px;
+            font-family: 'Oswald', sans-serif;
+        }
+        
+        .service-list {
+            list-style: none;
+        }
+        
+        .service-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(57, 255, 20, 0.1);
+            color: var(--text);
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .service-list li::before {
+            content: '▹';
+            color: var(--nasty-green);
+            margin-right: 10px;
             font-size: 1.2rem;
         }
-
-        .exclusive-merch {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-top: 40px;
-        }
-
-        .merch-item {
-            background: #000;
-            border: 2px solid #32CD32;
-            border-radius: 10px;
-            padding: 20px;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-
-        .merch-item:hover {
-            transform: rotate(3deg) scale(1.1);
-            box-shadow: 0 10px 20px rgba(50,205,50,0.3);
-        }
-
-        .merch-icon {
-            font-size: 3rem;
-            margin-bottom: 15px;
-            color: #32CD32;
-        }
-
-        .merch-item h4 {
-            font-size: 1.3rem;
-            margin-bottom: 10px;
-        }
-
-        /* Audio Integration */
-        .audio-section {
-            background: #000;
-            color: #fff;
-            padding: 80px 0;
-            text-align: center;
-        }
-
-        .audio-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
-        }
-
-        .audio-card {
-            background: rgba(50,205,50,0.1);
-            padding: 30px;
-            border-radius: 15px;
-            border: 1px solid #32CD32;
-            transition: all 0.3s ease;
-        }
-
-        .audio-card:hover {
-            transform: scale(1.05);
-            background: rgba(50,205,50,0.2);
-        }
-
-        .audio-icon {
-            font-size: 3rem;
-            margin-bottom: 20px;
-            color: #32CD32;
-        }
-
-        .audio-card h3 {
-            font-size: 1.8rem;
-            margin-bottom: 15px;
-            color: #32CD32;
-        }
-
-        .audio-visualizer {
-            height: 100px;
-            width: 100%;
-            margin: 20px 0;
+        
+        .philosophy-content {
             display: flex;
-            align-items: flex-end;
-            justify-content: center;
-            gap: 5px;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-top: 60px;
+            align-items: center;
         }
-
-        .bar {
-            width: 8px;
-            background: #32CD32;
-            border-radius: 4px;
-            animation: pulse 1s infinite alternate;
-            animation-delay: calc(var(--i) * 0.1s);
+        
+        .philosophy-text {
+            flex: 1;
+            min-width: 300px;
+            padding: 30px;
+            background: rgba(30, 30, 30, 0.5);
+            border-left: 5px solid var(--nasty-green);
+            border-radius: 15px;
         }
-
-        @keyframes pulse {
-            0% { height: 20%; }
-            100% { height: 90%; }
+        
+        /* COLLABORATION/UNDERGROUND SECTION */
+        .collab {
+            background: var(--darker-bg);
         }
-
-        /* New Production Section */
-        .production-section {
-            background: linear-gradient(135deg, #1a1a1a 0%, #000 100%);
-            color: #fff;
-            padding: 80px 0;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .production-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, rgba(50,205,50,0.1) 0%, transparent 70%);
-            animation: rotate 30s linear infinite;
-        }
-
-        .production-section h2 {
-            color: #32CD32;
-            text-align: center;
-            margin-bottom: 40px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .production-grid {
+        
+        .collab-levels {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
-            margin-top: 40px;
+            margin-top: 60px;
         }
-
-        .production-card {
-            background: rgba(50,205,50,0.15);
-            padding: 30px;
-            border-radius: 15px;
-            border: 1px solid #32CD32;
-            transition: all 0.3s ease;
+        
+        .collab-card {
+            background: rgba(30, 30, 30, 0.7);
+            padding: 40px 30px;
+            border: 1px solid rgba(57, 255, 20, 0.2);
             position: relative;
             overflow: hidden;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(5px);
         }
-
-        .production-card:hover {
-            transform: translateY(-10px) scale(1.03);
-            background: rgba(50,205,50,0.25);
+        
+        .collab-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--nasty-green);
         }
-
-        .production-card h3 {
-            color: #32CD32;
+        
+        .collab-card h3 {
             font-size: 1.8rem;
-            margin-bottom: 15px;
-            font-weight: 800;
+            color: var(--nasty-green);
+            margin-bottom: 20px;
+            font-family: 'Oswald', sans-serif;
         }
-
-        .production-card p {
+        
+        .collab-card ul {
+            list-style: none;
+        }
+        
+        .collab-card li {
+            padding: 8px 0;
+            display: flex;
+            align-items: center;
+        }
+        
+        .collab-card li::before {
+            content: '•';
+            color: var(--nasty-green);
+            margin-right: 10px;
+            font-size: 1.5rem;
+        }
+        
+        .level-number {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 5rem;
+            font-weight: 700;
+            color: rgba(57, 255, 20, 0.1);
+            z-index: -1;
+        }
+        
+        .signup-form {
+            max-width: 600px;
+            margin: 50px auto 0;
+            background: rgba(30, 30, 30, 0.6);
+            padding: 30px;
+            border-radius: 15px;
+            border-left: 5px solid var(--purple);
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+            text-align: left;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--nasty-green);
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid var(--gray);
+            border-radius: 10px;
+            background: rgba(20, 20, 20, 0.7);
+            color: var(--text);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--nasty-green);
+            box-shadow: 0 0 15px rgba(57, 255, 20, 0.3);
+        }
+        
+        /* CONTACT SECTION */
+        .contact {
+            background: var(--dark-bg);
+            text-align: center;
+            padding: 100px 0;
+        }
+        
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+        
+        .contact-info {
+            text-align: left;
+            background: rgba(30, 30, 30, 0.6);
+            padding: 30px;
+            border-radius: 15px;
+            border-left: 5px solid var(--nasty-green);
+        }
+        
+        .contact-detail {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(57, 255, 20, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 1.5rem;
+            color: var(--nasty-green);
+        }
+        
+        .contact-button {
+            display: inline-block;
+            padding: 18px 50px;
+            background: transparent;
+            color: var(--nasty-green);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            border: 2px solid var(--nasty-green);
+            border-radius: 50px;
+            transition: all 0.4s ease;
+            letter-spacing: 3px;
+        }
+        
+        .contact-button:hover {
+            background: var(--nasty-green);
+            color: var(--dark-bg);
+        }
+        
+        /* FOOTER */
+        footer {
+            background: var(--darker-bg);
+            padding: 60px 0 30px;
+            border-top: 1px solid rgba(57, 255, 20, 0.2);
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--nasty-green);
+            margin-bottom: 20px;
+        }
+        
+        .footer-tagline {
             font-size: 1.1rem;
-            line-height: 1.6;
+            max-width: 300px;
+            opacity: 0.8;
         }
-
-        .production-icon {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-            color: #32CD32;
+        
+        .footer-section h4 {
+            font-size: 1.2rem;
+            color: var(--nasty-green);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
-
-        /* Responsive */
+        
+        .social-links {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            color: var(--text);
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            color: var(--nasty-green);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem;
+            opacity: 0.6;
+        }
+        
+        /* ANIMATIONS */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        @keyframes pulse {
+            0% { text-shadow: 0 0 10px var(--nasty-green); }
+            50% { text-shadow: 0 0 30px var(--nasty-green), 0 0 60px rgba(57, 255, 20, 0.5); }
+            100% { text-shadow: 0 0 10px var(--nasty-green); }
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        /* RESPONSIVE */
         @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 3rem;
+            .nav-links {
+                display: none;
             }
             
-            .hero-subtitle {
-                font-size: 1.4rem;
-            }
-            
-            .section h2 {
-                font-size: 2.2rem;
-            }
-            
-            .brand-visual h3 {
-                font-size: 2.5rem;
-            }
-            
-            .magic-profile {
-                flex-direction: column;
+            .hero {
                 text-align: center;
             }
             
-            .magic-icon {
-                margin-right: 0;
-                margin-bottom: 20px;
+            .section {
+                padding: 80px 0;
+            }
+            
+            .section-subtitle {
+                margin-bottom: 40px;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+            }
+            
+            .cta-button {
+                display: block;
+                width: 80%;
+                margin: 10px auto;
             }
         }
     </style>
 </head>
 <body>
-    <div class="hero">
-        <div class="hero-content">
-            <div class="container">
-                <h1>NASTY</h1>
-                <p class="hero-subtitle">WE'RE NOT SELLING A CONCEPT.<br>WE'RE SCALING A MOVEMENT.</p>
-                <p style="font-size: 1.2rem; margin-top: 20px; font-weight: 600;">Cape Town's Creative Underground Already Chose Nasty.</p>
+    <div class="bg-animation"></div>
+    
+    <header id="header">
+        <div class="container nav-container">
+            <a href="#" class="logo">NASTY</a>
+            <div class="nav-links">
+                <a href="#movement">Manifesto</a>
+                <a href="#team">Crew</a>
+                <a href="#services">Services</a>
+                <a href="#collab">Collaborate</a>
+                <a href="#contact">Connect</a>
             </div>
         </div>
-    </div>
-
-    <div class="brand-showcase">
+    </header>
+    
+    <section class="hero">
+        <div class="particles" id="particles"></div>
         <div class="container">
-            <h2>WHY NASTY WORKS</h2>
-            <div class="brand-visual">
-                <h3>NASTY</h3>
-                <p style="font-size: 1.3rem; color: #000; font-weight: 700; margin: 0;">
-                    Bold. Unapologetic. Premium. Impossible to ignore.
-                </p>
+            <div class="hero-content">
+                <h1 class="hero-title">THE NASTIEST</h1>
+                <p class="hero-tagline">Cape Town Underground Collective</p>
+                <p class="hero-subtitle">We're not just a brand - we're a movement already making waves. From street art to elite drops, we redefine urban culture with fast turnarounds and mobile production.</p>
+                <div>
+                    <a href="#collab" class="cta-button">Join The Movement</a>
+                    <a href="#movement" class="cta-button">Our Manifesto</a>
+                </div>
             </div>
-            <p style="font-size: 1.4rem; max-width: 800px; margin: 0 auto; font-weight: 600;">
-                That electric lime green hits different. The massive typography demands attention. 
-                The premium finish justifies the attitude. This isn't just branding – it's a lifestyle 
-                that’s cool, conscious, and mysteriously exclusive.
-            </p>
         </div>
-    </div>
-
-    <div class="sticker-strategy">
+    </section>
+    
+    <section class="section movement" id="movement">
         <div class="container">
-            <h2>THE STICKER REVOLUTION</h2>
-            <p style="font-size: 1.4rem; margin-bottom: 40px; font-weight: 700; max-width: 800px; margin: 0 auto 40px;">
-                Every pack includes stickers. Every sticker becomes advertising. Every surface becomes Nasty territory.
-            </p>
+            <h2 class="section-title">The Nasty Manifesto</h2>
+            <p class="section-subtitle">Our principles for creating authentic underground culture and products</p>
             
-            <div class="sticker-grid">
-                <div class="sticker-item">
-                    <h4>📱 PHONES</h4>
-                    <p>Personal device = Personal brand</p>
+            <div class="movement-grid">
+                <div class="movement-card fade-in">
+                    <div class="movement-icon"><i class="fas fa-fire"></i></div>
+                    <h3>Live the Lifestyle</h3>
+                    <p>We embody the NASTY ethos - a premium underground lifestyle that's cool, conscious, and exclusive.</p>
                 </div>
-                <div class="sticker-item">
-                    <h4>🚗 CARS</h4>
-                    <p>Mobile billboards everywhere</p>
+                
+                <div class="movement-card fade-in">
+                    <div class="movement-icon"><i class="fas fa-sync-alt"></i></div>
+                    <h3>Better Alternatives</h3>
+                    <p>Vaping over smoking, boundary-pushing energy drinks - always the premium choice.</p>
                 </div>
-                <div class="sticker-item">
-                    <h4>🏠 HOMES</h4>
-                    <p>Cups, laptops, everything</p>
+                
+                <div class="movement-card fade-in">
+                    <div class="movement-icon"><i class="fas fa-microphone-alt"></i></div>
+                    <h3>Culture First</h3>
+                    <p>Blending rap, graffiti, and street art with product innovation for a unique movement.</p>
                 </div>
-                <div class="sticker-item">
-                    <h4>🎵 STUDIOS</h4>
-                    <p>Creative spaces branded</p>
+                
+                <div class="movement-card fade-in">
+                    <div class="movement-icon"><i class="fas fa-gem"></i></div>
+                    <h3>Elite Experience</h3>
+                    <p>Exclusive drops and limited editions for an accessible underground.</p>
+                </div>
+                
+                <div class="movement-card fade-in">
+                    <div class="movement-icon"><i class="fas fa-bolt"></i></div>
+                    <h3>Tech-Infused</h3>
+                    <p>AI campaigns, WhatsApp stickers, and emerging platforms keep us ahead.</p>
+                </div>
+                
+                <div class="movement-card fade-in">
+                    <div class="movement-icon"><i class="fas fa-dice"></i></div>
+                    <h3>The Unexpected</h3>
+                    <p>Street magic and guerrilla tactics create surprising brand moments.</p>
                 </div>
             </div>
-        </div>
-    </div>
-
-    <div class="guerrilla-section">
-        <div class="container">
-            <h2>GUERRILLA MARKETING 2.0</h2>
-            <p style="font-size: 1.4rem; margin-bottom: 40px; font-weight: 700; max-width: 800px; margin: 0 auto 40px; text-align: center;">
-                Partnering with Cross AI Tech Agency and Nasty Productions to transform stickers and content into digital weapons, 
-                keeping the brand cool and mysterious without always focusing on restricted products.
-            </p>
             
-            <div class="guerrilla-grid">
-                <div class="guerrilla-card">
-                    <div class="guerrilla-card-content">
-                        <div class="guerrilla-icon">
-                            <i class="fab fa-whatsapp"></i>
-                        </div>
-                        <h3>DIGITAL STICKER PACKS</h3>
-                        <p>Exclusive Nasty WhatsApp sticker packs and TikTok content drops that become the new slang of Cape Town's streets.</p>
-                    </div>
-                </div>
-                
-                <div class="guerrilla-card">
-                    <div class="guerrilla-card-content">
-                        <div class="guerrilla-icon">
-                            <i class="fas fa-music"></i>
-                        </div>
-                        <h3>SONG HOOKS</h3>
-                        <p>Embedding Nasty references in rap hooks that become viral challenges on TikTok, amplifying street culture.</p>
-                    </div>
-                </div>
-                
-                <div class="guerrilla-card">
-                    <div class="guerrilla-card-content">
-                        <div class="guerrilla-icon">
-                            <i class="fas fa-ticket-alt"></i>
-                        </div>
-                        <h3>PARTY INVASIONS</h3>
-                        <p>Exclusive sticker and merch drops at the hottest parties - limited edition designs that become status symbols.</p>
-                    </div>
-                </div>
-                
-                <div class="guerrilla-card">
-                    <div class="guerrilla-card-content">
-                        <div class="guerrilla-icon">
-                            <i class="fas fa-bolt"></i>
-                        </div>
-                        <h3>QUICK TURNAROUNDS</h3>
-                        <p>Trend-jacking in real-time: from meme to merch in 48 hours, keeping Nasty fresh and unpredictable.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- VIP Magic Section -->
-    <div class="vip-section">
-        <div class="container">
-            <h2>EXCLUSIVE DROPS & MAGIC EXPERIENCES</h2>
-            <div class="vip-content">
-                <div class="magic-profile">
-                    <div class="magic-icon">
-                        <i class="fas fa-hat-wizard"></i>
-                    </div>
-                    <div class="magic-text">
-                        <h3>ALEXANDER TEGGIN</h3>
-                        <p>VIP Magician Performing as "Aart" - Creating Exclusive Nasty Moments</p>
-                        <p style="margin-top: 10px; font-style: italic;">"Nasty Aarts" - Where magic meets premium experiences</p>
-                    </div>
-                </div>
-                
-                <div class="vip-grid">
-                    <div class="vip-card">
-                        <h3>EXCLUSIVE MERCH DROPS</h3>
-                        <p>Ultra-limited items like giant Nasty-branded toasters or Krispy Kreme collabs that appear and disappear.</p>
-                        <p>Think: Half-logo tees, deconstructed designs, one-of-a-kind pieces.</p>
-                    </div>
-                    
-                    <div class="vip-card">
-                        <h3>VIP MAGIC EVENTS</h3>
-                        <p>Nasty-integrated illusions at exclusive gatherings, creating a sense of mystery and exclusivity.</p>
-                        <p>Products appear/disappear in impossible ways creating memorable moments.</p>
-                    </div>
-                    
-                    <div class="vip-card">
-                        <h3>UNDERGROUND ACCESS</h3>
-                        <p>Invite-only events where the magic happens, with limited-edition products only available through Aart’s performances.</p>
-                    </div>
-                </div>
-                
-                <h3 style="margin: 40px 0 20px; color: #32CD32; font-size: 2rem;">EXCLUSIVE MERCH EXAMPLES</h3>
-                <div class="exclusive-merch">
-                    <div class="merch-item">
-                        <div class="merch-icon">
-                            <i class="fas fa-tshirt"></i>
-                        </div>
-                        <h4>Deconstructed Tees</h4>
-                        <p>Half-logo designs</p>
-                    </div>
-                    <div class="merch-item">
-                        <div class="merch-icon">
-                            <i class="fas fa-mug-hot"></i>
-                        </div>
-                        <h4>Coffee Cups</h4>
-                        <p>"Nasty Coffee" branding</p>
-                    </div>
-                    <div class="merch-item">
-                        <div class="merch-icon">
-                            <i class="fas fa-sticker"></i>
-                        </div>
-                        <h4>Glow Stickers</h4>
-                        <p>UV-reactive designs</p>
-                    </div>
-                    <div class="merch-item">
-                        <div class="merch-icon">
-                            <i class="fas fa-toaster"></i>
-                        </div>
-                        <h4>Giant Toaster</h4>
-                        <p>"That’s Nasty" branding</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Audio Integration Section -->
-    <div class="audio-section">
-        <div class="container">
-            <h2>SOUND OF NASTY</h2>
-            <p style="font-size: 1.4rem; max-width: 800px; margin: 0 auto 40px;">
-                Transforming product sounds into viral audio experiences, produced by Nasty Productions.
-            </p>
+            <div class="divider"></div>
             
-            <div class="audio-grid">
-                <div class="audio-card">
-                    <div class="audio-icon">
-                        <i class="fas fa-music"></i>
-                    </div>
-                    <h3>PRODUCT SOUNDSCAPES</h3>
-                    <p>Using vape clicks, can openings, and wrapper crinkles as beat elements in tracks that define street culture.</p>
-                    <div class="audio-visualizer">
-                        <div class="bar" style="--i:0"></div>
-                        <div class="bar" style="--i:1"></div>
-                        <div class="bar" style="--i:2"></div>
-                        <div class="bar" style="--i:3"></div>
-                        <div class="bar" style="--i:4"></div>
-                        <div class="bar" style="--i:5"></div>
-                        <div class="bar" style="--i:6"></div>
-                    </div>
-                </div>
-                
-                <div class="audio-card">
-                    <div class="audio-icon">
-                        <i class="fab fa-tiktok"></i>
-                    </div>
-                    <h3>TIKTOK BACKING TRACKS</h3>
-                    <p>Creating viral sounds from Nasty product audio, amplified by drone-shot street content.</p>
-                    <div class="audio-visualizer">
-                        <div class="bar" style="--i:0"></div>
-                        <div class="bar" style="--i:1"></div>
-                        <div class="bar" style="--i:2"></div>
-                        <div class="bar" style="--i:3"></div>
-                        <div class="bar" style="--i:4"></div>
-                        <div class="bar" style="--i:5"></div>
-                        <div class="bar" style="--i:6"></div>
-                    </div>
-                </div>
-                
-                <div class="audio-card">
-                    <div class="audio-icon">
-                        <i class="fas fa-headphones"></i>
-                    </div>
-                    <h3>ARTIST COLLABORATIONS</h3>
-                    <p>Producing tracks with IJohn and Drae featuring Nasty sounds, shot with cinematic gimbal visuals.</p>
-                    <div class="audio-visualizer">
-                        <div class="bar" style="--i:0"></div>
-                        <div class="bar" style="--i:1"></div>
-                        <div class="bar" style="--i:2"></div>
-                        <div class="bar" style="--i:3"></div>
-                        <div class="bar" style="--i:4"></div>
-                        <div class="bar" style="--i:5"></div>
-                        <div class="bar" style="--i:6"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- New Nasty Productions Section -->
-    <div class="production-section">
-        <div class="container">
-            <h2>NASTY PRODUCTIONS</h2>
-            <p style="font-size: 1.4rem; max-width: 800px; margin: 0 auto 40px; text-align: center;">
-                Our dope production company captures the raw energy of Cape Town’s street culture—skateboarding, rap music, and more—using cutting-edge gimbal and drone shots to create cinematic content that screams Nasty.
-            </p>
+            <h2 class="section-title">Street Culture Integration</h2>
+            <p class="section-subtitle">Scaling a movement that's already happening</p>
             
-            <div class="production-grid">
-                <div class="production-card">
-                    <div class="production-icon">
-                        <i class="fas fa-skateboard"></i>
-                    </div>
-                    <h3>STREET CULTURE CONTENT</h3>
-                    <p>High-energy skateboarding and rap videos shot with gimbals and drones, showcasing Nasty’s authentic connection to Cape Town’s underground.</p>
+            <div class="movement-grid">
+                <div class="movement-card fade-in">
+                    <h3>Premium Underground</h3>
+                    <p>Electric lime green branding with a premium finish - a mysteriously exclusive lifestyle.</p>
                 </div>
                 
-                <div class="production-card">
-                    <div class="production-icon">
-                        <i class="fas fa-drone"></i>
-                    </div>
-                    <h3>AI-POWERED DROPS</h3>
-                    <p>Partnering with Cross AI Tech Agency to create TikTok content packs, digital stickers, and surprise drops that keep Nasty mysterious and exclusive.</p>
+                <div class="movement-card fade-in">
+                    <h3>Sticker Territory</h3>
+                    <p>Stickers turn devices into mobile billboards, claiming digital and physical space.</p>
                 </div>
                 
-                <div class="production-card">
-                    <div class="production-icon">
-                        <i class="fas fa-camera"></i>
-                    </div>
-                    <h3>CINEMATIC STORYTELLING</h3>
-                    <p>Producing viral videos that don’t just advertise products but amplify the Nasty lifestyle—think limited-edition flavors and collabs like Nasty x Krispy Kreme.</p>
+                <div class="movement-card fade-in">
+                    <h3>Digital Weapons</h3>
+                    <p>Content and stickers become digital tools, keeping the brand cool and mysterious.</p>
+                </div>
+                
+                <div class="movement-card fade-in">
+                    <h3>Viral Ecosystem</h3>
+                    <p>Nasty references in rap hooks turn into TikTok challenges - meme to merch in 48 hours.</p>
                 </div>
             </div>
-        </div>
-    </div>
-
-    <div class="quality-focus">
-        <div class="container">
-            <h2>CONSCIOUS QUALITY, NASTY STYLE</h2>
-            <p style="text-align: center; font-size: 1.3rem; margin-bottom: 40px; max-width: 900px; margin: 0 auto 40px;">
-                We’re real about what we sell. Vapes and energy drinks aren’t health foods, but we make them the best they can be—premium, intentional, and designed to promote conscious use. Nasty is about quality, not compulsion.
-            </p>
             
-            <div class="quality-grid">
-                <div class="quality-card">
-                    <div class="card-content">
-                        <h3>🔥 SMART VAPE DESIGN</h3>
-                        <p>Square, solid vapes designed to be kept in your pocket, not hung around your neck, to discourage compulsive use. Rechargeable, premium, and built to last.</p>
-                    </div>
+            <div class="divider"></div>
+            
+            <h2 class="section-title">Guerrilla Marketing Tactics</h2>
+            <div class="movement-grid">
+                <div class="movement-card fade-in">
+                    <h3>Nasty Aarts Magic</h3>
+                    <p>VIP magician "Aart" creates unforgettable product experiences.</p>
                 </div>
                 
-                <div class="quality-card">
-                    <div class="card-content">
-                        <h3>⚡ ENERGY EXCELLENCE</h3>
-                        <p>Premium ingredients, bold flavors, and limited-edition drops that keep you guessing—because Nasty is about excitement, not excess.</p>
-                    </div>
+                <div class="movement-card fade-in">
+                    <h3>Viral Audio Engineering</h3>
+                    <p>Product sounds become viral beats defining street culture.</p>
                 </div>
                 
-                <div class="quality-card">
-                    <div class="card-content">
-                        <h3>💯 HONEST BRANDING</h3>
-                        <p>We own the irony of “Nasty” with pride. High-quality products with a wink, making conscious choices cool and cutting down on excess even cooler.</p>
-                    </div>
+                <div class="movement-card fade-in">
+                    <h3>Mobile Production</h3>
+                    <p>Gimbal & drone videography with 48-hour turnarounds.</p>
+                </div>
+                
+                <div class="movement-card fade-in">
+                    <h3>Limited Edition Drops</h3>
+                    <p>Exclusive merch at underground events - instant status symbols.</p>
                 </div>
             </div>
         </div>
-    </div>
-
-    <!-- Team Section -->
-    <div class="team-section">
+    </section>
+    
+    <section class="section team" id="team">
         <div class="container">
-            <h2>THE NASTY CREW</h2>
-            <p style="text-align: center; font-size: 1.3rem; margin-bottom: 40px; max-width: 900px; margin: 0 auto 40px;">
-                We're not a traditional agency - we're a collective of creators, tech experts, and influencers 
-                who move fast, break rules, and keep it real with conscious branding.
-            </p>
+            <h2 class="section-title">The Nastiest Crew</h2>
+            <p class="section-subtitle">Cape Town collective driving the underground movement</p>
             
             <div class="team-grid">
-                <div class="team-card">
-                    <div class="team-icon">
-                        <i class="fas fa-wolf-pack-battalion"></i>
-                    </div>
-                    <h3>AI WOLF</h3>
-                    <p><strong>Tech & Strategy</strong></p>
-                    <p>Background in AI and tech solutions, creating digital experiences that connect</p>
+                <div class="team-member fade-in">
+                    <div class="team-image"><i class="fas fa-microphone"></i></div>
+                    <h3>IJohn</h3>
+                    <div class="role">Cape Town Rapper & Face of NASTY</div>
+                    <div class="studio">@ijohnnasty</div>
                 </div>
                 
-                <div class="team-card">
-                    <div class="team-icon">
-                        <i class="fas fa-seedling"></i>
-                    </div>
-                    <h3>LILY (BLOOM AGENCY)</h3>
-                    <p><strong>Creative & Marketing</strong></p>
-                    <p>Guerrilla marketing expert specializing in rapid, trend-based campaigns</p>
+                <div class="team-member fade-in">
+                    <div class="team-image"><i class="fas fa-sliders-h"></i></div>
+                    <h3>Drae</h3>
+                    <div class="role">Music Producer & Sound Architect</div>
+                    <div class="studio">@draenasty</div>
                 </div>
                 
-                <div class="team-card">
-                    <div class="team-icon">
-                        <i class="fas fa-hat-wizard"></i>
-                    </div>
-                    <h3>ALEXANDER TEGGIN (AART)</h3>
-                    <p><strong>VIP Magician & Experience Creator</strong></p>
-                    <p>Creating exclusive Nasty moments at high-profile events</p>
+                <div class="team-member fade-in">
+                    <div class="team-image"><i class="fas fa-headphones"></i></div>
+                    <h3>Jethro</h3>
+                    <div class="role">Top Music Producer</div>
+                    <div class="studio">Paradigm Studios</div>
                 </div>
                 
-                <div class="team-card">
-                    <div class="team-icon">
-                        <i class="fas fa-microphone-alt"></i>
-                    </div>
-                    <h3>IJOHN & DRAE</h3>
-                    <p><strong>Artists & Influencers</strong></p>
-                    <p>Cape Town rappers with growing TikTok followings and authentic street cred</p>
+                <div class="team-member fade-in">
+                    <div class="team-image"><i class="fas fa-magic"></i></div>
+                    <h3>Alexander Tegan</h3>
+                    <div class="role">Creative Director & Magician</div>
+                    <div class="studio">Performing as "Aart"</div>
+                </div>
+                
+                <div class="team-member fade-in">
+                    <div class="team-image"><i class="fas fa-paint-brush"></i></div>
+                    <h3>Beck</h3>
+                    <div class="role">Style Director</div>
+                    <div class="studio">Visual Brand Identity</div>
+                </div>
+                
+                <div class="team-member fade-in">
+                    <div class="team-image"><i class="fas fa-camera"></i></div>
+                    <h3>Nate</h3>
+                    <div class="role">Art Direction</div>
+                    <div class="studio">Digital & Physical Design</div>
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class="rap-scene">
+    </section>
+    
+    <section class="section" id="services">
         <div class="container">
-            <h2>CAPE TOWN'S MUSIC SCENE IS ALREADY NASTY</h2>
-            <p style="text-align: center; font-size: 1.3rem; margin-bottom: 40px; max-width: 800px; margin: 0 auto 40px;">
-                We're not manufacturing authenticity. IJohn and Drae are already part of the movement, 
-                with Nasty Productions capturing their energy in cinematic street content.
-            </p>
+            <h2 class="section-title">What We Bring</h2>
+            <p class="section-subtitle">Mobile, fast, and authentic - join us or watch from the sidelines</p>
             
-            <div class="artist-showcase">
-                <div class="artist-card">
-                    <h4>🎤 IJOHN</h4>
-                    <p>Cape Town rapper already representing the Nasty lifestyle in his music and content</p>
+            <div class="services-grid">
+                <div class="service-category fade-in">
+                    <h3>Content Creation</h3>
+                    <ul class="service-list">
+                        <li>Cinematic gimbal & drone videography</li>
+                        <li>High-energy skateboarding & rap videos</li>
+                        <li>Street culture documentation</li>
+                        <li>TikTok viral content creation</li>
+                        <li>48-hour trend turnaround</li>
+                        <li>WhatsApp sticker pack design</li>
+                    </ul>
                 </div>
-                <div class="artist-card">
-                    <h4>🎵 DRAE</h4>
-                    <p>Established artist who genuinely uses and loves the products - authentic endorsement</p>
+                
+                <div class="service-category fade-in">
+                    <h3>Music Production</h3>
+                    <ul class="service-list">
+                        <li>Paradigm Studios sessions</li>
+                        <li>Product sound integration</li>
+                        <li>Viral audio experiences</li>
+                        <li>Rap hook embedding</li>
+                        <li>Artist collaboration management</li>
+                        <li>Beat creation with product sounds</li>
+                    </ul>
                 </div>
-                <div class="artist-card">
-                    <h4>🎛️ STUDIOS</h4>
-                    <p>Creative spaces where Nasty energy drinks fuel late-night sessions and vapes provide focus breaks</p>
+                
+                <div class="service-category fade-in">
+                    <h3>Digital Innovation</h3>
+                    <ul class="service-list">
+                        <li>Web development & design</li>
+                        <li>Mobile app development</li>
+                        <li>Digital sticker weaponization</li>
+                        <li>AI-powered campaigns</li>
+                        <li>Tech integration solutions</li>
+                        <li>Cross-platform strategies</li>
+                    </ul>
+                </div>
+                
+                <div class="service-category fade-in">
+                    <h3>Experience Design</h3>
+                    <ul class="service-list">
+                        <li>VIP "Nasty Aarts" magic performances</li>
+                        <li>Exclusive underground events</li>
+                        <li>Product launch experiences</li>
+                        <li>Pop-up shop design</li>
+                        <li>Studio takeover events</li>
+                        <li>Guerrilla marketing activations</li>
+                    </ul>
                 </div>
             </div>
-        </div>
-    </div>
-
-    <div class="section">
-        <div class="container">
-            <h2>THE <span class="highlight">EXPANSION</span> STRATEGY</h2>
             
-            <div class="grid">
-                <div class="card">
-                    <div class="card-content">
-                        <h3>🌍 BEYOND VAPES</h3>
-                        <p>From energy drinks to giant toasters and Krispy Kreme collabs, Nasty becomes a lifestyle brand for quality-conscious rebels.</p>
-                    </div>
+            <div class="divider"></div>
+            
+            <h2 class="section-title">Product Philosophy</h2>
+            <p class="section-subtitle">Better alternatives for those who live on the edge</p>
+            
+            <div class="philosophy-content">
+                <div class="philosophy-text fade-in">
+                    <h3>The Nasty Standard</h3>
+                    <p>We create premium alternatives that enhance your lifestyle without compromise. Vaping products with cutting-edge tech and standout flavors. Energy drinks for creatives and night owls, offering sustained energy without the crash. Even our bubble gum at raves is crafted for quality. From limited edition skateboards to magician-inspired playing cards, every product tells a story.</p>
                 </div>
                 
-                <div class="card">
-                    <div class="card-content">
-                        <h3>📱 DIGITAL ECOSYSTEM</h3>
-                        <p>Apps, games, AI chatbots, and TikTok content packs. We turn Nasty into a daily digital experience, not just a product.</p>
+                <div class="services-grid">
+                    <div class="service-category fade-in">
+                        <h3>Vape Systems</h3>
+                        <ul class="service-list">
+                            <li>Premium alternatives with innovative tech</li>
+                        </ul>
                     </div>
-                </div>
-                
-                <div class="card">
-                    <div class="card-content">
-                        <h3>🎪 EXPERIENCE MARKETING</h3>
-                        <p>Pop-up shops, exclusive events, and studio takeovers create cultural moments that feel mysterious and exclusive.</p>
+                    
+                    <div class="service-category fade-in">
+                        <h3>Energy Drinks</h3>
+                        <ul class="service-list">
+                            <li>Sustained energy for creators and ravers</li>
+                        </ul>
                     </div>
-                </div>
-                
-                <div class="card">
-                    <div class="card-content">
-                        <h3>🔄 SUSTAINABLE GROWTH</h3>
-                        <p>Every customer becomes an ambassador. Every sticker and limited-edition drop creates ten more advocates.</p>
+                    
+                    <div class="service-category fade-in">
+                        <h3>Event Experiences</h3>
+                        <ul class="service-list">
+                            <li>Underground parties and exclusive events</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="service-category fade-in">
+                        <h3>Limited Edition</h3>
+                        <ul class="service-list">
+                            <li>Apparel, accessories, and collectibles</li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class="cta">
+    </section>
+    
+    <section class="section collab" id="collab">
         <div class="container">
-            <h2>READY TO MAKE CAPE TOWN EVEN MORE NASTY?</h2>
-            <p class="cta-text">
-                We're not asking you to bet on potential. We're asking you to invest in a conscious, cool, and exclusive movement that's already working.
-            </p>
-            <p class="cta-text" style="font-size: 1.2rem; margin-bottom: 60px;">
-                <strong>The movement started. Let's make it official.</strong>
-            </p>
-            <a href="mailto:hello@nastycapetown.co.za" class="btn">LET'S GET NASTY</a>
+            <h2 class="section-title">Collaboration & Underground Access</h2>
+            <p class="section-subtitle">Choose your level of integration with the underground</p>
+            
+            <div class="collab-levels">
+                <div class="collab-card fade-in">
+                    <div class="level-number">1</div>
+                    <h3>Product Drop</h3>
+                    <ul>
+                        <li>Free products/merch for authentic integration</li>
+                        <li>Organic social media features</li>
+                        <li>Sticker inclusion in packs</li>
+                        <li>Basic guerrilla marketing</li>
+                    </ul>
+                </div>
+                
+                <div class="collab-card fade-in">
+                    <div class="level-number">2</div>
+                    <h3>Event Takeover</h3>
+                    <ul>
+                        <li>VIP event hosting with product placement</li>
+                        <li>"Nasty Aarts" magic performances</li>
+                        <li>Limited edition merch drops</li>
+                        <li>Professional event photography</li>
+                    </ul>
+                </div>
+                
+                <div class="collab-card fade-in">
+                    <div class="level-number">3</div>
+                    <h3>Creative Partnership</h3>
+                    <ul>
+                        <li>Co-created limited edition products</li>
+                        <li>Custom music production at Paradigm</li>
+                        <li>Full content campaign development</li>
+                        <li>Branded digital experiences</li>
+                    </ul>
+                </div>
+                
+                <div class="collab-card fade-in">
+                    <div class="level-number">4</div>
+                    <h3>Movement Scaling</h3>
+                    <ul>
+                        <li>Full integration into the underground movement</li>
+                        <li>VIP access to exclusive network</li>
+                        <li>Priority on all guerrilla marketing</li>
+                        <li>Custom tech/AI solutions</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="signup-form fade-in">
+                <h3 style="color: var(--nasty-green); margin-bottom: 30px; font-size: 1.8rem;">Join The Nastiest Crew</h3>
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" placeholder="Your full name">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" placeholder="Your email address">
+                </div>
+                <div class="form-group">
+                    <label for="location">Location</label>
+                    <select id="location">
+                        <option value="">Select your city</option>
+                        <option value="cpt">Cape Town</option>
+                        <option value="jhb">Johannesburg</option>
+                        <option value="dbn">Durban</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="interest">Main Interest</label>
+                    <select id="interest">
+                        <option value="">What draws you to NASTY?</option>
+                        <option value="music">Music & Events</option>
+                        <option value="products">Limited Products</option>
+                        <option value="culture">Underground Culture</option>
+                        <option value="collab">Collaboration</option>
+                    </select>
+                </div>
+                <button class="cta-button" style="width: 100%;">Apply for Membership</button>
+            </div>
         </div>
-    </div>
-
+    </section>
+    
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2 class="section-title">Connect With Us</h2>
+            <p class="section-subtitle">For collaborations, events, and underground inquiries</p>
+            
+            <div class="contact-grid">
+                <div class="contact-info fade-in">
+                    <h3 class="contact-title">Get In Touch</h3>
+                    <div class="contact-detail">
+                        <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+                        <div>Cape Town Underground<br>Secret locations across the city</div>
+                    </div>
+                    <div class="contact-detail">
+                        <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                        <div>contact@thenastiest.co.za</div>
+                    </div>
+                    <div class="contact-detail">
+                        <div class="contact-icon"><i class="fab fa-instagram"></i></div>
+                        <div>@thenastiest.ct</div>
+                    </div>
+                    <div class="contact-detail">
+                        <div class="contact-icon"><i class="fas fa-calendar-alt"></i></div>
+                        <div>Next Event: Paradigm Studios - Secret Location</div>
+                    </div>
+                </div>
+                
+                <div class="signup-form fade-in">
+                    <h3 class="contact-title">Business Inquiries</h3>
+                    <div class="form-group">
+                        <label for="contact-name">Name</label>
+                        <input type="text" id="contact-name">
+                    </div>
+                    <div class="form-group">
+                        <label for="contact-email">Email</label>
+                        <input type="email" id="contact-email">
+                    </div>
+                    <div class="form-group">
+                        <label for="contact-subject">Subject</label>
+                        <select id="contact-subject">
+                            <option value="">Select inquiry type</option>
+                            <option value="collab">Collaboration</option>
+                            <option value="event">Event Booking</option>
+                            <option value="press">Press Inquiry</option>
+                            <option value="product">Product Distribution</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="contact-message">Message</label>
+                        <textarea id="contact-message" rows="5"></textarea>
+                    </div>
+                    <button class="cta-button">Send Message</button>
+                </div>
+            </div>
+            
+            <a href="mailto:contact@nastiestcrew.com" class="contact-button" style="margin-top: 60px;">Get Nasty Now</a>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="footer-logo">NASTY</div>
+                    <p class="footer-tagline">Scaling the Underground | Cape Town Collective</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <div class="social-links">
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                        <a href="#" aria-label="Spotify"><i class="fab fa-spotify"></i></a>
+                        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Based In</h4>
+                    <p>Cape Town, South Africa</p>
+                    <p>Underground Scene</p>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                © 2025 THE NASTIEST CREW. All rights reserved. For the underground.
+            </div>
+        </div>
+    </footer>
+    
     <script>
-        // Enhanced animations for the revamped design
-        document.addEventListener('DOMContentLoaded', function() {
-            // Sticker item hover effects
-            const stickerItems = document.querySelectorAll('.sticker-item, .merch-item');
-            stickerItems.forEach(item => {
-                item.addEventListener('mouseenter', function() {
-                    this.style.transform = 'scale(1.1) rotate(5deg)';
-                });
-                item.addEventListener('mouseleave', function() {
-                    this.style.transform = 'scale(1) rotate(0deg)';
-                });
+        // Particles
+        function createParticles() {
+            const container = document.getElementById('particles');
+            const particleCount = 50;
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                const size = Math.random() * 5 + 2;
+                const posX = Math.random() * 100;
+                const posY = Math.random() * 100;
+                const delay = Math.random() * 5;
+                const duration = Math.random() * 10 + 10;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${posX}%`;
+                particle.style.top = `${posY}%`;
+                particle.style.animation = `float ${duration}s ${delay}s infinite ease-in-out`;
+                const colors = ['var(--nasty-green)', 'var(--purple)', 'var(--accent)', 'var(--red)'];
+                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                container.appendChild(particle);
+            }
+        }
+        
+        // Scroll animations
+        const fadeElements = document.querySelectorAll('.fade-in');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
             });
-
-            // Card entrance animations
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            };
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0) scale(1)';
-                    }
+        }, { threshold: 0.1 });
+        fadeElements.forEach(el => observer.observe(el));
+        
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            header.classList.toggle('header-scrolled', window.scrollY > 100);
+        });
+        
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
                 });
-            }, observerOptions);
-
-            // Observe all animated elements
-            document.querySelectorAll('.card, .sticker-item, .quality-card, .artist-card, .team-card, .guerrilla-card, .vip-card, .production-card').forEach(el => {
-                el.style.opacity = '0';
-                el.style.transform = 'translateY(50px) scale(0.9)';
-                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-                observer.observe(el);
-            });
-
-            // Stat number counting animation
-            const statNumbers = document.querySelectorAll('.stat-number');
-            statNumbers.forEach(stat => {
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            stat.style.animation = 'pulse 2s infinite';
-                        }
-                    });
-                });
-                observer.observe(stat);
-            });
-            
-            // Audio visualizer animation
-            const bars = document.querySelectorAll('.bar');
-            bars.forEach(bar => {
-                bar.style.animation = `pulse 1s infinite alternate`;
-                bar.style.animationDelay = `calc(${bar.style.getPropertyValue('--i')} * 0.1s)`;
             });
         });
-
-        // Add pulsing animation for stats
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes pulse {
-                0% { transform: scale(1); }
-                50% { transform: scale(1.05); }
-                100% { transform: scale(1); }
+        
+        // Form handling
+        document.querySelectorAll('form').forEach(form => {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const btn = this.querySelector('button');
+                btn.textContent = 'Processing...';
+                btn.disabled = true;
+                setTimeout(() => {
+                    btn.textContent = 'Success!';
+                    setTimeout(() => {
+                        btn.textContent = 'Send Message';
+                        btn.disabled = false;
+                        this.reset();
+                    }, 2000);
+                }, 1500);
+            });
+        });
+        
+        // Easter eggs
+        const logo = document.querySelector('.logo');
+        let clickCount = 0;
+        logo.addEventListener('click', () => {
+            clickCount++;
+            if (clickCount === 5) {
+                document.body.style.animation = 'glitch 0.5s infinite';
+                setTimeout(() => document.body.style.animation = '', 2000);
+                clickCount = 0;
             }
-        `;
-        document.head.appendChild(style);
+        });
+        
+        const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+        let konamiIndex = 0;
+        document.addEventListener('keydown', (e) => {
+            if (e.key === konamiCode[konamiIndex]) {
+                konamiIndex++;
+                if (konamiIndex === konamiCode.length) {
+                    document.documentElement.style.setProperty('--nasty-green', '#ff00ff');
+                    setTimeout(() => document.documentElement.style.setProperty('--nasty-green', '#39FF14'), 3000);
+                    konamiIndex = 0;
+                }
+            } else {
+                konamiIndex = 0;
+            }
+        });
+        
+        // Initialize
+        window.addEventListener('load', createParticles);
     </script>
 </body>
 </html>

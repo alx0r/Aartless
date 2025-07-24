@@ -86,20 +86,101 @@
             text-decoration: underline;
         }
 
-        .newsletter {
+        .contact {
             text-align: center;
-            padding: 20px;
-            background: #111;
-            border-radius: 10px;
+            padding: 30px 20px;
+            background: linear-gradient(135deg, #111, #1a1a1a);
+            border-radius: 15px;
             max-width: 800px;
             width: 100%;
-            box-shadow: 0 0 10px rgba(0, 255, 0, 0.2);
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
             margin-bottom: 30px;
+            border: 1px solid rgba(0, 255, 0, 0.2);
         }
 
-        .newsletter h2 {
-            font-size: 1.8em;
+        .contact h2 {
+            font-size: 2.2em;
             margin-bottom: 15px;
+            color: #00FF00;
+            text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+        }
+
+        .contact p {
+            font-size: 1.1em;
+            margin-bottom: 25px;
+            color: #ccc;
+        }
+
+        .contact-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .contact-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 25px;
+            background: linear-gradient(135deg, #222, #333);
+            border: 2px solid #00FF00;
+            border-radius: 10px;
+            color: #00FF00;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.2);
+        }
+
+        .contact-btn:hover {
+            background: linear-gradient(135deg, #333, #444);
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .contact-btn .icon {
+            font-size: 1.3em;
+        }
+
+        .contact-info {
+            margin-top: 20px;
+            padding: 15px;
+            background: #222;
+            border-radius: 8px;
+            border-left: 4px solid #00FF00;
+            display: none;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .contact-info.show {
+            display: block;
+        }
+
+        .contact-info a {
+            color: #00FF00;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 600px) {
+            .contact-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .contact-btn {
+                width: 200px;
+                justify-content: center;
+            }
         }
 
         .footer {
@@ -108,6 +189,11 @@
             padding-top: 20px;
             font-size: 0.8em;
             color: #00FF00;
+        }
+
+        .no-link {
+            color: #888;
+            font-style: italic;
         }
     </style>
 </head>
@@ -139,25 +225,20 @@
             For those daring to venture deeper into the digital unknowns, I curate a secret newsletter. It's where I share my best insights, predictions and strategies that could reshape the future.</p>
     </div>
 
-    <div class="newsletter">
-        <h2>Secret News</h2>
-        <form>
-            <script>
-                (function (s, e, n, d, er) {
-                    s['Sender'] = er;
-                    s[er] = s[er] || function () {
-                        (s[er].q = s[er].q || []).push(arguments)
-                    }, s[er].l = 1 * new Date();
-                    var a = e.createElement(n),
-                        m = e.getElementsByTagName(n)[0];
-                    a.async = 1;
-                    a.src = d;
-                    m.parentNode.insertBefore(a, m)
-                })(window, document, 'script', 'https://cdn.sender.net/accounts_resources/universal.js', 'sender');
-                sender('451ee966db3477')
-            </script>
-            <div class="sender-form-field" data-sender-form-id="lzpagnoeaqzmmbk0wcf"></div>
-        </form>
+    <div class="contact">
+        <h2>Get In Touch</h2>
+        <p>Ready to explore the digital frontier together? Let's connect and discuss how we can transform your digital strategy.</p>
+        <div class="contact-buttons">
+            <a href="#" class="contact-btn email-btn" onclick="revealEmail(event)">
+                <span class="icon">✉</span>
+                <span class="text">Email Me</span>
+            </a>
+            <a href="#" class="contact-btn whatsapp-btn" onclick="revealWhatsApp(event)">
+                <span class="icon">📱</span>
+                <span class="text">WhatsApp</span>
+            </a>
+        </div>
+        <div id="contact-info" class="contact-info"></div>
     </div>
 
     <div class="container">
@@ -181,12 +262,63 @@
                 </a>
                 <p>Discover how to maximize the potential of your headsets as versatile tools for digital activities with these essential OSINT tips.</p>
             </li>
+            <li>
+                <a href="https://www.slideshare.net/slideshow/why_are_we_hypnotizing_ourselves-_ateggin-1-pdf/270276465">
+                    Why Are We Hypnotizing Ourselves?
+                </a>
+                <p>A deep dive into the psychological mechanisms of digital hypnosis and self-deception in our hyperconnected world, examining how technology shapes our perception of reality.</p>
+            </li>
+            <li>
+                <a href="https://www.digitalmethods.net/Dmi/TheDivineOnline">
+                    The Divine Online: Digital Methods and Sacred Spaces
+                </a>
+                <p>An exploration of how digital platforms transform spiritual and religious practices, analyzing the intersection of technology and faith in contemporary society.</p>
+            </li>
+            <li>
+                <span class="no-link">Faking Sense of War: OSINT as pro-Kremlin Propaganda</span>
+                <p>A critical analysis of how open-source intelligence techniques are weaponized for propaganda purposes, examining the manipulation of information warfare in the digital age.</p>
+            </li>
+            <li>
+                <a href="https://networkcultures.org/tactical-media-room/author/karina/">
+                    Tactical Media and Network Cultures
+                </a>
+                <p>Contributing insights on tactical media strategies and network culture dynamics, exploring how grassroots digital movements shape contemporary media landscapes.</p>
+            </li>
+            <li>
+                <a href="https://hakin9.org/the-digital-yard-effect-the-psychological-impacts-of-digital-dissonance/">
+                    The Digital Yard Effect: The Psychological Impacts of Digital Dissonance
+                </a>
+                <p>Investigating the psychological toll of constant digital connectivity and the cognitive dissonance created by our fragmented online experiences.</p>
+            </li>
         </ul>
     </div>
 
     <div class="footer">
         <p>&copy; 2024 Alexander Teggin | All Rights Reserved | <a href="https://www.instagram.com/alexanderteggin">Instagram</a> | <a href="https://www.threads.net/@alexanderteggin">Threads</a></p>
     </div>
+
+    <script>
+        // Anti-scraping protection for contact info
+        const emailParts = ['alexander', 'teggin', 'gmail', 'com'];
+        const phoneParts = ['31', '633', '636', '529'];
+
+        function revealEmail(event) {
+            event.preventDefault();
+            const email = emailParts[0] + emailParts[1] + '@' + emailParts[2] + '.' + emailParts[3];
+            const infoDiv = document.getElementById('contact-info');
+            infoDiv.innerHTML = `<p>📧 Email: <a href="mailto:${email}">${email}</a></p>`;
+            infoDiv.classList.add('show');
+        }
+
+        function revealWhatsApp(event) {
+            event.preventDefault();
+            const phone = '+' + phoneParts.join('');
+            const whatsappUrl = `https://wa.me/${phoneParts.join('')}?text=Hi%20Alexander,%20I'd%20like%20to%20discuss%20digital%20strategy%20opportunities.`;
+            const infoDiv = document.getElementById('contact-info');
+            infoDiv.innerHTML = `<p>📱 WhatsApp: <a href="${whatsappUrl}" target="_blank">${phone}</a></p>`;
+            infoDiv.classList.add('show');
+        }
+    </script>
 </body>
 
 </html>

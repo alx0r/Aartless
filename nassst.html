@@ -1,0 +1,123 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NASTY | Cape Town Underground</title>
+  <style>
+    /* Reset & Base */
+    *{margin:0;padding:0;box-sizing:border-box;} 
+    html,body{width:100%;background:#000;color:#32CD32;font-family:monospace;overflow-x:hidden;} 
+    a{color:#32CD32;text-decoration:none;} 
+    h1,h2,h3{text-transform:uppercase;letter-spacing:1px;}/* Neon Glow */
+@keyframes glow{0%,100%{text-shadow:0 0 5px #32CD32,0 0 10px #32CD32;}50%{text-shadow:0 0 20px #32CD32,0 0 40px #0f0;}}
+.glow{animation:glow 2s infinite ease-in-out;}
+
+/* Glitch */
+.glitch{position:relative;color:#32CD32;}
+.glitch::before,.glitch::after{content:attr(data-text);position:absolute;left:0;top:0;color:#32CD32;overflow:hidden;}
+.glitch::before{animation:glitchTop 1s infinite linear alternate-reverse;}
+.glitch::after{animation:glitchBot 1s infinite linear alternate-reverse;}
+@keyframes glitchTop{0%{clip:rect(0,900px,0,0);transform:translate(1px,-1px);}50%{clip:rect(0,900px,50px,0);transform:translate(-1px,2px);}100%{clip:rect(0,900px,0,0);transform:translate(0);} }
+@keyframes glitchBot{0%{clip:rect(0,900px,0,0);transform:translate(-1px,1px);}50%{clip:rect(50px,900px,100px,0);transform:translate(1px,-2px);}100%{clip:rect(0,900px,0,0);transform:translate(0);} }
+
+/* Particles */
+.particles{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:-1;}
+.particle{position:absolute;border-radius:50%;opacity:0.7;}
+
+/* Loader Bar */
+#loaderBar{position:fixed;top:0;left:0;height:2px;width:0;background:#32CD32;z-index:9999;}
+
+/* Hero */
+.hero{height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:1rem;}
+#typewriter{font-size:1rem;border-right:2px solid #32CD32;white-space:nowrap;overflow:hidden;margin-top:1rem;animation:blink .8s step-end infinite;}
+@keyframes blink{50%{border-color:transparent;}}
+
+/* Sections */
+section{padding:4rem 1rem;} 
+.container{max-width:1000px;margin:0 auto;}
+.section-title{font-size:2rem;margin-bottom:1rem;position:relative;} 
+.section-title::after{content:'';display:block;width:50px;height:3px;background:#32CD32;margin:0.5rem auto;}
+.grid{display:grid;gap:1rem;} 
+
+/* Cards */
+.card{background:rgba(50,50,50,0.8);padding:1rem;border:1px solid #32CD32;border-radius:6px;transition:transform .3s;}  
+.card:hover{transform:translateY(-5px);}
+
+/* Team */
+.team-card{text-align:center;}
+
+/* Contact */
+.contact a:hover{text-decoration:underline;}
+
+/* Smooth scroll */
+html{scroll-behavior:smooth;}
+
+/* Cursor */
+body{cursor:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><circle cx="10" cy="10" r="4" fill="%2332CD32"/></svg>') 10 10,auto;}
+
+/* Mobile-first Grid */
+.grid-cols-1{grid-template-columns:1fr;}
+@media(min-width:600px){.grid-cols-2{grid-template-columns:1fr 1fr;}}
+@media(min-width:900px){.grid-cols-3{grid-template-columns:repeat(3,1fr);} .grid-cols-4{grid-template-columns:repeat(4,1fr);}}
+
+  </style>
+</head>
+<body>
+  <div id="loaderBar"></div>
+  <div class="particles" id="particles"></div>  <!-- Hero -->  <section class="hero">
+    <h1 class="glitch glow" data-text="NASTY">NASTY</h1>
+    <p id="typewriter"></p>
+  </section>  <!-- Strategy -->  <section id="strategy">
+    <div class="container">
+      <h2 class="section-title glow">Brand Strategy</h2>
+      <div class="grid grid-cols-1 grid-cols-2 grid-cols-3">
+        <div class="card"><h3>Premium Positioning</h3><p>Bold branding & quality products.</p></div>
+        <div class="card"><h3>Street Cred</h3><p>Embedded in CT's underground scene.</p></div>
+        <div class="card"><h3>Viral Ecosystem</h3><p>Stickers, challenges & user buzz.</p></div>
+      </div>
+    </div>
+  </section>  <!-- Guerilla -->  <section id="guerilla">
+    <div class="container">
+      <h2 class="section-title glow">Guerilla Tactics</h2>
+      <div class="grid grid-cols-1 grid-cols-2 grid-cols-3">
+        <div class="card"><h3>Sticker Rev</h3><p>Premium stickers everywhere.</p></div>
+        <div class="card"><h3>Sound Branding</h3><p>TikTok-worthy audio tags.</p></div>
+        <div class="card"><h3>Event Drops</h3><p>Pop-ups & surprise parties.</p></div>
+      </div>
+    </div>
+  </section>  <!-- Content -->  <section id="content">
+    <div class="container">
+      <h2 class="section-title glow">Content Activation</h2>
+      <div class="grid grid-cols-1 grid-cols-2 grid-cols-3">
+        <div class="card"><h3>The Nastiest Club</h3><p>Members-only perks & drops.</p></div>
+        <div class="card"><h3>Digital Warfare</h3><p>Viral challenges & teasers.</p></div>
+        <div class="card"><h3>Exclusive Collabs</h3><p>Limited edition hype.</p></div>
+      </div>
+    </div>
+  </section>  <!-- Team -->  <section id="team">
+    <div class="container">
+      <h2 class="section-title glow">The Nasty Crew</h2>
+      <div class="grid grid-cols-1 grid-cols-2 grid-cols-3 grid-cols-4">
+        <div class="card team-card"><h3>Wolf & Lily AI</h3><p>Tech Strategy</p></div>
+        <div class="card team-card"><h3>IJohn</h3><p>Rapper & Face</p></div>
+        <div class="card team-card"><h3>Drae</h3><p>Sound Architect</p></div>
+        <div class="card team-card"><h3>Alexander</h3><p>Creative Director</p></div>
+      </div>
+    </div>
+  </section>  <!-- Contact -->  <section id="contact">
+    <div class="container">
+      <h2 class="section-title glow">Contact</h2>
+      <p>Hit us up: <a href="mailto:hello@nastycapetown.co.za">hello@nastycapetown.co.za</a></p>
+    </div>
+  </section>  <script>
+    // Typewriter
+    const txt="WE'RE SCALING A MOVEMENT.";let i=0;
+    function type(){if(i<txt.length){document.getElementById('typewriter').innerHTML+=txt.charAt(i++);setTimeout(type,50);}}
+    window.onload=()=>{type();loadBar();spawn();};
+
+    // Loader
+    function loadBar(){let b=document.getElementById('loaderBar'),w=0;let iv=setInterval(()=>{if(w>=100)clearInterval(iv);else b.style.width=(++w)+'%';},20);}    
+    // Particles
+    function spawn(){const c=document.getElementById('particles'),n=30;const cols=['#32CD32','#0f0','#3CFF7F'];for(let i=0;i<n;i++){let p=document.createElement('div');p.className='particle';let s=Math.random()*4+2;let x=Math.random()*100,y=Math.random()*100;let d=Math.random()*5;let dur= (Math.random()*10+5)+'s';p.style.width=p.style.height=s+'px';p.style.left=x+'%';p.style.top=y+'%';p.style.background=cols[i%cols.length];p.style.animation=`float ${dur} ${d}s infinite ease-in-out`;c.appendChild(p);} }
+  </script></body>
+</html>

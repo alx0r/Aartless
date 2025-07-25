@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maddie - Poet & Environmental Advocate</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            color: #2c3e2d;
+            background: linear-gradient(135deg, #e8f5e8 0%, #f0f9ff 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .profile-pic {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 3px solid #4a9d4f;
+            object-fit: cover;
+            background: linear-gradient(45deg, #4a9d4f, #5cb85c);
+        }
+        
+        .hero-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            border: 4px solid #4a9d4f;
+            object-fit: cover;
+            margin: 0 auto 30px;
+            background: linear-gradient(45deg, #4a9d4f, #5cb85c);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+            font-weight: 300;
+        }
+        
+        .logo h1 {
+            font-size: 2rem;
+            color: #2c5530;
+            font-weight: 300;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-btn {
+            padding: 8px 16px;
+            background: #4a9d4f;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+        
+        .social-btn:hover {
+            background: #3d8442;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(74, 157, 79, 0.3);
+        }
+        
+        .hero {
+            padding: 80px 0;
+            text-align: center;
+            background: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), 
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><path d="M0,0 Q250,50 500,0 T1000,0 L1000,200 Q750,150 500,200 T0,200 Z" fill="%23e8f5e8" opacity="0.3"/></svg>');
+        }
+        
+        .hero h2 {
+            font-size: 3rem;
+            color: #2c5530;
+            margin-bottom: 20px;
+            font-weight: 300;
+        }
+        
+        .tagline {
+            font-size: 1.3rem;
+            color: #4a6741;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+        
+        .bio {
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto 40px;
+            color: #555;
+            line-height: 1.8;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 15px 30px;
+            background: linear-gradient(45deg, #4a9d4f, #5cb85c);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(74, 157, 79, 0.3);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(74, 157, 79, 0.4);
+        }
+        
+        .sections {
+            padding: 60px 0;
+        }
+        
+        .section-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+        
+        .section-card {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .section-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .section-card h3 {
+            font-size: 1.5rem;
+            color: #2c5530;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .icon {
+            font-size: 1.3rem;
+        }
+        
+        .section-card p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+        
+        .section-card ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .section-card li {
+            padding: 8px 0;
+            color: #555;
+            position: relative;
+            padding-left: 20px;
+        }
+        
+        .section-card li:before {
+            content: "🌱";
+            position: absolute;
+            left: 0;
+        }
+        
+        .newsletter {
+            background: linear-gradient(135deg, #4a9d4f, #5cb85c);
+            padding: 60px 0;
+            text-align: center;
+            color: white;
+        }
+        
+        .newsletter h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        
+        .newsletter p {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        
+        .newsletter-form {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .newsletter-form input {
+            flex: 1;
+            min-width: 250px;
+            padding: 15px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            outline: none;
+        }
+        
+        .newsletter-form button {
+            padding: 15px 30px;
+            background: white;
+            color: #4a9d4f;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+        
+        .newsletter-form button:hover {
+            background: #f0f0f0;
+            transform: translateY(-2px);
+        }
+        
+        footer {
+            background: #2c5530;
+            color: white;
+            text-align: center;
+            padding: 30px 0;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: #5cb85c;
+        }
+        
+        .story-section {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 60px 0;
+            margin: 40px 0;
+        }
+        
+        .story-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .story-content h3 {
+            font-size: 2rem;
+            color: #2c5530;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .writing-samples {
+            background: #f8fdf8;
+            padding: 60px 0;
+        }
+        
+        .writing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .writing-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid #4a9d4f;
+        }
+        
+        .writing-card h4 {
+            color: #2c5530;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+        
+        .writing-card .excerpt {
+            font-style: italic;
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+        
+        .writing-card .meta {
+            font-size: 0.9rem;
+            color: #888;
+        }
+        
+        .project-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .project-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(45deg, #e8f5e8, #f0f9ff);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #4a9d4f;
+            font-size: 1.1rem;
+            text-align: center;
+            border: 2px dashed #4a9d4f;
+        }
+            .hero h2 {
+                font-size: 2rem;
+            }
+            
+            .tagline {
+                font-size: 1.1rem;
+            }
+            
+            .section-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .newsletter-form input {
+                min-width: auto;
+                width: 100%;
+                max-width: 400px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Ccircle cx='30' cy='30' r='28' fill='%234a9d4f' stroke='%23fff' stroke-width='4'/%3E%3Ctext x='30' y='38' text-anchor='middle' fill='white' font-size='24' font-family='serif'%3EM%3C/text%3E%3C/svg%3E" alt="Maddie" class="profile-pic">
+                    <h1>Maddie</h1>
+                </div>
+                <div class="social-links">
+                    <a href="#" class="social-btn">TikTok</a>
+                    <a href="#" class="social-btn">Instagram</a>
+                    <a href="#contact" class="social-btn">Contact</a>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <section class="hero">
+        <div class="container">
+            <h2>Poet & Environmental Advocate</h2>
+            <p class="tagline">"Spending time intentionally. Keep the earth clean and be kind."</p>
+            <p class="bio">
+                Welcome to my corner of the internet! I'm passionate about poetry, environmental conservation, 
+                and creating content that inspires mindful living. Through my writing and advocacy work, 
+                I explore the deep connection between humanity and nature, encouraging others to live more 
+                sustainfully and thoughtfully.
+            </p>
+            <a href="#newsletter" class="cta-button">Join My Journey</a>
+        </div>
+    </section>
+    
+    <section class="story-section">
+        <div class="container">
+            <div class="story-content">
+                <h3>My Story So Far</h3>
+                <p>
+                    <!-- UPDATE THIS SECTION: Add Maddie's personal story here -->
+                    My journey began with a simple love for words and a growing awareness of our planet's needs. 
+                    Growing up surrounded by nature, I discovered that poetry could be a powerful tool for environmental advocacy. 
+                    Each poem I write, each cleanup I organize, and each piece of content I create stems from a deep belief 
+                    that we can inspire change through authentic storytelling and mindful action.
+                </p>
+                <p>
+                    From my early days writing in journals to sharing my work across social platforms, I've learned that 
+                    the most meaningful connections happen when we're honest about our struggles and hopes for the future. 
+                    My work continues to evolve, always rooted in the belief that small, intentional actions can create 
+                    ripples of positive change.
+                </p>
+                <!-- Add more paragraphs as needed -->
+            </div>
+        </div>
+    </section>
+    
+    <section class="writing-samples">
+        <div class="container">
+            <h3 style="text-align: center; font-size: 2rem; color: #2c5530; margin-bottom: 20px;">Recent Writing & Projects</h3>
+            <p style="text-align: center; color: #666; margin-bottom: 40px;">A collection of my latest poetry, articles, and environmental initiatives</p>
+            
+            <div class="writing-grid">
+                <div class="writing-card">
+                    <h4>Ocean's Whisper</h4>
+                    <div class="excerpt">
+                        "The waves carry stories of plastic dreams and coral memories, 
+                        teaching us that every choice ripples through tomorrow..."
+                    </div>
+                    <div class="meta">Published Poetry • Environmental Theme</div>
+                    <!-- REPLACE: Add link to actual poem/article -->
+                </div>
+                
+                <div class="writing-card">
+                    <h4>River Cleanup Chronicles</h4>
+                    <div class="excerpt">
+                        "Today we pulled 47 pounds of debris from the riverbank. 
+                        Each piece told a story of how we've forgotten to listen to the water..."
+                    </div>
+                    <div class="meta">Project Update • Community Action</div>
+                    <!-- REPLACE: Add link to actual project documentation -->
+                </div>
+                
+                <div class="writing-card">
+                    <h4>Sustainable Living Reflections</h4>
+                    <div class="excerpt">
+                        "It's not about perfection—it's about progress. Every small change in our daily habits 
+                        is a love letter to future generations..."
+                    </div>
+                    <div class="meta">Blog Article • Lifestyle</div>
+                    <!-- REPLACE: Add link to actual article -->
+                </div>
+            </div>
+            
+            <div class="project-gallery">
+                <!-- REPLACE THESE: Add actual images from her Instagram/TikTok -->
+                <div class="project-image">
+                    Beach Cleanup<br>Project Image
+                </div>
+                <div class="project-image">
+                    Poetry Reading<br>Event Photo
+                </div>
+                <div class="project-image">
+                    River Conservation<br>Initiative Image
+                </div>
+                <div class="project-image">
+                    Community Workshop<br>Behind the Scenes
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="sections">
+        <div class="container">
+            <div class="section-grid">
+                <div class="section-card">
+                    <h3><span class="icon">📝</span> Poetry & Writing</h3>
+                    <p>My poetry explores themes of nature, sustainability, and human connection to the earth. Each piece is crafted to inspire reflection and environmental consciousness.</p>
+                    <ul>
+                        <li>Published poems on environmental themes</li>
+                        <li>Spoken word performances</li>
+                        <li>Writing workshops and collaborations</li>
+                        <li>Nature-inspired creative content</li>
+                    </ul>
+                </div>
+                
+                <div class="section-card">
+                    <h3><span class="icon">🌍</span> Environmental Projects</h3>
+                    <p>I'm actively involved in various environmental initiatives, from beach cleanups to river conservation efforts, always working toward a cleaner, healthier planet.</p>
+                    <ul>
+                        <li>Beach and river cleanup campaigns</li>
+                        <li>Ocean conservation awareness</li>
+                        <li>Sustainable living education</li>
+                        <li>Community environmental workshops</li>
+                    </ul>
+                </div>
+                
+                <div class="section-card">
+                    <h3><span class="icon">📱</span> Content Creation</h3>
+                    <p>Through engaging social media content, I share my environmental journey, poetry, and sustainable lifestyle tips with a growing community of like-minded individuals.</p>
+                    <ul>
+                        <li>Educational environmental content</li>
+                        <li>Poetry readings and performances</li>
+                        <li>Behind-the-scenes conservation work</li>
+                        <li>Sustainable living tips and inspiration</li>
+                    </ul>
+                </div>
+                
+                <div class="section-card">
+                    <h3><span class="icon">💚</span> Community & Advocacy</h3>
+                    <p>Building connections with fellow environmental advocates and poets, fostering a community dedicated to positive change and creative expression.</p>
+                    <ul>
+                        <li>Environmental advocacy campaigns</li>
+                        <li>Poetry community engagement</li>
+                        <li>Collaborative conservation projects</li>
+                        <li>Speaking engagements and workshops</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="newsletter" id="newsletter">
+        <div class="container">
+            <h3>Stay Connected</h3>
+            <p>Join my mailing list for updates on new poetry, environmental projects, and exclusive content about sustainable living and creative inspiration.</p>
+            <form class="newsletter-form">
+                <input type="email" placeholder="Enter your email address" required>
+                <button type="submit">Subscribe</button>
+            </form>
+        </div>
+    </section>
+    
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-links">
+                <a href="mailto:hello@maddie.com">Email</a>
+                <a href="#">TikTok</a>
+                <a href="#">Instagram</a>
+                <a href="#">Poetry Portfolio</a>
+            </div>
+            <p>&copy; 2025 Maddie. All rights reserved. Made with 🌱 and care for our planet.</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Simple form handling
+        document.querySelector('.newsletter-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = this.querySelector('input[type="email"]').value;
+            if(email) {
+                alert('Thank you for subscribing! You\'ll hear from me soon with updates on poetry and environmental projects.');
+                this.querySelector('input[type="email"]').value = '';
+            }
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if(target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Add subtle parallax effect to hero section
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            if(hero) {
+                hero.style.transform = 'translateY(' + (scrolled * 0.3) + 'px)';
+            }
+        });
+    </script>
+</body>
+</html>

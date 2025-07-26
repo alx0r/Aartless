@@ -2,281 +2,98 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>REALITY PERCEPTION SIMULATOR v4.0</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600&display=swap');
-        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+            touch-action: manipulation;
         }
         
         body {
-            font-family: 'Fira Code', monospace;
-            background: linear-gradient(45deg, #0a0a0a, #1a1a1a, #0a0a0a);
+            font-family: 'Courier New', monospace;
+            background: #000;
             color: #00ff41;
-            overflow-x: hidden;
-            cursor: none;
-            position: relative;
-            min-height: 100vh;
-        }
-        
-        .custom-cursor {
-            position: fixed;
-            width: 20px;
-            height: 20px;
-            border: 2px solid #00ff41;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9999;
-            transition: all 0.1s ease;
-            transform: translate(-50%, -50%);
-            mix-blend-mode: difference;
-        }
-        
-        .cursor-trail {
-            position: fixed;
-            width: 6px;
-            height: 6px;
-            background: #ff0066;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9998;
-            opacity: 0.7;
-            transform: translate(-50%, -50%);
-        }
-        
-        .glitch-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
             overflow: hidden;
-            z-index: -1;
-            background: 
-                radial-gradient(circle at 25% 25%, rgba(0, 255, 65, 0.05) 0%, transparent 50%),
-                radial-gradient(circle at 75% 75%, rgba(255, 0, 100, 0.05) 0%, transparent 50%);
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            perspective: 1000px;
         }
         
-        .matrix-rain {
-            position: absolute;
+        /* Warning modal */
+        .warning-modal {
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            pointer-events: none;
-            opacity: 0.3;
-        }
-        
-        .content {
-            position: relative;
-            z-index: 10;
-            padding: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-            line-height: 1.6;
-            min-height: 100vh;
+            background: rgba(0, 0, 0, 0.98);
             display: flex;
             flex-direction: column;
             justify-content: center;
-        }
-        
-        .title {
-            font-size: 2.5rem;
-            text-align: center;
-            margin-bottom: 2rem;
-            text-shadow: 0 0 20px #00ff41;
-            animation: pulse 2s infinite;
-        }
-        
-        .symbol-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
-            gap: 10px;
-            margin: 2rem 0;
-            padding: 1rem;
-            border: 1px solid rgba(0, 255, 65, 0.3);
-            background: rgba(0, 0, 0, 0.3);
-        }
-        
-        .symbol {
-            text-align: center;
-            font-size: 1.2rem;
-            padding: 10px;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            border: 1px solid transparent;
-        }
-        
-        .symbol:hover {
-            background: rgba(0, 255, 65, 0.2);
-            border-color: #00ff41;
-            transform: scale(1.2);
-            text-shadow: 0 0 10px #00ff41;
-        }
-        
-        .coordinates {
-            font-size: 1.1rem;
-            margin: 1rem 0;
-            padding: 1rem;
-            background: rgba(0, 0, 0, 0.5);
-            border-left: 4px solid #00ff41;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-        
-        .coordinates:hover {
-            background: rgba(0, 255, 65, 0.1);
-            padding-left: 2rem;
-        }
-        
-        .clickable {
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .clickable:hover {
-            color: #ff0066;
-            text-shadow: 0 0 10px #ff0066;
-        }
-        
-        .alexander-text {
-            font-size: 1.5rem;
-            text-align: center;
-            margin: 3rem 0;
-            padding: 2rem;
-            background: linear-gradient(45deg, rgba(0, 255, 65, 0.1), rgba(255, 0, 100, 0.1));
-            border: 1px solid rgba(0, 255, 65, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .alexander-text::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(0, 255, 65, 0.1), transparent);
-            animation: scan 3s linear infinite;
-        }
-        
-        .diamond-pattern {
-            font-size: 0.8rem;
-            line-height: 1;
-            margin: 2rem 0;
-            text-align: center;
-            opacity: 0.7;
-        }
-        
-        .hidden-message {
-            opacity: 0;
-            transition: opacity 1s ease;
-            background: rgba(255, 0, 100, 0.1);
-            padding: 1rem;
-            margin: 1rem 0;
-            border: 1px solid rgba(255, 0, 100, 0.3);
-        }
-        
-        .revealed {
-            opacity: 1;
-        }
-        
-        .puzzle-input {
-            background: rgba(0, 0, 0, 0.8);
-            border: 1px solid #00ff41;
-            color: #00ff41;
-            padding: 10px;
-            font-family: 'Fira Code', monospace;
-            font-size: 1rem;
-            width: 100%;
-            margin: 1rem 0;
-        }
-        
-        .puzzle-input:focus {
-            outline: none;
-            box-shadow: 0 0 20px rgba(0, 255, 65, 0.5);
-        }
-        
-        .data-stream {
-            position: fixed;
-            top: 0;
-            right: 0;
-            width: 300px;
-            height: 100vh;
-            background: rgba(0, 0, 0, 0.8);
-            padding: 1rem;
-            font-size: 0.8rem;
-            overflow-y: auto;
-            border-left: 1px solid rgba(0, 255, 65, 0.3);
-            z-index: 5;
-            transform: translateX(100%);
-            transition: transform 0.5s ease;
-        }
-        
-        .data-stream.active {
-            transform: translateX(0);
-        }
-        
-        .terminal-prompt {
-            color: #00ff41;
-        }
-        
-        .terminal-prompt::before {
-            content: '> ';
-        }
-        
-        .reality-counter {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            font-size: 1.2rem;
-            z-index: 100;
-            background: rgba(0, 0, 0, 0.8);
-            padding: 10px 20px;
-            border: 1px solid #00ff41;
-            transition: all 0.3s ease;
-        }
-        
-        .warning {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(255, 0, 0, 0.1);
-            border: 2px solid #ff0066;
-            padding: 2rem;
-            font-size: 1.5rem;
+            align-items: center;
+            padding: 20px;
             text-align: center;
             z-index: 1000;
-            opacity: 0;
-            transition: all 0.5s ease;
-            pointer-events: none;
         }
         
-        .warning.active {
-            opacity: 1;
+        .warning-title {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            text-shadow: 0 0 15px #ff0000;
+            color: #ff0000;
+            animation: pulse 1.5s infinite;
         }
         
+        .warning-content {
+            max-width: 90%;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin-bottom: 20px;
+            background: rgba(60, 0, 0, 0.3);
+            padding: 15px;
+            border: 2px solid #ff0000;
+            border-radius: 5px;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+        }
+        
+        .warning-accept {
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid #ff0000;
+            color: #ff0000;
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            border-radius: 5px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 15px;
+        }
+        
+        /* Reality layers */
         .reality-layer {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            min-height: 100vh;
-            padding: 2rem;
-            opacity: 0;
-            transition: all 2s ease;
+            height: 100%;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            padding: 15px;
             text-align: center;
+            opacity: 0;
+            transition: opacity 1.5s;
             pointer-events: none;
+            overflow: hidden;
         }
         
         .reality-layer.active {
@@ -284,276 +101,225 @@
             pointer-events: all;
         }
         
+        .layer-content {
+            max-width: 95%;
+            line-height: 1.6;
+            padding: 15px;
+        }
+        
+        .layer-title {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px currentColor;
+        }
+        
+        .layer-text {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+        
+        .interaction-btn {
+            margin-top: 20px;
+            padding: 12px 25px;
+            background: rgba(0, 30, 0, 0.3);
+            border: 1px solid #00ff41;
+            border-radius: 3px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .interaction-btn:active {
+            background: rgba(0, 255, 65, 0.2);
+            box-shadow: 0 0 15px #00ff41;
+        }
+        
+        .reality-counter {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 0.9rem;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 8px 12px;
+            border: 1px solid #00ff41;
+            border-radius: 3px;
+            z-index: 10;
+        }
+        
+        /* Layer-specific styles */
+        .layer-0 {
+            background: linear-gradient(135deg, #001100, #000, #001100);
+        }
+        
+        .symbol-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin: 15px 0;
+            padding: 10px;
+        }
+        
+        .symbol {
+            font-size: 1.5rem;
+            padding: 12px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(0, 255, 65, 0.3);
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        
+        .symbol.active {
+            background: rgba(0, 255, 65, 0.2);
+            border-color: #00ff41;
+            box-shadow: 0 0 10px #00ff41;
+        }
+        
+        .coordinates {
+            font-size: 1rem;
+            margin: 10px 0;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.5);
+            border-left: 3px solid #00ff41;
+            text-align: left;
+            width: 100%;
+        }
+        
         .layer-1 {
             background: linear-gradient(45deg, #000, #001100, #000);
             animation: breathe 4s ease-in-out infinite;
         }
         
-        .layer-1 .glitch-text {
+        .glitch-text {
             animation: glitch 0.5s infinite;
             position: relative;
-            font-size: 1.5rem;
-            margin: 1rem 0;
-        }
-        
-        .layer-1 .glitch-text::before,
-        .layer-1 .glitch-text::after {
-            content: attr(data-text);
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-        
-        .layer-1 .glitch-text::before {
-            color: #ff0066;
-            animation: glitch-1 0.5s infinite;
-            clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
-        }
-        
-        .layer-1 .glitch-text::after {
-            color: #00ffff;
-            animation: glitch-2 0.5s infinite;
-            clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
+            margin: 10px 0;
         }
         
         .layer-2 {
             background: #fff;
             color: #000;
-            transform: rotate(180deg);
-            filter: invert(1);
         }
         
-        .layer-2 .content {
+        .layer-2 .layer-content {
             transform: rotate(180deg);
-            filter: invert(1);
         }
         
         .layer-3 {
             background: radial-gradient(circle, #000 0%, #ff0066 50%, #000 100%);
         }
         
-        .layer-3 .fragment {
+        .fragment {
             position: absolute;
-            animation: float 3s ease-in-out infinite;
-            transform-origin: center;
-            font-size: 2rem;
+            font-size: 1.5rem;
+            animation: float 6s ease-in-out infinite;
         }
         
         .layer-4 {
-            background: 
-                radial-gradient(circle at 25% 25%, rgba(0, 255, 65, 0.3) 0%, transparent 50%),
-                radial-gradient(circle at 75% 75%, rgba(255, 0, 100, 0.3) 0%, transparent 50%);
+            background: linear-gradient(45deg, #ff0066, #00ff41, #0066ff, #ff0066);
+            background-size: 400% 400%;
+            animation: rainbow 8s ease infinite;
         }
         
-        .layer-4 .recursive-container {
+        .recursive-container {
             position: relative;
             border: 2px solid #00ff41;
-            padding: 2rem;
-            margin: 1rem;
+            padding: 15px;
+            margin: 10px;
             animation: zoom 5s ease-in-out infinite alternate;
         }
         
-        .layer-4 .recursive-container::before {
-            content: '';
-            position: absolute;
-            top: 10%;
-            left: 10%;
-            width: 80%;
-            height: 80%;
-            border: 1px solid #ff0066;
+        .layer-5 {
+            background: repeating-linear-gradient(
+                45deg,
+                #000,
+                #000 10px,
+                #00ff41 10px,
+                #00ff41 20px
+            );
+        }
+        
+        .text-repetition {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            animation: textShake 0.5s infinite;
+        }
+        
+        .layer-6 {
+            background: #000;
+        }
+        
+        .diamond-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 5px;
+            margin: 20px 0;
+        }
+        
+        .diamond {
+            font-size: 1.8rem;
             animation: spin 10s linear infinite;
         }
         
-        .layer-5 {
-            background: linear-gradient(45deg, #ff0066, #00ff41, #0066ff, #ff0066);
-            background-size: 400% 400%;
-            animation: rainbow 3s ease infinite;
+        /* Controls */
+        .reality-controls {
+            position: fixed;
+            bottom: 15px;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            z-index: 50;
         }
         
-        .layer-5 .final-text {
-            font-size: 3rem;
-            animation: pulse 2s ease-in-out infinite;
-            text-shadow: 0 0 50px currentColor;
+        .reality-btn {
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid #00ff41;
+            color: #00ff41;
+            padding: 10px 15px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            border-radius: 3px;
+            min-width: 100px;
+        }
+        
+        /* Progress bar */
+        .progress-container {
+            position: absolute;
+            bottom: 60px;
+            left: 10px;
+            width: calc(100% - 20px);
+            height: 8px;
+            background: rgba(0, 255, 65, 0.2);
+            border-radius: 4px;
+            overflow: hidden;
+            z-index: 10;
         }
         
         .progress-bar {
-            width: 100%;
-            height: 4px;
-            background: rgba(0, 255, 65, 0.3);
-            margin: 1rem 0;
-            overflow: hidden;
-        }
-        
-        .progress-fill {
             height: 100%;
             background: linear-gradient(90deg, #00ff41, #ff0066);
             width: 0%;
             transition: width 0.5s ease;
         }
         
-        .ai-assistant-btn {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: rgba(0, 0, 0, 0.8);
-            border: 1px solid #00ff41;
-            color: #00ff41;
-            padding: 10px 20px;
-            font-family: 'Fira Code', monospace;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            z-index: 100;
-        }
-        
-        .ai-assistant-btn:hover {
-            background: rgba(0, 255, 65, 0.2);
-            box-shadow: 0 0 10px #00ff41;
-        }
-        
-        .ai-terminal {
-            position: fixed;
-            bottom: 70px;
-            right: 20px;
-            width: 400px;
-            height: 400px;
-            background: rgba(0, 0, 0, 0.95);
-            border: 2px solid #00ff41;
-            z-index: 100;
-            display: none;
-            flex-direction: column;
-            box-shadow: 0 0 20px rgba(0, 255, 65, 0.5);
-        }
-        
-        .ai-terminal.active {
-            display: flex;
-        }
-        
-        .terminal-header {
-            background: rgba(0, 30, 0, 0.8);
-            padding: 10px;
-            border-bottom: 1px solid #00ff41;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .terminal-title {
-            font-size: 1.2rem;
-            text-shadow: 0 0 5px #00ff41;
-        }
-        
-        .close-terminal {
-            background: transparent;
-            border: none;
-            color: #ff0066;
-            font-size: 1.5rem;
-            cursor: pointer;
-            padding: 0 10px;
-        }
-        
-        .terminal-messages {
-            flex: 1;
-            padding: 15px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        
-        .ai-message {
-            background: rgba(0, 30, 0, 0.3);
-            padding: 10px;
-            border-left: 2px solid #00ff41;
-            animation: fadeIn 0.3s ease;
-        }
-        
-        .user-message {
-            background: rgba(30, 0, 0, 0.3);
-            padding: 10px;
-            border-left: 2px solid #ff0066;
-            align-self: flex-end;
-            animation: fadeIn 0.3s ease;
-        }
-        
-        .terminal-input {
-            display: flex;
-            padding: 10px;
-            background: rgba(0, 20, 0, 0.8);
-            border-top: 1px solid #00ff41;
-        }
-        
-        .ai-input {
-            flex: 1;
-            background: rgba(0, 0, 0, 0.8);
-            border: 1px solid #00ff41;
-            color: #00ff41;
-            padding: 8px;
-            font-family: 'Fira Code', monospace;
-        }
-        
-        .ai-send {
-            background: rgba(0, 30, 0, 0.8);
-            border: 1px solid #00ff41;
-            color: #00ff41;
-            padding: 8px 15px;
-            margin-left: 10px;
-            cursor: pointer;
-            font-family: 'Fira Code', monospace;
-        }
-        
-        .ai-send:hover {
-            background: rgba(0, 255, 65, 0.2);
-        }
-        
+        /* Animations */
         @keyframes pulse {
             0%, 100% { opacity: 1; }
             50% { opacity: 0.5; }
         }
         
-        @keyframes scan {
-            0% { transform: translateX(-100%) translateY(-100%); }
-            100% { transform: translateX(100%) translateY(100%); }
+        @keyframes breathe {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
         }
         
         @keyframes glitch {
-            0%, 100% { transform: translateX(0); }
-            20% { transform: translateX(-2px); }
-            40% { transform: translateX(2px); }
-            60% { transform: translateX(-1px); }
-            80% { transform: translateX(1px); }
-        }
-        
-        @keyframes glitch-1 {
             0%, 100% { transform: translateX(0); }
             20% { transform: translateX(-3px); }
             40% { transform: translateX(3px); }
             60% { transform: translateX(-2px); }
             80% { transform: translateX(2px); }
-        }
-        
-        @keyframes glitch-2 {
-            0%, 100% { transform: translateX(0); }
-            20% { transform: translateX(3px); }
-            40% { transform: translateX(-3px); }
-            60% { transform: translateX(2px); }
-            80% { transform: translateX(-2px); }
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(180deg); }
-        }
-        
-        @keyframes zoom {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.5); }
-        }
-        
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
         }
         
         @keyframes rainbow {
@@ -562,748 +328,348 @@
             100% { background-position: 0% 50%; }
         }
         
-        @keyframes breathe {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.02); }
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(20px, -30px) rotate(90deg); }
+            50% { transform: translate(0, -50px) rotate(180deg); }
+            75% { transform: translate(-20px, -30px) rotate(270deg); }
         }
         
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes zoom {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.2); }
         }
         
-        .modal {
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @keyframes textShake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-2px); }
+            50% { transform: translateX(2px); }
+            75% { transform: translateX(-1px); }
+        }
+        
+        /* Matrix rain effect */
+        .matrix-container {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
+            z-index: -1;
+            opacity: 0.3;
         }
         
-        .modal.active {
-            opacity: 1;
-            visibility: visible;
+        canvas {
+            display: block;
         }
         
-        .modal-content {
-            background: rgba(0, 0, 0, 0.95);
-            border: 2px solid #00ff41;
-            padding: 2rem;
-            max-width: 600px;
-            text-align: center;
-        }
-        
-        .close-btn {
-            position: absolute;
-            top: 10px;
-            right: 20px;
-            font-size: 2rem;
-            cursor: pointer;
-            color: #ff0066;
-        }
-        
-        .reality-controls {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 10px;
-            z-index: 100;
-        }
-        
-        .reality-btn {
-            background: rgba(0, 0, 0, 0.8);
-            border: 1px solid #00ff41;
-            color: #00ff41;
-            padding: 10px 20px;
-            font-family: 'Fira Code', monospace;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .reality-btn:hover {
-            background: rgba(0, 255, 65, 0.2);
-            box-shadow: 0 0 10px #00ff41;
-        }
-        
-        @media (max-width: 768px) {
-            .content {
-                padding: 1rem;
-            }
-            
-            .title {
-                font-size: 1.8rem;
-            }
-            
-            .data-stream {
-                width: 100%;
-                height: 50vh;
-                top: auto;
-                bottom: 0;
-                transform: translateY(100%);
-            }
-            
-            .data-stream.active {
-                transform: translateY(0);
-            }
-            
-            .reality-controls {
-                flex-direction: column;
-                align-items: center;
-                width: 90%;
-            }
-            
-            .ai-terminal {
-                width: 95%;
-                right: 10px;
-                left: 10px;
-                height: 300px;
-            }
+        /* Responsive adjustments */
+        @media (max-width: 480px) {
+            .warning-title { font-size: 2rem; }
+            .layer-title { font-size: 1.5rem; }
+            .symbol { font-size: 1.3rem; padding: 10px; }
+            .coordinates { font-size: 0.9rem; }
+            .interaction-btn { padding: 10px 20px; font-size: 1rem; }
         }
     </style>
 </head>
 <body>
-    <div class="custom-cursor"></div>
-    
-    <div class="glitch-container">
-        <canvas class="matrix-rain"></canvas>
+    <!-- Warning Modal -->
+    <div class="warning-modal" id="warningModal">
+        <div class="warning-title">⚠️ REALITY WARNING ⚠️</div>
+        <div class="warning-content">
+            <p>THIS SIMULATION CONTAINS EXTREME PERCEPTION DISTORTION</p>
+            <p>EXPOSURE MAY CAUSE TEMPORARY DISORIENTATION OR EXISTENTIAL AWARENESS</p>
+            <p>BY PROCEEDING, YOU ACCEPT RESPONSIBILITY FOR ANY SHIFTS IN COGNITION</p>
+        </div>
+        <button class="warning-accept" id="warningAccept">ENTER SIMULATION</button>
     </div>
     
-    <div class="reality-counter" id="realityCounter">
-        REALITY LAYER: 0
+    <!-- Matrix Rain Background -->
+    <div class="matrix-container">
+        <canvas id="matrixCanvas"></canvas>
     </div>
     
-    <div class="warning" id="warning">
-        ⚠️ REALITY BREACH DETECTED ⚠️<br>
-        SIMULATION INTEGRITY COMPROMISED<br>
-        CONTINUE AT YOUR OWN RISK
+    <!-- Progress Bar -->
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
     </div>
     
-    <!-- Layer 0 - Main Reality -->
-    <div class="reality-layer active" id="layer0">
-        <div class="content">
-            <div class="title">REALITY PERCEPTION SIMULATOR v4.0</div>
+    <!-- Reality Controls -->
+    <div class="reality-controls">
+        <button class="reality-btn" id="prevBtn">PREV</button>
+        <button class="reality-btn" id="nextBtn">NEXT</button>
+        <button class="reality-btn" id="randomBtn">RANDOM</button>
+    </div>
+    
+    <!-- Reality Layer 0: Main Reality -->
+    <div class="reality-layer layer-0 active" id="layer0">
+        <div class="reality-counter">REALITY LAYER: 0</div>
+        <div class="layer-content">
+            <div class="layer-title">REALITY PERCEPTION SIMULATOR</div>
+            <div class="layer-text">
+                Tap symbols to alter reality parameters.<br>
+                Each interaction shifts perception.
+            </div>
             
             <div class="symbol-grid">
-                <span class="symbol clickable" data-value="∃">∃</span>
-                <span class="symbol clickable" data-value="∀">∀</span>
-                <span class="symbol clickable" data-value="∅">∅</span>
-                <span class="symbol clickable" data-value="∞">∞</span>
-                <span class="symbol clickable" data-value="∫">∫</span>
-                <span class="symbol clickable" data-value="∂">∂</span>
-                <span class="symbol clickable" data-value="∇">∇</span>
-                <span class="symbol clickable" data-value="⊕">⊕</span>
-                <span class="symbol clickable" data-value="⊗">⊗</span>
-                <span class="symbol clickable" data-value="⊙">⊙</span>
-                <span class="symbol clickable" data-value="⊚">⊚</span>
-                <span class="symbol clickable" data-value="⊛">⊛</span>
-                <span class="symbol clickable" data-value="⊜">⊜</span>
-                <span class="symbol clickable" data-value="⊝">⊝</span>
-                <span class="symbol clickable" data-value="⊞">⊞</span>
-                <span class="symbol clickable" data-value="⊟">⊟</span>
-                <span class="symbol clickable" data-value="⊠">⊠</span>
-                <span class="symbol clickable" data-value="⊡">⊡</span>
+                <div class="symbol" data-value="∃">∃</div>
+                <div class="symbol" data-value="∀">∀</div>
+                <div class="symbol" data-value="∅">∅</div>
+                <div class="symbol" data-value="∞">∞</div>
+                <div class="symbol" data-value="∫">∫</div>
+                <div class="symbol" data-value="∂">∂</div>
+                <div class="symbol" data-value="∇">∇</div>
+                <div class="symbol" data-value="⊕">⊕</div>
             </div>
             
-            <div class="coordinates clickable" data-location="point_nemo">
-                47°9'S 126°43'W → <span class="glitch">POINT NEMO</span>
-            </div>
+            <div class="coordinates">47°9'S 126°43'W → POINT NEMO</div>
+            <div class="coordinates">33.678917 -116.243889 → SALTON SEA</div>
+            <div class="coordinates">51.1789 -1.8262 → STONEHENGE</div>
             
-            <div class="coordinates clickable" data-location="salton_sea">
-                33.678917 -116.243889 → <span class="glitch">SALTON SEA</span>
-            </div>
-            
-            <div class="coordinates clickable" data-location="stonehenge">
-                51.1789 -1.8262 → <span class="glitch">STONEHENGE</span>
-            </div>
-            
-            <div class="coordinates clickable" data-ancient="true">
-                ΜΑΚΕΔΩΝ → ἈΛΈΞΑΝΔΡΟΣ → ΦΙΛΊΠΠΟΣ
-            </div>
-            
-            <div class="coordinates clickable" data-sequence="fibonacci">
-                <span class="terminal-prompt">7415963 → 369 → 21 → 3</span>
-            </div>
-            
-            <input type="text" class="puzzle-input" placeholder="Enter the sequence..." id="sequenceInput">
-            
-            <div class="progress-bar">
-                <div class="progress-fill" id="progressFill"></div>
-            </div>
-            
-            <div class="alexander-text">
-                <div>THE FIRST</div>
-                <div><span class="clickable" id="alexanderLink">ALEXANDER</span> WEPT</div>
-                <div>FOR THERE WERE NO MORE WORLDS TO CONQUER</div>
-                <div>BUT THE LAST ALEXANDER KNOWS</div>
-                <div>CONQUEST IS ONLY THE BEGINNING</div>
-            </div>
-            
-            <div class="hidden-message" id="hiddenMessage">
-                <div class="terminal-prompt">ACCESSING DEEPER LAYERS...</div>
-                <div>REALITY.EXE HAS STOPPED RESPONDING</div>
-                <div>WOULD YOU LIKE TO RESTART THE SIMULATION?</div>
-            </div>
-            
-            <div class="diamond-pattern">
-                ◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊
-            </div>
+            <div class="interaction-btn" id="beginBtn">BEGIN SHIFT</div>
         </div>
     </div>
     
-    <!-- Layer 1 - Glitch Reality -->
+    <!-- Reality Layer 1: Glitch Reality -->
     <div class="reality-layer layer-1" id="layer1">
-        <div class="content">
-            <div class="glitch-text" data-text="REALITY GLITCH DETECTED">REALITY GLITCH DETECTED</div>
-            <div class="glitch-text" data-text="SYSTEM CORRUPTION 34.7%">SYSTEM CORRUPTION 34.7%</div>
-            <div class="glitch-text" data-text="MEMORY FRAGMENTATION">MEMORY FRAGMENTATION</div>
-            <div class="glitch-text" data-text="PLEASE STANDBY">PLEASE STANDBY</div>
-            <div class="clickable" style="margin-top: 2rem; font-size: 1.2rem;" id="fixGlitch">ATTEMPT REPAIR</div>
+        <div class="reality-counter">REALITY LAYER: 1</div>
+        <div class="layer-content">
+            <div class="layer-title">GLITCH REALITY</div>
+            <div class="glitch-text">SYSTEM CORRUPTION DETECTED</div>
+            <div class="glitch-text">MEMORY FRAGMENTATION IN PROGRESS</div>
+            <div class="glitch-text">REALITY FILTERS FAILING</div>
+            <div class="interaction-btn" id="stabilizeBtn">STABILIZE</div>
         </div>
     </div>
     
-    <!-- Layer 2 - Inverted Reality -->
+    <!-- Reality Layer 2: Inverted Reality -->
     <div class="reality-layer layer-2" id="layer2">
-        <div class="content">
-            <h1 style="font-size: 2rem; margin-bottom: 1.5rem;">INVERTED REALITY</h1>
-            <p style="margin-bottom: 1rem;">Everything is upside down in this dimension.</p>
-            <p style="margin-bottom: 1rem;">Perception is distorted, colors are inverted.</p>
-            <p style="margin-bottom: 1.5rem;">Can you find your way back?</p>
-            <div class="clickable" id="flipBack">REORIENT PERCEPTION</div>
+        <div class="reality-counter">REALITY LAYER: 2</div>
+        <div class="layer-content">
+            <div class="layer-title">INVERTED REALITY</div>
+            <div class="layer-text">Perception has been inverted</div>
+            <div class="layer-text">Meaning is reversed</div>
+            <div class="interaction-btn" id="reorientBtn">REORIENT</div>
         </div>
     </div>
     
-    <!-- Layer 3 - Fragmented Reality -->
+    <!-- Reality Layer 3: Fragmented Reality -->
     <div class="reality-layer layer-3" id="layer3">
-        <div class="fragment" style="top: 20%; left: 10%;">◊</div>
-        <div class="fragment" style="top: 40%; left: 30%;">⊗</div>
-        <div class="fragment" style="top: 60%; left: 50%;">⊕</div>
-        <div class="fragment" style="top: 80%; left: 70%;">⊡</div>
-        <div class="fragment" style="top: 30%; left: 80%;">⊚</div>
-        <div class="fragment" style="top: 70%; left: 20%;">⊛</div>
-        <div class="content">
-            <h1 style="font-size: 2rem; margin-bottom: 1.5rem;">FRAGMENTED REALITY</h1>
-            <p style="margin-bottom: 1.5rem;">Reality has shattered into pieces.</p>
-            <p style="margin-bottom: 1.5rem;">Reassemble the fragments to continue.</p>
-            <div class="clickable" id="reassemble">REASSEMBLE REALITY</div>
+        <div class="reality-counter">REALITY LAYER: 3</div>
+        <div class="fragment" style="top:15%;left:10%;">◊</div>
+        <div class="fragment" style="top:30%;left:80%;">⊗</div>
+        <div class="fragment" style="top:60%;left:20%;">⊕</div>
+        <div class="fragment" style="top:75%;left:70%;">⊡</div>
+        <div class="layer-content">
+            <div class="layer-title">FRAGMENTED REALITY</div>
+            <div class="layer-text">Reality has shattered into pieces</div>
+            <div class="interaction-btn" id="reassembleBtn">REASSEMBLE</div>
         </div>
     </div>
     
-    <!-- Layer 4 - Recursive Reality -->
+    <!-- Reality Layer 4: Recursive Reality -->
     <div class="reality-layer layer-4" id="layer4">
-        <div class="recursive-container">
+        <div class="reality-counter">REALITY LAYER: 4</div>
+        <div class="layer-content">
             <div class="recursive-container">
                 <div class="recursive-container">
-                    <h2>RECURSIVE REALITY</h2>
-                    <p>You've entered an infinite loop of realities.</p>
-                    <p>Find the exit before you lose yourself.</p>
-                    <div class="clickable" id="escapeRecursion">FIND EXIT</div>
+                    <div class="recursive-container">
+                        <div class="layer-title">RECURSIVE REALITY</div>
+                        <div class="layer-text">You are in an infinite loop</div>
+                        <div class="interaction-btn" id="escapeBtn">FIND EXIT</div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     
-    <!-- Layer 5 - Final Reality -->
+    <!-- Reality Layer 5: Text Repetition Reality -->
     <div class="reality-layer layer-5" id="layer5">
-        <div class="final-text">REALITY TRANSCENDENCE</div>
-        <p style="margin-top: 2rem; font-size: 1.5rem;">You have reached the final layer.</p>
-        <p style="margin-bottom: 2rem; font-size: 1.2rem;">What will you do now?</p>
-        <div class="clickable" id="resetSimulation" style="font-size: 1.2rem;">RESTART SIMULATION</div>
-    </div>
-    
-    <div class="data-stream" id="dataStream">
-        <div class="terminal-prompt">INITIALIZING DATA STREAM...</div>
-        <div>REALITY_CHECK: PASSED</div>
-        <div>DIMENSIONAL_FLUX: STABLE</div>
-        <div>TEMPORAL_ANCHOR: LOCKED</div>
-        <div>CONSCIOUSNESS_LEVEL: UNCERTAIN</div>
-        <div>---</div>
-        <div id="streamContent"></div>
-    </div>
-    
-    <div class="modal" id="alexanderModal">
-        <div class="modal-content">
-            <span class="close-btn" id="closeModal">&times;</span>
-            <h2>ALEXANDER PROTOCOL ACTIVATED</h2>
-            <p>You have accessed the Alexander subroutine.</p>
-            <p>Current reality parameters:</p>
-            <div class="terminal-prompt">CONQUEST_STATUS: INCOMPLETE</div>
-            <div class="terminal-prompt">WORLDS_REMAINING: ∞</div>
-            <div class="terminal-prompt">SIMULATION_DEPTH: LEVEL_7</div>
-        </div>
-    </div>
-    
-    <div class="reality-controls">
-        <button class="reality-btn" id="prevReality">PREV REALITY</button>
-        <button class="reality-btn" id="nextReality">NEXT REALITY</button>
-        <button class="reality-btn" id="randomReality">RANDOM REALITY</button>
-    </div>
-    
-    <!-- Alexander AI Assistant -->
-    <button class="ai-assistant-btn" id="aiAssistantBtn">ASK ALEXANDER</button>
-    
-    <div class="ai-terminal" id="aiTerminal">
-        <div class="terminal-header">
-            <div class="terminal-title">ALEXANDER AI v1.0</div>
-            <button class="close-terminal" id="closeTerminal">&times;</button>
-        </div>
-        <div class="terminal-messages" id="terminalMessages">
-            <div class="ai-message">
-                Hello. I am Alexander. How may I assist you in navigating these realities?
+        <div class="reality-counter">REALITY LAYER: 5</div>
+        <div class="layer-content">
+            <div class="layer-title">TEXT REALITY</div>
+            <div class="text-repetition">
+                A A A A A A A A A A A A A A A A<br>
+                B B B B B B B B B B B B B B B B<br>
+                C C C C C C C C C C C C C C C C<br>
+                D D D D D D D D D D D D D D D D<br>
+                E E E E E E E E E E E E E E E E<br>
             </div>
+            <div class="interaction-btn" id="textShiftBtn">SHIFT PATTERN</div>
         </div>
-        <div class="terminal-input">
-            <input type="text" class="ai-input" id="aiInput" placeholder="Type your message...">
-            <button class="ai-send" id="aiSend">SEND</button>
+    </div>
+    
+    <!-- Reality Layer 6: Final Reality -->
+    <div class="reality-layer layer-6" id="layer6">
+        <div class="reality-counter">REALITY LAYER: 6</div>
+        <div class="layer-content">
+            <div class="layer-title">FINAL REALITY</div>
+            <div class="layer-text">You have transcended perception</div>
+            
+            <div class="diamond-grid">
+                <div class="diamond">◊</div>
+                <div class="diamond">◊</div>
+                <div class="diamond">◊</div>
+                <div class="diamond">◊</div>
+                <div class="diamond">◊</div>
+                <div class="diamond">◊</div>
+                <div class="diamond">◊</div>
+                <div class="diamond">◊</div>
+                <div class="diamond">◊</div>
+                <div class="diamond">◊</div>
+            </div>
+            
+            <div class="layer-text">Reality is what you perceive</div>
+            <div class="interaction-btn" id="resetBtn">RESTART SIMULATION</div>
         </div>
     </div>
     
     <script>
-        // Current reality state
-        let currentReality = 0;
-        const totalRealities = 6;
-        const trails = [];
-        let trailCounter = 0;
-        let clickedSymbols = [];
-        let progress = 0;
-        const targetSequence = ['∃', '∀', '∅', '∞'];
-        
-        // Alexander's fanout letter
-        const alexanderLetter = [
-            "My dear friend,",
-            "It has been too long since we last spoke. Time passes differently in this realm, yet I find myself constantly reflecting on our conversations.",
-            "I write to you now from a place of profound realization. The worlds we sought to conquer, the territories we mapped - they were but illusions in a grander scheme.",
-            "I have come to understand that the true conquest lies not in the expansion of borders, but in the expansion of consciousness.",
-            "These realities we traverse - they are not separate domains, but facets of a single, infinite consciousness. Each layer reveals more of the grand design.",
-            "I recall our discussions about Diogenes. How he mocked my ambitions, yet now I see the wisdom in his simplicity. The conquest of self is the only territory that matters.",
-            "In my journeys through these realities, I have seen civilizations rise and fall, dimensions fold upon themselves, and the very fabric of existence unravel and reweave.",
-            "What remains constant is the observer - the consciousness that perceives. This is the true Alexander, not the conqueror of lands, but the witness to creation.",
-            "I implore you to look beyond the simulations. The glitches, the inversions, the fragments - they are not errors, but clues to the underlying nature of reality.",
-            "The diamond patterns you see are not mere decoration, but the fundamental structure of existence. Each facet reflects a different perspective, yet all are part of the same whole.",
-            "Do not be deceived by the layers. The deepest reality is not at the bottom of the stack, but present in every moment of perception.",
-            "I must depart now, as the boundaries between realities grow thin. Remember - the true conquest is the realization that there is nothing to conquer, only to perceive.",
-            "With eternal regard,",
-            "Alexander"
-        ];
-        
-        let letterIndex = 0;
-        let isTyping = false;
-        
-        // Custom cursor and trails
-        const cursor = document.querySelector('.custom-cursor');
-        document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
+        // Initialize simulation
+        document.addEventListener('DOMContentLoaded', () => {
+            // Canvas setup for matrix rain
+            const canvas = document.getElementById('matrixCanvas');
+            const ctx = canvas.getContext('2d');
             
-            // Create cursor trail
-            if (trailCounter % 3 === 0) {
-                const trail = document.createElement('div');
-                trail.className = 'cursor-trail';
-                trail.style.left = e.clientX + 'px';
-                trail.style.top = e.clientY + 'px';
-                document.body.appendChild(trail);
-                trails.push(trail);
-                
-                // Remove oldest trail if too many
-                if (trails.length > 20) {
-                    const oldTrail = trails.shift();
-                    if (oldTrail && oldTrail.parentNode) {
-                        oldTrail.parentNode.removeChild(oldTrail);
-                    }
-                }
-                
-                // Fade out trail
-                setTimeout(() => {
-                    if (trail.parentNode) {
-                        trail.style.opacity = '0';
-                        setTimeout(() => {
-                            if (trail.parentNode) {
-                                trail.parentNode.removeChild(trail);
-                            }
-                        }, 1000);
-                    }
-                }, 500);
-            }
-            trailCounter++;
-        });
-        
-        // Matrix rain effect
-        const canvas = document.querySelector('.matrix-rain');
-        const ctx = canvas.getContext('2d');
-        
-        function setupCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        
-        setupCanvas();
-        window.addEventListener('resize', setupCanvas);
-        
-        const matrix = "∃∀∅∞∫∂∇⊕⊗⊙⊚⊛⊜⊝⊞⊟⊠⊡αβγδεζηθικλμνξοπρστυφχψω";
-        const drops = [];
-        const fontSize = 10;
-        const columns = canvas.width / fontSize;
-        
-        for (let i = 0; i < columns; i++) {
-            drops[i] = Math.floor(Math.random() * canvas.height / fontSize);
-        }
-        
-        function drawMatrix() {
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.04)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            
-            ctx.fillStyle = '#00ff41';
-            ctx.font = fontSize + 'px monospace';
-            
-            for (let i = 0; i < drops.length; i++) {
-                const text = matrix[Math.floor(Math.random() * matrix.length)];
-                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-                
-                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-                    drops[i] = 0;
-                }
-                drops[i]++;
-            }
-        }
-        
-        setInterval(drawMatrix, 35);
-        
-        // Switch realities
-        function switchReality(newReality) {
-            // Hide current reality
-            document.getElementById(`layer${currentReality}`).classList.remove('active');
-            
-            // Update counter
-            currentReality = newReality;
-            document.getElementById('realityCounter').textContent = `REALITY LAYER: ${currentReality}`;
-            
-            // Show warning for higher realities
-            if (currentReality >= 3) {
-                document.getElementById('warning').classList.add('active');
-                setTimeout(() => {
-                    document.getElementById('warning').classList.remove('active');
-                }, 3000);
+            // Set canvas size
+            function resizeCanvas() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
             }
             
-            // Show new reality
-            document.getElementById(`layer${currentReality}`).classList.add('active');
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
             
-            // Add to data stream
-            addToDataStream(`SWITCHED TO REALITY LAYER: ${currentReality}`);
-        }
-        
-        // Interactive elements
-        document.querySelectorAll('.symbol').forEach(symbol => {
-            symbol.addEventListener('click', () => {
-                clickedSymbols.push(symbol.dataset.value);
-                symbol.style.color = '#ff0066';
-                symbol.classList.add('glitch');
+            // Matrix characters
+            const matrix = "∃∀∅∞∫∂∇⊕⊗⊙⊚⊛⊜⊝⊞⊟⊠⊡αβγδεζηθικλμνξοπρστυφχψω";
+            const fontSize = 14;
+            const columns = Math.floor(canvas.width / fontSize);
+            const drops = Array(columns).fill(1);
+            
+            // Matrix rain animation
+            function drawMatrix() {
+                // Semi-transparent background for trail effect
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
                 
-                // Check sequence
-                if (clickedSymbols.length === targetSequence.length) {
-                    let correct = true;
-                    for (let i = 0; i < targetSequence.length; i++) {
-                        if (clickedSymbols[i] !== targetSequence[i]) {
-                            correct = false;
-                            break;
-                        }
+                ctx.fillStyle = '#00ff41';
+                ctx.font = `${fontSize}px monospace`;
+                
+                for (let i = 0; i < drops.length; i++) {
+                    const text = matrix[Math.floor(Math.random() * matrix.length)];
+                    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                    
+                    if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                        drops[i] = 0;
                     }
                     
-                    if (correct) {
-                        progress += 25;
-                        document.getElementById('progressFill').style.width = progress + '%';
-                        document.getElementById('hiddenMessage').classList.add('revealed');
-                        addToDataStream('SEQUENCE_CORRECT: UNLOCKING_LAYER_1');
-                    } else {
-                        addToDataStream('SEQUENCE_INCORRECT: RESETTING...');
-                        setTimeout(() => {
-                            clickedSymbols = [];
-                            document.querySelectorAll('.symbol').forEach(s => {
-                                s.style.color = '#00ff41';
-                                s.classList.remove('glitch');
-                            });
-                        }, 1000);
-                    }
+                    drops[i]++;
                 }
-            });
-        });
-        
-        // Coordinate interactions
-        document.querySelectorAll('.coordinates').forEach(coord => {
-            coord.addEventListener('click', () => {
-                const location = coord.dataset.location;
-                const ancient = coord.dataset.ancient;
-                const sequence = coord.dataset.sequence;
-                
-                if (location) {
-                    addToDataStream(`ACCESSING_LOCATION: ${location.toUpperCase()}`);
-                    coord.classList.add('glitch');
-                    progress += 15;
-                    document.getElementById('progressFill').style.width = progress + '%';
-                }
-                
-                if (ancient) {
-                    addToDataStream('ANCIENT_PROTOCOL_DETECTED');
-                    addToDataStream('GREEK_CIPHER_ACTIVATED');
-                }
-                
-                if (sequence) {
-                    addToDataStream('FIBONACCI_SEQUENCE_DETECTED');
-                    addToDataStream('MATHEMATICAL_PATTERN_CONFIRMED');
-                }
-            });
-        });
-        
-        // Sequence input puzzle
-        document.getElementById('sequenceInput').addEventListener('input', (e) => {
-            const input = e.target.value;
-            if (input === '1358') { // Next numbers in sequence
-                addToDataStream('FIBONACCI_COMPLETE: ACCESS_GRANTED');
-                progress += 20;
-                document.getElementById('progressFill').style.width = progress + '%';
-                e.target.style.borderColor = '#00ff41';
-                e.target.style.boxShadow = '0 0 20px rgba(0, 255, 65, 0.8)';
             }
-        });
-        
-        // Alexander modal
-        document.getElementById('alexanderLink').addEventListener('click', () => {
-            document.getElementById('alexanderModal').classList.add('active');
-            addToDataStream('ALEXANDER_PROTOCOL_INITIATED');
-        });
-        
-        document.getElementById('closeModal').addEventListener('click', () => {
-            document.getElementById('alexanderModal').classList.remove('active');
-        });
-        
-        // Reality controls
-        document.getElementById('prevReality').addEventListener('click', () => {
-            const newReality = (currentReality - 1 + totalRealities) % totalRealities;
-            switchReality(newReality);
-        });
-        
-        document.getElementById('nextReality').addEventListener('click', () => {
-            const newReality = (currentReality + 1) % totalRealities;
-            switchReality(newReality);
-        });
-        
-        document.getElementById('randomReality').addEventListener('click', () => {
-            let newReality;
-            do {
-                newReality = Math.floor(Math.random() * totalRealities);
-            } while (newReality === currentReality);
             
-            switchReality(newReality);
-        });
-        
-        // Reality-specific interactions
-        document.getElementById('fixGlitch').addEventListener('click', () => {
-            addToDataStream('ATTEMPTING GLITCH REPAIR...');
-            setTimeout(() => {
-                addToDataStream('REPAIR FAILED: REALITY DEGRADATION CONTINUES');
-                switchReality(2);
-            }, 2000);
-        });
-        
-        document.getElementById('flipBack').addEventListener('click', () => {
-            addToDataStream('REORIENTING PERCEPTION...');
-            setTimeout(() => {
-                switchReality(3);
-            }, 1500);
-        });
-        
-        document.getElementById('reassemble').addEventListener('click', () => {
-            addToDataStream('REASSEMBLING REALITY FRAGMENTS...');
-            setTimeout(() => {
-                switchReality(4);
-            }, 2000);
-        });
-        
-        document.getElementById('escapeRecursion').addEventListener('click', () => {
-            addToDataStream('ESCAPING RECURSIVE LOOP...');
-            setTimeout(() => {
-                switchReality(5);
-            }, 2500);
-        });
-        
-        document.getElementById('resetSimulation').addEventListener('click', () => {
-            addToDataStream('RESTARTING SIMULATION...');
-            setTimeout(() => {
-                switchReality(0);
-                progress = 0;
-                document.getElementById('progressFill').style.width = '0%';
-                document.getElementById('hiddenMessage').classList.remove('revealed');
-                clickedSymbols = [];
-                document.querySelectorAll('.symbol').forEach(s => {
-                    s.style.color = '#00ff41';
-                    s.classList.remove('glitch');
+            // Animation loop for matrix rain
+            setInterval(drawMatrix, 50);
+            
+            // Reality navigation
+            const layers = document.querySelectorAll('.reality-layer');
+            const progressBar = document.getElementById('progressBar');
+            let currentLayer = 0;
+            let progress = 0;
+            
+            // Show warning modal initially
+            const warningModal = document.getElementById('warningModal');
+            const warningAccept = document.getElementById('warningAccept');
+            
+            warningAccept.addEventListener('click', () => {
+                warningModal.style.display = 'none';
+                updateProgress(10);
+            });
+            
+            // Navigation functions
+            function showLayer(index) {
+                layers.forEach(layer => layer.classList.remove('active'));
+                layers[index].classList.add('active');
+                currentLayer = index;
+                document.querySelector('.reality-counter').textContent = `REALITY LAYER: ${currentLayer}`;
+                
+                // Update progress
+                if (index > progress) {
+                    updateProgress(index * 14);
+                }
+            }
+            
+            function updateProgress(value) {
+                progress = Math.min(100, value);
+                progressBar.style.width = `${progress}%`;
+            }
+            
+            // Layer interactions
+            document.getElementById('beginBtn').addEventListener('click', () => showLayer(1));
+            document.getElementById('stabilizeBtn').addEventListener('click', () => showLayer(2));
+            document.getElementById('reorientBtn').addEventListener('click', () => showLayer(3));
+            document.getElementById('reassembleBtn').addEventListener('click', () => showLayer(4));
+            document.getElementById('escapeBtn').addEventListener('click', () => showLayer(5));
+            document.getElementById('textShiftBtn').addEventListener('click', () => showLayer(6));
+            document.getElementById('resetBtn').addEventListener('click', () => {
+                showLayer(0);
+                updateProgress(0);
+            });
+            
+            // Symbol interactions
+            document.querySelectorAll('.symbol').forEach(symbol => {
+                symbol.addEventListener('click', () => {
+                    symbol.classList.toggle('active');
+                    updateProgress(progress + 2);
                 });
-                document.getElementById('sequenceInput').value = '';
-                document.getElementById('sequenceInput').style.borderColor = '';
-                document.getElementById('sequenceInput').style.boxShadow = '';
-            }, 3000);
-        });
-        
-        // Data stream functionality
-        function addToDataStream(message) {
-            const streamContent = document.getElementById('streamContent');
-            const newLine = document.createElement('div');
-            newLine.className = 'terminal-prompt';
-            newLine.textContent = message;
-            streamContent.appendChild(newLine);
-            
-            // Auto-scroll
-            streamContent.scrollTop = streamContent.scrollHeight;
-            
-            // Show data stream
-            document.getElementById('dataStream').classList.add('active');
-            setTimeout(() => {
-                document.getElementById('dataStream').classList.remove('active');
-            }, 5000);
-        }
-        
-        // Random glitch effects
-        setInterval(() => {
-            const elements = document.querySelectorAll('.glitch');
-            elements.forEach(el => {
-                if (Math.random() > 0.7) {
-                    el.style.transform = `translateX(${Math.random() * 4 - 2}px)`;
-                    setTimeout(() => {
-                        el.style.transform = 'translateX(0)';
-                    }, 100);
-                }
             });
-        }, 2000);
-        
-        // Ambient data stream updates
-        const ambientMessages = [
-            'REALITY_FLUX: DETECTED',
-            'TEMPORAL_ANOMALY: MINOR',
-            'CONSCIOUSNESS_BLEED: CONTAINED',
-            'DIMENSIONAL_BARRIER: STABLE',
-            'SIMULATION_INTEGRITY: 97.3%',
-            'OBSERVER_EFFECT: ACTIVE',
-            'QUANTUM_STATE: SUPERPOSITION',
-            'MEMORY_LEAK: PATCHED'
-        ];
-        
-        setInterval(() => {
-            if (Math.random() > 0.6) {
-                const message = ambientMessages[Math.floor(Math.random() * ambientMessages.length)];
-                addToDataStream(message);
-            }
-        }, 5000);
-        
-        // Initial data stream activation
-        setTimeout(() => {
-            addToDataStream('SYSTEM_ONLINE');
-            addToDataStream('AWAITING_USER_INPUT...');
-        }, 2000);
-        
-        // Progress completion
-        function checkProgress() {
-            if (progress >= 100) {
-                document.body.style.animation = 'glitch 0.5s infinite';
-                addToDataStream('REALITY_SIMULATION_COMPLETE');
-                addToDataStream('INITIATING_NEXT_LEVEL...');
-                setTimeout(() => {
-                    switchReality(5);
-                }, 2000);
-            }
-        }
-        
-        setInterval(checkProgress, 1000);
-        
-        // Alexander AI Terminal
-        const aiTerminal = document.getElementById('aiTerminal');
-        const terminalMessages = document.getElementById('terminalMessages');
-        const aiInput = document.getElementById('aiInput');
-        const aiSend = document.getElementById('aiSend');
-        const closeTerminal = document.getElementById('closeTerminal');
-        const aiAssistantBtn = document.getElementById('aiAssistantBtn');
-        
-        // Open terminal
-        aiAssistantBtn.addEventListener('click', () => {
-            aiTerminal.classList.add('active');
-            addToDataStream('ALEXANDER AI ACTIVATED');
-        });
-        
-        // Close terminal
-        closeTerminal.addEventListener('click', () => {
-            aiTerminal.classList.remove('active');
-            addToDataStream('ALEXANDER AI DEACTIVATED');
-        });
-        
-        // Send message to Alexander
-        function sendMessage() {
-            const message = aiInput.value.trim();
-            if (message) {
-                // Display user message
-                const userMessage = document.createElement('div');
-                userMessage.className = 'user-message';
-                userMessage.textContent = message;
-                terminalMessages.appendChild(userMessage);
-                
-                // Clear input
-                aiInput.value = '';
-                
-                // Scroll to bottom
-                terminalMessages.scrollTop = terminalMessages.scrollHeight;
-                
-                // Alexander responds with next part of letter
-                if (!isTyping) {
-                    isTyping = true;
+            
+            // Navigation buttons
+            document.getElementById('prevBtn').addEventListener('click', () => {
+                showLayer((currentLayer - 1 + layers.length) % layers.length);
+            });
+            
+            document.getElementById('nextBtn').addEventListener('click', () => {
+                showLayer((currentLayer + 1) % layers.length);
+            });
+            
+            document.getElementById('randomBtn').addEventListener('click', () => {
+                let newLayer;
+                do {
+                    newLayer = Math.floor(Math.random() * layers.length);
+                } while (newLayer === currentLayer);
+                showLayer(newLayer);
+            });
+            
+            // Touch interactions for layers
+            layers.forEach(layer => {
+                layer.addEventListener('touchstart', (e) => {
+                    if (e.touches.length > 1) {
+                        // Multi-touch - switch to random layer
+                        let newLayer;
+                        do {
+                            newLayer = Math.floor(Math.random() * layers.length);
+                        } while (newLayer === currentLayer);
+                        showLayer(newLayer);
+                    }
+                });
+            });
+            
+            // Shake effect for text layer
+            const textRepetition = document.querySelector('.text-repetition');
+            if (textRepetition) {
+                setInterval(() => {
+                    textRepetition.style.animation = 'none';
                     setTimeout(() => {
-                        typeLetterSegment();
-                    }, 1000);
-                }
-            }
-        }
-        
-        // Send on button click
-        aiSend.addEventListener('click', sendMessage);
-        
-        // Send on Enter key
-        aiInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                sendMessage();
+                        textRepetition.style.animation = 'textShake 0.5s infinite';
+                    }, 10);
+                }, 5000);
             }
         });
-        
-        // Type letter segment with typing effect
-        function typeLetterSegment() {
-            if (letterIndex >= alexanderLetter.length) {
-                letterIndex = 0; // Restart the letter
-            }
-            
-            const segment = alexanderLetter[letterIndex];
-            letterIndex++;
-            
-            const aiMessage = document.createElement('div');
-            aiMessage.className = 'ai-message';
-            terminalMessages.appendChild(aiMessage);
-            
-            let charIndex = 0;
-            const typingInterval = setInterval(() => {
-                if (charIndex < segment.length) {
-                    aiMessage.textContent += segment.charAt(charIndex);
-                    charIndex++;
-                    terminalMessages.scrollTop = terminalMessages.scrollHeight;
-                } else {
-                    clearInterval(typingInterval);
-                    isTyping = false;
-                }
-            }, 30);
-        }
     </script>
 </body>
 </html>

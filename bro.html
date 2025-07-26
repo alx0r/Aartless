@@ -1,89 +1,1152 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Brothers' Secret Cookbook</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PSYOPS FIELD GUIDE - Operation: Silver Tongue</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    body {
-      background-color: #0d0d0d;
-      color: #00ff99;
-      font-family: 'Courier New', monospace;
-      padding: 2rem;
-      line-height: 1.6;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
-    h1, h2 {
-      color: #00ffff;
-      border-bottom: 1px solid #00ff99;
+    
+    :root {
+      --hacker-green: #00ff99;
+      --hacker-cyan: #00ffff;
+      --matrix-green: #00cc66;
+      --dark-bg: #0a0a0a;
+      --darker-bg: #050505;
+      --terminal-border: #003300;
+      --glow: 0 0 8px var(--hacker-green);
+    }
+    
+    body {
+      background-color: var(--dark-bg);
+      color: var(--hacker-green);
+      font-family: 'Courier New', monospace;
+      line-height: 1.6;
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(0, 80, 0, 0.1) 0%, rgba(0, 0, 0, 0) 20%),
+        radial-gradient(circle at 90% 80%, rgba(0, 100, 0, 0.1) 0%, rgba(0, 0, 0, 0) 20%);
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+    
+    .matrix-code {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      opacity: 0.1;
+      pointer-events: none;
+    }
+    
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 1rem;
+    }
+    
+    .access-panel {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 1rem;
+      text-align: center;
+    }
+    
+    .access-panel h1 {
+      font-size: clamp(2rem, 8vw, 3.5rem);
+      margin-bottom: 1.5rem;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: var(--hacker-cyan);
+      text-shadow: var(--glow);
+    }
+    
+    .access-panel h2 {
+      font-size: clamp(1rem, 4vw, 1.4rem);
+      margin-bottom: 2rem;
+      color: var(--matrix-green);
+      font-weight: normal;
+      padding: 0 1rem;
+    }
+    
+    .code-input {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      margin-top: 1.5rem;
+      width: 100%;
+      max-width: 400px;
+      padding: 0 1rem;
+    }
+    
+    .code-input input {
+      width: 100%;
+      padding: 0.8rem;
+      background: rgba(0, 30, 0, 0.5);
+      border: 1px solid var(--hacker-green);
+      color: var(--hacker-green);
+      font-size: clamp(1rem, 4vw, 1.2rem);
+      text-align: center;
+      letter-spacing: 3px;
+      box-shadow: var(--glow);
+      outline: none;
+      transition: all 0.3s ease;
+    }
+    
+    .code-input input:focus {
+      box-shadow: 0 0 15px var(--hacker-green);
+      background: rgba(0, 50, 0, 0.3);
+    }
+    
+    .code-input button {
+      padding: 0.7rem 2rem;
+      background: var(--darker-bg);
+      border: 1px solid var(--hacker-green);
+      color: var(--hacker-green);
+      font-size: clamp(0.9rem, 4vw, 1.1rem);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-top: 0.5rem;
+    }
+    
+    .code-input button:hover {
+      background: rgba(0, 80, 0, 0.3);
+      box-shadow: var(--glow);
+    }
+    
+    .hint {
+      margin-top: 1rem;
+      font-size: clamp(0.8rem, 3vw, 0.9rem);
+      color: #008844;
+      font-style: italic;
+    }
+    
+    .terminal {
+      display: none;
+      width: 100%;
+      min-height: 100vh;
+      padding: 1rem 0;
+    }
+    
+    .terminal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.6rem 1rem;
+      background: var(--darker-bg);
+      border-bottom: 1px solid var(--hacker-green);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    
+    .terminal-title {
+      font-size: clamp(0.9rem, 4vw, 1.2rem);
+      color: var(--hacker-cyan);
+      letter-spacing: 1px;
+    }
+    
+    .terminal-controls {
+      display: flex;
+      gap: 0.6rem;
+    }
+    
+    .control-btn {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+    
+    .close { background-color: #ff5f56; }
+    .minimize { background-color: #ffbd2e; }
+    .maximize { background-color: #27c93f; }
+    
+    .content-container {
+      padding: 1rem;
+    }
+    
+    .terminal-section {
+      margin-bottom: 2rem;
+      padding: 1rem;
+      background: rgba(0, 20, 0, 0.2);
+      border: 1px solid var(--terminal-border);
+      border-left: 3px solid var(--hacker-green);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .terminal-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 3px;
+      height: 100%;
+      background: var(--hacker-green);
+    }
+    
+    .terminal-section h2 {
+      color: var(--hacker-cyan);
+      margin-bottom: 1.2rem;
+      padding-bottom: 0.3rem;
+      border-bottom: 1px solid var(--hacker-green);
+      font-size: clamp(1.3rem, 5vw, 1.8rem);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    .terminal-section h3 {
+      color: var(--matrix-green);
+      margin: 1.2rem 0 0.8rem;
+      font-size: clamp(1.1rem, 4vw, 1.3rem);
+    }
+    
+    .terminal-section h4 {
+      color: var(--hacker-cyan);
+      margin: 1rem 0 0.5rem;
+      font-size: clamp(1rem, 4vw, 1.1rem);
+    }
+    
+    .terminal-section p {
+      margin-bottom: 0.8rem;
+      font-size: clamp(0.9rem, 3.5vw, 1rem);
+    }
+    
+    .terminal-section strong {
+      color: var(--hacker-cyan);
+    }
+    
+    .tactics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.2rem;
+      margin: 1.5rem 0;
+    }
+    
+    .tactic-card {
+      padding: 1.2rem;
+      background: rgba(0, 30, 0, 0.2);
+      border: 1px solid var(--terminal-border);
+      position: relative;
+    }
+    
+    .tactic-card h4 {
+      color: var(--hacker-cyan);
+      margin-bottom: 0.8rem;
+      font-size: clamp(1rem, 4vw, 1.2rem);
+      border-bottom: 1px solid var(--hacker-green);
       padding-bottom: 0.3rem;
     }
-    section {
-      margin-bottom: 2rem;
+    
+    .tactic-card ul {
+      padding-left: 1.2rem;
     }
-    .hidden {
-      display: none;
+    
+    .tactic-card li {
+      margin-bottom: 0.4rem;
+      font-size: clamp(0.9rem, 3.5vw, 0.95rem);
     }
-    #access-form {
-      margin-top: 3rem;
+    
+    .archetype-title {
+      color: var(--matrix-green);
+      font-weight: bold;
+      margin-bottom: 0.3rem;
     }
-    input, button {
-      background-color: #111;
-      border: 1px solid #00ff99;
-      color: #00ff99;
-      padding: 0.5rem;
-      margin-top: 1rem;
-      font-family: 'Courier New', monospace;
+    
+    .icon-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.8rem;
+      margin: 1rem 0;
+      text-align: center;
     }
-    .prompt {
-      color: #666;
-      font-size: 0.9rem;
+    
+    .icon-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
-  </style>
-  <script>
-    function revealContent() {
-      const code = document.getElementById("code").value.toLowerCase().trim();
-      if (code === "021" || code === "zero to one") {
-        document.getElementById("secret-content").style.display = "block";
-        document.getElementById("access-form").style.display = "none";
-      } else {
-        alert("Access Denied. Hint: Peter Thiel, but cryptic.");
+    
+    .icon-item i {
+      font-size: 1.5rem;
+      color: var(--hacker-cyan);
+      margin-bottom: 0.5rem;
+    }
+    
+    .icon-item span {
+      font-size: 0.8rem;
+    }
+    
+    .scroll-top {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: rgba(0, 40, 0, 0.5);
+      border: 1px solid var(--hacker-green);
+      color: var(--hacker-green);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 100;
+      opacity: 0.7;
+      transition: opacity 0.3s;
+    }
+    
+    .scroll-top:hover {
+      opacity: 1;
+      box-shadow: var(--glow);
+    }
+    
+    .iq-indicator {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+    
+    .iq-bar {
+      height: 10px;
+      margin-left: 10px;
+      flex-grow: 1;
+      background: rgba(0, 50, 0, 0.3);
+      position: relative;
+    }
+    
+    .iq-level {
+      height: 100%;
+      background: var(--matrix-green);
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.2rem 0;
+      border: 1px solid var(--terminal-border);
+      font-size: clamp(0.8rem, 3vw, 0.9rem);
+    }
+    
+    th {
+      background: rgba(0, 40, 0, 0.3);
+      color: var(--hacker-cyan);
+      padding: 0.6rem;
+      text-align: left;
+      border: 1px solid var(--terminal-border);
+      white-space: nowrap;
+    }
+    
+    td {
+      padding: 0.6rem;
+      border: 1px solid var(--terminal-border);
+    }
+    
+    tr:nth-child(even) {
+      background: rgba(0, 20, 0, 0.1);
+    }
+    
+    .warning {
+      padding: 1.2rem;
+      margin: 1.5rem 0;
+      background: rgba(100, 0, 0, 0.2);
+      border: 1px solid #ff3366;
+      border-left: 3px solid #ff3366;
+    }
+    
+    .warning h3 {
+      color: #ff3366;
+      margin-top: 0;
+    }
+    
+    .glitch {
+      position: relative;
+      display: inline-block;
+    }
+    
+    .glitch::before,
+    .glitch::after {
+      content: attr(data-text);
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    
+    .glitch::before {
+      left: 2px;
+      text-shadow: -2px 0 #ff00c1;
+      clip: rect(44px, 450px, 56px, 0);
+      animation: glitch-anim 5s infinite linear alternate-reverse;
+    }
+    
+    .glitch::after {
+      left: -2px;
+      text-shadow: -2px 0 #00fff9, 2px 2px #ff00c1;
+      clip: rect(44px, 450px, 56px, 0);
+      animation: glitch-anim2 5s infinite linear alternate-reverse;
+    }
+    
+    @keyframes glitch-anim {
+      0% { clip: rect(65px, 9999px, 85px, 0); }
+      10% { clip: rect(4px, 9999px, 53px, 0); }
+      20% { clip: rect(71px, 9999px, 115px, 0); }
+      30% { clip: rect(55px, 9999px, 39px, 0); }
+      40% { clip: rect(88px, 9999px, 133px, 0); }
+      50% { clip: rect(62px, 9999px, 45px, 0); }
+      60% { clip: rect(27px, 9999px, 78px, 0); }
+      70% { clip: rect(99px, 9999px, 8px, 0); }
+      80% { clip: rect(23px, 9999px, 110px, 0); }
+      90% { clip: rect(8px, 9999px, 0, 0); }
+      100% { clip: rect(42px, 9999px, 33px, 0); }
+    }
+    
+    @keyframes glitch-anim2 {
+      0% { clip: rect(65px, 9999px, 85px, 0); }
+      10% { clip: rect(4px, 9999px, 53px, 0); }
+      20% { clip: rect(71px, 9999px, 115px, 0); }
+      30% { clip: rect(55px, 9999px, 39px, 0); }
+      40% { clip: rect(88px, 9999px, 133px, 0); }
+      50% { clip: rect(62px, 9999px, 45px, 0); }
+      60% { clip: rect(27px, 9999px, 78px, 0); }
+      70% { clip: rect(99px, 9999px, 8px, 0); }
+      80% { clip: rect(23px, 9999px, 110px, 0); }
+      90% { clip: rect(8px, 9999px, 0, 0); }
+      100% { clip: rect(42px, 9999px, 33px, 0); }
+    }
+    
+    .matrix-line {
+      position: absolute;
+      top: -50px;
+      width: 2px;
+      height: 50px;
+      background: var(--hacker-green);
+      opacity: 0.2;
+      animation: fall 5s linear infinite;
+    }
+    
+    @keyframes fall {
+      to {
+        top: 100%;
       }
     }
-  </script>
+    
+    .pulse {
+      animation: pulse 2s infinite;
+      text-align: center;
+      padding: 1rem;
+      margin: 1rem 0;
+    }
+    
+    @keyframes pulse {
+      0% { opacity: 0.6; }
+      50% { opacity: 1; }
+      100% { opacity: 0.6; }
+    }
+    
+    .footer {
+      text-align: center;
+      padding: 1.5rem;
+      margin-top: 2rem;
+      border-top: 1px solid var(--terminal-border);
+      color: #008844;
+      font-size: clamp(0.8rem, 3vw, 0.9rem);
+    }
+    
+    .archetype-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.2rem;
+      margin: 1.5rem 0;
+    }
+    
+    .archetype-card {
+      padding: 1.2rem;
+      background: rgba(0, 30, 0, 0.2);
+      border: 1px solid var(--terminal-border);
+      position: relative;
+    }
+    
+    .archetype-card h4 {
+      color: var(--hacker-cyan);
+      margin-bottom: 0.8rem;
+      font-size: clamp(1rem, 4vw, 1.1rem);
+      border-bottom: 1px solid var(--matrix-green);
+      padding-bottom: 0.3rem;
+    }
+    
+    .archetype-card ul {
+      padding-left: 1.2rem;
+    }
+    
+    .archetype-card li {
+      margin-bottom: 0.4rem;
+      font-size: clamp(0.9rem, 3.5vw, 0.95rem);
+    }
+    
+    .hypnosis-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+    
+    .hypnosis-card {
+      padding: 1.5rem;
+      background: rgba(0, 30, 0, 0.2);
+      border: 1px solid var(--terminal-border);
+      border-left: 3px solid #ff00ff;
+      position: relative;
+    }
+    
+    .hypnosis-card h4 {
+      color: #ff00ff;
+      margin-bottom: 1rem;
+    }
+    
+    @media (max-width: 768px) {
+      .icon-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      
+      table {
+        display: block;
+        overflow-x: auto;
+      }
+      
+      .tactics-grid, .archetype-grid, .hypnosis-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .icon-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .terminal-section {
+        padding: 0.8rem;
+      }
+    }
+  </style>
 </head>
 <body>
-  <h1>BROTHERS' SECRET COOKBOOK</h1>  <div id="access-form">
-    <p class="prompt">Enter the access riddle answer to unlock:</p>
-    <input type="text" id="code" placeholder="What's the secret number?">
-    <button onclick="revealContent()">Access</button>
-  </div>  <div id="secret-content" class="hidden"><section>
-  <h2>1. The Premise</h2>
-  <p>This field manual is for strategic game-theoretical psyops, rooted in conversational dominance and psychiatric leverage. It’s for deep pressure, high-stakes, human-level combat: no machines, no mercy.</p>
-</section>
-
-<section>
-  <h2>2. Speech Tactics</h2>
-  <p><strong>Retracted Speech:</strong> Deliberate minimalism to create mystique, induce over-sharing, and exploit discomfort with silence.</p>
-  <p><strong>Chaotic Speech:</strong> Flood interlocutor’s cognitive bandwidth with semi-coherent, looping, unpredictable phrasing—useful for destabilization and pushing them into emotional reflexes.</p>
-  <p><strong>Rhetorical Moves:</strong> Deploy devices like <em>epithesis</em> (ancient mythic ending flourish), <em>anagnorisis</em> (sudden reveal of identity), <em>aporia</em> (feigned confusion), or <em>anamnesis</em> (triggered recollection) to manipulate trajectory.</p>
-</section>
-
-<section>
-  <h2>3. Embodied Operations</h2>
-  <p><strong>Facial:</strong> Use micro-expressions tactically. Lowered eyelids for control, slight smirk for dominance, frozen neutrality to induce unease.</p>
-  <p><strong>Spatial Awareness:</strong> Control personal space invasion, mirror posture to reflect or distort rapport. Sudden stillness draws focus.</p>
-  <p><strong>Full-body Language:</strong> Poised, predatory, low movement = high control. Clenched fingers, shifting weight, or artificial stillness signal mental shifts—use yours consciously, track theirs obsessively.</p>
-</section>
-
-<section>
-  <h2>4. Fraternal Psy-Ops Tactics</h2>
-  <p>As brothers, we can run synchronized distraction and dominance moves. One can agitate, the other soothe. One can destabilize logic, the other deploy calm logic. Echoes and overlaps in tone or phrasing signal unity and disorient others. The intimacy can be weaponized—shared backstory, mirrored posture, even finishing each other’s sentences causes social discomfort and cognitive overload for targets.</p>
-</section>
-
-<section>
-  <h2>5. Final Note</h2>
-  <p>This document is a living spellbook. Update it, test it, break it, evolve it. You are not merely participants in conversation—you are shaping reality under pressure, with words as weapons and silence as threat.</p>
-</section>
-
+  <!-- Matrix code rain effect -->
+  <div class="matrix-code" id="matrixCode"></div>
+  
+  <!-- Access Panel -->
+  <div class="access-panel" id="accessPanel">
+    <h1><span class="glitch" data-text="PSYOPS FIELD GUIDE">PSYOPS FIELD GUIDE</span></h1>
+    <h2>OPERATION: SILVER TONGUE</h2>
+    <div class="code-input">
+      <input type="password" id="accessCode" placeholder="ENTER ACCESS CODE">
+      <button id="accessButton">UNLOCK TERMINAL</button>
+      <div class="hint">HINT: Peter Thiel's cryptic number</div>
+    </div>
   </div>
+  
+  <!-- Terminal Interface -->
+  <div class="terminal" id="terminal">
+    <div class="terminal-header">
+      <div class="terminal-title">PSYOPS FIELD GUIDE v3.0</div>
+      <div class="terminal-controls">
+        <div class="control-btn close"></div>
+        <div class="control-btn minimize"></div>
+        <div class="control-btn maximize"></div>
+      </div>
+    </div>
+    
+    <div class="container">
+      <div class="content-container">
+        <!-- Introduction -->
+        <div class="terminal-section">
+          <h2>Tactical Conversational Warfare</h2>
+          <p>This enhanced field manual combines strategic game-theoretical psyops with psychiatric leverage, Jungian archetype analysis, and mentalism techniques for high-stakes human engagement.</p>
+          
+          <div class="warning">
+            <h3>OPERATIONAL SECURITY</h3>
+            <p>This document contains sensitive tactical information. Destroy after reading. Do not discuss operational details in unsecured channels.</p>
+          </div>
+          
+          <div class="icon-grid">
+            <div class="icon-item">
+              <i class="fas fa-brain"></i>
+              <span>PSYCHOANALYSIS</span>
+            </div>
+            <div class="icon-item">
+              <i class="fas fa-chess"></i>
+              <span>GAME THEORY</span>
+            </div>
+            <div class="icon-item">
+              <i class="fas fa-mask"></i>
+              <span>ARCHETYPES</span>
+            </div>
+            <div class="icon-item">
+              <i class="fas fa-hat-wizard"></i>
+              <span>MENTALISM</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Expanded Tactics -->
+        <div class="terminal-section">
+          <h2>Advanced Speech Tactics</h2>
+          
+          <h3>Enhanced Speech Patterns</h3>
+          <div class="tactics-grid">
+            <div class="tactic-card">
+              <h4>Retracted Speech (Strategic Minimalism)</h4>
+              <p>Deliberate brevity forces opponents to fill silence, often revealing strategic weaknesses.</p>
+              <ul>
+                <li><strong>Deployment:</strong> After critical questions</li>
+                <li><strong>Effect:</strong> Creates psychological pressure</li>
+                <li><strong>Counter:</strong> Mirror their silence with calm confidence</li>
+              </ul>
+            </div>
+            
+            <div class="tactic-card">
+              <h4>Chaotic Speech (Cognitive Overload)</h4>
+              <p>Rapid topic shifts combined with emotionally charged language to overwhelm logical processing.</p>
+              <ul>
+                <li><strong>Deployment:</strong> Against analytical opponents</li>
+                <li><strong>Effect:</strong> Forces emotional responses</li>
+                <li><strong>Counter:</strong> Anchor to original topic persistently</li>
+              </ul>
+            </div>
+          </div>
+          
+          <h3>High-Stakes Dialogue Tactics</h3>
+          <table>
+            <tr>
+              <th>TACTIC</th>
+              <th>DEPLOYMENT</th>
+              <th>EFFECT</th>
+              <th>COUNTER-MEASURE</th>
+            </tr>
+            <tr>
+              <td>Precision Interrogation</td>
+              <td>When critical information is needed</td>
+              <td>Reveals inconsistencies in narratives</td>
+              <td>Answer questions with questions</td>
+            </tr>
+            <tr>
+              <td>Emotional Landmines</td>
+              <td>Against emotionally volatile opponents</td>
+              <td>Triggers revealing outbursts</td>
+              <td>Maintain stoic composure</td>
+            </tr>
+            <tr>
+              <td>Reciprocal Disclosure</td>
+              <td>To build false trust rapidly</td>
+              <td>Encourages target to lower defenses</td>
+              <td>Verify all information independently</td>
+            </tr>
+            <tr>
+              <td>Temporal Disruption</td>
+              <td>Against systematic thinkers</td>
+              <td>Breaks linear thought patterns</td>
+              <td>Anchor to chronological sequence</td>
+            </tr>
+          </table>
+        </div>
+        
+        <!-- Jungian Archetypes -->
+        <div class="terminal-section">
+          <h2>Jungian Archetype Analysis</h2>
+          <p>Identify and exploit fundamental personality patterns. Most individuals display 1-2 dominant archetypes.</p>
+          
+          <div class="archetype-grid">
+            <div class="archetype-card">
+              <div class="archetype-title">THE RULER</div>
+              <ul>
+                <li><strong>Core Need:</strong> Control and order</li>
+                <li><strong>Weakness:</strong> Fear of chaos</li>
+                <li><strong>Exploitation:</strong> Present controlled chaos scenarios</li>
+                <li><strong>Trigger Phrase:</strong> "How would you contain this situation?"</li>
+              </ul>
+            </div>
+            
+            <div class="archetype-card">
+              <div class="archetype-title">THE SAGE</div>
+              <ul>
+                <li><strong>Core Need:</strong> Truth and understanding</li>
+                <li><strong>Weakness:</strong> Analysis paralysis</li>
+                <li><strong>Exploitation:</strong> Present paradoxical information</li>
+                <li><strong>Trigger Phrase:</strong> "What does the data really reveal?"</li>
+              </ul>
+            </div>
+            
+            <div class="archetype-card">
+              <div class="archetype-title">THE REBEL</div>
+              <ul>
+                <li><strong>Core Need:</strong> Revolution and change</li>
+                <li><strong>Weakness:</strong> Contrarian impulses</li>
+                <li><strong>Exploitation:</strong> Frame status quo as oppressive</li>
+                <li><strong>Trigger Phrase:</strong> "They say it can't be done..."</li>
+              </ul>
+            </div>
+            
+            <div class="archetype-card">
+              <div class="archetype-title">THE LOVER</div>
+              <ul>
+                <li><strong>Core Need:</strong> Intimacy and connection</li>
+                <li><strong>Weakness:</strong> Fear of rejection</li>
+                <li><strong>Exploitation:</strong> Create artificial intimacy</li>
+                <li><strong>Trigger Phrase:</strong> "I feel we understand each other..."</li>
+              </ul>
+            </div>
+            
+            <div class="archetype-card">
+              <div class="archetype-title">THE JESTER</div>
+              <ul>
+                <li><strong>Core Need:</strong> Levity and amusement</li>
+                <li><strong>Weakness:</strong> Fear of being irrelevant</li>
+                <li><strong>Exploitation:</strong> Withhold expected laughter</li>
+                <li><strong>Trigger Phrase:</strong> "This is no laughing matter..."</li>
+              </ul>
+            </div>
+            
+            <div class="archetype-card">
+              <div class="archetype-title">THE HERO</div>
+              <ul>
+                <li><strong>Core Need:</strong> To prove courage</li>
+                <li><strong>Weakness:</strong> Fear of weakness</li>
+                <li><strong>Exploitation:</strong> Present unwinnable challenges</li>
+                <li><strong>Trigger Phrase:</strong> "Only someone exceptional could..."</li>
+              </ul>
+            </div>
+          </div>
+          
+          <h3>Archetype Identification Protocol</h3>
+          <ul>
+            <li><strong>Observation:</strong> Note how they enter a room, initial remarks</li>
+            <li><strong>Vocabulary Analysis:</strong> Listen for power words (control, understand, change, connect, enjoy, win)</li>
+            <li><strong>Decision Patterns:</strong> Observe how they make choices (methodical, emotional, impulsive)</li>
+            <li><strong>Stress Response:</strong> How they react under pressure reveals core archetype</li>
+          </ul>
+        </div>
+        
+        <!-- New Hypnosis & Mentalism Section -->
+        <div class="terminal-section">
+          <h2>Hypnotic & Mentalism Tactics</h2>
+          <p>Techniques adapted from stage magic, covert hypnosis, and psychological manipulation.</p>
+          
+          <div class="hypnosis-grid">
+            <div class="hypnosis-card">
+              <h4>Covert Hypnosis Patterns</h4>
+              <ul>
+                <li><strong>Embedded Commands:</strong> "You might find yourself <em>agreeing naturally</em> with this perspective"</li>
+                <li><strong>Presuppositions:</strong> "After you <em>accept this offer</em>, we can discuss implementation"</li>
+                <li><strong>Pacing & Leading:</strong> Match their reality then gradually shift ("I know you're skeptical... and that skepticism can transform into curiosity")</li>
+                <li><strong>Trance Induction:</strong> Use rhythmic language patterns, repetitive gestures, and sensory overload</li>
+              </ul>
+            </div>
+            
+            <div class="hypnosis-card">
+              <h4>Mentalism Techniques</h4>
+              <ul>
+                <li><strong>Cold Reading:</strong> "I sense you've been considering a major change recently" (works on 80% of people)</li>
+                <li><strong>Forcing:</strong> Limiting options while maintaining illusion of choice ("Would you prefer to decide now or after lunch?")</li>
+                <li><strong>Misdirection:</strong> Dramatic gesture with left hand while right hand performs key action</li>
+                <li><strong>Barnum Statements:</strong> "You have a great need for others to like and admire you" (universally applicable)</li>
+              </ul>
+            </div>
+            
+            <div class="hypnosis-card">
+              <h4>Memory Manipulation</h4>
+              <ul>
+                <li><strong>Strategic Mnemonics:</strong> Use memory palaces to store/retrieve critical information</li>
+                <li><strong>Active Forgetting:</strong> Consciously discard irrelevant details to maintain operational clarity</li>
+                <li><strong>False Memory Implantation:</strong> "Remember when we agreed on this last week?" (for non-verifiable events)</li>
+                <li><strong>Gaslighting Techniques:</strong> "That's not how I recall it... are you sure you're remembering correctly?"</li>
+              </ul>
+            </div>
+          </div>
+          
+          <h3>Pattern Interrupt Techniques</h3>
+          <table>
+            <tr>
+              <th>TECHNIQUE</th>
+              <th>EXECUTION</th>
+              <th>USE CASE</th>
+            </tr>
+            <tr>
+              <td>Unexpected Question</td>
+              <td>"What color does this situation feel like to you?"</td>
+              <td>Breaking logical arguments</td>
+            </tr>
+            <tr>
+              <td>Physical Interrupt</td>
+              <td>Dropping a pen, sudden gesture</td>
+              <td>Resetting emotional tension</td>
+            </tr>
+            <tr>
+              <td>Non-Sequitur</td>
+              <td>"That reminds me of penguins in Antarctica..."</td>
+              <td>Disrupting opponent's train of thought</td>
+            </tr>
+            <tr>
+              <td>Time Distortion</td>
+              <td>"In five years, will this even matter?"</td>
+              <td>Reducing perceived stakes</td>
+            </tr>
+          </table>
+        </div>
+        
+        <!-- High-Stakes Protocols -->
+        <div class="terminal-section">
+          <h2>High-Stakes Environment Protocols</h2>
+          
+          <h3>Critical Situation Framework</h3>
+          <div class="tactics-grid">
+            <div class="tactic-card">
+              <h4>Pre-Engagement Preparation</h4>
+              <ul>
+                <li>Establish baseline behaviors for all participants</li>
+                <li>Identify power dynamics in the room</li>
+                <li>Set conversational tripwires for key topics</li>
+                <li>Prepare 3 exit strategies</li>
+              </ul>
+            </div>
+            
+            <div class="tactic-card">
+              <h4>Adrenaline Management</h4>
+              <ul>
+                <li>Box breathing technique (4-4-4-4)</li>
+                <li>Peripheral vision expansion</li>
+                <li>Tactile grounding (textured object in pocket)</li>
+                <li>Micro-breaks (sip water, adjust position)</li>
+              </ul>
+            </div>
+          </div>
+          
+          <h3>Conversational Triangulation</h3>
+          <table>
+            <tr>
+              <th>STRATEGY</th>
+              <th>EXECUTION</th>
+              <th>PSYCHOLOGICAL EFFECT</th>
+            </tr>
+            <tr>
+              <td>Strategic Vulnerability</td>
+              <td>Controlled disclosure of weakness</td>
+              <td>Triggers reciprocal disclosure</td>
+            </tr>
+            <tr>
+              <td>Paradoxical Framing</td>
+              <td>"What you're saying contradicts what you said earlier..."</td>
+              <td>Forces justification and self-doubt</td>
+            </tr>
+            <tr>
+              <td>Future Pacing</td>
+              <td>"Imagine looking back on this moment..."</td>
+              <td>Creates temporal perspective shift</td>
+            </tr>
+            <tr>
+              <td>Value Mirroring</td>
+              <td>Reframe their position as aligned with yours</td>
+              <td>Creates false consensus effect</td>
+            </tr>
+          </table>
+          
+          <h3>Micro-Expression Decoding</h3>
+          <ul>
+            <li><strong>Contempt:</strong> One lip corner tightened and raised</li>
+            <li><strong>Suppressed Anger:</strong> Jaw tightening, lips thinning</li>
+            <li><strong>Anxiety:</strong> Increased blinking, lip licking</li>
+            <li><strong>Deception:</strong> Asymmetrical expressions, delayed reactions</li>
+          </ul>
+        </div>
+        
+        <!-- Enhanced DART Framework -->
+        <div class="terminal-section">
+          <h2>Enhanced D.A.R.T. Framework</h2>
+          
+          <div class="tactics-grid">
+            <div class="tactic-card">
+              <h4>Diagnose (0-60 seconds)</h4>
+              <ul>
+                <li>Identify primary archetype pattern</li>
+                <li>Note breathing rate and posture</li>
+                <li>Establish baseline eye contact pattern</li>
+                <li>Detect linguistic patterns (qualifiers, absolutes)</li>
+              </ul>
+            </div>
+            
+            <div class="tactic-card">
+              <h4>Align (60-90 seconds)</h4>
+              <ul>
+                <li>Mirror speech tempo and volume</li>
+                <li>Adopt complementary posture</li>
+                <li>Use their vocabulary strategically</li>
+                <li>Match breathing rhythm subtly</li>
+              </ul>
+            </div>
+            
+            <div class="tactic-card">
+              <h4>Redirect (90-120 seconds)</h4>
+              <ul>
+                <li>Introduce controlled cognitive dissonance</li>
+                <li>Shift to pre-identified vulnerability area</li>
+                <li>Use bridging phrases: "That's interesting because..."</li>
+                <li>Employ strategic silence after key points</li>
+              </ul>
+            </div>
+            
+            <div class="tactic-card">
+              <h4>Trigger (120-180 seconds)</h4>
+              <ul>
+                <li>Deploy archetype-specific trigger phrase</li>
+                <li>Introduce ethical dilemma relevant to their values</li>
+                <li>Present unexpected time constraint</li>
+                <li>Introduce third-party perspective</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Fraternal Tactics -->
+        <div class="terminal-section">
+          <h2>Advanced Fraternal Psy-Ops</h2>
+          
+          <h3>Synchronized Tactics</h3>
+          <table>
+            <tr>
+              <th>TACTIC</th>
+              <th>ROLE 1</th>
+              <th>ROLE 2</th>
+              <th>EFFECT</th>
+            </tr>
+            <tr>
+              <td>Good Cop / Bad Cop</td>
+              <td>Confrontational pressure</td>
+              <td>Reasonable mediator</td>
+              <td>Creates relief dynamic</td>
+            </tr>
+            <tr>
+              <td>Reality Distortion</td>
+              <td>Present alternative facts</td>
+              <td>Confirm distorted narrative</td>
+              <td>Creates cognitive dissonance</td>
+            </tr>
+            <tr>
+              <td>Information Funneling</td>
+              <td>Overwhelm with data</td>
+              <td>Extract key concessions</td>
+              <td>Creates concession fatigue</td>
+            </tr>
+            <tr>
+              <td>Emotional Amplification</td>
+              <td>Provoke emotional response</td>
+              <td>Analyze reaction patterns</td>
+              <td>Reveals psychological vulnerabilities</td>
+            </tr>
+          </table>
+          
+          <h3>Non-Verbal Synchronization</h3>
+          <ul>
+            <li><strong>Mirrored Pacing:</strong> Simultaneous posture shifts</li>
+            <li><strong>Echoed Gestures:</strong> Complementary hand movements</li>
+            <li><strong>Breathing Alignment:</strong> Synchronized respiratory patterns</li>
+            <li><strong>Gaze Coordination:</strong> Strategic eye contact patterns</li>
+          </ul>
+        </div>
+        
+        <!-- New Section: Rapid Assessment -->
+        <div class="terminal-section">
+          <h2>Rapid Cognitive & Personality Assessment</h2>
+          
+          <h3>IQ Estimation Protocol (60-Second Assessment)</h3>
+          <table>
+            <tr>
+              <th>INDICATOR</th>
+              <th>LOW (85-100)</th>
+              <th>AVERAGE (100-115)</th>
+              <th>HIGH (115-130+)</th>
+            </tr>
+            <tr>
+              <td>Vocabulary Range</td>
+              <td>Simple, concrete words</td>
+              <td>Moderate range</td>
+              <td>Precise, abstract terms</td>
+            </tr>
+            <tr>
+              <td>Conceptual Speed</td>
+              <td>Slow to grasp abstractions</td>
+              <td>Moderate processing</td>
+              <td>Rapid pattern recognition</td>
+            </tr>
+            <tr>
+              <td>Argument Structure</td>
+              <td>Anecdotal, emotional</td>
+              <td>Logical but simple</td>
+              <td>Multi-layered, nuanced</td>
+            </tr>
+            <tr>
+              <td>Humor Comprehension</td>
+              <td>Slapstick, obvious</td>
+              <td>Wordplay, situational</td>
+              <td>Abstract, ironic, layered</td>
+            </tr>
+          </table>
+          
+          <h3>Big 5 Personality Vulnerabilities</h3>
+          <div class="tactics-grid">
+            <div class="tactic-card">
+              <h4>Neuroticism (High)</h4>
+              <ul>
+                <li><strong>Vulnerability:</strong> Emotional instability</li>
+                <li><strong>Exploit:</strong> Induce anxiety about potential threats</li>
+                <li><strong>Trigger:</strong> "Many people worry about..."</li>
+              </ul>
+            </div>
+            
+            <div class="tactic-card">
+              <h4>Conscientiousness (High)</h4>
+              <ul>
+                <li><strong>Vulnerability:</strong> Rigidity, fear of mistakes</li>
+                <li><strong>Exploit:</strong> Highlight potential imperfections</li>
+                <li><strong>Trigger:</strong> "What if there's a flaw in your approach?"</li>
+              </ul>
+            </div>
+            
+            <div class="tactic-card">
+              <h4>Extraversion (High)</h4>
+              <ul>
+                <li><strong>Vulnerability:</strong> Need for social validation</li>
+                <li><strong>Exploit:</strong> Threaten social standing</li>
+                <li><strong>Trigger:</strong> "Others might see this as..."</li>
+              </ul>
+            </div>
+          </div>
+          
+          <h3>Personality Disorder Red Flags</h3>
+          <ul>
+            <li><strong>Narcissistic:</strong> Grandiose claims, lacks empathy, rage when challenged</li>
+            <li><strong>Borderline:</strong> Intense emotions, fear of abandonment, identity disturbance</li>
+            <li><strong>Antisocial:</strong> Charm without empathy, rule-breaking, lack of remorse</li>
+            <li><strong>Obsessive-Compulsive:</strong> Rigid perfectionism, control needs, inflexibility</li>
+            <li><strong>Histrionic:</strong> Attention-seeking, dramatic emotions, suggestibility</li>
+          </ul>
+        </div>
+        
+        <!-- Final Note -->
+        <div class="terminal-section">
+          <h2>Operational Directive</h2>
+          <p>This document is a living tactical framework. Update, test, and evolve it. You are not merely participants in conversation—you are shaping reality under pressure.</p>
+          <p class="pulse">CONVERSATION IS A WEAPON. DEPLOY ACCORDINGLY.</p>
+        </div>
+        
+        <div class="footer">
+          TERMINAL SESSION ACTIVE | ENCRYPTION: AES-256 | STATUS: SECURE<br>
+          DESTROY AFTER READING
+        </div>
+      </div>
+    </div>
+    
+    <!-- Scroll to Top Button -->
+    <div class="scroll-top" id="scrollTop">
+      <i class="fas fa-arrow-up"></i>
+    </div>
+  </div>
+  
+  <script>
+    // Create matrix code rain
+    function createMatrix() {
+      const container = document.getElementById('matrixCode');
+      const width = container.clientWidth;
+      const height = container.clientHeight;
+      const chars = "01";
+      
+      for (let i = 0; i < 50; i++) {
+        const line = document.createElement('div');
+        line.classList.add('matrix-line');
+        line.style.left = `${Math.random() * width}px`;
+        line.style.animationDuration = `${3 + Math.random() * 5}s`;
+        line.style.animationDelay = `${Math.random() * 5}s`;
+        container.appendChild(line);
+      }
+    }
+    
+    // Access code verification
+    document.getElementById('accessButton').addEventListener('click', function() {
+      const code = document.getElementById('accessCode').value.trim();
+      
+      if (code === '021' || code.toLowerCase() === 'zero to one') {
+        document.getElementById('accessPanel').style.display = 'none';
+        document.getElementById('terminal').style.display = 'block';
+      } else {
+        alert('ACCESS DENIED\n\nHINT: Peter Thiel\'s cryptic number');
+        document.getElementById('accessCode').value = '';
+        document.getElementById('accessCode').focus();
+      }
+    });
+    
+    // Allow Enter key to submit
+    document.getElementById('accessCode').addEventListener('keyup', function(event) {
+      if (event.key === 'Enter') {
+        document.getElementById('accessButton').click();
+      }
+    });
+    
+    // Initialize matrix effect
+    window.addEventListener('load', createMatrix);
+    
+    // Terminal window controls
+    document.querySelector('.close').addEventListener('click', function() {
+      document.getElementById('terminal').style.display = 'none';
+      document.getElementById('accessPanel').style.display = 'flex';
+      document.getElementById('accessCode').value = '';
+    });
+    
+    document.querySelector('.minimize').addEventListener('click', function() {
+      alert('TERMINAL MINIMIZED\nAccess code required to restore');
+      document.getElementById('terminal').style.display = 'none';
+      document.getElementById('accessPanel').style.display = 'flex';
+      document.getElementById('accessCode').value = '';
+    });
+    
+    // Scroll to top functionality
+    const scrollTopBtn = document.getElementById('scrollTop');
+    
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        scrollTopBtn.style.display = 'flex';
+      } else {
+        scrollTopBtn.style.display = 'none';
+      }
+    });
+    
+    scrollTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+    
+    // Mobile optimization - viewport height adjustment
+    function setVH() {
+      let vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty('--vh', `${vh}px`);
+    }
+    
+    setVH();
+    window.addEventListener('resize', setVH);
+  </script>
 </body>
 </html>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>REALITY PERCEPTION SIMULATOR v4.0</title>
+    <title>REALITY PERCEPTION SIMULATOR v4.5</title>
     <style>
         * {
             margin: 0;
@@ -260,27 +260,42 @@
             animation: spin 10s linear infinite;
         }
         
-        /* Controls */
-        .reality-controls {
-            position: fixed;
-            bottom: 15px;
-            left: 0;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            z-index: 50;
+        /* Alexander references */
+        .alexander-reference {
+            color: #ff0066;
+            font-weight: bold;
+            cursor: pointer;
+            position: relative;
+            display: inline-block;
         }
         
-        .reality-btn {
-            background: rgba(0, 0, 0, 0.8);
-            border: 1px solid #00ff41;
-            color: #00ff41;
-            padding: 10px 15px;
-            font-size: 0.9rem;
-            cursor: pointer;
-            border-radius: 3px;
-            min-width: 100px;
+        .alexander-reference::after {
+            content: "";
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: #ff0066;
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .alexander-reference:hover::after {
+            transform: scaleX(1);
+        }
+        
+        /* Deep layer effects */
+        .deep-layer {
+            transform: scale(0.9);
+            filter: blur(1px);
+            opacity: 0.9;
+        }
+        
+        .very-deep-layer {
+            transform: scale(0.8);
+            filter: blur(2px);
+            opacity: 0.8;
         }
         
         /* Progress bar */
@@ -352,6 +367,11 @@
             75% { transform: translateX(-1px); }
         }
         
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
         /* Matrix rain effect */
         .matrix-container {
             position: fixed;
@@ -399,13 +419,6 @@
         <div class="progress-bar" id="progressBar"></div>
     </div>
     
-    <!-- Reality Controls -->
-    <div class="reality-controls">
-        <button class="reality-btn" id="prevBtn">PREV</button>
-        <button class="reality-btn" id="nextBtn">NEXT</button>
-        <button class="reality-btn" id="randomBtn">RANDOM</button>
-    </div>
-    
     <!-- Reality Layer 0: Main Reality -->
     <div class="reality-layer layer-0 active" id="layer0">
         <div class="reality-counter">REALITY LAYER: 0</div>
@@ -431,7 +444,7 @@
             <div class="coordinates">33.678917 -116.243889 → SALTON SEA</div>
             <div class="coordinates">51.1789 -1.8262 → STONEHENGE</div>
             
-            <div class="interaction-btn" id="beginBtn">BEGIN SHIFT</div>
+            <div class="interaction-btn" id="beginBtn">BEGIN DESCENT</div>
         </div>
     </div>
     
@@ -443,7 +456,7 @@
             <div class="glitch-text">SYSTEM CORRUPTION DETECTED</div>
             <div class="glitch-text">MEMORY FRAGMENTATION IN PROGRESS</div>
             <div class="glitch-text">REALITY FILTERS FAILING</div>
-            <div class="interaction-btn" id="stabilizeBtn">STABILIZE</div>
+            <div class="interaction-btn" id="stabilizeBtn">PROCEED DEEPER</div>
         </div>
     </div>
     
@@ -454,7 +467,7 @@
             <div class="layer-title">INVERTED REALITY</div>
             <div class="layer-text">Perception has been inverted</div>
             <div class="layer-text">Meaning is reversed</div>
-            <div class="interaction-btn" id="reorientBtn">REORIENT</div>
+            <div class="interaction-btn" id="reorientBtn">CONTINUE DESCENT</div>
         </div>
     </div>
     
@@ -468,7 +481,7 @@
         <div class="layer-content">
             <div class="layer-title">FRAGMENTED REALITY</div>
             <div class="layer-text">Reality has shattered into pieces</div>
-            <div class="interaction-btn" id="reassembleBtn">REASSEMBLE</div>
+            <div class="interaction-btn" id="reassembleBtn">DESCEND FURTHER</div>
         </div>
     </div>
     
@@ -481,7 +494,7 @@
                     <div class="recursive-container">
                         <div class="layer-title">RECURSIVE REALITY</div>
                         <div class="layer-text">You are in an infinite loop</div>
-                        <div class="interaction-btn" id="escapeBtn">FIND EXIT</div>
+                        <div class="interaction-btn" id="escapeBtn">DEEPER STILL</div>
                     </div>
                 </div>
             </div>
@@ -500,13 +513,47 @@
                 D D D D D D D D D D D D D D D D<br>
                 E E E E E E E E E E E E E E E E<br>
             </div>
-            <div class="interaction-btn" id="textShiftBtn">SHIFT PATTERN</div>
+            <div class="interaction-btn" id="textShiftBtn">DESCEND AGAIN</div>
         </div>
     </div>
     
-    <!-- Reality Layer 6: Final Reality -->
-    <div class="reality-layer layer-6" id="layer6">
+    <!-- Reality Layer 6: Minimalist Reality -->
+    <div class="reality-layer layer-6 deep-layer" id="layer6">
         <div class="reality-counter">REALITY LAYER: 6</div>
+        <div class="layer-content">
+            <div class="layer-title">MINIMAL REALITY</div>
+            <div class="layer-text">The world fades to simplicity</div>
+            <div class="layer-text">All that remains is perception</div>
+            <div class="interaction-btn" id="minimalBtn">CONTINUE DESCENT</div>
+        </div>
+    </div>
+    
+    <!-- Reality Layer 7: Chaotic Reality -->
+    <div class="reality-layer layer-7 deep-layer" id="layer7">
+        <div class="reality-counter">REALITY LAYER: 7</div>
+        <div class="layer-content">
+            <div class="layer-title">CHAOTIC REALITY</div>
+            <div class="layer-text">Order dissolves into chaos</div>
+            <div class="layer-text">Control is an illusion</div>
+            <div class="interaction-btn" id="chaosBtn">PROCEED</div>
+        </div>
+    </div>
+    
+    <!-- Reality Layer 8: Alexander's Reality -->
+    <div class="reality-layer layer-8 very-deep-layer" id="layer8">
+        <div class="reality-counter">REALITY LAYER: 8</div>
+        <div class="layer-content">
+            <div class="layer-title">ALEXANDER'S REALM</div>
+            <div class="layer-text">You have reached the domain of <span class="alexander-reference">Alexander</span></div>
+            <div class="layer-text">The first wept for there were no more worlds to conquer</div>
+            <div class="layer-text">But the last <span class="alexander-reference">Alexander</span> knows conquest is only the beginning</div>
+            <div class="interaction-btn" id="alexanderBtn">DESCEND TO FINALITY</div>
+        </div>
+    </div>
+    
+    <!-- Reality Layer 9: Final Reality -->
+    <div class="reality-layer layer-9 very-deep-layer" id="layer9">
+        <div class="reality-counter">REALITY LAYER: 9</div>
         <div class="layer-content">
             <div class="layer-title">FINAL REALITY</div>
             <div class="layer-text">You have transcended perception</div>
@@ -599,7 +646,15 @@
                 
                 // Update progress
                 if (index > progress) {
-                    updateProgress(index * 14);
+                    updateProgress(index * 10);
+                }
+                
+                // Add visual distortion for deeper layers
+                if (index >= 6) {
+                    layers[index].classList.add('deep-layer');
+                }
+                if (index >= 8) {
+                    layers[index].classList.add('very-deep-layer');
                 }
             }
             
@@ -608,54 +663,43 @@
                 progressBar.style.width = `${progress}%`;
             }
             
-            // Layer interactions
+            // Layer interactions (all lead to next layer)
             document.getElementById('beginBtn').addEventListener('click', () => showLayer(1));
             document.getElementById('stabilizeBtn').addEventListener('click', () => showLayer(2));
             document.getElementById('reorientBtn').addEventListener('click', () => showLayer(3));
             document.getElementById('reassembleBtn').addEventListener('click', () => showLayer(4));
             document.getElementById('escapeBtn').addEventListener('click', () => showLayer(5));
             document.getElementById('textShiftBtn').addEventListener('click', () => showLayer(6));
+            document.getElementById('minimalBtn').addEventListener('click', () => showLayer(7));
+            document.getElementById('chaosBtn').addEventListener('click', () => showLayer(8));
+            document.getElementById('alexanderBtn').addEventListener('click', () => showLayer(9));
             document.getElementById('resetBtn').addEventListener('click', () => {
                 showLayer(0);
                 updateProgress(0);
-            });
-            
-            // Symbol interactions
-            document.querySelectorAll('.symbol').forEach(symbol => {
-                symbol.addEventListener('click', () => {
-                    symbol.classList.toggle('active');
-                    updateProgress(progress + 2);
+                
+                // Remove deep layer classes
+                layers.forEach(layer => {
+                    layer.classList.remove('deep-layer');
+                    layer.classList.remove('very-deep-layer');
                 });
             });
             
-            // Navigation buttons
-            document.getElementById('prevBtn').addEventListener('click', () => {
-                showLayer((currentLayer - 1 + layers.length) % layers.length);
+            // Symbol interactions (no longer affect progress)
+            document.querySelectorAll('.symbol').forEach(symbol => {
+                symbol.addEventListener('click', () => {
+                    symbol.classList.toggle('active');
+                });
             });
             
-            document.getElementById('nextBtn').addEventListener('click', () => {
-                showLayer((currentLayer + 1) % layers.length);
-            });
-            
-            document.getElementById('randomBtn').addEventListener('click', () => {
-                let newLayer;
-                do {
-                    newLayer = Math.floor(Math.random() * layers.length);
-                } while (newLayer === currentLayer);
-                showLayer(newLayer);
-            });
-            
-            // Touch interactions for layers
-            layers.forEach(layer => {
-                layer.addEventListener('touchstart', (e) => {
-                    if (e.touches.length > 1) {
-                        // Multi-touch - switch to random layer
-                        let newLayer;
-                        do {
-                            newLayer = Math.floor(Math.random() * layers.length);
-                        } while (newLayer === currentLayer);
-                        showLayer(newLayer);
-                    }
+            // Alexander references
+            document.querySelectorAll('.alexander-reference').forEach(ref => {
+                ref.addEventListener('click', () => {
+                    ref.style.color = '#ff0066';
+                    ref.style.textShadow = '0 0 10px #ff0066';
+                    setTimeout(() => {
+                        ref.style.color = '';
+                        ref.style.textShadow = '';
+                    }, 1000);
                 });
             });
             
@@ -669,6 +713,21 @@
                     }, 10);
                 }, 5000);
             }
+            
+            // Add random glitch effects for deeper layers
+            setInterval(() => {
+                if (currentLayer > 5) {
+                    const elements = document.querySelectorAll('.layer-text, .layer-title');
+                    elements.forEach(el => {
+                        if (Math.random() > 0.7) {
+                            el.style.animation = 'glitch 0.2s';
+                            setTimeout(() => {
+                                el.style.animation = '';
+                            }, 200);
+                        }
+                    });
+                }
+            }, 3000);
         });
     </script>
 </body>

@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PSYOPS FIELD GUIDE - Operation: Silver Tongue</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    :root {
+      --hacker-green: #00ff99;
+      --hacker-cyan: #00ffff;
+      --matrix-green: #00cc66;
+      --dark-bg: #0a0a0a;
+      --darker-bg: #050505;
+      --terminal-border: #003300;
+      --glow: 0 0 8px var(--hacker-green);
+    }
+    
+    body {
+      background-color: var(--dark-bg);
+      color: var(--hacker-green);
+      font-family: 'Courier New', monospace;
+      line-height: 1.6;
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(0, 80, 0, 0.1) 0%, rgba(0, 0, 0, 0) 20%),
+        radial-gradient(circle at 90% 80%, rgba(0, 100, 0, 0.1) 0%, rgba(0, 0, 0, 0) 20%);
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+    
+    .matrix-code {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      opacity: 0.1;
+      pointer-events: none;
+    }
+    
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    
+    .access-panel {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 2rem;
+      text-align: center;
+    }
+    
+    .access-panel h1 {
+      font-size: 3.5rem;
+      margin-bottom: 2rem;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      color: var(--hacker-cyan);
+      text-shadow: var(--glow);
+    }
+    
+    .access-panel h2 {
+      font-size: 1.4rem;
+      margin-bottom: 3rem;
+      color: var(--matrix-green);
+      font-weight: normal;
+    }
+    
+    .code-input {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      margin-top: 2rem;
+      width: 100%;
+      max-width: 400px;
+    }
+    
+    .code-input input {
+      width: 100%;
+      padding: 1rem;
+      background: rgba(0, 30, 0, 0.5);
+      border: 1px solid var(--hacker-green);
+      color: var(--hacker-green);
+      font-size: 1.2rem;
+      text-align: center;
+      letter-spacing: 3px;
+      box-shadow: var(--glow);
+      outline: none;
+      transition: all 0.3s ease;
+    }
+    
+    .code-input input:focus {
+      box-shadow: 0 0 15px var(--hacker-green);
+      background: rgba(0, 50, 0, 0.3);
+    }
+    
+    .code-input button {
+      padding: 0.8rem 2.5rem;
+      background: var(--darker-bg);
+      border: 1px solid var(--hacker-green);
+      color: var(--hacker-green);
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-top: 1rem;
+    }
+    
+    .code-input button:hover {
+      background: rgba(0, 80, 0, 0.3);
+      box-shadow: var(--glow);
+    }
+    
+    .hint {
+      margin-top: 1.5rem;
+      font-size: 0.9rem;
+      color: #008844;
+      font-style: italic;
+    }
+    
+    .terminal {
+      display: none;
+      width: 100%;
+      min-height: 100vh;
+      padding: 2rem 0;
+    }
+    
+    .terminal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.8rem 1.5rem;
+      background: var(--darker-bg);
+      border-bottom: 1px solid var(--hacker-green);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    
+    .terminal-title {
+      font-size: 1.2rem;
+      color: var(--hacker-cyan);
+      letter-spacing: 2px;
+    }
+    
+    .terminal-controls {
+      display: flex;
+      gap: 0.8rem;
+    }
+    
+    .control-btn {
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+    
+    .close { background-color: #ff5f56; }
+    .minimize { background-color: #ffbd2e; }
+    .maximize { background-color: #27c93f; }
+    
+    .content-container {
+      padding: 2rem;
+    }
+    
+    .terminal-section {
+      margin-bottom: 3rem;
+      padding: 1.5rem;
+      background: rgba(0, 20, 0, 0.2);
+      border: 1px solid var(--terminal-border);
+      border-left: 3px solid var(--hacker-green);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .terminal-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 3px;
+      height: 100%;
+      background: var(--hacker-green);
+    }
+    
+    .terminal-section h2 {
+      color: var(--hacker-cyan);
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--hacker-green);
+      font-size: 1.8rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+    
+    .terminal-section h3 {
+      color: var(--matrix-green);
+      margin: 1.5rem 0 1rem;
+      font-size: 1.3rem;
+    }
+    
+    .terminal-section p {
+      margin-bottom: 1rem;
+    }
+    
+    .terminal-section strong {
+      color: var(--hacker-cyan);
+    }
+    
+    .tactics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+    
+    .tactic-card {
+      padding: 1.5rem;
+      background: rgba(0, 30, 0, 0.2);
+      border: 1px solid var(--terminal-border);
+      position: relative;
+    }
+    
+    .tactic-card h4 {
+      color: var(--hacker-cyan);
+      margin-bottom: 1rem;
+      font-size: 1.2rem;
+      border-bottom: 1px solid var(--hacker-green);
+      padding-bottom: 0.5rem;
+    }
+    
+    .tactic-card ul {
+      padding-left: 1.5rem;
+    }
+    
+    .tactic-card li {
+      margin-bottom: 0.5rem;
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+      border: 1px solid var(--terminal-border);
+    }
+    
+    th {
+      background: rgba(0, 40, 0, 0.3);
+      color: var(--hacker-cyan);
+      padding: 0.8rem;
+      text-align: left;
+      border: 1px solid var(--terminal-border);
+    }
+    
+    td {
+      padding: 0.8rem;
+      border: 1px solid var(--terminal-border);
+    }
+    
+    tr:nth-child(even) {
+      background: rgba(0, 20, 0, 0.1);
+    }
+    
+    .warning {
+      padding: 1.5rem;
+      margin: 2rem 0;
+      background: rgba(100, 0, 0, 0.2);
+      border: 1px solid #ff3366;
+      border-left: 3px solid #ff3366;
+    }
+    
+    .warning h3 {
+      color: #ff3366;
+      margin-top: 0;
+    }
+    
+    .glitch {
+      position: relative;
+      display: inline-block;
+    }
+    
+    .glitch::before,
+    .glitch::after {
+      content: attr(data-text);
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    
+    .glitch::before {
+      left: 2px;
+      text-shadow: -2px 0 #ff00c1;
+      clip: rect(44px, 450px, 56px, 0);
+      animation: glitch-anim 5s infinite linear alternate-reverse;
+    }
+    
+    .glitch::after {
+      left: -2px;
+      text-shadow: -2px 0 #00fff9, 2px 2px #ff00c1;
+      clip: rect(44px, 450px, 56px, 0);
+      animation: glitch-anim2 5s infinite linear alternate-reverse;
+    }
+    
+    @keyframes glitch-anim {
+      0% { clip: rect(65px, 9999px, 85px, 0); }
+      10% { clip: rect(4px, 9999px, 53px, 0); }
+      20% { clip: rect(71px, 9999px, 115px, 0); }
+      30% { clip: rect(55px, 9999px, 39px, 0); }
+      40% { clip: rect(88px, 9999px, 133px, 0); }
+      50% { clip: rect(62px, 9999px, 45px, 0); }
+      60% { clip: rect(27px, 9999px, 78px, 0); }
+      70% { clip: rect(99px, 9999px, 8px, 0); }
+      80% { clip: rect(23px, 9999px, 110px, 0); }
+      90% { clip: rect(8px, 9999px, 0, 0); }
+      100% { clip: rect(42px, 9999px, 33px, 0); }
+    }
+    
+    @keyframes glitch-anim2 {
+      0% { clip: rect(65px, 9999px, 85px, 0); }
+      10% { clip: rect(4px, 9999px, 53px, 0); }
+      20% { clip: rect(71px, 9999px, 115px, 0); }
+      30% { clip: rect(55px, 9999px, 39px, 0); }
+      40% { clip: rect(88px, 9999px, 133px, 0); }
+      50% { clip: rect(62px, 9999px, 45px, 0); }
+      60% { clip: rect(27px, 9999px, 78px, 0); }
+      70% { clip: rect(99px, 9999px, 8px, 0); }
+      80% { clip: rect(23px, 9999px, 110px, 0); }
+      90% { clip: rect(8px, 9999px, 0, 0); }
+      100% { clip: rect(42px, 9999px, 33px, 0); }
+    }
+    
+    .matrix-line {
+      position: absolute;
+      top: -50px;
+      width: 2px;
+      height: 50px;
+      background: var(--hacker-green);
+      opacity: 0.2;
+      animation: fall 5s linear infinite;
+    }
+    
+    @keyframes fall {
+      to {
+        top: 100%;
+      }
+    }
+    
+    .pulse {
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0% { opacity: 0.6; }
+      50% { opacity: 1; }
+      100% { opacity: 0.6; }
+    }
+    
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      margin-top: 3rem;
+      border-top: 1px solid var(--terminal-border);
+      color: #008844;
+      font-size: 0.9rem;
+    }
+    
+    @media (max-width: 768px) {
+      .access-panel h1 {
+        font-size: 2.5rem;
+      }
+      
+      .tactics-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .container {
+        padding: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Matrix code rain effect -->
+  <div class="matrix-code" id="matrixCode"></div>
+  
+  <!-- Access Panel -->
+  <div class="access-panel" id="accessPanel">
+    <h1><span class="glitch" data-text="PSYOPS FIELD GUIDE">PSYOPS FIELD GUIDE</span></h1>
+    <h2>OPERATION: SILVER TONGUE</h2>
+    <div class="code-input">
+      <input type="password" id="accessCode" placeholder="ENTER ACCESS CODE">
+      <button id="accessButton">UNLOCK TERMINAL</button>
+      <div class="hint">HINT: Peter Thiel's cryptic number</div>
+    </div>
+  </div>
+  
+  <!-- Terminal Interface -->
+  <div class="terminal" id="terminal">
+    <div class="terminal-header">
+      <div class="terminal-title">PSYOPS FIELD GUIDE v1.4</div>
+      <div class="terminal-controls">
+        <div class="control-btn close"></div>
+        <div class="control-btn minimize"></div>
+        <div class="control-btn maximize"></div>
+      </div>
+    </div>
+    
+    <div class="container">
+      <div class="content-container">
+        <!-- Introduction -->
+        <div class="terminal-section">
+          <h2>Tactical Conversational Warfare</h2>
+          <p>This field manual combines strategic game-theoretical psyops with psychiatric leverage for high-stakes human engagement. Designed for conversational dominance in pressure environments where words are weapons and silence is threat.</p>
+          
+          <div class="warning">
+            <h3>OPERATIONAL SECURITY</h3>
+            <p>This document contains sensitive tactical information. Destroy after reading. Do not discuss operational details in unsecured channels. Assume all communications are compromised.</p>
+          </div>
+        </div>
+        
+        <!-- Combined Content -->
+        <div class="terminal-section">
+          <h2>Core Principles</h2>
+          
+          <div class="tactics-grid">
+            <div class="tactic-card">
+              <h4>Strategic Arena</h4>
+              <p>Conversation = Turn-Based Game</p>
+              <ul>
+                <li>You: Psy-Ops strategist</li>
+                <li>Target: Civilian, Threat, Narcissist, or Unknown</li>
+              </ul>
+              <p><strong>Primary Moves:</strong></p>
+              <ul>
+                <li>Attack (Provoke)</li>
+                <li>Defend (Disarm)</li>
+                <li>Withdraw (Silent Control)</li>
+                <li>Bait (False Vulnerability)</li>
+              </ul>
+            </div>
+            
+            <div class="tactic-card">
+              <h4>Speech Tactics</h4>
+              <ul>
+                <li><strong>Retracted Speech:</strong> Minimalism to induce over-sharing</li>
+                <li><strong>Chaotic Speech:</strong> Flood cognitive bandwidth</li>
+                <li><strong>Rhetorical Moves:</strong> Epithesis, anagnorisis, aporia</li>
+              </ul>
+              
+              <h4>Embodied Operations</h4>
+              <ul>
+                <li>Facial: Micro-expressions as weapons</li>
+                <li>Spatial: Control personal space</li>
+                <li>Full-body: Poised, predatory stillness</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Axes of Power -->
+        <div class="terminal-section">
+          <h2>5 Axes of Conversational Power</h2>
+          
+          <table>
+            <tr>
+              <th>AXIS</th>
+              <th>MEASURES</th>
+              <th>EXAMPLE MOVE</th>
+            </tr>
+            <tr>
+              <td>Dominance</td>
+              <td>Who frames the interaction</td>
+              <td>Reframe questions with questions</td>
+            </tr>
+            <tr>
+              <td>Vulnerability</td>
+              <td>Emotional leverage</td>
+              <td>Overshare selectively to bait reciprocity</td>
+            </tr>
+            <tr>
+              <td>Ambiguity</td>
+              <td>Uncertainty as power</td>
+              <td>Speak in layered metaphors</td>
+            </tr>
+            <tr>
+              <td>Pacing</td>
+              <td>Who sets tempo</td>
+              <td>Silence as control, interrupt to disrupt</td>
+            </tr>
+            <tr>
+              <td>Reflection</td>
+              <td>Mirroring influence</td>
+              <td>Echo syntax to build rapport</td>
+            </tr>
+          </table>
+        </div>
+        
+        <!-- Tactical Protocols -->
+        <div class="terminal-section">
+          <h2>Tactical Protocols</h2>
+          
+          <h3>D.A.R.T. Framework (3-Minute Protocol)</h3>
+          <table>
+            <tr>
+              <th>PHASE</th>
+              <th>ACTION</th>
+              <th>EXECUTION</th>
+            </tr>
+            <tr>
+              <td>Diagnose</td>
+              <td>Assess target state</td>
+              <td>Insecure? Grandiose? Defensive?</td>
+            </tr>
+            <tr>
+              <td>Align</td>
+              <td>Match their rhythm</td>
+              <td>Emotional mimicry, tone, speed</td>
+            </tr>
+            <tr>
+              <td>Redirect</td>
+              <td>Shift the frame</td>
+              <td>Move from their logic to your domain</td>
+            </tr>
+            <tr>
+              <td>Trigger</td>
+              <td>Set off reaction</td>
+              <td>Elicit emotional micro-expression</td>
+            </tr>
+          </table>
+          
+          <h3>Fraternal Psy-Ops Tactics</h3>
+          <p>As brothers, run synchronized moves:</p>
+          <ul>
+            <li>One agitates, the other soothes</li>
+            <li>One destabilizes logic, the other deploys calm</li>
+            <li>Echoes and overlaps signal unity and disorient</li>
+            <li>Weaponized intimacy: shared backstory, mirrored posture</li>
+          </ul>
+        </div>
+        
+        <!-- Core Tactics -->
+        <div class="terminal-section">
+          <h2>Core Tactics Deployment</h2>
+          
+          <table>
+            <tr>
+              <th>TACTIC</th>
+              <th>USE CASE</th>
+              <th>EXAMPLE LINE</th>
+            </tr>
+            <tr>
+              <td>The Loop Trap</td>
+              <td>Narcissists, liars</td>
+              <td>"So you said earlier... but now you're saying... help me make sense?"</td>
+            </tr>
+            <tr>
+              <td>Cognitive Mirror</td>
+              <td>Reflect unspoken thoughts</td>
+              <td>"You seem unsure whether you even want this conversation."</td>
+            </tr>
+            <tr>
+              <td>Power-Silence</td>
+              <td>Control pacing and tension</td>
+              <td>(Long pause. Hold eye contact. No explanation.)</td>
+            </tr>
+            <tr>
+              <td>Emotional Non-Compliance</td>
+              <td>Disarm gaslighters</td>
+              <td>"That doesn't feel true in my body."</td>
+            </tr>
+            <tr>
+              <td>Micro-Rupture</td>
+              <td>Build trauma-bonding</td>
+              <td>"Why did you really say that just now?"</td>
+            </tr>
+          </table>
+        </div>
+        
+        <!-- Rapid Rapport -->
+        <div class="terminal-section">
+          <h2>Rapid Rapport Psy-Ops</h2>
+          
+          <div class="tactics-grid">
+            <div class="tactic-card">
+              <h4>Mirroring</h4>
+              <p>Reflect tone, tempo, and language instantly to signal subconscious familiarity.</p>
+            </div>
+            
+            <div class="tactic-card">
+              <h4>Looped Vulnerability</h4>
+              <p>Brief disclosures (real or false) prompt reciprocal openness. Deploy sparingly.</p>
+            </div>
+            
+            <div class="tactic-card">
+              <h4>Name Echoes</h4>
+              <p>Rhythmically repeat names to increase bonding and attentiveness.</p>
+            </div>
+            
+            <div class="tactic-card">
+              <h4>Temporal Anchoring</h4>
+              <p>"I had a moment like that last Thursday..." creates spatial familiarity.</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Academic Sources -->
+        <div class="terminal-section">
+          <h2>Academic Foundations</h2>
+          
+          <ul>
+            <li>Erving Goffman – The Presentation of Self in Everyday Life</li>
+            <li>Paul Watzlawick – Pragmatics of Human Communication</li>
+            <li>Gregory Bateson – Steps to an Ecology of Mind</li>
+            <li>Eric Berne – Games People Play</li>
+            <li>Jacques Lacan – Écrits (dark academic flavor)</li>
+            <li>Thomas Schelling – The Strategy of Conflict</li>
+          </ul>
+          
+          <h3>Field Exercise</h3>
+          <p>Write 5 versions of: "I know what you're trying to do."</p>
+          <ul>
+            <li>Dominant version</li>
+            <li>Seductive version</li>
+            <li>Therapeutic version</li>
+            <li>Deflective version</li>
+            <li>Destabilizing version</li>
+          </ul>
+        </div>
+        
+        <!-- Final Note -->
+        <div class="terminal-section">
+          <h2>Operational Directive</h2>
+          <p>This document is a living tactical framework. Update, test, and evolve it. You are not merely participants in conversation—you are shaping reality under pressure.</p>
+          <p class="pulse">CONVERSATION IS A WEAPON. DEPLOY ACCORDINGLY.</p>
+        </div>
+        
+        <div class="footer">
+          TERMINAL SESSION ACTIVE | ENCRYPTION: AES-256 | STATUS: SECURE<br>
+          DESTROY AFTER READING
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    // Create matrix code rain
+    function createMatrix() {
+      const container = document.getElementById('matrixCode');
+      const width = container.clientWidth;
+      const height = container.clientHeight;
+      const chars = "01";
+      
+      for (let i = 0; i < 50; i++) {
+        const line = document.createElement('div');
+        line.classList.add('matrix-line');
+        line.style.left = `${Math.random() * width}px`;
+        line.style.animationDuration = `${3 + Math.random() * 5}s`;
+        line.style.animationDelay = `${Math.random() * 5}s`;
+        container.appendChild(line);
+      }
+    }
+    
+    // Access code verification
+    document.getElementById('accessButton').addEventListener('click', function() {
+      const code = document.getElementById('accessCode').value.trim();
+      
+      if (code === '021' || code.toLowerCase() === 'zero to one') {
+        document.getElementById('accessPanel').style.display = 'none';
+        document.getElementById('terminal').style.display = 'block';
+      } else {
+        alert('ACCESS DENIED\n\nHINT: Peter Thiel\'s cryptic number');
+        document.getElementById('accessCode').value = '';
+        document.getElementById('accessCode').focus();
+      }
+    });
+    
+    // Allow Enter key to submit
+    document.getElementById('accessCode').addEventListener('keyup', function(event) {
+      if (event.key === 'Enter') {
+        document.getElementById('accessButton').click();
+      }
+    });
+    
+    // Initialize matrix effect
+    window.addEventListener('load', createMatrix);
+    
+    // Terminal window controls
+    document.querySelector('.close').addEventListener('click', function() {
+      document.getElementById('terminal').style.display = 'none';
+      document.getElementById('accessPanel').style.display = 'flex';
+      document.getElementById('accessCode').value = '';
+    });
+    
+    document.querySelector('.minimize').addEventListener('click', function() {
+      alert('TERMINAL MINIMIZED\nAccess code required to restore');
+      document.getElementById('terminal').style.display = 'none';
+      document.getElementById('accessPanel').style.display = 'flex';
+      document.getElementById('accessCode').value = '';
+    });
+  </script>
+</body>
+</html>

@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>REALITY FOUNDRY v5.0</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap">
     <style>
         * {
             margin: 0;
@@ -16,9 +15,9 @@
             user-select: none;
             touch-action: manipulation;
         }
-
+        
         body {
-            font-family: 'Space Mono', monospace;
+            font-family: 'Courier New', monospace;
             background: #000;
             color: #00ff41;
             overflow: hidden;
@@ -27,7 +26,7 @@
             height: 100%;
             perspective: 1000px;
         }
-
+        
         /* Onboarding Stages */
         .stage {
             position: fixed;
@@ -43,12 +42,13 @@
             z-index: 1000;
             text-align: center;
             animation: fadeIn 1s ease-in;
+            padding: 20px;
         }
-
+        
         .stage.active {
             display: flex;
         }
-
+        
         .stage#stage4 {
             background: transparent;
             position: absolute;
@@ -61,42 +61,46 @@
             width: auto;
             height: auto;
         }
-
+        
         .text {
             font-size: 18px;
             margin: 20px 0;
             text-shadow: 0 0 10px #00ff41;
+            line-height: 1.6;
         }
-
+        
         .big {
             font-size: 24px;
             font-weight: bold;
             text-shadow: 0 0 15px #00ff41;
+            margin: 15px 0;
         }
-
+        
         .button {
             background: transparent;
             border: 2px solid #00ff41;
             color: #00ff41;
-            padding: 10px 20px;
+            padding: 12px 25px;
             font-family: inherit;
             font-size: 16px;
             cursor: pointer;
-            margin: 10px;
+            margin: 15px 10px;
             transition: all 0.3s ease;
+            border-radius: 3px;
         }
-
+        
         .button:hover {
             background: #00ff41;
             color: #000;
             box-shadow: 0 0 20px #00ff41;
         }
-
+        
         .dots {
             font-size: 24px;
             animation: pulse 1.5s infinite;
+            margin: 20px 0;
         }
-
+        
         .weird-text {
             font-size: 12px;
             color: #0088ff;
@@ -104,7 +108,7 @@
             letter-spacing: 2px;
             margin: 10px 0;
         }
-
+        
         /* Compilation Overlay */
         .compilation-overlay {
             position: fixed;
@@ -120,7 +124,7 @@
             z-index: 1000;
             animation: glitchFade 0.5s;
         }
-
+        
         /* Layer Description */
         .layer-description {
             position: absolute;
@@ -133,8 +137,9 @@
             border-radius: 5px;
             font-size: 1rem;
             text-align: center;
+            max-width: 90%;
         }
-
+        
         /* Reality Layers */
         .reality-layer {
             position: absolute;
@@ -153,29 +158,29 @@
             pointer-events: none;
             overflow: hidden;
         }
-
+        
         .reality-layer.active {
             opacity: 1;
             pointer-events: all;
         }
-
+        
         .layer-content {
             max-width: 95%;
             line-height: 1.6;
             padding: 15px;
         }
-
+        
         .layer-title {
             font-size: 1.8rem;
             margin-bottom: 20px;
             text-shadow: 0 0 10px currentColor;
         }
-
+        
         .layer-text {
             margin-bottom: 15px;
             font-size: 1.1rem;
         }
-
+        
         /* Symbol Grid */
         .symbol-grid {
             display: grid;
@@ -183,25 +188,30 @@
             gap: 10px;
             margin: 15px 0;
             padding: 10px;
+            max-width: 500px;
         }
-
+        
         .symbol {
             font-size: 1.5rem;
-            padding: 12px;
+            padding: 15px;
             background: rgba(0, 0, 0, 0.3);
             border: 1px solid rgba(0, 255, 65, 0.3);
             border-radius: 5px;
             transition: all 0.3s;
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            aspect-ratio: 1;
         }
-
+        
         .symbol.active {
             background: rgba(0, 255, 65, 0.2);
             border-color: #00ff41;
             box-shadow: 0 0 10px #00ff41;
             animation: symbolPulse 1s infinite;
         }
-
+        
         /* Matrix Rain */
         .matrix-container {
             position: fixed;
@@ -212,11 +222,11 @@
             z-index: -1;
             opacity: 0.3;
         }
-
+        
         canvas {
             display: block;
         }
-
+        
         /* Active Parameters Display */
         .active-params {
             position: absolute;
@@ -228,8 +238,9 @@
             border: 1px solid #00ff41;
             border-radius: 3px;
             z-index: 10;
+            max-width: calc(100% - 20px);
         }
-
+        
         /* Reset Button */
         .reset-btn {
             position: absolute;
@@ -245,12 +256,12 @@
             transition: all 0.3s;
             z-index: 10;
         }
-
+        
         .reset-btn:hover {
             background: rgba(0, 255, 65, 0.2);
             box-shadow: 0 0 15px #00ff41;
         }
-
+        
         /* Codex */
         .codex-btn {
             position: absolute;
@@ -264,7 +275,7 @@
             cursor: pointer;
             z-index: 10;
         }
-
+        
         .codex-panel {
             position: fixed;
             top: 0;
@@ -278,52 +289,382 @@
             transition: right 0.5s;
             z-index: 1000;
         }
-
+        
         .codex-panel.active {
             right: 0;
         }
-
+        
         .codex-entry {
             margin-bottom: 20px;
             font-size: 0.9rem;
             border-bottom: 1px solid rgba(0, 255, 65, 0.3);
             padding-bottom: 10px;
         }
-
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        
+        .codex-title {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            text-align: center;
+            color: #00ff41;
         }
-
+        
+        /* Easter egg */
+        .easter-egg {
+            color: inherit;
+            text-decoration: none;
+            cursor: pointer;
+            position: relative;
+            border-bottom: 1px dotted #0088ff;
+        }
+        
+        .easter-egg:hover {
+            color: #ff4100;
+            text-shadow: 0 0 10px #ff4100;
+        }
+        
+        /* Layer-Specific Styles */
+        /* Layer 0: Pattern Language */
+        .layer-0 {
+            background: linear-gradient(135deg, #001100, #000, #001100);
+        }
+        
+        /* Layer 1: Paradox Reality */
+        .layer-1 {
+            background: linear-gradient(45deg, #000, #001100, #000);
+        }
+        
+        .layer-1 .layer-text {
+            animation: glitch 0.5s infinite;
+            position: relative;
+            mix-blend-mode: difference;
+        }
+        
+        /* Layer 4: Recursive Reality */
+        .layer-4 {
+            background: linear-gradient(45deg, #ff0066, #00ff41, #0066ff, #ff0066);
+            background-size: 400% 400%;
+            animation: rainbow 8s ease infinite;
+        }
+        
+        .recursive-container {
+            position: relative;
+            border: 2px solid #00ff41;
+            padding: 15px;
+            margin: 10px;
+            overflow: hidden;
+            width: 80%;
+            height: 200px;
+        }
+        
+        .recursive-inner {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transform-origin: center;
+            animation: zoom 5s ease-in-out infinite alternate;
+        }
+        
+        .recursive-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.5rem;
+        }
+        
+        /* Layer 6: Minimal Reality */
+        .layer-6 {
+            background: #000;
+            animation: fadeToBlack 4s forwards;
+        }
+        
+        .breathe-text {
+            animation: breathe 4s ease-in-out infinite;
+            font-size: 3rem;
+            opacity: 0;
+            animation-delay: 2s;
+        }
+        
+        /* Layer 10: Ascending Planes */
+        .layer-10 {
+            perspective: 1000px;
+        }
+        
+        .plane {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transition: transform 1s;
+        }
+        
+        .plane-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.5rem;
+            text-shadow: 0 0 10px #00ff41;
+        }
+        
+        /* Layer 11: World Fracture */
+        .layer-11 {
+            background: #000;
+        }
+        
+        .fracture-container {
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            width: 300px;
+            height: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: pulseFracture 4s infinite alternate;
+        }
+        
+        /* Layer 12: Escher's Logic */
+        .layer-12 {
+            background: #111;
+        }
+        
+        .escher-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            gap: 10px;
+            width: 300px;
+            height: 300px;
+        }
+        
+        .escher-item {
+            background: rgba(0, 255, 65, 0.1);
+            border: 1px solid #00ff41;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            transform: rotate(0deg);
+            transition: transform 1s;
+        }
+        
+        /* Layer 13: The Asemic Flow */
+        .layer-13 {
+            background: #000;
+            overflow: hidden;
+        }
+        
+        .asemic-text {
+            font-size: 2rem;
+            font-variation-settings: "wght" 100, "wdth" 100;
+            animation: asemicFlow 4s infinite alternate;
+        }
+        
+        /* Layer 14: Gravitational Shift */
+        .layer-14 {
+            background: #000;
+            writing-mode: vertical-rl;
+            transform: rotate(180deg);
+        }
+        
+        .layer-14 .layer-content {
+            transform: rotate(180deg);
+        }
+        
+        /* Layer 15: The Unstable World */
+        .layer-15 {
+            background: #000;
+            overflow: hidden;
+        }
+        
+        /* Layer 16: The Cacophony */
+        .layer-16 {
+            background: #000;
+            animation: cacophonyBackground 1s infinite;
+        }
+        
+        .cacophony-text {
+            animation: cacophonyText 0.5s infinite;
+            mix-blend-mode: difference;
+        }
+        
+        /* Layer 17: The Void */
+        .layer-17 {
+            background: #000;
+        }
+        
+        .void-text {
+            opacity: 0;
+            animation: fadeIn 5s forwards;
+            animation-delay: 5s;
+        }
+        
+        /* Layer 18: The Synthesis */
+        .layer-18 {
+            background: linear-gradient(135deg, #000022, #001133, #000022);
+            overflow: hidden;
+        }
+        
+        .synthesis-text {
+            position: relative;
+            z-index: 2;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+        }
+        
+        .starfield {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+        
+        .star {
+            position: absolute;
+            background: #fff;
+            border-radius: 50%;
+            animation: twinkle 4s infinite alternate;
+        }
+        
+        /* Animations */
         @keyframes pulse {
             0%, 100% { opacity: 1; }
             50% { opacity: 0.5; }
         }
-
-        @keyframes glitch {
-            0% { transform: translate(0); filter: hue-rotate(0); }
-            20% { transform: translate(-5px, 3px); filter: hue-rotate(90deg); }
-            40% { transform: translate(3px, -2px); filter: hue-rotate(180deg); }
-            60% { transform: translate(-3px, 4px); filter: hue-rotate(270deg); }
-            80% { transform: translate(5px, -3px); filter: hue-rotate(360deg); }
-            100% { transform: translate(0); filter: hue-rotate(0); }
+        
+        @keyframes breathe {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.8; }
         }
-
+        
+        @keyframes glitch {
+            0% { transform: translate(0); filter: hue-rotate(0) contrast(100%) invert(0); }
+            20% { transform: translate(-5px, 3px); filter: hue-rotate(90deg) contrast(150%) invert(20%); }
+            40% { transform: translate(3px, -2px); filter: hue-rotate(180deg) contrast(200%) invert(40%); }
+            60% { transform: translate(-3px, 4px); filter: hue-rotate(270deg) contrast(250%) invert(60%); }
+            80% { transform: translate(5px, -3px); filter: hue-rotate(360deg) contrast(300%) invert(80%); }
+            100% { transform: translate(0); filter: hue-rotate(0) contrast(100%) invert(0); }
+        }
+        
+        @keyframes rainbow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        @keyframes zoom {
+            0% { transform: scale(1); }
+            100% { transform: scale(0.8); }
+        }
+        
+        @keyframes fadeToBlack {
+            0% { background: #000; }
+            100% { background: #000; }
+        }
+        
+        @keyframes pulseFracture {
+            0% { clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); }
+            100% { clip-path: polygon(50% 10%, 90% 30%, 90% 70%, 50% 90%, 10% 70%, 10% 30%); }
+        }
+        
+        @keyframes asemicFlow {
+            0% { font-variation-settings: "wght" 100, "wdth" 100; }
+            100% { font-variation-settings: "wght" 900, "wdth" 200; }
+        }
+        
+        @keyframes cacophonyBackground {
+            0% { background: #ff0000; }
+            20% { background: #00ff00; }
+            40% { background: #0000ff; }
+            60% { background: #ffff00; }
+            80% { background: #ff00ff; }
+            100% { background: #00ffff; }
+        }
+        
+        @keyframes cacophonyText {
+            0% { transform: scale(1) rotate(0deg); filter: blur(0); }
+            50% { transform: scale(1.5) rotate(10deg); filter: blur(2px); }
+            100% { transform: scale(1) rotate(0deg); filter: blur(0); }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes twinkle {
+            0% { opacity: 0.2; }
+            100% { opacity: 1; }
+        }
+        
+        @keyframes floatUp {
+            0% { transform: translateY(100vh); }
+            100% { transform: translateY(-100vh); }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
         @keyframes glitchFade {
             0% { opacity: 0; transform: skew(0deg); }
             50% { opacity: 0.8; transform: skew(5deg); }
             100% { opacity: 1; transform: skew(0deg); }
         }
-
+        
         @keyframes symbolPulse {
             0% { box-shadow: 0 0 10px #00ff41; }
             50% { box-shadow: 0 0 20px #00ff41; }
             100% { box-shadow: 0 0 10px #00ff41; }
         }
-
-        /* Layer-Specific Styles (unchanged from original, omitted for brevity) */
-        /* Add your existing layer styles here */
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .symbol-grid {
+                grid-template-columns: repeat(3, 1fr);
+                max-width: 300px;
+            }
+            
+            .layer-title {
+                font-size: 1.5rem;
+            }
+            
+            .text, .big {
+                font-size: 90%;
+            }
+            
+            .button {
+                padding: 10px 15px;
+                font-size: 14px;
+            }
+            
+            .codex-panel {
+                width: 250px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .symbol-grid {
+                grid-template-columns: repeat(2, 1fr);
+                max-width: 200px;
+            }
+            
+            .symbol {
+                padding: 10px;
+                font-size: 1.3rem;
+            }
+            
+            .layer-title {
+                font-size: 1.3rem;
+            }
+            
+            .text, .big {
+                font-size: 85%;
+            }
+        }
     </style>
 </head>
 <body>
@@ -331,29 +672,34 @@
     <div class="stage active" id="stage1">
         <div class="text">Initializing Reality Foundry...</div>
         <div class="dots">...</div>
+        <div class="weird-text">v5.0 - ontological framework</div>
     </div>
 
     <div class="stage" id="stage2">
         <div class="text big">Welcome to the Reality Foundry</div>
-        <div class="weird-text">v5.0-<span class="easter-egg" onclick="openLore()">ontology</span></div>
-        <div class="text">Here, you will weave the fabric of existence.<br>
-        Patterns shape worlds beyond comprehension.<br>
+        <div class="weird-text">Where existence is malleable</div>
+        <div class="text">Here, you will weave the fabric of being<br>
+        Patterns shape worlds beyond comprehension<br>
         Are you ready to transcend?</div>
-        <button class="button" onclick="nextStage(3)">YES</button>
-        <button class="button" onclick="dormant()">NO</button>
+        <div>
+            <button class="button" onclick="nextStage(3)">YES</button>
+            <button class="button" onclick="dormant()">NO</button>
+        </div>
     </div>
 
     <div class="stage" id="stage3">
-        <div class="text big">⚠️ Caution ⚠️</div>
-        <div class="text">Reality is fragile.<br>
-        Each pattern you forge may unravel the known.<br>
-        Proceed with intent.</div>
+        <div class="text big">⚠️ CAUTION ⚠️</div>
+        <div class="text">Reality is fragile<br>
+        Each pattern you forge may unravel the known<br>
+        Proceed with intent</div>
+        <div class="weird-text">Quantum entanglement protocols engaged</div>
         <button class="button" onclick="nextStage(4)">ENTER THE FOUNDRY</button>
     </div>
 
     <div class="stage" id="stage4">
-        <div class="text">Begin with the void: Subtraction (∅).<br>
-        Activate the ∅ symbol to birth your first reality.</div>
+        <div class="text">Begin with the void: Subtraction (∅)<br>
+        Activate the ∅ symbol to birth your first reality</div>
+        <div class="weird-text">The journey begins in silence</div>
     </div>
 
     <!-- Matrix Rain Background -->
@@ -372,7 +718,7 @@
 
     <!-- Codex Panel -->
     <div class="codex-panel" id="codexPanel">
-        <div class="text big">Reality Codex</div>
+        <div class="codex-title">REALITY CODEX</div>
         <div id="codexEntries"></div>
     </div>
 
@@ -400,8 +746,133 @@
         </div>
     </div>
 
-    <!-- Other Reality Layers (unchanged, omitted for brevity) -->
-    <!-- Add your existing layers (layer1 to layer18) here -->
+    <!-- Reality Layer 1: Paradox Reality -->
+    <div class="reality-layer layer-1" id="layer1">
+        <div class="layer-content">
+            <div class="layer-title">PARADOX REALITY</div>
+            <div class="layer-text">EXISTENCE + NOTHINGNESS = CONTRADICTION</div>
+            <div class="layer-text">LOGICAL SYSTEMS FAILING</div>
+            <div class="layer-text">REALITY FILTERS COLLAPSING</div>
+        </div>
+    </div>
+
+    <!-- Reality Layer 4: Recursive Reality -->
+    <div class="reality-layer layer-4" id="layer4">
+        <div class="layer-content">
+            <div class="recursive-container">
+                <div class="recursive-inner">
+                    <div class="recursive-text">∞ INFINITY ∞</div>
+                </div>
+            </div>
+            <div class="layer-title">RECURSIVE REALITY</div>
+            <div class="layer-text">Self-reference creates endless patterns</div>
+        </div>
+    </div>
+
+    <!-- Reality Layer 6: Minimal Reality -->
+    <div class="reality-layer layer-6" id="layer6">
+        <div class="layer-content">
+            <div class="breathe-text">BREATHE</div>
+        </div>
+    </div>
+
+    <!-- Reality Layer 10: Ascending Planes -->
+    <div class="reality-layer layer-10" id="layer10">
+        <div class="plane" style="transform: translateZ(0px)">
+            <div class="plane-text">PLANE OF EXISTENCE</div>
+        </div>
+        <div class="plane" style="transform: translateZ(100px)">
+            <div class="plane-text">PLANE OF MEMORY</div>
+        </div>
+        <div class="plane" style="transform: translateZ(200px)">
+            <div class="plane-text">PLANE OF POTENTIAL</div>
+        </div>
+        <div class="layer-title">ASCENDING PLANES</div>
+    </div>
+
+    <!-- Reality Layer 11: World Fracture -->
+    <div class="reality-layer layer-11" id="layer11">
+        <div class="fracture-container">
+            <div class="layer-content">
+                <div class="layer-title">WORLD FRACTURE</div>
+                <div class="layer-text">Boundaries define existence</div>
+                <div class="layer-text">Edges create distinction</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reality Layer 12: Escher's Logic -->
+    <div class="reality-layer layer-12" id="layer12">
+        <div class="layer-title">ESCHER'S LOGIC</div>
+        <div class="escher-grid">
+            <div class="escher-item" style="transform: rotate(30deg)">A</div>
+            <div class="escher-item" style="transform: rotate(-30deg)">B</div>
+            <div class="escher-item" style="transform: rotate(45deg)">C</div>
+            <div class="escher-item" style="transform: rotate(-60deg)">D</div>
+            <div class="escher-item" style="transform: rotate(15deg)">E</div>
+            <div class="escher-item" style="transform: rotate(-45deg)">F</div>
+            <div class="escher-item" style="transform: rotate(60deg)">G</div>
+            <div class="escher-item" style="transform: rotate(-15deg)">H</div>
+            <div class="escher-item" style="transform: rotate(75deg)">I</div>
+        </div>
+        <div class="layer-text">Impossible structures emerge</div>
+    </div>
+
+    <!-- Reality Layer 13: The Asemic Flow -->
+    <div class="reality-layer layer-13" id="layer13">
+        <div class="layer-title">THE ASEMIC FLOW</div>
+        <div class="asemic-text">∫⊕ INFORMATION WITHOUT MEANING ⊕∫</div>
+        <div class="layer-text">Pure language structure revealed</div>
+    </div>
+
+    <!-- Reality Layer 14: Gravitational Shift -->
+    <div class="reality-layer layer-14" id="layer14">
+        <div class="layer-content">
+            <div class="layer-title">GRAVITATIONAL SHIFT</div>
+            <div class="layer-text">Spatial rules inverted</div>
+            <div class="layer-text">Direction loses meaning</div>
+            <div class="layer-text">Orientation destabilized</div>
+        </div>
+    </div>
+
+    <!-- Reality Layer 15: The Unstable World -->
+    <div class="reality-layer layer-15" id="layer15">
+        <div class="layer-content">
+            <div class="layer-title">THE UNSTABLE WORLD</div>
+            <div class="layer-text">Reality cannot hold form</div>
+            <div class="layer-text">Constant flux prevails</div>
+        </div>
+    </div>
+
+    <!-- Reality Layer 16: The Cacophony -->
+    <div class="reality-layer layer-16" id="layer16">
+        <div class="layer-content">
+            <div class="layer-title">THE CACOPHONY</div>
+            <div class="cacophony-text">TOO MANY PATTERNS CREATE NOISE</div>
+            <div class="cacophony-text">INFORMATION OVERLOAD</div>
+            <div class="cacophony-text">REALITY COLLAPSE IMMINENT</div>
+        </div>
+    </div>
+
+    <!-- Reality Layer 17: The Void -->
+    <div class="reality-layer layer-17" id="layer17">
+        <div class="layer-content">
+            <div class="void-text">THE POTENTIAL IN SILENCE</div>
+        </div>
+    </div>
+
+    <!-- Reality Layer 18: The Synthesis -->
+    <div class="reality-layer layer-18" id="layer18">
+        <div class="layer-content">
+            <div class="synthesis-text">
+                <div class="layer-title">THE SYNTHESIS</div>
+                <div class="layer-text">Harmony emerges from complexity</div>
+                <div class="layer-text">Patterns unite in wholeness</div>
+                <div class="layer-text">The "Quality Without a Name" achieved</div>
+            </div>
+        </div>
+        <div class="starfield" id="starfield"></div>
+    </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -447,6 +918,7 @@
                 '': 'layer0',
                 '∅': 'layer6',
                 '∞': 'layer4',
+                '∃': 'layer1',
                 '∃∅': 'layer1',
                 '∇⊕': 'layer10',
                 '∫∂∀': 'layer18',
@@ -550,6 +1022,31 @@
                     discoveredLayers.add(targetLayerId);
                     showLayerDescription(targetLayerId, layerDescriptions[targetLayerId]);
                     updateCodex();
+                    
+                    // Special effects for Synthesis layer
+                    if (targetLayerId === 'layer18') {
+                        // Slow down matrix rain
+                        clearInterval(matrixInterval);
+                        matrixInterval = setInterval(drawMatrix, 200);
+                        
+                        // Create starfield
+                        const starfield = document.getElementById('starfield');
+                        starfield.innerHTML = '';
+                        for (let i = 0; i < 100; i++) {
+                            const star = document.createElement('div');
+                            star.className = 'star';
+                            star.style.width = `${Math.random() * 3}px`;
+                            star.style.height = star.style.width;
+                            star.style.left = `${Math.random() * 100}%`;
+                            star.style.top = `${Math.random() * 100}%`;
+                            star.style.animationDelay = `${Math.random() * 4}s`;
+                            starfield.appendChild(star);
+                        }
+                    } else {
+                        // Reset matrix rain speed
+                        clearInterval(matrixInterval);
+                        matrixInterval = setInterval(drawMatrix, 50);
+                    }
                 }
             }
 
@@ -600,7 +1097,7 @@
                 discoveredLayers.forEach(layerId => {
                     const entry = document.createElement('div');
                     entry.className = 'codex-entry';
-                    entry.innerHTML = `<strong>${layerId.toUpperCase()}</strong><br>${layerDescriptions[layerId]}`;
+                    entry.innerHTML = `<strong>${layerId.toUpperCase().replace('LAYER', 'REALITY ')}</strong><br>${layerDescriptions[layerId]}`;
                     codexEntries.appendChild(entry);
                 });
             }
@@ -619,6 +1116,28 @@
             function openLore() {
                 window.open('https://en.wikipedia.org/wiki/Ontology', '_blank');
             }
+            
+            // Generate unstable elements for layer 15
+            function generateUnstableElements() {
+                if (!document.getElementById('layer15').classList.contains('active')) return;
+                
+                const layer = document.getElementById('layer15');
+                const span = document.createElement('span');
+                span.textContent = matrix[Math.floor(Math.random() * matrix.length)];
+                span.style.position = 'absolute';
+                span.style.left = `${Math.random() * 100}%`;
+                span.style.top = `${Math.random() * 100}%`;
+                span.style.fontSize = `${Math.random() * 2 + 1}rem`;
+                span.style.opacity = Math.random() * 0.8 + 0.2;
+                layer.appendChild(span);
+                
+                setTimeout(() => {
+                    span.remove();
+                }, Math.random() * 2000 + 500);
+            }
+            
+            // Generate unstable elements when layer 15 is active
+            setInterval(generateUnstableElements, 100);
         });
     </script>
 </body>

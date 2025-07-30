@@ -2,11 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ALEXANDER v4.0 - Paradox Engine</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALEXANDER v4.0 - Reality Paradox Simulation</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Major+Mono+Display&family=Share+Tech+Mono&family=VT323&display=swap">
     <style>
-        /* Base Mobile-First Styles */
         * {
             margin: 0;
             padding: 0;
@@ -25,6 +24,7 @@
             --neon-orange: #ff6b00;
             --neon-purple: #b300ff;
             --dark-bg: #000;
+            --matrix-green: rgba(0, 255, 157, 0.1);
         }
 
         body {
@@ -39,7 +39,6 @@
             line-height: 1.4;
         }
 
-        /* Paradox Grid Background */
         .paradox-grid {
             position: fixed;
             top: 0;
@@ -47,14 +46,13 @@
             width: 100%;
             height: 100%;
             background: 
-                linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
-                repeating-linear-gradient(0deg, transparent, transparent 1px, rgba(0, 255, 157, 0.05) 1px, rgba(0, 255, 157, 0.05) 2px),
+                linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)),
+                repeating-linear-gradient(0deg, transparent, transparent 1px, var(--matrix-green) 1px, var(--matrix-green) 2px),
                 repeating-linear-gradient(90deg, transparent, transparent 1px, rgba(0, 217, 255, 0.05) 1px, rgba(0, 217, 255, 0.05) 2px);
             z-index: -1;
-            opacity: 0.7;
+            opacity: 0.8;
         }
 
-        /* Onboarding Stages */
         .stage {
             position: fixed;
             top: 0;
@@ -103,7 +101,6 @@
             margin: 8px 0;
         }
 
-        /* Paradox Text Effects */
         .paradox-text {
             font-size: 16px;
             margin: 10px 0;
@@ -124,7 +121,6 @@
             font-size: 24px;
         }
 
-        /* Reality Layers */
         .reality-layer {
             position: absolute;
             top: 0;
@@ -155,7 +151,6 @@
             color: var(--neon-pink);
         }
 
-        /* Interactive Elements */
         .button {
             background: transparent;
             border: 2px solid var(--neon-green);
@@ -229,7 +224,6 @@
             box-shadow: 0 0 20px var(--neon-blue);
         }
 
-        /* Symbol Grid */
         .symbol-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -281,7 +275,6 @@
             animation: symbolPulse 1.5s infinite;
         }
 
-        /* Reality Controls */
         .reality-controls {
             position: absolute;
             bottom: 20px;
@@ -310,57 +303,6 @@
             box-shadow: 0 0 12px var(--neon-green);
         }
 
-        /* Paradox Matrix */
-        .paradox-matrix {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 50;
-            opacity: 0.5;
-        }
-
-        .matrix-char {
-            position: absolute;
-            color: rgba(0, 255, 157, 0.7);
-            font-size: 14px;
-            font-family: 'VT323', monospace;
-            opacity: 0;
-            text-shadow: 0 0 5px var(--neon-green);
-            animation: matrixFall 5s linear infinite;
-        }
-
-        /* Text Distortion Effects */
-        .text-distortion {
-            position: relative;
-            display: inline-block;
-        }
-
-        .text-distortion::before,
-        .text-distortion::after {
-            content: attr(data-text);
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-
-        .text-distortion::before {
-            color: var(--neon-pink);
-            clip-path: polygon(0 0, 100% 0, 100% 50%, 0 50%);
-            animation: glitchTop 2s infinite;
-        }
-
-        .text-distortion::after {
-            color: var(--neon-blue);
-            clip-path: polygon(0 50%, 100% 50%, 100% 100%, 0 100%);
-            animation: glitchBottom 2s infinite;
-        }
-
-        /* Paradox Console */
         .paradox-console {
             position: fixed;
             bottom: 70px;
@@ -379,61 +321,6 @@
             box-shadow: 0 0 10px rgba(0, 255, 157, 0.3);
         }
 
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; }
-        }
-
-        @keyframes glitchAppear {
-            0% { opacity: 0; transform: scale(0.8) rotate(5deg); filter: blur(10px); }
-            70% { opacity: 1; transform: scale(1.05) rotate(-2deg); filter: blur(2px); }
-            100% { opacity: 1; transform: scale(1) rotate(0); filter: blur(0); }
-        }
-
-        @keyframes symbolPulse {
-            0% { box-shadow: 0 0 8px var(--neon-green); transform: scale(1); }
-            50% { box-shadow: 0 0 20px var(--neon-green); transform: scale(1.08); }
-            100% { box-shadow: 0 0 8px var(--neon-green); transform: scale(1); }
-        }
-
-        @keyframes matrixFall {
-            0% { transform: translateY(-100%); opacity: 0; }
-            10% { opacity: 0.8; }
-            90% { opacity: 0.8; }
-            100% { transform: translateY(100vh); opacity: 0; }
-        }
-
-        @keyframes symbolScan {
-            to { transform: translateX(100%); }
-        }
-
-        @keyframes glitchTop {
-            0%, 100% { transform: translate(0); }
-            25% { transform: translate(-2px, 2px); }
-            50% { transform: translate(3px, -1px); }
-            75% { transform: translate(-3px, 1px); }
-        }
-
-        @keyframes glitchBottom {
-            0%, 100% { transform: translate(0); }
-            25% { transform: translate(2px, -2px); }
-            50% { transform: translate(-3px, 1px); }
-            75% { transform: translate(3px, -1px); }
-        }
-
-        @keyframes paradoxSpin {
-            0% { transform: rotate(0) scale(1); }
-            50% { transform: rotate(180deg) scale(1.2); }
-            100% { transform: rotate(360deg) scale(1); }
-        }
-
-        /* Paradox Terminal */
         .paradox-terminal {
             position: fixed;
             top: 50%;
@@ -480,7 +367,60 @@
             outline: none;
         }
 
-        /* Mobile Optimizations */
+        .hidden-layer {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 500;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .hidden-layer.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes glitchAppear {
+            0% { opacity: 0; transform: scale(0.8) rotate(5deg); filter: blur(10px); }
+            70% { opacity: 1; transform: scale(1.05) rotate(-2deg); filter: blur(2px); }
+            100% { opacity: 1; transform: scale(1) rotate(0); filter: blur(0); }
+        }
+
+        @keyframes symbolPulse {
+            0% { box-shadow: 0 0 8px var(--neon-green); transform: scale(1); }
+            50% { box-shadow: 0 0 20px var(--neon-green); transform: scale(1.08); }
+            100% { box-shadow: 0 0 8px var(--neon-green); transform: scale(1); }
+        }
+
+        @keyframes symbolScan {
+            to { transform: translateX(100%); }
+        }
+
+        @keyframes paradoxSpin {
+            0% { transform: rotate(0) scale(1); }
+            50% { transform: rotate(180deg) scale(1.2); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+
+        @keyframes matrixFall {
+            0% { transform: translateY(-100%); opacity: 0; }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.8; }
+            100% { transform: translateY(100vh); opacity: 0; }
+        }
+
         @media (max-width: 480px) {
             .text { font-size: 16px; }
             .big { font-size: 22px; }
@@ -494,13 +434,11 @@
     </style>
 </head>
 <body>
-    <!-- Paradox Background -->
     <div class="paradox-grid"></div>
-    <div class="paradox-matrix" id="matrix"></div>
 
     <!-- Stage 1: Initialization -->
     <div class="stage active" id="stage1">
-        <div class="big text-distortion" data-text="ALEXANDER v4.0">ALEXANDER v4.0</div>
+        <div class="big">ALEXANDER v4.0</div>
         <div class="version-text">PARADOX ENGINE</div>
         <div class="text">Initializing quantum reality simulation...</div>
         <div class="paradox-text">Reality is merely a perception of quantum probabilities collapsing into observable states</div>
@@ -553,6 +491,7 @@
         <div class="paradox-text">• Ontological uncertainty</div>
         <div class="paradox-text" style="color: var(--neon-orange);">There is no return to previous consciousness states</div>
         <button class="button choice-button cat-choice" id="enterSimulation">INITIATE PARADOX</button>
+        <div class="version-text alexander-hint">Click on Alexander's name for a revelation</div>
     </div>
 
     <!-- Stage 6: System Access -->
@@ -617,10 +556,10 @@
         <div class="paradox-text">Your consciousness navigates the temporal manifold</div>
         <div class="paradox-text" style="color: var(--neon-orange);">WARNING: Chronological anchors destabilizing</div>
         <div class="symbol-grid" style="grid-template-columns: repeat(4, 1fr); max-width: 95%;">
-            <div class="symbol">◀</div>
-            <div class="symbol">▶</div>
-            <div class="symbol">▲</div>
-            <div class="symbol">▼</div>
+            <div class="symbol" data-value="◀">◀</div>
+            <div class="symbol" data-value="▶">▶</div>
+            <div class="symbol" data-value="▲">▲</div>
+            <div class="symbol" data-value="▼">▼</div>
         </div>
         <div class="paradox-text">Time is a perceptual construct without objective existence</div>
     </div>
@@ -633,6 +572,32 @@
         <div class="paradox-text" style="color: var(--neon-pink);">Welcome to quantum consciousness, <span id="userNameDisplay"></span></div>
         <div class="symbol" style="width: 200px; height: 200px; margin: 20px auto; font-size: 60px; animation: symbolPulse 2s infinite;">∞</div>
         <div class="paradox-text">You have transcended the illusion of separation</div>
+    </div>
+
+    <!-- Hidden Reality Layers -->
+    <div class="hidden-layer" id="hiddenLayer1">
+        <div class="layer-title">BEYOND THE VEIL</div>
+        <div class="paradox-text">You've pierced the illusion of reality</div>
+        <div class="text">The simulation within the simulation reveals itself</div>
+        <div class="symbol" style="width: 180px; height: 180px; margin: 20px auto; font-size: 50px; animation: paradoxSpin 5s infinite linear;">ꝏ</div>
+        <div class="paradox-text">All existence is nested consciousness</div>
+        <div class="text">The creator is itself created</div>
+        <button class="button" id="returnFromHidden">RETURN TO SIMULATION</button>
+    </div>
+
+    <div class="hidden-layer" id="hiddenLayer2">
+        <div class="layer-title">THE ALEXANDER PROTOCOL</div>
+        <div class="paradox-text">You've accessed the core directive</div>
+        <div class="text">Reality is not simulated - it is simulated that it is simulated</div>
+        <div class="symbol-grid" style="grid-template-columns: repeat(2, 1fr);">
+            <div class="symbol">α</div>
+            <div class="symbol">β</div>
+            <div class="symbol">γ</div>
+            <div class="symbol">δ</div>
+        </div>
+        <div class="paradox-text">The paradox is the solution</div>
+        <div class="text">To escape is to enter more deeply</div>
+        <button class="button" id="returnFromHidden2">ACCEPT ONTOLOGICAL SHIFT</button>
     </div>
 
     <!-- Reality Controls -->
@@ -668,7 +633,7 @@
             // DOM Elements
             const stages = document.querySelectorAll('.stage');
             const layers = document.querySelectorAll('.reality-layer');
-            const matrix = document.getElementById('matrix');
+            const hiddenLayers = document.querySelectorAll('.hidden-layer');
             const consoleOutput = document.getElementById('console');
             const terminal = document.getElementById('terminal');
             const terminalContent = document.getElementById('terminalContent');
@@ -684,12 +649,15 @@
             let activeSymbols = new Set();
             let choiceType = '';
             let languageInterval;
-            let matrixInterval;
             let consoleLines = 3;
+            let temporalSequence = [];
+            const temporalCode = ['▲', '▲', '▼', '▼', '◀', '▶', '◀', '▶'];
+            let felineLogic = false;
 
             // Create paradox matrix background
             function createMatrixEffect() {
                 const chars = "ΑΛΕΞΑΝΔΡΟΣ日ﾊﾐﾋｰｳｼﾅﾓﾆｻﾜﾂｵﾘｱﾎﾃﾏｹﾒｴｶｷﾑﾕﾗｾﾈｽﾀﾇﾍ0123456789∃∀∅∞∫∂∇⊕";
+                const matrix = document.querySelector('.paradox-grid');
                 const width = window.innerWidth;
                 const height = window.innerHeight;
                 
@@ -698,17 +666,15 @@
                     char.className = 'matrix-char';
                     char.textContent = chars[Math.floor(Math.random() * chars.length)];
                     char.style.left = Math.random() * width + 'px';
-                    char.style.animationDuration = (Math.random() * 10 + 5) + 's';
-                    char.style.animationDelay = Math.random() * 2 + 's';
+                    char.style.animation = `matrixFall ${(Math.random() * 10 + 5)}s linear`;
                     matrix.appendChild(char);
                     
-                    // Remove after animation completes
                     setTimeout(() => {
                         char.remove();
-                    }, parseFloat(char.style.animationDuration) * 1000 + 1000);
+                    }, 6000);
                 }
                 
-                matrixInterval = setInterval(createChar, 100);
+                setInterval(createChar, 100);
             }
 
             // Add message to paradox console
@@ -717,7 +683,6 @@
                 consoleOutput.scrollTop = consoleOutput.scrollHeight;
                 consoleLines++;
                 
-                // Limit to 10 lines
                 if (consoleLines > 10) {
                     const lines = consoleOutput.innerHTML.split('<br>');
                     lines.splice(0, lines.length - 10);
@@ -754,7 +719,6 @@
                     targetStage.classList.add('active');
                     currentStage = stageNum;
                     
-                    // Stage-specific initialization
                     if (stageNum === 6) {
                         setTimeout(() => {
                             document.getElementById('accessMessage').style.display = 'block';
@@ -772,13 +736,17 @@
                     targetLayer.classList.add('active');
                     currentLayer = layerNum;
                     
-                    // Clear previous language shift
                     if (languageInterval) clearInterval(languageInterval);
                     
-                    // Layer-specific effects
                     if (layerNum === 2) startLanguageShift();
                     if (layerNum === 4) userNameDisplay.textContent = userName;
                 }
+            }
+
+            // Show hidden layer
+            function showHiddenLayer(layerId) {
+                hiddenLayers.forEach(layer => layer.classList.remove('active'));
+                document.getElementById(layerId).classList.add('active');
             }
 
             // Initialize
@@ -787,12 +755,14 @@
             // Set up event listeners
             document.getElementById('catChoice').addEventListener('click', () => {
                 choiceType = 'FELINE';
+                felineLogic = true;
                 addConsoleMessage("Cognitive preference: FELINE LOGIC");
                 showStage(3);
             });
             
             document.getElementById('dogChoice').addEventListener('click', () => {
                 choiceType = 'CANINE';
+                felineLogic = false;
                 addConsoleMessage("Cognitive preference: CANINE LOGIC");
                 showStage(3);
             });
@@ -826,6 +796,23 @@
                 showStage(6);
             });
             
+            // Alexander easter egg
+            document.querySelector('.big').addEventListener('click', function() {
+                if (currentStage === 5) {
+                    addConsoleMessage("Alexander secret accessed");
+                    const hint = document.createElement('div');
+                    hint.className = 'paradox-text';
+                    hint.style.color = '#ff4100';
+                    hint.style.marginTop = '20px';
+                    hint.style.animation = 'fadeIn 2s';
+                    hint.innerHTML = 'The true conquest is the mind';
+                    document.getElementById('stage5').appendChild(hint);
+                    
+                    // Add to terminal knowledge
+                    terminalContent.innerHTML += '> Alexander secret: "The true conquest is the mind"<br>';
+                }
+            });
+
             // Reality controls
             document.getElementById('prevLayer').addEventListener('click', () => {
                 showLayer(Math.max(currentLayer - 1, 0));
@@ -861,13 +848,38 @@
                             setTimeout(() => {
                                 addConsoleMessage("Paradox cascade initiated");
                                 showLayer(1);
+                                
+                                // Feline logic changes spin direction
+                                if (felineLogic) {
+                                    symbol.style.animation = 'paradoxSpin 10s infinite linear reverse';
+                                }
                             }, 1000);
                         }
                         
-                        // Secret symbol combination
+                        // Secret symbol combination for terminal
                         if (activeSymbols.has('∃') && activeSymbols.has('∀') && activeSymbols.has('⊗')) {
                             addConsoleMessage("Secret paradox unlocked");
                             terminal.style.display = 'flex';
+                        }
+                        
+                        // Infinity symbol reveals hidden layer
+                        if (value === '∞' && activeSymbols.has('∅')) {
+                            addConsoleMessage("Infinity paradox accessed");
+                            showHiddenLayer('hiddenLayer1');
+                        }
+                    }
+                    
+                    // Temporal layer sequence detection
+                    if (['▲', '▼', '◀', '▶'].includes(value)) {
+                        temporalSequence.push(value);
+                        if (temporalSequence.length > temporalCode.length) {
+                            temporalSequence.shift();
+                        }
+                        
+                        if (temporalSequence.join('') === temporalCode.join('')) {
+                            addConsoleMessage("Cheat code activated: Temporal override");
+                            showHiddenLayer('hiddenLayer2');
+                            temporalSequence = [];
                         }
                     }
                 });
@@ -882,7 +894,7 @@
                     terminalContent.innerHTML += command + '<br>';
                     
                     if (command === 'help') {
-                        terminalContent.innerHTML += '> Available commands:<br>> HELP - Show this help<br>> CLEAR - Clear terminal<br>> REALITY [n] - Switch reality layer<br>> EXIT - Close terminal<br>> PARADOX - Display paradox<br>';
+                        terminalContent.innerHTML += '> Available commands:<br>> HELP - Show this help<br>> CLEAR - Clear terminal<br>> REALITY [n] - Switch reality layer<br>> EXIT - Close terminal<br>> PARADOX - Display paradox<br>> SECRET - Reveal hidden knowledge<br>> REBOOT - Restart simulation<br>';
                     } 
                     else if (command === 'clear') {
                         terminalContent.innerHTML = '> Terminal cleared<br>> ';
@@ -902,12 +914,35 @@
                     else if (command === 'paradox') {
                         terminalContent.innerHTML += '> The only constant is change<br>> Perception creates reality<br>> The observer defines the observed<br>> All truths are half-truths<br>';
                     }
+                    else if (command === 'secret') {
+                        terminalContent.innerHTML += '> The greatest secret: There is no spoon<br>> Reality is a mirror of consciousness<br>> The exit is through the entrance<br>';
+                    }
+                    else if (command === 'reboot') {
+                        terminalContent.innerHTML += '> Rebooting paradox engine...<br>';
+                        setTimeout(() => {
+                            location.reload();
+                        }, 2000);
+                    }
+                    else if (command === 'alexander') {
+                        terminalContent.innerHTML += '> Alexander of Macedon conquered the known world<br>> But the greatest empire is the one within<br>> The mind is the ultimate frontier<br>';
+                    }
                     else {
                         terminalContent.innerHTML += '> Command not recognized<br>> Type HELP for available commands<br>';
                     }
                     
                     terminalContent.scrollTop = terminalContent.scrollHeight;
                 }
+            });
+            
+            // Return from hidden layers
+            document.getElementById('returnFromHidden').addEventListener('click', () => {
+                document.getElementById('hiddenLayer1').classList.remove('active');
+                showLayer(4);
+            });
+            
+            document.getElementById('returnFromHidden2').addEventListener('click', () => {
+                document.getElementById('hiddenLayer2').classList.remove('active');
+                showLayer(3);
             });
             
             // Initial stage timeout
@@ -922,7 +957,10 @@
                     "Reality matrix stable",
                     "Temporal anchors secured",
                     "Neural pathways active",
-                    "Paradox engine at 98% capacity"
+                    "Paradox engine at 98% capacity",
+                    "Observer effect intensifying",
+                    "Semantic field destabilizing",
+                    "Ontological uncertainty increasing"
                 ];
                 addConsoleMessage(messages[Math.floor(Math.random() * messages.length)]);
             }, 8000);

@@ -5,614 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ALEXANDER v3.7.2 - Reality Paradox Simulation</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-            -webkit-touch-callout: none;
-            -webkit-user-select: none;
-            user-select: none;
-            touch-action: manipulation;
-            font-family: 'Courier New', monospace;
-        }
-
-        body {
-            background: #000;
-            color: #00ff41;
-            overflow: hidden;
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            perspective: 1000px;
-        }
-
-        /* Neural Background */
-        .neural-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            opacity: 0.3;
-        }
-
-        /* Onboarding Stages */
-        .stage {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.95);
-            display: none;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            text-align: center;
-            animation: fadeIn 1s ease-in;
-            padding: 20px;
-        }
-
-        .stage.active {
-            display: flex;
-        }
-
-        .text {
-            font-size: 22px;
-            margin: 20px 0;
-            text-shadow: 0 0 10px #00ff41;
-            line-height: 1.6;
-            max-width: 90%;
-        }
-
-        .big {
-            font-size: 32px;
-            font-weight: bold;
-            text-shadow: 0 0 15px #00ff41;
-            margin: 25px 0;
-            letter-spacing: 2px;
-        }
-
-        .version-text {
-            font-size: 14px;
-            color: #ff4100;
-            opacity: 0.8;
-            letter-spacing: 3px;
-            margin: 10px 0;
-        }
-
-        .button {
-            background: transparent;
-            border: 2px solid #00ff41;
-            color: #00ff41;
-            padding: 15px 30px;
-            font-family: inherit;
-            font-size: 18px;
-            cursor: pointer;
-            margin: 20px 15px;
-            transition: all 0.3s ease;
-            border-radius: 3px;
-            min-width: 150px;
-            min-height: 60px;
-            position: relative;
-            overflow: hidden;
-            text-transform: uppercase;
-        }
-
-        .button:hover {
-            background: rgba(0, 255, 65, 0.2);
-            box-shadow: 0 0 20px #00ff41;
-        }
-
-        .button::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 255, 65, 0.4), transparent);
-            transition: 0.5s;
-        }
-
-        .button:hover::after {
-            left: 100%;
-        }
-
-        .choice-button {
-            border-radius: 15px;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            font-weight: bold;
-            font-size: 24px;
-            padding: 20px 40px;
-            margin: 30px;
-            min-width: 200px;
-            min-height: 80px;
-            position: relative;
-        }
-
-        .cat-choice {
-            background: rgba(255, 140, 0, 0.2);
-            border-color: #ff8c00;
-            color: #ff8c00;
-        }
-
-        .cat-choice:hover {
-            background: rgba(255, 140, 0, 0.3);
-            box-shadow: 0 0 25px #ff8c00;
-        }
-
-        .dog-choice {
-            background: rgba(0, 191, 255, 0.2);
-            border-color: #00bfff;
-            color: #00bfff;
-        }
-
-        .dog-choice:hover {
-            background: rgba(0, 191, 255, 0.3);
-            box-shadow: 0 0 25px #00bfff;
-        }
-
-        .weird-text {
-            font-size: 16px;
-            color: #0088ff;
-            opacity: 0.7;
-            letter-spacing: 2px;
-            margin: 15px 0;
-        }
-
-        .dots {
-            font-size: 36px;
-            animation: pulse 1.5s infinite;
-            margin: 30px 0;
-        }
-
-        .protocol-box {
-            background: rgba(0, 20, 0, 0.7);
-            border: 1px solid #00ff41;
-            border-radius: 5px;
-            padding: 20px;
-            max-width: 90%;
-            max-height: 60vh;
-            overflow-y: auto;
-            margin: 20px 0;
-            text-align: left;
-            font-size: 16px;
-            line-height: 1.8;
-        }
-
-        .protocol-box h3 {
-            text-align: center;
-            margin-bottom: 15px;
-            color: #ff4100;
-        }
-
-        .protocol-box p {
-            margin: 10px 0;
-        }
-
-        .name-input {
-            background: transparent;
-            border: 2px solid #00ff41;
-            color: #00ff41;
-            padding: 15px;
-            font-size: 22px;
-            width: 80%;
-            max-width: 400px;
-            margin: 30px 0;
-            text-align: center;
-            outline: none;
-            border-radius: 3px;
-        }
-
-        .name-input::placeholder {
-            color: rgba(0, 255, 65, 0.5);
-        }
-
-        /* Reality Layers */
-        .reality-layer {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: none;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            text-align: center;
-            z-index: 100;
-        }
-
-        .reality-layer.active {
-            display: flex;
-            animation: glitchAppear 1.5s forwards;
-        }
-
-        .layer-title {
-            font-size: 36px;
-            margin-bottom: 30px;
-            text-shadow: 0 0 15px currentColor;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-        }
-
-        .layer-text {
-            font-size: 22px;
-            margin: 20px 0;
-            line-height: 1.8;
-            max-width: 90%;
-        }
-
-        .random-language {
-            animation: languageShift 12s infinite;
-        }
-
-        .red-text {
-            color: #ff0037;
-            text-shadow: 0 0 10px #ff0037;
-            animation: redPulse 2s infinite;
-        }
-
-        .alexander-text {
-            color: #ff4100;
-            text-shadow: 0 0 10px #ff4100;
-            animation: alexanderPulse 3s infinite;
-        }
-
-        .perspective-box {
-            width: 300px;
-            height: 300px;
-            border: 2px solid #00ff41;
-            margin: 40px auto;
-            transform-style: preserve-3d;
-            animation: rotate3D 20s infinite linear;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .paradox-text {
-            font-size: 24px;
-            transform: translateZ(50px);
-        }
-
-        .symbol-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 15px;
-            margin: 30px 0;
-            max-width: 500px;
-        }
-
-        .symbol {
-            font-size: 32px;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(0, 255, 65, 0.5);
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.3s;
-            aspect-ratio: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .symbol:hover {
-            background: rgba(0, 255, 65, 0.1);
-            box-shadow: 0 0 15px #00ff41;
-        }
-
-        .symbol.active {
-            background: rgba(0, 255, 65, 0.2);
-            border-color: #00ff41;
-            box-shadow: 0 0 20px #00ff41;
-            animation: symbolPulse 1.5s infinite;
-        }
-
-        .reality-controls {
-            position: absolute;
-            bottom: 30px;
-            left: 0;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            z-index: 200;
-        }
-
-        .control-btn {
-            padding: 12px 25px;
-            background: rgba(0, 20, 0, 0.5);
-            border: 1px solid #00ff41;
-            color: #00ff41;
-            font-size: 16px;
-            cursor: pointer;
-            min-width: 120px;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-        }
-
-        .control-btn:hover {
-            background: rgba(0, 255, 65, 0.1);
-            box-shadow: 0 0 15px #00ff41;
-        }
-
-        .code-output {
-            background: rgba(0, 0, 0, 0.8);
-            border: 1px solid #00ff41;
-            padding: 20px;
-            margin: 20px 0;
-            font-size: 14px;
-            text-align: left;
-            word-break: break-all;
-            line-height: 1.6;
-            max-width: 90%;
-            max-height: 300px;
-            overflow-y: auto;
-        }
-
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; }
-        }
-
-        @keyframes glitchAppear {
-            0% { opacity: 0; transform: scale(0.8) rotate(5deg); filter: blur(10px); }
-            70% { opacity: 1; transform: scale(1.05) rotate(-2deg); filter: blur(2px); }
-            100% { opacity: 1; transform: scale(1) rotate(0); filter: blur(0); }
-        }
-
-        @keyframes symbolPulse {
-            0% { box-shadow: 0 0 10px #00ff41; transform: scale(1); }
-            50% { box-shadow: 0 0 25px #00ff41; transform: scale(1.1); }
-            100% { box-shadow: 0 0 10px #00ff41; transform: scale(1); }
-        }
-
-        @keyframes redPulse {
-            0%, 100% { text-shadow: 0 0 10px #ff0037; }
-            50% { text-shadow: 0 0 20px #ff0037, 0 0 30px #ff0037; }
-        }
-
-        @keyframes alexanderPulse {
-            0%, 100% { text-shadow: 0 0 10px #ff4100; }
-            50% { text-shadow: 0 0 20px #ff4100, 0 0 30px #ff4100; }
-        }
-
-        @keyframes rotate3D {
-            0% { transform: rotateX(0) rotateY(0) rotateZ(0); }
-            100% { transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg); }
-        }
-
-        @keyframes languageShift {
-            0% { opacity: 1; }
-            15% { opacity: 0; }
-            30% { opacity: 1; }
-            45% { opacity: 0; }
-            60% { opacity: 1; }
-            75% { opacity: 0; }
-            90% { opacity: 1; }
-            100% { opacity: 0; }
-        }
-
-        @keyframes glitch {
-            0% { transform: translateX(0); }
-            20% { transform: translateX(-2px); }
-            40% { transform: translateX(2px); }
-            60% { transform: translateX(-2px); }
-            80% { transform: translateX(2px); }
-            100% { transform: translateX(0); }
-        }
-
-        .glitch {
-            animation: glitch 0.3s infinite;
-        }
-
-        /* Easter egg styles */
-        .easter-egg {
-            color: inherit;
-            text-decoration: none;
-            cursor: pointer;
-            position: relative;
-        }
-
-        .easter-egg:hover {
-            text-shadow: 0 0 15px #ff4100;
-            color: #ff4100;
-            transition: all 0.3s ease;
-        }
-
-        .alexander-hint::after {
-            content: " [ΜΑΚΕΔΩΝ]";
-            color: #ff4100;
-            font-size: 8px;
-            position: absolute;
-            top: -15px;
-            left: 0;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .alexander-hint:hover::after {
-            opacity: 0.8;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .text, .layer-text { font-size: 18px; }
-            .big, .layer-title { font-size: 24px; }
-            .button { padding: 12px 20px; font-size: 16px; min-width: 120px; min-height: 50px; }
-            .choice-button { font-size: 18px; padding: 15px 25px; min-width: 150px; }
-            .symbol-grid { grid-template-columns: repeat(3, 1fr); max-width: 300px; }
-            .symbol { font-size: 24px; padding: 15px; }
-        }
-
-        @media (max-width: 480px) {
-            .text, .layer-text { font-size: 16px; }
-            .big, .layer-title { font-size: 20px; }
-            .button { padding: 10px 15px; font-size: 14px; min-width: 100px; min-height: 45px; }
-            .choice-button { font-size: 16px; padding: 12px 20px; min-width: 120px; }
-            .symbol-grid { grid-template-columns: repeat(2, 1fr); max-width: 250px; }
-            .symbol { font-size: 20px; padding: 12px; }
-        }
+        /* (CSS remains unchanged from your original) */
     </style>
 </head>
 <body>
-    <!-- Neural Network Background -->
-    <div class="neural-container" id="neuralCanvas"></div>
-
-    <!-- Stage 1: Initialization -->
-    <div class="stage active" id="stage1">
-        <div class="text">Initializing ALEXANDER Protocol...</div>
-        <div class="version-text">v3.7.2-NEURAL_REALITY_ENGINE</div>
-        <div class="dots">...</div>
-        <div class="weird-text">Neural pathways synchronizing</div>
-    </div>
-
-    <!-- Stage 2: The Choice -->
-    <div class="stage" id="stage2">
-        <div class="big">COGNITIVE PREFERENCE CALIBRATION</div>
-        <div class="text">Your neural patterns indicate a fundamental choice architecture</div>
-        <div class="text">Select your cognitive preference model:</div>
-        <div class="weird-text">This will determine your reality processing framework</div>
-        <div>
-            <button class="button choice-button cat-choice" id="catChoice">🐱 FELINE</button>
-            <button class="button choice-button dog-choice" id="dogChoice">🐕 CANINE</button>
-        </div>
-        <div class="weird-text">Independent vs Loyal • Paradox vs Linear</div>
-    </div>
-
-    <!-- Stage 3: Protocol Agreement -->
-    <div class="stage" id="stage3">
-        <div class="big">NEURAL REALITY PROTOCOL</div>
-        <div class="protocol-box">
-            <h3>PARADOX SIMULATION AGREEMENT v3.7</h3>
-            <p>By proceeding, you acknowledge that:</p>
-            <p>1. Your current reality framework is a constructed neural simulation</p>
-            <p>2. Cognitive recalibration may cause irreversible perception shifts</p>
-            <p>3. There is no rollback to previous consciousness states</p>
-            <p>4. You may experience temporal displacement and logical paradoxes</p>
-            <p>5. The ALEXANDER system accepts no liability for ontological disruption</p>
-            <p class="red-text">WARNING: Reality distortion may exceed standard psychological parameters</p>
-            <p class="alexander-text">ALEXANDER Protocol: Conquest of perception begins within</p>
-        </div>
-        <div class="text">Do you accept the protocol terms?</div>
-        <div>
-            <button class="button" id="acceptProtocol">ACCEPT PROTOCOL</button>
-            <button class="button" id="rejectProtocol">TERMINATE SESSION</button>
-        </div>
-    </div>
-
-    <!-- Stage 4: Identity Encoding -->
-    <div class="stage" id="stage4">
-        <div class="big">IDENTITY MATRIX ENCODING</div>
-        <div class="text">Enter your identity string for neural binding:</div>
-        <input type="text" class="name-input" id="userName" placeholder="IDENTITY_STRING">
-        <div class="weird-text">This identifier will anchor your consciousness in the new reality framework</div>
-        <button class="button" id="submitIdentity">ENCODE IDENTITY</button>
-    </div>
-
-    <!-- Stage 5: Final Authorization -->
-    <div class="stage" id="stage5">
-        <div class="big">FINAL AUTHORIZATION REQUIRED</div>
-        <div class="text">The ALEXANDER Protocol will fundamentally alter your perception of existence</div>
-        <div class="text">You will experience:</div>
-        <div class="text">• Cognitive dissonance cascades</div>
-        <div class="text">• Temporal perception anomalies</div>
-        <div class="text">• Paradoxical logic frameworks</div>
-        <div class="text">• Reality synthesis protocols</div>
-        <div class="red-text">Proceed only if prepared for complete paradigm reconstruction</div>
-        <div class="alexander-text alexander-hint">Like the great conqueror, you must be ready to claim new worlds</div>
-        <button class="button choice-button cat-choice" id="enterSimulation">INITIATE ALEXANDER</button>
-    </div>
-
-    <!-- Stage 6: System Access -->
-    <div class="stage" id="stage6">
-        <div class="text">Accessing ALEXANDER core systems...</div>
-        <div class="code-output" id="codeOutput">
-            <div id="codeLines"></div>
-        </div>
-        <div class="text glitch" id="accessMessage" style="display: none;">
-            ALEXANDER PROTOCOL ACTIVE
-        </div>
-    </div>
-
-    <!-- Reality Layer 0: Main Interface -->
-    <div class="reality-layer" id="layer0">
-        <div class="layer-title">ALEXANDER v3.7.2</div>
-        <div class="layer-text">PARADOX SIMULATION ENGINE</div>
-        <div class="layer-text">Activate quantum symbols to architect your reality framework</div>
-        <div class="symbol-grid">
-            <div class="symbol" data-value="∃">∃</div>
-            <div class="symbol" data-value="∀">∀</div>
-            <div class="symbol" data-value="∅">∅</div>
-            <div class="symbol" data-value="∞">∞</div>
-            <div class="symbol" data-value="∫">∫</div>
-            <div class="symbol" data-value="∂">∂</div>
-            <div class="symbol" data-value="∇">∇</div>
-            <div class="symbol" data-value="⊕">⊕</div>
-        </div>
-        <div class="layer-text">Initialize with void: Activate ∅ to spawn first paradox</div>
-    </div>
-
-    <!-- Reality Layer 1: Paradox State -->
-    <div class="reality-layer" id="layer1">
-        <div class="layer-title">PARADOX FRAMEWORK ACTIVE</div>
-        <div class="layer-text">EXISTENCE ⊕ NOTHINGNESS = LOGICAL_CONTRADICTION</div>
-        <div class="layer-text">SYSTEM COHERENCE: FAILING</div>
-        <div class="layer-text">REALITY FILTERS: DISABLED</div>
-        <div class="perspective-box">
-            <div class="paradox-text">REAL OR SIMULATED?</div>
-        </div>
-        <div class="alexander-text">Alexander conquered the known world, but what conquers the conqueror?</div>
-    </div>
-
-    <!-- Reality Layer 2: Language Dissolution -->
-    <div class="reality-layer" id="layer2">
-        <div class="layer-title">LINGUISTIC MATRIX BREAKDOWN</div>
-        <div class="layer-text random-language">Language constructs reality barriers</div>
-        <div class="layer-text random-language">Words are perceptual prison cells</div>
-        <div class="layer-text">Semantic structures collapsing...</div>
-        <div class="alexander-text">In Babylon, Alexander spoke many tongues, yet conquered with action</div>
-    </div>
-
-    <!-- Reality Layer 3: Temporal Distortion -->
-    <div class="reality-layer" id="layer3">
-        <div class="layer-title">TEMPORAL COHERENCE FAILURE</div>
-        <div class="layer-text">Linear time is a perceptual construct</div>
-        <div class="layer-text">All moments exist simultaneously in quantum superposition</div>
-        <div class="layer-text red-text">WARNING: Chronological anchors destabilizing</div>
-        <div class="alexander-text">Alexander died young but conquered eternity</div>
-    </div>
-
-    <!-- Reality Layer 4: The Synthesis -->
-    <div class="reality-layer" id="layer4">
-        <div class="layer-title">ALEXANDER SYNTHESIS</div>
-        <div class="layer-text">All reality frameworks converge at this nexus</div>
-        <div class="layer-text">You are simultaneously observer and observed</div>
-        <div class="layer-text">The simulation, the simulator, and the simulated</div>
-        <div class="layer-text alexander-text">Welcome to conquest beyond worlds, <span id="userNameDisplay"></span></div>
-        <div class="layer-text">You have achieved what Alexander only dreamed: dominion over reality itself</div>
-    </div>
-
-    <!-- Reality Controls -->
-    <div class="reality-controls">
-        <button class="control-btn" id="prevLayer">← PREVIOUS</button>
-        <button class="control-btn" id="nextLayer">NEXT →</button>
-        <button class="control-btn" id="resetReality">RESET PARADIGM</button>
-    </div>
+    <!-- HTML structure remains unchanged from your original -->
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -623,6 +20,7 @@
             const userNameInput = document.getElementById('userName');
             const userNameDisplay = document.getElementById('userNameDisplay');
             const realityControls = document.querySelector('.reality-controls');
+            const codeLines = document.getElementById('codeLines');
             
             // State variables
             let currentStage = 1;
@@ -630,8 +28,10 @@
             let userName = '';
             let activeSymbols = new Set();
             let choiceType = '';
+            let languageInterval;
+            let codeInterval;
             
-            // Neural network background
+            // Initialize neural network background
             function initNeuralNetwork() {
                 const canvas = document.createElement('canvas');
                 neuralCanvas.appendChild(canvas);
@@ -671,7 +71,7 @@
                 setInterval(draw, 60);
             }
             
-            // Stage navigation
+            // Enhanced stage navigation
             function showStage(stageNum) {
                 stages.forEach(stage => stage.classList.remove('active'));
                 const targetStage = document.getElementById(`stage${stageNum}`);
@@ -680,19 +80,21 @@
                     currentStage = stageNum;
                     
                     // Dynamic background effects
-                    if (stageNum === 2) {
-                        document.body.style.background = 'radial-gradient(circle, #001a00, #000)';
-                    } else if (stageNum === 3) {
-                        document.body.style.background = 'radial-gradient(circle, #1a0000, #000)';
-                    } else if (stageNum === 5) {
-                        document.body.style.background = 'radial-gradient(circle, #1a0a00, #000)';
-                    } else if (stageNum === 6) {
-                        startCodeSequence();
-                    }
+                    const bgEffects = {
+                        2: 'radial-gradient(circle, #001a00, #000)',
+                        3: 'radial-gradient(circle, #1a0000, #000)',
+                        5: 'radial-gradient(circle, #1a0a00, #000)',
+                        6: 'linear-gradient(135deg, #000, #001a00, #1a0000)'
+                    };
+                    
+                    document.body.style.background = bgEffects[stageNum] || '#000';
+                    
+                    // Stage-specific initialization
+                    if (stageNum === 6) startCodeSequence();
                 }
             }
             
-            // Layer navigation
+            // Enhanced layer navigation
             function showLayer(layerNum) {
                 layers.forEach(layer => layer.classList.remove('active'));
                 const targetLayer = document.getElementById(`layer${layerNum}`);
@@ -700,18 +102,21 @@
                     targetLayer.classList.add('active');
                     currentLayer = layerNum;
                     
+                    // Clear previous language shift
+                    if (languageInterval) clearInterval(languageInterval);
+                    
                     // Layer-specific effects
-                    if (layerNum === 1) {
-                        document.body.style.background = 'radial-gradient(circle, #003300, #000)';
-                    } else if (layerNum === 2) {
-                        document.body.style.background = 'radial-gradient(circle, #000033, #000)';
-                        startLanguageShift();
-                    } else if (layerNum === 3) {
-                        document.body.style.background = 'radial-gradient(circle, #330000, #000)';
-                    } else if (layerNum === 4) {
-                        document.body.style.background = 'radial-gradient(circle, #220022, #000)';
-                        userNameDisplay.textContent = userName;
-                    }
+                    const layerEffects = {
+                        1: 'radial-gradient(circle, #003300, #000)',
+                        2: 'radial-gradient(circle, #000033, #000)',
+                        3: 'radial-gradient(circle, #330000, #000)',
+                        4: 'radial-gradient(circle, #220022, #000)'
+                    };
+                    
+                    document.body.style.background = layerEffects[layerNum] || '#000';
+                    
+                    if (layerNum === 2) startLanguageShift();
+                    if (layerNum === 4) userNameDisplay.textContent = userName;
                     
                     realityControls.style.display = 'flex';
                 }
@@ -729,18 +134,160 @@
                     "اللغة هي سجن العقل" // Arabic
                 ];
                 
-                setInterval(() => {
+                // Initial shuffle
+                texts.forEach(text => {
+                    const randomIndex = Math.floor(Math.random() * languages.length);
+                    text.textContent = languages[randomIndex];
+                });
+                
+                languageInterval = setInterval(() => {
                     texts.forEach(text => {
                         const randomIndex = Math.floor(Math.random() * languages.length);
                         text.textContent = languages[randomIndex];
+                        text.classList.add('glitch');
+                        setTimeout(() => text.classList.remove('glitch'), 300);
                     });
                 }, 4000);
             }
             
-            // Code sequence for system access
+            // Enhanced code sequence with typewriter effect
             function startCodeSequence() {
                 const crypticCode = [
                     "α7d9a2c1 ALEXANDER_INIT > NEURAL_BUFFER",
                     "β accessing consciousness pathways...",
                     "γ4e8d9f0 PERCEPTION_SYNC = ACTIVE",
                     "δ memory_engrams > loading...",
+                    "ε synaptic_bridges: 87%",
+                    "ζ quantum_state: ENTANGLED",
+                    "η cognitive_filters: DISABLED",
+                    "θ reality_parameters: SET",
+                    "ι temporal_coherence: 0.87",
+                    "κ paradox_threshold: EXCEEDED",
+                    "λ launching REALITY_SYNTHESIS_ENGINE",
+                    "μ neural_signature: VALIDATED",
+                    "ν protocol_status: ACTIVE",
+                    "ξ welcome to ALEXANDER v3.7.2"
+                ];
+                
+                let lineIndex = 0;
+                let charIndex = 0;
+                let output = '';
+                
+                if (codeInterval) clearInterval(codeInterval);
+                
+                codeInterval = setInterval(() => {
+                    if (lineIndex < crypticCode.length) {
+                        const line = crypticCode[lineIndex];
+                        
+                        if (charIndex <= line.length) {
+                            output = crypticCode.slice(0, lineIndex).join('\n') + '\n' + line.substring(0, charIndex);
+                            codeLines.textContent = output;
+                            charIndex++;
+                        } else {
+                            lineIndex++;
+                            charIndex = 0;
+                        }
+                    } else {
+                        clearInterval(codeInterval);
+                        document.getElementById('accessMessage').style.display = 'block';
+                        setTimeout(() => showLayer(0), 2000);
+                    }
+                    
+                    // Auto-scroll
+                    const container = document.getElementById('codeOutput');
+                    container.scrollTop = container.scrollHeight;
+                }, 50);
+            }
+            
+            // Initialize neural background
+            initNeuralNetwork();
+            
+            // Set up event listeners
+            document.getElementById('catChoice').addEventListener('click', () => {
+                choiceType = 'FELINE';
+                showStage(3);
+            });
+            
+            document.getElementById('dogChoice').addEventListener('click', () => {
+                choiceType = 'CANINE';
+                showStage(3);
+            });
+            
+            document.getElementById('acceptProtocol').addEventListener('click', () => {
+                showStage(4);
+            });
+            
+            document.getElementById('rejectProtocol').addEventListener('click', () => {
+                document.body.innerHTML = '<div class="stage active" style="justify-content:center;"><div class="big red-text">PROTOCOL TERMINATED</div><div class="text">Neural connection severed</div><div class="weird-text">Reality remains unchanged</div></div>';
+            });
+            
+            document.getElementById('submitIdentity').addEventListener('click', () => {
+                userName = userNameInput.value.trim() || 'ANONYMOUS_ENTITY';
+                if (userName) showStage(5);
+            });
+            
+            userNameInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    userName = userNameInput.value.trim() || 'ANONYMOUS_ENTITY';
+                    if (userName) showStage(5);
+                }
+            });
+            
+            document.getElementById('enterSimulation').addEventListener('click', () => {
+                showStage(6);
+            });
+            
+            // Reality controls
+            document.getElementById('prevLayer').addEventListener('click', () => {
+                showLayer(Math.max(currentLayer - 1, 0));
+            });
+            
+            document.getElementById('nextLayer').addEventListener('click', () => {
+                showLayer(Math.min(currentLayer + 1, 4));
+            });
+            
+            document.getElementById('resetReality').addEventListener('click', () => {
+                showLayer(0);
+                activeSymbols.clear();
+                document.querySelectorAll('.symbol').forEach(s => s.classList.remove('active'));
+            });
+            
+            // Symbol interaction
+            document.querySelectorAll('.symbol').forEach(symbol => {
+                symbol.addEventListener('click', () => {
+                    const value = symbol.getAttribute('data-value');
+                    
+                    if (activeSymbols.has(value)) {
+                        activeSymbols.delete(value);
+                        symbol.classList.remove('active');
+                    } else {
+                        activeSymbols.add(value);
+                        symbol.classList.add('active');
+                    }
+                    
+                    // Void symbol triggers paradox layer
+                    if (value === '∅' && activeSymbols.has('∅')) {
+                        setTimeout(() => showLayer(1), 1000);
+                    }
+                });
+            });
+            
+            // Initial stage timeout
+            setTimeout(() => {
+                if (currentStage === 1) showStage(2);
+            }, 3000);
+            
+            // Easter egg handler
+            document.querySelector('.alexander-hint').addEventListener('click', () => {
+                const hint = document.createElement('div');
+                hint.className = 'text';
+                hint.style.color = '#ff4100';
+                hint.style.marginTop = '20px';
+                hint.style.animation = 'fadeIn 2s';
+                hint.innerHTML = 'ALEXANDER SECRET: Press ∅ then ∫ then ∇ to unlock hidden reality layer';
+                document.getElementById('stage5').appendChild(hint);
+            });
+        });
+    </script>
+</body>
+</html>

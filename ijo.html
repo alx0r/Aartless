@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iJohn: Fractured Rhymes of the Underground</title>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+        
+        body {
+            background: #000;
+            color: #00ff41;
+            font-family: 'Courier New', monospace;
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            perspective: 1000px;
+            cursor: default;
+            padding: 10px;
+        }
+        
+        /* Terminal Container */
+        .terminal {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+            height: calc(100vh - 20px);
+            background: rgba(0, 15, 0, 0.3);
+            border: 1px solid #00ff41;
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Header with Glitch Effect */
+        header {
+            text-align: center;
+            padding: 15px;
+            border-bottom: 1px dashed #00ff41;
+            margin-bottom: 10px;
+            position: relative;
+        }
+        
+        header h1 {
+            font-size: 1.8rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 0 0 10px #00ff41;
+            margin-bottom: 10px;
+            position: relative;
+            animation: glitch 3s infinite;
+        }
+        
+        header .ascii {
+            font-size: 0.7rem;
+            color: #ff0044;
+            white-space: pre;
+            margin-top: 5px;
+            text-shadow: 0 0 5px #ff0044;
+        }
+        
+        /* Navigation */
+        .nav-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            padding: 10px;
+        }
+        
+        .nav-item {
+            background: rgba(0, 30, 0, 0.2);
+            border: 1px solid #00ff41;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        
+        .nav-item:hover {
+            background: rgba(0, 255, 65, 0.1);
+            box-shadow: 0 0 15px #00ff41;
+            transform: translateY(-3px);
+        }
+        
+        .nav-item.active {
+            background: rgba(0, 255, 65, 0.15);
+            border-color: #ff0044;
+            box-shadow: 0 0 20px #ff0044;
+        }
+        
+        .nav-icon {
+            font-size: 2rem;
+            margin-bottom: 8px;
+            text-shadow: 0 0 8px currentColor;
+        }
+        
+        .nav-label {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        /* Content Area */
+        .content {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding: 15px;
+            position: relative;
+        }
+        
+        .content-section {
+            display: none;
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        .content-section.active {
+            display: block;
+        }
+        
+        h2 {
+            font-size: 1.5rem;
+            color: #ff0044;
+            text-transform: uppercase;
+            border-left: 3px solid #00ff41;
+            padding-left: 10px;
+            margin-bottom: 15px;
+            text-shadow: 0 0 5px #ff0044;
+            letter-spacing: 2px;
+            animation: glitch 2s infinite;
+        }
+        
+        p {
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+        
+        blockquote {
+            color: #00ff41;
+            font-style: italic;
+            border-left: 3px solid #ff0044;
+            padding: 10px 15px;
+            margin: 20px 0;
+            background: rgba(255, 0, 68, 0.1);
+            position: relative;
+        }
+        
+        blockquote:before {
+            content: """;
+            position: absolute;
+            top: -10px;
+            left: -15px;
+            font-size: 3rem;
+            color: #ff0044;
+            opacity: 0.3;
+        }
+        
+        /* ASCII Art */
+        .ascii-art {
+            font-size: 0.7rem;
+            color: #00ff41;
+            white-space: pre;
+            margin: 20px auto;
+            text-align: center;
+            border: 1px dashed #00ff41;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.3);
+            max-width: 300px;
+        }
+        
+        /* Lyrics */
+        .lyrics {
+            font-size: 1.1rem;
+            color: #ff0044;
+            text-shadow: 0 0 5px #ff0044;
+            white-space: pre-line;
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(0, 255, 65, 0.05);
+            border: 1px solid #ff0044;
+            font-family: 'Courier New', monospace;
+            line-height: 1.8;
+            animation: glitch 0.5s infinite;
+        }
+        
+        /* Discography List */
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+        
+        li {
+            font-size: 1rem;
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        li:before {
+            content: ">";
+            color: #ff0044;
+            position: absolute;
+            left: 10px;
+            font-weight: bold;
+        }
+        
+        /* Interactive Elements */
+        .interactive-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 15px;
+            margin: 25px 0;
+        }
+        
+        .grid-item {
+            background: rgba(0, 30, 0, 0.3);
+            border: 1px solid #00ff41;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            min-height: 100px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .grid-item:hover {
+            background: rgba(0, 255, 65, 0.15);
+            box-shadow: 0 0 15px #00ff41;
+            transform: scale(1.03);
+        }
+        
+        .grid-icon {
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+            color: #ff0044;
+        }
+        
+        .grid-label {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        /* Music Player */
+        .music-player {
+            margin: 25px 0;
+            padding: 15px;
+            border: 1px solid #00ff41;
+            background: rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+        
+        .player-controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .player-btn {
+            background: transparent;
+            border: 1px solid #00ff41;
+            color: #00ff41;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1.2rem;
+        }
+        
+        .player-btn:hover {
+            background: #00ff41;
+            color: #000;
+            box-shadow: 0 0 15px #00ff41;
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 15px;
+            border-top: 1px dashed #00ff41;
+            font-size: 0.85rem;
+            color: #008855;
+        }
+        
+        /* Matrix Rain */
+        #matrixCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.1;
+        }
+        
+        /* Animations */
+        @keyframes glitch {
+            0% { transform: translate(0); text-shadow: 0 0 5px #00ff41, 0 0 10px #ff0044; }
+            20% { transform: translate(-2px, 2px); text-shadow: 0 0 7px #00ff41, 0 0 12px #ff0044; }
+            40% { transform: translate(2px, -2px); text-shadow: 0 0 5px #00ff41, 0 0 15px #ff0044; }
+            60% { transform: translate(-2px, 2px); text-shadow: 0 0 8px #00ff41, 0 0 13px #ff0044; }
+            80% { transform: translate(2px, -2px); text-shadow: 0 0 6px #00ff41, 0 0 11px #ff0044; }
+            100% { transform: translate(0); text-shadow: 0 0 5px #00ff41, 0 0 10px #ff0044; }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .nav-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .nav-item {
+                min-height: 80px;
+                padding: 10px;
+            }
+            
+            .nav-icon {
+                font-size: 1.5rem;
+            }
+            
+            .nav-label {
+                font-size: 0.8rem;
+            }
+            
+            h2 {
+                font-size: 1.3rem;
+            }
+            
+            .interactive-grid {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            }
+        }
+        
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 1.2rem;
+            }
+            
+            .nav-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-icon {
+                font-size: 1.8rem;
+            }
+            
+            .interactive-grid {
+                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            }
+            
+            .grid-item {
+                padding: 10px;
+                min-height: 80px;
+            }
+            
+            .grid-icon {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Matrix Rain Background -->
+    <canvas id="matrixCanvas"></canvas>
+    
+    <!-- Terminal Interface -->
+    <div class="terminal">
+        <header class="glitch">
+            <h1>iJohn: Fractured Rhymes of the Underground</h1>
+            <div class="ascii">
+                .::[ HACK THE SOUL ]::.
+                 01001001 01001010 01001111 01001000 01001110
+            </div>
+        </header>
+        
+        <!-- Navigation Grid -->
+        <div class="nav-grid">
+            <div class="nav-item active" data-target="bio">
+                <div class="nav-icon">👁️</div>
+                <div class="nav-label">Psyche Profile</div>
+            </div>
+            <div class="nav-item" data-target="music">
+                <div class="nav-icon">♫</div>
+                <div class="nav-label">Catharsis Engine</div>
+            </div>
+            <div class="nav-item" data-target="themes">
+                <div class="nav-icon">❤️</div>
+                <div class="nav-label">Data Packets</div>
+            </div>
+            <div class="nav-item" data-target="career">
+                <div class="nav-icon">📼</div>
+                <div class="nav-label">Log Entries</div>
+            </div>
+            <div class="nav-item" data-target="impact">
+                <div class="nav-icon">🏙️</div>
+                <div class="nav-label">Network Impact</div>
+            </div>
+            <div class="nav-item" data-target="core">
+                <div class="nav-icon">🌀</div>
+                <div class="nav-label">The Core</div>
+            </div>
+        </div>
+        
+        <!-- Content Area -->
+        <div class="content">
+            <!-- Bio Section -->
+            <div class="content-section active" id="bio">
+                <h2>BOOTING SYSTEM...</h2>
+                <p>
+                    > ACCESS GRANTED: Enter the fractured mind of iJohn, a rogue signal in Cape Town's underground hip-hop network. His rhymes are raw data dumps—pain, love, survival—transmitted straight from the psyche. This ain't just music; it's a glitch in the matrix of reality.
+                </p>
+                
+                <div class="ascii-art">
+                    |  RHYMES  |
+                    |  AS     |
+                    |  CODE   |
+                    +---------+
+                </div>
+                
+                <p>
+                    iJohn emerges from the shadows of Cape Town's concrete jungle, a digital shaman weaving pain into poetry. His journey began in the city's forgotten corners, where survival demanded transformation. What you hear isn't just music—it's the sound of a soul debugging itself.
+                </p>
+                
+                <blockquote>
+                    "I rap to exorcise my demons. Every verse is a fragment of my soul laid bare."
+                </blockquote>
+                
+                <div class="interactive-grid">
+                    <div class="grid-item">
+                        <div class="grid-icon">📍</div>
+                        <div class="grid-label">Cape Town Roots</div>
+                    </div>
+                    <div class="grid-item">
+                        <div class="grid-icon">💥</div>
+                        <div class="grid-label">Origin Story</div>
+                    </div>
+                    <div class="grid-item">
+                        <div class="grid-icon">🔄</div>
+                        <div class="grid-label">Transformation</div>
+                    </div>
+                    <div class="grid-item">
+                        <div class="grid-icon">🔓</div>
+                        <div class="grid-label">Philosophy</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Music Section -->
+            <div class="content-section" id="music">
+                <h2>DECRYPTING THE BEATS</h2>
+                <p>
+                    iJohn's sound is a chaotic stream of consciousness—cathartic, relentless, real. Albums like *Still Here* (2023), *XXV* (2020), and *Real Is Dark* (2019) are his encrypted logs, each track a fragment of his soul. He calls it "parable-rapping"—stories of loss and resilience, coded in rhythm.
+                </p>
+                
+                <div class="ascii-art">
+                    .:[ SOUNDWAVE ]:.
+                     ~~~^~~~^~~~^~~~
+                </div>
+                
+                <blockquote>
+                    "Music's my debug tool. I spit to fix the chaos in my head." — iJohn
+                </blockquote>
+                
+                <div class="lyrics">
+                    "Still here, packets dropped, I'm alive,
+                    Cape Town static, where the real survive.
+                    Heart like a firewall, pain encrypted deep,
+                    Spit truth till the corrupted systems sleep."
+                </div>
+                
+                <div class="music-player">
+                    <h3>STILL HERE (2023)</h3>
+                    <div class="player-controls">
+                        <div class="player-btn">▶</div>
+                        <div class="player-btn">❚❚</div>
+                        <div class="player-btn">⏹</div>
+                    </div>
+                </div>
+                
+                <div class="interactive-grid">
+                    <div class="grid-item">
+                        <div class="grid-icon">🔊</div>
+                        <div class="grid-label">Still Here</div>
+                    </div>
+                    <div class="grid-item">
+                        <div class="grid-icon">🔊</div>
+                        <div class="grid-label">XXV</div>
+                    </div>
+                    <div class="grid-item">
+                        <div class="grid-icon">🔊</div>
+                        <div class="grid-label">Real Is Dark</div>
+                    </div>
+                    <div class="grid-item">
+                        <div class="grid-icon">🔊</div>
+                        <div class="grid-label">Collabs</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Themes Section -->
+            <div class="content-section" id="themes">
+                <h2>DATA PACKETS: THEMES</h2>
+                <p>
+                    His lyrics are corrupted files of emotion—love crashes, loss reboots, struggle loops. Every verse is a terminal output, exposing the human OS beneath the surface. Fans jack in, decoding his truths line by line.
+                </p>
+                
+                <div class="ascii-art">
+                    .:[ EMOTIONAL DATA ]:.
+                    01010111 01000001 01010010
+                </div>
+                
+                <div class="lyrics">
+                    "Love.exe crashed, system failure deep,
+                    Memory leaks where promises sleep.
+                    Reboot in the darkness, no safe mode found,
+                    Cape Town concrete is my battleground."
+                </div>
+                
+                <ul>
+                    <li>Survival against systemic corruption</li>
+                    <li>Love as a vulnerability and strength</li>
+                    <li>Urban decay and digital transcendence</li>
+                    <li>Identity forged in concrete and code</li>
+                    <li>Resilience as revolutionary act</li>
+                </ul>
+                
+                <div class="interactive-grid">
+                    <div class="grid-item">
+                        <div class="grid-icon">💔</div>
+                        <div class="grid-label">Love Crashes</div>
+                    </div>
+                    <div class="grid-item">
+                        <div class="grid-icon">🔄</div>
+                        <div class="grid-label">Loss Reboots</div>
+                    </div>
+                    <div class="grid-item">
+                        <div class="grid-icon">♾️</div>
+                        <div class="grid-label">Struggle Loops</div>
+                    </div>
+                    <div class="grid-item">
+                        <div class="grid-icon">🔥</div>
+                        <div class="grid-label">Resilience Code</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Career Section -->
+            <div class="content-section" id="career">
+                <h2>LOG ENTRIES</h2>
+                <p>
+                    iJohn's discography is a digital diary, each album a system update refining his raw expression. From the gritty origins to his current evolution, the progression reveals an artist mastering his medium.
+                </p>
+                
+                <div class="ascii-art">
+                    [DISCOGRAPHY]
+                    | 2019 | 2020 | 2023 |
+                    +------+------+------+
+                </div>
+                
+                <ul>
+                    <li><strong>STILL HERE (2023)</strong> - Survival manifest. Raw, unfiltered truth from the trenches.</li>
+                    <li><strong>XXV (2020)</strong> - Midpoint cipher. The sound of an artist coming into full power.</li>
+                    <li><strong>REAL IS DARK (2019)</strong> - Origin code. The foundation of the iJohn sound.</li>
+                    <li><strong>COLLABORATIONS</strong> - So Nick, Hobby. Sonic hacks merging distinct frequencies.</li>
+                    <li><strong>LIVE PERFORMANCES</strong> - Unpredictable energy surges. Crowd-sourced catharsis.</li>
+                </ul>
+                
+                <blockquote>
+                    "My music isn't entertainment—it's a lifeline thrown into darkness."
+                </blockquote>
+                
+                <div class="interactive-grid">
+                    <div class="grid-item">
+                        <div class="grid-icon">📀</div>
+                        <div class="grid-label">Still Here</div>
+                    </div>
+                    <div class="grid-item">
+                        <div class="grid-icon">📀</div>
+                        <div class="grid-label">XXV</div>
+                    </div>
+                    <div class="grid-item">
+                        <div class="grid-icon">📀</div>
+                        <div class="grid-label">Real Is Dark</div>
+                    </div>
+                    <div class="grid-item">
+                        <div class="grid-icon">🎤</div>
+                        <div class="grid-label">Live Archives</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Impact Section -->
+            <div class="content-section" id="impact">
+                <h2>NETWORK IMPACT</h2>
+                <p>
+                    In Cape Town's underground grid, iJohn's a ghost in the machine—a voice for the unseen, the fighters, the dreamers. His music's a middle finger to the mainstream, a signal flare for the misfits. He's not just an artist; he's a system override.
+                </p>
+                
+                <div class="ascii-art">
+                    .::[ UNDERGROUND ]::.
+                     10101010 11110000
+                </div>
+                
+                <p>
+                    iJohn's resonance extends beyond soundwaves. He's become a cultural cipher for Cape Town's disenfranchised youth, transforming neglected spaces into temporary autonomous zones where art becomes resistance. His impact isn't measured in streams, but in awakened consciousness.
+                </p>
+                
+                <ul>
+                    <li>Voice for Cape Town's marginalized communities</li>
+                    <li>Blueprint for authentic artistic expression</li>
+                    <li>Cultural bridge between township and city</li>
+                    <li>Mentor to next-gen underground artists</li>
+                    <li>Living proof that raw truth resonates deepest</li>
+                </ul>
+                
+                <div class="interactive-grid">
+                    <div class="grid-item">
+                        <div class="grid-icon">🌐</div>
+                        <div class="grid-label">Cultural Roots</div>
+                    </div>
+                    <div class="grid-item">
+                        <div class="grid-icon">⚡</div>
+                        <div class="grid-label">Underground Grid</div>
+                    </div>
+                    <div class="grid-item">
+                        <div class="grid-icon">🔄</div>
+                        <div class="grid-label">System Override</div>
+                    </div>
+                    <div class="grid-item">
+                        <div class="grid-icon">🌱</div>
+                        <div class="grid-label">Next Generation</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Core Section -->
+            <div class="content-section" id="core">
+                <h2>THE CORE</h2>
+                <p>
+                    Beyond the music, beneath the metaphors, lies the irreducible core of iJohn—an artist who transforms personal trauma into universal truth. This is where the signal originates.
+                </p>
+                
+                <div class="ascii-art">
+                    .::[ CORE ESSENCE ]::.
+                    01000011 01001111 01010010 01000101
+                </div>
+                
+                <blockquote>
+                    "I'm not here to be understood. I'm here to be felt."
+                </blockquote>
+                
+                <div class="lyrics">
+                    "They try to debug my code, scan my soul,
+                    But the root access is beyond their control.
+                    I'm encrypted pain in human form,
+                    Cape Town born, underground sworn."
+                </div>
+                
+                <div class="music-player">
+                    <h3>ACCESS THE SIGNAL</h3>
+                    <div class="player-controls">
+                        <div class="player-btn">▶</div>
+                        <div class="player-btn">❚❚</div>
+                        <div class="player-btn">🔁</div>
+                    </div>
+                </div>
+                
+                <div class="interactive-grid">
+                    <div class="grid-item">
+                        <div class="grid-icon">🔓</div>
+                        <div class="grid-label">Full Discography</div>
+                    </div>
+                    <div class="grid-item">
+                        <div class="grid-icon">📡</div>
+                        <div class="grid-label">Frequency Access</div>
+                    </div>
+                    <div class="grid-item">
+                        <div class="grid-icon">💾</div>
+                        <div class="grid-label">Archive</div>
+                    </div>
+                    <div class="grid-item">
+                        <div class="grid-icon">🌀</div>
+                        <div class="grid-label">Core Essence</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            SYSTEM STATUS: OPERATIONAL | SIGNAL STRENGTH: 98% | LAST UPDATE: NOW
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Matrix Rain Background
+            const canvas = document.getElementById('matrixCanvas');
+            const ctx = canvas.getContext('2d');
+            
+            function resizeCanvas() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+            
+            const fontSize = 14;
+            const columns = Math.floor(canvas.width / fontSize);
+            const drops = Array(columns).fill(1);
+            
+            // Lyrics from "Still Here"
+            const lyrics = [
+                "STILL HERE", "RESILIENCE", "CAPE TOWN", "UNDERGROUND", 
+                "STRUGGLE", "SURVIVAL", "SOUTH", "AFRICA", "HEART", "SOUL",
+                "MUSIC", "LIFE", "PAIN", "TRUTH", "REAL", "DARK", "LIGHT"
+            ];
+            
+            function drawMatrix() {
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = '#00ff41';
+                ctx.font = `${fontSize}px monospace`;
+                
+                for (let i = 0; i < drops.length; i++) {
+                    // Occasionally show lyrics instead of random characters
+                    let text;
+                    if (Math.random() > 0.97) {
+                        text = lyrics[Math.floor(Math.random() * lyrics.length)];
+                    } else {
+                        text = String.fromCharCode(0x30A0 + Math.random() * 96);
+                    }
+                    
+                    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                    
+                    if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                        drops[i] = 0;
+                    }
+                    drops[i]++;
+                }
+            }
+            
+            setInterval(drawMatrix, 50);
+            
+            // Navigation functionality
+            const navItems = document.querySelectorAll('.nav-item');
+            const contentSections = document.querySelectorAll('.content-section');
+            
+            navItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const target = this.getAttribute('data-target');
+                    
+                    // Update active nav item
+                    navItems.forEach(nav => nav.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Show corresponding content section
+                    contentSections.forEach(section => {
+                        section.classList.remove('active');
+                        if (section.id === target) {
+                            setTimeout(() => {
+                                section.classList.add('active');
+                            }, 10);
+                        }
+                    });
+                    
+                    // Scroll to top of content
+                    document.querySelector('.content').scrollTop = 0;
+                });
+            });
+            
+            // Interactive grid items
+            const gridItems = document.querySelectorAll('.grid-item');
+            gridItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    this.style.background = 'rgba(0, 255, 65, 0.2)';
+                    this.style.boxShadow = '0 0 20px #ff0044';
+                    this.style.borderColor = '#ff0044';
+                    
+                    setTimeout(() => {
+                        this.style.background = '';
+                        this.style.boxShadow = '';
+                        this.style.borderColor = '';
+                    }, 500);
+                });
+            });
+            
+            // Player controls
+            const playerBtns = document.querySelectorAll('.player-btn');
+            playerBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    this.style.background = '#00ff41';
+                    this.style.color = '#000';
+                    
+                    setTimeout(() => {
+                        this.style.background = '';
+                        this.style.color = '';
+                    }, 300);
+                });
+            });
+            
+            // Add glitch effect to all h2 elements periodically
+            setInterval(() => {
+                const headers = document.querySelectorAll('h2');
+                headers.forEach(header => {
+                    header.classList.remove('glitch');
+                    setTimeout(() => {
+                        header.classList.add('glitch');
+                    }, 10);
+                });
+            }, 5000);
+        });
+    </script>
+</body>
+</html>

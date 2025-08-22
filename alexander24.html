@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alexander Teggin - Digital Strategy & Media Research Leader</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #2c3e50;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            border-radius: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 2.2em;
+            margin-bottom: 10px;
+            font-weight: 300;
+            letter-spacing: -1px;
+        }
+
+        .header .tagline {
+            font-size: 1.2em;
+            opacity: 0.9;
+            margin-bottom: 15px;
+            font-weight: 300;
+        }
+
+        .header .location {
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+
+        /* About Section */
+        .about {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+
+        .about h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            border-bottom: 3px solid #2c3e50;
+            padding-bottom: 10px;
+        }
+
+        .about p {
+            margin-bottom: 15px;
+            font-size: 1.1em;
+            color: #555;
+        }
+
+        /* Skills Grid */
+        .skills {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+
+        .skills h2 {
+            color: #2c3e50;
+            margin-bottom: 25px;
+            font-size: 1.8em;
+            text-align: center;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .skill-card {
+            background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            transform: translateY(0);
+            transition: all 0.3s ease;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        .skill-card h3 {
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .skill-card p {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        /* Experience Section */
+        .experience {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+
+        .experience h2 {
+            color: #2c3e50;
+            margin-bottom: 25px;
+            font-size: 1.8em;
+            text-align: center;
+        }
+
+        .job {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            border-left: 4px solid #2c3e50;
+        }
+
+        .job h3 {
+            color: #2c3e50;
+            margin-bottom: 5px;
+            font-size: 1.3em;
+        }
+
+        .job .company {
+            color: #34495e;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .job .duration {
+            color: #7f8c8d;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+        }
+
+        .job ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .job li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .job li:before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: #2c3e50;
+            font-weight: bold;
+        }
+
+        /* Education Section */
+        .education {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+
+        .education h2 {
+            color: #2c3e50;
+            margin-bottom: 25px;
+            font-size: 1.8em;
+            text-align: center;
+        }
+
+        .edu-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            margin-bottom: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 4px solid #2c3e50;
+        }
+
+        .edu-content h3 {
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .edu-content p {
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+
+        .edu-year {
+            color: #2c3e50;
+            font-weight: bold;
+            min-width: 80px;
+            text-align: right;
+        }
+
+        /* Achievements */
+        .achievements {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+
+        .achievements h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            text-align: center;
+        }
+
+        .achievement-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .achievement-card {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .achievement-card h3 {
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .achievement-card p {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        /* Languages */
+        .languages {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+
+        .languages h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            text-align: center;
+        }
+
+        .lang-list {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .lang-item {
+            background: linear-gradient(135deg, #95a5a6 0%, #7f8c8d 100%);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 25px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        /* Contact Section */
+        .contact {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            border-radius: 15px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+
+        .contact h2 {
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+
+        .contact p {
+            margin-bottom: 25px;
+            opacity: 0.9;
+            font-size: 1.1em;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .contact-item {
+            background: rgba(255,255,255,0.1);
+            padding: 15px 25px;
+            border-radius: 25px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            min-width: 250px;
+        }
+
+        .contact-item strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        /* Mobile Optimizations */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .header .tagline {
+                font-size: 1em;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .achievement-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .edu-item {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+            }
+
+            .edu-year {
+                text-align: center;
+            }
+
+            .lang-list {
+                justify-content: center;
+            }
+
+            .contact-item {
+                min-width: auto;
+                width: 100%;
+            }
+        }
+
+        /* Animations */
+        .container > * {
+            animation: fadeInUp 0.6s ease forwards;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .container > *:nth-child(1) { animation-delay: 0.1s; }
+        .container > *:nth-child(2) { animation-delay: 0.2s; }
+        .container > *:nth-child(3) { animation-delay: 0.3s; }
+        .container > *:nth-child(4) { animation-delay: 0.4s; }
+        .container > *:nth-child(5) { animation-delay: 0.5s; }
+        .container > *:nth-child(6) { animation-delay: 0.6s; }
+        .container > *:nth-child(7) { animation-delay: 0.7s; }
+        .container > *:nth-child(8) { animation-delay: 0.8s; }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>Alexander A.R. Teggin</h1>
+            <p class="tagline">Digital Strategy & Media Research Leader</p>
+            <p class="location">📍 Amsterdam, Netherlands • 🌍 International Digital Consultant</p>
+        </header>
+
+        <!-- About -->
+        <section class="about">
+            <h2>Strategic Leadership</h2>
+            <p>I am a seasoned Digital Strategy Leader and Media Research specialist with over a decade of experience driving digital transformation for global brands and emerging technology initiatives. My expertise spans from strategic consultation and platform launches to academic research in emerging media technologies.</p>
+            <p>With a Master's degree from the globally #1-ranked Media Theory program at University of Amsterdam, I bring both theoretical depth and practical execution to complex digital challenges. My approach combines data-driven insights with innovative strategic thinking to deliver measurable results across international markets.</p>
+            <p>As Project Lead and Senior Strategist, I specialize in guiding organizations through digital transformation while building high-performance teams that execute award-winning campaigns and cutting-edge research initiatives.</p>
+        </section>
+
+        <!-- Skills -->
+        <section class="skills">
+            <h2>Core Expertise</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <h3>🎯 Strategic Digital Consulting</h3>
+                    <p>Platform launches, market research, and technology innovation leadership</p>
+                </div>
+                <div class="skill-card">
+                    <h3>📊 Data Analysis & Research</h3>
+                    <p>Advanced analytics, media theory application, and emerging technology methodology</p>
+                </div>
+                <div class="skill-card">
+                    <h3>🚀 Digital Transformation</h3>
+                    <p>Leading organizational change through strategic digital implementation</p>
+                </div>
+                <div class="skill-card">
+                    <h3>👥 Team Leadership & Management</h3>
+                    <p>Building and directing high-performance creative and strategy teams</p>
+                </div>
+                <div class="skill-card">
+                    <h3>🌐 Global Campaign Strategy</h3>
+                    <p>International brand strategy and cross-cultural digital marketing</p>
+                </div>
+                <div class="skill-card">
+                    <h3>💡 Innovation & Emerging Tech</h3>
+                    <p>Cutting-edge technology research and strategic implementation planning</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience -->
+        <section class="experience">
+            <h2>Professional Experience</h2>
+            
+            <div class="job">
+                <h3>Digital Media Consultant</h3>
+                <div class="company">Confidential Client (NDA)</div>
+                <div class="duration">October 2023 - Present</div>
+                <ul>
+                    <li>Leading strategic platform launch initiatives for international digital transformation</li>
+                    <li>Conducting comprehensive market technology research and innovation strategy</li>
+                    <li>Providing senior-level strategic digital consultations for C-suite executives</li>
+                    <li>Developing content strategies that scale across multiple international markets</li>
+                    <li>Managing complex stakeholder relationships and strategic communications</li>
+                </ul>
+            </div>
+
+            <div class="job">
+                <h3>New Media Researcher & Teaching Assistant</h3>
+                <div class="company">University of Amsterdam</div>
+                <div class="duration">November 2021 - September 2023</div>
+                <ul>
+                    <li>Conducted cutting-edge research in emerging media technologies and digital propaganda</li>
+                    <li>Co-authored academic publications on OSINT and digital warfare methodologies</li>
+                    <li>Designed and delivered course content for graduate-level media theory programs</li>
+                    <li>Applied advanced Python programming and data analysis in media research contexts</li>
+                    <li>Contributed to the globally #1-ranked Media Theory research program</li>
+                </ul>
+            </div>
+
+            <div class="job">
+                <h3>Lead Digital Strategist</h3>
+                <div class="company">Lima Bean (Pty) Ltd</div>
+                <div class="duration">June 2019 - November 2021</div>
+                <ul>
+                    <li>Led digital transformation initiatives for enterprise-level clients across Africa</li>
+                    <li>Managed strategic client relationships and multi-million rand campaign portfolios</li>
+                    <li>Directed cross-functional teams delivering integrated digital solutions</li>
+                    <li>Implemented performance optimization strategies resulting in 40%+ efficiency gains</li>
+                    <li>Specialized in e-commerce strategy and full-stack SEO planning</li>
+                </ul>
+            </div>
+
+            <div class="job">
+                <h3>Senior Content Strategist</h3>
+                <div class="company">Wunderman Thompson | Mirum (Now VML)</div>
+                <div class="duration">June 2016 - June 2019</div>
+                <ul>
+                    <li>Developed global brand strategies for Fortune 500 clients including Absolut and Jameson</li>
+                    <li>Led collaborative campaign management across international markets</li>
+                    <li>Delivered award-winning creative solutions recognized by industry bodies</li>
+                    <li>Specialized in data-driven optimization and results-focused innovation</li>
+                    <li>Managed high-stakes pitch presentations for multi-million dollar accounts</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Education -->
+        <section class="education">
+            <h2>Education</h2>
+            
+            <div class="edu-item">
+                <div class="edu-content">
+                    <h3>Master's Degree (Research) in Media Studies</h3>
+                    <p>University of Amsterdam • Globally #1 Ranked Program (QS Rankings) • GPA 3.7/4.0</p>
+                </div>
+                <div class="edu-year">2023</div>
+            </div>
+
+            <div class="edu-item">
+                <div class="edu-content">
+                    <h3>Bachelor of Arts (Honours) in Media Theory</h3>
+                    <p>University of Cape Town • First Class Honours (Cum Laude)</p>
+                </div>
+                <div class="edu-year">2013</div>
+            </div>
+
+            <div class="edu-item">
+                <div class="edu-content">
+                    <h3>Bachelor of Arts - Triple Major</h3>
+                    <p>University of Cape Town • Media Theory, Historical Studies, English Literature • GPA >3.5</p>
+                </div>
+                <div class="edu-year">2012</div>
+            </div>
+        </section>
+
+        <!-- Achievements -->
+        <section class="achievements">
+            <h2>Recognition & Awards</h2>
+            <div class="achievement-grid">
+                <div class="achievement-card">
+                    <h3>🏆 Loeries Gold Award</h3>
+                    <p>Branded Content - Absolut Vodka Campaign (2017)</p>
+                </div>
+                <div class="achievement-card">
+                    <h3>🥈 Loeries Silver Awards</h3>
+                    <p>Digital Integration & Effective Creativity (2016-2017)</p>
+                </div>
+                <div class="achievement-card">
+                    <h3>📊 SA Top Performing Brand</h3>
+                    <p>Strategic Leadership - Jameson Whiskey (2015)</p>
+                </div>
+                <div class="achievement-card">
+                    <h3>📚 Academic Publications</h3>
+                    <p>Colonial Press Infrastructure & Digital Warfare Research</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Languages -->
+        <section class="languages">
+            <h2>Languages</h2>
+            <div class="lang-list">
+                <div class="lang-item">🇬🇧 English - Native</div>
+                <div class="lang-item">🇿🇦 Afrikaans - Professional</div>
+                <div class="lang-item">🇳🇱 Dutch - Professional</div>
+            </div>
+        </section>
+
+        <!-- Contact -->
+        <section class="contact">
+            <h2>Strategic Consultation</h2>
+            <p>Ready to drive digital transformation and strategic innovation? Let's discuss how we can achieve exceptional results together.</p>
+            
+            <div class="contact-info">
+                <div class="contact-item">
+                    <strong>📧 Email</strong>
+                    alexanderteggin@gmail.com
+                </div>
+                <div class="contact-item">
+                    <strong>📱 Phone</strong>
+                    (+31) 063 363 6529
+                </div>
+                <div class="contact-item">
+                    <strong>📍 Location</strong>
+                    Amsterdam, Netherlands
+                </div>
+                <div class="contact-item">
+                    <strong>⏱️ Notice Period</strong>
+                    2-4 Weeks (Conditional)
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

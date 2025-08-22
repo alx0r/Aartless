@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strategic Team - International Education Digital Transformation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #2c3e50;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 50px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            margin-bottom: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 2.8em;
+            margin-bottom: 15px;
+            font-weight: 300;
+            letter-spacing: -1px;
+        }
+
+        .header .tagline {
+            font-size: 1.4em;
+            opacity: 0.9;
+            margin-bottom: 20px;
+            font-weight: 300;
+        }
+
+        .header .subtitle {
+            font-size: 1.1em;
+            opacity: 0.8;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Team Overview */
+        .team-overview {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+
+        .team-overview h2 {
+            color: #2c3e50;
+            margin-bottom: 25px;
+            font-size: 2.2em;
+            text-align: center;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 15px;
+        }
+
+        .team-overview p {
+            font-size: 1.2em;
+            color: #555;
+            margin-bottom: 20px;
+            text-align: center;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Team Members Grid */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .team-member {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .team-member:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 45px rgba(0,0,0,0.12);
+        }
+
+        .member-header {
+            text-align: center;
+            margin-bottom: 25px;
+            padding: 25px;
+            border-radius: 15px;
+        }
+
+        .alexander .member-header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+        }
+
+        .rebekah .member-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .member-header h3 {
+            font-size: 1.8em;
+            margin-bottom: 8px;
+            font-weight: 300;
+        }
+
+        .member-header .role {
+            font-size: 1.1em;
+            opacity: 0.9;
+            margin-bottom: 5px;
+        }
+
+        .member-header .location {
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+
+        .member-content {
+            color: #555;
+        }
+
+        .member-content h4 {
+            color: #2c3e50;
+            margin: 20px 0 10px 0;
+            font-size: 1.2em;
+        }
+
+        .member-content p {
+            margin-bottom: 15px;
+        }
+
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 15px;
+        }
+
+        .skill-tag {
+            background: #f8f9fa;
+            color: #495057;
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-size: 0.85em;
+            border: 1px solid #e9ecef;
+        }
+
+        .alexander .skill-tag {
+            border-color: #2c3e50;
+            color: #2c3e50;
+        }
+
+        .rebekah .skill-tag {
+            border-color: #667eea;
+            color: #667eea;
+        }
+
+        /* Combined Expertise */
+        .combined-expertise {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+        }
+
+        .combined-expertise h2 {
+            color: #2c3e50;
+            margin-bottom: 30px;
+            font-size: 2.2em;
+            text-align: center;
+        }
+
+        .expertise-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .expertise-card {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .expertise-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        .expertise-card h3 {
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .expertise-card p {
+            opacity: 0.95;
+            font-size: 1em;
+        }
+
+        /* Service Delivery */
+        .service-delivery {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+        }
+
+        .service-delivery h2 {
+            color: #2c3e50;
+            margin-bottom: 30px;
+            font-size: 2.2em;
+            text-align: center;
+        }
+
+        .delivery-process {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .process-step {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            font-weight: bold;
+            margin: 0 auto 15px auto;
+        }
+
+        .process-step h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+
+        .process-step p {
+            color: #666;
+            font-size: 0.95em;
+        }
+
+        /* Contact Section */
+        .contact {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            border-radius: 20px;
+            padding: 50px 40px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .contact h2 {
+            margin-bottom: 20px;
+            font-size: 2.2em;
+        }
+
+        .contact p {
+            margin-bottom: 30px;
+            opacity: 0.9;
+            font-size: 1.2em;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .contact-card {
+            background: rgba(255,255,255,0.1);
+            padding: 25px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .contact-card h3 {
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .contact-card p {
+            margin: 5px 0;
+            font-size: 0.95em;
+        }
+
+        /* Mobile Optimizations */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            .header h1 {
+                font-size: 2.2em;
+            }
+
+            .header .tagline {
+                font-size: 1.2em;
+            }
+
+            .team-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+
+            .team-member {
+                padding: 25px;
+            }
+
+            .expertise-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .delivery-process {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animations */
+        .container > * {
+            animation: fadeInUp 0.8s ease forwards;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .container > *:nth-child(1) { animation-delay: 0.1s; }
+        .container > *:nth-child(2) { animation-delay: 0.3s; }
+        .container > *:nth-child(3) { animation-delay: 0.5s; }
+        .container > *:nth-child(4) { animation-delay: 0.7s; }
+        .container > *:nth-child(5) { animation-delay: 0.9s; }
+        .container > *:nth-child(6) { animation-delay: 1.1s; }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>Strategic Team</h1>
+            <p class="tagline">International Education Digital Transformation</p>
+            <p class="subtitle">Combining strategic leadership with specialized implementation to transform educational consulting expertise into scalable, multi-faceted digital businesses</p>
+        </header>
+
+        <!-- Team Overview -->
+        <section class="team-overview">
+            <h2>Your Complete Solution Team</h2>
+            <p>We bring together strategic digital leadership and cross-cultural education expertise to create comprehensive solutions for international education businesses. Our combined experience spans global brand strategy, emerging technology research, educational curriculum development, and cultural transition support.</p>
+            <p>Together, we deliver end-to-end transformation - from strategic consultation and platform launches to content creation, visual design, and culturally-responsive educational materials.</p>
+        </section>
+
+        <!-- Team Members -->
+        <section class="team-grid">
+            <div class="team-member alexander">
+                <div class="member-header">
+                    <h3>Alexander A.R. Teggin</h3>
+                    <div class="role">Strategic Lead & Digital Transformation</div>
+                    <div class="location">📍 Amsterdam, Netherlands</div>
+                </div>
+                <div class="member-content">
+                    <h4>Strategic Leadership</h4>
+                    <p>Master's from globally #1-ranked Media Theory program (University of Amsterdam). Over a decade leading digital transformation for Fortune 500 brands and emerging technology initiatives. Specializes in platform launches, market research, and strategic consultation.</p>
+                    
+                    <h4>Key Experience</h4>
+                    <p>• Award-winning campaigns (Loeries Gold/Silver)<br>
+                    • Academic research in emerging technologies<br>
+                    • International brand strategy across 6+ countries<br>
+                    • C-suite strategic consultation and team leadership</p>
+
+                    <div class="skills-list">
+                        <span class="skill-tag">Strategic Planning</span>
+                        <span class="skill-tag">Platform Launches</span>
+                        <span class="skill-tag">Data Analysis</span>
+                        <span class="skill-tag">Team Leadership</span>
+                        <span class="skill-tag">Global Campaigns</span>
+                        <span class="skill-tag">Digital Innovation</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="team-member rebekah">
+                <div class="member-header">
+                    <h3>Rebekah Rose Valentine</h3>
+                    <div class="role">Cross-Cultural Education Experience Designer</div>
+                    <div class="location">📍 Cape Town, South Africa</div>
+                </div>
+                <div class="member-content">
+                    <h4>Educational Expertise</h4>
+                    <p>Design degree combined with TEFL certification and curriculum development experience. Specializes in creating culturally-responsive educational materials and transition support systems for international school environments.</p>
+                    
+                    <h4>Key Experience</h4>
+                    <p>• International curriculum development and visual learning design<br>
+                    • Cross-cultural content creation for 15+ countries<br>
+                    • Digital education solutions and online teaching<br>
+                    • Project management for multicultural creative teams</p>
+
+                    <div class="skills-list">
+                        <span class="skill-tag">Curriculum Development</span>
+                        <span class="skill-tag">Visual Design</span>
+                        <span class="skill-tag">Cultural Adaptation</span>
+                        <span class="skill-tag">Content Creation</span>
+                        <span class="skill-tag">TEFL Expertise</span>
+                        <span class="skill-tag">Digital Learning</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Combined Expertise -->
+        <section class="combined-expertise">
+            <h2>Combined Strategic Capabilities</h2>
+            <div class="expertise-grid">
+                <div class="expertise-card">
+                    <h3>🚀 Digital Business Transformation</h3>
+                    <p>Complete strategic transformation from consulting expertise to scalable digital business with diversified revenue streams</p>
+                </div>
+                <div class="expertise-card">
+                    <h3>🌍 International Market Strategy</h3>
+                    <p>Multi-country experience and cultural competency for global education consulting and expatriate family services</p>
+                </div>
+                <div class="expertise-card">
+                    <h3>📚 Educational Content Ecosystem</h3>
+                    <p>From curriculum development to digital courses, creating comprehensive learning resources and assessment tools</p>
+                </div>
+                <div class="expertise-card">
+                    <h3>🎨 Brand & Visual Identity</h3>
+                    <p>Professional branding, website development, and culturally-sensitive visual content for international audiences</p>
+                </div>
+                <div class="expertise-card">
+                    <h3>📊 Data-Driven Growth</h3>
+                    <p>Analytics implementation, performance optimization, and strategic refinement based on measurable outcomes</p>
+                </div>
+                <div class="expertise-card">
+                    <h3>🤝 Partnership Development</h3>
+                    <p>Strategic relationship building with international schools, relocation companies, and educational organizations</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Service Delivery Process -->
+        <section class="service-delivery">
+            <h2>Our Delivery Process</h2>
+            <div class="delivery-process">
+                <div class="process-step">
+                    <div class="step-number">1</div>
+                    <h3>Strategic Foundation</h3>
+                    <p>Comprehensive analysis of your expertise, target markets, and competitive positioning to define the optimal business model</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">2</div>
+                    <h3>Digital Infrastructure</h3>
+                    <p>Professional website development, branding, and systems setup for scheduling, payment processing, and client management</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">3</div>
+                    <h3>Content & Curriculum</h3>
+                    <p>Educational material development, content creation strategy, and digital product development for scalable offerings</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">4</div>
+                    <h3>Market Launch</h3>
+                    <p>Multi-channel marketing strategy execution, partnership development, and performance optimization for sustainable growth</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact -->
+        <section class="contact">
+            <h2>Transform Your Educational Expertise</h2>
+            <p>Ready to scale your educational consulting into a comprehensive digital business? We combine strategic insight with specialized implementation to deliver measurable results.</p>
+            
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <h3>Alexander Teggin</h3>
+                    <p><strong>Strategic Lead</strong></p>
+                    <p>📧 alexanderteggin@gmail.com</p>
+                    <p>📱 (+31) 063 363 6529</p>
+                    <p>🌍 Amsterdam, Netherlands</p>
+                </div>
+                <div class="contact-card">
+                    <h3>Rebekah Rose Valentine</h3>
+                    <p><strong>Education Specialist</strong></p>
+                    <p>📧 rebekahrosevalentine@gmail.com</p>
+                    <p>📱 074 999 0337</p>
+                    <p>🌍 Cape Town, South Africa</p>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

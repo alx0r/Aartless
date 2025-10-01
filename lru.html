@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TikTok's Dynamic URL Infrastructure: A Research Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #2c3e50;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px 25px;
+            text-align: center;
+        }
+        
+        header h1 {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        header p {
+            font-size: 1em;
+            opacity: 0.95;
+        }
+        
+        .content {
+            padding: 30px 25px;
+        }
+        
+        .intro {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 4px;
+        }
+        
+        .intro p {
+            margin-bottom: 12px;
+        }
+        
+        .intro p:last-child {
+            margin-bottom: 0;
+        }
+        
+        h2 {
+            color: #667eea;
+            margin: 30px 0 15px 0;
+            font-size: 1.5em;
+            border-bottom: 2px solid #e9ecef;
+            padding-bottom: 8px;
+        }
+        
+        h3 {
+            color: #764ba2;
+            margin: 20px 0 10px 0;
+            font-size: 1.2em;
+        }
+        
+        .alert {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        
+        .alert-danger {
+            background: #f8d7da;
+            border-left-color: #dc3545;
+        }
+        
+        .alert-success {
+            background: #d4edda;
+            border-left-color: #28a745;
+        }
+        
+        .url-types {
+            display: grid;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .url-card {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .url-card code {
+            display: block;
+            background: #2d3748;
+            color: #68d391;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 8px 0;
+            font-size: 0.85em;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.95em;
+        }
+        
+        .comparison-table th,
+        .comparison-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .comparison-table th {
+            background: #667eea;
+            color: white;
+            font-weight: 600;
+        }
+        
+        .comparison-table tr:hover {
+            background: #f8f9fa;
+        }
+        
+        .best-practices {
+            background: #e7f3ff;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .best-practices ol {
+            margin-left: 20px;
+        }
+        
+        .best-practices li {
+            margin: 10px 0;
+        }
+        
+        .geographic-note {
+            background: #fff5e6;
+            border-left: 4px solid #ff9800;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            overflow-x: auto;
+            font-size: 0.9em;
+        }
+        
+        strong {
+            color: #667eea;
+            font-weight: 600;
+        }
+        
+        .key-point {
+            background: #e7f3ff;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-weight: 600;
+        }
+        
+        footer {
+            background: #2d3748;
+            color: white;
+            padding: 20px 25px;
+            text-align: center;
+            font-size: 0.9em;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .content {
+                padding: 20px 15px;
+            }
+            
+            header h1 {
+                font-size: 1.4em;
+            }
+            
+            h2 {
+                font-size: 1.3em;
+            }
+            
+            .comparison-table {
+                font-size: 0.85em;
+            }
+            
+            .comparison-table th,
+            .comparison-table td {
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔗 TikTok's Dynamic URL Infrastructure</h1>
+            <p>A Comprehensive Research Guide for Academic Communities</p>
+        </header>
+        
+        <div class="content">
+            <div class="intro">
+                <p><strong>Why are we here?</strong> If you've ever shared a TikTok link in this Discord community only to find it broken days later, or noticed that the same URL leads different researchers to different content, you've encountered TikTok's dynamic URL infrastructure firsthand.</p>
+                
+                <p>Unlike traditional social media platforms with stable, predictable URLs, TikTok operates on a fundamentally different architectural paradigm—one designed for maximum platform control, algorithmic personalization, and content governance. This isn't a bug; it's the intended design, and it creates significant challenges for academic research requiring reproducibility, citation integrity, and data verification.</p>
+                
+                <p>This guide explains <span class="key-point">how TikTok's infrastructure works</span>, <span class="key-point">why it's uniquely difficult to research</span>, <span class="key-point">how it compares to other platforms</span>, and most importantly, <span class="key-point">what we can do about it</span> as a research community.</p>
+            </div>
+
+            <h2>🏗️ Understanding TikTok's Technical Architecture</h2>
+            
+            <h3>Oracle Cloud Infrastructure: The Foundation</h3>
+            <p>TikTok's US operations run on <strong>Oracle Cloud Infrastructure (OCI)</strong>, a decision made partially in response to regulatory pressures. OCI provides TikTok with:</p>
+            
+            <ul style="margin-left: 25px; margin-top: 10px;">
+                <li><strong>Bare Metal Servers</strong>: High-performance compute instances for real-time video processing</li>
+                <li><strong>Object Storage</strong>: Distributed video file hosting across global regions</li>
+                <li><strong>Content Delivery Network (CDN)</strong>: Edge caching for low-latency video delivery</li>
+                <li><strong>API Gateway</strong>: Request validation, rate limiting, and dynamic routing</li>
+                <li><strong>Autonomous Database</strong>: Self-managing database for user data, metadata, and recommendation algorithms</li>
+            </ul>
+
+            <p style="margin-top: 15px;">This infrastructure enables TikTok's <strong>microservices architecture</strong>—a modular system where different services (video upload, recommendation engine, content moderation, user authentication) operate independently but communicate through APIs. This design prioritizes:</p>
+
+            <div class="alert">
+                <strong>Platform Control First:</strong> Every URL request goes through multiple server-side validation layers that check user permissions, geographic location, content availability, and moderation status before serving content.
+            </div>
+
+            <h3>How TikTok URLs Actually Work</h3>
+            
+            <div class="url-types">
+                <div class="url-card">
+                    <h4>1. Share Links (Short URLs)</h4>
+                    <code>https://vm.tiktok.com/ZMhKp8q2R/</code>
+                    <p><strong>Type:</strong> Temporary server-side redirects</p>
+                    <p><strong>Lifespan:</strong> Variable; can expire or change destination</p>
+                    <p><strong>Problem:</strong> These are session-based and resolve differently based on who clicks them, when they click, and from where. <span style="color: #dc3545; font-weight: 600;">Unreliable for research.</span></p>
+                </div>
+
+                <div class="url-card">
+                    <h4>2. Profile Links</h4>
+                    <code>https://www.tiktok.com/@wizardbisan45</code>
+                    <p><strong>Type:</strong> User profile identifiers</p>
+                    <p><strong>Stability:</strong> More stable, but content changes constantly</p>
+                    <p><strong>Problem:</strong> Doesn't link to specific videos; profiles can be deleted, banned, or made private at any time.</p>
+                </div>
+
+                <div class="url-card" style="border-left-color: #28a745;">
+                    <h4>3. Direct Video Links (✓ Best for Research)</h4>
+                    <code>https://www.tiktok.com/@username/video/7234567890123456789</code>
+                    <p><strong>Type:</strong> Video-specific URL with unique numeric ID</p>
+                    <p><strong>Stability:</strong> Most stable format available</p>
+                    <p><strong>Use This:</strong> Always extract and save this format. The 19-digit video ID is TikTok's internal identifier.</p>
+                </div>
+            </div>
+
+            <h2>🚧 Why TikTok is Uniquely Difficult to Research</h2>
+
+            <h3>Comparison to Other Platforms</h3>
+
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Platform</th>
+                        <th>URL Stability</th>
+                        <th>API Access</th>
+                        <th>Research Accessibility</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Twitter/X</strong></td>
+                        <td>Stable (tweet ID based)</td>
+                        <td>API available (paid)</td>
+                        <td>Moderate - declining since 2023</td>
+                    </tr>
+                    <tr>
+                        <td><strong>YouTube</strong></td>
+                        <td>Stable (video ID based)</td>
+                        <td>API available</td>
+                        <td>High - designed for external embedding</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Facebook</strong></td>
+                        <td>Stable within permissions</td>
+                        <td>Limited API (CrowdTangle deprecated)</td>
+                        <td>Low - heavily restricted post-2018</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Instagram</strong></td>
+                        <td>Stable (post ID based)</td>
+                        <td>Very limited API</td>
+                        <td>Low - research access restricted</td>
+                    </tr>
+                    <tr>
+                        <td><strong>TikTok</strong></td>
+                        <td style="color: #dc3545; font-weight: 600;">Dynamic/Unstable</td>
+                        <td style="color: #dc3545; font-weight: 600;">No research API</td>
+                        <td style="color: #dc3545; font-weight: 600;">Very Low - architecturally resistant</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="alert-danger">
+                <strong>Key Difference:</strong> Platforms like YouTube and Twitter were built with an "open web" philosophy where content is meant to be embedded, linked, and shared externally. TikTok's architecture reflects a <strong>"walled garden"</strong> approach where the platform maintains total control over content access—similar to Chinese platforms like Douyin, WeChat, and Weibo, which operate in highly regulated digital environments.
+            </div>
+
+            <h3>The "Guarded Fence": Built-in Research Barriers</h3>
+
+            <p>TikTok's infrastructure creates multiple layers of access control:</p>
+
+            <ol style="margin-left: 25px; margin-top: 15px;">
+                <li><strong>Server-side validation:</strong> Every URL request is validated in real-time. The server checks if the content is available, if the user has permission, and if geographic restrictions apply.</li>
+                
+                <li><strong>Dynamic content moderation:</strong> Content can be removed or restricted at any time without notification. A URL that worked yesterday may fail today.</li>
+                
+                <li><strong>Session-dependent routing:</strong> The same URL may resolve differently based on whether you're logged in, your account age, your location, and your previous viewing history.</li>
+                
+                <li><strong>No external embedding:</strong> Unlike YouTube, TikTok videos cannot be reliably embedded on external websites, forcing researchers to work within TikTok's controlled environment.</li>
+                
+                <li><strong>Rate limiting and bot detection:</strong> Automated data collection is actively blocked through sophisticated bot detection systems.</li>
+            </ol>
+
+            <div class="alert">
+                <strong>Why This Design?</strong> This architecture serves multiple purposes: it enables TikTok's highly personalized recommendation algorithm, allows rapid content moderation at scale, facilitates compliance with varying regional regulations, and maintains platform control over content distribution. However, these same features make external research, verification, and reproducibility extremely difficult.
+            </div>
+
+            <h2>🌍 Geographic Fragmentation: TikTok Isn't One Platform</h2>
+
+            <div class="geographic-note">
+                <h3>Critical Research Consideration: Geographic Variability</h3>
+                <p>TikTok operates as <strong>different platforms in different regions</strong>, with distinct content libraries, recommendation algorithms, and availability:</p>
+            </div>
+
+            <table class="comparison-table" style="margin-top: 20px;">
+                <thead>
+                    <tr>
+                        <th>Region</th>
+                        <th>Platform Status</th>
+                        <th>Research Implications</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>United States</strong></td>
+                        <td>Full access (Oracle infrastructure)</td>
+                        <td>Subject to ongoing regulatory scrutiny; data localization requirements</td>
+                    </tr>
+                    <tr>
+                        <td><strong>European Union</strong></td>
+                        <td>Full access (GDPR compliant)</td>
+                        <td>Stricter data protection; DSA compliance; researcher access provisions under DSA</td>
+                    </tr>
+                    <tr>
+                        <td><strong>United Kingdom</strong></td>
+                        <td>Full access (post-Brexit regulations)</td>
+                        <td>Separate regulatory framework from EU; Online Safety Act implications</td>
+                    </tr>
+                    <tr>
+                        <td><strong>India</strong></td>
+                        <td style="color: #dc3545; font-weight: 600;">Banned since June 2020</td>
+                        <td>No access; historical data only; VPN circumvention unreliable for research</td>
+                    </tr>
+                    <tr>
+                        <td><strong>China</strong></td>
+                        <td>Douyin (separate app)</td>
+                        <td>Completely different platform; separate content, algorithms, and moderation</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Russia</strong></td>
+                        <td>Limited (restricted posting)</td>
+                        <td>View-only access; no new content uploads since March 2022</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Southeast Asia</strong></td>
+                        <td>Varies by country</td>
+                        <td>Indonesia, Vietnam, Thailand have content restrictions; live shopping features vary</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Middle East</strong></td>
+                        <td>Restricted content</td>
+                        <td>Heavy content filtering; different recommendation algorithms; regional moderation</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="alert-danger" style="margin-top: 20px;">
+                <strong>Research Impact:</strong> When someone in your Discord shares a TikTok link, it may not be accessible to researchers in other countries. Content available in South Africa might be geo-blocked in the UK. A video visible in Germany might be unavailable in the US. This geographic fragmentation means:
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>Research datasets are inherently non-representative if collected from a single region</li>
+                    <li>Cross-national comparative studies face significant methodological challenges</li>
+                    <li>Reproducibility requires documenting the researcher's location during data collection</li>
+                    <li>VPN use for research access raises ethical and legal questions</li>
+                </ul>
+            </div>
+
+            <h3>Why Geographic Fragmentation Matters</h3>
+
+            <p>TikTok uses <strong>geo-fencing</strong> and <strong>content localization</strong> at the infrastructure level:</p>
+
+            <div class="code-block">
+User Request → CDN Edge Node → Check IP Geolocation → 
+Route to Regional Server → Apply Regional Content Filters → 
+Check User Permissions → Serve Content (or Deny Access)
+            </div>
+
+            <p style="margin-top: 15px;">This means the <em>same URL</em> may produce different results based on where the researcher is located. For academic work, this requires:</p>
+
+            <ul style="margin-left: 25px; margin-top: 10px;">
+                <li>Always documenting your geographic location when collecting data</li>
+                <li>Being aware that collaborators in other countries may see different content</li>
+                <li>Noting when content becomes unavailable (was it deleted globally or just region-restricted?)</li>
+                <li>Archiving content immediately, as geographic restrictions can be applied retroactively</li>
+            </ul>
+
+            <h2>✅ Best Practices for Researchers</h2>
+
+            <div class="best-practices">
+                <h3>Essential Steps for Every TikTok Link</h3>
+                <ol>
+                    <li><strong>Extract the Direct Video URL:</strong> When someone shares a vm.tiktok.com link, open it in a browser, let it redirect, and copy the full URL with the video ID from the address bar.</li>
+                    
+                    <li><strong>Record Multiple Identifiers:</strong>
+                        <ul style="margin-top: 5px;">
+                            <li>Username (@wizardbisan45)</li>
+                            <li>19-digit Video ID (from the URL)</li>
+                            <li>Date and time accessed</li>
+                            <li>Your geographic location</li>
+                            <li>Caption text and hashtags</li>
+                        </ul>
+                    </li>
+                    
+                    <li><strong>Archive Immediately:</strong> Submit URLs to Internet Archive (Wayback Machine) or Perma.cc. Take screenshots of the video, caption, comments, and engagement metrics.</li>
+                    
+                    <li><strong>Document Inaccessibility:</strong> If content becomes unavailable, note the date, error message, and whether it was deleted, made private, or geo-blocked.</li>
+                    
+                    <li><strong>Use Standardized Citations:</strong>
+                        <div class="code-block" style="margin-top: 10px;">
+@username. (YYYY-MM-DD). "Caption text [first 50 chars]." TikTok.
+Video ID: [19-digit ID]. Accessed [Date] from [Location].
+Archived: [URL if available]. Status: [Accessible/Deleted/Restricted].
+                        </div>
+                    </li>
+                </ol>
+            </div>
+
+            <div class="alert-success">
+                <strong>Discord Community Template:</strong> When sharing TikTok content in this server, please include:
+                <div class="code-block" style="margin-top: 10px;">
+📱 TikTok Source
+URL: [Full direct link with video ID]
+Creator: @username
+Content: [Brief description]
+Accessed: [Date & your location]
+Archived: [Yes/No - link if yes]
+Relevance: [Why this matters for research]
+                </div>
+            </div>
+
+            <h2>🔍 The Bigger Picture: Platform Governance and Research Access</h2>
+
+            <p>TikTok's infrastructure reflects a broader shift in social media platform design—from the "open web" era of early social media to highly controlled, algorithmically mediated ecosystems. This architectural choice has profound implications:</p>
+
+            <ul style="margin-left: 25px; margin-top: 15px;">
+                <li><strong>Epistemic challenges:</strong> How do we study platforms that are designed to be opaque?</li>
+                <li><strong>Reproducibility crisis:</strong> Traditional academic standards of verification and replication are difficult to maintain</li>
+                <li><strong>Power asymmetry:</strong> Platforms control what can be studied and how</li>
+                <li><strong>Regulatory implications:</strong> Should platforms be required to provide research access? (EU's Digital Services Act attempts this)</li>
+            </ul>
+
+            <div class="alert">
+                <strong>Research Advocacy:</strong> As a research community, we should push for:
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>Platform transparency requirements in digital regulation</li>
+                    <li>Academic API access similar to Twitter's (former) research API</li>
+                    <li>Stable archival systems for social media content</li>
+                    <li>Standardized ethical frameworks for platform research</li>
+                </ul>
+            </div>
+
+            <h2>📚 Conclusion: Methodological Transparency</h2>
+
+            <p>Understanding TikTok's dynamic URL infrastructure isn't just a technical exercise—it's fundamental to conducting rigorous, transparent, and reproducible research on one of the world's most influential platforms. By documenting our methods, acknowledging limitations, and implementing shared standards, we can maintain research integrity even within the constraints imposed by platform architecture.</p>
+
+            <p style="margin-top: 15px;"><strong>Remember:</strong> The challenge isn't that TikTok's URLs are broken—it's that they work exactly as designed, prioritizing platform control over external accessibility. Our job as researchers is to work within these constraints while being transparent about the limitations they impose on our work.</p>
+        </div>
+
+        <footer>
+            <p><strong>TikTok URL Research Guide</strong> | Created for Academic Research Communities</p>
+            <p style="margin-top: 8px; opacity: 0.8;">Last Updated: October 2025 | Distribute freely with attribution</p>
+        </footer>
+    </div>
+</body>
+</html>

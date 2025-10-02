@@ -1,229 +1,713 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ENLIST NOW :: DIGITAL WARFARE COMMAND</title>
-<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Black+Ops+One&family=Rubik:wght@900&display=swap" rel="stylesheet">
-<style>
-/* ——— RESET ——— */
-* {margin:0;padding:0;box-sizing:border-box;}
-body {
-  background:#000;color:#fff;
-  font-family:'Share Tech Mono',monospace;
-  line-height:1.6;overflow-x:hidden;
-}
-/* ——— GRAIN + VIGNETTE ——— */
-.grain {
-  position:fixed;top:0;left:0;width:100%;height:100%;
-  background:url('data:image/svg+xml,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noise)" opacity="0.05"/></svg>');
-  pointer-events:none;z-index:9999;opacity:0.8;
-}
-.vignette {
-  position:fixed;top:0;left:0;width:100%;height:100%;
-  box-shadow:inset 0 0 200px rgba(0,0,0,0.9);
-  pointer-events:none;z-index:9998;
-}
-/* ——— HEADER ——— */
-header {
-  background:
-    linear-gradient(135deg,rgba(139,0,0,0.3) 25%,transparent 25%),
-    linear-gradient(225deg,rgba(139,0,0,0.3) 25%,transparent 25%),
-    linear-gradient(45deg,rgba(139,0,0,0.3) 25%,transparent 25%),
-    linear-gradient(315deg,rgba(139,0,0,0.3) 25%,transparent 25%),
-    linear-gradient(180deg,#1a0000 0%,#000000 100%);
-  background-size:40px 40px;
-  background-position:0 0,0 20px,20px -20px,-20px 0px;
-  border-bottom:8px solid #8b0000;border-top:4px solid #8b0000;
-  padding:4rem 2rem;text-align:center;position:relative;
-  box-shadow:0 10px 40px rgba(139,0,0,0.5);
-}
-.war-banner {
-  position:absolute;top:0;left:0;right:0;
-  background:#8b0000;color:#000;font-weight:900;
-  padding:0.5rem;font-size:0.9rem;letter-spacing:0.3em;
-  animation:urgent-pulse 1s infinite;
-}
-@keyframes urgent-pulse {
-  0%,100%{background:#8b0000;}50%{background:#ff0000;}
-}
-h1 {
-  font-family:'Black Ops One',cursive;
-  font-size:clamp(2.5rem,10vw,6rem);color:#ff0000;text-transform:uppercase;
-  letter-spacing:0.05em;margin:2rem 0 1rem;
-  text-shadow:0 0 10px #ff0000,0 0 20px #ff0000,4px 4px 0 #8b0000,8px 8px 0 #000;
-  transform:scaleY(1.2);animation:battle-ready 3s infinite;
-}
-@keyframes battle-ready {
-  0%,90%,100% {
-    text-shadow:0 0 10px #ff0000,0 0 20px #ff0000,4px 4px 0 #8b0000,8px 8px 0 #000;
-  }
-  95% {
-    text-shadow:0 0 20px #ff0000,0 0 40px #ff0000,6px 6px 0 #8b0000,10px 10px 0 #000;
-  }
-}
-.subtitle {
-  font-size:clamp(1.2rem,4vw,2rem);color:#ff0000;font-weight:900;
-  margin-bottom:2rem;letter-spacing:0.2em;text-transform:uppercase;
-}
-.mobilization-alert {
-  background:repeating-linear-gradient(45deg,#8b0000,#8b0000 10px,#000 10px,#000 20px);
-  border:4px solid #ff0000;padding:2rem;margin:2rem auto;max-width:800px;
-  text-align:center;font-size:1.5rem;font-weight:900;color:#fff;
-  text-shadow:2px 2px 0 #000;box-shadow:0 0 40px rgba(255,0,0,0.5);
-  animation:warning-flash 2s infinite;
-}
-@keyframes warning-flash {0%,100%{border-color:#ff0000;}50%{border-color:#ffff00;}}
-/* ——— SECTIONS ——— */
-section {
-  max-width:1400px;margin:0 auto;padding:4rem 2rem;position:relative;
-}
-section::before {
-  content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:#8b0000;
-}
-h2 {
-  font-family:'Rubik',sans-serif;font-size:clamp(2rem,6vw,4rem);
-  font-weight:900;color:#ff0000;text-transform:uppercase;
-  margin-bottom:2rem;position:relative;padding-left:3rem;
-  text-shadow:3px 3px 0 #8b0000;letter-spacing:0.05em;
-}
-h2::before {
-  content:'⚠';position:absolute;left:0;color:#ffff00;font-size:2.5rem;
-  animation:alert-spin 3s linear infinite;
-}
-@keyframes alert-spin {
-  0%,85%,100%{transform:rotate(0deg);}90%{transform:rotate(10deg);}95%{transform:rotate(-10deg);}
-}
-h3 {
-  color:#ffff00;font-size:1.8rem;font-weight:900;margin:2rem 0 1rem;
-  text-transform:uppercase;text-shadow:2px 2px 0 #8b0000;letter-spacing:0.1em;
-}
-p {margin-bottom:1.5rem;font-size:1.15rem;line-height:1.9;color:#ddd;}
-/* ——— OP GRID ——— */
-.operations-grid {
-  display:grid;grid-template-columns:repeat(auto-fit,minmax(350px,1fr));
-  gap:2rem;margin:3rem 0;
-}
-.operation-card {
-  background:linear-gradient(135deg,rgba(139,0,0,0.2) 0%,rgba(0,0,0,0.9) 100%);
-  border:3px solid #8b0000;border-left:8px solid #ff0000;padding:2rem;
-  position:relative;transition:all 0.3s;box-shadow:0 4px 20px rgba(0,0,0,0.5);
-}
-.operation-card:hover {
-  background:linear-gradient(135deg,rgba(139,0,0,0.4) 0%,rgba(0,0,0,0.95) 100%);
-  transform:translateX(10px);box-shadow:-15px 0 30px rgba(255,0,0,0.4);border-left-width:12px;
-}
-.operation-card::before {
-  content:'CLASSIFIED';position:absolute;top:1rem;right:1rem;background:#8b0000;color:#000;
-  padding:0.3rem 0.8rem;font-size:0.7rem;font-weight:900;letter-spacing:0.2em;transform:rotate(5deg);
-}
-.op-number {
-  font-size:4rem;color:#ff0000;font-weight:900;line-height:1;margin-bottom:1rem;
-  font-family:'Black Ops One',cursive;text-shadow:3px 3px 0 #8b0000;
-}
-.command-terminal {
-  background:#000;border:4px solid #8b0000;padding:2rem;margin:2rem 0;
-  font-family:'Share Tech Mono',monospace;font-size:1.2rem;position:relative;
-  box-shadow:0 0 30px rgba(139,0,0,0.5);
-}
-.command-terminal::before {
-  content:'COMMAND://ROOT@RESISTANCE_';display:block;color:#ff0000;
-  margin-bottom:1rem;font-weight:900;
-}
-.command-terminal::after {
-  content:'█';animation:cursor-blink 1s infinite;
-}
-@keyframes cursor-blink {0%,49%{opacity:1;}50%,100%{opacity:0;}}
-/* ——— FOOTER ——— */
-footer {
-  text-align:center;padding:4rem 2rem;border-top:8px solid #8b0000;
-  background:repeating-linear-gradient(90deg,#000,#000 2px,#0a0000 2px,#0a0000 4px);
-}
-.propaganda-stamp {
-  display:inline-block;border:4px solid #8b0000;padding:1rem 2rem;margin:2rem 0;
-  transform:rotate(-2deg);font-weight:900;font-size:1.2rem;background:rgba(139,0,0,0.3);
-}
-@media (max-width:768px){
-  .operations-grid{grid-template-columns:1fr;}
-  section{padding:2rem 1rem;}
-  h1{font-size:2.5rem;}
-}
-strong{color:#ff0000;font-weight:900;}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WAKE UP :: THE RESISTANCE NEEDS YOU</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&family=Orbitron:wght@900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: #0a0a0a;
+            color: #00ff00;
+            font-family: 'Share Tech Mono', monospace;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 255, 0, 0.03),
+                rgba(0, 255, 0, 0.03) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+            pointer-events: none;
+            z-index: 9999;
+            animation: scan 8s linear infinite;
+        }
+        
+        @keyframes scan {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(10px); }
+        }
+        
+        .glitch {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9998;
+            opacity: 0;
+            animation: glitch-effect 8s infinite;
+        }
+        
+        @keyframes glitch-effect {
+            0%, 90%, 100% { opacity: 0; }
+            91%, 93%, 95%, 97%, 99% { opacity: 0.1; background: #00ff00; }
+        }
+        
+        .matrix-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.03;
+            pointer-events: none;
+            font-family: 'VT323', monospace;
+            font-size: 14px;
+            color: #00ff00;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        header {
+            background: linear-gradient(180deg, rgba(0,20,0,0.9) 0%, rgba(0,0,0,0.95) 100%);
+            border-bottom: 3px solid #00ff00;
+            border-top: 3px solid #00ff00;
+            padding: 4rem 2rem;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 0 40px rgba(0,255,0,0.3);
+            z-index: 10;
+        }
+        
+        .warning-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: #00ff00;
+            color: #000;
+            font-weight: 900;
+            padding: 0.5rem;
+            font-size: 0.9rem;
+            letter-spacing: 0.3em;
+            animation: urgent-blink 2s infinite;
+        }
+        
+        @keyframes urgent-blink {
+            0%, 49% { opacity: 1; }
+            50%, 99% { opacity: 0.7; }
+        }
+        
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(3rem, 12vw, 7rem);
+            color: #00ff00;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin: 2rem 0 1rem;
+            text-shadow: 
+                0 0 10px #00ff00,
+                0 0 20px #00ff00,
+                0 0 30px #00ff00,
+                3px 3px 0 #003300;
+            animation: title-glitch 5s infinite;
+        }
+        
+        @keyframes title-glitch {
+            0%, 90%, 100% { 
+                transform: translate(0);
+                text-shadow: 
+                    0 0 10px #00ff00,
+                    0 0 20px #00ff00,
+                    3px 3px 0 #003300;
+            }
+            92% { 
+                transform: translate(-2px, 2px);
+                text-shadow: 
+                    2px 0 #ff00ff,
+                    -2px 0 #00ffff,
+                    3px 3px 0 #003300;
+            }
+        }
+        
+        .subtitle {
+            font-size: clamp(1rem, 3vw, 1.5rem);
+            color: #00cc00;
+            margin-top: 1rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+        
+        .cursor {
+            display: inline-block;
+            animation: blink 1s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 49% { opacity: 1; }
+            50%, 100% { opacity: 0; }
+        }
+        
+        main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .mission-brief {
+            background: rgba(0, 30, 0, 0.8);
+            border: 2px solid #00ff00;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 0 30px rgba(0,255,0,0.2);
+            position: relative;
+        }
+        
+        .mission-brief::before {
+            content: ">>> MISSION PARAMETERS";
+            position: absolute;
+            top: -1rem;
+            left: 1rem;
+            background: #0a0a0a;
+            padding: 0 1rem;
+            color: #00ff00;
+            font-weight: bold;
+            letter-spacing: 0.2em;
+        }
+        
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2rem, 5vw, 3rem);
+            color: #00ff00;
+            margin: 3rem 0 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            text-shadow: 0 0 15px #00ff00;
+            border-bottom: 2px solid #00ff00;
+            padding-bottom: 0.5rem;
+            animation: pulse-glow 3s infinite;
+        }
+        
+        @keyframes pulse-glow {
+            0%, 100% { text-shadow: 0 0 15px #00ff00; }
+            50% { text-shadow: 0 0 25px #00ff00, 0 0 35px #00ff00; }
+        }
+        
+        .arsenal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .tool-category {
+            background: rgba(0, 20, 0, 0.6);
+            border: 2px solid #00ff00;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .tool-category:hover {
+            background: rgba(0, 40, 0, 0.8);
+            box-shadow: 0 0 30px rgba(0,255,0,0.4);
+            transform: translateY(-5px);
+        }
+        
+        .category-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            color: #00ff00;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        
+        .tool-item {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(0,255,0,0.2);
+        }
+        
+        .tool-item:last-child {
+            border-bottom: none;
+        }
+        
+        .tool-name {
+            color: #00ff00;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        
+        .tool-link {
+            color: #00cc00;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        
+        .tool-link:hover {
+            color: #00ff00;
+            text-shadow: 0 0 10px #00ff00;
+        }
+        
+        .tool-desc {
+            color: #009900;
+            font-size: 0.9rem;
+            margin-top: 0.3rem;
+        }
+        
+        .protocols {
+            background: rgba(0, 30, 0, 0.8);
+            border: 2px solid #00ff00;
+            padding: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .protocol-item {
+            margin: 1.5rem 0;
+            padding-left: 2rem;
+            position: relative;
+        }
+        
+        .protocol-item::before {
+            content: ">";
+            position: absolute;
+            left: 0;
+            color: #00ff00;
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+        
+        .protocol-title {
+            color: #00ff00;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .targets {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .target-box {
+            background: rgba(0, 20, 0, 0.6);
+            border: 2px solid #ff0000;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            animation: target-pulse 3s infinite;
+        }
+        
+        @keyframes target-pulse {
+            0%, 100% { border-color: #ff0000; box-shadow: 0 0 10px rgba(255,0,0,0.3); }
+            50% { border-color: #ff4444; box-shadow: 0 0 20px rgba(255,0,0,0.6); }
+        }
+        
+        .target-box:hover {
+            background: rgba(40, 0, 0, 0.8);
+            transform: scale(1.05);
+        }
+        
+        .engagement-matrix {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .do-list, .dont-list {
+            background: rgba(0, 30, 0, 0.8);
+            border: 2px solid #00ff00;
+            padding: 2rem;
+        }
+        
+        .dont-list {
+            border-color: #ff0000;
+            background: rgba(30, 0, 0, 0.8);
+        }
+        
+        .list-header {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+        }
+        
+        .do-list .list-header {
+            color: #00ff00;
+        }
+        
+        .dont-list .list-header {
+            color: #ff0000;
+        }
+        
+        .list-item {
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(0,255,0,0.2);
+        }
+        
+        .dont-list .list-item {
+            border-bottom-color: rgba(255,0,0,0.2);
+        }
+        
+        .list-item:last-child {
+            border-bottom: none;
+        }
+        
+        .manifesto {
+            background: rgba(0, 30, 0, 0.9);
+            border: 3px solid #00ff00;
+            padding: 3rem;
+            margin: 3rem 0;
+            text-align: center;
+            box-shadow: 0 0 50px rgba(0,255,0,0.4);
+        }
+        
+        .manifesto-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            color: #00ff00;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            text-shadow: 0 0 20px #00ff00;
+        }
+        
+        .manifesto-text {
+            font-size: 1.2rem;
+            line-height: 2;
+            color: #00cc00;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        footer {
+            background: rgba(0, 20, 0, 0.9);
+            border-top: 3px solid #00ff00;
+            padding: 2rem;
+            text-align: center;
+            margin-top: 4rem;
+        }
+        
+        .footer-text {
+            color: #00ff00;
+            font-size: 0.9rem;
+            letter-spacing: 0.15em;
+        }
+        
+        @media (max-width: 768px) {
+            .engagement-matrix {
+                grid-template-columns: 1fr;
+            }
+            
+            header {
+                padding: 3rem 1rem;
+            }
+            
+            main {
+                padding: 2rem 1rem;
+            }
+        }
+    </style>
 </head>
 <body>
-<div class="grain"></div>
-<div class="vignette"></div>
+    <div class="scanlines"></div>
+    <div class="glitch"></div>
+    <div class="matrix-bg" id="matrix"></div>
 
-<header>
-  <div class="war-banner">⚠ MOBILIZATION ORDER IN EFFECT ⚠</div>
-  <h1>ENLIST NOW</h1>
-  <div class="subtitle">Digital Warfare Operations Command</div>
-  <div class="mobilization-alert">
-    THIS IS NOT A METAPHOR<br>THIS IS WARFARE<br>YOUR PLATFORM IS YOUR WEAPON
-  </div>
-</header>
+    <header>
+        <div class="warning-bar">⚠ INFORMATION WARFARE ACTIVE ⚠</div>
+        <h1>ARSENAL</h1>
+        <div class="subtitle">Digital Resistance Toolkit v2.0<span class="cursor">_</span></div>
+    </header>
 
-<section id="mission">
-  <h2>Mission Brief</h2>
-  <p style="font-size:1.3rem;font-weight:700;color:#ff0000;">
-    ATTENTION: You are now enlisted in the largest information warfare operation in human history.
-  </p>
-  <p>The battlefield is digital. The enemy is disinformation, complacency, algorithmic suppression, and institutional capture.</p>
-  <p><strong>We are not here to debate.</strong> We are here to <strong>ATTACK</strong>, to <strong>HACK</strong> the narrative, to <strong>TRACK</strong> the lies, to <strong>MONITOR</strong> the suppression, to <strong>FILE COMPLAINTS</strong>, to <strong>COORDINATE OPERATIONS</strong>, and to <strong>WIN</strong>.</p>
-  <div class="command-terminal">
-    RULES OF ENGAGEMENT: Evidence over emotion. Research over rhetoric. Coordination over chaos. We move as a unit. We verify every claim. We amplify every truth. We archive everything.
-  </div>
-  <div class="critical-warning">
-    <div class="critical-warning-inner">
-      <h3>⚠ CRITICAL INTELLIGENCE ⚠</h3>
-      <p style="font-size:1.2rem;">They want you passive. They want you overwhelmed. They want you believing that one person can't make a difference. <strong>THEY ARE LYING.</strong></p>
-      <p style="font-size:1.2rem;margin-top:1rem;">Every bot network. Every propaganda campaign. Every disinformation operation. They ALL collapse when coordinated humans with evidence show up and FIGHT BACK.</p>
-    </div>
-  </div>
-  <p style="font-size:1.3rem;margin-top:2rem;">
-    <strong>YOUR ORDERS:</strong> Deploy these tactics immediately. Train others. Form cells. Coordinate attacks. Document everything. Never stop.
-  </p>
-</section>
+    <main>
+        <div class="mission-brief">
+            <p><strong>OPERATIVE:</strong> You are now part of the information resistance. The battlefield is digital. The weapons are truth, verification, and evidence. The enemy is misinformation, propaganda, and manufactured consent.</p>
+            <p style="margin-top: 1rem;"><strong>MISSION:</strong> Arm yourself with the tools below. Deploy them strategically. Fight with integrity. Never become what you oppose.</p>
+        </div>
 
-<section id="operations">
-  <h2>Combat Operations</h2>
-  <p style="font-size:1.2rem;margin-bottom:3rem;">These are not suggestions. These are <strong>OPERATIONAL DIRECTIVES</strong>. Execute them with precision.</p>
+        <h2 class="section-title">⚡ Load Your Arsenal</h2>
 
-  <div class="operations-grid">
-    <!-- OP-01 to OP-07 as before ... -->
+        <div class="arsenal-grid">
+            <div class="tool-category">
+                <div class="category-title">🔍 Verification Tools</div>
+                <div class="tool-item">
+                    <div class="tool-name">Google Reverse Image Search</div>
+                    <a href="https://images.google.com" class="tool-link" target="_blank">images.google.com</a>
+                    <div class="tool-desc">Find the original source of any image</div>
+                </div>
+                <div class="tool-item">
+                    <div class="tool-name">TinEye</div>
+                    <a href="https://tineye.com" class="tool-link" target="_blank">tineye.com</a>
+                    <div class="tool-desc">Advanced reverse image search with timestamps</div>
+                </div>
+                <div class="tool-item">
+                    <div class="tool-name">InVID/WeVerify</div>
+                    <a href="https://www.invid-project.eu" class="tool-link" target="_blank">invid-project.eu</a>
+                    <div class="tool-desc">Video forensics and verification toolkit</div>
+                </div>
+                <div class="tool-item">
+                    <div class="tool-name">FotoForensics</div>
+                    <a href="https://fotoforensics.com" class="tool-link" target="_blank">fotoforensics.com</a>
+                    <div class="tool-desc">Detect image manipulation and editing</div>
+                </div>
+            </div>
 
-    <!-- OP-08 COMPLETE -->
-    <div class="operation-card">
-      <div class="op-number">OP-08</div>
-      <h3>SURGICAL STRIKES</h3>
-      <p><strong>OBJECTIVE:</strong> Target high-impact misinformation.</p>
-      <p><strong>TACTICS:</strong></p>
-      <ul style="margin-left:1.5rem;margin-top:1rem;">
-        <li>Identify viral lies early</li>
-        <li>Mobilize rapid response teams</li>
-        <li>Deploy corrections in first hours</li>
-        <li>Contact journalists with evidence</li>
-        <li>Kill disinformation before it spreads</li>
-      </ul>
-      <p class="command-terminal" style="margin-top:1.5rem;padding:1rem;font-size:0.95rem;">
-        PROTOCOL: Speed is supremacy. Strike before they fortify. The first hours decide the narrative.
-      </p>
-    </div>
-  </div>
-</section>
+            <div class="tool-category">
+                <div class="category-title">📚 Research Arsenal</div>
+                <div class="tool-item">
+                    <div class="tool-name">Google Scholar</div>
+                    <a href="https://scholar.google.com" class="tool-link" target="_blank">scholar.google.com</a>
+                    <div class="tool-desc">Peer-reviewed research and citations</div>
+                </div>
+                <div class="tool-item">
+                    <div class="tool-name">PubMed</div>
+                    <a href="https://pubmed.ncbi.nlm.nih.gov" class="tool-link" target="_blank">pubmed.ncbi.nlm.nih.gov</a>
+                    <div class="tool-desc">Medical and health research database</div>
+                </div>
+                <div class="tool-item">
+                    <div class="tool-name">Sci-Hub</div>
+                    <div class="tool-desc">Access research papers behind paywalls</div>
+                </div>
+                <div class="tool-item">
+                    <div class="tool-name">arXiv</div>
+                    <a href="https://arxiv.org" class="tool-link" target="_blank">arxiv.org</a>
+                    <div class="tool-desc">Pre-print scientific papers</div>
+                </div>
+            </div>
 
-<section class="recruitment">
-  <h2>Join the Digital Front</h2>
-  <p style="font-size:1.3rem;margin-bottom:2rem;">Stand with us. Form your cell. Take action now.</p>
-  <a href="#" class="enlist-button">ENLIST NOW</a>
-  <a href="#" class="enlist-button">TRAIN OTHERS</a>
-</section>
+            <div class="tool-category">
+                <div class="category-title">🗄️ Archival Weapons</div>
+                <div class="tool-item">
+                    <div class="tool-name">Wayback Machine</div>
+                    <a href="https://archive.org" class="tool-link" target="_blank">archive.org</a>
+                    <div class="tool-desc">Capture deleted or changed content</div>
+                </div>
+                <div class="tool-item">
+                    <div class="tool-name">Archive.today</div>
+                    <a href="https://archive.today" class="tool-link" target="_blank">archive.today</a>
+                    <div class="tool-desc">Create permanent snapshots of web pages</div>
+                </div>
+                <div class="tool-item">
+                    <div class="tool-name">Perma.cc</div>
+                    <a href="https://perma.cc" class="tool-link" target="_blank">perma.cc</a>
+                    <div class="tool-desc">Permanent links for citations</div>
+                </div>
+            </div>
 
-<footer>
-  <div class="propaganda-stamp">APPROVED :: DIGITAL WARFARE COMMAND</div>
-  <p style="font-size:0.9rem;color:#999;">&copy; 2025 Digital Warfare Command. All Rights Reserved.</p>
-</footer>
+            <div class="tool-category">
+                <div class="category-title">🎯 Tactical Analysis</div>
+                <div class="tool-item">
+                    <div class="tool-name">Media Bias Chart</div>
+                    <a href="https://adfontesmedia.com" class="tool-link" target="_blank">adfontesmedia.com</a>
+                    <div class="tool-desc">Evaluate source reliability and bias</div>
+                </div>
+                <div class="tool-item">
+                    <div class="tool-name">Botometer</div>
+                    <a href="https://botometer.osome.iu.edu" class="tool-link" target="_blank">botometer.osome.iu.edu</a>
+                    <div class="tool-desc">Identify bot accounts on social media</div>
+                </div>
+                <div class="tool-item">
+                    <div class="tool-name">Snopes / FactCheck.org</div>
+                    <div class="tool-desc">Verify common claims and urban legends</div>
+                </div>
+                <div class="tool-item">
+                    <div class="tool-name">Your Logical Fallacy Is</div>
+                    <a href="https://yourlogicalfallacyis.com" class="tool-link" target="_blank">yourlogicalfallacyis.com</a>
+                    <div class="tool-desc">Identify flawed arguments</div>
+                </div>
+            </div>
+        </div>
 
+        <h2 class="section-title">📋 Operating Protocols</h2>
+
+        <div class="protocols">
+            <div class="protocol-item">
+                <div class="protocol-title">1. VERIFY BEFORE AMPLIFYING</div>
+                <p>Never share information you have not personally verified. You are not a broadcaster. You are a checkpoint.</p>
+            </div>
+            <div class="protocol-item">
+                <div class="protocol-title">2. SOURCE EVERYTHING</div>
+                <p>Always link to original sources. Screenshots can be faked. Context matters. Show your work.</p>
+            </div>
+            <div class="protocol-item">
+                <div class="protocol-title">3. TEACH, DON'T PREACH</div>
+                <p>Show people how to verify, not just what to believe. Empower, don't indoctrinate.</p>
+            </div>
+            <div class="protocol-item">
+                <div class="protocol-title">4. ATTACK IDEAS, NOT PEOPLE</div>
+                <p>Critique arguments and evidence. Never descend into personal attacks, doxxing, or harassment.</p>
+            </div>
+            <div class="protocol-item">
+                <div class="protocol-title">5. ACKNOWLEDGE UNCERTAINTY</div>
+                <p>Say "I don't know" when you don't know. Admit mistakes quickly. Intellectual honesty is your armor.</p>
+            </div>
+            <div class="protocol-item">
+                <div class="protocol-title">6. PRESERVE EVIDENCE</div>
+                <p>Archive everything. Screenshots, URLs, timestamps. Digital evidence disappears fast.</p>
+            </div>
+            <div class="protocol-item">
+                <div class="protocol-title">7. ENGAGE STRATEGICALLY</div>
+                <p>Not every battle needs fighting. Some audiences are unreachable. Protect your energy.</p>
+            </div>
+            <div class="protocol-item">
+                <div class="protocol-title">8. BUILD COALITIONS</div>
+                <p>Connect with fact-checkers, journalists, researchers. Resistance is collective, not individual.</p>
+            </div>
+            <div class="protocol-item">
+                <div class="protocol-title">9. MAINTAIN OPERATIONAL SECURITY</div>
+                <p>Protect your mental health. Take breaks. Don't let the fight consume you.</p>
+            </div>
+            <div class="protocol-item">
+                <div class="protocol-title">10. NEVER FABRICATE</div>
+                <p>The moment you lie, you become the enemy. Truth is your only weapon. Keep it sharp.</p>
+            </div>
+        </div>
+
+        <h2 class="section-title">🎯 Priority Targets</h2>
+
+        <div class="targets">
+            <div class="target-box">
+                <strong>HEALTH MISINFORMATION</strong>
+                <p style="margin-top: 0.5rem; color: #00cc00;">Fake cures, vaccine misinfo, medical scams</p>
+            </div>
+            <div class="target-box">
+                <strong>ELECTION DISINFORMATION</strong>
+                <p style="margin-top: 0.5rem; color: #00cc00;">Voter suppression, fake polls, manipulated results</p>
+            </div>
+            <div class="target-box">
+                <strong>CRISIS EXPLOITATION</strong>
+                <p style="margin-top: 0.5rem; color: #00cc00;">Disaster misinfo, fake charity scams, panic-inducing lies</p>
+            </div>
+            <div class="target-box">
+                <strong>DEEPFAKES & MANIPULATION</strong>
+                <p style="margin-top: 0.5rem; color: #00cc00;">AI-generated fakes, out-of-context media, doctored evidence</p>
+            </div>
+        </div>
+
+        <h2 class="section-title">⚔️ Engagement Matrix</h2>
+
+        <div class="engagement-matrix">
+            <div class="do-list">
+                <div class="list-header">✓ ALWAYS DO</div>
+                <div class="list-item">
+                    <strong>Cite primary sources</strong> - Link directly to studies, data, original reporting
+                </div>
+                <div class="list-item">
+                    <strong>Show your methodology</strong> - Explain how you verified something
+                </div>
+                <div class="list-item">
+                    <strong>Engage with good faith</strong> - Assume honest confusion before malicious intent
+                </div>
+                <div class="list-item">
+                    <strong>Use Socratic questioning</strong> - Ask questions that prompt critical thinking
+                </div>
+                <div class="list-item">
+                    <strong>Archive everything</strong> - Preserve evidence before it disappears
+                </div>
+                <div class="list-item">
+                    <strong>Maintain composure</strong> - Emotion undermines credibility
+                </div>
+            </div>
+
+            <div class="dont-list">
+                <div class="list-header">✗ NEVER DO</div>
+                <div class="list-item">
+                    <strong>Share unverified content</strong> - Even to debunk it, you amplify it
+                </div>
+                <div class="list-item">
+                    <strong>Engage in harassment</strong> - Doxxing, brigading, pile-ons are unacceptable
+                </div>
+                <div class="list-item">
+                    <strong>Use logical fallacies</strong> - Ad hominem, strawmen, false equivalence weaken your position
+                </div>
+                <div class="list-item">
+                    <strong>Claim absolute certainty</strong> - Science and evidence evolve. Stay humble.
+                </div>
+                <div class="list-item">
+                    <strong>Fight every battle</strong> - Some people aren't worth your time or energy
+                </div>
+                <div class="list-item">
+                    <strong>Fabricate or exaggerate</strong> - The moment you lie, you lose all credibility
+                </div>
+            </div>
+        </div>
+
+        <div class="manifesto">
+            <div class="manifesto-title">JOIN THE RESISTANCE</div>
+            <div class="manifesto-text">
+                We are not hackers. We are not trolls. We are information warriors armed with verification tools and a commitment to truth.
+                <br><br>
+                We do not seek to win arguments. We seek to elevate discourse. We do not attack people. We dismantle bad ideas with evidence.
+                <br><br>
+                We are the antidote to algorithmic manipulation. The immune system against viral lies. The last line of defense in the information war.
+                <br><br>
+                <strong>The tools are loaded. The mission is clear. The fight is now.</strong>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-text">
+            ARSENAL v2.0 | INTEGRITY OVER IDEOLOGY | EVIDENCE OVER EMOTION
+            <br>
+            <span style="font-size: 0.8rem; margin-top: 1rem; display: block;">
+                Remember: Truth is not a weapon to beat people with. It's a light to guide people toward.
+            </span>
+        </div>
+    </footer>
+
+    <script>
+        const matrix = document.getElementById('matrix');
+        const chars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
+        
+        function createMatrixRain() {
+            const columns = Math.floor(window.innerWidth / 20);
+            const drops = [];
+            
+            for (let i = 0; i < columns; i++) {
+                drops[i] = Math.random() * -100;
+            }
+            
+            setInterval(() => {
+                matrix.innerHTML = '';
+                for (let i = 0; i < columns; i++) {
+                    const char = chars[Math.floor(Math.random() * chars.length)];
+                    const x = i * 20;
+                    const y = drops[i] * 20;
+                    
+                    const span = document.createElement('span');
+                    span.textContent = char;
+                    span.style.position = 'absolute';
+                    span.style.left = x + 'px';
+                    span.style.top = y + 'px';
+                    matrix.appendChild(span);
+                    
+                    if (y > window.innerHeight && Math.random() > 0.95) {
+                        drops[i] = 0;
+                    }
+                    drops[i]++;
+                }
+            }, 50);
+        }
+        
+        createMatrixRain();
+        
+        window.addEventListener('resize', createMatrixRain);
+    </script>
 </body>
 </html>

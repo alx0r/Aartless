@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ENLIST NOW :: DIGITAL WARFARE COMMAND</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Black+Ops+One&family=Rubik:wght@900&display=swap" rel="stylesheet">
+<style>
+/* ——— RESET ——— */
+* {margin:0;padding:0;box-sizing:border-box;}
+body {
+  background:#000;color:#fff;
+  font-family:'Share Tech Mono',monospace;
+  line-height:1.6;overflow-x:hidden;
+}
+/* ——— GRAIN + VIGNETTE ——— */
+.grain {
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  background:url('data:image/svg+xml,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noise)" opacity="0.05"/></svg>');
+  pointer-events:none;z-index:9999;opacity:0.8;
+}
+.vignette {
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  box-shadow:inset 0 0 200px rgba(0,0,0,0.9);
+  pointer-events:none;z-index:9998;
+}
+/* ——— HEADER ——— */
+header {
+  background:
+    linear-gradient(135deg,rgba(139,0,0,0.3) 25%,transparent 25%),
+    linear-gradient(225deg,rgba(139,0,0,0.3) 25%,transparent 25%),
+    linear-gradient(45deg,rgba(139,0,0,0.3) 25%,transparent 25%),
+    linear-gradient(315deg,rgba(139,0,0,0.3) 25%,transparent 25%),
+    linear-gradient(180deg,#1a0000 0%,#000000 100%);
+  background-size:40px 40px;
+  background-position:0 0,0 20px,20px -20px,-20px 0px;
+  border-bottom:8px solid #8b0000;border-top:4px solid #8b0000;
+  padding:4rem 2rem;text-align:center;position:relative;
+  box-shadow:0 10px 40px rgba(139,0,0,0.5);
+}
+.war-banner {
+  position:absolute;top:0;left:0;right:0;
+  background:#8b0000;color:#000;font-weight:900;
+  padding:0.5rem;font-size:0.9rem;letter-spacing:0.3em;
+  animation:urgent-pulse 1s infinite;
+}
+@keyframes urgent-pulse {
+  0%,100%{background:#8b0000;}50%{background:#ff0000;}
+}
+h1 {
+  font-family:'Black Ops One',cursive;
+  font-size:clamp(2.5rem,10vw,6rem);color:#ff0000;text-transform:uppercase;
+  letter-spacing:0.05em;margin:2rem 0 1rem;
+  text-shadow:0 0 10px #ff0000,0 0 20px #ff0000,4px 4px 0 #8b0000,8px 8px 0 #000;
+  transform:scaleY(1.2);animation:battle-ready 3s infinite;
+}
+@keyframes battle-ready {
+  0%,90%,100% {
+    text-shadow:0 0 10px #ff0000,0 0 20px #ff0000,4px 4px 0 #8b0000,8px 8px 0 #000;
+  }
+  95% {
+    text-shadow:0 0 20px #ff0000,0 0 40px #ff0000,6px 6px 0 #8b0000,10px 10px 0 #000;
+  }
+}
+.subtitle {
+  font-size:clamp(1.2rem,4vw,2rem);color:#ff0000;font-weight:900;
+  margin-bottom:2rem;letter-spacing:0.2em;text-transform:uppercase;
+}
+.mobilization-alert {
+  background:repeating-linear-gradient(45deg,#8b0000,#8b0000 10px,#000 10px,#000 20px);
+  border:4px solid #ff0000;padding:2rem;margin:2rem auto;max-width:800px;
+  text-align:center;font-size:1.5rem;font-weight:900;color:#fff;
+  text-shadow:2px 2px 0 #000;box-shadow:0 0 40px rgba(255,0,0,0.5);
+  animation:warning-flash 2s infinite;
+}
+@keyframes warning-flash {0%,100%{border-color:#ff0000;}50%{border-color:#ffff00;}}
+/* ——— SECTIONS ——— */
+section {
+  max-width:1400px;margin:0 auto;padding:4rem 2rem;position:relative;
+}
+section::before {
+  content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:#8b0000;
+}
+h2 {
+  font-family:'Rubik',sans-serif;font-size:clamp(2rem,6vw,4rem);
+  font-weight:900;color:#ff0000;text-transform:uppercase;
+  margin-bottom:2rem;position:relative;padding-left:3rem;
+  text-shadow:3px 3px 0 #8b0000;letter-spacing:0.05em;
+}
+h2::before {
+  content:'⚠';position:absolute;left:0;color:#ffff00;font-size:2.5rem;
+  animation:alert-spin 3s linear infinite;
+}
+@keyframes alert-spin {
+  0%,85%,100%{transform:rotate(0deg);}90%{transform:rotate(10deg);}95%{transform:rotate(-10deg);}
+}
+h3 {
+  color:#ffff00;font-size:1.8rem;font-weight:900;margin:2rem 0 1rem;
+  text-transform:uppercase;text-shadow:2px 2px 0 #8b0000;letter-spacing:0.1em;
+}
+p {margin-bottom:1.5rem;font-size:1.15rem;line-height:1.9;color:#ddd;}
+/* ——— OP GRID ——— */
+.operations-grid {
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(350px,1fr));
+  gap:2rem;margin:3rem 0;
+}
+.operation-card {
+  background:linear-gradient(135deg,rgba(139,0,0,0.2) 0%,rgba(0,0,0,0.9) 100%);
+  border:3px solid #8b0000;border-left:8px solid #ff0000;padding:2rem;
+  position:relative;transition:all 0.3s;box-shadow:0 4px 20px rgba(0,0,0,0.5);
+}
+.operation-card:hover {
+  background:linear-gradient(135deg,rgba(139,0,0,0.4) 0%,rgba(0,0,0,0.95) 100%);
+  transform:translateX(10px);box-shadow:-15px 0 30px rgba(255,0,0,0.4);border-left-width:12px;
+}
+.operation-card::before {
+  content:'CLASSIFIED';position:absolute;top:1rem;right:1rem;background:#8b0000;color:#000;
+  padding:0.3rem 0.8rem;font-size:0.7rem;font-weight:900;letter-spacing:0.2em;transform:rotate(5deg);
+}
+.op-number {
+  font-size:4rem;color:#ff0000;font-weight:900;line-height:1;margin-bottom:1rem;
+  font-family:'Black Ops One',cursive;text-shadow:3px 3px 0 #8b0000;
+}
+.command-terminal {
+  background:#000;border:4px solid #8b0000;padding:2rem;margin:2rem 0;
+  font-family:'Share Tech Mono',monospace;font-size:1.2rem;position:relative;
+  box-shadow:0 0 30px rgba(139,0,0,0.5);
+}
+.command-terminal::before {
+  content:'COMMAND://ROOT@RESISTANCE_';display:block;color:#ff0000;
+  margin-bottom:1rem;font-weight:900;
+}
+.command-terminal::after {
+  content:'█';animation:cursor-blink 1s infinite;
+}
+@keyframes cursor-blink {0%,49%{opacity:1;}50%,100%{opacity:0;}}
+/* ——— FOOTER ——— */
+footer {
+  text-align:center;padding:4rem 2rem;border-top:8px solid #8b0000;
+  background:repeating-linear-gradient(90deg,#000,#000 2px,#0a0000 2px,#0a0000 4px);
+}
+.propaganda-stamp {
+  display:inline-block;border:4px solid #8b0000;padding:1rem 2rem;margin:2rem 0;
+  transform:rotate(-2deg);font-weight:900;font-size:1.2rem;background:rgba(139,0,0,0.3);
+}
+@media (max-width:768px){
+  .operations-grid{grid-template-columns:1fr;}
+  section{padding:2rem 1rem;}
+  h1{font-size:2.5rem;}
+}
+strong{color:#ff0000;font-weight:900;}
+</style>
+</head>
+<body>
+<div class="grain"></div>
+<div class="vignette"></div>
+
+<header>
+  <div class="war-banner">⚠ MOBILIZATION ORDER IN EFFECT ⚠</div>
+  <h1>ENLIST NOW</h1>
+  <div class="subtitle">Digital Warfare Operations Command</div>
+  <div class="mobilization-alert">
+    THIS IS NOT A METAPHOR<br>THIS IS WARFARE<br>YOUR PLATFORM IS YOUR WEAPON
+  </div>
+</header>
+
+<section id="mission">
+  <h2>Mission Brief</h2>
+  <p style="font-size:1.3rem;font-weight:700;color:#ff0000;">
+    ATTENTION: You are now enlisted in the largest information warfare operation in human history.
+  </p>
+  <p>The battlefield is digital. The enemy is disinformation, complacency, algorithmic suppression, and institutional capture.</p>
+  <p><strong>We are not here to debate.</strong> We are here to <strong>ATTACK</strong>, to <strong>HACK</strong> the narrative, to <strong>TRACK</strong> the lies, to <strong>MONITOR</strong> the suppression, to <strong>FILE COMPLAINTS</strong>, to <strong>COORDINATE OPERATIONS</strong>, and to <strong>WIN</strong>.</p>
+  <div class="command-terminal">
+    RULES OF ENGAGEMENT: Evidence over emotion. Research over rhetoric. Coordination over chaos. We move as a unit. We verify every claim. We amplify every truth. We archive everything.
+  </div>
+  <div class="critical-warning">
+    <div class="critical-warning-inner">
+      <h3>⚠ CRITICAL INTELLIGENCE ⚠</h3>
+      <p style="font-size:1.2rem;">They want you passive. They want you overwhelmed. They want you believing that one person can't make a difference. <strong>THEY ARE LYING.</strong></p>
+      <p style="font-size:1.2rem;margin-top:1rem;">Every bot network. Every propaganda campaign. Every disinformation operation. They ALL collapse when coordinated humans with evidence show up and FIGHT BACK.</p>
+    </div>
+  </div>
+  <p style="font-size:1.3rem;margin-top:2rem;">
+    <strong>YOUR ORDERS:</strong> Deploy these tactics immediately. Train others. Form cells. Coordinate attacks. Document everything. Never stop.
+  </p>
+</section>
+
+<section id="operations">
+  <h2>Combat Operations</h2>
+  <p style="font-size:1.2rem;margin-bottom:3rem;">These are not suggestions. These are <strong>OPERATIONAL DIRECTIVES</strong>. Execute them with precision.</p>
+
+  <div class="operations-grid">
+    <!-- OP-01 to OP-07 as before ... -->
+
+    <!-- OP-08 COMPLETE -->
+    <div class="operation-card">
+      <div class="op-number">OP-08</div>
+      <h3>SURGICAL STRIKES</h3>
+      <p><strong>OBJECTIVE:</strong> Target high-impact misinformation.</p>
+      <p><strong>TACTICS:</strong></p>
+      <ul style="margin-left:1.5rem;margin-top:1rem;">
+        <li>Identify viral lies early</li>
+        <li>Mobilize rapid response teams</li>
+        <li>Deploy corrections in first hours</li>
+        <li>Contact journalists with evidence</li>
+        <li>Kill disinformation before it spreads</li>
+      </ul>
+      <p class="command-terminal" style="margin-top:1.5rem;padding:1rem;font-size:0.95rem;">
+        PROTOCOL: Speed is supremacy. Strike before they fortify. The first hours decide the narrative.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="recruitment">
+  <h2>Join the Digital Front</h2>
+  <p style="font-size:1.3rem;margin-bottom:2rem;">Stand with us. Form your cell. Take action now.</p>
+  <a href="#" class="enlist-button">ENLIST NOW</a>
+  <a href="#" class="enlist-button">TRAIN OTHERS</a>
+</section>
+
+<footer>
+  <div class="propaganda-stamp">APPROVED :: DIGITAL WARFARE COMMAND</div>
+  <p style="font-size:0.9rem;color:#999;">&copy; 2025 Digital Warfare Command. All Rights Reserved.</p>
+</footer>
+
+</body>
+</html>

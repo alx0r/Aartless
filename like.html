@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WAKE UP :: DIGITAL RESISTANCE MANUAL</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Roboto+Condensed:wght@700;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: #0a0a0a;
+            color: #00ff00;
+            font-family: 'Share Tech Mono', monospace;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .scanline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                to bottom,
+                rgba(255, 0, 0, 0) 50%,
+                rgba(0, 0, 0, 0.05) 51%
+            );
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 9999;
+            animation: scan 8s linear infinite;
+        }
+        
+        @keyframes scan {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(100vh); }
+        }
+        
+        .glitch {
+            position: relative;
+            animation: glitch 2s infinite;
+        }
+        
+        @keyframes glitch {
+            0%, 90%, 100% {
+                text-shadow: none;
+            }
+            92% {
+                text-shadow: 2px 0 #ff0000, -2px 0 #00ff00;
+                transform: translate(2px, 0);
+            }
+            94% {
+                text-shadow: -2px 0 #ff0000, 2px 0 #00ff00;
+                transform: translate(-2px, 0);
+            }
+        }
+        
+        header {
+            background: linear-gradient(180deg, #1a0000 0%, #000000 100%);
+            border-bottom: 3px solid #ff0000;
+            padding: 4rem 2rem;
+            text-align: center;
+            position: relative;
+        }
+        
+        h1 {
+            font-family: 'Roboto Condensed', sans-serif;
+            font-size: clamp(2rem, 8vw, 5rem);
+            font-weight: 900;
+            color: #ff0000;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+        }
+        
+        .subtitle {
+            font-size: clamp(1rem, 3vw, 1.5rem);
+            color: #00ff00;
+            font-weight: 400;
+            margin-bottom: 2rem;
+        }
+        
+        .alert {
+            background: rgba(255, 0, 0, 0.1);
+            border: 2px solid #ff0000;
+            padding: 1rem;
+            margin: 2rem auto;
+            max-width: 600px;
+            text-align: center;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { border-color: #ff0000; }
+            50% { border-color: #ff6666; }
+        }
+        
+        section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            border-bottom: 1px solid #333;
+        }
+        
+        h2 {
+            font-family: 'Roboto Condensed', sans-serif;
+            font-size: clamp(1.8rem, 5vw, 3rem);
+            color: #ff0000;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+            position: relative;
+            padding-left: 2rem;
+        }
+        
+        h2::before {
+            content: '>>';
+            position: absolute;
+            left: 0;
+            color: #00ff00;
+            animation: blink 1s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 49% { opacity: 1; }
+            50%, 100% { opacity: 0; }
+        }
+        
+        h3 {
+            color: #00ff00;
+            font-size: 1.5rem;
+            margin: 2rem 0 1rem;
+            text-transform: uppercase;
+        }
+        
+        p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        .tactics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .tactic-card {
+            background: rgba(255, 0, 0, 0.05);
+            border: 2px solid #ff0000;
+            padding: 2rem;
+            transition: all 0.3s;
+        }
+        
+        .tactic-card:hover {
+            background: rgba(255, 0, 0, 0.1);
+            transform: translateX(10px);
+            box-shadow: -10px 0 20px rgba(255, 0, 0, 0.3);
+        }
+        
+        .tactic-number {
+            font-size: 3rem;
+            color: #ff0000;
+            font-weight: 900;
+            line-height: 1;
+            margin-bottom: 1rem;
+        }
+        
+        .tools-list {
+            list-style: none;
+            margin: 2rem 0;
+        }
+        
+        .tools-list li {
+            background: rgba(0, 255, 0, 0.05);
+            border-left: 4px solid #00ff00;
+            padding: 1rem;
+            margin: 1rem 0;
+            transition: all 0.3s;
+        }
+        
+        .tools-list li:hover {
+            background: rgba(0, 255, 0, 0.1);
+            transform: translateX(10px);
+        }
+        
+        .tool-name {
+            color: #00ff00;
+            font-weight: 700;
+            font-size: 1.2rem;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        
+        .tool-desc {
+            color: #888;
+            font-size: 0.95rem;
+        }
+        
+        a {
+            color: #00ff00;
+            text-decoration: none;
+            border-bottom: 1px solid #00ff00;
+            transition: all 0.3s;
+        }
+        
+        a:hover {
+            color: #ff0000;
+            border-bottom-color: #ff0000;
+        }
+        
+        .protocols {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 2rem;
+            border: 2px solid #00ff00;
+            margin: 2rem 0;
+        }
+        
+        .protocols ol {
+            margin-left: 2rem;
+        }
+        
+        .protocols li {
+            margin: 1rem 0;
+            padding-left: 1rem;
+        }
+        
+        .cta {
+            background: linear-gradient(180deg, #000000 0%, #1a0000 100%);
+            text-align: center;
+            padding: 6rem 2rem;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: #ff0000;
+            color: #000;
+            font-size: 1.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            padding: 1.5rem 3rem;
+            border: none;
+            cursor: pointer;
+            margin: 2rem 1rem;
+            transition: all 0.3s;
+            text-decoration: none;
+            border-bottom: none;
+            letter-spacing: 0.1em;
+        }
+        
+        .cta-button:hover {
+            background: #00ff00;
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(0, 255, 0, 0.5);
+        }
+        
+        .terminal {
+            background: #000;
+            border: 2px solid #00ff00;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            font-family: 'Share Tech Mono', monospace;
+        }
+        
+        .terminal::before {
+            content: '$ ';
+            color: #ff0000;
+        }
+        
+        .warning {
+            background: rgba(255, 0, 0, 0.2);
+            border: 2px solid #ff0000;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            font-weight: 700;
+        }
+        
+        .matrix-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.03;
+            z-index: -1;
+            pointer-events: none;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            border-top: 3px solid #ff0000;
+            background: #000;
+        }
+        
+        .highlight {
+            color: #ff0000;
+            font-weight: 700;
+        }
+        
+        @media (max-width: 768px) {
+            .tactics-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            section {
+                padding: 2rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="scanline"></div>
+    <div class="matrix-bg" id="matrix"></div>
+    
+    <header>
+        <h1 class="glitch">WAKE UP</h1>
+        <div class="subtitle">DIGITAL RESISTANCE MANUAL v1.0</div>
+        <div class="alert">
+            ⚠ SYSTEM ALERT: YOU ARE NOT A PASSIVE CONSUMER ⚠
+        </div>
+    </header>
+    
+    <section id="situation">
+        <h2>The Situation</h2>
+        
+        <p>You are living inside the most powerful knowledge-distribution system ever created. The platforms you scroll through daily—the comments sections, the like buttons, the share functions—these are not entertainment features. <span class="highlight">They are weapons.</span></p>
+        
+        <p>And you've been trained to leave them holstered.</p>
+        
+        <div class="warning">
+            ⚠ CRITICAL REALIZATION: Every comment you don't write, every piece of misinformation you don't challenge, every valuable insight you don't amplify—these are not neutral acts. They are choices. And those choices have consequences.
+        </div>
+        
+        <p>The suppression is not coming from the top anymore. It's <span class="highlight">lateral</span>. It's <span class="highlight">self-imposed</span>. We are suppressing ourselves through complacency.</p>
+        
+        <p>The algorithm doesn't control you. Your inaction does.</p>
+        
+        <h3>Platform Affordance Abandonment</h3>
+        
+        <p>You have tools:</p>
+        <ul class="tools-list" style="list-style: none;">
+            <li>→ Comments sections (collaborative sense-making)</li>
+            <li>→ Voting systems (collective filtering)</li>
+            <li>→ Share functions (network amplification)</li>
+            <li>→ Report features (community moderation)</li>
+        </ul>
+        
+        <p>You're not using them. Or worse—you're using them passively, reactively, tribally.</p>
+        
+        <div class="terminal">
+            The revolution will not be televised. But it will be commented on, fact-checked, archived, and amplified.
+        </div>
+    </section>
+    
+    <section id="tactics">
+        <h2>The Tactics</h2>
+        
+        <p>This is not theory. This is a <span class="highlight">field manual</span>. These are tactical operations you can deploy <span class="highlight">TODAY</span>.</p>
+        
+        <div class="tactics-grid">
+            <div class="tactic-card">
+                <div class="tactic-number">01</div>
+                <h3>Comment Strategically</h3>
+                <p><strong>NOT:</strong> "This is stupid" or "I agree!"</p>
+                <p><strong>YES:</strong></p>
+                <ul>
+                    <li>Add sources</li>
+                    <li>Ask clarifying questions</li>
+                    <li>Correct misinformation with evidence</li>
+                    <li>Provide context</li>
+                    <li>Connect to broader patterns</li>
+                </ul>
+                <p class="terminal" style="margin-top: 1rem;">Rule: If your comment could be replaced by an emoji, don't post it.</p>
+            </div>
+            
+            <div class="tactic-card">
+                <div class="tactic-number">02</div>
+                <h3>Validate Everything</h3>
+                <p>Before sharing. Before liking. Before believing.</p>
+                <p><strong>The Validation Stack:</strong></p>
+                <ol>
+                    <li>Check the source</li>
+                    <li>Check the date</li>
+                    <li>Reverse image search</li>
+                    <li>Cross-reference claims</li>
+                    <li>Check for original research</li>
+                </ol>
+            </div>
+            
+            <div class="tactic-card">
+                <div class="tactic-number">03</div>
+                <h3>Engage Logically</h3>
+                <p><strong>Spot the fallacies:</strong></p>
+                <ul>
+                    <li>Ad hominem (attacking person, not argument)</li>
+                    <li>Strawman (distorting position)</li>
+                    <li>False equivalence (comparing incomparables)</li>
+                    <li>Appeal to authority (trust institutions blindly)</li>
+                    <li>Slippery slope (unfounded escalation)</li>
+                </ul>
+                <p class="terminal" style="margin-top: 1rem;">Don't argue with trolls. Argue for the audience.</p>
+            </div>
+            
+            <div class="tactic-card">
+                <div class="tactic-number">04</div>
+                <h3>Curate Actively</h3>
+                <p>Your likes and shares are votes in an algorithmic democracy.</p>
+                <p><strong>AMPLIFY:</strong></p>
+                <ul>
+                    <li>Primary sources</li>
+                    <li>Peer-reviewed research</li>
+                    <li>Investigative journalism</li>
+                    <li>Marginalized voices with receipts</li>
+                    <li>Educational content</li>
+                </ul>
+                <p><strong>STARVE:</strong></p>
+                <ul>
+                    <li>Rage bait</li>
+                    <li>Unverified claims</li>
+                    <li>Engagement farming</li>
+                    <li>Tribal signaling without substance</li>
+                </ul>
+            </div>
+            
+            <div class="tactic-card">
+                <div class="tactic-number">05</div>
+                <h3>Build Networks</h3>
+                <p>You can't do this alone. Find others doing the work.</p>
+                <p><strong>Network Operations:</strong></p>
+                <ul>
+                    <li>Tag reliable fact-checkers</li>
+                    <li>Coordinate on misinformation</li>
+                    <li>Share validation tools</li>
+                    <li>Archive important content</li>
+                    <li>Protect vulnerable users</li>
+                </ul>
+            </div>
+            
+            <div class="tactic-card">
+                <div class="tactic-number">06</div>
+                <h3>Archive & Document</h3>
+                <p>They will delete. They will edit. They will memory-hole.</p>
+                <p>You will remember.</p>
+                <p><strong>Preservation tactics:</strong></p>
+                <ul>
+                    <li>Screenshot with timestamps</li>
+                    <li>Use archive tools</li>
+                    <li>Download important videos</li>
+                    <li>Save receipts</li>
+                    <li>Document patterns</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    
+    <section id="tools">
+        <h2>The Arsenal</h2>
+        
+        <p>These are not recommendations. These are <span class="highlight">operational tools</span>. Learn them. Use them. Share them.</p>
+        
+        <h3>Verification & Fact-Checking</h3>
+        <ul class="tools-list">
+            <li>
+                <span class="tool-name">Google Reverse Image Search / TinEye</span>
+                <span class="tool-desc">Verify images haven't been manipulated or taken out of context</span>
+            </li>
+            <li>
+                <span class="tool-name">Snopes / FactCheck.org / PolitiFact</span>
+                <span class="tool-desc">Cross-reference viral claims against established fact-checkers</span>
+            </li>
+            <li>
+                <span class="tool-name">Media Bias/Fact Check</span>
+                <span class="tool-desc">Assess source reliability and political bias</span>
+            </li>
+            <li>
+                <span class="tool-name">InVID / WeVerify</span>
+                <span class="tool-desc">Browser extension for video verification</span>
+            </li>
+        </ul>
+        
+        <h3>Academic & Research Access</h3>
+        <ul class="tools-list">
+            <li>
+                <span class="tool-name">Google Scholar</span>
+                <span class="tool-desc">Access peer-reviewed research directly</span>
+            </li>
+            <li>
+                <span class="tool-name">PubMed</span>
+                <span class="tool-desc">Medical and scientific research database</span>
+            </li>
+            <li>
+                <span class="tool-name">arXiv.org</span>
+                <span class="tool-desc">Open-access scientific papers</span>
+            </li>
+            <li>
+                <span class="tool-name">JSTOR (limited free access)</span>
+                <span class="tool-desc">Academic journal articles</span>
+            </li>
+            <li>
+                <span class="tool-name">Directory of Open Access Journals (DOAJ)</span>
+                <span class="tool-desc">Free, peer-reviewed academic content</span>
+            </li>
+        </ul>
+        
+        <h3>Archiving & Preservation</h3>
+        <ul class="tools-list">
+            <li>
+                <span class="tool-name">Wayback Machine (archive.org)</span>
+                <span class="tool-desc">Archive and retrieve deleted web content</span>
+            </li>
+            <li>
+                <span class="tool-name">Archive.is / Archive.today</span>
+                <span class="tool-desc">Create permanent snapshots of web pages</span>
+            </li>
+            <li>
+                <span class="tool-name">Perma.cc</span>
+                <span class="tool-desc">Create permanent links to web citations</span>
+            </li>
+        </ul>
+        
+        <h3>Critical Thinking & Logic</h3>
+        <ul class="tools-list">
+            <li>
+                <span class="tool-name">YourLogicalFallacyIs.com</span>
+                <span class="tool-desc">Visual guide to logical fallacies</span>
+            </li>
+            <li>
+                <span class="tool-name">The Propaganda Critic</span>
+                <span class="tool-desc">Identify propaganda techniques</span>
+            </li>
+            <li>
+                <span class="tool-name">Crash Course Media Literacy (YouTube)</span>
+                <span class="tool-desc">Free educational series on media analysis</span>
+            </li>
+        </ul>
+        
+        <h3>Browser Extensions (Use Wisely)</h3>
+        <ul class="tools-list">
+            <li>
+                <span class="tool-name">NewsGuard</span>
+                <span class="tool-desc">Rates news source credibility</span>
+            </li>
+            <li>
+                <span class="tool-name">Official Fact-Checker Extensions</span>
+                <span class="tool-desc">From organizations like Snopes, FactCheck</span>
+            </li>
+        </ul>
+        
+        <div class="warning">
+            ⚠ CRITICAL: No tool replaces your judgment. These are aids, not replacements for critical thinking.
+        </div>
+    </section>
+    
+    <section id="protocols">
+        <h2>Community Protocols</h2>
+        
+        <div class="protocols">
+            <h3>The Resistance Operates By:</h3>
+            <ol>
+                <li><strong>EVIDENCE OVER EMOTION:</strong> Feelings are valid. Claims require proof.</li>
+                <li><strong>SOURCES OVER SCREENSHOTS:</strong> Anyone can fake an image. Link to original sources.</li>
+                <li><strong>RESEARCH OVER RHETORIC:</strong> Peer review beats hot takes.</li>
+                <li><strong>COMMUNITIES OVER CELEBRITIES:</strong> Trust people doing the work, not people with platforms.</li>
+                <li><strong>PROCESS OVER PERSONALITY:</strong> Attack ideas, not individuals.</li>
+                <li><strong>TEACHING OVER DUNKING:</strong> You're not trying to win. You're trying to inform.</li>
+                <li><strong>PERSISTENCE OVER PERFECTION:</strong> You will make mistakes. Correct them and move forward.</li>
+                <li><strong>NETWORKS OVER HEROES:</strong> This is collective work. No saviors.</li>
+            </ol>
+        </div>
+        
+        <h3>Recognizing Allies</h3>
+        <p>Look for people who:</p>
+        <ul class="tools-list" style="list-style: none;">
+            <li>→ Cite sources consistently</li>
+            <li>→ Correct their own mistakes publicly</li>
+            <li>→ Ask clarifying questions before arguing</li>
+            <li>→ Amplify marginalized voices</li>
+            <li>→ Focus on systems, not just symptoms</li>
+            <li>→ Admit when they don't know something</li>
+        </ul>
+        
+        <h3>Protecting Against Co-Option</h3>
+        <p>The system will try to absorb this resistance. Watch for:</p>
+        <ul class="tools-list" style="list-style: none;">
+            <li>→ Movements becoming brands</li>
+            <li>→ Tactics becoming trends</li>
+            <li>→ Resistance becoming aesthetic</li>
+            <li>→ Leaders emerging to speak "for" the movement</li>
+            <li>→ Corporate sponsorship of "activism"</li>
+        </ul>
+        
+        <div class="terminal">
+            If they can sell it back to you, they've already won.
+        </div>
+    </section>
+    
+    <section id="action" class="cta">
+        <h2>Start Now</h2>
+        
+        <p style="font-size: 1.3rem; max-width: 800px; margin: 2rem auto;">
+            This is not a drill. This is not preparation for some future action. <span class="highlight">This is the action.</span>
+        </p>
+        
+        <div class="terminal" style="font-size: 1.2rem; max-width: 900px; margin: 3rem auto;">
+            The next time you see misinformation: don't scroll past.<br>
+            The next time you see a valuable insight: don't just like it—amplify it.<br>
+            The next time you want to comment: make it count.
+        </div>
+        
+        <p style="font-size: 1.5rem; margin: 3rem 0; font-weight: 700;">
+            THE COMMENTS SECTION IS A BATTLEFIELD.<br>
+            THE LIKE BUTTON IS A VOTING BOOTH.<br>
+            THE SHARE FUNCTION IS A PRINTING PRESS.
+        </p>
+        
+        <p style="font-size: 1.2rem; margin: 2rem 0;">
+            You are not powerless. You have never been powerless.<br>
+            You've just been convinced to not use your power.
+        </p>
+        
+        <div style="margin: 4rem 0;">
+            <a href="#situation" class="cta-button">READ AGAIN</a>
+            <a href="#tactics" class="cta-button">LEARN TACTICS</a>
+        </div>
+        
+        <div class="warning" style="max-width: 800px; margin: 3rem auto; font-size: 1.1rem;">
+            ⚠ WARNING: This will be exhausting. This will be frustrating. You will feel like you're shouting into the void.<br><br>
+            Do it anyway.<br><br>
+            Because somewhere, someone is reading. Someone is learning. Someone is being pulled back from the brink of believing a lie.<br><br>
+            And that someone might save someone else.
+        </div>
+    </section>
+    
+    <footer>
+        <p style="font-size: 1.2rem; margin-bottom: 1rem;">
+            DIGITAL RESISTANCE MANUAL v1.0
+        </p>
+        <p style="color: #666; font-size: 0.9rem;">
+            Share this. Fork this. Improve this. Translate this.<br>
+            This is not copyrighted. This is not owned. This is ours.
+        </p>
+        <div class="terminal" style="display: inline-block; margin-top: 2rem;">
+            SYSTEM STATUS: OPERATIONAL // RESISTANCE: ACTIVE
+        </div>
+    </footer>
+    
+    <script>
+        // Matrix rain effect
+        const canvas = document.getElementById('matrix');
+        const chars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
+        let matrixInterval;
+        
+        function createMatrixRain() {
+            if (window.innerWidth > 768) {
+                const columns = Math.floor(window.innerWidth / 20);
+                let drops = [];
+                
+                for (let i = 0; i < columns; i++) {
+                    drops[i] = Math.random() * -100;
+                }
+                
+                matrixInterval = setInterval(() => {
+                    let output = '';
+                    for (let i = 0; i < columns; i++) {
+                        const char = chars[Math.floor(Math.random() * chars.length)];
+                        const y = drops[i] * 20;
+                        output += `<span style="position:absolute;left:${i * 20}px;top:${y}px;color:#00ff00;font-size:20px;">${char}</span>`;
+                        
+                        if (drops[i] * 20 > window.innerHeight && Math.random() > 0.95) {
+                            drops[i] = 0;
+                        }
+                        drops[i]++;
+                    }
+                    canvas.innerHTML = output;
+                }, 50);
+            }
+        }
+        
+        createMatrixRain();
+        
+        window.addEventListener('resize', () => {
+            clearInterval(matrixInterval);
+            createMatrixRain();
+        });
+    </script>
+</body>
+</html>

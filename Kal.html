@@ -1,0 +1,171 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Kali USB — Rapid Field Guide</title>
+  <style>
+    :root{--bg:#0f1115;--card:#0e1318;--muted:#9aa3ad;--accent:#9be7ff}
+    *{box-sizing:border-box;font-family:Inter,ui-sans-serif,system-ui,Helvetica,Arial,sans-serif}
+    html,body{height:100%;margin:0;background:linear-gradient(180deg,#081018 0%,#0f1115 100%);color:#e6eef3}
+    .wrap{max-width:900px;margin:32px auto;padding:22px;background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);border-radius:14px;box-shadow:0 6px 30px rgba(0,0,0,.6)}
+    header{display:flex;align-items:center;gap:16px}
+    header h1{margin:0;font-weight:700;font-size:20px}
+    header p{margin:0;color:var(--muted);font-size:13px}
+    .grid{display:grid;grid-template-columns:1fr 300px;gap:18px;margin-top:18px}
+    main{min-width:0}
+    .card{background:rgba(255,255,255,0.02);padding:14px;border-radius:10px}
+    h2{margin:0 0 8px 0;font-size:16px}
+    p{margin:8px 0;color:#cfe6f0;font-size:14px;line-height:1.45}
+    ul{margin:8px 0 12px 18px}
+    li{margin:6px 0}
+    code{background:rgba(0,0,0,0.35);padding:4px 6px;border-radius:6px;font-family:monospace;font-size:13px}
+    .muted{color:var(--muted);font-size:13px}
+    .checklist{font-size:14px}
+    aside h3{margin:0 0 8px 0}
+    footer{margin-top:18px;color:var(--muted);font-size:13px;text-align:center}
+    .pill{display:inline-block;padding:6px 10px;border-radius:999px;background:rgba(155,231,255,0.06);color:var(--accent);font-weight:600;font-size:13px}
+    a{color:var(--accent);text-decoration:none}
+    @media (max-width:880px){.grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div>
+        <h1>Kali USB — Rapid Field Guide</h1>
+        <p class="muted">Portable, lightweight, and operational — how to build a secure Kali Live USB with persistence and sensible hygiene.</p>
+      </div>
+      <div style="margin-left:auto"><span class="pill">v1 — concise</span></div>
+    </header><div class="grid">
+  <main>
+    <section class="card">
+      <h2>Essence — why carry Kali on USB?</h2>
+      <p>Because a tiny, self-contained toolkit beats fumbling through unknown machines. Kali on USB gives you a consistent environment for diagnostics, forensic triage, network analysis, and legal security assessments. It's portable, auditable, and disposable when you need it to be.</p>
+      <ul>
+        <li>Consistent toolset anywhere (airgapped if required)</li>
+        <li>Forensics & triage without altering host disk</li>
+        <li>Incident response & diagnostics from your pocket</li>
+        <li>Training and assessment on controlled targets</li>
+      </ul>
+    </section>
+
+    <section class="card" style="margin-top:12px">
+      <h2>Prerequisites — what you'll need</h2>
+      <ul>
+        <li>Reliable USB 3.0 drive, 16GB+ for Live; 64GB+ for persistent storage or full install</li>
+        <li>Host computer with BIOS/UEFI and USB boot capability</li>
+        <li>Kali ISO (official source), checksum-verified</li>
+        <li>Imaging tool: balenaEtcher (Windows/macOS/Linux) or <code>dd</code> on Unix-like systems</li>
+        <li>Optional: Rufus (Windows) when you need persistent storage menu options</li>
+      </ul>
+    </section>
+
+    <section class="card" style="margin-top:12px">
+      <h2>Quick install — Live USB with persistence (overview)</h2>
+      <p>This is the minimal, reliable approach: flash the ISO, create a persistence partition, label it <code>persistence</code>, and drop a <code>persistence.conf</code> saying <code>/ union</code>. Boot and enable persistence from the GRUB menu.</p>
+      <p class="muted">(Exact GUI steps vary between tools — follow the tool's prompts. Below are safe, conceptual steps.)</p>
+      <ol>
+        <li>Verify Kali ISO hash against the distributor fingerprint before use.</li>
+        <li>Use balenaEtcher or Rufus to write the ISO to the USB.</li>
+        <li>Resize remaining space on the USB and create an ext4 partition, label it <code>persistence</code>.</li>
+        <li>Mount the partition and create <code>/persistence.conf</code> with the single line: <code>/ union</code>.</li>
+        <li>Boot target machine from USB. From the Kali boot menu select the persistence option.</li>
+      </ol>
+      <p class="muted">If you prefer total secrecy or need full encryption, consider a full install onto the USB with a LUKS-encrypted partition (longer, but stronger).</p>
+    </section>
+
+    <section class="card" style="margin-top:12px">
+      <h2>Security hygiene & hardening (must-do)</h2>
+      <ul>
+        <li><strong>Change defaults:</strong> don't use <code>kali/kali</code> or any pre-known creds. Create unique local accounts.</li>
+        <li><strong>Update immediately:</strong> after first boot run package updates. Concept: <code>apt update && apt full-upgrade -y</code>.</li>
+        <li><strong>Minimal install:</strong> resist installing toolsets you don't need — less software = smaller attack surface.</li>
+        <li><strong>Secure persistence:</strong> store sensitive configs on an encrypted LUKS container inside the USB if you must persist secrets.</li>
+        <li><strong>Network hygiene:</strong> prefer wired or controlled Wi‑Fi. When connecting to unknown networks, use a VPN and avoid storing credentials on the device.</li>
+        <li><strong>Audit logs:</strong> rotate or purge sensitive logs before handing the USB to others.</li>
+      </ul>
+    </section>
+
+    <section class="card" style="margin-top:12px">
+      <h2>Updating & package management (short)</h2>
+      <p>Philosophy: update ASAP, keep snapshots when possible. On a persistent USB, run updates in an isolated environment and test changes before trust.</p>
+      <p class="muted">Suggested sequence (conceptual):</p>
+      <ul>
+        <li>Refresh package lists: <code>apt update</code></li>
+        <li>Upgrade: <code>apt full-upgrade -y</code></li>
+        <li>Clean: <code>apt autoremove --purge -y</code> and <code>apt clean</code></li>
+      </ul>
+    </section>
+
+    <section class="card" style="margin-top:12px">
+      <h2>Tool categories & curated examples (hygienic focus)</h2>
+      <p>Below are classical categories for a compact, lawful toolkit — each entry notes legitimate, defensive uses.</p>
+      <ul>
+        <li><strong>Reconnaissance:</strong> <em>nmap</em> — network discovery and inventory for authorized assessments.</li>
+        <li><strong>Traffic analysis:</strong> <em>wireshark</em> — packet inspection for debugging and incident response.</li>
+        <li><strong>Wireless:</strong> <em>aircrack-ng</em> suite — auditing your own SSIDs and testing Wi‑Fi security (only on authorized networks).</li>
+        <li><strong>Forensics:</strong> <em>autopsy, sleuthkit</em> — triage and file system investigation on seized media.</li>
+        <li><strong>Password & hash analysis:</strong> <em>hashcat</em> — recovery for authorized account retrieval and resilience testing.</li>
+        <li><strong>Vulnerability intelligence:</strong> <em>searchsploit, vuln-scanners</em> — CVE lookups and threat research (use for inventory and mitigation planning).</li>
+        <li><strong>Endpoint tools:</strong> <em>volatility</em> — memory forensics for incident response.</li>
+      </ul>
+      <p class="muted">Note: I omitted deep exploitation workflows and offensive recipes — keep this kit for lawful diagnostics, training, and defense.</p>
+    </section>
+
+    <section class="card" style="margin-top:12px">
+      <h2>Legal & ethical reminder</h2>
+      <p>Carry this kit to defend and diagnose. Do not use it on systems or networks without explicit authorization. Keep operations auditable and consent-driven.</p>
+    </section>
+
+    <section class="card" style="margin-top:12px">
+      <h2>Pocket checklist (single page)</h2>
+      <ul class="checklist">
+        <li>✅ Verify ISO checksum</li>
+        <li>✅ Flash ISO with Etcher/Rufus</li>
+        <li>✅ Create persistence partition labeled <code>persistence</code></li>
+        <li>✅ Change default creds & create local admin</li>
+        <li>✅ Run <code>apt update && apt full-upgrade</code></li>
+        <li>✅ Set up encrypted container for secrets</li>
+        <li>✅ Curate toolset; remove unnecessary packages</li>
+        <li>✅ Document actions and consent where required</li>
+      </ul>
+    </section>
+
+  </main>
+
+  <aside>
+    <div class="card">
+      <h3>Quick references</h3>
+      <p class="muted">Words & concepts you may want to copy into notes:</p>
+      <p><strong>Persistence</strong> — storage that survives across reboots.</p>
+      <p><strong>LUKS</strong> — Linux disk encryption for containers or full installs.</p>
+      <p><strong>Checksum</strong> — SHA256 hash to verify ISO integrity.</p>
+      <p><strong>MITRE/CVE</strong> — frameworks and identifiers for threat & vulnerability tracking.</p>
+    </div>
+
+    <div class="card" style="margin-top:12px">
+      <h3>Reasons to carry</h3>
+      <ul>
+        <li>Immediate triage on unfamiliar hosts</li>
+        <li>Secure, known environment for investigations</li>
+        <li>Training, demos, and red-team simulations (authorized only)</li>
+        <li>Repository of curated forensic tools</li>
+      </ul>
+    </div>
+
+    <div class="card" style="margin-top:12px">
+      <h3>Next steps</h3>
+      <p class="muted">Want a printable one-page cheat sheet, an expanded step-by-step with exact commands, or a full LUKS-encrypted USB install recipe? Tell me which format and I’ll make it terse and tidy.</p>
+    </div>
+  </aside>
+</div>
+
+<footer>
+  Lightweight. Practical. Hygienic. — carry competence, not clutter.
+</footer>
+
+  </div>
+</body>
+</html>

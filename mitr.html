@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MITRE: The Cybernetic War Machine</title>
+    <style>
+        :root {
+            --primary: #1a1a1a;
+            --secondary: #2d2d2d;
+            --accent: #0066cc;
+            --highlight: #fff3cd;
+            --warning: #f8d7da;
+            --text: #333;
+            --light: #f5f5f5;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: var(--light);
+            padding: 0;
+            max-width: 100%;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 60px 0;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 2.8em;
+            margin-bottom: 15px;
+            font-weight: 800;
+        }
+        
+        .subtitle {
+            font-size: 1.3em;
+            opacity: 0.9;
+            font-style: italic;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        nav {
+            background: var(--secondary);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: center;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        nav li {
+            margin: 0;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 15px 20px;
+            display: block;
+            transition: background 0.3s;
+        }
+        
+        nav a:hover {
+            background: rgba(255,255,255,0.1);
+        }
+        
+        section {
+            background: white;
+            padding: 40px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        h2 {
+            color: var(--primary);
+            margin-bottom: 25px;
+            font-size: 2em;
+            border-bottom: 3px solid var(--accent);
+            padding-bottom: 10px;
+        }
+        
+        h3 {
+            color: var(--secondary);
+            margin: 30px 0 15px 0;
+            font-size: 1.5em;
+        }
+        
+        h4 {
+            color: var(--secondary);
+            margin: 20px 0 10px 0;
+            font-size: 1.2em;
+        }
+        
+        p {
+            margin-bottom: 20px;
+            font-size: 1.05em;
+        }
+        
+        strong {
+            color: #000;
+            font-weight: 600;
+        }
+        
+        em {
+            font-style: italic;
+        }
+        
+        ul, ol {
+            margin-left: 25px;
+            margin-bottom: 20px;
+        }
+        
+        li {
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+        
+        .highlight {
+            background: var(--highlight);
+            padding: 20px;
+            border-left: 5px solid #ffc107;
+            margin: 25px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .warning {
+            background: var(--warning);
+            padding: 20px;
+            border-left: 5px solid #dc3545;
+            margin: 25px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .network-diagram {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            font-family: monospace;
+            margin: 25px 0;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 40px auto;
+        }
+        
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background-color: var(--accent);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -2px;
+        }
+        
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+        
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+        
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border: 4px solid var(--accent);
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+        
+        .timeline-item:nth-child(odd)::after {
+            right: -10px;
+        }
+        
+        .timeline-item:nth-child(even)::after {
+            left: -10px;
+        }
+        
+        .timeline-content {
+            padding: 20px;
+            background-color: white;
+            border-radius: 6px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .timeline-year {
+            font-weight: bold;
+            color: var(--accent);
+            margin-bottom: 5px;
+        }
+        
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            border-top: 4px solid var(--accent);
+        }
+        
+        .card h4 {
+            margin-top: 0;
+            color: var(--primary);
+        }
+        
+        footer {
+            background: var(--primary);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 50px;
+        }
+        
+        footer a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        
+        footer a:hover {
+            text-decoration: underline;
+        }
+        
+        .footnote {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 40px;
+            border-top: 1px solid #e0e0e0;
+            padding-top: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+            
+            .subtitle {
+                font-size: 1.1em;
+            }
+            
+            section {
+                padding: 25px;
+            }
+            
+            .timeline::after {
+                left: 31px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .timeline-item:nth-child(even) {
+                left: 0;
+            }
+            
+            .timeline-item::after {
+                left: 21px;
+            }
+            
+            nav ul {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>MITRE: The Cybernetic War Machine</h1>
+            <p class="subtitle">How a "non-profit" became permanent infrastructure for state surveillance and military power—from WWII predictors to AI-driven warfare</p>
+        </div>
+    </header>
+    
+    <nav>
+        <div class="nav-container">
+            <ul>
+                <li><a href="#origins">Origins</a></li>
+                <li><a href="#mit-forge">MIT: The Forge</a></li>
+                <li><a href="#sage">SAGE System</a></li>
+                <li><a href="#trump">Trump Connection</a></li>
+                <li><a href="#derrida">Theoretical Framework</a></li>
+                <li><a href="#warfighter">Warfighter Analysis</a></li>
+                <li><a href="#implications">Implications</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <div class="container">
+        <section id="intro">
+            <h2>The Invisible Infrastructure</h2>
+            <p>This analysis traces how cybernetics—the science of control and communication—evolved from WWII anti-aircraft predictors to become the foundational logic of modern governance, surveillance, and warfare. At the center of this story is MITRE Corporation, a "non-profit" that operates as permanent infrastructure for the national security state.</p>
+            
+            <div class="highlight">
+                <strong>Core Thesis:</strong> MITRE represents the institutionalization of cybernetic control—from building systems that track bombers to building systems that track human behavior, always under the guise of technical neutrality while expanding military power into civilian life.
+            </div>
+        </section>
+        
+        <section id="origins">
+            <h2>Origins: The Cybernetics Revolution (1940-1953)</h2>
+            
+            <h3>Wiener's War Work: The Original Cybernetic Weapon</h3>
+            <p>Before MITRE, before the conferences, before the theory, there was a practical problem that birthed cybernetics: <strong>How do you shoot down a fast-moving airplane?</strong></p>
+            
+            <p><strong>The predictor problem (1940-1942):</strong></p>
+            <ul>
+                <li>German bombers move faster than human reflexes allow</li>
+                <li>By the time you see where the plane is, it's already somewhere else</li>
+                <li>Anti-aircraft guns must fire where the plane <em>will be</em>, not where it <em>is</em></li>
+                <li>Solution: <strong>Predict the future from past behavior</strong></li>
+            </ul>
+            
+            <div class="network-diagram">WIENER'S AA PREDICTOR (1940-1943):
+
+Radar tracks plane position over time
+    ↓
+Mathematical model extrapolates trajectory
+    ↓
+Servomechanism (automated control system) aims gun
+    ↓
+Gun fires at predicted future position
+    ↓
+System observes result (hit/miss)
+    ↓
+Adjusts model parameters (LEARNING)
+    ↓
+Next target engaged with improved prediction</div>
+            
+            <p>This wasn't just a better gun—it was a <strong>new ontology</strong>:</p>
+            <ul>
+                <li><strong>The pilot becomes information:</strong> Not a human being, but a pattern of coordinates changing over time</li>
+                <li><strong>The future becomes calculable:</strong> Statistical prediction replaces human judgment</li>
+                <li><strong>The machine becomes autonomous:</strong> Servomechanisms adjust faster than human operators can intervene</li>
+                <li><strong>Error becomes signal:</strong> Mistakes aren't failures—they're data for improving the model</li>
+            </ul>
+            
+            <div class="warning">
+                <strong>Wiener's horror:</strong> He realized he'd created something profound and terrifying. In <em>Cybernetics</em> (1948) and <em>The Human Use of Human Beings</em> (1950), he warned that treating people as information flows—as targets to be predicted and controlled—would spread far beyond warfare. <strong>He was right, and ignored.</strong>
+            </div>
+            
+            <h3>The Macy Conferences (1946-1953): Formalizing the Control Paradigm</h3>
+            <p>The war work needed theory. In a Manhattan apartment, mathematicians, neurologists, anthropologists, and military strategists gathered to solve: <strong>How do you control complex systems?</strong></p>
+            
+            <p>Key figures included:</p>
+            <ul>
+                <li><strong>Norbert Wiener</strong> (MIT): Coined "cybernetics" from the Greek for "steersman"—the art of control through feedback</li>
+                <li><strong>John von Neumann</strong>: Computer architecture and game theory for nuclear strategy</li>
+                <li><strong>Claude Shannon</strong> (MIT): Information theory—the mathematics of messages and signals</li>
+                <li><strong>Warren McCulloch & Walter Pitts</strong>: Neurons as logic gates—brains are computers, computers are brains</li>
+                <li><strong>Gregory Bateson</strong>: Showed how feedback loops govern families, cultures, ecosystems</li>
+            </ul>
+            
+            <div class="highlight">
+                <strong>The revelation:</strong> Anti-aircraft guns, thermostats, nervous systems, economies, and societies all operate on the same principle—<strong>detect deviation from goal state, send corrective signal, measure effect, repeat.</strong> This is the cybernetic loop, and it works on anything.
+            </div>
+        </section>
+        
+        <section id="mit-forge">
+            <h2>MIT: The Forge of Cybernetic Warfare (1940-1960)</h2>
+            
+            <h3>Where Theory Became Weapons</h3>
+            <p>MIT wasn't just hosting conferences—it was <strong>building the infrastructure of cybernetic warfare:</strong></p>
+            
+            <div class="card-grid">
+                <div class="card">
+                    <h4>Radiation Laboratory (1940-1945)</h4>
+                    <p>Developed microwave radar—the sensing apparatus for cybernetic systems. 4,000 people, $1.5 billion (inflation-adjusted), 100+ companies involved.</p>
+                </div>
+                <div class="card">
+                    <h4>Servomechanisms Lab</h4>
+                    <p>Where Wiener worked on automated fire-control systems—guns that aimed themselves by predicting target trajectories.</p>
+                </div>
+                <div class="card">
+                    <h4>Lincoln Laboratory (1951)</h4>
+                    <p>Created specifically to build SAGE—the first attempt to make an entire continent into a cybernetic system.</p>
+                </div>
+            </div>
+            
+            <p>The Pentagon didn't just fund this research—it <strong>structured the entire epistemology.</strong> Problems were defined by military needs. Success meant operational deployment. "Dual-use" meant war logic embedded in civilian systems from the start.</p>
+            
+            <h3>Project Charles (1951): The Blueprint for Permanent Emergency</h3>
+            <p>In summer 1951, MIT convened "Project Charles"—a secret study on how to defend America from Soviet bombers.</p>
+            
+            <p><strong>The conclusion:</strong> America needed a computerized air defense system operating 24/7/365, processing data from hundreds of radars, automatically tracking thousands of targets, coordinating fighters and missiles—<strong>SAGE.</strong></p>
+            
+            <p>But more importantly: This required a <strong>permanent organization</strong> that could:</p>
+            <ul>
+                <li>Operate outside normal government bureaucracy</li>
+                <li>Maintain security clearances for thousands of personnel</li>
+                <li>Bridge military needs and technical innovation</li>
+                <li>Survive changes in administration</li>
+                <li>Expand to new threats as technology evolved</li>
+            </ul>
+            
+            <div class="highlight">
+                <strong>The birth of MITRE (1958):</strong> Spun out of MIT's Lincoln Lab to manage SAGE, MITRE was the organizational form cybernetic warfare required. Not quite government, not quite corporate, not quite academic—a new entity for a new kind of permanent war.
+            </div>
+        </section>
+        
+        <section id="sage">
+            <h2>SAGE: The Prototype for Everything After (1958-1984)</h2>
+            <p>MITRE emerged from <strong>SAGE</strong> (Semi-Automatic Ground Environment)—the first continent-scale computerized air defense system built to detect Soviet bombers. This wasn't just a weapon system—it was a <strong>proof of concept that you could automate sovereignty itself.</strong></p>
+            
+            <div class="network-diagram">23 radar sites across North America
+    ↓
+Data transmitted to AN/FSQ-7 computers (largest ever built)
+    ↓
+Automated threat assessment and track prediction
+    ↓
+Fighter jets and missiles receive targeting coordinates
+    ↓
+Human operators reduced to "exception handlers"
+    ↓
+System learns from every engagement</div>
+            
+            <p>SAGE established the template:</p>
+            <ul>
+                <li><strong>Total information awareness:</strong> Every inch of airspace monitored continuously</li>
+                <li><strong>Machine speed decision-making:</strong> Humans too slow for jet-age war</li>
+                <li><strong>Network architecture:</strong> Distributed sensing, centralized processing, distributed response</li>
+                <li><strong>Predictive modeling:</strong> Don't just track threats—anticipate where they'll be</li>
+                <li><strong>Permanent operation:</strong> The system never sleeps, because threats never stop</li>
+            </ul>
+            
+            <div class="warning">
+                <strong>The hidden revolution:</strong> SAGE normalized the idea that <strong>automated systems should make life-and-death decisions faster than democratic deliberation allows.</strong> This is the original sin of cybernetic governance.
+            </div>
+            
+            <h3>The Military-Academic Feedback Loop</h3>
+            <p>By the 1960s, the pattern was set:</p>
+            
+            <ol>
+                <li><strong>Military identifies problem</strong> (Soviet missiles, encrypted communications, supply chain logistics)</li>
+                <li><strong>University receives contract</strong> (especially MIT, Stanford, Carnegie Mellon)</li>
+                <li><strong>Researchers develop solution</strong> (cybernetic control systems, AI, networking protocols)</li>
+                <li><strong>FFRDC operationalizes it</strong> (MITRE, RAND, Aerospace Corporation)</li>
+                <li><strong>System gets deployed</strong> (in war, in surveillance, in infrastructure)</li>
+                <li><strong>New problems emerge</strong> (that require more cybernetic solutions)</li>
+                <li><strong>Loop accelerates</strong></li>
+            </ol>
+        </section>
+        
+        <section id="trump">
+            <h2>The Trump Connection: Continuity of Infrastructure</h2>
+            <p>Trump's presidency reveals something crucial: <strong>MITRE doesn't care who's president.</strong> But understanding Trump requires understanding his relationship to the MIT/military-industrial nexus that produced MITRE.</p>
+            
+            <h3>Trump's MIT Lineage: The Engineering of Power</h3>
+            <p>Donald Trump's family connection to MIT isn't incidental—it reveals how technical expertise becomes political authority:</p>
+            
+            <ul>
+                <li><strong>John G. Trump (uncle):</strong> MIT electrical engineer and physicist who worked on radar technology during WWII</li>
+                <li><strong>The Tesla papers incident (1943):</strong> When Nikola Tesla died, John G. Trump was tasked by the FBI to review Tesla's papers for national security implications</li>
+                <li><strong>Trump's invocation:</strong> Donald Trump regularly cited his uncle's MIT credentials as proof of his own genetic fitness for understanding complex technology</li>
+            </ul>
+            
+            <div class="highlight">
+                <strong>The significance:</strong> Trump weaponized MIT's credibility to claim technical authority without technical knowledge. This is the political manifestation of what MITRE does structurally—using "expertise" to place decisions beyond democratic scrutiny.
+            </div>
+            
+            <h3>Trump's First Term: Accelerating the Cybernetic State</h3>
+            <p>While Trump appeared chaotic, his administration systematically expanded the surveillance and control infrastructure MITRE operates:</p>
+            
+            <div class="card-grid">
+                <div class="card">
+                    <h4>Border Militarization</h4>
+                    <p>DHS awarded massive contracts for surveillance towers, ground sensors, and predictive analytics—classic cybernetic infrastructure.</p>
+                </div>
+                <div class="card">
+                    <h4>Cyber Command Elevation</h4>
+                    <p>Cyber Command elevated to unified combatant command status, requiring expanded MITRE support for offensive cyber operations.</p>
+                </div>
+                <div class="card">
+                    <h4>Space Force</h4>
+                    <p>New military branch required entirely new C4ISR architecture—MITRE's specialty since SAGE.</p>
+                </div>
+            </div>
+            
+            <div class="warning">
+                <strong>The deeper pattern:</strong> Trump reveals that "democracy" operates at a surface level of elected officials making speeches, while power actually flows through technical systems those officials barely understand. MITRE is the permanent government—the deep state that's not a conspiracy but an infrastructure.
+            </div>
+        </section>
+        
+        <section id="derrida">
+            <h2>Derrida's Trace: The Program as Metaphysics</h2>
+            
+            <h3>Of Grammatology and the Cybernetic Age</h3>
+            <p>When Jacques Derrida wrote <em>Of Grammatology</em> (1967), he was watching cybernetics colonize everything. His intervention was radical: <strong>cybernetics doesn't just describe reality—it reveals the truth that Western metaphysics has always denied.</strong></p>
+            
+            <div class="highlight">
+                <strong>Derrida's provocation:</strong> "If the theory of cybernetics is by itself to oust all metaphysical concepts—including the concepts of soul, of life, of value, of choice, of memory—which until recently served to separate the machine from man, it must conserve the notion of writing, trace, written mark, or grapheme."
+            </div>
+            
+            <p>What does this mean? The West has always privileged:</p>
+            <ul>
+                <li><strong>Speech over writing:</strong> Speaking is direct, present, authentic; writing is secondary, derivative, a mere representation</li>
+                <li><strong>Presence over absence:</strong> What is immediately given to consciousness is real; mediation is suspect</li>
+                <li><strong>Meaning over signal:</strong> Content matters, form is just the container</li>
+                <li><strong>Human over machine:</strong> We have consciousness, intentionality, free will; machines merely execute</li>
+            </ul>
+            
+            <p>Cybernetics <strong>inverts all of this</strong>—and Derrida says: <em>good, because it was always backwards.</em></p>
+            
+            <h3>The Program: Writing Before Speech</h3>
+            <p>Consider what MITRE does:</p>
+            <ul>
+                <li>Threat models are <strong>written before</strong> threats appear</li>
+                <li>CVE identifiers are <strong>assigned before</strong> anyone understands the vulnerability</li>
+                <li>The ATT&CK framework <strong>defines adversaries before</strong> observing their behavior</li>
+                <li>System architectures are <strong>specified before</strong> systems exist</li>
+            </ul>
+            
+            <p>This is <strong>the program</strong>—not a plan you write down, but the <em>logic of inscription that precedes and enables all execution.</em></p>
+            
+            <div class="network-diagram">Traditional metaphysics:
+INTENTION (in the mind) → SPEECH (direct expression) → WRITING (recording)
+
+Cybernetic reality:
+PROGRAM (written protocol) → EXECUTION (automated) → "INTENTION" (retroactive attribution)
+
+Derrida's insight:
+The second has always been true. We just pretended otherwise.</div>
+        </section>
+        
+        <section id="warfighter">
+            <h2>"Warfighter-Centric" Acquisition: The Closure Tightens</h2>
+            
+            <p>MITRE's September 2025 paper represents a sophisticated evolution in military-technical control discourse. What appears as "empowerment" is actually <strong>the perfection of cybernetic integration—closing the loop between human and machine, developer and operator, policy and execution.</strong></p>
+            
+            <h3>The Problem Framing: Human as System Bottleneck</h3>
+            <p>MITRE identifies a "pathology" in current acquisition:</p>
+            <ul>
+                <li><strong>Waterfall development creates "dangerous" systems:</strong> Patriot friendly fire incidents, USS Vincennes shooting down a civilian airliner—because human feedback comes too late in the development cycle</li>
+                <li><strong>The gap between designer and operator:</strong> Engineers build what they think warfighters need, discover problems only after deployment</li>
+                <li><strong>Multi-year acquisition cycles:</strong> By the time a system is fielded, the battlefield has changed</li>
+            </ul>
+            
+            <p><strong>Proposed solution:</strong> Continuous warfighter feedback loops to eliminate system latency.</p>
+            
+            <div class="warning">
+                <strong>Control logic:</strong> This isn't about empowering humans—it's about optimizing human-machine integration for lethal efficiency. The "bottleneck" isn't bureaucracy; it's the last remaining gap between sensing and shooting.
+            </div>
+            
+            <h3>The Ukrainian Model: Weaponized Agile as Battlefield Reality</h3>
+            <p>MITRE points to Ukraine's drone warfare as the template:</p>
+            <ul>
+                <li><strong>Drone workshops embedded in combat brigades:</strong> 10-12 soldier-technicians modifying systems in real-time based on battlefield performance</li>
+                <li><strong>Constant iteration:</strong> Firmware updates, hardware modifications, tactical adjustments happening at the pace of combat</li>
+                <li><strong>No distinction between R&D and operations:</strong> The workshop IS the battlefield, the battlefield IS the lab</li>
+            </ul>
+            
+            <p><strong>MITRE's vision:</strong> Scale this model across DoD—embed the R&D pipeline directly into combat units.</p>
+            
+            <div class="highlight">
+                <strong>Control implication:</strong> Eliminates the distinction between developer and operator, creating seamless kill chain integration. Every warfighter becomes a sensor node providing feedback for system optimization. This is the cybernetic loop perfected—the human becomes part of the machine's learning algorithm.
+            </div>
+            
+            <h3>The "Warfighter-Centric" Paradox</h3>
+            <p>This paper reveals the fundamental contradiction in modern military technocracy: the rhetoric of <strong>human-centered design</strong> serves to more deeply <strong>embed humans within technical control systems.</strong></p>
+            
+            <p>The "warfighter" becomes the ultimate sensor and optimization mechanism for a kill chain that increasingly operates beyond human timescales and comprehension. What appears as democratization is actually the <strong>perfecting of control</strong> - creating a military organism where every soldier becomes both sensor and actuator in a globally integrated combat system.</p>
+            
+            <div class="warning">
+                <strong>MITRE's evolution is now complete:</strong><br>
+                • 1958-1990: Building external control systems (SAGE, air traffic control)<br>
+                • 1990-2020: Building informational control systems (CVE, ATT&CK, threat modeling)<br>
+                • 2020-present: Engineering the human-machine interface itself
+            </div>
+        </section>
+        
+        <section id="implications">
+            <h2>Implications: The Cybernetic Subject</h2>
+            
+            <h3>We Become Subjects Who Are:</h3>
+            <div class="card-grid">
+                <div class="card">
+                    <h4>Always Legible</h4>
+                    <p>To sensors, cameras, algorithms that track our movements, purchases, relationships, and intentions.</p>
+                </div>
+                <div class="card">
+                    <h4>Always Predictable</h4>
+                    <p>To models that extrapolate our future behavior from past patterns, treating us as statistical entities.</p>
+                </div>
+                <div class="card">
+                    <h4>Always Modulatable</h4>
+                    <p>By infrastructure that nudges, restricts, channels, and controls our options before we're aware of them.</p>
+                </div>
+                <div class="card">
+                    <h4>Never Outside</h4>
+                    <p>The feedback loop—there is no position from which to critique that isn't already inscribed by the system.</p>
+                </div>
+            </div>
+            
+            <h3>The Stakes</h3>
+            <p>MITRE isn't the problem—it's the <strong>perfected form</strong> of what happens when:</p>
+            <ul>
+                <li>Military funding shapes civilian infrastructure</li>
+                <li>Classification prevents democratic oversight</li>
+                <li>Technical systems encode political choices</li>
+                <li>Permanent emergency justifies extraordinary power</li>
+                <li>"Public interest" masks state and corporate interests</li>
+            </ul>
+            
+            <div class="highlight">
+                <p><strong>The urgent question:</strong> Can we even think outside the cybernetic closure their systems have constructed around us?</p>
+                <p>Or has the war machine become the territory itself?</p>
+            </div>
+            
+            <div class="footnote">
+                <p>This analysis draws on primary MITRE documents, historical records, and theoretical frameworks from Norbert Wiener, Jacques Derrida, Friedrich Kittler, Bruno Latour, and Giorgio Agamben.</p>
+                <p>Built to be fast, accessible, and easily hosted. Fork it. Share it. Think through it.</p>
+            </div>
+        </section>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p>MITRE: The Cybernetic War Machine | Analysis of the military-industrial-academic complex</p>
+            <p>
+                <a href="#intro">Back to Top</a> | 
+                <a href="https://github.com" target="_blank">Host on GitHub</a> | 
+                <a href="https://alx0r.github.io/Aartless/clouds.html" target="_blank">Original Visualization</a>
+            </p>
+        </div>
+    </footer>
+</body>
+</html>

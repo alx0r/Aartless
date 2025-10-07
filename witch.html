@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manifestation and Political Ideation on Reddit</title>
+    <style>
+        /* Base styles */
+        :root {
+            --primary-color: #6a1b9a;
+            --secondary-color: #9c4dcc;
+            --accent-color: #e1bee7;
+            --text-color: #333;
+            --light-bg: #f5f5f5;
+            --white: #ffffff;
+            --spacing-sm: 0.5rem;
+            --spacing-md: 1rem;
+            --spacing-lg: 2rem;
+            --border-radius: 8px;
+            --shadow: 0 2px 10px rgba(0,0,0,0.1);
+            --line-height: 1.6;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: var(--line-height);
+            color: var(--text-color);
+            background-color: var(--light-bg);
+            padding: var(--spacing-md);
+            font-size: 1rem;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: var(--white);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+        
+        /* Header styles */
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: var(--spacing-lg);
+        }
+        
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: var(--spacing-md);
+            line-height: 1.3;
+        }
+        
+        .authors {
+            font-style: italic;
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .metadata {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-md);
+            font-size: 0.9rem;
+        }
+        
+        .tag {
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+        
+        /* Content sections */
+        section {
+            padding: var(--spacing-lg);
+        }
+        
+        h2 {
+            color: var(--primary-color);
+            margin: var(--spacing-lg) 0 var(--spacing-md);
+            padding-bottom: var(--spacing-sm);
+            border-bottom: 2px solid var(--accent-color);
+        }
+        
+        h3 {
+            margin: var(--spacing-md) 0 var(--spacing-sm);
+            color: var(--secondary-color);
+        }
+        
+        p {
+            margin-bottom: var(--spacing-md);
+            text-align: justify;
+        }
+        
+        ul, ol {
+            margin-left: var(--spacing-lg);
+            margin-bottom: var(--spacing-md);
+        }
+        
+        li {
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .citation {
+            font-size: 0.9rem;
+            color: #666;
+            padding-left: var(--spacing-md);
+            border-left: 3px solid var(--secondary-color);
+            margin: var(--spacing-md) 0;
+            font-style: italic;
+        }
+        
+        .figure {
+            margin: var(--spacing-lg) 0;
+            padding: var(--spacing-md);
+            background-color: var(--light-bg);
+            border-radius: var(--border-radius);
+            text-align: center;
+        }
+        
+        .figure-placeholder {
+            width: 100%;
+            height: 200px;
+            background-color: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: var(--spacing-sm);
+            border-radius: var(--border-radius);
+        }
+        
+        .figure-caption {
+            font-style: italic;
+            color: #666;
+        }
+        
+        .toc {
+            background-color: var(--light-bg);
+            padding: var(--spacing-md);
+            border-radius: var(--border-radius);
+            margin: var(--spacing-md) 0;
+        }
+        
+        .toc h3 {
+            margin-top: 0;
+        }
+        
+        .toc ul {
+            list-style-type: none;
+            margin-left: 0;
+        }
+        
+        .toc li {
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .toc a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        
+        .toc a:hover {
+            text-decoration: underline;
+        }
+        
+        .abstract {
+            background-color: var(--accent-color);
+            padding: var(--spacing-md);
+            border-radius: var(--border-radius);
+            margin-bottom: var(--spacing-md);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: var(--spacing-lg);
+        }
+        
+        .tldr {
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: var(--spacing-md);
+            border-radius: var(--border-radius);
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .tldr h3 {
+            color: white;
+            margin-top: 0;
+        }
+        
+        .contact {
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: var(--primary-color);
+            padding: 10px 20px;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: bold;
+            margin: 0 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            background-color: white;
+            transform: translateY(-2px);
+        }
+        
+        .btn-container {
+            text-align: center;
+            margin-top: var(--spacing-md);
+        }
+        
+        /* Responsive adjustments */
+        @media (min-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            section {
+                padding: var(--spacing-lg) var(--spacing-lg);
+            }
+            
+            body {
+                font-size: 1.05rem;
+            }
+        }
+        
+        /* Print styles */
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .container {
+                box-shadow: none;
+                border-radius: 0;
+            }
+            
+            .btn-container {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Manifestation and Political Ideation on Reddit</h1>
+            <div class="authors">Alexander Teggin, Emilie Schwantzer, Devin Mitter, and Son Nguyen</div>
+            <div class="metadata">
+                <span class="tag">Subcultural Analysis</span>
+                <span class="tag">r/WitchesVsPatriarchy</span>
+                <span class="tag">Digital Subcultures</span>
+                <span class="tag">Word Count: 4392</span>
+            </div>
+        </header>
+        
+        <main>
+            <section id="abstract">
+                <h2>Abstract</h2>
+                <div class="abstract">
+                    <p>To some extent, subcultures have found their strongholds in online platforms. Being thematically varied and diversified in political agendas, these subreddits' constant users traffic are largely due to the platform's technical functions, namely, its affordances that enable certain activities. The paper examines one such subreddit, r/WitchesVsPatriarchy at both a thematic and technical level. While the thematic investigation looks into its values, objectives, opponents, inspirational leaders, the latter seeks to discuss how Reddit's affordances facilitate the activities analysed in the former.</p>
+                </div>
+            </section>
+            
+            <section id="toc">
+                <div class="toc">
+                    <h3>Table of Contents</h3>
+                    <ul>
+                        <li><a href="#introduction">Introduction</a></li>
+                        <li><a href="#theoretical-framework">Theoretical Framework</a>
+                            <ul>
+                                <li><a href="#subcultures-framework">Subcultures as a Theoretical Framework</a></li>
+                                <li><a href="#digital-neopaganism">The Rise of Digital Neopaganism</a></li>
+                                <li><a href="#affordance-theory">Introducing Affordance Theory</a></li>
+                                <li><a href="#reddit-interface">Approaching the Interface: Reddit</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#methodology">Methodology</a></li>
+                        <li><a href="#analysis">Analysis</a>
+                            <ul>
+                                <li><a href="#subculture-analysis">An Analysis of the Subculture</a></li>
+                                <li><a href="#visual-analysis">Visual Analysis</a></li>
+                                <li><a href="#linguistic-analysis">Linguistic Analysis</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#discussion">Discussion</a>
+                            <ul>
+                                <li><a href="#platform-effect">How the Platform has Affected the Subculture</a></li>
+                                <li><a href="#convergence-culture">Convergence Culture and Neopaganism</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#conclusion">Conclusion</a></li>
+                        <li><a href="#bibliography">Bibliography</a></li>
+                    </ul>
+                </div>
+            </section>
+            
+            <section id="introduction">
+                <h2>Introduction</h2>
+                <p>While subcultures have existed beneath the mainstream culture for centuries, the contemporary age has seen the emergence of subcultures across the online spheres. While there are migrations of subcultures from the offline world to the virtual realm, the rapid increase of accessibility to the internet has led to a rise in platform usage. Alongside this, platforms are constantly optimising technical functions to facilitate users' actions which have given birth to the creation of natively digital communities surrounding aspects of the real and online world (Davis and Chouinard 246; Poell et al. 6). Regardless of these online migrations or natively digital formations, the contemporary subcultures bear the historical character of engaging against each other in the cultural war, which has been fought on new media platforms such as 4chan and Reddit (Dematagoda 6). To those who consider the Internet world separable from everyday life, these culture wars are dismissible, or their significance has little to no effect on real life (de Zeeuw and Tuters 215). Nevertheless, Massanari argued for the substantial damage that an online subculture could strike to the physical world when the theme specifically turns to political discussions (8). In this aspect, Reddit has been the breeding ground for the collective identity of the extreme right and leftist communities online not through a single body, but rather through the diversity of subreddits on both spectrums demonstrating their agendas by the weaponisation of memes and words, such as one famously on the right, r/The_Donald (Gaudette 3494). Through an ethnographic digital methods approach, this paper sets out to investigate one particular subreddit, r/WitchesVsPatriarchy, in terms of its objectives, sacred values, its opponents, and the users' inspirational figures. This research report will also situate r/WitchesVsPatriarchy within relevant literature around digital subcultures, as well as critically engage with the growth of digital neopaganism. Furthermore, we will draw upon relevant theory on affordances, convergence- and participatory culture, to ultimately answer the following question: what is the relationship between the subculture under study and the medium that hosts it?</p>
+            </section>
+            
+            <section id="theoretical-framework">
+                <h2>Theoretical Framework</h2>
+                
+                <h3 id="subcultures-framework">Subcultures as a Theoretical Framework</h3>
+                <p>In Subculture: The meaning of Style, Hebdige states that hegemony is maintained when dominant classes can contain or control subordinate groups within an ideological space that does not seem ideological (16). The concept of hegemony is essential for understanding subcultures as it outlines how power can be exercised through culture and helps to theorise what the significance of a subculture is as well as how its power is being exercised through contemporary mediums such as Reddit which were not around when this text was written.</p>
+                <p>According to Hebdige, subcultures have two primary needs that contradict each other. The objective of subcultures is to both express autonomy and apartness from their parent culture, whilst simultaneously maintaining identifications. This theorization is important when identifying the subculture as being against the mainstream, and is essential to understanding what kind of actions they are engaging in to oppose their dominant systems. What we are specifically looking at is the materiality of the subculture, which according to Hebdige is what is continually being transformed into culture (81). Hebdige states this materiality can never be raw and is in a constant state of mediation by its historical context and "upon a specific ideological field which gives it particular life and particular meanings" (81). Within Hebdiges context the materiality of the subculture is mediated by members of the subculture through school family work and media (81). Hebdige himself states that these conditions are subject to historical change (81) and since this subculture is natively digital its materiality lives purely online which poses different sorts of mediation. We could argue that mediation, in this case, happens through a single channel (that for that platform) but is influenced through different means i.e affordances.</p>
+                
+                <h3 id="digital-neopaganism">The Rise of Digital Neopaganism</h3>
+                <p>When looking at the cultural groupings around New Age aesthetics, it can be considered as inclusive of various subcultures throughout the past, all loosely identified with different associations to anything that includes the esoteric, the occult, or most commonly for females, Celtic and Wicca practices Following an increase in TV shows and fan communities involving witches (such as Buffy the Vampire Slayer) mediated subcommunities have subsequently developed online around showing practices or content involving tarot reading, numerology, manifestations, spells, and potions or similar fringe esoteric trends (Miller 2). These different groups appear to align with various religions, rituals or backgrounds, such as Wicca, Asatru, Brujeria, or New Age spirituality groups, some of which can include opposing belief systems (2).</p>
+                <p>Considering that the identity of the witch is both easy to adopt, as well as representative of an oppressed collective, it suggests that there is a clear alignment with anti-patriarchal traditions, which makes r/WitchesVsPatriarchy an ample site of intersecting political identity formation and knowledge production (Gottlieb 6). By looking at the group's online presence through Reddit, it is possible to dissect the "entitativity" that "shifts the emphasis away from capturing a group's essence, and towards the perception of groups, be it as "self-reflection by its members or as perceived by outsiders" (Hagen and Tuters 173). This lens of 'entitativity' assists us in thinking both about the conceptualization of the whole subreddit subculture, but also about the affects experienced by the group members themselves - many of which only partake in the subculture for the humour, aesthetic or LGBTQ+ narratives. Similarly, it is also important to consider the nature of the different mediums and the way in which their cultural identifiers can merge homologously together (Jenkins 2007). For instance, it is notable that a subreddit such as r/WitchesVsPatriarchy also gains popularity through other mediums such as via YouTube reaction videos on channels like One Topic At A Time (See fig. 1). In a similar pattern, many images posted onto the subreddit also feature content taken from platforms like Twitter, Tumblr or other subreddits. Because of the various intersecting identities, cultural artefacts and mediums of communication, it is important to explore the visual and linguistic aesthetics around how the subculture is perceived, but also in relation to the political relationships with ideas of patriarchy, gender and the occult. With such a vast amount of axioms on which the subculture situates itself, it makes for a useful space to understand how modern women are identifying themselves, but also how they are situating themselves as anti-program to other forms of oppressive or political narratives. This can be seen in how r/WitchesVsPatriarchy stands in as an ideological opposition to far-right subcultures of a similar nature - such as various occult or 'red pill', 'awakening' communities (Tuters 288).</p>
+                
+                <div class="figure">
+                    <div class="figure-placeholder">Figure 1: One Topic At A Time reacting and reading r/WitchesVsPatriarchy content</div>
+                    <div class="figure-caption">Figure 1: One Topic At A Time reacting and reading r/WitchesVsPatriarchy content</div>
+                </div>
+                
+                <h3 id="affordance-theory">Introducing Affordance Theory</h3>
+                <p>The concept of affordances is essential for understanding how a subculture such as r/WitchesvsPatriarchy maintains its presence on a platform such as Reddit. The term first found grounds within ecological disciplines but has since been adopted by communication sciences and new media studies to refer to how a design interface can "shape the conditions of possibility" (Helmond and Bucher 238). Nevertheless, the term affordance is a complex umbrella term as it has been theorised by various influential scholars such as Davis and Chouinard in Theorizing Affordances and Helmond and Bucher in The Affordances of Social Media Platforms. While the former provides theorizations that aid with approaching the interface, Helmond and Bucher focus more on the term affordance as a dynamic concept with several different inferences. Accordingly, they introduce the "Imagined Affordance" concept which incorporates the "material, the mediated, and the emotional aspects of human-technology interaction (Helmond and Bucher 240). Subsequently, the imagined affordances take into consideration the assembly of user perceptions and expectations, the materiality and functionality of technologies, and the intentions and perceptions of designers (Helmond and Bucher 241). Affordances assist us in understanding the interplay between the websites metaphysical construction and how users participate within discourses of communication, which allows for an analysis that combines strengths from both qualitative and quantitative methodologies.</p>
+                
+                <h3 id="reddit-interface">Approaching the Interface: Reddit</h3>
+                <p>Reddit is a "unique, boundary-spanning platform that elicits new questions about the nature of participatory culture and community in the age of social networking" (Massanari 7). Reddit is different to other platforms in that it appealed to its users with an "anything goes" approach (Copland 3), making conversations more "authentic" and "deliberative" (Massanari 9). Simultaneously, it has become an aggregation platform (Massanari 3) for niches, fringe communities and political subcultures. The transformation of Reddit towards being aggregation reflects how platforms and their politics have the ability to shape their spaces, outlining the "importance of how individuals and technologies are co-constitutive" (Massanari 2). The culture of the platform, in the sense that it is understood as being an anonymous space where "anything goes", is due to the platform's lack of intermediaries. Rather than top-down moderation, the biggest intermediaries are moderators of communities, which are often the community's own creators that can set explicit rules regarding tone, sources, content, submission and comments (Massanari 10). These moderators have incredibly high power on what kind of content appears in their subreddits in that they can customise the levels of participation and gate-keep the flow of knowledge production collectively within the subreddit. In order to understand the relationship between Reddit's interface and the subculture of r/WitchesVsPatriarchy we will be looking at the conditions of the platform alongside the specific affordances and how they relate to users. Davis and Chouinard introduced vocabulary which demonstrates different human and interface interplay, such as Request, Demand, Encourage, Discourage, Refuse and Allow (242), to understand how specific designs of the interface not only determine outcomes but "are instead, mediated through dynamic affordances" (245). These will be integrated when conducting methods to understand the interchangeable relationship between the platform and the user.</p>
+            </section>
+            
+            <section id="methodology">
+                <h2>Methodology</h2>
+                <p>To profile the subreddit r/WitchesVsPatriarchy, we took an ethnographic digital methods approach (Caliandro 7-14). After selecting the subreddit, we firstly familiarized ourselves with the subculture through closely reading its description and contents in order to get an overview of the prevalent topics and issues discussed here, as well as the visual language employed in many threads. Furthermore, using the 4CAT: Capture and Analysis Toolkit (Peeters & Hagen), we zoomed in on different aspects of this subreddit to assist in situating the close readings within a larger longitudinal and qualitative context. 4CAT enables users to crawl this data and query keywords on a specified subreddit. As the tool gives the option to limit the search to a chosen timeframe, we decided to crawl data from the emergence of the community in 2018 until the present day (i.e March 2022).</p>
+                <p>Because the tool is query-based, as a starting point, we queried the term "witch", as this query would allow us to analyse the "witch identity" as it is constructed through this community. In another data collection, we queried terms related to gender identification, such as "men" and "women", in hope that we could compare the written and visual language employed to the two general ideas of this subreddit, female empowerment and opposition to the patriarchy and male-dominated cultures. However, non-normative gender identities seem to play a big role in this community, as stated by the rules and disclaimer, we also decided to query the term "trans", as the inclusion of identities outside the binary.</p>
+                <p>The Toolkit, aside from data collection, offers a variety of analysis tools and options. We were able to download the images used in the posts, and create an image wall using these images, sorted by dominant colour. In addition to that, we created our own image wall using PicArrange, for the entirety of the downloaded images. This facilitated the visual analysis as we were able to analyse recurring images or themes, as well as the meme culture of this specific subreddit. Beyond that, 4CAT offers a plethora of tools to help with linguistic analysis. We created word trees, visualisations of common words used after a specified query. In doing so, we were able to analyse the discourse around "men", "women", or "trans" individuals, to see how the words most commonly associated with them differ.</p>
+            </section>
+            
+            <section id="analysis">
+                <h2>Analysis</h2>
+                
+                <h3 id="subculture-analysis">An Analysis of the Subculture</h3>
+                <p>From our first impressions, although political, r/WitchesVsPatriarchy seems like a productive, rather than a destructive space. Despite the second rule of the community stating "Destroy the Patriarchy", this aggressive and subversive element sees no further mentions in either the rule nor the contents. Rather, the rules and posting guidelines suggest that this community is a safe space for different marginalised and non-normative identities. They also allow for a variety of content, from memes to advice and discussions, to self-promotion of, e.g. women-owned small businesses (fig.2). Rather than actively fighting the patriarchy, this community seems to attempt to subvert male-dominated culture by uplifting each other. For example, the lists of resources at the bottom of the sidebar provide information and links to other subreddits for users to educate themselves on prevalent issues. Hence, the only indication of "fight" against men is the disclaimer that posts that centre around male points of view may be removed (fig. 2), however, the subreddit is not inherently anti-men as male users are not only equally welcome as other identities but they are even encouraged to do so more than others (fig. 3).</p>
+                <p>While the subreddit offers a diversity of content ranging from witchy art and crafts to pop culture or textual discussion, the most popular type of content are humorous images. Especially screenshots of satirical tweets can be found frequently (fig 4). Although these tweets generally tackle issues of feminism and the patriarchy, the tweets themselves and the post's comments are more lighthearted. This shows, while there is a certain goal this community has, the fight against the patriarchy, they do so without being offensive or aggressive towards their 'opponents', and often in a humorous or light-hearted tone.</p>
+                
+                <div class="figure">
+                    <div class="figure-placeholder">Figure 2: Rules and Guidelines for r/WitchesVsPatriarchy</div>
+                    <div class="figure-caption">Figure 2: Rules and Guidelines for r/WitchesVsPatriarchy</div>
+                </div>
+                
+                <div class="figure">
+                    <div class="figure-placeholder">Figure 3: FAQ asking if men are welcome in this community</div>
+                    <div class="figure-caption">Figure 3: FAQ asking if men are welcome in this community</div>
+                </div>
+                
+                <div class="figure">
+                    <div class="figure-placeholder">Figure 4: Some of the popular Tweets shared in the subreddit</div>
+                    <div class="figure-caption">Figure 4: Some of the popular Tweets shared in the subreddit</div>
+                </div>
+                
+                <h3 id="visual-analysis">Visual Analysis</h3>
+                <p>To simplify the visual analysis, and generate an overview of the most used images, we created an image wall from the queries focusing on different gender identities. This shows general topics of discourse, the disposition towards different gendered individuals, and the imagery connected to them (fig. 5).</p>
+                
+                <div class="figure">
+                    <div class="figure-placeholder">Figure 5: Image Wall created from the photos collected through the queries "men", "women", and "trans"</div>
+                    <div class="figure-caption">Figure 5: Image Wall created from the photos collected through the queries "men", "women", and "trans"</div>
+                </div>
+                
+                <p>Firstly, it can be said that informational posts, i.e. infographics, tweets, statistics, or news articles, make up a large portion of the collected images. Another large group, as previously mentioned, are humorous posts, which commonly include tweets, but more prominently features memes or screenshots from other media, often with satirical replies or comments included. The last group we identified was 'women' or gender orientated content. This category includes pictures of users, screenshots, and art from other media, but also historical figures that are generally perceived to be strong, often oppressed, female figures. These representations of female empowerment are the closest indication to this subreddit's'campfire chieftains'. They are either explicitly connected to the occult or just important historical figures that subverted male-dominated culture through their actions. One example of that is abolitionist and political activist Harriet Tubman. She, amongst many other women and nonbinary individuals (fig. 6), serves as an inspiration for the coven, through their actions and words embody the values of the community, but they do not dictate the telos of the group.</p>
+                
+                <div class="figure">
+                    <div class="figure-placeholder">Figure 6: Collage showing some of the inspiring and powerful women referenced in the images on r/WitchesVsPatriarchy</div>
+                    <div class="figure-caption">Figure 6: Collage showing some of the inspiring and powerful women referenced in the images on r/WitchesVsPatriarchy</div>
+                </div>
+                
+                <p>As opposed to women, men are not featured very much in the shared images, aside from some male characters from popular media texts. However, it also has to be pointed out that there is not a lot of explicitly negative representation of men. Although we do find some traces of this "Destroy the Patriarchy" ethos in our data (fig. 7), the context of these is often lighthearted, as there are no serious postings calling for violence against men or destructive acts against the dominant culture.</p>
+                
+                <div class="figure">
+                    <div class="figure-placeholder">Figure 7: Images that could be perceived as threatening violence against men</div>
+                    <div class="figure-caption">Figure 7: Images that could be perceived as threatening violence against men</div>
+                </div>
+                
+                <p>The fact that r/WitchesVsPatriarchy is not simply a juxtaposition of women and men, but discusses the fact that the patriarchy's destructive nature equally affects other marginalised and non-marginalized gender identities, becomes apparent in the way trans identities are discussed in this community. Visually, we see a generally positive disposition towards trans and non-binary identities, similar to what is stated in the group's rules and guidelines, with many posts praising and welcoming non-normative identities into the community (fig. 7). They also recognize that transphobia is not just a male issue, but that patriarchal ideas can also find expression through other women and those who call themselves 'feminists' (TERFs). Therefore, the "opposition" or the "enemy" is not a single, gendered individual, but rather the individual that embodies the hateful ideas that the coven condemns in its guidelines.</p>
+                <p>Lastly, as already identified, this subreddit often uses humour to approach different issues. Here, memes become an important tool. Popular meme templates can be found throughout the data. Generally, like the rest of the posts, subjects of these memes are transness, bodily autonomy, opposition to the patriarchy, as well as witchcraft in general. The overall tone, despite addressing serious issues, is not always serious, sometimes seven self-deprecating (fig. 8).</p>
+                
+                <div class="figure">
+                    <div class="figure-placeholder">Figure 8: Examples of Pro-Trans content</div>
+                    <div class="figure-caption">Figure 8: Examples of Pro-Trans content</div>
+                </div>
+                
+                <div class="figure">
+                    <div class="figure-placeholder">Figure 9: Examples of memes, featuring self-deprecating humour, as well as humorous reflection on issues brought on by the patriarchy</div>
+                    <div class="figure-caption">Figure 9: Examples of memes, featuring self-deprecating humour, as well as humorous reflection on issues brought on by the patriarchy</div>
+                </div>
+                
+                <h3 id="linguistic-analysis">Linguistic Analysis</h3>
+                <p>For our linguistic analysis, we focused on the datasets around the three different gender identities we selected. Firstly, the neologism analysis tool of 4CAT offered a general overview, as many political terms and issues that emerged in the past few years, as well as names, often are counted as neologisms. In the data around these gender identities, non-normative identities seem to be a key focus (fig. 10), however all of them frequently talk about trans- and non-binary identities, as well as opposition to these.</p>
+                
+                <div class="figure">
+                    <div class="figure-placeholder">Figure 10: Neologisms extracted from the data of the queries "women", "men", and "trans" (in order)</div>
+                    <div class="figure-caption">Figure 10: Neologisms extracted from the data of the queries "women", "men", and "trans" (in order)</div>
+                </div>
+                
+                <p>Additionally, the analysis of the created word trees shows the terms that are most commonly associated with either query. For women, the narrative often focuses on advice and mutual empowerment. Nonetheless, a majority of the words associated with "women" reference the negative experiences women face in a male-dominated culture. Some mention violence against women, such as female genital mutilation or rape, the archaic stereotypes towards women that persist in society, as well as the perception that women are considered less-than, second-class citizens, or possessions (fig. 11). There are some references to powerful women, such as specific historical figures, female athletes, woman as a goddess', or witchcraft as empowering.</p>
+                
+                <div class="figure">
+                    <div class="figure-placeholder">Figure 11: Excerpts from the Word Tree with the query "women"</div>
+                    <div class="figure-caption">Figure 11: Excerpts from the Word Tree with the query "women"</div>
+                </div>
+                
+                <p>Similarly, for the query "trans", the vocabulary mainly refers to the struggles of the transgender community. One noticeable thing here is also how "trans" is more commonly connected to "women", as well as the neutral term "person", as opposed to "man". Transness is discussed in the context of exclusion, and also other forms of oppression and violence, but at the same time, members of the community express their openness towards different identities, highlighting how important 'magic' and trans people are perceived (fig. 12). Furthermore, trans individuals use the subreddit to seek advice and find like-minded individuals that accept and validate their identity (fig. 13).</p>
+                
+                <div class="figure">
+                    <div class="figure-placeholder">Figure 12: Excerpts from the Word Tree with the query "trans", highlighting the negative experiences of trans people, as well as the welcoming and empowering energy they receive in this community.</div>
+                    <div class="figure-caption">Figure 12: Excerpts from the Word Tree with the query "trans", highlighting the negative experiences of trans people, as well as the welcoming and empowering energy they receive in this community.</div>
+                </div>
+                
+                <div class="figure">
+                    <div class="figure-placeholder">Figure 13: Parts of the same Word Tree indicating that the subreddit is a space for community building, socialisation, and guidance.</div>
+                    <div class="figure-caption">Figure 13: Parts of the same Word Tree indicating that the subreddit is a space for community building, socialisation, and guidance.</div>
+                </div>
+                
+                <p>In opposition to the images found in connection to men, the written content takes on a more serious tone. Thematically, they touch on issues such as harassment, rape, assault, and other gender-based violence. Furthermore, they point out the threat of toxic traits and toxic- or fragile masculinity. Despite this, again, members of the community do not simply follow an anti-men agenda, and recognize that men are also affected by patriarchal structures in society. One of the recurring critiques is that of the "men are trash" ethos that is perpetuated in media as one of the pillars of modern feminism (fig. 14). Similar to the visual analysis, the subtext of this community and their telos is not that men are inherently bad and need to be fought, but rather the individuals that perpetuate gender-based violence and help maintain patriarchal structures in society need to be "destroyed".</p>
+                
+                <div class="figure">
+                    <div class="figure-placeholder">Figure 14: Examples of the discourse in the Word Tree with the query "men".</div>
+                    <div class="figure-caption">Figure 14: Examples of the discourse in the Word Tree with the query "men".</div>
+                </div>
+            </section>
+            
+            <section id="discussion">
+                <h2>Discussion</h2>
+                
+                <h3 id="platform-effect">How the Platform has Affected the Subculture</h3>
+                <p>It is the normative structure of a platform that causes "feminization[s] of platforms like Pinterest, radicalizations of 4Chan, and youthful demographic on Snapchat" (Davis and Chouinard 246). This animates the request and encouragement of types of users whilst discouraging and or refusing others (Davis and Chouinard 246). As aforementioned, moderators function as gatekeepers of communities that create their own rules for the subreddit. For example, the 'About Community' along with the 'Post Guidelines' (fig.15, .16 and .17) affordance allows for moderators to profile the community which in this case seems to discourage the non-marginalized whilst encouraging members of the 'coven', women, BIPOC and the LGBTQ+ community.</p>
+                
+                <div class="figure">
+                    <div class="figure-placeholder">Figure 15: 'About Community' function</div>
+                    <div class="figure-caption">Figure 15: 'About Community' function</div>
+                </div>
+                
+                <p>Helmond and Bucher note how platforms can afford different things to an end-user than to a developer (467). It was Reddit's intent to give moderators, who are at the end of the day end-users, certain affordances that a developer would have on different social media platforms. They can control the practices of other end-users through affordances such as removal and banning which they enforce through rules (fig.16) and posting guidelines (fig.17). With this kind of control, moderators can go as far as determining what sources can be used, the tone, as well as content (Massanuri 10). Moderation under this format becomes a collective and ongoing community-building practice, which changes over time or in light of new site features, news events or political discussions. This can also be considered as a vague form of "tone policing" where moderators can make their own judgement on what is or isn't allowed, or more importantly, who is or isn't included in the subreddit's discourse. This makes it easy to create a filter bubble or echo chamber (Massanuri 9), where narratives remain consistent with each other with little to no conflict in opinions or ideas. Through a closer look at the posting guidelines, it becomes evident that boundaries are being created to constrain and control certain behaviours (Bucher and Helmond 236). As mentioned in the 'About Community' this subreddit is looking to create what they call a 'safe space', which through looking at the rules (fig. 16) any conflict towards this will result in immediate removal. These material functionalities create certain expectations for the user that when they enter this space it will be a supportive space for marginalised members of society.</p>
+                <p>Reddit's affordances that control content makes it an incredibly complex space in terms of affect, however, it is simply the platform binding the actions of the user. However, on Reddit elite users and gatekeepers influence the possibility of action. The imagined affordances present a certain extent of decentralisation in order to cater to the needs of end-users and allow these authentic communities to form "extends the environment beyond the confines of the platform (Bucher and Helmond 246).</p>
+                
+                <div class="figure">
+                    <div class="figure-placeholder">Figure 16: r/WitchesVsPatriarchy Rules</div>
+                    <div class="figure-caption">Figure 16: r/WitchesVsPatriarchy Rules</div>
+                </div>
+                
+                <div class="figure">
+                    <div class="figure-placeholder">Figure 17: r/WitchesVsPatriarchy Posting Guidelines</div>
+                    <div class="figure-caption">Figure 17: r/WitchesVsPatriarchy Posting Guidelines</div>
+                </div>
+                
+                <h3 id="convergence-culture">Convergence Culture and Neopaganism</h3>
+                <p>One of the difficulties of categorising or making claims about a subculture such as r/WitchesVsPatriarchy is that the group exists through loose overlaps of similarities and varying amounts of social capital attributed across content and discussions. Both the stance of 'witch' as well as "anti-patriarchy" are vague in nature and malleable towards different means under certain historicisms. Because of Reddit's affordances, only certain levels of discussion and content creation are allowed, meaning that any community identity is part a process of self-identification with a perceived group, as well as re-encoding new aesthetics or epistemologies in light of emerging esoteric or patriarchal ideas. Online conceptions of the occult too embrace epistemologies which are mysterious by nature, intentionally vague, outcasted or oppressed - yet still based loosely off religions or histories related to female power struggles and knowledge production. Because of this, it allows modern women to manage different types of privileged, oppressed or outcasted statuses shifting them towards a positive identity 'manifestation', or re-imagining of negative realities, by participating with content they choose to online.</p>
+                <p>Another aspect that makes subreddit analysis challenging, yet important for further study, is that the affordance of link aggregation encourages cross-population of content between different platforms, devices and mediums. Because of this form of cultural 'convergence', it means that content orientated subcommunities found on Reddit are not directly demarcated as tribes through only the affordances and their participation via Reddit - but rather that these subcultures exist as fluid entities that are both encoded and decoded aesthetically and politically through various types of content found throughout the internet. Furthermore, platforms such as Reddit also construct a 'convergence' of subcultures, making it possible to identify both with paganism or witchcraft, as well as political identities such as anti-patriarchy (Jenkins). Considering the variety of aesthetics, smaller communities, online content creators and a variety of discussions, it is important to note how we cannot clearly identify what designates members to any online subculture. Rather it is important to further understand these subcultures as dynamic and political entities that converge from multiple influences, or are aligned according to shared axioms of the occult unknown, platform aesthetics and an oppressed sense of communitas.</p>
+            </section>
+            
+            <section id="conclusion">
+                <h2>Conclusion</h2>
+                <p>The neo-liberal communities that have established themselves around witchcraft and wicca prove to be fertile spaces for the study of subcultural economies of knowledge production and political identity formation. With the combination of witchcraft and liberal politicals, as found on Reddit's r/WitchesVsPatriarchy, notions of the unknown, manifestation and awakening enter into a "liminal feature of the late countercultural spiritual underground" or a 'high weirdness' that stands opposed to other spaces of occult counter cultures online (Tuters 288). Newly founded liberal occult subcommunities such as this one, exist to be inclusive of marginalised or gendered identities, in contrast to the far right's adoption of exclusionary, occult visuals subsequent to Trump's election (288).</p>
+                <p>Reddit poses an interesting and critical space of investigation into the formation of visual subcommunities as a whole - and more so, how they affect the production of knowledge and political flows of influence. By outlining and dissecting the cultural assemblages of sub-communities such as r/WitchesVsPatriarchy, it is possible to both read into the unique constructions of political identity, but also into larger questions around the formation and maintenance of community within online spaces of competing discourse. Ethnographical digital methods are useful in order to situate close readings within a larger aesthetic and linguistic context, ability to balance the visual, humour and political axioms on which the communities code and decode their borders of inclusivity, antagonisms and forms of play. Through metadata analysis, it is possible to extract both visual and linguistic features over time that help to explore the different ideations that the community collectively adopts around imagery of gender, sexuality, oppression or political focuses. Furthermore, by extracting out the unique affordances that Reddit offers users around building community and communication, as well as the digitally native metadata, it is possible to understand how r/WitchesVsPatriarchy build an inclusive, yet soft association, that draws on a variety of content and a convergence of mediums and cultures, into one aggregated space, where collectively, members can express their oppression, manage forms of privilege, and construct their own aesthetic or political identities.</p>
+            </section>
+            
+            <section id="bibliography">
+                <h2>Bibliography</h2>
+                <ul>
+                    <li>Bucher, T, and Anna Hemond. "Chapter 13 The Affordances of Social Media Platforms." The SAGE Handbook of Social Media, edited by Jean Burgess et al., SAGE Publications, 2018. pp. 233-53</li>
+                    <li>Caliandro, Alessandro. "Digital Methods for Ethnography: Analytical Concepts for Ethnographers Exploring Social Media Environments." Journal of Contemporary Ethnography, vol. 47, no. 5, SAGE Publications, 2018, pp. 551-78, https://doi.org/10.1177/0891241617702960.</li>
+                    <li>Copland, Simon. "Reddit Quarantined: Can Changing Platform Affordances Reduce Hateful Material Online?" Internet Policy Review, vol. 9, no. 4, 2020. https://doi.org/10.14763/2020.4.1516.</li>
+                    <li>Davis, Jenny L., and James B. Chouinard. "Theorizing Affordances: From Request to Refuse." Bulletin of Science, Technology & Society, vol. 36, no. 4, 2016. pp. 241-48. https://doi.org/10.1177/0270467617714944.</li>
+                    <li>Dematagoda, Udith. "Revenge of the Nerds: Recidivist Masculinity, Identity Politics and the Online 'Culture Wars.'" Journal of Extreme Anthropology, vol. 1, no. 3, 2017, pp. 139-48. lib.uva.nl, https://doi.org/10.5617/jea.5359.</li>
+                    <li>de Zeeuw, Daniël, and Marc Tuters. "The Internet Is Serious Business." Cultural Politics, vol. 16, no. 2, 2020, pp. 214-32. https://doi.org/10.1215/17432197-8233406.</li>
+                    <li>Gaudette, Tiana, et al. "Upvoting Extremism: Collective Identity Formation and the Extreme Right on Reddit." New Media & Society, vol. 23, no. 12, 2021, pp. 3491-508. https://doi.org/10.1177/1461444820958123.</li>
+                    <li>Gottlieb, Kathryn. "Cultural Appropriation in Contemporary Neopaganism and Witchcraft", Honors College, 2017.</li>
+                    <li>Hagen, S., Tuters, M. "The Internet Hate Machine: On the Weird Collectivity of Far-Right Groups" Rise of the Far Right: Technologies of Recruitment and Mobilization. Devries, M., Bessant, J., Watts, R. (eds). New York: Rowman & Littlefield Publishers. 2021. pp. 171-192.</li>
+                    <li>Hebdige, Dick. Subculture: The Meaning of Style. London; New York: Routledge, 1991.</li>
+                    <li>Jenkins, Henry, 1958-. Convergence Culture: Where Old and New Media Collide. NewYork :New York University Press, 2006.</li>
+                    <li>Massanari, Adrienne. "Introduction." In Participatory Culture, Community and Plat: Learning From Reddit, vol. 75, Peter Lang, pp. 1-14</li>
+                    <li>Miller, Chris. "How Modern Witches Enchant TikTok: Intersections of Digital, Consumer, and Material Culture(s) on #WitchTok". Religions, vol. 13, no. 118. 2022. https://doi.org/10.3390/ rel13020118</li>
+                    <li>Peeters, Stijn, and Sal Hagen. "The 4CAT Capture and Analysis Toolkit: A Modular Tool for Transparent and Traceable Social Media Research." Computational Communication Research, http://dx.doi.org/10.2139/ssrn.3914892.</li>
+                    <li>Poell, Thomas, et al. "Platformisation." Internet Policy Review, vol. 8, no. 4, Nov. 2019. https://doi.org/10.14763/2019.4.1425.</li>
+                    <li>Tuters, Mark. "Esoteric Fascism Online: 4chan and the Kali Yuga." Far-Right Revisionism and the End of History, edited by L.D Valencia-García. New York: Routledge, 2020, pp. 287-303</li>
+                </ul>
+            </section>
+        </main>
+        
+        <footer>
+            <div class="tldr">
+                <h3>TL;DR Summary</h3>
+                <p>This paper analyzes the subreddit r/WitchesVsPatriarchy as a digital subculture that combines witchcraft aesthetics with feminist politics. The research finds the community functions as a productive, supportive space rather than a destructive one, using humor and mutual empowerment to oppose patriarchal structures while welcoming diverse gender identities. Reddit's technical affordances, particularly moderator controls, enable the community to maintain its "safe space" ethos. The subreddit represents a "convergence culture" where political identities, witchcraft themes, and various media content intersect to create an inclusive space for marginalized voices.</p>
+            </div>
+            
+            <div class="btn-container">
+                <a href="#" class="btn">Contact Author</a>
+                <a href="#" class="btn">View Full Paper</a>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DRC Mineral Extraction: A Deep Dive</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            line-height: 1.6;
+            color: #1a1a1a;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            font-size: clamp(1.8rem, 5vw, 3rem);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+            font-weight: 800;
+        }
+        
+        .subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            color: #666;
+            font-weight: 300;
+        }
+        
+        .fact-check {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+        
+        .fact-check h3 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+        
+        .section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            margin-bottom: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        h2 {
+            color: #764ba2;
+            margin-bottom: 20px;
+            font-size: clamp(1.3rem, 3vw, 2rem);
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+        
+        h3 {
+            color: #667eea;
+            margin: 20px 0 10px;
+            font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+        }
+        
+        .node-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .node {
+            background: linear-gradient(135deg, #667eea15, #764ba215);
+            padding: 20px;
+            border-radius: 12px;
+            border: 2px solid #667eea30;
+            transition: all 0.3s ease;
+        }
+        
+        .node:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+            border-color: #667eea;
+        }
+        
+        .node h4 {
+            color: #764ba2;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .node-detail {
+            font-size: 0.95rem;
+            color: #555;
+            line-height: 1.5;
+        }
+        
+        .actor {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            margin: 5px 5px 5px 0;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        .stat {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin: 10px 0;
+            font-weight: 600;
+        }
+        
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+            border-left: 3px solid #667eea;
+            margin: 20px 0;
+        }
+        
+        .timeline-item {
+            margin-bottom: 25px;
+            position: relative;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -36px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #764ba2;
+            border: 3px solid white;
+        }
+        
+        .timeline-year {
+            font-weight: 700;
+            color: #764ba2;
+            font-size: 1.1rem;
+        }
+        
+        .source-list {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        
+        .source-list a {
+            color: #667eea;
+            text-decoration: none;
+            display: block;
+            padding: 8px 0;
+            border-bottom: 1px solid #e0e0e0;
+            transition: color 0.3s;
+        }
+        
+        .source-list a:hover {
+            color: #764ba2;
+            padding-left: 10px;
+        }
+        
+        .warning {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        
+        .warning h3 {
+            color: #721c24;
+        }
+        
+        .tag {
+            display: inline-block;
+            background: #764ba2;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            margin: 3px;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            header, .section {
+                padding: 20px;
+            }
+            
+            .node-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .impact-box {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+        }
+        
+        .impact-box strong {
+            font-size: 1.1rem;
+            display: block;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🌍 DRC Mineral Extraction Complex</h1>
+            <p class="subtitle">Power Structures, Control Networks & Exploitation in Congo's Resource Economy</p>
+        </header>
+
+        <div class="fact-check">
+            <h3>⚠️ Critical Fact-Check Notice</h3>
+            <p><strong>Correction on Glencore:</strong> While Glencore has been convicted of corruption in the DRC (paying $27.5M in bribes, 2007-2018), it operates <strong>copper-cobalt</strong> mines (KCC, Mutanda), NOT coltan mines. Glencore's name means "Global Energy Commodity Resources" - not Celtic.</p>
+            <p><strong>Coltan mining is primarily artisanal</strong> in eastern DRC, controlled by M23 rebels (since April 2024) who generate ~$800k/month through taxation and smuggling to Rwanda.</p>
+        </div>
+
+        <div class="section">
+            <h2>📊 The Scale of Extraction</h2>
+            <div class="stat">🌐 DRC holds 60-80% of world's coltan reserves</div>
+            <div class="stat">📱 Rubaya produces 15% of global tantalum supply</div>
+            <div class="stat">💰 M23 rebels: $800,000/month from coltan taxes (2024)</div>
+            <div class="stat">⚡ CMOC (China): 31% of global cobalt market share (2024)</div>
+            <div class="stat">📉 70% of Congolese live on <$2.15/day despite mineral wealth</div>
+        </div>
+
+        <div class="section">
+            <h2>🗺️ Power Structure Map: Who Controls What</h2>
+            
+            <div class="node-grid">
+                <div class="node">
+                    <h4>1. State Authority (Nominal)</h4>
+                    <div class="node-detail">
+                        <span class="actor">Gécamines</span>
+                        <p>Legal owner of mineral rights on paper. Joint-venture partner with foreign miners. Authority rarely extends beyond urban centers. Frequent corruption allegations.</p>
+                    </div>
+                </div>
+
+                <div class="node">
+                    <h4>2. Industrial Extractors</h4>
+                    <div class="node-detail">
+                        <span class="actor">CMOC (China)</span>
+                        <span class="actor">Glencore</span>
+                        <span class="actor">Huayou Cobalt</span>
+                        <p><strong>CMOC:</strong> 80% stake in Tenke Fungurume (TFM). Largest cobalt producer globally (114kt in 2024).</p>
+                        <p><strong>Glencore:</strong> KCC (75% stake), Mutanda mines. Convicted of $100M+ in bribes across 7 countries. Paid $1.1B in penalties (2022).</p>
+                    </div>
+                </div>
+
+                <div class="node">
+                    <h4>3. Artisanal Miners (ASM)</h4>
+                    <div class="node-detail">
+                        <span class="tag">Ground Level</span>
+                        <p>Millions of informal miners extracting coltan manually. Earn $3-6/day (doubled under M23 control). Entry point for both legal and illegal supply chains. Minimal safety equipment.</p>
+                    </div>
+                </div>
+
+                <div class="node">
+                    <h4>4. Armed Groups (De Facto Control)</h4>
+                    <div class="node-detail">
+                        <span class="actor">M23 (Rwanda-backed)</span>
+                        <span class="actor">FDLR</span>
+                        <span class="actor">PARECO-FF</span>
+                        <p><strong>M23:</strong> Seized Rubaya (April 2024), Goma & Bukavu (2025). Controls 15% of world's tantalum. Taxes: $7/kg coltan, $4/kg tin. Created parallel "mining ministry."</p>
+                    </div>
+                </div>
+
+                <div class="node">
+                    <h4>5. Neighboring State Facilitation</h4>
+                    <div class="node-detail">
+                        <span class="actor">Rwanda</span>
+                        <span class="actor">Uganda</span>
+                        <p><strong>Rwanda:</strong> Exports doubled to 2,000 tonnes (2023). Exported 2,300+ tonnes in 2024 - far exceeding domestic production capacity. 90% of 3T ore exports are smuggled from DRC (Global Witness, 2022). 30% value-added processing allows relabeling as "Made in Rwanda."</p>
+                    </div>
+                </div>
+
+                <div class="node">
+                    <h4>6. Commodity Traders</h4>
+                    <div class="node-detail">
+                        <span class="actor">Traxys (Luxembourg)</span>
+                        <span class="actor">Trafigura</span>
+                        <span class="actor">African Panther</span>
+                        <p><strong>Traxys:</strong> Bought 280 tonnes from Rwanda (2024). Accused of purchasing conflict coltan. Provides price discovery and global market access. Obscures origins through blending.</p>
+                    </div>
+                </div>
+
+                <div class="node">
+                    <h4>7. Smelters & Refiners</h4>
+                    <div class="node-detail">
+                        <span class="tag">Gatekeepers</span>
+                        <p>Determine which ore enters electronics/EV supply chains. Located primarily in China, Japan, Korea. Increasing scrutiny of DRC/Rwanda sources but enforcement gaps remain.</p>
+                    </div>
+                </div>
+
+                <div class="node">
+                    <h4>8. Certification Bodies</h4>
+                    <div class="node-detail">
+                        <span class="actor">ITSCI</span>
+                        <span class="actor">RMI</span>
+                        <span class="actor">OECD Framework</span>
+                        <p><strong>ITSCI:</strong> Most widespread traceability system. Accused by Global Witness (2022) of facilitating conflict mineral laundering. Tags indicate non-existent "dummy mines" in some cases. 90% traceability failure rate in certain areas.</p>
+                    </div>
+                </div>
+
+                <div class="node">
+                    <h4>9. End Users</h4>
+                    <div class="node-detail">
+                        <span class="actor">Apple</span>
+                        <span class="actor">Samsung</span>
+                        <span class="actor">Tesla</span>
+                        <span class="actor">EV Manufacturers</span>
+                        <p>Ultimate demand drivers. Face Dodd-Frank reporting requirements but traceability gaps persist. Apple suspended coltan supplies from Rwanda/DRC (2024) after DRC accusations.</p>
+                    </div>
+                </div>
+
+                <div class="node">
+                    <h4>10. Financial Leverage</h4>
+                    <div class="node-detail">
+                        <span class="actor">SICOMINES (DRC-China)</span>
+                        <span class="actor">State Agreements</span>
+                        <p>Infrastructure-for-minerals deals. $6B originally (2008), renegotiated. Ties Chinese state capital to long-term extraction rights. Embeds geopolitical leverage into ownership structures.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🔄 Value Flow Architecture</h2>
+            <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; border-left: 5px solid #667eea;">
+                <p style="font-weight: 600; margin-bottom: 15px;">The Money Trail:</p>
+                <p>ASM Extraction → Local Traders/Coops <strong>OR</strong> Militia Checkpoints → Legal Export Routes <strong>OR</strong> Smuggling Networks → Cross-Border to Rwanda/Uganda → Smelters/Refiners → Commodity Traders → Global Manufacturers → Financial Markets</p>
+                <hr style="margin: 15px 0; border: none; border-top: 2px dashed #667eea;">
+                <p><strong>Rent Extraction Points:</strong></p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>State/Corporate JVs: Official royalties & profit-sharing</li>
+                    <li>Militias: Taxation ($7/kg coltan), checkpoint fees, forced labor</li>
+                    <li>Neighboring States: 30% value-added processing fee + export revenue</li>
+                    <li>Traders: Arbitrage, blending, price-setting power</li>
+                    <li>Profit Repatriation: Offshore accounts, tax havens</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>📜 Historical Power Structure Evolution</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <span class="timeline-year">1885-1908</span>
+                    <p><strong>Leopold II's Congo Free State:</strong> Personal ownership model. Extractive governance through concessionary companies. Forced labor system. Foundation of violent resource control.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <span class="timeline-year">1965-1997</span>
+                    <p><strong>Mobutu Era:</strong> Nationalization under Gécamines. Patronage economy. Mineral wealth → regime funding. Infrastructure collapse. Created template for elite capture.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <span class="timeline-year">1996-2003</span>
+                    <p><strong>First & Second Congo Wars:</strong> 6 million deaths. War economies institutionalized. Militias = shadow governments. Rwanda/Uganda proxy involvement begins. Coltan-conflict nexus emerges.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <span class="timeline-year">2000-2001</span>
+                    <p><strong>Coltan Boom:</strong> Price spikes from $80 to $380/kg. International attention to conflict minerals. UN Panel of Experts reports on illegal exploitation.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <span class="timeline-year">2008</span>
+                    <p><strong>SICOMINES Agreement:</strong> China's $6B infrastructure-for-minerals deal. Copper-cobalt corridors. Long-term Chinese state entrenchment.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <span class="timeline-year">2010</span>
+                    <p><strong>Dodd-Frank Section 1502:</strong> US conflict minerals reporting. Created compliance infrastructure but limited real-world impact. Traceability challenges persist.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <span class="timeline-year">2022</span>
+                    <p><strong>Glencore Conviction:</strong> $1.1B penalty for decade of bribery (2007-2018). $27.5M in DRC alone. Admitted using intermediaries to bribe officials across 7 countries.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <span class="timeline-year">2024 April</span>
+                    <p><strong>M23 Seizes Rubaya:</strong> Control of 15% of world's tantalum. Parallel administration. $800k/month revenue. "Largest contamination" of mineral supply chains (UN).</p>
+                </div>
+
+                <div class="timeline-item">
+                    <span class="timeline-year">2024 Feb</span>
+                    <p><strong>EU-Rwanda Minerals Deal:</strong> Strategic partnership for critical raw materials. Signed despite ongoing smuggling allegations. Global Witness investigation reveals Traxys buying conflict coltan.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <span class="timeline-year">2025 Jan-Feb</span>
+                    <p><strong>M23 Takes Goma & Bukavu:</strong> Major cities fall. 1M+ displaced. Full-scale regional war risk. US-mediated talks ongoing.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🔍 Major Corruption Cases</h2>
+            
+            <div class="warning">
+                <h3>Glencore (2007-2018)</h3>
+                <p><strong>Crime:</strong> $100M+ in bribes across Nigeria, Cameroon, Côte d'Ivoire, Equatorial Guinea, Brazil, Venezuela, and DRC</p>
+                <p><strong>DRC Specifics:</strong> $27.5M paid to intermediaries to bribe officials for mining advantages. Secured $43M in improper benefits.</p>
+                <p><strong>Penalties:</strong> $1.1B total (US, UK, Brazil). $180M settlement with DRC (2022).</p>
+                <p><strong>Method:</strong> Sham consulting agreements, inflated invoices, intermediary companies.</p>
+                <p><strong>Victims:</strong> Healthcare workers lost jobs when Crusader Health collapsed after Glencore bribed judge in contract dispute.</p>
+            </div>
+
+            <div class="warning">
+                <h3>Dan Gertler Operations</h3>
+                <p><strong>Profile:</strong> Israeli businessman, close ties to President Kabila. UN called his diamond deals a "nightmare" for DRC (2001).</p>
+                <p><strong>Impact:</strong> Glencore partnered with Gertler despite dodgy reputation. Resource Matters estimated DRC lost $440M on KCC deal alone - Glencore paid $140M instead of $585M for signing bonus.</p>
+                <p><strong>Status:</strong> US sanctions (2017). Still receives $250k/day in royalties from three major mining projects (two Glencore-owned) per civil society calculations.</p>
+            </div>
+        </div>
+
+        <div class="impact-box">
+            <strong>Human Cost</strong>
+            <p>🚨 7 million+ displaced by conflict</p>
+            <p>💔 6 million killed (1996-2003 wars)</p>
+            <p>👶 Child labor widespread in artisanal mines (children as young as 10)</p>
+            <p>💰 Artisanal miners: $3-6/day despite enabling $200B+ global electronics industry</p>
+            <p>⚠️ Hazardous conditions: tunnel collapses, toxic dust, no safety equipment</p>
+            <p>🏚️ Infrastructure collapse in mineral-rich regions</p>
+        </div>
+
+        <div class="section">
+            <h2>🌐 International Complicity & Failures</h2>
+            
+            <h3>Traceability System Failures (ITSCI)</h3>
+            <p>The International Tin Supply Chain Initiative was designed to prevent conflict minerals from entering supply chains. Global Witness investigation (2022) found:</p>
+            <ul style="margin-left: 20px; margin-top: 10px; line-height: 1.8;">
+                <li>Minerals from armed-group-controlled mines entering ITSCI system</li>
+                <li>Up to 90% of minerals not originating from mines indicated on tags</li>
+                <li>"Dummy mines" - tags indicating non-existent mines or random holes</li>
+                <li>Bags dumped in mines for "re-mining" in Rwanda to create false provenance</li>
+                <li>System used to launder "blood coltan" despite certification</li>
+            </ul>
+
+            <h3>EU Strategic Failures</h3>
+            <p>February 2024: EU signed mineral partnership with Rwanda for "critical raw materials" access - including coltan-derived tantalum. This occurred:</p>
+            <ul style="margin-left: 20px; margin-top: 10px; line-height: 1.8;">
+                <li>While UN experts confirmed systematic smuggling from DRC to Rwanda</li>
+                <li>Despite Global Witness evidence of EU companies buying conflict minerals</li>
+                <li>As M23 (Rwanda-backed) was actively expanding territorial control</li>
+                <li>Limited sanctions imposed (March 2025) but MoU remains in place</li>
+            </ul>
+
+            <h3>China's Dual Position</h3>
+            <p>PRC condemned Rwandan support for M23, supported DRC sovereignty claims. However:</p>
+            <ul style="margin-left: 20px; margin-top: 10px; line-height: 1.8;">
+                <li>CMOC controls 31% of global cobalt market via DRC operations</li>
+                <li>Chinese firms dominate cobalt refining globally</li>
+                <li>SICOMINES debt-for-minerals deal embeds long-term extraction rights</li>
+                <li>Maintains "African-led solutions" stance, limiting intervention</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>📚 Key Source Documents</h2>
+            <div class="source-list">
+                <a href="#" onclick="return false;">UN Group of Experts on DRC Reports (2023-2025) - M23 activities, Rwandan involvement</a>
+                <a href="#" onclick="return false;">Global Witness: "New investigation suggests EU trader Traxys buys conflict minerals" (2023)</a>
+                <a href="#" onclick="return false;">Reuters: "M23 rebels fund war through control of Congo coltan mines" (2024)</a>
+                <a href="#" onclick="return false;">US Geological Survey: Mineral Commodity Summaries - Tantalum & Niobium (2023)</a>
+                <a href="#" onclick="return false;">OECD Due Diligence Guidance for Responsible Supply Chains (2022)</a>
+                <a href="#" onclick="return false;">IPIS Maps: DRC Mining Site and Trade Route Mapping (2023)</a>
+                <a href="#" onclick="return false;">US Dept of Justice: Glencore Foreign Bribery Case (May 2022)</a>
+                <a href="#" onclick="return false;">Transparency International: DRC Accountability Report (June 2024)</a>
+                <a href="#" onclick="return false;">Benchmark Mineral Intelligence: Cobalt Market Report (2024)</a>
+                <a href="#" onclick="return false;">Human Rights Watch: "What Do You Mean We Are Not Developed?" (2022)</a>
+                <a href="#" onclick="return false;">Public Eye (Switzerland): Glencore Criminal Complaint (2017)</a>
+                <a href="#" onclick="return false;">Al Jazeera: Blood Minerals EU-Rwanda Deal Analysis (2024)</a>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>💡 Critical Insights</h2>
+            
+            <h3>Control ≠ Ownership</h3>
+            <p>Legal ownership (Gécamines, state JVs) often means little. Real control lies with: (1) Armed groups holding physical territory, (2) Smelters deciding market access, (3) Traders setting prices, (4) Financial leverage through debt arrangements.</p>
+
+            <h3>The Laundering Mechanism</h3>
+            <p>Congolese minerals become "Rwandan" through: minimal processing (30% value-added rule) + mixing with domestic production + export under Rwandan certificates = legal entry to global supply chains. Trade volume far exceeds geological capacity.</p>
+
+            <h3>Certification Theater</h3>
+            <p>Compliance frameworks exist to satisfy Western corporate liability concerns, not to stop conflict funding. ITSCI tags can be bought, mines can be invented, and traceability breaks down at the artisanal level where most coltan originates.</p>
+
+            <h3>The Militia Economics</h3>
+            <p>M23 demonstrates sophisticated governance: doubled miner wages (incentive to stay), created "mining ministry," issued permits, controlled buyers, monopolized transport. This isn't chaos - it's an alternative state apparatus funded by mineral rents.</p>
+
+            <h3>Geopolitical Arbitrage</h3>
+            <p>Rwanda leverages: (1) Tutsi minority protection narrative, (2) Western development partner<h3>Geopolitical Arbitrage</h3>
+            <p>Rwanda leverages: (1) Tutsi minority protection narrative, (2) Western development partner status, (3) "African solutions" diplomatic cover, (4) Critical minerals supply for West/China competition. Result: minimal consequences for systematic smuggling.</p>
+
+            <h3>The China Model</h3>
+            <p>Unlike Western corruption (bribes for specific deals), Chinese approach is structural: infrastructure-for-minerals locks in decades of access, state-backed capital provides financing ordinary miners cannot match, vertical integration from mine to battery ensures supply chain control. SICOMINES gave China more leverage than any single bribe could.</p>
+        </div>
+
+        <div class="section">
+            <h2>🎯 Where Intervention Could Work</h2>
+            
+            <div class="node-grid">
+                <div class="node">
+                    <h4>Smelter Accountability</h4>
+                    <div class="node-detail">
+                        <p><strong>Leverage Point:</strong> Only ~100 tantalum smelters globally. Binding audits + real penalties for accepting conflict minerals could choke demand.</p>
+                        <p><strong>Weakness:</strong> Chinese smelters outside Western regulatory reach process 60%+ of tantalum.</p>
+                    </div>
+                </div>
+
+                <div class="node">
+                    <h4>Rwanda Export Limits</h4>
+                    <div class="node-detail">
+                        <p><strong>Leverage Point:</strong> Geological surveys prove Rwanda cannot produce volumes it exports. Binding quota system based on proven reserves.</p>
+                        <p><strong>Weakness:</strong> EU just signed minerals deal with Rwanda. Economic incentives oppose enforcement.</p>
+                    </div>
+                </div>
+
+                <div class="node">
+                    <h4>End-User Pressure</h4>
+                    <div class="node-detail">
+                        <p><strong>Leverage Point:</strong> Apple, Samsung, Tesla fear reputational damage. Public campaigns + shareholder activism can force supply chain audits.</p>
+                        <p><strong>Success:</strong> Apple suspended Rwanda/DRC coltan (2024) after advocacy pressure.</p>
+                    </div>
+                </div>
+
+                <div class="node">
+                    <h4>Financial Sanctions</h4>
+                    <div class="node-detail">
+                        <p><strong>Leverage Point:</strong> Swift sanctions on mineral traders, commodity houses, and banks processing conflict mineral payments.</p>
+                        <p><strong>Precedent:</strong> Dan Gertler sanctions reduced (didn't eliminate) his operations. Could be expanded.</p>
+                    </div>
+                </div>
+
+                <div class="node">
+                    <h4>Direct Mine Investment</h4>
+                    <div class="node-detail">
+                        <p><strong>Leverage Point:</strong> Alternative model - Western/ethical investors establish artisanal cooperatives with fair wages, safety equipment, and direct market access.</p>
+                        <p><strong>Example:</strong> Fairphone's fair-sourced minerals program shows viability at small scale.</p>
+                    </div>
+                </div>
+
+                <div class="node">
+                    <h4>Military Peacekeeping</h4>
+                    <div class="node-detail">
+                        <p><strong>Status:</strong> MONUSCO (UN mission) failed to prevent M23 advance. Southern African Development Community forces deployed (2025) but limited mandate.</p>
+                        <p><strong>Reality:</strong> No major power willing to commit ground forces. Regional solution depends on Rwanda backing down.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🚨 Current Crisis (2025)</h2>
+            
+            <div class="impact-box">
+                <strong>M23 Controls:</strong>
+                <p>✓ Rubaya mines (15% of world tantalum)</p>
+                <p>✓ Goma city (2M population) - captured Jan 26, 2025</p>
+                <p>✓ Bukavu city - captured Feb 2025</p>
+                <p>✓ Major supply routes to Rwanda</p>
+                <p>✓ Parallel "state" administration in North Kivu</p>
+            </div>
+
+            <div style="background: white; padding: 20px; border-radius: 10px; margin: 20px 0;">
+                <h3 style="color: #dc3545;">Displacement Crisis</h3>
+                <p><strong>1M+ newly displaced</strong> since January 2025 fighting. Cholera outbreaks in camps. Humanitarian access blocked. Regional war risk if Rwanda/DRC conflict escalates.</p>
+                
+                <h3 style="color: #dc3545; margin-top: 20px;">Diplomatic Deadlock</h3>
+                <p>🇺🇸 US-mediated talks: Blinken shuttle diplomacy (Feb 2025). Ceasefire fragile.</p>
+                <p>🇨🇳 China: condemned Rwanda but maintains "African solutions" stance.</p>
+                <p>🇪🇺 EU: Limited sanctions (March 2025) on individuals. Minerals deal with Rwanda still active.</p>
+                <p>🇺🇳 UN: Group of Experts reports confirm Rwandan support but Security Council paralyzed.</p>
+                <p>🌍 AU: East African Community mediation attempts failed. SADC forces have limited mandate.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>📊 Economic Scale</h2>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
+                <div class="stat">🌍 Global Tantalum Market: $350M annually</div>
+                <div class="stat">⚡ Global Cobalt Market: $7.5B annually</div>
+                <div class="stat">💎 DRC Copper Production: 3M tonnes (2024)</div>
+                <div class="stat">🔋 DRC Cobalt Production: 140kt (2024)</div>
+                <div class="stat">📱 Tantalum in Every Smartphone: 40-50mg</div>
+                <div class="stat">🚗 Cobalt per EV Battery: 5-10kg</div>
+                <div class="stat">🏦 Gécamines Revenue (2022): $89M</div>
+                <div class="stat">💰 CMOC Revenue (2024): $25B total</div>
+                <div class="stat">⛏️ Artisanal Miners in DRC: 2M+</div>
+                <div class="stat">🏘️ People Dependent on Mining: 12M+</div>
+            </div>
+
+            <div style="margin-top: 20px; padding: 20px; background: #fff3cd; border-radius: 10px;">
+                <p><strong>The Paradox:</strong> DRC has 70% of world's cobalt, 80% of coltan, yet ranks 179/191 on Human Development Index. GDP per capita: $580. Mineral exports: $15B+ annually. Where does the money go?</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🔬 The Technology Connection</h2>
+            
+            <h3>Why These Minerals Matter</h3>
+            <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin: 15px 0;">
+                <p><strong>Tantalum (from Coltan):</strong> Capacitors in every smartphone, laptop, gaming console, medical device. Properties: high melting point, corrosion resistance, excellent charge storage. No viable substitute at scale.</p>
+                
+                <p style="margin-top: 15px;"><strong>Cobalt:</strong> Lithium-ion batteries (EVs, phones, grid storage). Stabilizes battery chemistry, increases energy density, extends lifespan. Alternatives (LFP batteries) exist but lower performance. Tesla reduced cobalt content but still uses ~10kg per Model 3.</p>
+                
+                <p style="margin-top: 15px;"><strong>Copper:</strong> Electrical wiring, EVs (80kg per vehicle vs 20kg for ICE), renewable energy infrastructure, data centers. Demand projected to double by 2035.</p>
+            </div>
+
+            <h3>The Green Transition Dilemma</h3>
+            <div class="warning">
+                <h3>Ethical Paradox</h3>
+                <p>Climate action demands massive battery production → cobalt demand surges → DRC extraction intensifies → conflict funding increases → human rights abuses worsen. The "green" economy is built on Congolese exploitation.</p>
+                <p style="margin-top: 10px;"><strong>Projection:</strong> EV adoption requires 3-5x current cobalt production by 2030. DRC will remain indispensable without major technological breakthrough or ethical sourcing transformation.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🗂️ Document the Network Yourself</h2>
+            
+            <h3>OSINT Starting Points</h3>
+            <div style="background: white; padding: 20px; border-radius: 10px;">
+                <p><strong>Company Financial Disclosures:</strong></p>
+                <ul style="margin-left: 20px; line-height: 1.8;">
+                    <li>Glencore Annual Reports (2018-2024): Search "DRC" and "Katanga" sections</li>
+                    <li>CMOC Annual Reports: TFM/KFM production data, joint venture details</li>
+                    <li>SEC Filings (US public companies): Dodd-Frank conflict minerals reports</li>
+                </ul>
+
+                <p style="margin-top: 15px;"><strong>Trade Data:</strong></p>
+                <ul style="margin-left: 20px; line-height: 1.8;">
+                    <li>UN Comtrade Database: Search Rwanda/Uganda tantalum exports (HS code 2615)</li>
+                    <li>Compare to DRC export data - identify discrepancies</li>
+                    <li>Track Belgium/Netherlands tantalum imports (processing hubs)</li>
+                </ul>
+
+                <p style="margin-top: 15px;"><strong>Investigative Journalism:</strong></p>
+                <ul style="margin-left: 20px; line-height: 1.8;">
+                    <li>Global Witness investigations (2016-2024)</li>
+                    <li>IPIS mapping database (interactive map of mining sites)</li>
+                    <li>Enough Project reports on conflict minerals</li>
+                    <li>Congo Research Group at NYU</li>
+                </ul>
+
+                <p style="margin-top: 15px;"><strong>Legal Documents:</strong></p>
+                <ul style="margin-left: 20px; line-height: 1.8;">
+                    <li>US DOJ Case: United States v. Glencore International AG (SDNY 1:22-cr-00230)</li>
+                    <li>UK Serious Fraud Office: Glencore Energy UK sentencing remarks</li>
+                    <li>Swiss NGO complaints: Public Eye's Glencore tracking</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>💭 Analytical Framework</h2>
+            
+            <h3>Questions to Ask When Evaluating Claims</h3>
+            <div style="background: #f8f9fa; padding: 20px; border-radius: 10px;">
+                <p><strong>1. Mineral-Specific:</strong> Is the actor mining coltan, cobalt, copper, or other? These have different supply chains, geographies, and actors. Don't conflate.</p>
+                
+                <p style="margin-top: 15px;"><strong>2. Scale:</strong> Industrial mining (large foreign companies) vs artisanal mining (small-scale, hand tools) have completely different power structures.</p>
+                
+                <p style="margin-top: 15px;"><strong>3. Control vs Ownership:</strong> Legal owner on paper vs who holds physical control vs who extracts economic rents. These are often three different entities.</p>
+                
+                <p style="margin-top: 15px;"><strong>4. Time Period:</strong> Power structures shift. M23 didn't control Rubaya until April 2024. Glencore's corruption was 2007-2018. Use dated claims carefully.</p>
+                
+                <p style="margin-top: 15px;"><strong>5. Source Triangulation:</strong> UN reports, investigative journalism, company disclosures, and academic research should align. Single-source claims need verification.</p>
+                
+                <p style="margin-top: 15px;"><strong>6. Follow the Money:</strong> Who profits? Trace: extraction → transport → export → processing → manufacturing → retail. Rent extraction occurs at each node.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🎬 What Can You Do?</h2>
+            
+            <div class="node-grid">
+                <div class="node">
+                    <h4>As a Consumer</h4>
+                    <div class="node-detail">
+                        <p>• Demand transparency from electronics manufacturers</p>
+                        <p>• Support Fairphone and ethical electronics brands</p>
+                        <p>• Extend device lifespan to reduce demand</p>
+                        <p>• Recycle old devices (urban mining recovers minerals)</p>
+                    </div>
+                </div>
+
+                <div class="node">
+                    <h4>As an Investor</h4>
+                    <div class="node-detail">
+                        <p>• Shareholder resolutions demanding supply chain audits</p>
+                        <p>• Divest from companies with poor due diligence</p>
+                        <p>• Support impact investment in ethical mining</p>
+                        <p>• Engage with ESG ratings agencies</p>
+                    </div>
+                </div>
+
+                <div class="node">
+                    <h4>As an Advocate</h4>
+                    <div class="node-detail">
+                        <p>• Support: Global Witness, Enough Project, RAID UK</p>
+                        <p>• Pressure representatives for stronger conflict mineral laws</p>
+                        <p>• Amplify Congolese civil society voices</p>
+                        <p>• Counter "Rwanda success story" narratives with evidence</p>
+                    </div>
+                </div>
+
+                <div class="node">
+                    <h4>As a Technologist</h4>
+                    <div class="node-detail">
+                        <p>• Develop cobalt-free battery chemistry</p>
+                        <p>• Improve recycling technology (current rate <5%)</p>
+                        <p>• Create blockchain traceability solutions</p>
+                        <p>• Design for repairability and longevity</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" style="background: linear-gradient(135deg, #667eea, #764ba2); color: white;">
+            <h2 style="color: white; border-bottom-color: white;">⚖️ The Core Question</h2>
+            <p style="font-size: 1.1rem; line-height: 1.8;">
+                Can there be a just transition to green technology when it depends on minerals extracted through violence, child labor, and corruption? Is your smartphone worth a Congolese miner's life? Is climate action justifiable if it deepens exploitation in the Global South?
+            </p>
+            <p style="font-size: 1.1rem; line-height: 1.8; margin-top: 15px;">
+                These aren't rhetorical questions. They demand answers — from corporations, governments, and consumers. The DRC mineral complex isn't an unfortunate side effect of modernity. It's the foundation our digital economy is built on.
+            </p>
+            <p style="font-size: 1.1rem; line-height: 1.8; margin-top: 15px; font-weight: 600;">
+                Ignorance is no longer an excuse. Now you know.
+            </p>
+        </div>
+
+        <div class="section">
+            <h2>🕸️ Interactive Network Map</h2>
+            <div style="background: white; padding: 20px; border-radius: 10px;">
+                <canvas id="networkCanvas" width="800" height="600" style="width: 100%; max-width: 800px; height: auto; border: 2px solid #667eea; border-radius: 10px;"></canvas>
+                <div style="margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px;">
+                    <p style="font-size: 0.9rem; color: #666;"><strong>Interactive Network:</strong> Click and drag nodes to explore relationships. Line thickness = influence strength. Node size = economic power.</p>
+                    <button id="resetBtn" style="margin-top: 10px; padding: 10px 20px; background: #667eea; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: 600;">Reset Layout</button>
+                    <button id="toggleDarkMode" style="margin-top: 10px; margin-left: 10px; padding: 10px 20px; background: #764ba2; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: 600;">Toggle Dark Mode</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>📈 Data Tables for Analysis</h2>
+            
+            <h3>Key Actors & Roles</h3>
+            <div style="overflow-x: auto;">
+                <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
+                    <thead>
+                        <tr style="background: #667eea; color: white;">
+                            <th style="padding: 12px; text-align: left; border: 1px solid #ddd;">Entity</th>
+                            <th style="padding: 12px; text-align: left; border: 1px solid #ddd;">Type</th>
+                            <th style="padding: 12px; text-align: left; border: 1px solid #ddd;">Primary Mineral</th>
+                            <th style="padding: 12px; text-align: left; border: 1px solid #ddd;">Control Mechanism</th>
+                            <th style="padding: 12px; text-align: left; border: 1px solid #ddd;">Revenue/Impact</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="background: white;">
+                            <td style="padding: 10px; border: 1px solid #ddd;"><strong>M23 Rebels</strong></td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">Armed Group</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">Coltan/Tantalum</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">Territorial control, taxation</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">$800k/month (2024)</td>
+                        </tr>
+                        <tr style="background: #f8f9fa;">
+                            <td style="padding: 10px; border: 1px solid #ddd;"><strong>CMOC (China)</strong></td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">Corporate</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">Cobalt, Copper</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">80% stake in TFM mine</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">31% global cobalt share</td>
+                        </tr>
+                        <tr style="background: white;">
+                            <td style="padding: 10px; border: 1px solid #ddd;"><strong>Glencore</strong></td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">Corporate</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">Cobalt, Copper</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">JV stakes, trading power</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">$1.1B penalties (2022)</td>
+                        </tr>
+                        <tr style="background: #f8f9fa;">
+                            <td style="padding: 10px; border: 1px solid #ddd;"><strong>Rwanda</strong></td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">State</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">Coltan (smuggled)</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">Processing, re-export</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">2,300+ tonnes exported (2024)</td>
+                        </tr>
+                        <tr style="background: white;">
+                            <td style="padding: 10px; border: 1px solid #ddd;"><strong>Traxys</strong></td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">Trader</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">Coltan/Tantalum</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">Commodity trading</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">280 tonnes from Rwanda (2024)</td>
+                        </tr>
+                        <tr style="background: #f8f9fa;">
+                            <td style="padding: 10px; border: 1px solid #ddd;"><strong>Gécamines</strong></td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">State Corp</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">All minerals</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">Legal ownership, JV partner</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">$89M revenue (2022)</td>
+                        </tr>
+                        <tr style="background: white;">
+                            <td style="padding: 10px; border: 1px solid #ddd;"><strong>ITSCI</strong></td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">Certification</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">3T minerals</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">Traceability tags</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">90% failure rate (contested areas)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 style="margin-top: 40px;">Production & Trade Data (2024)</h3>
+            <div style="overflow-x: auto;">
+                <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
+                    <thead>
+                        <tr style="background: #764ba2; color: white;">
+                            <th style="padding: 12px; text-align: left; border: 1px solid #ddd;">Mineral</th>
+                            <th style="padding: 12px; text-align: left; border: 1px solid #ddd;">DRC Production</th>
+                            <th style="padding: 12px; text-align: left; border: 1px solid #ddd;">Global Share</th>
+                            <th style="padding: 12px; text-align: left; border: 1px solid #ddd;">Market Value</th>
+                            <th style="padding: 12px; text-align: left; border: 1px solid #ddd;">Key Use</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="background: white;">
+                            <td style="padding: 10px; border: 1px solid #ddd;"><strong>Cobalt</strong></td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">140,000 tonnes</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">70%</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">$7.5B global market</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">EV batteries</td>
+                        </tr>
+                        <tr style="background: #f8f9fa;">
+                            <td style="padding: 10px; border: 1px solid #ddd;"><strong>Copper</strong></td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">3M tonnes</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">~12%</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">$24B+ (DRC exports)</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">Wiring, EVs, renewables</td>
+                        </tr>
+                        <tr style="background: white;">
+                            <td style="padding: 10px; border: 1px solid #ddd;"><strong>Tantalum</strong></td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">~1,000 tonnes</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">60-80%</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">$350M global market</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">Smartphone capacitors</td>
+                        </tr>
+                        <tr style="background: #f8f9fa;">
+                            <td style="padding: 10px; border: 1px solid #ddd;"><strong>Tin</strong></td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">~10,000 tonnes</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">~3%</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">Minor player</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">Soldering, alloys</td>
+                        </tr>
+                        <tr style="background: white;">
+                            <td style="padding: 10px; border: 1px solid #ddd;"><strong>Tungsten</strong></td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">~5,000 tonnes</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">~6%</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">Minor player</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">Cutting tools, hardening</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 style="margin-top: 40px;">Smuggling Routes & Volumes</h3>
+            <div style="overflow-x: auto;">
+                <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
+                    <thead>
+                        <tr style="background: #667eea; color: white;">
+                            <th style="padding: 12px; text-align: left; border: 1px solid #ddd;">Route</th>
+                            <th style="padding: 12px; text-align: left; border: 1px solid #ddd;">Method</th>
+                            <th style="padding: 12px; text-align: left; border: 1px solid #ddd;">Volume (2024 est.)</th>
+                            <th style="padding: 12px; text-align: left; border: 1px solid #ddd;">Controller</th>
+                            <th style="padding: 10px; border: 1px solid #ddd;">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="background: white;">
+                            <td style="padding: 10px; border: 1px solid #ddd;"><strong>Rubaya → Kigali</strong></td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">M23-controlled trucks</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">150+ tonnes coltan</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">M23 / Rwandan buyers</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">Active (2024-2025)</td>
+                        </tr>
+                        <tr style="background: #f8f9fa;">
+                            <td style="padding: 10px; border: 1px solid #ddd;"><strong>North Kivu → Uganda</strong></td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">Border smuggling</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">Moderate (undocumented)</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">Various militias/traders</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">Ongoing</td>
+                        </tr>
+                        <tr style="background: white;">
+                            <td style="padding: 10px; border: 1px solid #ddd;"><strong>Bukavu → Burundi</strong></td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">Lake Tanganyika boats</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">Lower volume</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">Local networks</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">Intermittent</td>
+                        </tr>
+                        <tr style="background: #f8f9fa;">
+                            <td style="padding: 10px; border: 1px solid #ddd;"><strong>Legal DRC Exports</strong></td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">Port of Matadi</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">~500 tonnes coltan</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">Government/certified</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">Official channel</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <button id="downloadCSV" style="margin-top: 20px; padding: 12px 24px; background: #667eea; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 1rem;">📊 Download Full Dataset (CSV)</button>
+        </div>
+
+        <footer style="text-align: center; padding: 40px 20px; color: white;">
+            <p style="font-size: 0.9rem; opacity: 0.9;">This resource compiled from UN reports, investigative journalism, academic research, and corporate disclosures.</p>
+            <p style="font-size: 0.9rem; opacity: 0.9; margin-top: 10px;">Last updated: October 2025 | Built with open-source intelligence</p>
+            <p style="font-size: 0.8rem; opacity: 0.8; margin-top: 20px;">Share freely. Attribute sources. Question everything. Verify independently.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Dark mode toggle
+        let darkMode = false;
+        document.getElementById('toggleDarkMode').addEventListener('click', function() {
+            darkMode = !darkMode;
+            if (darkMode) {
+                document.body.style.background = 'linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)';
+                document.querySelectorAll('.section, header').forEach(el => {
+                    el.style.background = 'rgba(30, 30, 50, 0.95)';
+                    el.style.color = '#e0e0e0';
+                });
+                document.querySelectorAll('h2, h3').forEach(el => {
+                    el.style.color = '#a78bfa';
+                });
+            } else {
+                document.body.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+                document.querySelectorAll('.section, header').forEach(el => {
+                    el.style.background = 'rgba(255, 255, 255, 0.95)';
+                    el.style.color = '#1a1a1a';
+                });
+                document.querySelectorAll('h2').forEach(el => {
+                    el.style.color = '#764ba2';
+                });
+                document.querySelectorAll('h3').forEach(el => {
+                    el.style.color = '#667eea';
+                });
+            }
+            drawNetwork();
+        });
+
+        // Network visualization
+        const canvas = document.getElementById('networkCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        const nodes = [
+            {id: 'gecamines', label: 'Gécamines\n(State)', x: 400, y: 100, size: 30, color: '#764ba2'},
+            {id: 'm23', label: 'M23\n(Militia)', x: 200, y: 200, size: 40, color: '#dc3545'},
+            {id: 'cmoc', label: 'CMOC\n(China)', x: 600, y: 200, size: 50, color: '#ffc107'},
+            {id: 'glencore', label: 'Glencore\n(Swiss)', x: 500, y: 300, size: 45, color: '#17a2b8'},
+            {id: 'rwanda', label: 'Rwanda\n(State)', x: 150, y: 350, size: 38, color: '#fd7e14'},
+            {id: 'asm', label: 'Artisanal\nMiners', x: 350, y: 450, size: 35, color: '#6c757d'},
+            {id: 'traders', label: 'Commodity\nTraders', x: 550, y: 450, size: 35, color: '#20c997'},
+            {id: 'smelters', label: 'Smelters', x: 700, y: 350, size: 30, color: '#e83e8c'},
+            {id: 'manufacturers', label: 'OEMs', x: 650, y: 500, size: 40, color: '#007bff'}
+        ];
+
+        const edges = [
+            {from: 'gecamines', to: 'cmoc', weight: 8, label: 'JV 80%'},
+            {from: 'gecamines', to: 'glencore', weight: 7, label: 'JV 75%'},
+            {from: 'm23', to: 'rwanda', weight: 9, label: 'Smuggling'},
+            {from: 'm23', to: 'asm', weight: 7, label: 'Taxation'},
+            {from: 'asm', to: 'traders', weight: 6, label: 'Sales'},
+            {from: 'asm', to: 'm23', weight: 5, label: 'Extortion'},
+            {from: 'rwanda', to: 'traders', weight: 8, label: 'Export'},
+            {from: 'cmoc', to: 'smelters', weight: 9, label: 'Supply'},
+            {from: 'glencore', to: 'traders', weight: 8, label: 'Trading'},
+            {from: 'traders', to: 'smelters', weight: 7, label: 'Ore'},
+            {from: 'smelters', to: 'manufacturers', weight: 9, label: 'Materials'},
+            {from: 'glencore', to: 'smelters', weight: 6, label: 'Direct'}
+        ];
+
+        let dragging = null;
+        let offsetX = 0, offsetY = 0;
+
+        function drawNetwork() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw edges
+            edges.forEach(edge => {
+                const from = nodes.find(n => n.id === edge.from);
+                const to = nodes.find(n => n.id === edge.to);
+                ctx.beginPath();
+                ctx.moveTo(from.x, from.y);
+                ctx.lineTo(to.x, to.y);
+                ctx.strokeStyle = darkMode ? 'rgba(167, 139, 250, 0.4)' : 'rgba(102, 126, 234, 0.3)';
+                ctx.lineWidth = edge.weight / 2;
+                ctx.stroke();
+                
+                // Draw edge label
+                const midX = (from.x + to.x) / 2;
+                const midY = (from.y + to.y) / 2;
+                ctx.fillStyle = darkMode ? '#a78bfa' : '#667eea';
+                ctx.font = '10px sans-serif';
+                ctx.fillText(edge.label, midX, midY);
+            });
+            
+            // Draw nodes
+            nodes.forEach(node => {
+                ctx.beginPath();
+                ctx.arc(node.x, node.y, node.size, 0, Math.PI * 2);
+                ctx.fillStyle = node.color;
+                ctx.fill();
+                ctx.strokeStyle = darkMode ? '#a78bfa' : 'white';
+                ctx.lineWidth = 3;
+                ctx.stroke();
+                
+                // Draw label
+                ctx.fillStyle = darkMode ? '#e0e0e0' : '#1a1a1a';
+                ctx.font = 'bold 12px sans-serif';
+                ctx.textAlign = 'center';
+                const lines = node.label.split('\n');
+                lines.forEach((line, i) => {
+                    ctx.fillText(line, node.x, node.y + node.size + 15 + (i * 14));
+                });
+            });
+        }
+
+        canvas.addEventListener('mousedown', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            const x = (e.clientX - rect.left) * (canvas.width / rect.width);
+            const y = (e.clientY - rect.top) * (canvas.height / rect.height);
+            
+            nodes.forEach(node => {
+                const dist = Math.sqrt((x - node.x) ** 2 + (y - node.y) ** 2);
+                if (dist < node.size) {
+                    dragging = node;
+                    offsetX = x - node.x;
+                    offsetY = y - node.y;
+                }
+            });
+        });
+
+        canvas.addEventListener('mousemove', (e) => {
+            if (dragging) {
+                const rect = canvas.getBoundingClientRect();
+                const x = (e.clientX - rect.left) * (canvas.width / rect.width);
+                const y = (e.clientY - rect.top) * (canvas.height / rect.height);
+                dragging.x = x - offsetX;
+                dragging.y = y - offsetY;
+                drawNetwork();
+            }
+        });
+
+        canvas.addEventListener('mouseup', () => {
+            dragging = null;
+        });
+
+        document.getElementById('resetBtn').addEventListener('click', () => {
+            nodes[0].x = 400; nodes[0].y = 100;
+            nodes[1].x = 200; nodes[1].y = 200;
+            nodes[2].x = 600; nodes[2].y = 200;
+            nodes[3].x = 500; nodes[3].y = 300;
+            nodes[4].x = 150; nodes[4].y = 350;
+            nodes[5].x = 350; nodes[5].y = 450;
+            nodes[6].x = 550; nodes[6].y = 450;
+            nodes[7].x = 700; nodes[7].y = 350;
+            nodes[8].x = 650; nodes[8].y = 500;
+            drawNetwork();
+        });
+
+        // CSV Download
+        document.getElementById('downloadCSV').addEventListener('click', () => {
+            const csvData = `Entity,Type,Primary Mineral,Control Mechanism,Revenue/Impact,Country,Status
+M23 Rebels,Armed Group,Coltan/Tantalum,Territorial control + taxation,$800k/month,DRC,Active 2024-2025
+CMOC,Corporate,Cobalt + Copper,80% stake in TFM mine,31% global cobalt share,China,Active
+Glencore,Corporate,Cobalt + Copper,JV stakes + trading power,$1.1B penalties (2022),Switzerland,Active
+Rwanda,State,Coltan (smuggled),Processing + re-export,2300+ tonnes exported (2024),Rwanda,Active
+Traxys,Trader,Coltan/Tantalum,Commodity trading,280 tonnes from Rwanda (2024),Luxembourg,Active
+Gécamines,State Corporation,All minerals,Legal ownership + JV partner,$89M revenue (2022),DRC,Active
+ITSCI,Certification,3T minerals,Traceability tags,90% failure rate (contested),International,Active
+FDLR,Armed Group,Various,Territory + taxation,Declining influence,DRC,Active
+Huayou Cobalt,Corporate,Cobalt,Mining + refining,Major cobalt processor,China,Active
+Dan Gertler,Individual,Various,Political connections,$250k/day royalties,Israel,Sanctioned (US)
+
+Mineral,DRC Production,Global Share,Market Value,Key Use,Demand Trend
+Cobalt,140000 tonnes,70%,$7.5B,EV batteries,Growing rapidly
+Copper,3M tonnes,12%,$24B+,Wiring + EVs + renewables,Growing
+Tantalum,1000 tonnes,60-80%,$350M,Smartphone capacitors,Stable
+Tin,10000 tonnes,3%,Minor,Soldering + alloys,Stable
+Tungsten,5000 tonnes,6%,Minor,Cutting tools,Stable
+
+Route,Method,Volume 2024,Controller,Status,Risk Level
+Rubaya to Kigali,M23 trucks,150+ tonnes coltan,M23 + Rwandan buyers,Active,High
+North Kivu to Uganda,Border smuggling,Moderate undocumented,Various militias,Ongoing,Medium
+Bukavu to Burundi,Lake boats,Lower volume,Local networks,Intermittent,Low
+Legal DRC exports,Port of Matadi,~500 tonnes coltan,Government certified,Official,Low`;
+
+            const blob = new Blob([csvData], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'drc_minerals_data.csv';
+            a.click();
+        });
+
+        // Initial draw
+        drawNetwork();
+    </script>
+</body>
+</html>

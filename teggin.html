@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Teggin Family Archive</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0a0e17;
+            --bg-secondary: #151925;
+            --accent-gold: #d4af37;
+            --accent-blue: #4a9eff;
+            --accent-cyan: #00d9ff;
+            --text-primary: #e8e8e8;
+            --text-secondary: #a0a0a0;
+            --border-glow: rgba(212, 175, 55, 0.3);
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Animated background grid */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(74, 158, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(74, 158, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridScroll 20s linear infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes gridScroll {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(50px); }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header with ASCII decoration */
+        header {
+            text-align: center;
+            padding: 3rem 1rem;
+            border-bottom: 2px solid var(--accent-gold);
+            margin-bottom: 3rem;
+            position: relative;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .ascii-decoration {
+            color: var(--accent-gold);
+            font-size: 1.5rem;
+            line-height: 1;
+            margin-bottom: 1rem;
+            opacity: 0.7;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 300;
+            letter-spacing: 0.3rem;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, var(--accent-gold), var(--accent-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+            animation: textGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes textGlow {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.2); }
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            letter-spacing: 0.2rem;
+            font-weight: 300;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Timeline connector */
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, 
+                var(--accent-gold), 
+                var(--accent-cyan), 
+                var(--accent-blue));
+            box-shadow: 0 0 10px var(--border-glow);
+        }
+
+        /* Generation sections */
+        .generation {
+            margin-bottom: 3rem;
+            position: relative;
+            animation: slideIn 0.6s ease-out backwards;
+        }
+
+        .generation:nth-child(1) { animation-delay: 0.1s; }
+        .generation:nth-child(2) { animation-delay: 0.2s; }
+        .generation:nth-child(3) { animation-delay: 0.3s; }
+        .generation:nth-child(4) { animation-delay: 0.4s; }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .generation::before {
+            content: '';
+            position: absolute;
+            left: -2rem;
+            top: 1.5rem;
+            width: 12px;
+            height: 12px;
+            background: var(--accent-gold);
+            border-radius: 50%;
+            box-shadow: 0 0 15px var(--accent-gold);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.3); opacity: 0.7; }
+        }
+
+        .gen-header {
+            color: var(--accent-cyan);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .gen-title {
+            font-size: clamp(1.3rem, 3vw, 1.8rem);
+            color: var(--accent-gold);
+            margin-bottom: 1rem;
+            font-weight: 400;
+        }
+
+        /* Person cards */
+        .person {
+            background: var(--bg-secondary);
+            border: 1px solid rgba(74, 158, 255, 0.2);
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .person::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, 
+                transparent, 
+                var(--accent-cyan), 
+                transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .person:hover::before {
+            transform: translateX(100%);
+        }
+
+        .person:hover {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 5px 20px rgba(74, 158, 255, 0.15);
+            transform: translateX(5px);
+        }
+
+        .person-name {
+            font-size: 1.2rem;
+            color: var(--text-primary);
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .person-dates {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-family: 'Courier New', monospace;
+            margin-bottom: 0.5rem;
+        }
+
+        .person-relation {
+            color: var(--accent-blue);
+            font-size: 0.85rem;
+            font-style: italic;
+        }
+
+        .partner {
+            margin-left: 1.5rem;
+            border-left: 2px solid rgba(212, 175, 55, 0.3);
+            padding-left: 1rem;
+        }
+
+        /* Branch indicator */
+        .branch {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(74, 158, 255, 0.2);
+        }
+
+        .branch-title {
+            color: var(--accent-gold);
+            font-size: 1.4rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 0.2rem;
+        }
+
+        /* Info boxes */
+        .info-box {
+            background: rgba(74, 158, 255, 0.05);
+            border-left: 3px solid var(--accent-cyan);
+            padding: 1rem;
+            margin: 2rem 0;
+            border-radius: 4px;
+        }
+
+        .info-box h3 {
+            color: var(--accent-cyan);
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .info-box p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-top: 4rem;
+            border-top: 1px solid rgba(74, 158, 255, 0.2);
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .timeline {
+                padding-left: 1.5rem;
+            }
+
+            .generation::before {
+                left: -1.5rem;
+            }
+
+            .person {
+                padding: 1rem;
+            }
+
+            .ascii-decoration {
+                font-size: 1rem;
+            }
+
+            h1 {
+                letter-spacing: 0.1rem;
+            }
+        }
+
+        /* Accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="ascii-decoration">◈ ⟡ ◈</div>
+            <h1>The Teggin Archive</h1>
+            <p class="subtitle">Est. ca. 1787 • Eight Generations</p>
+        </header>
+
+        <main>
+            <!-- Current Generation -->
+            <div class="timeline">
+                <section class="generation">
+                    <div class="gen-header">Generation I • Present Day</div>
+                    <h2 class="gen-title">You & Your Immediate Family</h2>
+                    
+                    <div class="person">
+                        <div class="person-name">Alexander Anthony TEGGIN</div>
+                        <div class="person-relation">Archive Keeper</div>
+                    </div>
+
+                    <div class="person">
+                        <div class="person-name">Faure Raynor TEGGIN</div>
+                        <div class="person-relation">Brother</div>
+                    </div>
+
+                    <div class="info-box">
+                        <h3>Half-Siblings</h3>
+                        <p>Douglas Frederick Teggin • Nicola Kim Teggin</p>
+                    </div>
+                </section>
+
+                <!-- Parents -->
+                <section class="generation">
+                    <div class="gen-header">Generation II • Your Parents</div>
+                    <h2 class="gen-title">The Union of Two Lineages</h2>
+                    
+                    <div class="person">
+                        <div class="person-name">Anthony Frederick TEGGIN</div>
+                        <div class="person-relation">Father • Paternal Line</div>
+                    </div>
+
+                    <div class="person partner">
+                        <div class="person-name">Susanna Margaretha MOLLER</div>
+                        <div class="person-relation">Mother • Maternal Line (Moller-Faure)</div>
+                    </div>
+                </section>
+
+                <!-- Grandparents -->
+                <section class="generation">
+                    <div class="gen-header">Generation III • Grandparents</div>
+                    <h2 class="gen-title">The Foundation</h2>
+                    
+                    <div class="person">
+                        <div class="person-name">Frederick Rhodes TEGGIN</div>
+                        <div class="person-dates">1917 – 1988</div>
+                        <div class="person-relation">Paternal Grandfather</div>
+                    </div>
+
+                    <div class="person partner">
+                        <div class="person-name">Bessie Magdalene FIELD</div>
+                        <div class="person-dates">1920 – 2001</div>
+                        <div class="person-relation">Paternal Grandmother</div>
+                    </div>
+
+                    <div class="person">
+                        <div class="person-name">Carl Faure MOLLER</div>
+                        <div class="person-dates">b. 1921</div>
+                        <div class="person-relation">Maternal Grandfather</div>
+                    </div>
+
+                    <div class="person partner">
+                        <div class="person-name">Elizabeth LIEBENBERG</div>
+                        <div class="person-relation">Maternal Grandmother</div>
+                    </div>
+                </section>
+
+                <div class="branch">
+                    <h2 class="branch-title">⟡ Paternal Line: TEGGIN ⟡</h2>
+                </div>
+
+                <!-- Great-Grandparents (Teggin) -->
+                <section class="generation">
+                    <div class="gen-header">Generation IV</div>
+                    <h2 class="gen-title">Frederick Wilson TEGGIN</h2>
+                    
+                    <div class="person">
+                        <div class="person-name">Frederick Wilson TEGGIN</div>
+                        <div class="person-dates">1875 – 1966</div>
+                        <div class="person-relation">Great-Grandfather • 91 years</div>
+                    </div>
+
+                    <div class="person partner">
+                        <div class="person-name">Annie SILSON</div>
+                        <div class="person-relation">Great-Grandmother</div>
+                    </div>
+                </section>
+
+                <!-- 2x Great-Grandparents (Teggin) -->
+                <section class="generation">
+                    <div class="gen-header">Generation V</div>
+                    <h2 class="gen-title">Edward Robert Wilson TEGGIN</h2>
+                    
+                    <div class="person">
+                        <div class="person-name">Edward Robert Wilson TEGGIN</div>
+                        <div class="person-dates">ca. 1839 – 1925</div>
+                        <div class="person-relation">2× Great-Grandfather • 86 years</div>
+                    </div>
+
+                    <div class="person partner">
+                        <div class="person-name">Hannah WATSON</div>
+                        <div class="person-dates">b. ca. 1843</div>
+                        <div class="person-relation">2× Great-Grandmother</div>
+                    </div>
+
+                    <div class="info-box">
+                        <h3>Sibling: Margarett Ann Teggin</h3>
+                        <p>b. ca. 1835</p>
+                    </div>
+                </section>
+
+                <!-- 3x Great-Grandparents (Teggin) -->
+                <section class="generation">
+                    <div class="gen-header">Generation VI</div>
+                    <h2 class="gen-title">Edward TEGGIN</h2>
+                    
+                    <div class="person">
+                        <div class="person-name">Edward TEGGIN</div>
+                        <div class="person-dates">1803 – 1851</div>
+                        <div class="person-relation">3× Great-Grandfather</div>
+                    </div>
+
+                    <div class="person partner">
+                        <div class="person-name">Mary Ann WILSON</div>
+                        <div class="person-dates">ca. 1812 – 1875</div>
+                        <div class="person-relation">3× Great-Grandmother</div>
+                    </div>
+                </section>
+
+                <!-- 4x Great-Grandparents (Teggin) -->
+                <section class="generation">
+                    <div class="gen-header">Generation VII • Origin Point</div>
+                    <h2 class="gen-title">Edward TEGGIN — The Patriarch</h2>
+                    
+                    <div class="person">
+                        <div class="person-name">Edward TEGGIN</div>
+                        <div class="person-dates">ca. 1787</div>
+                        <div class="person-relation">4× Great-Grandfather • Teggin Line Founder</div>
+                    </div>
+
+                    <div class="person partner">
+                        <div class="person-name">Mary TEGGIN</div>
+                        <div class="person-relation">4× Great-Grandmother</div>
+                    </div>
+
+                    <div class="info-box">
+                        <h3>Historical Context</h3>
+                        <p>Born during the Georgian era in Britain, approximately during the reign of King George III. The Teggin surname likely has English origins.</p>
+                    </div>
+                </section>
+
+                <div class="branch">
+                    <h2 class="branch-title">⟡ Maternal Line: MOLLER & FAURE ⟡</h2>
+                </div>
+
+                <!-- Maternal Great-Grandparents -->
+                <section class="generation">
+                    <div class="gen-header">Generation IV</div>
+                    <h2 class="gen-title">Pieter Johannes MOLLER</h2>
+                    
+                    <div class="person">
+                        <div class="person-name">Pieter Johannes MOLLER</div>
+                        <div class="person-dates">1880 – 1939</div>
+                        <div class="person-relation">Great-Grandfather</div>
+                    </div>
+
+                    <div class="person partner">
+                        <div class="person-name">Elizabeth Susanna FAURE</div>
+                        <div class="person-dates">1890 – 1945</div>
+                        <div class="person-relation">Great-Grandmother</div>
+                    </div>
+                </section>
+
+                <!-- Faure Line -->
+                <section class="generation">
+                    <div class="gen-header">Generation V</div>
+                    <h2 class="gen-title">Albert FAURE</h2>
+                    
+                    <div class="person">
+                        <div class="person-name">Albert FAURE</div>
+                        <div class="person-dates">1862 – 1906</div>
+                        <div class="person-relation">2× Great-Grandfather</div>
+                    </div>
+
+                    <div class="person partner">
+                        <div class="person-name">Elizabeth Susanna NAUDÉ</div>
+                        <div class="person-relation">2× Great-Grandmother</div>
+                    </div>
+                </section>
+
+                <section class="generation">
+                    <div class="gen-header">Generation VI</div>
+                    <h2 class="gen-title">Jacobus Christiaan FAURE</h2>
+                    
+                    <div class="person">
+                        <div class="person-name">Jacobus Christiaan FAURE</div>
+                        <div class="person-dates">b. 1822</div>
+                        <div class="person-relation">3× Great-Grandfather</div>
+                    </div>
+
+                    <div class="person partner">
+                        <div class="person-name">Sophia Albertina VAN DER POEL</div>
+                        <div class="person-dates">d. 1867</div>
+                        <div class="person-relation">3× Great-Grandmother</div>
+                    </div>
+                </section>
+
+                <section class="generation">
+                    <div class="gen-header">Generation VII</div>
+                    <h2 class="gen-title">Pieter Hendrix FAURE</h2>
+                    
+                    <div class="person">
+                        <div class="person-name">Pieter Hendrix FAURE</div>
+                        <div class="person-dates">1800 – 1862</div>
+                        <div class="person-relation">4× Great-Grandfather</div>
+                    </div>
+
+                    <div class="person partner">
+                        <div class="person-name">Johanna Wilhelmina HOFFMAN</div>
+                        <div class="person-relation">4× Great-Grandmother</div>
+                    </div>
+                </section>
+
+                <section class="generation">
+                    <div class="gen-header">Generation VIII</div>
+                    <h2 class="gen-title">Jacobus Christiaan FAURE</h2>
+                    
+                    <div class="person">
+                        <div class="person-name">Jacobus Christiaan FAURE</div>
+                        <div class="person-dates">1769 – 1834</div>
+                        <div class="person-relation">5× Great-Grandfather</div>
+                    </div>
+
+                    <div class="person partner">
+                        <div class="person-name">Aletta Hendrina BLACKENBERG</div>
+                        <div class="person-dates">1772 – 1839</div>
+                        <div class="person-relation">5× Great-Grandmother</div>
+                    </div>
+                </section>
+
+                <section class="generation">
+                    <div class="gen-header">Generation IX</div>
+                    <h2 class="gen-title">Abraham FAURE</h2>
+                    
+                    <div class="person">
+                        <div class="person-name">Abraham FAURE</div>
+                        <div class="person-dates">1717 – 1792</div>
+                        <div class="person-relation">6× Great-Grandfather • 75 years</div>
+                    </div>
+
+                    <div class="person partner">
+                        <div class="person-name">AnnaYLUM</div>
+                        <div class="person-dates">1731 – 1811</div>
+                        <div class="person-relation">6× Great-Grandmother • 80 years</div>
+                    </div>
+
+                    <div class="info-box">
+                        <h3>Historical Context</h3>
+                        <p>Abraham Faure lived through the American Revolution (1775-1783) and witnessed the early years of the French Revolution (1789). His wife Anna lived to see Napoleon's rise and fall.</p>
+                    </div>
+                </section>
+
+                <section class="generation">
+                    <div class="gen-header">Generation X</div>
+                    <h2 class="gen-title">Antoine Alexandre FAURE</h2>
+                    
+                    <div class="person">
+                        <div class="person-name">Antoine Alexandre FAURE</div>
+                        <div class="person-dates">1685 – 1736</div>
+                        <div class="person-relation">7× Great-Grandfather</div>
+                    </div>
+
+                    <div class="person partner">
+                        <div class="person-name">Rachel DE VILLIERS</div>
+                        <div class="person-dates">1694 – 1773</div>
+                        <div class="person-relation">7× Great-Grandmother</div>
+                    </div>
+                </section>
+
+                <section class="generation">
+                    <div class="gen-header">Generation XI</div>
+                    <h2 class="gen-title">Pierre FAURE</h2>
+                    
+                    <div class="person">
+                        <div class="person-name">Pierre FAURE</div>
+                        <div class="person-dates">1636 – 1702</div>
+                        <div class="person-relation">8× Great-Grandfather</div>
+                    </div>
+                </section>
+
+                <section class="generation">
+                    <div class="gen-header">Generation XII</div>
+                    <h2 class="gen-title">Phillippe FAURE</h2>
+                    
+                    <div class="person">
+                        <div class="person-name">Phillippe FAURE</div>
+                        <div class="person-dates">b. 1608</div>
+                        <div class="person-relation">9× Great-Grandfather</div>
+                    </div>
+                </section>
+
+                <section class="generation">
+                    <div class="gen-header">Generation XIII</div>
+                    <h2 class="gen-title">Antoine FAURE</h2>
+                    
+                    <div class="person">
+                        <div class="person-name">Antoine FAURE</div>
+                        <div class="person-dates">1556 – 1624</div>
+                        <div class="person-relation">10× Great-Grandfather • 68 years</div>
+                    </div>
+
+                    <div class="info-box">
+                        <h3>Historical Context</h3>
+                        <p>Born during the reign of Henri II of France. Lived through the French Wars of Religion and died during the reign of Louis XIII. Contemporary of Shakespeare (1564-1616).</p>
+                    </div>
+                </section>
+
+                <section class="generation">
+                    <div class="gen-header">Generation XIV • Origin Point</div>
+                    <h2 class="gen-title">Philibert FAURE — The Patriarch</h2>
+                    
+                    <div class="person">
+                        <div class="person-name">Philibert FAURE</div>
+                        <div class="person-dates">b. ca. 1530</div>
+                        <div class="person-relation">11× Great-Grandfather • Faure Line Founder</div>
+                    </div>
+
+                    <div class="info-box">
+                        <h3>The Ancient Lineage</h3>
+                        <p>Philibert Faure was born during the Renaissance, approximately 495 years ago. The Faure surname is of French origin, likely indicating a blacksmith or metalworker (from Latin "faber"). This line likely represents French Huguenot ancestry.</p>
+                    </div>
+                </section>
+            </div>
+
+            <div class="info-box" style="margin-top: 4rem;">
+                <h3>About This Archive</h3>
+                <p>This family tree spans nearly 500 years and 14 generations, from the Renaissance-era France of Philibert Faure (ca. 1530) to the present day. The Teggin line traces English roots back to Georgian Britain (ca. 1787), while the Faure line represents French Huguenot heritage. The convergence of these two distinct European lineages through the Moller family creates your unique heritage.</p>
+            </div>
+        </main>
+
+        <footer>
+            <p>Archive maintained by Alexander Teggin • Last updated October 2025</p>
+            <p style="margin-top: 0.5rem; opacity: 0.6;">◈ Family memory persists across generations ◈</p>
+        </footer>
+    </div>
+</body>
+</html>

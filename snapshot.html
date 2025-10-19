@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Tactical guide for screenshot sanitization and OSINT-safe image sharing">
+    <title>OPSEC Field Guide: Screenshot Sanitization</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700&family=Inter:wght@300;400;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        :root {
+            --bg-primary: #0a0e27;
+            --bg-secondary: #141b2d;
+            --bg-card: #1a2332;
+            --accent-cyan: #00f0ff;
+            --accent-green: #00ff88;
+            --accent-red: #ff0055;
+            --accent-amber: #ffaa00;
+            --text-primary: #e4e4e7;
+            --text-secondary: #a1a1aa;
+            --text-muted: #71717a;
+            --border: #2d3748;
+            --glow: rgba(0, 240, 255, 0.3);
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+        
+        /* Animated background grid */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(var(--border) 1px, transparent 1px),
+                linear-gradient(90deg, var(--border) 1px, transparent 1px);
+            background-size: 50px 50px;
+            opacity: 0.1;
+            z-index: -1;
+            animation: gridScroll 20s linear infinite;
+        }
+        
+        @keyframes gridScroll {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(50px); }
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+        
+        /* Header */
+        header {
+            padding: 3rem 0 2rem;
+            text-align: center;
+            position: relative;
+        }
+        
+        .status-bar {
+            display: inline-block;
+            padding: 0.3rem 1rem;
+            background: rgba(0, 240, 255, 0.1);
+            border: 1px solid var(--accent-cyan);
+            border-radius: 2px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--accent-cyan);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1.5rem;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+        
+        h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -1px;
+        }
+        
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Executive Summary */
+        .exec-summary {
+            background: linear-gradient(135deg, rgba(0, 240, 255, 0.05), rgba(0, 255, 136, 0.05));
+            border-left: 4px solid var(--accent-cyan);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 4px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            box-shadow: 0 0 30px rgba(0, 240, 255, 0.1);
+        }
+        
+        /* Sections */
+        section {
+            margin: 3rem 0;
+        }
+        
+        h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent-green);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        h2::before {
+            content: '▸';
+            color: var(--accent-cyan);
+            font-size: 1.2rem;
+        }
+        
+        h3 {
+            font-size: 1.3rem;
+            color: var(--accent-cyan);
+            margin: 2rem 0 1rem;
+            font-weight: 600;
+        }
+        
+        /* Cards */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 20px var(--glow);
+            transform: translateY(-2px);
+        }
+        
+        .risk-card {
+            border-left: 4px solid var(--accent-red);
+        }
+        
+        .tool-card {
+            border-left: 4px solid var(--accent-green);
+        }
+        
+        .workflow-card {
+            border-left: 4px solid var(--accent-amber);
+        }
+        
+        /* Lists */
+        .rules-list {
+            list-style: none;
+            counter-reset: rule-counter;
+        }
+        
+        .rules-list li {
+            counter-increment: rule-counter;
+            padding: 1rem 1rem 1rem 3rem;
+            margin: 0.5rem 0;
+            background: var(--bg-secondary);
+            border-radius: 4px;
+            position: relative;
+            border-left: 3px solid var(--accent-cyan);
+        }
+        
+        .rules-list li::before {
+            content: counter(rule-counter);
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--accent-cyan);
+            color: var(--bg-primary);
+            width: 1.5rem;
+            height: 1.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.8rem;
+        }
+        
+        /* Checklist */
+        .checklist {
+            background: var(--bg-secondary);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+        
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.8rem;
+            margin: 0.5rem 0;
+            background: var(--bg-card);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .checklist-item:hover {
+            background: rgba(0, 240, 255, 0.05);
+        }
+        
+        .checkbox {
+            width: 1.2rem;
+            height: 1.2rem;
+            border: 2px solid var(--accent-cyan);
+            border-radius: 3px;
+            flex-shrink: 0;
+            position: relative;
+        }
+        
+        .checkbox::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--accent-green);
+            font-weight: 700;
+            opacity: 0;
+        }
+        
+        .checklist-item.checked .checkbox::after {
+            opacity: 1;
+        }
+        
+        .checklist-item.checked .checkbox {
+            background: rgba(0, 255, 136, 0.1);
+        }
+        
+        /* Code blocks */
+        .command {
+            background: #000;
+            color: var(--accent-green);
+            padding: 0.8rem 1rem;
+            border-radius: 4px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            margin: 1rem 0;
+            border-left: 3px solid var(--accent-green);
+            overflow-x: auto;
+        }
+        
+        .kbd {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 0.2rem 0.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--accent-cyan);
+            white-space: nowrap;
+        }
+        
+        /* Grid layouts */
+        .tool-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        
+        /* Warning/Alert boxes */
+        .alert {
+            padding: 1rem 1rem 1rem 3rem;
+            border-radius: 4px;
+            margin: 1rem 0;
+            position: relative;
+            font-size: 0.95rem;
+        }
+        
+        .alert::before {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+        
+        .alert-danger {
+            background: rgba(255, 0, 85, 0.1);
+            border: 1px solid var(--accent-red);
+            color: var(--text-primary);
+        }
+        
+        .alert-danger::before {
+            content: '⚠';
+            color: var(--accent-red);
+        }
+        
+        .alert-info {
+            background: rgba(0, 240, 255, 0.1);
+            border: 1px solid var(--accent-cyan);
+        }
+        
+        .alert-info::before {
+            content: 'ℹ';
+            color: var(--accent-cyan);
+        }
+        
+        /* Footer */
+        footer {
+            margin-top: 4rem;
+            padding: 2rem 0;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        
+        footer a {
+            color: var(--accent-cyan);
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.2s;
+        }
+        
+        footer a:hover {
+            border-bottom-color: var(--accent-cyan);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0.5rem;
+            }
+            
+            header {
+                padding: 2rem 0 1rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .rules-list li {
+                padding-left: 2.5rem;
+            }
+            
+            .tool-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Utility classes */
+        .text-muted {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        
+        .monospace {
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        strong {
+            color: var(--accent-cyan);
+            font-weight: 600;
+        }
+        
+        .highlight {
+            background: rgba(255, 170, 0, 0.2);
+            padding: 0.1rem 0.3rem;
+            border-radius: 2px;
+            color: var(--accent-amber);
+        }
+        
+        /* Table of Contents */
+        .toc-toggle {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            background: var(--bg-card);
+            border: 1px solid var(--accent-cyan);
+            color: var(--accent-cyan);
+            padding: 0.6rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            z-index: 1000;
+            transition: all 0.3s;
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
+        }
+        
+        .toc-toggle:hover {
+            background: var(--accent-cyan);
+            color: var(--bg-primary);
+            box-shadow: 0 0 30px rgba(0, 240, 255, 0.4);
+        }
+        
+        .toc {
+            position: fixed;
+            top: 4rem;
+            right: 1rem;
+            width: 300px;
+            max-height: 80vh;
+            background: var(--bg-card);
+            border: 1px solid var(--accent-cyan);
+            border-radius: 8px;
+            padding: 1.5rem;
+            overflow-y: auto;
+            z-index: 999;
+            opacity: 0;
+            transform: translateX(350px);
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            pointer-events: none;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+        
+        .toc.active {
+            opacity: 1;
+            transform: translateX(0);
+            pointer-events: all;
+        }
+        
+        .toc h3 {
+            color: var(--accent-cyan);
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .toc ul {
+            list-style: none;
+        }
+        
+        .toc li {
+            margin: 0.5rem 0;
+        }
+        
+        .toc a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: block;
+            padding: 0.3rem 0;
+            transition: all 0.2s;
+            border-left: 2px solid transparent;
+            padding-left: 0.5rem;
+        }
+        
+        .toc a:hover {
+            color: var(--accent-cyan);
+            border-left-color: var(--accent-cyan);
+            transform: translateX(5px);
+        }
+        
+        /* Search */
+        .search-container {
+            position: relative;
+            margin: 2rem 0;
+        }
+        
+        .search-box {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3rem;
+            background: var(--bg-secondary);
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .search-box:focus {
+            outline: none;
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            pointer-events: none;
+        }
+        
+        .search-results {
+            margin-top: 1rem;
+            display: none;
+        }
+        
+        .search-results.active {
+            display: block;
+        }
+        
+        .search-result-item {
+            background: var(--bg-card);
+            padding: 1rem;
+            margin: 0.5rem 0;
+            border-left: 3px solid var(--accent-green);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .search-result-item:hover {
+            background: var(--bg-secondary);
+            transform: translateX(5px);
+        }
+        
+        .search-result-item mark {
+            background: var(--accent-amber);
+            color: var(--bg-primary);
+            padding: 0.1rem 0.2rem;
+            border-radius: 2px;
+        }
+        
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            padding: 0.6rem;
+            border-radius: 50%;
+            cursor: pointer;
+            width: 2.5rem;
+            height: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            transition: all 0.3s;
+        }
+        
+        .theme-toggle:hover {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
+            transform: rotate(180deg);
+        }
+        
+        /* Light theme overrides */
+        body.light-theme {
+            --bg-primary: #f8f9fa;
+            --bg-secondary: #ffffff;
+            --bg-card: #ffffff;
+            --accent-cyan: #0066cc;
+            --accent-green: #00aa55;
+            --accent-red: #cc0044;
+            --accent-amber: #dd8800;
+            --text-primary: #1a1a1a;
+            --text-secondary: #4a4a4a;
+            --text-muted: #6a6a6a;
+            --border: #e0e0e0;
+            --glow: rgba(0, 102, 204, 0.2);
+        }
+        
+        body.light-theme::before {
+            opacity: 0.05;
+        }
+        
+        body.light-theme .card {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        body.light-theme .command {
+            background: #1a1a1a;
+            color: var(--accent-green);
+        }
+        
+        /* Copy buttons for code blocks */
+        .code-container {
+            position: relative;
+        }
+        
+        .copy-btn {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: rgba(0, 240, 255, 0.1);
+            border: 1px solid var(--accent-cyan);
+            color: var(--accent-cyan);
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            transition: all 0.2s;
+            opacity: 0;
+        }
+        
+        .code-container:hover .copy-btn {
+            opacity: 1;
+        }
+        
+        .copy-btn:hover {
+            background: var(--accent-cyan);
+            color: var(--bg-primary);
+        }
+        
+        .copy-btn.copied {
+            background: var(--accent-green);
+            border-color: var(--accent-green);
+            color: var(--bg-primary);
+        }
+        
+        /* Print styles */
+        @media print {
+            body::before, .theme-toggle, .toc-toggle, .toc, .search-container {
+                display: none !important;
+            }
+            
+            body {
+                background: white;
+                color: black;
+            }
+            
+            .card {
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" onclick="toggleTheme()" title="Toggle light/dark theme" aria-label="Toggle theme">
+        <span id="theme-icon">☀️</span>
+    </button>
+
+    <!-- TOC Toggle -->
+    <button class="toc-toggle" onclick="toggleTOC()" aria-label="Toggle table of contents">
+        [ NAV ]
+    </button>
+
+    <!-- Table of Contents -->
+    <nav class="toc" id="toc" aria-label="Table of contents">
+        <h3>Navigation</h3>
+        <ul>
+            <li><a href="#threat-model">Threat Model</a></li>
+            <li><a href="#core-rules">Core Rules</a></li>
+            <li><a href="#workflows">Device Workflows</a></li>
+            <li><a href="#tools">Tools & Arsenal</a></li>
+            <li><a href="#checklist">Pre-Flight Checklist</a></li>
+            <li><a href="#advanced">Advanced Techniques</a></li>
+            <li><a href="#use-cases">Use Case Scenarios</a></li>
+            <li><a href="#hotkeys">Hotkey Reference</a></li>
+            <li><a href="#automation">Automation</a></li>
+            <li><a href="#doctrine">Final Doctrine</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <header>
+            <div class="status-bar">◉ OPERATIONAL SECURITY — ACTIVE</div>
+            <h1>Screenshot Sanitization</h1>
+            <p class="subtitle">Field guide for OSINT-safe image capture & distribution</p>
+        </header>
+
+        <!-- Search -->
+        <div class="search-container">
+            <span class="search-icon">🔍</span>
+            <input 
+                type="text" 
+                class="search-box" 
+                id="search-input"
+                placeholder="Search guide... (Ctrl+K)"
+                aria-label="Search documentation"
+            >
+            <div class="search-results" id="search-results"></div>
+        </div>
+
+        <div class="exec-summary">
+            <strong>EXECUTIVE BRIEF:</strong> Screenshots are convenience weapons—they leak OS fingerprints, browser extensions, notifications, location/time metadata, and embedded EXIF. Crop aggressively, use solid redaction (never blur), strip metadata via ExifTool or OS-native tools, and re-capture fullscreen when possible. Assume every pixel is telemetry.
+        </div>
+
+        <section>
+            <h2 id="threat-model">Threat Model: What Screenshots Leak</h2>
+            
+            <div class="card risk-card">
+                <h3>Surface Metadata (EXIF/XMP/IPTC)</h3>
+                <p>Camera model, GPS coordinates, timestamps, software versions, edit history. Even "stripped" files may retain hidden fields depending on export method.</p>
+            </div>
+
+            <div class="card risk-card">
+                <h3>UI Context Leakage</h3>
+                <p><strong>Visible in frame:</strong> OS chrome (taskbar, dock, status bar), browser tabs/bookmarks, window titles, notification center (Wi-Fi network names, carrier, Bluetooth devices), desktop wallpaper, icon arrangement, app versions.</p>
+            </div>
+
+            <div class="card risk-card">
+                <h3>Extension & Tool Fingerprinting</h3>
+                <p>Password managers (1Password, Bitwarden), VPN icons, ad blockers, dev tools—all create unique digital profiles. Browser extensions are OSINT gold for building behavioral dossiers.</p>
+            </div>
+
+            <div class="card risk-card">
+                <h3>Font Rendering & OS Tells</h3>
+                <p>ClearType (Windows), Quartz antialiasing (macOS), Roboto vs San Francisco fonts—rendering styles narrow OS version and sometimes regional settings.</p>
+            </div>
+
+            <div class="card risk-card">
+                <h3>Timing & Correlation Attacks</h3>
+                <p>Screenshot file timestamps + social media post times = correlation vector. Repeated timezone metadata = location fingerprint. Clock in status bar = temporal anchor.</p>
+            </div>
+
+            <div class="card risk-card">
+                <h3>Reflection & Environmental Leaks</h3>
+                <p>Screen reflections in glasses, windows, or glossy surfaces can reveal: faces, room layout, other monitors, physical location. Always check reflective surfaces in frame.</p>
+            </div>
+
+            <div class="card risk-card">
+                <h3>Adversarial Redaction Failure</h3>
+                <p class="alert-danger"><strong>CRITICAL:</strong> Gaussian blur is reversible via deconvolution attacks. Pixelation with low-resolution can be unscrambled. Only solid black boxes (RGB 0,0,0) are forensically safe.</p>
+            </div>
+
+            <div class="card risk-card">
+                <h3>Cloud Sync & Share Sheet Leaks</h3>
+                <p>Auto-upload to iCloud Photos, Google Photos, OneDrive can re-inject metadata or expose to subpoenas. iOS/Android "Share" menus may phone home analytics to OS vendor.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2 id="core-rules">Core Operational Rules</h2>
+            <ol class="rules-list">
+                <li><strong>Never share the original file</strong> — Always export/convert to a new file after sanitization.</li>
+                <li><strong>Crop to minimum viable content</strong> — Remove status bars, docks, taskbars, browser chrome, tabs, and bookmarks.</li>
+                <li><strong>Use fullscreen re-capture</strong> — Open content fullscreen (no notifications), then screenshot again to remove UI clutter.</li>
+                <li><strong>Strip metadata forensically</strong> — Use ExifTool or OS-native scrubbers. Verify with metadata inspection before sharing.</li>
+                <li><strong>Solid black redaction only</strong> — Never blur. Use opaque black boxes (RGB 0,0,0) for redacting text, faces, or sensitive regions.</li>
+                <li><strong>Disable auto-sync before capture</strong> — Turn off iCloud Photos, Google Photos, OneDrive sync to prevent metadata re-injection.</li>
+                <li><strong>Check reflections</strong> — Scan for reflections in screen, glasses, windows, shiny objects in frame.</li>
+                <li><strong>Sanitize clipboard</strong> — Pasting into some apps preserves hidden metadata layers. Use plain-text intermediaries or re-export.</li>
+                <li><strong>Add noise for repeat captures</strong> — If taking multiple screenshots of similar content, vary cropping/framing to prevent fingerprinting.</li>
+                <li><strong>Assume hostile forensics</strong> — Every pixel, filename, and timestamp is evidence. Sanitize as if adversary has unlimited compute.</li>
+            </ol>
+        </section>
+
+        <section>
+            <h2 id="workflows">Device-Specific Workflows</h2>
+
+            <div class="card workflow-card">
+                <h3>Windows</h3>
+                <p><strong>Capture region:</strong> <span class="kbd">Win + Shift + S</span> → select area. Use Snipping Tool to crop immediately.</p>
+                <div class="code-container">
+                    <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+                    <div class="command">
+                        # Strip metadata (built-in):
+                        Right-click file → Properties → Details → Remove Properties and Personal Information → "Create a copy with all possible properties removed"
+                    </div>
+                </div>
+                <p><strong>Quick scrub:</strong> Open in Paint → File → Save As PNG (removes some EXIF). Then run ExifTool for forensic-grade strip.</p>
+                <div class="code-container">
+                    <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+                    <div class="command">exiftool -all= screenshot.png</div>
+                </div>
+            </div>
+
+            <div class="card workflow-card">
+                <h3>macOS</h3>
+                <p><strong>Capture portion:</strong> <span class="kbd">Shift + ⌘ + 4</span>. <strong>Fullscreen:</strong> <span class="kbd">Shift + ⌘ + 3</span>.</p>
+                <p><strong>To clipboard only:</strong> Hold <span class="kbd">Control</span> while capturing (avoids saving original file).</p>
+                <div class="code-container">
+                    <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+                    <div class="command"># Strip via Preview:
+Open → File → Export → uncheck "Include Location/Camera Info"
+
+# Strip via sips (batch):
+sips -d all screenshot.png
+
+# Strip via ExifTool:
+exiftool -all= -overwrite_original screenshot.png</div>
+                </div>
+            </div>
+
+            <div class="card workflow-card">
+                <h3>iOS (iPhone/iPad)</h3>
+                <p><strong>Pre-flight:</strong> Enable Focus Mode to hide notifications. Open content fullscreen.</p>
+                <p><strong>Capture:</strong> <span class="kbd">Side Button + Volume Up</span> (or <span class="kbd">Home + Power</span> on older devices).</p>
+                <p><strong>Crop tightly:</strong> Photos → Edit → Crop. Remove status bar, home indicator.</p>
+                <p><strong>Strip metadata:</strong> Use <strong>Metapho</strong> or <strong>Photo Metadata Remover</strong> (App Store). Or share via <strong>Signal</strong> (it strips EXIF when you choose "Send without metadata").</p>
+                <div class="alert alert-danger">
+                    iCloud Photos may preserve original metadata server-side. For sensitive work, disable iCloud sync before capture.
+                </div>
+            </div>
+
+            <div class="card workflow-card">
+                <h3>Android</h3>
+                <p><strong>Capture:</strong> <span class="kbd">Power + Volume Down</span> (varies by manufacturer).</p>
+                <p><strong>Crop:</strong> Gallery → Edit → Crop/Rotate → Export. Some vendors strip EXIF on export; verify with metadata viewer.</p>
+                <p><strong>Strip metadata:</strong> Use <strong>Scrambled Exif</strong> or <strong>Photo Metadata Remover</strong> (Play Store).</p>
+            </div>
+        </section>
+
+        <section>
+            <h2 id="tools">Tools & Arsenal</h2>
+            <div class="tool-grid">
+                <div class="card tool-card">
+                    <h3>ExifTool</h3>
+                    <p class="text-muted">Gold standard for forensic metadata inspection & removal (cross-platform CLI).</p>
+                    <div class="code-container">
+                        <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+                        <div class="command">exiftool -all= -overwrite_original file.png</div>
+                    </div>
+                </div>
+
+                <div class="card tool-card">
+                    <h3>Built-in Scrubbers</h3>
+                    <p class="text-muted">Windows: "Remove Properties" (right-click → Properties). macOS: Preview Export options, sips CLI.</p>
+                </div>
+
+                <div class="card tool-card">
+                    <h3>Metapho (iOS)</h3>
+                    <p class="text-muted">Mobile EXIF viewer & stripper. Shows hidden metadata, one-tap removal.</p>
+                </div>
+
+                <div class="card tool-card">
+                    <h3>Signal Messenger</h3>
+                    <p class="text-muted">Strips metadata when sending images (if you choose privacy option). Verify current behavior.</p>
+                </div>
+
+                <div class="card tool-card">
+                    <h3>ImageMagick</h3>
+                    <p class="text-muted">Batch conversion & metadata strip.</p>
+                    <div class="code-container">
+                        <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+                        <div class="command">convert input.png -strip output.png</div>
+                    </div>
+                </div>
+
+                <div class="card tool-card">
+                    <h3>mat2 (Metadata Anonymization Toolkit)</h3>
+                    <p class="text-muted">Python-based metadata cleaner for images, PDFs, office docs. Privacy-focused.</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2 id="checklist">Pre-Flight Checklist</h2>
+            <div class="checklist">
+                <div class="checklist-item" onclick="this.classList.toggle('checked')">
+                    <div class="checkbox"></div>
+                    <div>Notifications disabled (Focus Mode / Do Not Disturb)</div>
+                </div>
+                <div class="checklist-item" onclick="this.classList.toggle('checked')">
+                    <div class="checkbox"></div>
+                    <div>Content opened fullscreen (no browser tabs, taskbar, dock visible)</div>
+                </div>
+                <div class="checklist-item" onclick="this.classList.toggle('checked')">
+                    <div class="checkbox"></div>
+                    <div>Cropped to minimal viable region (removed status bar, chrome, window title)</div>
+                </div>
+                <div class="checklist-item" onclick="this.classList.toggle('checked')">
+                    <div class="checkbox"></div>
+                    <div>Sensitive regions redacted with solid black boxes (not blur)</div>
+                </div>
+                <div class="checklist-item" onclick="this.classList.toggle('checked')">
+                    <div class="checkbox"></div>
+                    <div>Metadata stripped via ExifTool or OS-native tool</div>
+                </div>
+                <div class="checklist-item" onclick="this.classList.toggle('checked')">
+                    <div class="checkbox"></div>
+                    <div>Verified with metadata inspector (no EXIF/XMP/IPTC fields)</div>
+                </div>
+                <div class="checklist-item" onclick="this.classList.toggle('checked')">
+                    <div class="checkbox"></div>
+                    <div>Checked for reflections (screen, glasses, windows)</div>
+                </div>
+                <div class="checklist-item" onclick="this.classList.toggle('checked')">
+                    <div class="checkbox"></div>
+                    <div>Cloud sync disabled (iCloud, Google Photos, OneDrive)</div>
+                </div>
+                <div class="checklist-item" onclick="this.classList.toggle('checked')">
+                    <div class="checkbox"></div>
+                    <div>Exported to new file (not sharing original)</div>
+                </div>
+                <div class="checklist-item" onclick="this.classList.toggle('checked')">
+                    <div class="checkbox"></div>
+                    <div>Filename sanitized (no personally identifiable info)</div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2 id="advanced">Advanced Techniques</h2>
+
+            <div class="card">
+                <h3>Burner Screenshot Workflow (High-Threat Model)</h3>
+                <p>For truly sensitive captures (whistleblowing, investigative journalism, protest documentation):</p>
+                <ol style="margin-left: 1.5rem; margin-top: 1rem;">
+                    <li>Use a <strong>disposable VM</strong> (VirtualBox, QEMU) or <strong>Tails OS</strong> on USB.</li>
+                    <li>Capture screenshot inside VM with no persistent storage.</li>
+                    <li>Transfer via encrypted channel (GPG, Signal) directly from VM.</li>
+                    <li>Wipe VM snapshot after transfer.</li>
+                </ol>
+            </div>
+
+            <div class="card">
+                <h3>Metadata Injection Defense</h3>
+                <p>After stripping, re-encode with neutral/fake metadata to avoid "suspiciously clean" files:</p>
+                <div class="code-container">
+                    <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+                    <div class="command">exiftool -Make="Generic Camera" -Model="Unknown" -GPSLatitude= -GPSLongitude= -DateTimeOriginal="2024:01:01 12:00:00" file.png</div>
+                </div>
+                <p class="text-muted">Creates plausible deniability—file appears normally processed rather than forensically scrubbed.</p>
+            </div>
+
+            <div class="card">
+                <h3>Differential Privacy for Repeat Screenshots</h3>
+                <p>If taking multiple screenshots of similar content, add slight variance:</p>
+                <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                    <li>Vary crop boundaries by 5-10 pixels</li>
+                    <li>Rotate 1-2 degrees and re-crop</li>
+                    <li>Apply tiny brightness/contrast adjustments (+/- 5%)</li>
+                </ul>
+                <p class="text-muted">Prevents image fingerprinting via pixel-perfect correlation.</p>
+            </div>
+
+            <div class="card">
+                <h3>Watermark Detection & Removal</h3>
+                <p>Some corporate environments embed invisible forensic watermarks (steganography) in internal documents.</p>
+                <p><strong>Countermeasure:</strong> Re-photograph screen with phone camera (introduces analog noise), or print and re-scan (destroys digital watermarks). Then strip metadata from resulting image.</p>
+                <div class="alert alert-danger">
+                    Removing watermarks from copyrighted/classified material may violate laws (DMCA, espionage statutes). Use only for legitimate fair use / whistleblowing.
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Emergency Purge Hotkey</h3>
+                <p>Create OS-level shortcut to instantly wipe:</p>
+                <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                    <li>Screenshot folder</li>
+                    <li>Clipboard history</li>
+                    <li>Temporary files</li>
+                </ul>
+                <p><strong>Windows:</strong> PowerShell script bound to <span class="kbd">Ctrl + Alt + Shift + Delete</span></p>
+                <p><strong>macOS:</strong> Automator workflow triggered via Keyboard Maestro or BetterTouchTool</p>
+            </div>
+        </section>
+
+        <section>
+            <h2 id="use-cases">Use Case Scenarios</h2>
+
+            <div class="card">
+                <h3>Sharing Stack Traces / Logs (Developer)</h3>
+                <p><strong>Risk:</strong> Logs contain hostnames, IP addresses, API keys, session tokens, file paths.</p>
+                <p><strong>Protocol:</strong> Crop to error lines only. Redact hostnames, IPs, and tokens with black boxes. Use plain-text paste (not screenshot) when possible—better for accessibility and indexing.</p>
+            </div>
+
+            <div class="card">
+                <h3>Design Mocks / UI Prototypes (Designer)</h3>
+                <p><strong>Risk:</strong> Layer names, edit history, client names in window titles, Figma/Sketch file paths.</p>
+                <p><strong>Protocol:</strong> Export as flattened PNG from design tool (removes layer metadata). Open in new window with no chrome. Crop tightly. Strip EXIF. Consider adding visible watermark if sharing externally.</p>
+            </div>
+
+            <div class="card">
+                <h3>Protest / Field Reporting (Activist/Journalist)</h3>
+                <p><strong>Risk:</strong> GPS coordinates, faces, license plates, background landmarks, time-of-day correlation.</p>
+                <p><strong>Protocol:</strong> 
+                    <ol style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                        <li>Disable location services before capture.</li>
+                        <li>Solid black boxes over all faces, license plates, street signs.</li>
+                        <li>Open fullscreen, re-capture to remove UI.</li>
+                        <li>Strip ALL metadata via ExifTool.</li>
+                        <li>Verify zero EXIF before publishing.</li>
+                        <li>Consider time delay before posting (temporal decorrelation).</li>
+                    </ol>
+                </p>
+            </div>
+
+            <div class="card">
+                <h3>Bug Reports / Customer Support (End User)</h3>
+                <p><strong>Risk:</strong> Browser extensions reveal security posture, bookmarks leak interests, tabs show other services used.</p>
+                <p><strong>Protocol:</strong> Use browser's "New Window" (not tab). Close all other tabs. Hide bookmarks bar. Capture only the relevant area. Alternatively, use browser DevTools screenshot feature (<span class="kbd">Ctrl+Shift+P</span> → "Capture screenshot" in Chrome) which excludes chrome by default.</p>
+            </div>
+
+            <div class="card">
+                <h3>Academic Research / Sensitive Documents</h3>
+                <p><strong>Risk:</strong> PDF metadata (author, creation software, edit timestamps), institutional watermarks, document IDs.</p>
+                <p><strong>Protocol:</strong> Open PDF in fullscreen reader mode. Zoom to remove margins. Capture only content area. If document has invisible watermarks, consider analog conversion (print → scan with noise). Strip metadata. For extra paranoia, OCR the screenshot to plaintext and re-format.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2 id="hotkeys">Quick Reference: Hotkeys</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin: 1.5rem 0;">
+                <div class="card" style="background: var(--bg-secondary);">
+                    <h3 style="color: var(--text-primary); margin-top: 0;">Windows</h3>
+                    <p><span class="kbd">Win + Shift + S</span> — Snip region</p>
+                    <p><span class="kbd">Win + PrtScn</span> — Fullscreen to file</p>
+                    <p><span class="kbd">Alt + PrtScn</span> — Active window</p>
+                </div>
+                <div class="card" style="background: var(--bg-secondary);">
+                    <h3 style="color: var(--text-primary); margin-top: 0;">macOS</h3>
+                    <p><span class="kbd">⌘ + Shift + 4</span> — Select region</p>
+                    <p><span class="kbd">⌘ + Shift + 3</span> — Fullscreen</p>
+                    <p><span class="kbd">⌘ + Shift + 5</span> — Screenshot toolbar</p>
+                    <p class="text-muted" style="font-size: 0.85rem;">Add <span class="kbd">Control</span> to copy to clipboard</p>
+                </div>
+                <div class="card" style="background: var(--bg-secondary);">
+                    <h3 style="color: var(--text-primary); margin-top: 0;">Linux (GNOME)</h3>
+                    <p><span class="kbd">PrtScn</span> — Fullscreen</p>
+                    <p><span class="kbd">Shift + PrtScn</span> — Select area</p>
+                    <p><span class="kbd">Alt + PrtScn</span> — Active window</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2 id="automation">Automation & Team Workflows</h2>
+
+            <div class="card">
+                <h3>One-Click Sanitization Script</h3>
+                <p>Create a shell script that runs on new screenshots:</p>
+                <div class="code-container">
+                    <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+                    <div class="command">#!/bin/bash
+# sanitize_screenshot.sh
+# Watches screenshot folder, auto-strips metadata
+
+WATCH_DIR="$HOME/Desktop"
+OUTPUT_DIR="$HOME/Desktop/sanitized"
+
+fswatch -o "$WATCH_DIR" | while read; do
+    for file in "$WATCH_DIR"/*.png; do
+        if [ -f "$file" ]; then
+            exiftool -all= -overwrite_original "$file"
+            mv "$file" "$OUTPUT_DIR/"
+            echo "Sanitized: $(basename "$file")"
+        fi
+    done
+done</div>
+                </div>
+                <p class="text-muted">Requires: exiftool, fswatch (macOS/Linux). For Windows, use PowerShell with FileSystemWatcher.</p>
+            </div>
+
+            <div class="card">
+                <h3>Team Onboarding Checklist</h3>
+                <p>When bringing new team members into OPSEC-conscious workflows:</p>
+                <ol style="margin-left: 1.5rem; margin-top: 1rem;">
+                    <li>Install ExifTool and verify with test image</li>
+                    <li>Configure OS to save screenshots to dedicated folder (not Desktop)</li>
+                    <li>Practice checklist on dummy screenshots (check each other's work)</li>
+                    <li>Create shared "sanitization review" channel for peer verification</li>
+                    <li>Document incident response plan if unsanitized screenshot is shared</li>
+                </ol>
+            </div>
+
+            <div class="card">
+                <h3>Incident Response: "Oh Shit, I Shared It Raw"</h3>
+                <p>If you accidentally share an unsanitized screenshot:</p>
+                <ol style="margin-left: 1.5rem; margin-top: 1rem;">
+                    <li><strong>Immediate:</strong> Delete the message/post if possible (Discord/Slack allow deletion within time window).</li>
+                    <li><strong>Notify:</strong> Alert team/recipients that a sanitized version is coming.</li>
+                    <li><strong>Assess:</strong> What leaked? (Check original file metadata, visible UI elements.)</li>
+                    <li><strong>Mitigate:</strong> If GPS leaked, consider whether location is now compromised. If API keys visible, rotate them.</li>
+                    <li><strong>Document:</strong> Log incident for post-mortem. Update checklist to prevent recurrence.</li>
+                </ol>
+            </div>
+        </section>
+
+        <section>
+            <h2>Philosophical Notes: Threat Modeling</h2>
+
+            <div class="alert alert-info">
+                <strong>Not all screenshots require maximum paranoia.</strong> Calibrate effort to actual threat level:
+                <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                    <li><strong>Low threat:</strong> Sharing memes with friends → basic crop, maybe strip EXIF.</li>
+                    <li><strong>Medium threat:</strong> Work documentation, open-source contributions → remove chrome, strip metadata, check for internal names.</li>
+                    <li><strong>High threat:</strong> Investigative journalism, whistleblowing, activism → full protocol + burner devices + analog conversion if needed.</li>
+                </ul>
+                Over-sanitizing low-threat content wastes time. Under-sanitizing high-threat content risks lives.
+            </div>
+
+            <div class="card">
+                <h3>The Adversarial Mindset</h3>
+                <p>When sanitizing, think like an attacker:</p>
+                <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                    <li><strong>"What can I infer from this pixel?"</strong> — Font rendering, window shadows, color profiles.</li>
+                    <li><strong>"What's in the background?"</strong> — Desktop icons, notification center, reflections.</li>
+                    <li><strong>"What's missing that should be there?"</strong> — Suspiciously clean metadata = red flag.</li>
+                    <li><strong>"Can I correlate this with other data?"</strong> — Timestamp + post time, recurring typos, stylistic fingerprints.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2 id="doctrine">Final Operational Doctrine</h2>
+            
+            <div class="exec-summary" style="border-left-color: var(--accent-green);">
+                <p style="font-size: 1.1rem; line-height: 1.8;">Screenshots are <span class="highlight">tiny dossiers</span>. Every pixel, every metadata field, every UI element is a data point. In aggregate, they form patterns—behavioral signatures that persist across pseudonyms and platforms.</p>
+                <p style="margin-top: 1rem;"><strong>Operational principles:</strong></p>
+                <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                    <li>Crop aggressively. Show only what's necessary.</li>
+                    <li>Strip forensically. Verify before sharing.</li>
+                    <li>Redact permanently. Black boxes, never blur.</li>
+                    <li>Think like an adversary. Assume hostile analysis.</li>
+                    <li>Automate where possible. Humans forget; scripts don't.</li>
+                </ul>
+                <p style="margin-top: 1rem; font-style: italic;">Make screenshots tell only what you want them to. Everything else is operational leakage.</p>
+            </div>
+        </section>
+
+        <footer>
+            <p><strong>License:</strong> <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank">CC0 1.0 Universal (Public Domain)</a> — Use, remix, distribute freely.</p>
+            <p style="margin-top: 0.5rem;"><strong>Contribute:</strong> Found an error or want to add a technique? Submit issues/PRs to the source repository.</p>
+            <p style="margin-top: 1rem; font-size: 0.85rem;">Built for activists, journalists, developers, researchers, and anyone who values operational privacy.</p>
+            <p style="margin-top: 0.5rem; font-size: 0.85rem; color: var(--text-muted);">Last updated: 2025 | Maintained by the community</p>
+        </footer>
+    </div>
+
+    <script>
+        // Smooth scroll for anchor links (if you add a TOC later)
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Persist checklist state in localStorage (optional)
+        const checklistItems = document.querySelectorAll('.checklist-item');
+        checklistItems.forEach((item, index) => {
+            const storageKey = `checklist_${index}`;
+            if (localStorage.getItem(storageKey) === 'checked') {
+                item.classList.add('checked');
+            }
+            item.addEventListener('click', function() {
+                if (this.classList.contains('checked')) {
+                    localStorage.setItem(storageKey, 'checked');
+                } else {
+                    localStorage.removeItem(storageKey);
+                }
+            });
+        });
+
+        // Keyboard shortcut hint (Ctrl+K to focus search if you add one)
+        document.addEventListener('keydown', function(e) {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                e.preventDefault();
+                // Add search functionality here if needed
+                console.log('Search shortcut pressed - implement search feature');
+            }
+        });
+    </script>
+</body>
+</html>

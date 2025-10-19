@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kodi Setup Guide - Custom TV Experience</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --text: #333;
+            --text-light: #7f8c8d;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --border-radius: 8px;
+            --shadow: 0 4px 6px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background-color: #f9f9f9;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+        
+        .header-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .tagline {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+        }
+        
+        .license {
+            background-color: rgba(255,255,255,0.2);
+            padding: 10px 15px;
+            border-radius: var(--border-radius);
+            font-size: 0.9rem;
+            display: inline-block;
+        }
+        
+        main {
+            padding: 2rem 0;
+        }
+        
+        section {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+        }
+        
+        h2 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--light);
+            display: flex;
+            align-items: center;
+        }
+        
+        h2 i {
+            margin-right: 10px;
+            color: var(--secondary);
+        }
+        
+        h3 {
+            color: var(--secondary);
+            margin: 1.5rem 0 1rem;
+        }
+        
+        p {
+            margin-bottom: 1rem;
+        }
+        
+        ul, ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .note {
+            background-color: #e8f4fd;
+            border-left: 4px solid var(--secondary);
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+        
+        .warning {
+            background-color: #fef9e7;
+            border-left: 4px solid var(--warning);
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+        
+        .important {
+            background-color: #ffeaa7;
+            border-left: 4px solid var(--accent);
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+        
+        .step {
+            counter-increment: step-counter;
+            margin-bottom: 2rem;
+            padding-left: 3rem;
+            position: relative;
+        }
+        
+        .step:before {
+            content: counter(step-counter);
+            background-color: var(--secondary);
+            color: white;
+            font-weight: bold;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        
+        .code {
+            background-color: var(--dark);
+            color: var(--light);
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            font-family: monospace;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+        
+        .link-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 1rem 0;
+        }
+        
+        .link-button {
+            display: inline-block;
+            background-color: var(--secondary);
+            color: white;
+            padding: 8px 15px;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        
+        .link-button:hover {
+            background-color: var(--primary);
+            transform: translateY(-2px);
+        }
+        
+        .addon-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .addon-card {
+            border: 1px solid var(--light);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            transition: var(--transition);
+        }
+        
+        .addon-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .addon-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+        
+        .addon-type {
+            display: inline-block;
+            background-color: var(--light);
+            color: var(--text-light);
+            padding: 3px 8px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-bottom: 1rem;
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 2rem;
+        }
+        
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .nav-tabs {
+            display: flex;
+            overflow-x: auto;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--light);
+            padding-bottom: 0;
+        }
+        
+        .nav-tab {
+            padding: 1rem 1.5rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            white-space: nowrap;
+            border-bottom: 3px solid transparent;
+            transition: var(--transition);
+            font-weight: 500;
+            color: var(--text-light);
+        }
+        
+        .nav-tab.active {
+            color: var(--secondary);
+            border-bottom-color: var(--secondary);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            section {
+                padding: 1.5rem;
+            }
+            
+            .step {
+                padding-left: 2.5rem;
+            }
+            
+            .addon-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            header {
+                padding: 1.5rem 0;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            section {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>Kodi Setup Guide</h1>
+            <p class="tagline">Create your own customized TV experience free from algorithmic control</p>
+            <div class="license">
+                This guide is freely shared under Creative Commons licensing
+            </div>
+        </div>
+    </header>
+    
+    <main class="container">
+        <div class="nav-tabs">
+            <button class="nav-tab active" data-tab="intro">Introduction</button>
+            <button class="nav-tab" data-tab="setup">Initial Setup</button>
+            <button class="nav-tab" data-tab="addons">Addons</button>
+            <button class="nav-tab" data-tab="configuration">Configuration</button>
+            <button class="nav-tab" data-tab="gui">GUI & Skin</button>
+        </div>
+        
+        <section id="intro" class="tab-content active">
+            <h2>Welcome to Your Custom TV Experience</h2>
+            <p>This guide will help you set up Kodi, a powerful media center software that transforms your device into a customizable entertainment hub. With Kodi, you can take back control of your media consumption, free from the algorithms and restrictions of commercial streaming platforms.</p>
+            
+            <div class="note">
+                <p><strong>Note:</strong> This guide focuses on Kodi 19.5 (Matrix) and newer versions. While we provide recommendations, always do your own research to ensure you're making informed choices about the addons and configurations that work best for you.</p>
+            </div>
+            
+            <h3>What You'll Need</h3>
+            <ul>
+                <li>A device (computer, smartphone, TV box) capable of running Kodi</li>
+                <li>Internet connection</li>
+                <li>Optional but recommended: Real Debrid account for higher quality streams</li>
+                <li>Optional: Trakt account to track your viewing progress</li>
+            </ul>
+            
+            <div class="important">
+                <p><strong>Important:</strong> Always ensure you're using content legally and ethically according to your local laws and regulations.</p>
+            </div>
+        </section>
+        
+        <section id="setup" class="tab-content">
+            <h2>Initial Kodi Setup</h2>
+            
+            <div class="step">
+                <h3>Sign Up for Services</h3>
+                <p>Before installing Kodi, consider setting up these services:</p>
+                
+                <h4>Real Debrid (Recommended)</h4>
+                <p>Real Debrid provides access to higher quality streams. It's a paid service but offers much better performance than free alternatives.</p>
+                <div class="link-list">
+                    <a href="https://real-debrid.com/" class="link-button" target="_blank">Real Debrid Website</a>
+                </div>
+                <div class="note">
+                    <p>Real Debrid payments are not recurring - you'll need to manually renew your subscription. You can start with a 2-week trial for approximately £2.50 to test the service.</p>
+                </div>
+                
+                <h4>Trakt</h4>
+                <p>Trakt helps track your viewing progress across devices. It's free to register.</p>
+                <div class="link-list">
+                    <a href="https://trakt.tv/" class="link-button" target="_blank">Trakt Website</a>
+                </div>
+            </div>
+            
+            <div class="step">
+                <h3>Install Kodi</h3>
+                <p>Download and install Kodi from the official website:</p>
+                <div class="link-list">
+                    <a href="https://kodi.tv/download" class="link-button" target="_blank">Download Kodi</a>
+                </div>
+                <div class="warning">
+                    <p><strong>Version Note:</strong> We recommend Kodi 19.5 (Matrix) or the current stable release. Third-party addons need to be updated by their creators to work with new Kodi versions, so avoid constantly updating to the latest version as it may break your installed addons.</p>
+                </div>
+            </div>
+            
+            <div class="step">
+                <h3>Configure Kodi Settings</h3>
+                <p>After installing Kodi, change these crucial settings (ensure "Expert" mode is selected in the bottom-left to view all settings):</p>
+                <ul>
+                    <li><strong>Player > Language > Preferred audio language:</strong> English (prevents streams from defaulting to foreign audio)</li>
+                    <li><strong>Player > Language > Preferred subtitle language:</strong> English (prevents foreign subtitle defaults)</li>
+                    <li><strong>Media > General > Show parent items:</strong> Off (removes unnecessary back button in navigation)</li>
+                    <li><strong>Interface > Regional:</strong> Configure to your preference</li>
+                    <li><strong>System > Display:</strong> Ensure correct resolution is set</li>
+                    <li><strong>System > Display > Use Fullscreen Window:</strong> On (for decent PCs) or Off (for low-powered devices)</li>
+                    <li><strong>System > Addons > Unknown Sources:</strong> On (required to install third-party addons)</li>
+                </ul>
+            </div>
+        </section>
+        
+        <section id="addons" class="tab-content">
+            <h2>Installing Addons</h2>
+            
+            <div class="step">
+                <h3>Understanding Addon Installation</h3>
+                <p>Kodi addons are hosted in repositories, which you add as sources. Once added, you install the repository ZIP, then install addons from that repository.</p>
+                
+                <div class="important">
+                    <p>We'll first install "The Open Wizard" - a maintenance addon that can fix common installation issues like "failed to install a dependency" errors by clearing Kodi's cache.</p>
+                </div>
+            </div>
+            
+            <div class="step">
+                <h3>Installing The Open Wizard</h3>
+                <ol>
+                    <li>Go to Settings > File Manager</li>
+                    <li>Click "Add Source"</li>
+                    <li>Where it says "None", paste: <code>https://a4k-openproject.github.io/repository.openwizard/</code></li>
+                    <li>Give it a name (e.g., "OpenWizard") and click "OK"</li>
+                    <li>If you get a connection error, check the URL is exact (including https and slashes)</li>
+                    <li>Go back to the home screen and select "Add-ons"</li>
+                    <li>Click "Install from ZIP file"</li>
+                    <li>Select the repository you just added</li>
+                    <li>Choose the repository ZIP file and wait for installation</li>
+                    <li>Click "Install from Repository" (not ZIP)</li>
+                    <li>Select the Open Wizard repository > Program Add-ons > Open Wizard > Install</li>
+                </ol>
+                
+                <div class="note">
+                    <p>When first opening Open Wizard, you'll see tick boxes for data to keep. Leave them as is and click "Continue" - this is for backup/restore functionality.</p>
+                </div>
+                
+                <h4>Clearing Cache with Open Wizard</h4>
+                <p>If addons fail to install later, clear Kodi's cache:</p>
+                <ul>
+                    <li>Go to Settings > Add-ons > My Add-ons > Program Add-ons > Open Wizard > Open</li>
+                    <li>Navigate to the Maintenance tab</li>
+                    <li>Click "Total Clean Up" (clears packages, thumbnails, and cache)</li>
+                </ul>
+            </div>
+            
+            <div class="step">
+                <h3>Recommended Addons</h3>
+                <p>Here are the addons we recommend installing. Follow the same process as above for each repository.</p>
+                
+                <div class="addon-grid">
+                    <div class="addon-card">
+                        <div class="addon-title">Fen</div>
+                        <div class="addon-type">Video Addon (Real Debrid)</div>
+                        <p>High-quality streaming with excellent performance.</p>
+                        <div class="link-list">
+                            <a href="https://tikipeter.github.io" class="link-button" target="_blank">Repository</a>
+                        </div>
+                    </div>
+                    
+                    <div class="addon-card">
+                        <div class="addon-title">Seren</div>
+                        <div class="addon-type">Video Addon (Real Debrid)</div>
+                        <p>Popular addon with great scraping capabilities.</p>
+                        <div class="link-list">
+                            <a href="https://nixgates.github.io/packages" class="link-button" target="_blank">Repository</a>
+                        </div>
+                    </div>
+                    
+                    <div class="addon-card">
+                        <div class="addon-title">Umbrella</div>
+                        <div class="addon-type">Video Addon (Real Debrid)</div>
+                        <p>Reliable backup addon with good performance.</p>
+                        <div class="link-list">
+                            <a href="https://umbrellaplug.github.io/" class="link-button" target="_blank">Repository</a>
+                        </div>
+                    </div>
+                    
+                    <div class="addon-card">
+                        <div class="addon-title">The Crew</div>
+                        <div class="addon-type">Video Addon (Free & Real Debrid)</div>
+                        <p>Wide variety of content, good for obscure titles.</p>
+                        <div class="link-list">
+                            <a href="https://team-crew.github.io/" class="link-button" target="_blank">Repository</a>
+                        </div>
+                    </div>
+                    
+                    <div class="addon-card">
+                        <div class="addon-title">a4k Subtitles</div>
+                        <div class="addon-type">Subtitles</div>
+                        <p>High-quality subtitle provider.</p>
+                        <div class="link-list">
+                            <a href="https://a4k-openproject.github.io/a4kSubtitles/packages" class="link-button" target="_blank">Repository</a>
+                        </div>
+                    </div>
+                    
+                    <div class="addon-card">
+                        <div class="addon-title">Trakt</div>
+                        <div class="addon-type">Program Addon</div>
+                        <p>Official Trakt integration (install from Kodi repository).</p>
+                    </div>
+                </div>
+                
+                <div class="warning">
+                    <p><strong>Note:</strong> Free addons like Scrubs v2 are not recommended unless you specifically want free links only, as they typically offer lower quality streams and can bloat your system.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="configuration" class="tab-content">
+            <h2>Addon Configuration</h2>
+            
+            <div class="step">
+                <h3>Configure Each Video Addon</h3>
+                <p>For each video addon (Fen, Seren, Umbrella, The Crew), access settings via:</p>
+                <p class="code">Settings > Add-ons > My Add-ons > Video Add-ons > [Addon Name] > Configure</p>
+                
+                <h4>Linking Real Debrid</h4>
+                <p>In each addon's settings (usually under "Providers" or similar):</p>
+                <ol>
+                    <li>Find the Real Debrid authorization option</li>
+                    <li>It will provide a code</li>
+                    <li>Visit <a href="https://real-debrid.com/devices" target="_blank">real-debrid.com/devices</a></li>
+                    <li>Enter the code when signed into your Real Debrid account</li>
+                </ol>
+                
+                <div class="note">
+                    <p>For The Crew, authorize Real Debrid through ResolveURL instead: Settings > System > Add-ons > Manage Dependencies > ResolveURL > Universal Resolvers 2 > Authorize Real Debrid</p>
+                </div>
+                
+                <h4>Linking Trakt</h4>
+                <p>In each addon's settings (usually under "Accounts"):</p>
+                <ol>
+                    <li>Find the Trakt authorization option</li>
+                    <li>It will provide a code</li>
+                    <li>Visit <a href="https://trakt.tv/activate" target="_blank">trakt.tv/activate</a></li>
+                    <li>Enter the code when signed into your Trakt account</li>
+                </ol>
+            </div>
+            
+            <div class="step">
+                <h3>Source Filtering & Sorting</h3>
+                <p>Configure scraping options in each video addon to optimize your streaming experience:</p>
+                <ul>
+                    <li><strong>Filter out 4K streams</strong> if you're viewing on a 1080p screen</li>
+                    <li><strong>Always filter out Dolby Vision</strong> (not compatible with Windows due to licensing)</li>
+                    <li>Optionally prioritize HDR/Blu-Ray streams</li>
+                    <li>Sort sources by file size or internet speed if available</li>
+                    <li>Exclude 3D sources</li>
+                    <li>Optionally exclude CAM/SCREENER/TELE sources (low quality)</li>
+                </ul>
+            </div>
+            
+            <div class="step">
+                <h3>Trakt Global Addon Configuration</h3>
+                <p>For the official Trakt addon (from Kodi repository):</p>
+                <ul>
+                    <li>Enable "Trakt Scrobbling" for movies and TV shows</li>
+                    <li>Enable "Sync Movie/TV Show Playback Progress to Kodi"</li>
+                    <li>Optionally enable "Show notification on scrobble"</li>
+                    <li>Optionally disable "Rate Movie/TV show after watching" to avoid rating popups</li>
+                </ul>
+            </div>
+            
+            <div class="step">
+                <h3>Auto-Scraping Configuration</h3>
+                
+                <h4>Fen</h4>
+                <ul>
+                    <li>Playback > Movies > Autoplay = Off</li>
+                    <li>Playback > Episodes > Autoplay = Off</li>
+                    <li>Playback > Episodes > Auto scrape next episode = On</li>
+                </ul>
+                
+                <h4>Seren</h4>
+                <ul>
+                    <li>Playback > Movie Play Style = Source Select</li>
+                    <li>Playback > Episode Play Style = Source Select</li>
+                </ul>
+                
+                <div class="note">
+                    <p>Auto-scraping prepares the next episode's sources in the background while you're watching, making transitions between episodes smoother.</p>
+                </div>
+            </div>
+            
+            <div class="step">
+                <h3>Seren Provider Packages</h3>
+                <p>For Seren, you need to manually add providers:</p>
+                <ol>
+                    <li>Go to Seren Settings > Providers > Manage Provider Packages > Install Package > Web Location</li>
+                    <li>Enter: <code>http://bit.ly/a4kScrapers</code> (replace (DOT) with .)</li>
+                </ol>
+            </div>
+            
+            <div class="step">
+                <h3>a4k Subtitles Configuration</h3>
+                <p>Set a4k as your default subtitle source in Kodi settings:</p>
+                <ul>
+                    <li>Settings > Player > Subtitles > Default TV Show Service = a4k Subtitles</li>
+                    <li>Settings > Player > Subtitles > Default Movie Service = a4k Subtitles</li>
+                </ul>
+            </div>
+        </section>
+        
+        <section id="gui" class="tab-content">
+            <h2>GUI & Skin Configuration</h2>
+            
+            <div class="step">
+                <h3>Install TMDB and Arctic Horizon 2 Skin</h3>
+                <p>For the best visual experience, install these components in order from the same repository:</p>
+                
+                <div class="link-list">
+                    <a href="https://jurialmunkey.github.io/repository.jurialmunkey/" class="link-button" target="_blank">Repository URL</a>
+                </div>
+                
+                <ol>
+                    <li>TMDB (The Movie Database Helper) - Video addon</li>
+                    <li>Skin Variables - Program addon</li>
+                    <li>Arctic Horizon 2 - Look and feel > Skin</li>
+                </ol>
+                
+                <div class="warning">
+                    <p>When installing Arctic Horizon 2, it will ask if you want to switch skins. Click "No" - you need to configure TMDB first.</p>
+                </div>
+            </div>
+            
+            <div class="step">
+                <h3>Configure TMDB</h3>
+                <p>Access TMDB settings and configure:</p>
+                <ul>
+                    <li>General > Language and Country = Your preference</li>
+                    <li>General > Get additional details and artwork from TMDB = On</li>
+                    <li>Trakt > Authorise Trakt account</li>
+                    <li>Trakt > Get watched indicators and episode counts = On</li>
+                    <li>Trakt > Get resume points = On</li>
+                    <li>Players > Update Players from URL = <code>http://bit.ly/tmdbplayers</code> (replace (DOT) with .)</li>
+                </ul>
+                
+                <h4>Configure Players</h4>
+                <p>In TMDB Settings > Players > Configure Players:</p>
+                <ul>
+                    <li>Enable only players with "source select" in the title</li>
+                    <li>Disable the default "UPnP" player and "Youtube" if present</li>
+                    <li>For each enabled player, set "is_resolvable" to FALSE</li>
+                    <li>Set priority numbers (lower = higher in list): Fen(10), Seren(20), Umbrella(50), The Crew(100)</li>
+                </ul>
+                
+                <h4>Optional: API Keys</h4>
+                <p>For enhanced metadata, add these API keys in TMDB settings:</p>
+                <div class="link-list">
+                    <a href="https://www.omdbapi.com/apikey.aspx" class="link-button" target="_blank">OMDB API</a>
+                    <a href="https://mdblist.com/api/" class="link-button" target="_blank">MDbList API</a>
+                    <a href="https://fanart.tv/get-an-api-key/" class="link-button" target="_blank">FanArt API</a>
+                </div>
+                <p>When asked for reason, state: "For home media streaming center"</p>
+            </div>
+            
+            <div class="step">
+                <h3>Configure Arctic Horizon 2 Skin</h3>
+                <p>Switch to Arctic Horizon 2: Settings > Interface > Skin = Arctic Horizon 2</p>
+                
+                <div class="note">
+                    <p>Arctic Horizon 2 is best navigated with keyboard/remote/controller rather than mouse.</p>
+                </div>
+                
+                <h4>Customize Home Menu</h4>
+                <p>Access settings via the gear icon (top-right dropdown):</p>
+                <ol>
+                    <li>Settings > Skin > Configure Skin > Menus > Customize Home menu</li>
+                    <li>Delete the default 4 pages (Movies, TV Shows, Music, Videos)</li>
+                    <li>Create 2 new pages for Movies and TV Shows</li>
+                    <li>Label them appropriately and set icons (film.png and director.png work well)</li>
+                </ol>
+                
+                <h4>Add Widgets</h4>
+                <p>For each page, add widgets:</p>
+                <ol>
+                    <li>In Customize Home Menu, select your page</li>
+                    <li>Navigate to "Widgets" on the right</li>
+                    <li>Click "Choose Widget"</li>
+                    <li>Follow: Add-ons > Video add-ons > TheMovieDB Helper</li>
+                    <li>Select various lists TMDB provides</li>
+                </ol>
+                
+                <p>For personalized lists, use:</p>
+                <p class="code">Add-ons > Video add-ons > TheMovieDB Helper > Trakt</p>
+                
+                <p>Here you'll find "Movies Recommended For You", "In-progress Episodes", etc.</p>
+                
+                <h4>Provider Widgets</h4>
+                <p>For network provider widgets (Netflix, Disney, etc.):</p>
+                <p class="code">Add-ons > Video Add-ons > TheMovieDB Helper > Movies > Providers</p>
+                <p class="code">Add-ons > Video Add-ons > TheMovieDB Helper > TV Shows > Providers</p>
+                
+                <div class="note">
+                    <p>These show content from those services but aren't linked to the official services.</p>
+                </div>
+            </div>
+            
+            <div class="step">
+                <h3>Final Customization</h3>
+                <p>Explore the skin's extensive customization options:</p>
+                <ul>
+                    <li>Widget styles (landscapes, posters, etc.)</li>
+                    <li>Text information display</li>
+                    <li>Autoscroll settings</li>
+                    <li>Season/Episode layouts (access via gear icon when browsing a show)</li>
+                    <li>Appearance, color, and text settings</li>
+                </ul>
+                
+                <p>Take time to find what works best for your viewing preferences!</p>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="footer-content">
+            <p>This guide is provided for educational purposes. Always ensure you comply with local laws and content licensing agreements.</p>
+            <p>Content freely available under Creative Commons licensing</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Tab functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabs = document.querySelectorAll('.nav-tab');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // Remove active class from all tabs and contents
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tabContents.forEach(c => c.classList.remove('active'));
+                    
+                    // Add active class to clicked tab
+                    tab.classList.add('active');
+                    
+                    // Show corresponding content
+                    const tabId = tab.getAttribute('data-tab');
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+            
+            // Add step counter
+            const stepsContainer = document.querySelector('#setup');
+            if (stepsContainer) {
+                stepsContainer.style.counterReset = 'step-counter';
+            }
+        });
+    </script>
+</body>
+</html>

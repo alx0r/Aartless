@@ -1,0 +1,1520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Operation Move Earth: Forensic Investigation Brief</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #1a1a1a;
+            --secondary: #4a4a4a;
+            --accent: #c62828;
+            --highlight: #2196f3;
+            --bg: #fafafa;
+            --card: #ffffff;
+            --border: #e0e0e0;
+            --text: #212121;
+            --text-light: #757575;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.7;
+            color: var(--text);
+            background: var(--bg);
+            font-size: 16px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 60px 20px 40px;
+            margin-bottom: 40px;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            font-size: clamp(28px, 5vw, 48px);
+            font-weight: 700;
+            margin-bottom: 15px;
+            letter-spacing: -0.5px;
+        }
+        
+        .subtitle {
+            font-size: clamp(16px, 3vw, 20px);
+            opacity: 0.9;
+            font-weight: 300;
+            margin-bottom: 20px;
+        }
+        
+        .meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            font-size: 14px;
+            opacity: 0.8;
+            margin-top: 20px;
+        }
+        
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .section {
+            background: var(--card);
+            padding: 30px;
+            margin-bottom: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border-left: 4px solid var(--accent);
+        }
+        
+        h2 {
+            color: var(--primary);
+            font-size: clamp(22px, 4vw, 32px);
+            margin-bottom: 20px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        h3 {
+            color: var(--secondary);
+            font-size: clamp(18px, 3vw, 24px);
+            margin: 25px 0 15px;
+            font-weight: 600;
+        }
+        
+        .icon {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+        }
+        
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, var(--highlight) 0%, #1976d2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(33, 150, 243, 0.3);
+        }
+        
+        .stat-number {
+            font-size: clamp(32px, 5vw, 48px);
+            font-weight: 700;
+            display: block;
+            margin-bottom: 8px;
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .timeline {
+            position: relative;
+            padding-left: 40px;
+            margin: 30px 0;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--border);
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -33px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            background: var(--accent);
+            border-radius: 50%;
+            border: 3px solid var(--card);
+            box-shadow: 0 0 0 3px var(--border);
+        }
+        
+        .timeline-date {
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        
+        .method-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+        
+        .method-card {
+            background: var(--bg);
+            padding: 25px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+        
+        .method-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            border-color: var(--highlight);
+        }
+        
+        .method-card h4 {
+            color: var(--highlight);
+            margin-bottom: 12px;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .tool-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        
+        .tool-tag {
+            background: var(--highlight);
+            color: white;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+        
+        .alert {
+            background: #fff3e0;
+            border-left: 4px solid #ff9800;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        
+        .alert-critical {
+            background: #ffebee;
+            border-left-color: var(--accent);
+        }
+        
+        .alert-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--primary);
+        }
+        
+        .workflow {
+            background: var(--bg);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        
+        .workflow-step {
+            display: flex;
+            align-items: start;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .workflow-step:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .step-number {
+            background: var(--highlight);
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+        
+        .correlation-matrix {
+            background: var(--bg);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        
+        .correlation-item {
+            padding: 15px;
+            margin-bottom: 10px;
+            background: white;
+            border-radius: 8px;
+            border-left: 3px solid var(--highlight);
+        }
+        
+        .evidence-strength {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+        
+        .strength-high {
+            background: #4caf50;
+            color: white;
+        }
+        
+        .strength-medium {
+            background: #ff9800;
+            color: white;
+        }
+        
+        .code-block {
+            background: #263238;
+            color: #aed581;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            margin: 15px 0;
+        }
+        
+        .resources {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .resource-link {
+            display: block;
+            padding: 15px;
+            background: var(--bg);
+            border-radius: 8px;
+            color: var(--highlight);
+            text-decoration: none;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+        
+        .resource-link:hover {
+            background: var(--highlight);
+            color: white;
+            transform: translateX(5px);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-light);
+            font-size: 14px;
+            border-top: 1px solid var(--border);
+            margin-top: 60px;
+        }
+        
+        .license {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 20px;
+            background: var(--bg);
+            border-radius: 6px;
+            font-weight: 500;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .section {
+                padding: 20px;
+            }
+            
+            header {
+                padding: 40px 20px 30px;
+            }
+            
+            .stat-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .method-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media print {
+            body {
+                background: white;
+            }
+            
+            .section {
+                page-break-inside: avoid;
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Operation Move Earth</h1>
+            <div class="subtitle">Forensic Investigation of Assad-Era Mass Grave Conspiracy</div>
+            <div class="meta">
+                <div class="meta-item">📍 Syria: Qutayfah → Dhumair</div>
+                <div class="meta-item">📅 Operation Period: 2019–2021</div>
+                <div class="meta-item">🔍 Investigation: Reuters + OSINT Analysis</div>
+                <div class="meta-item">⚖️ Status: Post-Regime Evidence Collection</div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="section">
+            <h2><span class="icon"></span> Executive Summary</h2>
+            <p>Between 2019 and 2021, the Assad regime executed a clandestine operation to relocate thousands of bodies from the documented mass grave site at Qutayfah (north of Damascus) to a remote desert location near Dhumair. This systematic cover-up, designated "Operation Move Earth," was orchestrated to conceal evidence of mass atrocities, torture, and extrajudicial killings perpetrated during Syria's civil war (2011–2024).</p>
+            
+            <div class="stat-grid">
+                <div class="stat-card">
+                    <span class="stat-number">100,000+</span>
+                    <span class="stat-label">Estimated Deaths in Detention</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">13+</span>
+                    <span class="stat-label">Corroborating Witnesses</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">34</span>
+                    <span class="stat-label">Documented Trenches</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">2km</span>
+                    <span class="stat-label">Total Trench Length</span>
+                </div>
+            </div>
+
+            <div class="alert alert-critical">
+                <div class="alert-title">Critical Finding</div>
+                The operation was orchestrated by Col. Mazen Ismandar under direct presidential orders, involving nightly convoys of 6–8 trucks operating 4 nights per week. Evidence includes satellite imagery, drone photography, forensic soil analysis, and extensive witness testimony—creating an unbreakable evidentiary chain.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2><span class="icon"></span> Historical Context & Timeline</h2>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">1971–2000</div>
+                    <strong>Hafez al-Assad Era</strong>
+                    <p>Foundation of systematic repression, including the 1982 Hama massacre (10,000–40,000 killed). Established infrastructure of torture prisons and extrajudicial detention.</p>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-date">2000–2011</div>
+                    <strong>Bashar al-Assad Succession</strong>
+                    <p>Continuation of authoritarian rule with modernized surveillance and security apparatus. Damascus Spring briefly promised reform before renewed crackdowns.</p>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-date">March 2011</div>
+                    <strong>Syrian Uprising Begins</strong>
+                    <p>Peaceful protests in Daraa met with violent suppression. Mass arrests, torture, and killings of activists, journalists, and civilians commence.</p>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-date">2012–2014</div>
+                    <strong>Qutayfah Site Established</strong>
+                    <p>Bodies from Sednaya prison, Branch 215, and military hospitals (607, 601) begin arriving at Qutayfah. Site exposed by activists in 2014 with photographic evidence.</p>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-date">2013–2018</div>
+                    <strong>Chemical Attacks & Peak Atrocities</strong>
+                    <p>Ghouta (2013), Khan Shaykhun (2017), Douma (2018) chemical attacks. Correlation with increased burial activity at mass grave sites across regime-controlled territory.</p>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-date">2019–2021</div>
+                    <strong>Operation Move Earth</strong>
+                    <p>Systematic relocation of remains from Qutayfah to Dhumair. Coincides with Assad's attempted international rehabilitation and sanction evasion efforts.</p>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-date">December 2024</div>
+                    <strong>Regime Fall & Mass Discoveries</strong>
+                    <p>Assad regime collapses. Transitional government under Ahmed al-Sharaa begins documentation. Civil society groups report 100,000+ bodies at Qutayfah alone, with 66+ sites nationwide.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2><span class="icon"></span> Investigative Methodology</h2>
+            <p>Reuters employed a multi-layered forensic approach combining human intelligence, geospatial analysis, and physical evidence. Each layer independently corroborates the others, creating redundancy against denial tactics.</p>
+            
+            <div class="method-grid">
+                <div class="method-card">
+                    <h4>🎤 Human Intelligence (HUMINT)</h4>
+                    <p><strong>Sources:</strong> 13+ insiders including convoy drivers, mechanics, military personnel, and site supervisors</p>
+                    <p><strong>Verification:</strong> Cross-referenced testimonies via secure channels; authenticated documents (manifests, orders, personnel records)</p>
+                    <p><strong>Security:</strong> Protected source identities; used encrypted communications</p>
+                </div>
+                
+                <div class="method-card">
+                    <h4>🛰️ Satellite Imagery (IMINT)</h4>
+                    <p><strong>Dataset:</strong> 500+ images (2019–2025) from commercial providers (Maxar, Planet, Sentinel-2)</p>
+                    <p><strong>Analysis:</strong> Time-series change detection showing trench excavation, filling patterns, vehicle tracks, and soil disturbance</p>
+                    <p><strong>Resolution:</strong> Sub-meter accuracy for temporal correlation</p>
+                </div>
+                
+                <div class="method-card">
+                    <h4>🚁 Drone Reconnaissance</h4>
+                    <p><strong>Coverage:</strong> Thousands of high-resolution photos stitched into composite maps</p>
+                    <p><strong>Features:</strong> Detailed trench geometry (34 trenches, 2km length), bulldozer patterns, protective coverings</p>
+                    <p><strong>Processing:</strong> Georegistration for precise coordinate matching</p>
+                </div>
+                
+                <div class="method-card">
+                    <h4>🔬 Forensic Soil Analysis</h4>
+                    <p><strong>Method:</strong> Munsell color system comparison of subsoil from both sites</p>
+                    <p><strong>Experts:</strong> Consulting geologists analyzed spectral signatures and composition</p>
+                    <p><strong>Result:</strong> Confirmed material transfer between Qutayfah and Dhumair with multispectral band detection</p>
+                </div>
+            </div>
+
+            <div class="correlation-matrix">
+                <h3>Evidence Correlation Matrix</h3>
+                <div class="correlation-item">
+                    <strong>Temporal Alignment</strong><span class="evidence-strength strength-high">HIGH</span>
+                    <p>Witness testimony of "4 nights per week" convoy operations matches exactly with satellite imagery timestamps showing increased activity at both sites during stated operational periods.</p>
+                </div>
+                <div class="correlation-item">
+                    <strong>Geospatial Continuity</strong><span class="evidence-strength strength-high">HIGH</span>
+                    <p>Vehicle path analysis from imagery corresponds to convoy routes described by drivers. GPS metadata from multiple sources confirms directional flow Qutayfah → Dhumair.</p>
+                </div>
+                <div class="correlation-item">
+                    <strong>Physical Evidence Chain</strong><span class="evidence-strength strength-high">HIGH</span>
+                    <p>Soil composition at Dhumair trenches matches Qutayfah excavation sites. Spectral analysis shows identical subsoil characteristics transported during operation timeline.</p>
+                </div>
+                <div class="correlation-item">
+                    <strong>Documentary Trail</strong><span class="evidence-strength strength-medium">MEDIUM</span>
+                    <p>Authenticated military orders, logistics manifests, and personnel assignments corroborate witness accounts. Chain of command verified through multiple independent sources.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2><span class="icon"></span> OSINT Field Guide: Replicable Workflow</h2>
+            <p>A step-by-step methodology for investigators using open-source tools. This workflow is designed for both professional journalists and citizen researchers with appropriate legal authority and security precautions.</p>
+
+            <div class="alert">
+                <div class="alert-title">⚠️ Security First: OPSEC Requirements</div>
+                Use VPNs (Mullvad, ProtonVPN), encrypted communications (Signal, PGP), and Tails OS for sensitive operations. Always use Nitrokey or YubiKey for encryption. Never expose source identities or exact coordinates in preliminary reporting.
+            </div>
+
+            <div class="workflow">
+                <div class="workflow-step">
+                    <div class="step-number">A</div>
+                    <div>
+                        <strong>Intake & Ethics Assessment</strong>
+                        <p>Secure legal remit for investigation. Establish SecureDrop or similar secure channel for sources. Create evidence handling protocol. Avoid physical site disturbance that could contaminate forensic integrity. Document chain of custody from first contact.</p>
+                    </div>
+                </div>
+
+                <div class="workflow-step">
+                    <div class="step-number">B</div>
+                    <div>
+                        <strong>Source Collection & Authentication</strong>
+                        <p>Gather witness testimonies via encrypted channels. Collect documents and hash with SHA-256 for immutability. Record comprehensive metadata (timestamps, GPS coords, device info). Cross-verify testimonies for consistency and detail divergence patterns.</p>
+                    </div>
+                </div>
+
+                <div class="workflow-step">
+                    <div class="step-number">C</div>
+                    <div>
+                        <strong>Satellite Timeline Construction</strong>
+                        <p>Query archives: PlanetScope for daily cadence, Sentinel-2 for free baseline multispectral. Build time-series dataset for Area of Interest (AOI). Export as GeoTIFF for processing. Look for temporal patterns in trench growth 2019–2021.</p>
+                        <div class="code-block">
+# Example: Change detection with GDAL
+gdal_calc.py --calc="A-B" --outfile=diff.tif \
+  --A=2019_baseline.tif --B=2021_comparison.tif
+# Highlights soil displacement as brightness shifts</div>
+                    </div>
+                </div>
+
+                <div class="workflow-step">
+                    <div class="step-number">D</div>
+                    <div>
+                        <strong>Aerial/Drone Analysis</strong>
+                        <p>If legally permissible and safe: acquire drone imagery. Use Agisoft Metashape or OpenDroneMap for photogrammetric stitching. Generate orthomosaics and DSMs (Digital Surface Models). Inspect for tracks, fences, disturbances, protective coverings.</p>
+                    </div>
+                </div>
+
+                <div class="workflow-step">
+                    <div class="step-number">E</div>
+                    <div>
+                        <strong>Geospatial Forensics</strong>
+                        <p>Load all imagery layers into QGIS. Create vector layers for trenches, roads, buildings. Analyze vehicle movement vectors. Use spectral indices (NDVI, brightness) to detect soil disturbances. Generate heat maps of activity concentration.</p>
+                    </div>
+                </div>
+
+                <div class="workflow-step">
+                    <div class="step-number">F</div>
+                    <div>
+                        <strong>Soil & Spectral Analysis</strong>
+                        <p>Extract spectral signatures from multispectral imagery. Compare with control samples using Munsell color charts. Consult forensic geologists for composition analysis. Look for transported soil signatures that differ from surrounding terrain.</p>
+                    </div>
+                </div>
+
+                <div class="workflow-step">
+                    <div class="step-number">G</div>
+                    <div>
+                        <strong>Corroboration & Social Layer</strong>
+                        <p>Link all timelines: witness dates ↔ satellite timestamps ↔ document dates. Search social media (X/Twitter, Telegram, Facebook) for corroborating public posts. Use reverse image search to verify authenticity. Build comprehensive timeline visualization.</p>
+                    </div>
+                </div>
+
+                <div class="workflow-step">
+                    <div class="step-number">H</div>
+                    <div>
+                        <strong>Documentation & Archival</strong>
+                        <p>Create immutable evidence packages with blockchain timestamps if possible. Use EXIFTool for metadata extraction and verification. Generate detailed methodology appendix. Archive all raw data with redundant backups (encrypted cloud + physical media).</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2><span class="icon"></span> Essential Tools & Resources</h2>
+            
+            <h3>Satellite Imagery Sources</h3>
+            <div class="tool-list">
+                <span class="tool-tag">Maxar SecureWatch (Commercial)</span>
+                <span class="tool-tag">Planet Labs (Daily Cadence)</span>
+                <span class="tool-tag">Sentinel-2 (Free, 10m Resolution)</span>
+                <span class="tool-tag">Landsat 8/9 (Free, 30m Resolution)</span>
+                <span class="tool-tag">USGS EarthExplorer (Archive Access)</span>
+            </div>
+
+            <h3>Processing & Analysis Software</h3>
+            <div class="tool-list">
+                <span class="tool-tag">QGIS (Free GIS Platform)</span>
+                <span class="tool-tag">GDAL (Geospatial Library)</span>
+                <span class="tool-tag">Orfeo Toolbox (Object Detection)</span>
+                <span class="tool-tag">Agisoft Metashape (Photogrammetry)</span>
+                <span class="tool-tag">OpenDroneMap (Free Drone Processing)</span>
+                <span class="tool-tag">Google Earth Engine (Cloud Analysis)</span>
+            </div>
+
+            <h3>Security & Documentation</h3>
+            <div class="tool-list">
+                <span class="tool-tag">Tails OS (Secure Operating System)</span>
+                <span class="tool-tag">Signal (Encrypted Messaging)</span>
+                <span class="tool-tag">Nitrokey (Hardware Encryption)</span>
+                <span class="tool-tag">EXIFTool (Metadata Extraction)</span>
+                <span class="tool-tag">VeraCrypt (File Encryption)</span>
+                <span class="tool-tag">SecureDrop (Source Protection)</span>
+            </div>
+
+            <h3>Example Analysis Scripts</h3>
+            <div class="code-block">
+# NDVI Calculation (Vegetation/Soil Disturbance)
+gdal_calc.py --calc="(NIR-Red)/(NIR+Red)" \
+  --outfile=ndvi.tif --NIR=band4.tif --Red=band3.tif
+
+# Brightness Difference (Soil Displacement)
+gdal_calc.py --calc="(A-B)/A" \
+  --outfile=change_percent.tif --A=before.tif --B=after.tif
+
+# Batch Processing Multiple Dates
+for date in 2019 2020 2021; do
+  gdal_translate -of GTiff input_${date}.jp2 output_${date}.tif
+done
+            </div>
+        </div>
+
+        <div class="section">
+            <h2><span class="icon"></span> Correlations & Expanded Context</h2>
+            
+            <h3>Parallel Atrocity Infrastructure</h3>
+            <p>Operation Move Earth exists within a broader "machinery of death" documented across regime-controlled Syria:</p>
+            
+            <div class="correlation-item">
+                <strong>Sednaya Prison Connection</strong>
+                <p>Bodies transported to Qutayfah originated primarily from Sednaya Military Prison, where Amnesty International documented systematic torture, mass hangings (up to 13,000 executions 2011–2015), and "human slaughterhouse" conditions. Witnesses describe weekly execution cycles correlating with increased Qutayfah burial activity.</p>
+            </div>
+
+            <div class="correlation-item">
+                <strong>Military Hospital 601 & 607 Pipeline</strong>
+                <p>Deceased detainees processed through military hospitals before burial. Forensic pathology reports (leaked via Caesar Photos) show systematic torture marks, starvation, and signs of chemical exposure on bodies. Hospital records match burial manifests from Qutayfah convoy operations.</p>
+            </div>
+
+            <div class="correlation-item">
+                <strong>Chemical Attack Aftermath</strong>
+                <p>Significant burial activity spikes correlate temporally with major chemical attacks: Ghouta (August 2013, 1,400+ killed), Khan Shaykhun (April 2017, 89+ killed), Douma (April 2018, 43+ killed). Satellite imagery shows earthworks expansion at multiple sites within weeks of these events.</p>
+            </div>
+
+            <div class="correlation-item">
+                <strong>Regional Site Network</strong>
+                <p>66+ documented mass grave sites form systematic network: Najha (Damascus suburbs), Tadamon (Damascus), Sayyidah Zaynab (Hezbollah-controlled), Raqqa, Palmyra. Each follows similar operational patterns—remote locations, restricted military access, earthworks visible in satellite imagery.</p>
+            </div>
+
+            <h3>Geopolitical Context: Cover-Up Motivation</h3>
+            <p><strong>2019 Timing Analysis:</strong> Operation Move Earth began as Assad sought sanctions relief and international rehabilitation. Key diplomatic efforts included:</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Arab League re-engagement discussions (UAE, Bahrain normalized relations 2018–2019)</li>
+                <li>Russian-brokered reconstruction deals requiring Western sanctions easing</li>
+                <li>UN investigations into war crimes and chemical weapons use intensifying</li>
+                <li>International Criminal Court referrals blocked by Russian/Chinese Security Council vetoes, but evidence preservation continued</li>
+                <li>European "frozen conflict" designation discussions that would legitimize Assad regime</li>
+            </ul>
+            <p><strong>Strategic Calculus:</strong> Regime calculated that documented mass graves at known sites (especially Qutayfah, exposed in 2014) represented liability for any normalization. Moving evidence to unknown locations would:</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Prevent future forensic excavations at documented sites</li>
+                <li>Allow regime to claim "no evidence" at previously identified locations</li>
+                <li>Complicate victim identification and legal accountability</li>
+                <li>Create plausible deniability if new sites discovered ("rebel graves", "ISIS victims", etc.)</li>
+            </ul>
+
+            <h3>Command Structure & Key Actors</h3>
+            <div class="correlation-item">
+                <strong>Col. Mazen Ismandar (Operation Commander)</strong>
+                <p>Military Intelligence officer with direct reporting line to presidential office. Previous assignments included oversight of detention facilities and logistics coordination for "security operations." Witnesses describe him personally supervising convoy operations and enforcing strict operational security.</p>
+            </div>
+
+            <div class="correlation-item">
+                <strong>Fourth Armored Division Involvement</strong>
+                <p>Elite unit commanded by Maher al-Assad (president's brother) provided security perimeter and personnel for operation. Heavy equipment (excavators, dump trucks) traced to Fourth Division logistics depots. Unit's involvement signals highest-level regime authorization.</p>
+            </div>
+
+            <div class="correlation-item">
+                <strong>Air Force Intelligence Coordination</strong>
+                <p>Provided counter-surveillance and route security. Witnesses report Air Force Intelligence checkpoints established along convoy routes during operational nights, preventing civilian observation and ensuring military-only access corridors.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2><span class="icon"></span> Legal Framework & Accountability Path</h2>
+            
+            <h3>International Legal Basis</h3>
+            <div class="method-grid">
+                <div class="method-card">
+                    <h4>⚖️ Crimes Against Humanity</h4>
+                    <p><strong>Rome Statute Articles 7(1)(a), (e), (i):</strong> Murder, imprisonment, enforced disappearance as part of widespread/systematic attack on civilian population</p>
+                    <p><strong>Evidence Standard:</strong> Pattern of conduct, organizational policy, scale of operations</p>
+                </div>
+                
+                <div class="method-card">
+                    <h4>🏛️ War Crimes</h4>
+                    <p><strong>Geneva Conventions Common Article 3:</strong> Torture, cruel treatment, murder of persons not taking active part in hostilities</p>
+                    <p><strong>Additional Protocols:</strong> Willful killing, inhuman treatment, unlawful confinement</p>
+                </div>
+                
+                <div class="method-card">
+                    <h4>📋 Obstruction of Justice</h4>
+                    <p><strong>ICC Statute Article 70:</strong> Destroying, concealing, or falsifying evidence with intent to impede investigation</p>
+                    <p><strong>Cover-up Liability:</strong> Operation Move Earth constitutes continuing offense</p>
+                </div>
+                
+                <div class="method-card">
+                    <h4>🌍 Universal Jurisdiction</h4>
+                    <p><strong>Available Forums:</strong> German, French, Spanish, Swedish courts have accepted Syrian cases</p>
+                    <p><strong>Precedent:</strong> 2022 German conviction of Anwar Raslan (Sednaya) establishes template</p>
+                </div>
+            </div>
+
+            <h3>Transitional Justice Mechanisms</h3>
+            <p><strong>Current Status (Post-December 2024):</strong></p>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">Immediate Priority</div>
+                    <strong>Site Security & Preservation</strong>
+                    <p>Transitional authorities must establish military perimeter around all known sites. Prevent looting, tampering, or secondary cover-up attempts. Deploy forensic teams for preliminary documentation.</p>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-date">Phase 1 (Months 1–6)</div>
+                    <strong>Systematic Documentation</strong>
+                    <p>Comprehensive satellite/drone mapping of all 66+ sites. Ground-penetrating radar surveys. Soil sampling and preliminary assessments. Witness interview campaigns with protection protocols.</p>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-date">Phase 2 (Months 6–18)</div>
+                    <strong>Forensic Excavation</strong>
+                    <p>Controlled exhumations by international teams. DNA collection and database creation. Anthropological analysis for cause of death, torture evidence. Chain of custody for criminal proceedings.</p>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-date">Phase 3 (Years 2–5)</div>
+                    <strong>Victim Identification & Family Notification</strong>
+                    <p>DNA matching with family reference samples. Dignified burial arrangements. Psychological support for families. Memorial and reconciliation processes.</p>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-date">Ongoing</div>
+                    <strong>Criminal Prosecutions</strong>
+                    <p>Evidence packages prepared for domestic tribunals, universal jurisdiction cases, and potential future ICC referral. Asset freezing and extradition requests for perpetrators.</p>
+                </div>
+            </div>
+
+            <div class="alert alert-critical">
+                <div class="alert-title">🚨 Critical Preservation Window</div>
+                Forensic evidence degrades rapidly without proper site management. International community must provide technical assistance, funding, and security guarantees immediately. Delay of 6+ months significantly reduces evidentiary value and victim identification probability.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2><span class="icon"></span> Publishing & Advocacy Strategy</h2>
+            
+            <h3>Journalistic Best Practices</h3>
+            <div class="workflow">
+                <div class="workflow-step">
+                    <div class="step-number">1</div>
+                    <div>
+                        <strong>Transparent Methodology</strong>
+                        <p>Include comprehensive appendix detailing: satellite imagery dates/sources, expert consultants with credentials, witness verification process, limitations/caveats. Reuters model: separate methodology article alongside main investigation.</p>
+                    </div>
+                </div>
+
+                <div class="workflow-step">
+                    <div class="step-number">2</div>
+                    <div>
+                        <strong>Multimedia Presentation</strong>
+                        <p><strong>Essential Elements:</strong> Time-series GIF/animation of satellite changes; interactive map with site locations (redacted coordinates); witness testimony audio/video (anonymized); 3D terrain models showing trench geometry; infographic timeline of operation phases</p>
+                    </div>
+                </div>
+
+                <div class="workflow-step">
+                    <div class="step-number">3</div>
+                    <div>
+                        <strong>Strategic Redaction</strong>
+                        <p>Withhold exact GPS coordinates until sites secured by authorities. Redact witness identifying details beyond role/position. Blur faces in any imagery. Use pseudonyms with explanatory footnote.</p>
+                    </div>
+                </div>
+
+                <div class="workflow-step">
+                    <div class="step-number">4</div>
+                    <div>
+                        <strong>Expert Collaboration</strong>
+                        <p>Partner with: forensic anthropologists (body count estimates), geologists (soil analysis verification), satellite imagery analysts (independent confirmation), international law experts (legal framing), trauma psychologists (family impact consideration)</p>
+                    </div>
+                </div>
+
+                <div class="workflow-step">
+                    <div class="step-number">5</div>
+                    <div>
+                        <strong>Anticipate Denial Tactics</strong>
+                        <p>Prepare counter-narratives for predictable regime/ally responses: "Rebel graves" → Timeline predates opposition control; "ISIS victims" → Sites in regime-controlled areas throughout; "Natural topography" → Change detection shows artificial excavation; "Fake imagery" → Multiple independent satellite providers</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Counter-Disinformation Checklist</h3>
+            <div class="correlation-matrix">
+                <div class="correlation-item">
+                    <strong>✓ Temporal Evidence Lock</strong>
+                    <p>Tie all claims to dated satellite imagery with provider attribution. Archive original imagery files with metadata intact. Use blockchain timestamping for immutable proof of when evidence was collected.</p>
+                </div>
+                <div class="correlation-item">
+                    <strong>✓ Multi-Source Corroboration</strong>
+                    <p>Never rely on single source for critical claims. Show convergence: "Witness A stated X; Satellite image from Date Y confirms X; Document Z corroborates X." Redundancy defeats "single source" attacks.</p>
+                </div>
+                <div class="correlation-item">
+                    <strong>✓ Expert Validation Chain</strong>
+                    <p>Include credentials and methodology of all expert consultants. Provide their independent assessments. Use multiple experts per domain (e.g., 2+ geologists both confirm soil match).</p>
+                </div>
+                <div class="correlation-item">
+                    <strong>✓ Primary Document Trail</strong>
+                    <p>Publish redacted versions of key documents (orders, manifests, personnel records). Describe authentication process. Offer originals to legal authorities under protective custody.</p>
+                </div>
+                <div class="correlation-item">
+                    <strong>✓ Acknowledge Limitations</strong>
+                    <p>Explicitly state what cannot be determined from evidence (exact body count, all victim identities, all command structure). Credibility increases with honest uncertainty statements.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2><span class="icon"></span> Ethical & Safety Considerations</h2>
+            
+            <div class="alert">
+                <div class="alert-title">⚠️ Do No Harm Principles</div>
+                <p><strong>Non-Invasive Only:</strong> OSINT investigations must never involve physical site disturbance. Excavation requires proper forensic authority, equipment, and protocols. Amateur digging destroys evidence and can endanger investigators.</p>
+            </div>
+
+            <h3>Source Protection Protocol</h3>
+            <div class="method-grid">
+                <div class="method-card">
+                    <h4>🔒 Operational Security</h4>
+                    <p>Use secure communication only (Signal with disappearing messages, PGP email). Never meet in regime-controlled areas. Establish code words for emergency situations. Maintain separation between source identity and testimony content in all records.</p>
+                </div>
+                
+                <div class="method-card">
+                    <h4>👤 Anonymization</h4>
+                    <p>Remove all identifying details from published accounts. Change non-essential biographical facts (e.g., "30s" instead of "34", "mechanical background" instead of "truck mechanic"). Never link multiple testimonies to same source publicly.</p>
+                </div>
+                
+                <div class="method-card">
+                    <h4>⚖️ Legal Shielding</h4>
+                    <p>Understand journalist privilege in your jurisdiction. Establish legal defense fund. Prepare for subpoena resistance if necessary. Document chain of evidence without exposing source access points.</p>
+                </div>
+                
+                <div class="method-card">
+                    <h4>🛡️ Post-Publication Support</h4>
+                    <p>Maintain contact with sources after publication. Provide relocation assistance if threats emerge. Connect with protection organizations (Reporters Without Borders, CPJ). Monitor for retaliation indicators.</p>
+                </div>
+            </div>
+
+            <h3>Vicarious Trauma Management</h3>
+            <p>Investigators working with atrocity evidence face significant psychological risks:</p>
+            <div class="correlation-item">
+                <strong>Team Approach</strong>
+                <p>Rotate personnel reviewing graphic evidence. No single person should review all material. Mandatory breaks and limits on exposure hours per day. Buddy system for emotional check-ins.</p>
+            </div>
+            <div class="correlation-item">
+                <strong>Professional Support</strong>
+                <p>Arrange trauma-informed counseling before investigation begins. Provide ongoing access to mental health professionals experienced with secondary trauma. Normalize help-seeking in team culture.</p>
+            </div>
+            <div class="correlation-item">
+                <strong>Organizational Responsibility</strong>
+                <p>News organizations/NGOs must budget for mental health support. Include trauma considerations in assignment decisions. Create exit pathways for staff who cannot continue. Avoid stigmatizing those who need to step back.</p>
+            </div>
+
+            <h3>Family & Community Considerations</h3>
+            <div class="alert">
+                <div class="alert-title">Dignified Treatment of Victims</div>
+                <p>Avoid gratuitous graphic imagery in publications. Consult Syrian civil society organizations about cultural sensitivities. Provide families advance notice before publishing if identifications are involved. Create pathways for families to access information about findings. Remember that every data point represents a human life and grieving loved ones.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2><span class="icon"></span> Technical Deep Dive: Satellite Analysis</h2>
+            
+            <h3>Change Detection Methodology</h3>
+            <p>The core of proving Operation Move Earth lies in demonstrating temporal correlation between excavation at Qutayfah and filling at Dhumair. Advanced techniques include:</p>
+
+            <div class="code-block">
+# Multi-temporal Change Detection Pipeline
+# Step 1: Atmospheric correction (essential for accurate comparison)
+for image in *.tif; do
+    sen2cor $image --output_dir corrected/
+done
+
+# Step 2: Image co-registration (align to sub-pixel accuracy)
+gdal_translate -a_ullr xmin ymax xmax ymin base_image.tif registered.tif
+
+# Step 3: Calculate difference indices
+gdal_calc.py --calc="abs(A-B)" --outfile=abs_diff.tif \
+  --A=before.tif --B=after.tif
+
+# Step 4: Threshold significant changes
+gdal_calc.py --calc="A>50" --outfile=changes_mask.tif \
+  --A=abs_diff.tif
+
+# Step 5: Vectorize changed areas
+gdal_polygonize.py changes_mask.tif -f "GeoJSON" changes.geojson
+            </div>
+
+            <h3>Spectral Signature Analysis</h3>
+            <p><strong>Soil Disturbance Indicators:</strong></p>
+            <div class="correlation-item">
+                <strong>NDVI Anomalies</strong>
+                <p>Normalized Difference Vegetation Index drops to near-zero where topsoil removed. Excavation exposes subsoil with different spectral properties. Formula: (NIR - Red) / (NIR + Red). Undisturbed areas maintain positive NDVI; disturbed areas show negative or near-zero values.</p>
+            </div>
+            <div class="correlation-item">
+                <strong>Brightness Temperature</strong>
+                <p>Exposed subsoil has different thermal properties. TIRS (Thermal Infrared Sensor) bands show temperature anomalies at excavation sites during day/night cycles. Recently disturbed soil retains heat differently than compressed, vegetated surface.</p>
+            </div>
+            <div class="correlation-item">
+                <strong>Moisture Content</strong>
+                <p>SWIR (Short-Wave Infrared) bands detect soil moisture. Freshly excavated material has different moisture signature than surrounding undisturbed terrain. Particularly useful in arid environments like Syrian desert sites.</p>
+            </div>
+
+            <h3>Vehicle Tracking Analysis</h3>
+            <div class="code-block">
+# Track analysis using high-resolution imagery
+# Detect linear features (roads, tracks) using edge detection
+gdal_calc.py --calc="sqrt((A-B)**2 + (C-D)**2)" \
+  --outfile=edges.tif --A=band1.tif --B=band2.tif \
+  --C=band3.tif --D=band4.tif
+
+# Classify vehicle tracks vs natural features
+# Machine learning approach using training samples
+otbcli_TrainImagesClassifier -io.il image_list.txt \
+  -io.vd training_vectors.shp \
+  -sample.vfn class \
+  -classifier rf -classifier.rf.max 100 \
+  -io.out rf_model.txt
+            </div>
+
+            <h3>Temporal Pattern Recognition</h3>
+            <p>Proving systematic operation requires demonstrating repeated patterns:</p>
+            <div class="correlation-matrix">
+                <div class="correlation-item">
+                    <strong>Activity Periodicity</strong><span class="evidence-strength strength-high">HIGH</span>
+                    <p>Satellite revisit schedules create sampling windows. With daily PlanetScope imagery, can detect 4-night-per-week convoy pattern. Build activity histogram showing consistent weekly rhythms during 2019–2021 period.</p>
+                </div>
+                <div class="correlation-item">
+                    <strong>Progressive Changes</strong><span class="evidence-strength strength-high">HIGH</span>
+                    <p>Time-series analysis shows gradual trench infilling at Dhumair parallel to gradual excavation at Qutayfah. Volume calculations (from DSM differencing) show conservation of mass—material removed equals material deposited within error margins.</p>
+                </div>
+                <div class="correlation-item">
+                    <strong>Operational Security Patterns</strong><span class="evidence-strength strength-medium">MEDIUM</span>
+                    <p>Analysis of nighttime VIIRS (Visible Infrared Imaging Radiometer Suite) data may show vehicle headlights along convoy routes during operational nights. Absence of normal traffic patterns on those routes during those times indicates military closure.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2><span class="icon"></span> Broader Syrian Mass Grave Network</h2>
+            
+            <h3>Documented Sites (66+ Total)</h3>
+            <div class="stat-grid">
+                <div class="stat-card">
+                    <span class="stat-number">34+</span>
+                    <span class="stat-label">Damascus Region Sites</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">12+</span>
+                    <span class="stat-label">Aleppo Region Sites</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">8+</span>
+                    <span class="stat-label">Homs Region Sites</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">12+</span>
+                    <span class="stat-label">Other Regions</span>
+                </div>
+            </div>
+
+            <h3>Key Site Profiles</h3>
+            <div class="method-grid">
+                <div class="method-card">
+                    <h4>📍 Qutayfah (Qutayfa)</h4>
+                    <p><strong>Location:</strong> 40km north of Damascus</p>
+                    <p><strong>Operational:</strong> 2012–present</p>
+                    <p><strong>Estimated Bodies:</strong> 100,000+ (per SETF)</p>
+                    <p><strong>Source Prisons:</strong> Sednaya, Branch 215, Military Intelligence</p>
+                    <p><strong>Status:</strong> Partially relocated via Operation Move Earth; remainder intact</p>
+                </div>
+                
+                <div class="method-card">
+                    <h4>📍 Najha</h4>
+                    <p><strong>Location:</strong> Damascus suburbs</p>
+                    <p><strong>Operational:</strong> 2012–2018</p>
+                    <p><strong>Estimated Bodies:</strong> Thousands</p>
+                    <p><strong>Notable:</strong> Discovered via leaked military records; satellite imagery confirms large earthworks</p>
+                    <p><strong>Status:</strong> Accessible post-regime fall; priority excavation site</p>
+                </div>
+                
+                <div class="method-card">
+                    <h4>📍 Tadamon</h4>
+                    <p><strong>Location:</strong> Damascus neighborhood</p>
+                    <p><strong>Operational:</strong> 2013 massacre site</p>
+                    <p><strong>Estimated Bodies:</strong> Hundreds</p>
+                    <p><strong>Notable:</strong> Video evidence of execution-style killings; Al Jazeera documentary exposed site</p>
+                    <p><strong>Status:</strong> Urban site; excavation complicated by development</p>
+                </div>
+                
+                <div class="method-card">
+                    <h4>📍 Sayyidah Zaynab</h4>
+                    <p><strong>Location:</strong> Damascus suburbs (Hezbollah control)</p>
+                    <p><strong>Operational:</strong> 2012–2017</p>
+                    <p><strong>Estimated Bodies:</strong> Thousands</p>
+                    <p><strong>Notable:</strong> Militia involvement; victims include sectarian killings</p>
+                    <p><strong>Status:</strong> Politically sensitive; Hezbollah complicity documented</p>
+                </div>
+            </div>
+
+            <h3>Regional Patterns & Correlations</h3>
+            <div class="correlation-item">
+                <strong>Proximity to Detention Centers</strong>
+                <p>Mass graves cluster within 50km radius of major regime prisons and intelligence branches. Damascus region (highest prison density) contains 50%+ of documented sites. Logistics pattern suggests regular body transport routes established early in conflict.</p>
+            </div>
+            <div class="correlation-item">
+                <strong>Military Base Association</strong>
+                <p>Nearly all sites located on or adjacent to military installations, providing security perimeter and operational cover. Fourth Armored Division bases especially associated with multiple sites, indicating systematic involvement of elite units.</p>
+            </div>
+            <div class="correlation-item">
+                <strong>Temporal Clustering</strong>
+                <p>Site establishment dates correlate with major military offensives: 2012 (Homs, Daraa campaigns), 2013 (Damascus suburbs, chemical attacks), 2016 (Aleppo siege). Suggests burial infrastructure expanded to match killing rate during intense operations.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2><span class="icon"></span> International Response & Next Steps</h2>
+            
+            <h3>Current Institutional Actions</h3>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">UN Mechanisms</div>
+                    <strong>IIIM (International, Impartial and Independent Mechanism)</strong>
+                    <p>Collecting and preserving evidence for future prosecutions. Has documented mass graves in reports. Limited by lack of ground access; relies on OSINT and witness testimony. Post-regime fall: seeking access for forensic teams.</p>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-date">OPCW Investigation</div>
+                    <strong>Chemical Weapons Use Documentation</strong>
+                    <p>Confirmed regime responsibility for Latamnah (2017), Saraqib (2018), Douma (2018) attacks. Burial sites may contain victims with chemical exposure evidence. Forensic toxicology critical for linking attacks to specific grave sites.</p>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-date">Universal Jurisdiction</div>
+                    <strong>European Cases</strong>
+                    <p>Germany: Anwar Raslan (2022, life sentence) and Eyad al-Gharib (2021) convictions for Sednaya crimes. France: Active investigations of regime officials. Netherlands: Pending cases. Model: Structural investigation approach charging systematic practices.</p>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-date">Syrian Civil Society</div>
+                    <strong>Documentation Centers</strong>
+                    <p>Syrian Network for Human Rights, White Helmets, SETF (Syria Emergency Task Force) conducting ground documentation. Collecting family DNA samples, testimony, death certificates. Critical partners for international forensic teams.</p>
+                </div>
+            </div>
+
+            <h3>Required International Support</h3>
+            <div class="method-grid">
+                <div class="method-card">
+                    <h4>💰 Financial Resources</h4>
+                    <p>Comprehensive forensic investigation requires $50–100M+ over 5 years. Covers: site security, forensic teams, DNA laboratory, victim identification database, family support, memorial construction.</p>
+                </div>
+                
+                <div class="method-card">
+                    <h4>👨‍🔬 Technical Expertise</h4>
+                    <p>Deploy international forensic anthropology teams (ICMP model from Balkans/Iraq). Provide ground-penetrating radar, DNA extraction facilities, digital documentation systems. Training for Syrian forensic personnel.</p>
+                </div>
+                
+                <div class="method-card">
+                    <h4>🛡️ Security Guarantees</h4>
+                    <p>UN or international peacekeeping presence to secure sites during excavation. Protect witnesses and families from retaliation. Ensure chain of custody for evidence destined for prosecutions.</p>
+                </div>
+                
+                <div class="method-card">
+                    <h4>⚖️ Legal Framework</h4>
+                    <p>Establish hybrid tribunal combining Syrian and international judges (Sierra Leone SCSL model). Ensure complementarity with universal jurisdiction cases. Victims' rights protections and reparations mechanisms.</p>
+                </div>
+            </div>
+
+            <div class="alert alert-critical">
+                <div class="alert-title">🚨 Urgent: Evidence Preservation Crisis</div>
+                Sites face multiple threats: looting by treasure hunters, disturbance by returning populations, environmental degradation, potential secondary cover-up by regime remnants. International community has 6–12 month window for optimal evidence collection. Delayed action = lost justice opportunities.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2><span class="icon"></span> Resources & Further Investigation</h2>
+            
+            <h3>Primary Sources & Reporting</h3>
+            <div class="resources">
+                <a href="https://www.reuters.com/investigates/section/syria-graves/" class="resource-link" target="_blank">📰 Reuters: Operation Move Earth Investigation</a>
+                <a href="https://www.reuters.com/investigates/section/syria-graves-methodology/" class="resource-link" target="_blank">🔍 Reuters: Investigation Methodology</a>
+                <a href="https://en.wikipedia.org/wiki/Mass_graves_in_Syria" class="resource-link" target="_blank">📚 Wikipedia: Mass Graves in Syria</a>
+                <a href="https://www.nytimes.com/2024/12/15/world/middleeast/syria-mass-graves-assad.html" class="resource-link" target="_blank">📰 New York Times: Assad Regime Burial Sites</a>
+                <a href="https://www.theguardian.com/world/syria" class="resource-link" target="_blank">📰 Guardian: Syria Coverage</a>
+                <a href="https://syrianarchive.org/" class="resource-link" target="_blank">🗃️ Syrian Archive: Open Source Documentation</a>
+            </div>
+
+            <h3>Human Rights & Advocacy Organizations</h3>
+            <div class="resources">
+                <a href="https://sn4hr.org/" class="resource-link" target="_blank">Syrian Network for Human Rights (SNHR)</a>
+                <a href="https://www.amnesty.org/en/location/middle-east-and-north-africa/syria/" class="resource-link" target="_blank">Amnesty International: Syria</a>
+                <a href="https://www.hrw.org/middle-east/n-africa/syria" class="resource-link" target="_blank">Human Rights Watch: Syria</a>
+                <a href="https://setaskforce.org/" class="resource-link" target="_blank">Syria Emergency Task Force (SETF)</a>
+                <a href="https://www.icmp.int/" class="resource-link" target="_blank">International Commission on Missing Persons (ICMP)</a>
+                <a href="https://www.ohchr.org/en/hr-bodies/hrc/iici-syria/index" class="resource-link" target="_blank">UN Commission of Inquiry on Syria</a>
+            </div>
+
+            <h3>OSINT Training & Tools</h3>
+            <div class="resources">
+                <a href="https://gijn.org/stories/investigating-war-crimes-satellite-images/" class="resource-link" target="_blank">GIJN: Satellite Imagery Investigation Guide</a>
+                <a href="https://forensic-architecture.org/" class="resource-link" target="_blank">Forensic Architecture</a>
+                <a href="https://www.bellingcat.com/" class="resource-link" target="_blank">Bellingcat Investigations</a>
+                <a href="https://www.qgis.org/" class="resource-link" target="_blank">QGIS (Free GIS Software)</a>
+                <a href="https://www.planet.com/" class="resource-link" target="_blank">Planet Labs Satellite Imagery</a>
+                <a href="https://earthengine.google.com/" class="resource-link" target="_blank">Google Earth Engine</a>
+            </div>
+
+            <h3>Legal & Academic Resources</h3>
+            <div class="resources">
+                <a href="https://www.icc-cpi.int/" class="resource-link" target="_blank">International Criminal Court</a>
+                <a href="https://legal-tools.org/doc/ec0906/" class="resource-link" target="_blank">Rome Statute of the ICC</a>
+                <a href="https://www.syriaaccountability.org/" class="resource-link" target="_blank">Syria Justice and Accountability Centre (SJAC)</a>
+                <a href="https://www.cija.org/" class="resource-link" target="_blank">Commission for International Justice and Accountability (CIJA)</a>
+                <a href="https://www.universal-rights.org/urg-policy-reports/justice-syria-disappearing-evidence/" class="resource-link" target="_blank">Universal Rights Group: Justice for Syria</a>
+            </div>
+
+            <h3>Technical Documentation</h3>
+            <div class="resources">
+                <a href="https://gdal.org/" class="resource-link" target="_blank">GDAL Geospatial Library</a>
+                <a href="https://www.orfeo-toolbox.org/" class="resource-link" target="_blank">Orfeo Toolbox</a>
+                <a href="https://opendronemap.org/" class="resource-link" target="_blank">OpenDroneMap</a>
+                <a href="https://www.agisoft.com/" class="resource-link" target="_blank">Agisoft Metashape</a>
+                <a href="https://exiftool.org/" class="resource-link" target="_blank">ExifTool Metadata Extraction</a>
+                <a href="https://tails.boum.org/" class="resource-link" target="_blank">Tails OS (Secure Operations)</a>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2><span class="icon"></span> Case Study Comparison: Global Precedents</h2>
+            
+            <h3>Learning from Historical Justice Processes</h3>
+            <p>Operation Move Earth must be contextualized within patterns of mass atrocity concealment and eventual accountability. Key parallels:</p>
+
+            <div class="method-grid">
+                <div class="method-card">
+                    <h4>🇧🇦 Bosnia & Herzegovina (1990s)</h4>
+                    <p><strong>Pattern:</strong> Serbian forces relocated bodies from Srebrenica primary graves to secondary/tertiary sites to conceal genocide.</p>
+                    <p><strong>Evidence:</strong> Satellite imagery, soil analysis, DNA matching across multiple sites proved systematic concealment.</p>
+                    <p><strong>Outcome:</strong> ICTY prosecutions; Ratko Mladić, Radovan Karadžić convicted. DNA identified 7,000+ victims.</p>
+                    <p><strong>Lesson:</strong> Secondary burial sites don't destroy evidence—they create additional proof of cover-up intent.</p>
+                </div>
+                
+                <div class="method-card">
+                    <h4>🇮🇶 Iraq (2003-2017)</h4>
+                    <p><strong>Pattern:</strong> Saddam regime created 270+ mass graves (300,000+ victims). Post-2003: extensive documentation challenges.</p>
+                    <p><strong>Evidence:</strong> Ground-penetrating radar, witness testimony, Anfal campaign documentation.</p>
+                    <p><strong>Outcome:</strong> Saddam tried for Dujail massacre. ICMP assistance for identifications. Many sites remain unexcavated.</p>
+                    <p><strong>Lesson:</strong> Post-conflict chaos threatens evidence. Early international intervention critical.</p>
+                </div>
+                
+                <div class="method-card">
+                    <h4>🇦🇷 Argentina (1976-1983)</h4>
+                    <p><strong>Pattern:</strong> Military junta's "disappeared" (30,000+). Bodies thrown from planes, buried in unmarked graves, cremated.</p>
+                    <p><strong>Evidence:</strong> EAAF (Argentine Forensic Anthropology Team) pioneered DNA identification methods still used globally.</p>
+                    <p><strong>Outcome:</strong> Truth Commission, trials (1980s, 2000s-present). Ongoing identifications 40+ years later.</p>
+                    <p><strong>Lesson:</strong> Even decades-old cases solvable with persistent forensic work and family DNA databases.</p>
+                </div>
+                
+                <div class="method-card">
+                    <h4>🇬🇹 Guatemala (1960-1996)</h4>
+                    <p><strong>Pattern:</strong> Military dictatorship massacres (200,000+ killed, mostly Indigenous Maya). Rural mass graves.</p>
+                    <p><strong>Evidence:</strong> CEH (Historical Clarification Commission) combined testimony, forensics, anthropology.</p>
+                    <p><strong>Outcome:</strong> 2013 Ríos Montt genocide trial (overturned on technicality). Ongoing exhumations by FAFG.</p>
+                    <p><strong>Lesson:</strong> Fragile justice processes require sustained international support against domestic resistance.</p>
+                </div>
+            </div>
+
+            <h3>Methodological Innovations from Precedents</h3>
+            <div class="correlation-item">
+                <strong>DNA Kinship Analysis (Bosnia Model)</strong>
+                <p>International Commission on Missing Persons (ICMP) developed matching algorithms for fragmented remains across multiple sites. Syrian application: Create family reference database now while witnesses alive. Match across Qutayfah, Dhumair, other relocated sites.</p>
+            </div>
+            <div class="correlation-item">
+                <strong>Structural Investigation (German Approach)</strong>
+                <p>Anwar Raslan trial charged systematic torture program, not individual acts. Syrian application: Prosecute Operation Move Earth as systematic cover-up involving command structure, not just Col. Ismandar. Target organizational liability.</p>
+            </div>
+            <div class="correlation-item">
+                <strong>Rapid Response Teams (Ukraine Model)</strong>
+                <p>Mobile forensic units deployed immediately after liberation of occupied territories (Bucha, Izium). Syrian application: Pre-position equipment, train teams now for rapid deployment to newly accessible sites. Window of optimal evidence collection is brief.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2><span class="icon"></span> Victim Voices & Testimony</h2>
+            
+            <div class="alert">
+                <div class="alert-title">🕊️ Remembering the Human Cost</div>
+                Behind every statistic is an individual with family, dreams, and inherent dignity. This investigation serves their memory and their families' right to truth. We honor them by pursuing justice with rigor and compassion.
+            </div>
+
+            <h3>Family Testimony Patterns</h3>
+            <p>Families of the disappeared report consistent experiences across Syria:</p>
+
+            <div class="correlation-matrix">
+                <div class="correlation-item">
+                    <strong>Checkpoint Arrests</strong>
+                    <p>"My brother was stopped at a checkpoint in Damascus suburbs in 2012. They checked his phone, found protest photos. We never saw him again. Last heard he was in Branch 215." — Testimony compiled by SNHR, representative of thousands.</p>
+                </div>
+                <div class="correlation-item">
+                    <strong>Hospital Death Notices</strong>
+                    <p>"Military Hospital 601 called saying my son died of 'heart attack.' He was 24, healthy. When we arrived, they refused to show body. Said already buried. Demanded we never speak about it." — Pattern documented in Caesar Photos investigation.</p>
+                </div>
+                <div class="correlation-item">
+                    <strong>Information Blackout</strong>
+                    <p>"We bribed everyone—guards, officers, lawyers. Each said he's in different prison. Maybe Sednaya, maybe Mezzeh, maybe dead. No records. No answers. Just extortion." — Common experience of 160,000+ families of disappeared.</p>
+                </div>
+                <div class="correlation-item">
+                    <strong>Retaliation Fears</strong>
+                    <p>"Regime told us: 'Stop asking questions or you'll join him.' We stayed silent for years while he was buried somewhere. Now Assad is gone, we can finally speak. We need to know where he is." — Post-December 2024 testimony.</p>
+                </div>
+            </div>
+
+            <h3>Survivor Accounts from Detention</h3>
+            <p>Released detainees describe the system feeding mass graves:</p>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">Arrest & Transport</div>
+                    <strong>"They came at night. No warrant, no explanation."</strong>
+                    <p>Security forces conducting sweeps in opposition areas. Mass arrests without judicial process. Blindfolded transport in overcrowded vehicles to intelligence branches.</p>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-date">Interrogation & Torture</div>
+                    <strong>"Torture was systematic, not punishment—it was the system."</strong>
+                    <p>Electric shock, suspension by wrists, beatings, rape, stress positions. Designed to extract confessions and destroy prisoners psychologically. Caesar Photos document torture marks on 11,000+ bodies.</p>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-date">Detention Conditions</div>
+                    <strong>"We were numbers. They didn't care if we lived or died."</strong>
+                    <p>Severe overcrowding (130+ in cells for 20), starvation rations, no medical care, diseases spreading. Deaths from torture, illness, starvation daily. Bodies removed at night.</p>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-date">Execution Protocol</div>
+                    <strong>"We heard them called at night. They never returned."</strong>
+                    <p>Sednaya's execution schedule: 50-100 per week at peak. Hangings in basement. Bodies transported immediately to military hospitals for processing, then to graves. Families never notified.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2><span class="icon"></span> Investigative Next Steps & Action Items</h2>
+            
+            <h3>For Journalists & Researchers</h3>
+            <div class="workflow">
+                <div class="workflow-step">
+                    <div class="step-number">1</div>
+                    <div>
+                        <strong>Expand Site Documentation</strong>
+                        <p>Apply Reuters methodology to other suspected sites. Priority targets: Najha, Tadamon, Sayyidah Zaynab, Raqqa sites. Build comprehensive satellite timeline for each location. Cross-reference with witness databases from SNHR, White Helmets.</p>
+                    </div>
+                </div>
+
+                <div class="workflow-step">
+                    <div class="step-number">2</div>
+                    <div>
+                        <strong>Track Perpetrator Networks</strong>
+                        <p>Identify command structure beyond Col. Ismandar. Fourth Armored Division logistics officers, Military Intelligence branch heads, hospital administrators. Build organizational charts with evidence links. Prepare for future prosecutions.</p>
+                    </div>
+                </div>
+
+                <div class="workflow-step">
+                    <div class="step-number">3</div>
+                    <div>
+                        <strong>International Coordination</strong>
+                        <p>Share findings with IIIM, OPCW, universal jurisdiction investigators. Contribute to evidence pool for future trials. Coordinate with Syrian civil society to avoid duplicating testimony collection or traumatizing families multiple times.</p>
+                    </div>
+                </div>
+
+                <div class="workflow-step">
+                    <div class="step-number">4</div>
+                    <div>
+                        <strong>Long-term Monitoring</strong>
+                        <p>Continue satellite monitoring of sites post-regime fall. Document who accesses sites, any disturbance patterns. Track transitional government's handling of evidence. Report threats to site integrity immediately.</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3>For International Community</h3>
+            <div class="method-grid">
+                <div class="method-card">
+                    <h4>🏛️ Diplomatic Pressure</h4>
+                    <p>Condition recognition/normalization of transitional Syrian government on commitment to forensic investigations and justice. Provide technical assistance and funding. Ensure no amnesty provisions for mass atrocity perpetrators.</p>
+                </div>
+                
+                <div class="method-card">
+                    <h4>💼 Financial Support</h4>
+                    <p>Establish dedicated fund for Syrian forensic justice ($100M+ over 5 years). Support ICMP expansion to Syria. Fund Syrian civil society documentation efforts. Provide family assistance for DNA collection, travel to identification sites.</p>
+                </div>
+                
+                <div class="method-card">
+                    <h4>👮 Law Enforcement</h4>
+                    <p>Issue arrest warrants for identified perpetrators in universal jurisdiction countries. Freeze assets. Share intelligence on locations of fled officials. Coordinate extradition requests. Strengthen Interpol Red Notices.</p>
+                </div>
+                
+                <div class="method-card">
+                    <h4>🔬 Technical Deployment</h4>
+                    <p>Deploy forensic teams within 6 months. Provide ground-penetrating radar, mobile DNA labs, digital documentation systems. Train Syrian forensic personnel through ICMP/EAAF programs. Ensure equipment remains after international teams depart.</p>
+                </div>
+            </div>
+
+            <h3>For Syrian Civil Society</h3>
+            <div class="correlation-matrix">
+                <div class="correlation-item">
+                    <strong>Family Outreach & Support</strong>
+                    <p>Create accessible registration system for families to report missing persons and provide DNA samples. Offer psychological support services. Establish transparent communication about investigation timelines and realistic expectations.</p>
+                </div>
+                <div class="correlation-item">
+                    <strong>Site Protection Advocacy</strong>
+                    <p>Monitor sites 24/7 using local networks. Document any tampering attempts. Alert international community to threats. Pressure transitional government to establish military security perimeters immediately.</p>
+                </div>
+                <div class="correlation-item">
+                    <strong>Documentation Continuation</strong>
+                    <p>Expand witness interview programs now that fear of regime retaliation reduced. Collect testimony from former security personnel willing to cooperate. Preserve documents from abandoned intelligence facilities before they disappear.</p>
+                </div>
+                <div class="correlation-item">
+                    <strong>Public Education</strong>
+                    <p>Explain forensic process to Syrian public to manage expectations (identifications take years, not months). Build understanding of justice mechanisms. Counter disinformation about "fake graves" or "foreign interference."</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2><span class="icon"></span> Conclusion: Justice Delayed Is Not Justice Denied</h2>
+            
+            <p>Operation Move Earth represents one of the most systematic evidence destruction efforts documented in modern conflict. Yet the very sophistication of the cover-up—satellite-detectable earth moving, witness-observed convoys, forensically-traceable soil transfers—has generated an evidentiary chain that Assad regime officials cannot break through denial.</p>
+
+            <p>The convergence of multiple, independent lines of evidence creates what prosecutors call an "inferential web": even if individual threads can be questioned, the overall pattern is undeniable. This investigation demonstrates that OSINT methodologies, when rigorously applied with traditional journalism and forensic science, can pierce the veil of state secrecy around even the most guarded atrocities.</p>
+
+            <div class="stat-grid">
+                <div class="stat-card" style="background: linear-gradient(135deg, #4caf50 0%, #388e3c 100%);">
+                    <span class="stat-number">∞</span>
+                    <span class="stat-label">Justice Has No Statute of Limitations</span>
+                </div>
+                <div class="stat-card" style="background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);">
+                    <span class="stat-number">160,000+</span>
+                    <span class="stat-label">Families Deserve Answers</span>
+                </div>
+                <div class="stat-card" style="background: linear-gradient(135deg, #2196f3 0%, #1976d2 100%);">
+                    <span class="stat-number">66+</span>
+                    <span class="stat-label">Sites Awaiting Investigation</span>
+                </div>
+                <div class="stat-card" style="background: linear-gradient(135deg, #9c27b0 0%, #7b1fa2 100%);">
+                    <span class="stat-number">NOW</span>
+                    <span class="stat-label">The Time for Action</span>
+                </div>
+            </div>
+
+            <h3>Key Takeaways for Investigators</h3>
+            <div class="correlation-matrix">
+                <div class="correlation-item">
+                    <strong>1. Multi-Modal Evidence Is Unbreakable</strong>
+                    <p>Combine HUMINT + IMINT + FORENSICS + DOCUMENTS. Each layer independently proves the case; together they resist any denial narrative.</p>
+                </div>
+                <div class="correlation-item">
+                    <strong>2. Time-Series Proves Systematic Intent</strong>
+                    <p>One-time events could be mistakes or aberrations. Repeated patterns over years demonstrate systematic policy and organizational involvement at highest levels.</p>
+                </div>
+                <div class="correlation-item">
+                    <strong>3. Cover-Ups Generate Additional Evidence</strong>
+                    <p>Every effort to conceal crimes creates new evidentiary trails. Operation Move Earth tried to hide bodies but created satellite-visible earthworks, witness testimony from participants, and traceable soil signatures.</p>
+                </div>
+                <div class="correlation-item">
+                    <strong>4. Open Source Tools Enable Accountability</strong>
+                    <p>Democratization of satellite imagery and geospatial analysis means states can no longer rely on geographic isolation or access restrictions to hide atrocities. OSINT brings justice within reach of civil society.</p>
+                </div>
+                <div class="correlation-item">
+                    <strong>5. Patience and Persistence Win</strong>
+                    <p>Bosnia prosecutions took decades. Argentina still identifying victims 40 years later. Syria's justice journey has just begun. This investigation provides roadmap for the long struggle ahead.</p>
+                </div>
+            </div>
+
+            <div class="alert alert-critical">
+                <div class="alert-title">⚖️ Final Call to Action</div>
+                <p><strong>To Researchers:</strong> Apply these methods to expand the evidentiary base. Every documented site strengthens the case for systematic atrocities.</p>
+                <p><strong>To Policymakers:</strong> Fund forensic investigations now. The 6-month window for optimal evidence collection is closing.</p>
+                <p><strong>To Journalists:</strong> Keep Syria visible. Sustained reporting prevents international community from moving on before justice achieved.</p>
+                <p><strong>To Syrian Families:</strong> Your testimony matters. Your quest for truth will ultimately prevail. The world is finally listening.</p>
+            </div>
+
+            <p style="margin-top: 30px; font-style: italic; color: var(--secondary);">This investigation stands on the shoulders of Syrian activists, citizen journalists, and civil society members who documented these crimes at enormous personal risk—many paying with their lives. We honor their courage by ensuring their evidence contributes to accountability.</p>
+        </div>
+
+        <div class="section" style="background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%); border-left: 4px solid var(--highlight);">
+            <h2><span class="icon"></span> Investigation Credits & Methodology</h2>
+            
+            <h3>Primary Research</h3>
+            <p><strong>Original Investigation:</strong> Reuters Investigative Team (2024-2025)</p>
+            <p><strong>Satellite Imagery:</strong> Maxar Technologies, Planet Labs, European Space Agency (Sentinel-2)</p>
+            <p><strong>Forensic Consultation:</strong> Geologists, imagery analysts, forensic anthropologists (names withheld for security)</p>
+            <p><strong>Witness Protection:</strong> Secure communication protocols; identities protected per journalistic ethics standards</p>
+
+            <h3>This Field Guide</h3>
+            <p><strong>Purpose:</strong> Synthesize Reuters investigation into replicable OSINT methodology for human rights researchers, journalists, and accountability advocates</p>
+            <p><strong>Compilation:</strong> October 2025</p>
+            <p><strong>Sources:</strong> Reuters reports, UN documentation, NGO databases, satellite imagery archives, OSINT methodology literature, international criminal law precedents</p>
+            <p><strong>Technical Review:</strong> Methods validated against established geospatial forensics protocols</p>
+
+            <h3>Transparency Notes</h3>
+            <div class="correlation-item">
+                <strong>What We Know With High Confidence</strong>
+                <p>Operation Move Earth occurred 2019-2021; bodies relocated from Qutayfah to Dhumair; Col. Ismandar commanded operation; 34 trenches documented; satellite/witness/forensic evidence converge.</p>
+            </div>
+            <div class="correlation-item">
+                <strong>What Requires Further Investigation</strong>
+                <p>Exact body count at each site; complete command chain above Ismandar; extent of Fourth Armored Division involvement; whether additional undiscovered relocation sites exist; full victim identification.</p>
+            </div>
+            <div class="correlation-item">
+                <strong>Limitations & Caveats</strong>
+                <p>Satellite resolution limits exact volume calculations; witness testimony subject to standard reliability assessment; soil analysis based on remote sensing (ground samples would strengthen); ongoing security situation prevents physical site access for verification.</p>
+            </div>
+
+            <h3>Updates & Corrections</h3>
+            <p>This is a living document. As new evidence emerges or errors are identified, updates will be noted with timestamps. Significant corrections will be prominently flagged. Current version: October 2025.</p>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p><strong>Operation Move Earth: Forensic Investigation Brief</strong></p>
+            <p>A comprehensive field guide for investigating mass atrocity cover-ups using open-source intelligence methods</p>
+            <p style="margin-top: 20px;">Compiled for human rights defenders, investigative journalists, and accountability advocates worldwide</p>
+            
+            <div class="license">
+                <strong>📄 Creative Commons Attribution 4.0 International (CC BY 4.0)</strong><br>
+                Free to share, adapt, and build upon with attribution
+            </div>
+            
+            <p style="margin-top: 30px; font-size: 13px; opacity: 0.7;">
+                This document draws on publicly available sources, open-source intelligence methodologies, and established forensic practices. All satellite imagery references are to commercial/publicly accessible sources. Witness protection protocols followed throughout. Technical methods presented for educational and accountability purposes only—physical site investigation requires proper legal authority and forensic expertise.
+            </p>
+            
+            <p style="margin-top: 20px; font-size: 12px; opacity: 0.6;">
+                For updates, corrections, or additional evidence: Contact established human rights documentation organizations listed in Resources section above.
+            </p>
+            
+            <p style="margin-top: 30px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 12px; opacity: 0.5;">
+                Design inspired by modern, accessible web documentation standards | Mobile-first responsive layout | Optimized for readability and archival purposes | October 2025
+            </p>
+        </div>
+    </footer>
+</body>
+</html>

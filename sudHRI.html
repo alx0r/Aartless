@@ -3,98 +3,170 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Human Rights in Sudan: Comprehensive Analysis</title>
+    <title>Human Rights in Sudan: Analysis of a Post-Colonial Crisis</title>
+
     <style>
-        /* Reset and base styles */
+        :root {
+            --primary: #1a365d;   /* Deep Blue */
+            --secondary: #2c5282; /* Mid Blue */
+            --accent: #d97706;    /* Deep Orange/Gold */
+            --danger: #c53030;    /* Dark Red */
+            --success: #2f855a;   /* Dark Green */
+            --bg-main: #f7fafc;   /* Very Light Gray */
+            --bg-card: #ffffff;   /* White */
+            --text-main: #2d3748; /* Dark Gray */
+            --text-light: #718096; /* Medium Gray */
+            --border: #e2e8f0;    /* Light Gray Border */
+            --shadow: 0 2px 4px rgba(0,0,0,0.05), 0 4px 8px rgba(0,0,0,0.04);
+            --radius: 8px;
+        }
+
+        /* --- 1. Reset and Base --- */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         html {
             scroll-behavior: smooth;
-            font-size: 16px;
+            font-size: 100%; /* Base font size (16px) */
         }
-        
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background-color: #f9f9f9;
-            padding: 0;
-            margin: 0;
-            max-width: 100%;
-            overflow-x: hidden;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, 
+                         Helvetica, Arial, sans-serif, "Apple Color Emoji", 
+                         "Segoe UI Emoji", "Segoe UI Symbol";
+            line-height: 1.7;
+            color: var(--text-main);
+            background-color: var(--bg-main);
         }
-        
-        /* Typography */
-        h1, h2, h3, h4, h5, h6 {
-            margin-bottom: 0.75rem;
+
+        /* --- 2. Accessibility --- */
+        .skip-link {
+            position: absolute;
+            top: -9999px;
+            left: -9999px;
+            background: var(--primary);
+            color: white;
+            padding: 1rem;
+            z-index: 1000;
+        }
+        .skip-link:focus {
+            top: 10px;
+            left: 10px;
+        }
+
+        /* All interactive elements must have a focus state */
+        a:focus, button:focus, .nav-link:focus, summary:focus {
+            outline: 3px solid var(--accent);
+            outline-offset: 2px;
+            border-radius: var(--radius);
+        }
+
+        /* --- 3. Typography --- */
+        h1, h2, h3, h4 {
+            margin-bottom: 1rem;
             line-height: 1.3;
+            font-weight: 700;
+        }
+        h1 {
+            font-size: clamp(2rem, 5vw, 2.75rem); /* Responsive font size */
+            color: white;
+        }
+        h2 {
+            font-size: clamp(1.75rem, 4vw, 2rem);
+            color: var(--primary);
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid var(--accent);
+        }
+        h3 {
+            font-size: 1.5rem;
+            color: var(--secondary);
+            margin-top: 1.5rem;
+        }
+        h4 {
+            font-size: 1.2rem;
+            color: var(--primary);
+            margin-top: 1.25rem;
+        }
+        p {
+            margin-bottom: 1.25rem;
+            max-width: 75ch; /* Improves readability */
+        }
+        ul, ol {
+            margin-bottom: 1.25rem;
+            padding-left: 1.5rem;
+        }
+        li {
+            margin-bottom: 0.5rem;
+        }
+        code, .highlight {
+            background: #fefcbf;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: "Menlo", "Consolas", monospace;
             font-weight: 600;
         }
         
-        h1 {
-            font-size: 1.75rem;
-            color: #2c5282;
-            margin-top: 1.5rem;
-        }
-        
-        h2 {
-            font-size: 1.5rem;
-            color: #2c5282;
-            margin-top: 2rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid #d69e2e;
-        }
-        
-        h3 {
-            font-size: 1.25rem;
-            color: #4a5568;
-            margin-top: 1.5rem;
-        }
-        
-        h4 {
-            font-size: 1.1rem;
-            color: #4a5568;
-            margin-top: 1.25rem;
-        }
-        
-        p {
-            margin-bottom: 1rem;
-        }
-        
-        /* Layout */
+        /* --- 4. Layout --- */
         .container {
-            max-width: 100%;
-            padding: 0 1rem;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 1rem;
         }
-        
+
         header {
-            background-color: #2c5282;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             color: white;
-            padding: 1.5rem 1rem;
+            padding: 2rem 1.5rem;
+            border-radius: var(--radius);
             margin-bottom: 1.5rem;
+            box-shadow: var(--shadow);
+        }
+        .subtitle {
+            font-size: 1.15rem;
+            opacity: 0.9;
+        }
+        .meta {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-top: 1rem;
+        }
+
+        main {
+            width: 100%;
         }
         
         section {
-            background: white;
-            padding: 1.25rem;
-            margin-bottom: 1.5rem;
-            border-radius: 0.25rem;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            background: var(--bg-card);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            scroll-margin-top: 6rem; /* Offset for sticky nav */
+        }
+
+        footer {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            color: var(--text-light);
+            font-size: 0.9rem;
         }
         
-        /* Navigation */
+        /* --- 5. Navigation --- */
         nav {
-            background: white;
+            background: var(--bg-card);
             padding: 1rem;
             margin-bottom: 1.5rem;
-            border-radius: 0.25rem;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
             position: sticky;
-            top: 0;
+            top: 1rem;
             z-index: 100;
         }
         
@@ -104,384 +176,463 @@
             flex-wrap: wrap;
             gap: 0.75rem;
             justify-content: center;
+            padding: 0;
         }
         
         .nav-list li {
-            flex: 1;
-            min-width: 45%;
+            flex: 1 1 120px; /* Flex-grow, flex-shrink, flex-basis */
+            margin: 0;
         }
         
         .nav-link {
             display: block;
             padding: 0.75rem;
-            background: #f7fafc;
-            border-left: 3px solid #d69e2e;
-            border-radius: 0.25rem;
+            background: var(--bg-main);
+            border-left: 4px solid var(--accent);
+            border-radius: 4px;
             text-decoration: none;
-            color: #2c5282;
-            font-weight: 500;
+            color: var(--primary);
+            font-weight: 600;
             text-align: center;
-            transition: background-color 0.2s;
+            transition: background-color 0.2s, transform 0.2s;
         }
         
         .nav-link:hover, .nav-link:focus {
             background: #edf2f7;
+            transform: translateY(-2px);
+            outline: none; /* Custom focus already defined */
         }
+
+        /* --- 6. Components --- */
         
-        /* Content elements */
-        .highlight {
-            background: #fef5e7;
-            padding: 0.1rem 0.25rem;
-            border-radius: 0.125rem;
-            font-weight: 600;
-        }
-        
-        .key-term {
-            font-weight: 600;
-            color: #2c5282;
-            border-bottom: 1px dotted #d69e2e;
-        }
-        
+        /* Stat Cards */
         .stat-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.75rem;
-            margin: 1.25rem 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
         }
         
         .stat-item {
-            flex: 1;
-            min-width: 45%;
             text-align: center;
-            padding: 0.75rem;
-            background: white;
-            border: 1px solid #e2e8f0;
-            border-radius: 0.25rem;
+            padding: 1rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-top: 4px solid var(--danger);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
         }
+        .stat-item.stat-accent { border-top-color: var(--accent); }
+        .stat-item.stat-success { border-top-color: var(--success); }
         
         .stat-number {
-            font-size: 1.5rem;
+            font-size: 2.25rem;
             font-weight: 700;
-            color: #e53e3e;
+            color: var(--danger);
             margin-bottom: 0.25rem;
         }
+        .stat-item.stat-accent .stat-number { color: var(--accent); }
+        .stat-item.stat-success .stat-number { color: var(--success); }
         
         .stat-label {
-            color: #718096;
+            color: var(--text-light);
             font-size: 0.9rem;
         }
+
+        /* Asides (Alerts, Case Studies) */
+        aside {
+            padding: 1.25rem;
+            margin: 1.5rem 0;
+            border-radius: var(--radius);
+            border-left: 5px solid;
+        }
+        aside h3, aside h4 { margin-top: 0; }
         
         .case-study {
-            background: #ebf8ff;
-            border-left: 4px solid #2c5282;
-            padding: 1rem;
-            margin: 1.25rem 0;
-            border-radius: 0.25rem;
+            background: #ebf8ff; /* Light blue */
+            border-color: var(--secondary);
         }
+        .case-study h3 { color: var(--secondary); }
         
         .alert {
-            background: #fff5f5;
-            border-left: 4px solid #e53e3e;
-            padding: 1rem;
-            margin: 1.25rem 0;
-            border-radius: 0.25rem;
+            background: #fff5f5; /* Light red */
+            border-color: var(--danger);
         }
+        .alert h3 { color: var(--danger); }
         
         .recommendations {
-            background: #f0fff4;
-            border-left: 4px solid #38a169;
-            padding: 1rem;
-            margin: 1.25rem 0;
-            border-radius: 0.25rem;
+            background: #f0fff4; /* Light green */
+            border-color: var(--success);
         }
+        .recommendations h3 { color: var(--success); }
         
         .media-literacy-tip {
-            background: #e6fffa;
-            border-left: 4px solid #38b2ac;
-            padding: 1rem;
-            margin: 1rem 0;
-            border-radius: 0.25rem;
+            background: #e6fffa; /* Light teal */
+            border-color: #38b2ac;
         }
-        
+        .media-literacy-tip h4 { color: #2c7a7b; }
+
+        /* Quotes & Citations */
         .quote {
             font-style: italic;
-            color: #718096;
-            border-left: 3px solid #d69e2e;
-            padding-left: 1rem;
-            margin: 1rem 0;
+            color: var(--text-light);
+            border-left: 4px solid var(--accent);
+            padding-left: 1.5rem;
+            margin: 1.5rem 0;
+            font-size: 1.1rem;
         }
-        
         .quote-source {
             text-align: right;
             font-weight: 600;
             margin-top: 0.5rem;
-            color: #4a5568;
+            color: var(--text-main);
+            font-style: normal;
         }
         
         .citation {
             font-size: 0.85rem;
-            color: #718096;
-            margin-top: 0.5rem;
-            padding-left: 0.75rem;
-            border-left: 2px solid #e2e8f0;
+            color: var(--text-light);
+            margin-top: 1.5rem;
+            padding-left: 1rem;
+            border-left: 3px solid var(--border);
         }
         
-        /* Lists */
-        ul, ol {
+        /* Interactive <details> Accordion */
+        details {
+            background: var(--bg-main);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
             margin-bottom: 1rem;
-            padding-left: 1.5rem;
+        }
+        details[open] {
+            background: var(--bg-card);
         }
         
-        li {
-            margin-bottom: 0.5rem;
+        summary {
+            padding: 1rem 1.25rem;
+            font-weight: 600;
+            color: var(--primary);
+            cursor: pointer;
+            list-style: none; /* Remove default marker */
+            position: relative;
+        }
+        summary::-webkit-details-marker { display: none; } /* Chrome */
+        summary:focus { outline-offset: 0; }
+        
+        /* Custom Marker */
+        summary::before {
+            content: '►';
+            position: absolute;
+            left: 0.75rem;
+            top: 1.1rem;
+            font-size: 0.8rem;
+            color: var(--accent);
+            transform: rotate(0);
+            transition: transform 0.2s;
+        }
+        details[open] summary::before {
+            transform: rotate(90deg);
         }
         
-        /* Footer */
-        footer {
-            margin-top: 2rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid #e2e8f0;
-            text-align: center;
-            color: #718096;
+        .details-content {
+            padding: 0 1.25rem 1.25rem 2.25rem;
+            border-top: 1px solid var(--border);
+        }
+        
+        /* Responsive Table */
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+        }
+        table {
+            width: 100%;
+            min-width: 600px; /* Force scroll on small screens */
+            border-collapse: collapse;
+            box-shadow: var(--shadow);
+            border-radius: var(--radius);
+            overflow: hidden; /* For border-radius */
+        }
+        th, td {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+        th {
+            background: var(--primary);
+            color: white;
             font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+        tr:nth-child(even) {
+            background: var(--bg-main);
+        }
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Scroll-to-top Button */
+        .scroll-top {
+            position: fixed;
+            bottom: -100px; /* Hidden by default */
+            right: 1.5rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 100;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            transition: bottom 0.3s, transform 0.3s;
+        }
+        .scroll-top:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+        }
+        .scroll-top:focus {
+            outline: 3px solid var(--accent);
+            outline-offset: 2px;
+        }
+        .scroll-top.show {
+            bottom: 1.5rem;
         }
         
-        /* Responsive adjustments */
-        @media (max-width: 480px) {
-            .nav-list li {
-                min-width: 100%;
+        /* --- 7. Responsive Media Queries (Mobile-First) --- */
+        @media (min-width: 768px) {
+            section {
+                padding: 2rem;
             }
-            
-            .stat-item {
-                min-width: 100%;
+            header {
+                padding: 2.5rem;
             }
-            
-            h1 {
-                font-size: 1.5rem;
+            .stat-row {
+                grid-template-columns: repeat(4, 1fr);
             }
-            
-            h2 {
-                font-size: 1.35rem;
+            nav {
+                padding: 1rem 1.5rem;
             }
         }
         
-        /* Print styles */
+        /* --- 8. Print Styles --- */
         @media print {
             body {
                 background: white;
                 color: black;
                 font-size: 12pt;
             }
-            
-            header, nav, .scroll-top {
+            .container {
+                padding: 0;
+                max-width: 100%;
+            }
+            header, nav, .scroll-top, .media-literacy-tip, .action-call {
                 display: none;
             }
-            
             section {
                 box-shadow: none;
                 border: 1px solid #ccc;
+                page-break-inside: avoid;
+                margin-bottom: 1.5rem;
+                padding: 1rem;
+            }
+            details {
+                page-break-inside: avoid;
+            }
+            details[open] {
+                background: var(--bg-main);
+            }
+            details .details-content {
+                display: block; /* Ensure content is visible */
+            }
+            summary::before { display: none; }
+            table, .table-container {
+                overflow: visible;
+                min-width: 100%;
                 page-break-inside: avoid;
             }
         }
     </style>
 </head>
+
 <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
     <div class="container">
         <header>
             <h1>Human Rights Violations in Sudan</h1>
             <p class="subtitle">A Comprehensive Research Report Analyzing Historical Genocide, Corporate Accountability, and the Ongoing Humanitarian Crisis</p>
             <div class="meta">
-                <p>Updated: October 2025 | Research Team: Media Literacy & Human Rights Analysis</p>
+                <p>Updated: October 2025 | Research: Media Literacy & Human Rights Analysis</p>
             </div>
         </header>
 
-        <nav>
+        <nav aria-label="Report Navigation">
             <ul class="nav-list">
-                <li><a href="#executive" class="nav-link">Executive Summary</a></li>
-                <li><a href="#historical" class="nav-link">Historical Context</a></li>
-                <li><a href="#bnp" class="nav-link">BNP Paribas Case</a></li>
+                <li><a href="#executive" class="nav-link">Summary</a></li>
+                <li><a href="#historical" class="nav-link">History</a></li>
+                <li><a href="#bnp" class="nav-link">Accountability</a></li>
                 <li><a href="#current" class="nav-link">Current Crisis</a></li>
-                <li><a href="#perspectives" class="nav-link">Multi-Perspective</a></li>
-                <li><a href="#action" class="nav-link">Take Action</a></li>
+                <li><a href="#perspectives" class="nav-link">Analysis</a></li>
+                <li><a href="#action" class="nav-link">Action</a></li>
             </ul>
         </nav>
 
-        <main>
-            <section id="executive">
-                <h2>Executive Summary</h2>
+        <main id="main-content">
+            <section id="executive" aria-labelledby="exec-title">
+                <h2 id="exec-title">Executive Summary</h2>
                 
-                <p>This comprehensive report examines human rights violations in Sudan across two decades, from the Darfur genocide (2003-2008) to the current civil war (2023-present). Through multiple analytical frameworks—historical context, media literacy, educational formatting, investigative journalism, and knowledge analysis—we trace patterns of violence, international response failures, and emerging accountability mechanisms.</p>
+                <p>This report examines human rights violations in Sudan across two decades, from the Darfur genocide (2003-2008) to the current civil war (2023-present). It traces patterns of violence, international response failures, and emerging accountability mechanisms through historical, media literacy, and legal frameworks.</p>
 
                 <div class="stat-row">
                     <div class="stat-item">
-                        <div class="stat-number">300,000+</div>
-                        <div class="stat-label">Deaths in Darfur Genocide</div>
+                        <div class="stat-number">300k+</div>
+                        <div class="stat-label">Darfur Genocide Deaths</div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-number">150,000+</div>
-                        <div class="stat-label">Deaths in Current Conflict</div>
+                        <div class="stat-number">150k+</div>
+                        <div class="stat-label">Current Conflict Deaths</div>
                     </div>
                     <div class="stat-item">
                         <div class="stat-number">12M</div>
-                        <div class="stat-label">People Displaced</div>
+                        <div class="stat-label">Total People Displaced</div>
                     </div>
-                    <div class="stat-item">
+                    <div class="stat-item stat-accent">
                         <div class="stat-number">$20.5M</div>
                         <div class="stat-label">BNP Paribas Verdict</div>
                     </div>
                 </div>
 
-                <div class="case-study">
+                <aside class="case-study">
                     <h3>Landmark Legal Victory</h3>
-                    <p>In October 2025, a U.S. federal jury ordered French bank BNP Paribas to pay <span class="highlight">$20.5 million</span> to three Darfur genocide survivors in the case <em>Kashef et al. v. BNP Paribas S.A.</em> This verdict represents a breakthrough in holding corporations accountable for financing atrocities.</p>
-                    <p>The case successfully overcame the "act of state" doctrine, establishing that genocide violates jus cogens norms and cannot be shielded by sovereign immunity.</p>
-                </div>
+                    <p>In October 2025, a U.S. jury ordered BNP Paribas to pay <span class="highlight">$20.5 million</span> to Darfur genocide survivors in *Kashef et al. v. BNP Paribas S.A.* This case is a breakthrough in holding corporations accountable for financing atrocities.</p>
+                    <p>Crucially, the case overcame the "act of state" doctrine by arguing that genocide violates <span class="highlight">jus cogens norms</span> (universally binding laws) and can never be shielded as an "official" state act.</p>
+                </aside>
 
-                <div class="alert">
-                    <h3>Critical Finding</h3>
-                    <p>The Rapid Support Forces (RSF) currently perpetrating atrocities in Sudan's civil war evolved directly from the Janjaweed militias responsible for the Darfur genocide. This represents a catastrophic failure to dismantle genocidal structures, demonstrating how impunity enables recurring violence.</p>
-                </div>
-
-                <h3>Report Methodology</h3>
-                <p>This analysis employs five distinct frameworks to examine Sudan's human rights crisis:</p>
-                
-                <ul>
-                    <li><strong>Historical Analysis:</strong> Traces root causes from colonial administration to contemporary conflict patterns</li>
-                    <li><strong>Media Literacy:</strong> Examines coverage patterns, framing biases, and source credibility</li>
-                    <li><strong>Educational Formatting:</strong> Develops pedagogical approaches for teaching about genocide and accountability</li>
-                    <li><strong>Investigative Journalism:</strong> Analyzes evidentiary trails and witness testimony</li>
-                    <li><strong>Knowledge Analysis:</strong> Evaluates legal precedents and international mechanisms</li>
-                </ul>
+                <aside class="alert">
+                    <h3>Critical Finding: The Cycle of Impunity</h3>
+                    <p>The **Rapid Support Forces (RSF)**, currently perpetrating atrocities, evolved directly from the **Janjaweed** militias responsible for the Darfur genocide. This represents a catastrophic failure to dismantle genocidal structures, proving that impunity directly enables recurring, large-scale violence.</p>
+                </aside>
             </section>
 
-            <section id="historical">
-                <h2>Historical Context: The Darfur Genocide</h2>
+            <section id="historical" aria-labelledby="hist-title">
+                <h2 id="hist-title">Historical Context: Genocide & Colonial Legacy</h2>
                 
-                <p>The Darfur genocide (2003-2008) represents one of the 21st century's most devastating human rights catastrophes. Orchestrated by the Sudanese government under Omar al-Bashir and implemented through Janjaweed militias, the systematic campaign targeted non-Arab populations in western Sudan.</p>
+                <p>The Darfur genocide (2003-2008) was a systematic campaign by the Sudanese government under Omar al-Bashir and its Janjaweed militias to target non-Arab populations (Fur, Masalit, Zaghawa) in western Sudan.</p>
 
-                <h3>Key Historical Timeline</h3>
-                
-                <ul>
-                    <li><strong>2003:</strong> Rebel groups launch uprising against Khartoum's marginalization of Darfur. Government responds by arming Arab "Janjaweed" militias.</li>
-                    <li><strong>2004:</strong> United States declares situation in Darfur a genocide. UN Security Council imposes sanctions. Systematic village burnings and mass rape escalate.</li>
-                    <li><strong>2005:</strong> ICC begins investigation following UN Security Council referral. First arrest warrants issued for war crimes.</li>
-                    <li><strong>2008:</strong> Death toll reaches approximately 300,000. Three million people displaced into camps. UNAMID peacekeeping force deployed with limited mandate.</li>
-                    <li><strong>2009:</strong> ICC issues arrest warrant for President al-Bashir for genocide, crimes against humanity, and war crimes - first sitting head of state indicted.</li>
-                </ul>
-
-                <h3>Methods of Genocide</h3>
-                
-                <p>The Sudanese government and Janjaweed militias employed multiple systematic tactics to destroy non-Arab communities:</p>
-
-                <div class="stat-row">
-                    <div class="stat-item">
-                        <div class="stat-number">80%</div>
-                        <div class="stat-label">Villages Destroyed in Target Areas</div>
+                <details>
+                    <summary>Click to view Key Historical Timeline (2003-2009)</summary>
+                    <div class="details-content">
+                        <ul>
+                            <li><strong>2003:</strong> Rebel groups launch an uprising against Khartoum's marginalization. The government responds by arming and deploying the Janjaweed.</li>
+                            <li><strong>2004:</strong> The United States formally declares the situation in Darfur a genocide. The UN imposes sanctions. Systematic village burnings and mass rape escalate.</li>
+                            <li><strong>2005:</strong> The UN Security Council refers the Darfur case to the International Criminal Court (ICC).</li>
+                            <li><strong>2008:</strong> The estimated death toll reaches 300,000, with nearly 3 million displaced. The UNAMID peacekeeping force is deployed with a limited mandate.</li>
+                            <li><strong>2009:</strong> The ICC issues an arrest warrant for President al-Bashir for genocide, war crimes, and crimes against humanity.</li>
+                        </ul>
                     </div>
-                    <div class="stat-item">
-                        <div class="stat-number">400,000+</div>
-                        <div class="stat-label">Excess Deaths from Violence & Displacement</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">65%</div>
-                        <div class="stat-label">Women & Girls Experiencing Sexual Violence</div>
-                    </div>
-                </div>
+                </details>
 
-                <div class="media-literacy-tip">
-                    <h4>Media Literacy Tip</h4>
-                    <p>When researching historical conflicts, compare reporting from multiple sources including international media, local journalists, and academic analyses. Note how framing (e.g., "tribal conflict" vs. "state-sponsored genocide") shapes public perception and policy responses.</p>
-                </div>
+                <details>
+                    <summary>Click to view Governance & Colonial Roots Analysis</summary>
+                    <div class="details-content">
+                        <h4>Governance, Control, and Colonialism</h4>
+                        <p>This conflict cannot be understood without its historical context. British colonial rule (1899-1956) implemented a "divide and rule" strategy, creating and reifying ethnic hierarchies that favored Arab populations for administrative roles over the non-Arab "African" populations of the south and west.</p>
+                        <p>Post-independence, governments in Khartoum (dominated by the northern Arab elite) weaponized these divisions. They centralized power and resources, leading to the economic and political marginalization of peripheral regions like Darfur. The 2003 rebellion was a direct response to this systemic inequality. Bashir's genocidal response was not just a counter-insurgency; it was a post-colonial project of governance and control, using state-sponsored militias to maintain a specific ethnic and political order.</p>
+                    </div>
+                </details>
 
                 <h3>International Response Failures</h3>
-
-                <p>Despite the 2004 U.S. genocide declaration and subsequent UN actions, the international response proved tragically inadequate:</p>
-
+                <p>Despite the 2004 U.S. genocide declaration, the international response was tragically inadequate, hampered by:</p>
                 <ul>
-                    <li><span class="highlight">Peacekeeping limitations</span>: UNAMID forces were under-resourced and lacked robust civilian protection mandates</li>
-                    <li><span class="highlight">Diplomatic compromises</span>: Geopolitical considerations (China's oil interests, Arab League solidarity) diluted pressure on Khartoum</li>
-                    <li><span class="highlight">ICC enforcement gaps</span>: Arrest warrants for al-Bashir and allies went unenforced for years</li>
-                    <li><span class="highlight">Funding shortfalls</span>: Humanitarian appeals consistently received less than 60% of requested funds</li>
+                    <li><span class="highlight">Limited Peacekeeping:</span> UNAMID forces were under-resourced and lacked a strong mandate to protect civilians.</li>
+                    <li><span class="highlight">Geopolitical Compromises:</span> China's oil interests and Arab League solidarity diluted pressure on Khartoum.</li>
+                    <li><span class="highlight">Impunity:</span> ICC arrest warrants for al-Bashir and others went unenforced for years, signaling a lack of political will for justice.</li>
                 </ul>
-
                 <div class="citation">
-                    <strong>Source:</strong> United Nations Commission of Inquiry on Darfur (2005), Human Rights Watch, and ICC case documents.
+                    <strong>Sources:</strong> United Nations Commission of Inquiry on Darfur (2005), Human Rights Watch, ICC case documents.
                 </div>
             </section>
 
-            <section id="bnp">
-                <h2>The BNP Paribas Case: Corporate Accountability Breakthrough</h2>
+            <section id="bnp" aria-labelledby="bnp-title">
+                <h2 id="bnp-title">Corporate Accountability: The BNP Paribas Case</h2>
                 
-                <p>The 2025 verdict in <em>Kashef et al. v. BNP Paribas S.A.</em> represents a watershed moment in international justice, establishing that financial institutions can be held directly liable to victims for facilitating genocide.</p>
-
-                <div class="case-study">
-                    <h3>Case Overview: Kashef v. BNP Paribas</h3>
-                    <p><strong>Plaintiffs:</strong> Three Sudanese refugees living in the United States who survived Darfur atrocities</p>
-                    <p><strong>Verdict:</strong> $20.5 million in compensatory damages ($6.4-7.3 million per plaintiff)</p>
-                    <p><strong>Legal Basis:</strong> State tort law, violations of U.S. sanctions, aiding and abetting genocide</p>
-                    <p><strong>Key Finding:</strong> BNP Paribas provided a "blank check" to a regime actively committing genocide, despite knowledge of well-publicized atrocities</p>
-                </div>
+                <p>The 2025 *Kashef* verdict is a watershed moment, but it builds on a decade of legal action. It establishes that financial institutions can be held liable *to victims* for facilitating genocide.</p>
 
                 <h3>The Banking-Genocide Connection</h3>
+                <p>Between 2002 and 2008, BNP Paribas (BNPP) acted as Sudan's "de facto central bank," processing billions in oil revenues despite U.S. sanctions. This financial lifeline was essential for the Bashir regime to fund its military and the Janjaweed militias.</p>
                 
-                <p>Between 2002 and 2008, BNP Paribas served as Sudan's de facto central bank, processing approximately $190 billion in transactions despite explicit U.S. sanctions. These financial services enabled the Bashir regime to:</p>
-
-                <div class="stat-row">
-                    <div class="stat-item">
-                        <div class="stat-number">$4.2B</div>
-                        <div class="stat-label">Oil Revenue Processed</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">85%</div>
-                        <div class="stat-label">Regime Military Budget Funded</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">$1.1B</div>
-                        <div class="stat-label">Weapons Purchases Enabled</div>
-                    </div>
-                </div>
-
                 <div class="quote">
-                    "The bank provided a blank check to the regime which he used to perpetrate a reign of death and destruction on the targeted population. The bank knew of the genocidal use and chose to turn a blind eye of indifference to that human consequence."
-                    <div class="quote-source">- Plaintiffs' attorney, closing arguments</div>
+                    "The bank provided a blank check to the regime... The bank knew of the genocidal use and chose to turn a blind eye of indifference to that human consequence."
+                    <div class="quote-source">- Plaintiffs' attorney, closing arguments (2025)</div>
                 </div>
 
-                <h3>Legal Innovation: Overcoming the "Act of State" Doctrine</h3>
-
-                <p>The case's most significant legal achievement was dismantling the "act of state" defense—a legal shield that corporations have historically used to avoid liability for complicity in sovereign actions. The court ruled that:</p>
-
-                <ul>
-                    <li><span class="highlight">Genocide is not an "official act"</span> entitled to judicial deference under the act of state doctrine</li>
-                    <li><span class="highlight">Jus cogens violations</span> (fundamental international law principles) can never be shielded by sovereign immunity</li>
-                    <li><span class="highlight">Corporate financiers</span> can be held directly liable to victims under domestic tort law</li>
-                    <li><span class="highlight">Knowledge standard</span> includes willful blindness to publicly documented atrocities</li>
-                </ul>
-
-                <h3>Corporate Knowledge and Willful Blindness</h3>
-
-                <p>The case revealed extensive evidence of BNP Paribas's awareness of the genocide while continuing financial services:</p>
-
-                <ul>
-                    <li><strong>Internal Memos:</strong> Bank employees discussed Sudan transactions in code, deliberately obscuring ties to U.S. financial systems</li>
-                    <li><strong>Media Reports:</strong> Extensive contemporaneous coverage documented genocide while bank continued operations</li>
-                    <li><strong>Transaction Records:</strong> Processing of oil revenues that directly funded weapons purchases and militia payments</li>
-                    <li><strong>Compliance Failures:</strong> Bank deliberately stripped identification information from wire transfers to evade sanctions screening</li>
-                </ul>
-
-                <div class="media-literacy-tip">
-                    <h4>Investigative Insight</h4>
-                    <p>This case demonstrates how financial documents can serve as crucial evidence in human rights cases. Transaction records, internal communications, and compliance reports often provide the smoking gun that connects corporate actions to human suffering.</p>
+                <h3>The Two-Part Legal Battle: 2014 vs. 2025</h3>
+                <p>Understanding the 2025 victory requires knowing about the 2014 criminal case. They are fundamentally different.</p>
+                
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Attribute</th>
+                                <th>2014 Criminal Case (U.S. v. BNPP)</th>
+                                <th>2025 Civil Case (Kashef v. BNPP)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Plaintiff</strong></td>
+                                <td>United States Government</td>
+                                <td><strong>Survivors of the Genocide</strong></td>
+                            </tr>
+                            <tr>
+                                <td><strong>The Crime</strong></td>
+                                <td>Violating U.S. Sanctions (IEEPA)</td>
+                                <td>Aiding & Abetting Genocide (State Tort Law)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>The Outcome</strong></td>
+                                <td>Guilty Plea. **$8.97 Billion fine.**</td>
+                                <td>Jury Verdict. **$20.5 Million in damages.**</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Where the Money Went</strong></td>
+                                <td>To the U.S. Government.</td>
+                                <td>**Directly to the victims (plaintiffs).**</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
+
+                <details>
+                    <summary>Click to view In-Depth Legal Analysis</summary>
+                    <div class="details-content">
+                        <h4>The Legal Architecture of Complicity</h4>
+                        <p>The 2025 case was legally brilliant. The plaintiffs' lawyers knew the <span class="highlight">Alien Tort Statute (ATS)</span>, often used for human rights cases, had been narrowed by the Supreme Court. So, they pivoted.</p>
+                        <p>Instead of the ATS, they used ordinary **New York state tort law**, arguing that BNPP was negligent and had aided and abetted the assault, battery, and wrongful deaths perpetrated by the Sudanese regime.</p>
+                        
+                        <h4>Defeating the "Act of State" Doctrine</h4>
+                        <p>BNPP's main defense was the "act of state" doctrine—a legal shield that says U.S. courts can't judge the "official acts" of a foreign government (i.e., Sudan's actions).</p>
+                        <p>The court rejected this defense in a landmark 2019 ruling, creating a new legal frontier. The reasoning was:</p>
+                        <ol>
+                            <li>Genocide is not a valid "official act" of a state.</li>
+                            <li>The prohibition of genocide is a <span class="highlight">jus cogens norm</span>, a fundamental, universally binding principle of international law from which no deviation is permitted.</li>
+                            <li>Therefore, a corporation cannot hide behind a government's "sovereign" actions when those actions constitute genocide.</li>
+                        </ol>
+                        <p>This precedent transforms corporate risk. Banks can no longer see fines (like in 2014) as a "cost of doing business." They now face direct, uncapped civil liability *to the victims* of the atrocities they finance.</p>
+                    </div>
+                </details>
             </section>
 
-            <section id="current">
-                <h2>Current Crisis: 2023-2025 Conflict</h2>
+            <section id="current" aria-labelledby="current-title">
+                <h2 id="current-title">Current Crisis: The 2023-2025 Conflict</h2>
                 
-                <p>Since April 2023, Sudan has descended into a devastating civil war between the Sudanese Armed Forces (SAF) and the Rapid Support Forces (RSF). The conflict has created one of the world's worst humanitarian crises, with patterns of violence eerily reminiscent of the Darfur genocide.</p>
+                <p>Since April 2023, Sudan has been ravaged by a civil war between the Sudanese Armed Forces (SAF) and the Rapid Support Forces (RSF). This conflict has created one of the world's worst humanitarian crises.</p>
 
                 <div class="stat-row">
                     <div class="stat-item">
-                        <div class="stat-number">150,000+</div>
+                        <div class="stat-number">150k+</div>
                         <div class="stat-label">Documented Deaths</div>
                     </div>
                     <div class="stat-item">
@@ -489,7 +640,7 @@
                         <div class="stat-label">Internally Displaced</div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-number">2M</div>
+                        <div class="stat-number">2M+</div>
                         <div class="stat-label">Refugees Abroad</div>
                     </div>
                     <div class="stat-item">
@@ -498,163 +649,199 @@
                     </div>
                 </div>
 
-                <div class="alert">
-                    <h3>Genocide Warning</h3>
-                    <p>Multiple UN experts and genocide scholars have warned that the violence in Darfur constitutes "acts of genocide" with the RSF systematically targeting specific ethnic groups. The patterns mirror the 2003-2008 genocide almost exactly, demonstrating catastrophic failure to dismantle genocidal structures.</p>
+                <aside class="alert">
+                    <h3>Genocide Warning: History Repeats</h3>
+                    <p>UN experts and genocide scholars are warning that the violence in Darfur, led by the RSF (the reformed Janjaweed), constitutes **new acts of genocide**. The same ethnic groups (Masalit, Fur) are being systematically targeted with the same methods used in 2003.</p>
+                </aside>
+                
+                <h3>Comparison: Atrocities Then and Now</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Method of Atrocity</th>
+                                <th>Darfur Genocide (2003-2008)</th>
+                                <th>Current Conflict (2023-Present)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Perpetrator</strong></td>
+                                <td>Gov't of Sudan & Janjaweed Militias</td>
+                                <td>RSF (Evolved from Janjaweed) & SAF</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Ethnic Targeting</strong></td>
+                                <td>Systematic attacks on Fur, Masalit, Zaghawa</td>
+                                <td>Systematic attacks on Masalit, Fur in Darfur</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Sexual Violence</strong></td>
+                                <td>Mass rape as a weapon of war</td>
+                                <td>Widespread, systematic use of rape and sexual slavery</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Methods</strong></td>
+                                <td>Village burning, aerial bombardment</td>
+                                <td>Sieges of cities, identical "scorched earth" tactics</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
-
-                <h3>Documented Atrocities</h3>
-
-                <p>UN investigations and human rights organizations have documented systematic violations by both parties, with particularly severe abuses attributed to RSF forces:</p>
-
-                <h4>Darfur Genocide (2003-2008)</h4>
-                <ul>
-                    <li><strong>Ethnic Targeting:</strong> Systematic attacks on Fur, Masalit, and Zaghawa communities</li>
-                    <li><strong>Sexual Violence:</strong> Mass rape as weapon of war, thousands of documented cases</li>
-                    <li><strong>Forced Displacement:</strong> 3 million displaced through village burning and destruction</li>
-                    <li><strong>Methods:</strong> Aerial bombardment followed by ground attacks by Janjaweed</li>
-                </ul>
-
-                <h4>Current Conflict (2023-2025)</h4>
-                <ul>
-                    <li><strong>Ethnic Targeting:</strong> RSF systematically targeting same ethnic groups in Darfur</li>
-                    <li><strong>Sexual Violence:</strong> Thousands of documented cases, including girls as young as 12</li>
-                    <li><strong>Forced Displacement:</strong> 12 million displaced, largest internal displacement crisis globally</li>
-                    <li><strong>Methods:</strong> RSF (evolved from Janjaweed) using identical tactics</li>
-                </ul>
 
                 <h3>Foreign Involvement and Arms Flows</h3>
-
-                <p>The conflict is fueled by external actors providing weapons and support in violation of UN arms embargoes:</p>
-
-                <ul>
-                    <li><strong>United Arab Emirates:</strong> Weapons, drones, financial backing to RSF</li>
-                    <li><strong>Russia/Wagner Group:</strong> Weapons, military advisors to both sides</li>
-                    <li><strong>Egypt:</strong> Military support, safe haven to SAF</li>
-                    <li><strong>Various Arms Dealers:</strong> Weapons shipments via Chad, Libya, and South Sudan</li>
-                </ul>
-
-                <div class="media-literacy-tip">
-                    <h4>Media Literacy Alert</h4>
-                    <p>Coverage of Sudan's current crisis has been disproportionately limited compared to other global conflicts. This "crisis visibility gap" affects policy responses and humanitarian funding. When researching, actively seek out Sudanese voices and local reporting to counterbalance international media neglect.</p>
+                <p>The conflict is prolonged by external actors arming both sides in violation of UN embargoes.</p>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>External Actor</th>
+                                <th>Support Provided</th>
+                                <th>Primary Recipient</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>United Arab Emirates</strong></td>
+                                <td>Weapons, drones, financial backing</td>
+                                <td><strong>RSF</strong></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Russia (Wagner Group)</strong></td>
+                                <td>Weapons, advisors, disinformation</td>
+                                <td>Varies (historically RSF)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Egypt</strong></td>
+                                <td>Military support, diplomatic backing</td>
+                                <td><strong>SAF</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </section>
 
-            <section id="perspectives">
-                <h2>Multi-Perspective Analysis</h2>
+            <section id="perspectives" aria-labelledby="persp-title">
+                <h2 id="persp-title">Multi-Perspective Analysis</h2>
                 
-                <p>This section applies five distinct analytical frameworks to examine Sudan's human rights crisis, providing comprehensive understanding beyond surface-level reporting.</p>
+                <p>To fully understand this crisis, we must analyze it as a failure of governance, a media artifact, and an educational challenge.</p>
 
-                <h3>Historical Perspective</h3>
-                <p><strong>Root Causes:</strong> Colonial-era "divide and rule" policies created ethnic hierarchies that post-independence governments weaponized. Resource competition over land, water, and oil exacerbated tensions.</p>
-                <p><strong>Pattern Recognition:</strong> The current conflict represents the fourth major civil war in Sudan since independence (1955-1972, 1983-2005, 2003-2008, 2023-present), demonstrating structural failures.</p>
-                <p><strong>Key Insight:</strong> Impunity for past atrocities directly enabled current violence. The RSF evolved from Janjaweed militias that never faced accountability.</p>
+                <details>
+                    <summary>Click to view Historical & Governance Analysis</summary>
+                    <div class="details-content">
+                        <h4>Colonial Roots, Post-Colonial Failure</h4>
+                        <p>As mentioned, British "divide and rule" policies embedded ethnic divisions. After independence, the Khartoum-centric elite failed to create an inclusive state. Instead, they used violence and resource exploitation to control the periphery. The Janjaweed, and later the RSF, were not rogue actors; they were **tools of state governance**, created and funded to suppress dissent and maintain a specific power structure. The 2023 war is the catastrophic failure of this model, as the state's two main coercive bodies (SAF and RSF) turned on each other.</p>
+                    </div>
+                </details>
+                
+                <details>
+                    <summary>Click to view Media Literacy Analysis</summary>
+                    <div class="details-content">
+                        <h4>The Crisis as a Media Artifact</h4>
+                        <p>How the Sudan crisis is (and is not) reported is a "media artifact" worth studying:</p>
+                        <ul>
+                            <li><strong>The "Crisis Visibility Gap":</strong> The crisis receives significantly less coverage than conflicts in Ukraine or Gaza. This is not due to its scale (it's one of the world's largest) but due to editorial biases, "crisis fatigue," anti-Black racism, and logistical challenges for journalists. This lack of visibility directly impacts humanitarian funding and political will for intervention.</li>
+                            <li><strong>Problematic Framing:</strong> In the 2000s, media often framed the Darfur genocide as "ancient tribal conflict" or "Arabs vs. Africans." This obscures the political and economic reality: it is a *state-sponsored campaign of ethnic cleansing* orchestrated by a government against its own citizens for political and resource control.</li>
+                        </ul>
+                    </div>
+                </details>
 
-                <h3>Media Literacy Perspective</h3>
-                <p><strong>Framing Analysis:</strong> Early Darfur coverage often used "tribal conflict" framing rather than "state-sponsored genocide," reducing perceived international responsibility.</p>
-                <p><strong>Source Diversity:</strong> International reporting relies heavily on UN and NGO sources, with limited inclusion of Sudanese academic and civil society perspectives.</p>
-                <p><strong>Visibility Gap:</strong> Sudan receives significantly less coverage than Ukraine or Gaza despite comparable human suffering, demonstrating editorial biases.</p>
-
-                <h3>Educational Formatting</h3>
-                <p><strong>Primary/Secondary:</strong> Age-appropriate materials on humanitarian response, refugee experiences, and basic human rights concepts.</p>
-                <p><strong>Undergraduate:</strong> Case studies on genocide stages, international law mechanisms, and media representation of conflicts.</p>
-                <p><strong>Graduate/Professional:</strong> Advanced analysis of corporate accountability, sanctions regimes, and comparative genocide studies.</p>
-
-                <h3>Investigative Journalism</h3>
-                <p><strong>Financial Trails:</strong> Following money flows from international banks to weapons purchases reveals corporate complicity in atrocities.</p>
-                <p><strong>Document Mining:</strong> Internal corporate communications, UN reports, and leaked documents provide crucial evidence of knowledge and intent.</p>
-                <p><strong>Witness Testimony:</strong> Systematic collection of survivor accounts creates historical record and legal evidence.</p>
-
-                <h3>Knowledge Analysis</h3>
-                <p><strong>Legal Precedents:</strong> The BNP Paribas case transforms corporate risk calculations for conflict zone operations.</p>
-                <p><strong>Policy Impact:</strong> Analysis of which interventions (sanctions, ICC referrals, peacekeeping) prove most effective.</p>
-                <p><strong>Prevention Frameworks:</strong> Applying lessons from Sudan to develop early warning systems for future conflicts.</p>
-
-                <h3>Applied Analysis: The BNP Paribas Case Through Multiple Lenses</h3>
-
-                <ul>
-                    <li><strong>Historical:</strong> Reveals evolution from direct colonial exploitation to modern financial complicity</li>
-                    <li><strong>Media Literacy:</strong> Corporate accountability stories receive more attention than human suffering narratives</li>
-                    <li><strong>Educational:</strong> Provides concrete example of legal mechanisms overcoming impunity</li>
-                    <li><strong>Investigative:</strong> Financial documents and internal communications proved crucial</li>
-                    <li><strong>Knowledge:</strong> Transforms corporate risk calculations and enables new legal strategies</li>
-                </ul>
+                <details>
+                    <summary>Click to view Investigative & Legal Analysis</summary>
+                    <div class="details-content">
+                        <h4>From Spreadsheets to Smoking Guns</h4>
+                        <p>The *Kashef* case is a triumph of investigative journalism. The 2014 criminal plea provided the "smoking gun"—the bank's own admissions and transaction records. Journalists and researchers then connected these financial flows to the purchase of weapons and the payment of militias. This teaches us that in modern atrocity, the evidence trail is often found in bank statements, wire transfers, and compliance reports, not just on the battlefield.</p>
+                    </div>
+                </details>
             </section>
 
-            <section id="action">
-                <h2>Civic Action & Next Steps</h2>
+            <section id="action" aria-labelledby="action-title">
+                <h2 id="action-title">Civic Action & Next Steps</h2>
                 
-                <p>Transforming awareness into action requires coordinated efforts across multiple sectors. Below are specific actions that individuals, educators, and policymakers can take to address Sudan's crisis and support accountability mechanisms.</p>
-
-                <div class="case-study">
-                    <h3>Your Voice Matters</h3>
-                    <p>Join the global movement for justice in Sudan. Use your influence to raise awareness, pressure decision-makers, and support survivors.</p>
-                </div>
-
-                <h3>Actionable Steps by Audience</h3>
-
-                <h4>For Individuals</h4>
-                <ul>
-                    <li>Educate yourself using verified sources (UN reports, credible NGOs)</li>
-                    <li>Support humanitarian organizations with proven track records in Sudan</li>
-                    <li>Use social media to amplify Sudanese voices and accurate information</li>
-                    <li>Pressure companies to conduct human rights due diligence in conflict zones</li>
-                    <li>Advocate for corporate accountability legislation in your country</li>
-                </ul>
-
-                <h4>For Educators</h4>
-                <ul>
-                    <li>Incorporate Sudan case studies into genocide and human rights curricula</li>
-                    <li>Teach media literacy skills using coverage of Sudan as examples</li>
-                    <li>Host discussions on corporate accountability and international law</li>
-                    <li>Connect students with Sudanese diaspora organizations</li>
-                    <li>Develop simulation exercises based on real-world accountability mechanisms</li>
-                </ul>
-
-                <h4>For Policymakers</h4>
-                <ul>
-                    <li>Strengthen sanctions enforcement and close loopholes</li>
-                    <li>Support ICC investigations and arrest warrant enforcement</li>
-                    <li>Fund humanitarian assistance at levels matching need</li>
-                    <li>Legislate corporate human rights due diligence requirements</li>
-                    <li>Ensure arms exports don't fuel conflicts with human rights violations</li>
-                </ul>
-
-                <div class="recommendations">
+                <p>Transforming awareness into action requires coordinated efforts. Below are specific actions that individuals, educators, and policymakers can take.</p>
+                
+                <aside class="recommendations">
                     <h3>Key Recommendations</h3>
                     <ol>
-                        <li>Establish an international commission to document atrocities in the current conflict</li>
-                        <li>Expand targeted sanctions against individuals and entities financing violence</li>
-                        <li>Increase support for ICC investigations and victim protection programs</li>
-                        <li>Create a global registry of corporate human rights due diligence practices</li>
-                        <li>Fund mental health and rehabilitation services for survivors</li>
-                        <li>Develop early warning systems to identify corporate complicity in future conflicts</li>
+                        <li>Establish an international commission to document atrocities in the current conflict.</li>
+                        <li>Expand and enforce targeted sanctions against individuals and entities (including foreign actors) financing the SAF and RSF.</li>
+                        <li>Fully fund all humanitarian appeals to prevent mass famine.</li>
+                        <li>Increase support for ICC investigations and survivor protection programs.</li>
+                        <li>Legislate mandatory human rights due diligence for corporations operating in conflict zones.</li>
                     </ol>
-                </div>
+                </aside>
 
-                <div class="media-literacy-tip">
+                <aside class="media-literacy-tip">
                     <h4>Verification Checklist</h4>
-                    <p>Before sharing information about Sudan online, verify: (1) Source credibility and expertise, (2) Corroboration from multiple independent sources, (3) Date of information, (4) Potential biases in framing, (5) Inclusion of local perspectives.</p>
-                </div>
+                    <p>Before sharing information about Sudan online, verify:</p>
+                    <ol>
+                        <li><strong>Source:</strong> Is it a credible NGO (HRW, Amnesty), a UN agency, or a verified local journalist/activist?</li>
+                        <li><strong>Corroboration:</strong> Can you find the same claim from multiple independent sources?</li>
+                        <li><strong>Date:</strong> Is the information recent or is it an old video/image being recirculated?</li>
+                        <li><strong>Bias:</strong> Does the source have a clear political agenda? (Both sides use propaganda).</li>
+                    </ol>
+                </aside>
 
                 <h3>Additional Resources</h3>
-
                 <ul>
-                    <li><strong>Documentation:</strong> Human Rights Watch - Atrocity documentation and reporting</li>
-                    <li><strong>Legal Action:</strong> Center for Constitutional Rights - Corporate accountability litigation</li>
-                    <li><strong>Humanitarian Response:</strong> Doctors Without Borders - Medical care in conflict zones</li>
-                    <li><strong>Policy Advocacy:</strong> Enough Project - Policy solutions to genocide and crimes against humanity</li>
-                    <li><strong>Media Analysis:</strong> Media Matters for Democracy - Critical analysis of conflict coverage</li>
+                    <li><strong>Documentation:</strong> Human Rights Watch, Amnesty International</li>
+                    <li><strong>Legal Action:</strong> Center for Constitutional Rights (CCR)</li>
+                    <li><strong>Humanitarian Response:</strong> Doctors Without Borders (MSF), UNICEF, World Food Programme (WFP)</li>
+                    <li><strong>Policy Advocacy:</strong> The Enough Project, Sudan Human Rights Hub</li>
                 </ul>
             </section>
         </main>
 
         <footer>
-            <p>AARTLESSESS Research Collective</p>
-            <p>This research report was generated based on analysis of multiple sources including UN documents, court records, academic research, and verified media reporting.</p>
-            <p><strong>Publication Date:</strong> October 2025 | <strong>Format:</strong> Mobile-Optimized Research Paper</p>
-            <p>For educational and advocacy purposes. Please verify specific claims with primary sources.</p>
+            <p>This report synthesizes data from UN documents, court records, academic research, and verified media reporting.</p>
+            <p>This document is open-source and designed to be lightweight, accessible, and easily shareable. Please copy, fork, and adapt.</p>
         </footer>
     </div>
+
+    <button class="scroll-top" id="scrollTopBtn" title="Go to top">▲</button>
+
+    <script>
+        // --- Minimal, dependency-free JavaScript ---
+
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            // --- Smooth Scroll for Nav Links ---
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        // Get position of sticky nav
+                        const navHeight = document.querySelector('nav').offsetHeight;
+                        const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - (navHeight + 20); // 20px offset
+                        
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // --- Scroll to Top Button Logic ---
+            const scrollTopBtn = document.getElementById('scrollTopBtn');
+            
+            window.onscroll = function() {
+                if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                    scrollTopBtn.classList.add('show');
+                } else {
+                    scrollTopBtn.classList.remove('show');
+                }
+            };
+            
+            scrollTopBtn.addEventListener('click', function() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+        });
+    </script>
+
 </body>
 </html>

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aartless URLs Directory</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        h1 {
+            color: #2d3748;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+            margin-bottom: 25px;
+        }
+        .url-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .url-link {
+            display: block;
+            padding: 12px 16px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            word-break: break-all;
+        }
+        .url-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+        .section {
+            margin-bottom: 30px;
+        }
+        .section h2 {
+            color: #4a5568;
+            font-size: 18px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .count {
+            background: #667eea;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+        }
+        .search-box {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        .search-box:focus {
+            outline: none;
+            border-color: #764ba2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 Aartless GitHub Pages Directory</h1>
+        
+        <input type="text" class="search-box" id="searchBox" placeholder="Search URLs...">
+        
+        <div class="section">
+            <h2>All URLs <span class="count" id="totalCount">0</span></h2>
+            <div class="url-grid" id="urlGrid"></div>
+        </div>
+    </div>
+
+    <script>
+        const baseUrl = 'https://alx0r.github.io/Aartless/';
+        
+        const files = [
+            'Aart.html',
+            'Alice.html',
+            'Alice2.html',
+            'Alice3.html',
+            'Alice4.html',
+            'Anna.html',
+            'Carol1.html',
+            'Carol2.html',
+            'Carol3.html',
+            'Carol4.html',
+            'Drparish.html',
+            'Kal.html',
+            'LICENSE',
+            'OPME.html',
+            'Orisco.html',
+            'Wolf.html',
+            'alexa.html',
+            'alexander24.html',
+            'alexander_rabbit.html',
+            'alexbex.html',
+            'all.html',
+            'alex.html',
+            'annab.html',
+            'awe.html',
+            'bab.html',
+            'bex.html',
+            'blankpage1.html',
+            'block.html',
+            'bloom.html',
+            'bloom1.html',
+            'bloom2.html',
+            'bro.html',
+            'browse.html',
+            'bruh.html',
+            'bue.html',
+            'call.html',
+            'catismcord.html',
+            'catisms.html',
+            'clouds.html',
+            'comment.html',
+            'copy.html',
+            'dait.html',
+            'degree.html',
+            'diss.html',
+            'drc.html',
+            'drparrish.html',
+            'foxhunt1.html',
+            'frikday.html',
+            'future.html',
+            'gatsby.html',
+            'goat.html',
+            'goatt.html',
+            'grow.html',
+            'html.html',
+            'ijo.html',
+            'index.html',
+            'jazz.html',
+            'jjade.html',
+            'lethe.html',
+            'like.html',
+            'lru.html',
+            'maddi.html',
+            'maddie.html',
+            'magical.html',
+            'marlene.html',
+            'mephistopheles.html',
+            'mkh.html',
+            'mikayla.html',
+            'mirror_mirror.html',
+            'mit.html',
+            'mitchell.html',
+            'mob_e.html',
+            'muc.html',
+            'mute.html',
+            'nass.html',
+            'nas_es.html',
+            'nasty.html',
+            'nastyeez.html',
+            'nastynastynasty.html',
+            'nastypro.html',
+            'nastyprod.html',
+            'nastys.html',
+            'nastysnastiest.html',
+            'niccc.html',
+            'real.html',
+            'reality2.html',
+            'reality432.html',
+            'realpro.html',
+            'report.html',
+            'sad.html',
+            'scan.html',
+            'share.html',
+            'smart.html',
+            'smiley.html',
+            'snapshot.html',
+            'sora.html',
+            'sud-m.html',
+            'sudHRI.html',
+            'taxed.html',
+            'teggin.html',
+            'tiger.html',
+            'toogood.html',
+            'trackfox.html',
+            'vampire.html',
+            'walmission.html',
+            'walservices.html',
+            'wanderwiseai.html',
+            'witch.html'
+        ];
+
+        const urlGrid = document.getElementById('urlGrid');
+        const searchBox = document.getElementById('searchBox');
+        const totalCount = document.getElementById('totalCount');
+
+        function renderUrls(filteredFiles) {
+            urlGrid.innerHTML = '';
+            filteredFiles.forEach(file => {
+                const url = baseUrl + file;
+                const link = document.createElement('a');
+                link.href = url;
+                link.className = 'url-link';
+                link.textContent = file;
+                link.target = '_blank';
+                urlGrid.appendChild(link);
+            });
+            totalCount.textContent = filteredFiles.length;
+        }
+
+        searchBox.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            const filtered = files.filter(file => 
+                file.toLowerCase().includes(searchTerm)
+            );
+            renderUrls(filtered);
+        });
+
+        // Initial render
+        renderUrls(files);
+    </script>
+</body>
+</html>

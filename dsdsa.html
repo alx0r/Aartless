@@ -1,0 +1,1318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DSD Scandal: Investigation Brief 2025</title>
+    <meta name="description" content="Evidence-based analysis of governance failures at South Africa's Department of Social Development">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #0a0e27;
+            --card: #141829;
+            --accent: #00d9ff;
+            --purple: #6366f1;
+            --text: #f8fafc;
+            --text-dim: #94a3b8;
+            --red: #ef4444;
+            --orange: #f59e0b;
+            --green: #10b981;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            font-size: 16px;
+        }
+
+        /* Header */
+        header {
+            padding: 2rem 1rem;
+            text-align: center;
+            border-bottom: 1px solid rgba(99, 102, 241, 0.2);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: rgba(99, 102, 241, 0.2);
+            border: 1px solid var(--purple);
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-size: clamp(1.75rem, 5vw, 3rem);
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--accent), var(--purple));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+            line-height: 1.1;
+        }
+
+        .subtitle {
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
+            color: var(--text-dim);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Simple Nav */
+        nav {
+            position: sticky;
+            top: 0;
+            background: rgba(10, 14, 39, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(99, 102, 241, 0.2);
+            padding: 0.5rem;
+            z-index: 100;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        nav a {
+            display: inline-block;
+            padding: 0.5rem 0.75rem;
+            color: var(--text-dim);
+            text-decoration: none;
+            font-size: 0.85rem;
+            white-space: nowrap;
+            transition: color 0.2s;
+        }
+
+        nav a:hover {
+            color: var(--accent);
+        }
+
+        /* Container */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 1.5rem 1rem;
+        }
+
+        /* Typography */
+        h2 {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-weight: 800;
+            margin: 3rem 0 1rem;
+            padding-left: 1rem;
+            border-left: 4px solid var(--purple);
+            color: var(--text);
+        }
+
+        h3 {
+            font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+            font-weight: 700;
+            margin: 2rem 0 1rem;
+            color: var(--accent);
+        }
+
+        h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 1.5rem 0 0.75rem;
+            color: var(--text);
+        }
+
+        p {
+            margin-bottom: 1rem;
+            color: var(--text-dim);
+        }
+
+        strong {
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--card);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .card:hover {
+            border-color: var(--purple);
+        }
+
+        /* Alert Boxes */
+        .alert {
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            border-left: 4px solid;
+        }
+
+        .alert-critical {
+            background: rgba(239, 68, 68, 0.1);
+            border-left-color: var(--red);
+        }
+
+        .alert-warning {
+            background: rgba(245, 158, 11, 0.1);
+            border-left-color: var(--orange);
+        }
+
+        .alert-info {
+            background: rgba(99, 102, 241, 0.1);
+            border-left-color: var(--purple);
+        }
+
+        .alert h4 {
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Stats */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .stat {
+            text-align: center;
+            padding: 1rem;
+            background: var(--card);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 8px;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--accent), var(--purple));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: 0.25rem;
+        }
+
+        /* Figures */
+        .figures {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .figure {
+            background: var(--card);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 8px;
+            padding: 1.5rem;
+        }
+
+        .figure-name {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 0.25rem;
+        }
+
+        .figure-role {
+            font-size: 0.9rem;
+            color: var(--text-dim);
+            margin-bottom: 0.75rem;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 0.75rem;
+        }
+
+        .status-active {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--green);
+            border: 1px solid var(--green);
+        }
+
+        .status-suspended {
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--red);
+            border: 1px solid var(--red);
+        }
+
+        .status-dismissed {
+            background: rgba(245, 158, 11, 0.2);
+            color: var(--orange);
+            border: 1px solid var(--orange);
+        }
+
+        /* Timeline */
+        .timeline {
+            margin: 2rem 0;
+            padding-left: 2rem;
+            border-left: 2px solid var(--purple);
+        }
+
+        .timeline-item {
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2.5rem;
+            top: 0.25rem;
+            width: 12px;
+            height: 12px;
+            background: var(--accent);
+            border: 3px solid var(--bg);
+            border-radius: 50%;
+        }
+
+        .timeline-date {
+            font-weight: 700;
+            color: var(--accent);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Table */
+        .table-wrap {
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--card);
+        }
+
+        th {
+            background: rgba(99, 102, 241, 0.2);
+            padding: 0.75rem;
+            text-align: left;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        td {
+            padding: 0.75rem;
+            border-top: 1px solid rgba(99, 102, 241, 0.1);
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
+
+        /* Lists */
+        ul, ol {
+            margin: 1rem 0 1rem 1.5rem;
+            color: var(--text-dim);
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Quote */
+        blockquote {
+            margin: 1.5rem 0;
+            padding: 1rem;
+            border-left: 4px solid var(--purple);
+            background: rgba(99, 102, 241, 0.05);
+            font-style: italic;
+            color: var(--text-dim);
+        }
+
+        .cite {
+            display: block;
+            margin-top: 0.5rem;
+            font-style: normal;
+            font-size: 0.85rem;
+            color: var(--text-dim);
+        }
+
+        /* Links */
+        a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Resources */
+        .resources {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .resource {
+            display: block;
+            padding: 1rem;
+            background: var(--card);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 8px;
+            transition: border-color 0.2s;
+        }
+
+        .resource:hover {
+            border-color: var(--accent);
+            text-decoration: none;
+        }
+
+        .resource strong {
+            display: block;
+            color: var(--accent);
+            margin-bottom: 0.25rem;
+        }
+
+        .resource small {
+            color: var(--text-dim);
+            font-size: 0.85rem;
+        }
+
+        /* Action Box */
+        .action-box {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(236, 72, 153, 0.2));
+            border: 1px solid var(--purple);
+            border-radius: 8px;
+            padding: 2rem;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .action-box h3 {
+            color: var(--accent);
+            margin-top: 0;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 4rem;
+            padding: 2rem 1rem;
+            border-top: 1px solid rgba(99, 102, 241, 0.2);
+            text-align: center;
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: var(--text-dim);
+            margin: 0 0.5rem;
+        }
+
+        footer a:hover {
+            color: var(--accent);
+        }
+
+        /* Responsive */
+        @media (max-width: 640px) {
+            .container {
+                padding: 1rem 0.75rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+                margin: 2rem 0 1rem;
+            }
+
+            .stats,
+            .figures,
+            .resources {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline {
+                padding-left: 1.5rem;
+            }
+
+            nav {
+                white-space: nowrap;
+            }
+        }
+
+        /* Print */
+        @media print {
+            body {
+                background: white;
+                color: black;
+            }
+
+            nav, .action-box {
+                display: none;
+            }
+
+            .card, .alert {
+                border: 1px solid #000;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="badge">🔍 Active Investigation</div>
+        <h1>DSD Scandal Investigation</h1>
+        <p class="subtitle">Evidence-based analysis of governance failures at South Africa's Department of Social Development</p>
+    </header>
+
+    <nav>
+        <a href="#exec">Summary</a>
+        <a href="#figures">Figures</a>
+        <a href="#trip">NY Trip</a>
+        <a href="#nepotism">Nepotism</a>
+        <a href="#timeline">Timeline</a>
+        <a href="#media">Media</a>
+        <a href="#action">Action</a>
+    </nav>
+
+    <div class="container">
+        
+        <section id="exec">
+            <h2>Executive Summary</h2>
+            
+            <div class="alert alert-critical">
+                <h4>🚨 Critical Findings</h4>
+                <p>Between August 2024 and October 2025, the Department of Social Development became embroiled in multiple interconnected scandals:</p>
+                <ul>
+                    <li><strong>R3M+ Wasteful Expenditure:</strong> Luxury NYC travel for 7 officials while serving 18M+ vulnerable citizens</li>
+                    <li><strong>Nepotism:</strong> 22-year-old niece of Minister's adviser placed in R1.4M/year Chief of Staff role</li>
+                    <li><strong>Double-Dipping:</strong> Special adviser allegedly received two government salaries simultaneously</li>
+                    <li><strong>Contract Fraud:</strong> Director-General given 5-year contract vs Cabinet's 1-year approval</li>
+                    <li><strong>Whistleblower Retaliation:</strong> Officials dismissed for allegedly exposing misconduct</li>
+                </ul>
+            </div>
+
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-value">R3.0M</div>
+                    <div class="stat-label">NY Trip Cost</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">7</div>
+                    <div class="stat-label">Delegates</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">18M+</div>
+                    <div class="stat-label">Grant Recipients</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">5★</div>
+                    <div class="stat-label">Hotel Rating</div>
+                </div>
+            </div>
+
+            <p>The Department of Social Development administers critical social grants to over 18 million vulnerable South Africans. These scandals reveal a profound disconnect between the department's mandate and its conduct, where luxury, patronage, and impunity have superseded accountability.</p>
+
+            <div class="card">
+                <h4>🎯 Methodology</h4>
+                <p><strong>All claims cross-referenced with multiple sources:</strong></p>
+                <ul>
+                    <li>Daily Maverick investigative journalism</li>
+                    <li>Sunday Times exposés (August 2025)</li>
+                    <li>Parliamentary committee records</li>
+                    <li>Government statements and communications</li>
+                    <li>Public Service Commission documentation</li>
+                </ul>
+                <p><span class="badge">VERIFIED</span> = Multiple independent sources confirm<br>
+                <span class="badge">ALLEGED</span> = Single source or disputed claims</p>
+            </div>
+        </section>
+
+        <section id="figures">
+            <h2>Key Figures</h2>
+            
+            <div class="figures">
+                <div class="figure">
+                    <div class="figure-name">Sisisi Tolashe</div>
+                    <div class="figure-role">Minister of Social Development</div>
+                    <div class="status status-active">Active</div>
+                    <p>Central figure facing accusations of misleading Parliament, protecting advisers, approving irregular appointments. Age 65. Faces unified opposition calls for accountability.</p>
+                </div>
+
+                <div class="figure">
+                    <div class="figure-name">Peter Netshipale</div>
+                    <div class="figure-role">Director-General</div>
+                    <div class="status status-suspended">Suspended</div>
+                    <p>Suspended Oct 2025 for alleged dishonesty. Cabinet approved 1-year term; received 5-year contract. Minister claimed "clerical error." Age 64.</p>
+                </div>
+
+                <div class="figure">
+                    <div class="figure-name">Ngwako Kgatla</div>
+                    <div class="figure-role">Special Adviser</div>
+                    <div class="status status-active">Active - Protected</div>
+                    <p>Age 32. Accused of double-dipping salaries. Uncle of Lesedi Mabiletja. Alleged romantic relationship with Minister. Shielded from discipline via legal technicality.</p>
+                </div>
+
+                <div class="figure">
+                    <div class="figure-name">Lesedi Mabiletja</div>
+                    <div class="figure-role">Former Chief of Staff</div>
+                    <div class="status status-suspended">Suspended</div>
+                    <p>Age 22. Kgatla's niece. Appointed to R1.4M position with only IT diploma. HR flagged as unsuitable. Removed but kept on full pay.</p>
+                </div>
+
+                <div class="figure">
+                    <div class="figure-name">Lumka Oliphant</div>
+                    <div class="figure-role">Former Communications Director</div>
+                    <div class="status status-dismissed">Dismissed</div>
+                    <p>Dismissed Oct 2025 after allegedly leaking NY trip details. Claims retaliation for whistleblowing. Planning legal action.</p>
+                </div>
+
+                <div class="figure">
+                    <div class="figure-name">Zanele Simmons</div>
+                    <div class="figure-role">Former Chief of Staff</div>
+                    <div class="status status-dismissed">Dismissed</div>
+                    <p>Minister blamed her for falsifying Mabiletja's CV. Simmons disputes this, pursuing legal action. Critics say Minister used her as scapegoat.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="trip">
+            <h2>The R3 Million New York Trip</h2>
+            
+            <h3>The Event</h3>
+            
+            <div class="card">
+                <p><strong>Conference:</strong> 69th UN Commission on the Status of Women (CSW69)</p>
+                <p><strong>Dates:</strong> March 10-21, 2025</p>
+                <p><strong>Location:</strong> UN Headquarters, New York City</p>
+                <p><strong>Significance:</strong> 30th anniversary of Beijing Declaration (Beijing+30)</p>
+                <p><strong>Attendance:</strong> 13,000+ participants from 193 countries</p>
+                <p><strong>DSD Delegation:</strong> 7 officials including Minister Tolashe</p>
+            </div>
+
+            <h3>Expenditure Breakdown</h3>
+
+            <div class="alert alert-warning">
+                <h4>💰 Total Cost: R3,015,887.13</h4>
+                <p><strong>Per Person:</strong> R430,841 per delegate</p>
+                <p><strong>Context:</strong> Monthly social grant ≈ R2,000-R2,500</p>
+            </div>
+
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Category</th>
+                            <th>Amount</th>
+                            <th>%</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Accommodation</td>
+                            <td>R1,336,858</td>
+                            <td>44.3%</td>
+                        </tr>
+                        <tr>
+                            <td>Flights</td>
+                            <td>R1,090,463</td>
+                            <td>36.2%</td>
+                        </tr>
+                        <tr>
+                            <td>Ground Transport</td>
+                            <td>R423,964</td>
+                            <td>14.1%</td>
+                        </tr>
+                        <tr>
+                            <td>Subsistence</td>
+                            <td>R159,065</td>
+                            <td>5.3%</td>
+                        </tr>
+                        <tr>
+                            <td>Insurance</td>
+                            <td>R5,536</td>
+                            <td>0.2%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>The St. Regis Hotel</h3>
+
+            <div class="card">
+                <p><strong>Hotel:</strong> The St. Regis New York (5-star luxury)</p>
+                <p><strong>Location:</strong> Fifth Avenue & 55th Street, Midtown Manhattan</p>
+                <p><strong>Standard Amenities:</strong></p>
+                <ul>
+                    <li>24-hour butler service (all guests)</li>
+                    <li>Bentley chauffeur service</li>
+                    <li>Michelin-recommended dining</li>
+                </ul>
+                <p><strong>Room Rates:</strong> R33,116 - R105,741 per night</p>
+                <p><strong>Source:</strong> Minister's spokesperson confirmed to Sunday Times</p>
+            </div>
+
+            <div class="alert alert-info">
+                <h4>🔍 Budget Alternatives</h4>
+                <p><strong>3-Star Hotels:</strong> R10,000-R15,000/night (65-75% cheaper)<br>
+                <strong>4-Star Hotels:</strong> R18,000-R25,000/night (40-50% cheaper)<br>
+                <strong>Potential Savings:</strong> R500,000 - R800,000</p>
+            </div>
+
+            <h3>Parliamentary Response</h3>
+
+            <blockquote>
+                <p>In US dollar terms, it is over $150,000. Compared with the scale and reach of the platform, this expenditure is actually modest.</p>
+                <span class="cite">— DSD Parliamentary Presentation, October 2025</span>
+            </blockquote>
+
+            <p>When summoned before Parliament in October 2025, the DSD defended the expenditure as "modest" given the conference's global significance. The presentation contained multiple typos and lacked detailed financial breakdowns. Opposition parties (DA, EFF, MK) expressed unified outrage—a rare occurrence—and accused the Minister of potentially misleading Parliament.</p>
+
+            <p>Director-General Peter Netshipale later admitted the expenditure was "excessive," marking the first acknowledgment of wrongdoing.</p>
+        </section>
+
+        <section id="nepotism">
+            <h2>Nepotism & Irregular Appointments</h2>
+
+            <h3>Lesedi Mabiletja Case</h3>
+
+            <div class="alert alert-critical">
+                <h4>👤 The Appointment</h4>
+                <ul>
+                    <li><strong>Age:</strong> 22 years old</li>
+                    <li><strong>Education:</strong> IT Diploma from Rosebank College</li>
+                    <li><strong>Experience:</strong> Approximately 1 year</li>
+                    <li><strong>Relationship:</strong> Niece of Ngwako Kgatla (Minister's Special Adviser)</li>
+                    <li><strong>Position:</strong> Chief of Staff to the Minister</li>
+                    <li><strong>Salary:</strong> R1,400,000+ per annum</li>
+                    <li><strong>Status:</strong> Removed, on suspension with full pay</li>
+                </ul>
+            </div>
+
+            <p>The department's HR unit flagged the appointment as unsuitable, citing lack of qualifications. The position typically requires a Master's degree plus 10-15 years of senior management experience. Despite this warning, the appointment proceeded.</p>
+
+            <h4>Minister's Shifting Explanations</h4>
+
+            <div class="card">
+                <p><strong>August 2025:</strong> No comment when Daily Maverick first reported</p>
+                <p><strong>October 2025 (Parliament):</strong> Blamed former Chief of Staff Zanele Simmons for "falsifying" Mabiletja's CV, calling it "betrayal of trust"</p>
+                <p><strong>October 2025 (Internal):</strong> Gave different explanation to senior management, never mentioning CV falsification</p>
+                <p><strong>Critical Question:</strong> If CV was falsified (criminal act), why no criminal charges?</p>
+            </div>
+
+            <h3>Peter Netshipale Contract Irregularity</h3>
+
+            <div class="card">
+                <p><strong>Cabinet Approval:</strong> 1-year term as Director-General</p>
+                <p><strong>Contract Issued:</strong> 5-year contract</p>
+                <p><strong>Minister's Explanation:</strong> "Clerical error"</p>
+                <p><strong>Problem:</strong> 4-year discrepancy is not a credible typo</p>
+                <p><strong>Context:</strong> Netshipale is 64 years old, nearing mandatory retirement at 65. A 5-year contract would extend past retirement age.</p>
+            </div>
+
+            <p>In April 2025, when asked by Parliament about Netshipale's contract, Minister Tolashe officially stated it was for 5 years. After Daily Maverick exposed the Cabinet discrepancy in August, she claimed it was a "clerical error." Netshipale was suspended in October 2025 for alleged dishonesty.</p>
+
+            <h3>Whistleblower Retaliation</h3>
+
+            <div class="alert alert-warning">
+                <h4>⚠️ Pattern of Dismissals</h4>
+                <p><strong>Lumka Oliphant:</strong> Allegedly leaked NY trip details to media. Summarily dismissed October 2025. Claims retaliation for whistleblowing.</p>
+                <p><strong>Zanele Simmons:</strong> Blamed for Mabiletja CV falsification. Summarily dismissed. Disputes claims, pursuing legal action.</p>
+                <p><strong>Common Elements:</strong></p>
+                <ul>
+                    <li>Both had knowledge of ministerial misconduct</li>
+                    <li>Both dismissed swiftly without transparent process</li>
+                    <li>Both announced legal action plans</li>
+                    <li>Dismissals occurred after scandal exposure</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="timeline">
+            <h2>Complete Timeline</h2>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">Nov 2024</div>
+                    <p><strong>Double-Dipping Alert:</strong> DSD officials first aware of Kgatla allegedly receiving salaries from both DWYPD and DSD. No immediate action.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">Mar 10-21, 2025</div>
+                    <p><strong>CSW69 Conference:</strong> 7-person DSD delegation attends UN conference in New York. Stay at 5-star St. Regis, incur R3,015,887 in expenses.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">Apr 2025</div>
+                    <p><strong>Parliamentary Query:</strong> DA MP questions Netshipale's contract duration. Minister responds officially: 5 years.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">Aug 2025</div>
+                    <p><strong>Sunday Times Exposé:</strong> Publishes investigation revealing R3M+ trip expenditure and luxury accommodation. Public outrage erupts.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">Aug 2025</div>
+                    <p><strong>Daily Maverick Report:</strong> Reveals Cabinet approved Netshipale for 1-year term only, contradicting Minister's statement. Minister claims "clerical error."</p>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">Aug-Sep 2025</div>
+                    <p><strong>Mabiletja Appointment Exposed:</strong> Media reports 22-year-old Chief of Staff appointment. Uncle Kgatla identified as Minister's Special Adviser.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">Sep 29, 2025</div>
+                    <p><strong>Legal Opinion on Kgatla:</strong> DSD receives legal opinion: department lacks authority to discipline Kgatla because special advisers fall outside normal oversight. Matter referred back to DWYPD.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">Sep 2025</div>
+                    <p><strong>Mabiletja Removed:</strong> Quietly removed from Chief of Staff position but placed on precautionary suspension with full pay. Later reassigned to lower position.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">Oct 2025</div>
+                    <p><strong>Parliamentary Hearing:</strong> DSD summoned before Portfolio Committee. Defends R3M as "modest." Presentation contains typos. Opposition unified in condemnation.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">Oct 2025</div>
+                    <p><strong>Dismissals:</strong> Lumka Oliphant (alleged leaker) and Zanele Simmons (blamed for CV falsification) both summarily dismissed. Both announce legal action.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">Oct 2025</div>
+                    <p><strong>Netshipale Suspended:</strong> Director-General suspended for alleged dishonesty, with Auditor-General involvement.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">Oct 2025 - Current</div>
+                    <p><strong>Ongoing:</strong> Public Service Commission investigating. Parliamentary Legal Services consulted. Kgatla remains protected and active. Minister Tolashe remains in position.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="double-dipping">
+            <h2>Double-Dipping & Legal Loopholes</h2>
+
+            <h3>Ngwako Kgatla: The Protected Adviser</h3>
+
+            <div class="card">
+                <h4>The Allegations</h4>
+                <p><strong>Charge:</strong> Receiving salaries from two government departments simultaneously without disclosure</p>
+                <p><strong>Legal Violation:</strong> Section 30(1) of Public Service Act prohibits multiple salaries without approval</p>
+                <p><strong>Departments:</strong></p>
+                <ul>
+                    <li>Department of Women, Youth & Persons with Disabilities (previous)</li>
+                    <li>Department of Social Development (current as Special Adviser)</li>
+                </ul>
+                <p><strong>Timeline:</strong> Officials aware November 2024, investigation formalized September 2025 (10-month delay)</p>
+            </div>
+
+            <h3>The Legal Loophole</h3>
+
+            <div class="alert alert-warning">
+                <h4>⚖️ September 2025 Legal Opinion</h4>
+                <p>DSD obtained legal opinion concluding department <strong>lacks authority to discipline Kgatla</strong> because:</p>
+                <ul>
+                    <li>Special advisers appointed directly by Minister</li>
+                    <li>Fall outside normal Public Service Act procedures</li>
+                    <li>Considered political appointments, not public servants</li>
+                    <li>Only previous employer (DWYPD) has jurisdiction</li>
+                </ul>
+                <p><strong>Problem:</strong> DWYPD no longer employs Kgatla, so what authority do they have?</p>
+            </div>
+
+            <div class="card">
+                <h4>How the Loophole Works</h4>
+                <p><strong>Special Adviser Exemptions:</strong></p>
+                <ul>
+                    <li>Not subject to Public Service Commission oversight</li>
+                    <li>Can be hired/fired at ministerial discretion</li>
+                    <li>Exempt from normal recruitment procedures</li>
+                    <li>No standard qualification requirements</li>
+                    <li>No clear disciplinary mechanism</li>
+                </ul>
+                <p><strong>Result:</strong> Ministers can shield favored advisers from accountability. Jurisdictional disputes allow misconduct to fall through cracks.</p>
+            </div>
+
+            <h3>Alleged Romantic Relationship</h3>
+
+            <div class="alert alert-info">
+                <h4>Relationship Allegations</h4>
+                <p>Multiple sources allege romantic relationship between Minister Tolashe (65) and Kgatla (32), including:</p>
+                <ul>
+                    <li>Leaked WhatsApp messages</li>
+                    <li>Insider testimonies</li>
+                    <li>Social media analysis</li>
+                </ul>
+                <p><strong>Minister's Response:</strong> Denied publicly</p>
+                <p><strong>Relevance:</strong> If true, explains protection from discipline and niece's appointment</p>
+                <p><strong>Note:</strong> These remain allegations. Balance privacy with public interest in decision-making processes.</p>
+            </div>
+
+            <h3>The 10-Month Delay Question</h3>
+
+            <div class="alert alert-critical">
+                <h4>⏱️ Why November 2024 to September 2025?</h4>
+                <p>If DSD officials knew about double-dipping in November 2024, why wait until September 2025 to seek legal advice?</p>
+                <p><strong>Possible Explanations:</strong></p>
+                <ul>
+                    <li>Deliberate delay to protect Kgatla</li>
+                    <li>Cover-up attempt hoping issue wouldn't surface</li>
+                    <li>Institutional dysfunction preventing action</li>
+                    <li>Political interference blocking investigation</li>
+                </ul>
+                <p><strong>What Changed:</strong> Daily Maverick's intensive reporting made inaction untenable.</p>
+            </div>
+        </section>
+
+        <section id="media">
+            <h2>Media Literacy Framework</h2>
+
+            <h3>How to Verify Government Scandal Reporting</h3>
+
+            <div class="card">
+                <h4>🎯 Critical Verification Steps</h4>
+                <p><strong>1. Source Triangulation</strong></p>
+                <ul>
+                    <li>Cross-reference multiple outlets (Daily Maverick, Sunday Times, News24)</li>
+                    <li>Seek primary sources (parliamentary minutes, official statements)</li>
+                    <li>Consider outlet bias (opposition-leaning vs state-aligned)</li>
+                    <li>Check if core facts remain consistent</li>
+                </ul>
+                <p><strong>2. Evidence Hierarchy</strong></p>
+                <ul>
+                    <li><strong>Strongest:</strong> Official documents, parliamentary records, authenticated leaks</li>
+                    <li><strong>Strong:</strong> On-record statements from named officials</li>
+                    <li><strong>Moderate:</strong> Expert analysis, investigative journalism</li>
+                    <li><strong>Weak:</strong> Anonymous sources, social media claims</li>
+                    <li><strong>Weakest:</strong> Rumor, unverified allegations</li>
+                </ul>
+                <p><strong>3. Language Analysis</strong></p>
+                <ul>
+                    <li>"Alleged" vs "confirmed" vs "accused" = different legal statuses</li>
+                    <li>"Sources say" vs "Minister stated" = accountability levels</li>
+                    <li>Sensationalism ("explosive," "shocking") = clickbait warning</li>
+                </ul>
+            </div>
+
+            <h3>Fact-Checking Resources</h3>
+
+            <div class="resources">
+                <a href="https://africacheck.org" class="resource" target="_blank">
+                    <strong>Africa Check</strong>
+                    <small>Independent fact-checking for African claims</small>
+                </a>
+
+                <a href="https://www.pmg.org.za" class="resource" target="_blank">
+                    <strong>Parliamentary Monitoring Group</strong>
+                    <small>Complete SA parliamentary proceedings and minutes</small>
+                </a>
+
+                <a href="https://www.agsa.co.za" class="resource" target="_blank">
+                    <strong>Auditor-General Reports</strong>
+                    <small>Official audits of government departments</small>
+                </a>
+            </div>
+
+            <h3>Timeline Construction Technique</h3>
+
+            <div class="card">
+                <h4>📅 Build Your Own Timeline</h4>
+                <p><strong>Step 1:</strong> Collect all date-stamped events from multiple articles</p>
+                <p><strong>Step 2:</strong> Cross-reference dates across sources for consistency</p>
+                <p><strong>Step 3:</strong> Identify cause-effect relationships (not just correlation)</p>
+                <p><strong>Step 4:</strong> Spot suspicious timing patterns</p>
+                <ul>
+                    <li>Dismissals after exposés = potential retaliation</li>
+                    <li>Legal opinions after media coverage = possible cover-up</li>
+                    <li>Sudden policy changes = reactive damage control</li>
+                </ul>
+            </div>
+
+            <h3>Following Up</h3>
+
+            <div class="alert alert-warning">
+                <h4>📰 The Follow-Up Problem</h4>
+                <p><strong>Typical Media Cycle:</strong></p>
+                <ul>
+                    <li><strong>Week 1:</strong> Maximum coverage, public outrage</li>
+                    <li><strong>Weeks 2-4:</strong> Follow-up on hearings, responses</li>
+                    <li><strong>Months 2-6:</strong> Minimal coverage, attention fades</li>
+                    <li><strong>Years 1-2:</strong> No resolution, perpetrators still in positions</li>
+                </ul>
+                <p><strong>How to Track:</strong></p>
+                <ul>
+                    <li>Create Google Alerts for key names</li>
+                    <li>Check parliamentary Q&A quarterly</li>
+                    <li>Follow civil society organizations</li>
+                    <li>Use PMG for committee outcomes</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="action">
+            <h2>Civic Accountability & Action</h2>
+
+            <h3>Key Oversight Bodies</h3>
+
+            <div class="card">
+                <h4>🏛️ Who Oversees What</h4>
+                <p><strong>Parliament (Portfolio Committees)</strong></p>
+                <ul>
+                    <li>Monitor departmental performance, summon ministers</li>
+                    <li>Powers: Public hearings, subpoena documents</li>
+                    <li>Limitations: No prosecutorial power, partisan divisions</li>
+                </ul>
+                <p><strong>Auditor-General South Africa (AGSA)</strong></p>
+                <ul>
+                    <li>Audit departments, flag irregular expenditure</li>
+                    <li>Powers: Access financial records, public reporting</li>
+                    <li>Limitations: Cannot prosecute, findings often ignored</li>
+                </ul>
+                <p><strong>Public Service Commission (PSC)</strong></p>
+                <ul>
+                    <li>Investigate public service misconduct</li>
+                    <li>Powers: Investigations, recommendations</li>
+                    <li>Limitations: No direct disciplinary authority, slow</li>
+                </ul>
+                <p><strong>Special Investigating Unit (SIU)</strong></p>
+                <ul>
+                    <li>Investigate serious corruption</li>
+                    <li>Powers: Forensic investigation, asset recovery</li>
+                    <li>Limitations: Requires Presidential proclamation</li>
+                </ul>
+            </div>
+
+            <h3>What You Can Do</h3>
+
+            <div class="action-box">
+                <h3>🎯 Take Action Now</h3>
+                <p><strong>This Week:</strong></p>
+                <ul>
+                    <li>Share this report on social media</li>
+                    <li>Email your MP demanding DSD accountability update</li>
+                    <li>Submit tip to Corruption Watch if you have info</li>
+                </ul>
+                <p><strong>This Month:</strong></p>
+                <ul>
+                    <li>Submit PAIA request for DSD NY trip receipts</li>
+                    <li>Attend Portfolio Committee meeting (check PMG)</li>
+                    <li>Join civil society organization on governance</li>
+                </ul>
+                <p><strong>This Year:</strong></p>
+                <ul>
+                    <li>Track case outcomes monthly via Google Alerts</li>
+                    <li>Vote in 2026 local elections with accountability focus</li>
+                    <li>Support investigative journalism financially</li>
+                </ul>
+            </div>
+
+            <h3>Key Resources</h3>
+
+            <div class="resources">
+                <a href="https://www.corruptionwatch.org.za" class="resource" target="_blank">
+                    <strong>Corruption Watch</strong>
+                    <small>Report corruption anonymously, track cases</small>
+                </a>
+
+                <a href="https://www.outa.co.za" class="resource" target="_blank">
+                    <strong>OUTA</strong>
+                    <small>Civil action fighting government waste</small>
+                </a>
+
+                <a href="https://www.section27.org.za" class="resource" target="_blank">
+                    <strong>Section27</strong>
+                    <small>Public interest law for social justice</small>
+                </a>
+
+                <a href="https://paia.org.za" class="resource" target="_blank">
+                    <strong>PAIA Portal</strong>
+                    <small>Submit information requests to government</small>
+                </a>
+
+                <a href="https://www.pmg.org.za" class="resource" target="_blank">
+                    <strong>PMG</strong>
+                    <small>Track bills, committee meetings, submit comments</small>
+                </a>
+
+                <a href="https://www.sahrc.org.za" class="resource" target="_blank">
+                    <strong>SA Human Rights Commission</strong>
+                    <small>Constitutional body protecting rights</small>
+                </a>
+            </div>
+
+            <h3>Reform Recommendations</h3>
+
+            <div class="card">
+                <h4>📋 Proposed Structural Reforms</h4>
+                <p><strong>1. Close Special Adviser Loophole</strong></p>
+                <ul>
+                    <li>Bring special advisers under PSC oversight</li>
+                    <li>Require disclosure of all government employment</li>
+                    <li>Mandate conflict-of-interest declarations</li>
+                </ul>
+                <p><strong>2. Strengthen Whistleblower Protection</strong></p>
+                <ul>
+                    <li>Anonymous reporting with legal protection</li>
+                    <li>Reverse burden of proof for dismissals</li>
+                    <li>Criminal penalties for official intimidation</li>
+                </ul>
+                <p><strong>3. Real-Time Financial Transparency</strong></p>
+                <ul>
+                    <li>Publish travel expenditure within 30 days</li>
+                    <li>Online portal for real-time departmental spending</li>
+                    <li>Automatic AG review above thresholds</li>
+                </ul>
+                <p><strong>4. Merit-Based Appointments</strong></p>
+                <ul>
+                    <li>Independent panels for DG appointments</li>
+                    <li>Public advertisement of senior positions</li>
+                    <li>Parliamentary vetting of candidates</li>
+                </ul>
+                <p><strong>5. Consequence Management</strong></p>
+                <ul>
+                    <li>Mandatory law enforcement referral over R100k</li>
+                    <li>Swift disciplinary timelines (90 days max)</li>
+                    <li>Asset recovery from guilty officials</li>
+                    <li>Lifetime bans for serious corruption</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="historical">
+            <h2>Historical Context</h2>
+
+            <h3>Post-Apartheid Governance Trajectory</h3>
+
+            <p>The DSD scandal cannot be understood in isolation. It represents the latest manifestation of governance pathologies that have plagued South African public administration since 1994.</p>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">1994-1999: Mandela Era</div>
+                    <p>Foundation phase. Batho Pele principles established. Relatively clean administration with capacity challenges.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">1999-2008: Mbeki Era</div>
+                    <p>Professional administration emphasized, but cadre deployment begins. Arms Deal scandal sets precedent for high-level corruption.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">2009-2014: Zuma Era Phase 1</div>
+                    <p>Impunity escalates. Nkandla scandal (R246M). Minister protection culture solidifies.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">2014-2018: State Capture</div>
+                    <p>Systematic looting. Gupta family captures key institutions. SOEs hemorrhage billions. Zondo Commission estimates R500B+ lost.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">2018-2024: Ramaphosa Era</div>
+                    <p>Anti-corruption rhetoric but limited prosecutions. Load-shedding crisis. Digital Vibes scandal (R150M health dept).</p>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">2024-Present: GNU Period</div>
+                    <p>Coalition dynamics create new oversight possibilities. DSD scandal emerges, testing accountability mechanisms.</p>
+                </div>
+            </div>
+
+            <h3>Comparative Scandals</h3>
+
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Scandal</th>
+                            <th>Year</th>
+                            <th>Amount</th>
+                            <th>Outcome</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Nkandla</td>
+                            <td>2009-14</td>
+                            <td>R246M</td>
+                            <td>Zuma paid R7.8M; no charges</td>
+                        </tr>
+                        <tr>
+                            <td>Digital Vibes</td>
+                            <td>2020-21</td>
+                            <td>R150M</td>
+                            <td>Minister resigned; slow prosecutions</td>
+                        </tr>
+                        <tr>
+                            <td>VBS Bank</td>
+                            <td>2015-18</td>
+                            <td>R2B+</td>
+                            <td>Some arrests; many remain in positions</td>
+                        </tr>
+                        <tr>
+                            <td>PPE Corruption</td>
+                            <td>2020-21</td>
+                            <td>R14.3B</td>
+                            <td>SIU investigations; few prosecutions</td>
+                        </tr>
+                        <tr>
+                            <td>DSD NY Trip</td>
+                            <td>2025</td>
+                            <td>R3M+</td>
+                            <td><strong>ONGOING</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="alert alert-critical">
+                <h4>📊 Common Pattern</h4>
+                <p>All scandals share:</p>
+                <ul>
+                    <li>Media exposure, not internal accountability</li>
+                    <li>Ministers deny, deflect, blame subordinates</li>
+                    <li>Parliamentary committees demand answers but lack enforcement</li>
+                    <li>Investigations drag on for years</li>
+                    <li>Few prosecutions, fewer convictions</li>
+                    <li>Public outrage fades, accountability never materializes</li>
+                </ul>
+            </div>
+
+            <h3>Theoretical Frameworks</h3>
+
+            <div class="card">
+                <h4>🧠 Principal-Agent Theory</h4>
+                <p>Citizens (principals) delegate authority to officials (agents) to act in their interest. Agents may pursue own interests when monitoring is weak and enforcement fails.</p>
+                <p><strong>DSD Application:</strong> Minister supposed to serve vulnerable citizens. Instead: luxury travel, nepotism, protecting advisers. Only exposed through media, not internal controls.</p>
+            </div>
+
+            <div class="card">
+                <h4>🎮 Game Theory & Rational Impunity</h4>
+                <p><strong>Current Incentive Structure:</strong></p>
+                <ul>
+                    <li>Benefits of misconduct: High (luxury, power, wealth)</li>
+                    <li>Probability of detection: Low (weak oversight)</li>
+                    <li>Probability of punishment: Very Low (slow justice)</li>
+                    <li>Severity of punishment: Minimal (resignation at worst)</li>
+                </ul>
+                <p><strong>Result:</strong> Misconduct is rational choice when benefits far outweigh risks.</p>
+                <p><strong>Solution:</strong> Flip incentives through increased detection, swift punishment, severe penalties.</p>
+            </div>
+        </section>
+
+        <section id="conclusion">
+            <h2>Conclusion</h2>
+
+            <div class="alert alert-critical">
+                <h4>⚡ Critical Juncture</h4>
+                <p>South Africa stands at a crossroads. The DSD scandal is not merely about R3 million or one unqualified appointment. It's a diagnostic indicator of whether the post-State Capture era will meaningfully break from patterns of impunity, or whether the cycle of exposure-outrage-inaction will continue.</p>
+            </div>
+
+            <h3>Why This Case Matters</h3>
+
+            <div class="card">
+                <ul>
+                    <li><strong>Symbolic:</strong> Department serves most vulnerable; scandals here represent ultimate betrayal</li>
+                    <li><strong>GNU Test:</strong> First major scandal under Government of National Unity</li>
+                    <li><strong>Opposition Unity:</strong> Rare cross-party condemnation creates political pressure</li>
+                    <li><strong>Media Sustainability:</strong> Coverage maintained beyond initial exposé</li>
+                    <li><strong>Multiple Violations:</strong> Comprehensive governance failure in one case</li>
+                    <li><strong>Loophole Exposure:</strong> Special adviser exemption now visible for reform</li>
+                </ul>
+            </div>
+
+            <h3>Three Possible Scenarios</h3>
+
+            <div class="stats">
+                <div class="stat" style="border: 1px solid var(--red);">
+                    <div class="stat-label">Status Quo</div>
+                    <p style="font-size: 0.85rem; margin-top: 0.5rem;">Investigations drag, attention fades, Minister remains. <strong>Most likely.</strong></p>
+                </div>
+                <div class="stat" style="border: 1px solid var(--orange);">
+                    <div class="stat-label">Partial Accountability</div>
+                    <p style="font-size: 0.85rem; margin-top: 0.5rem;">Some officials disciplined, Minister protected. <strong>Possible if pressure sustained.</strong></p>
+                </div>
+                <div class="stat" style="border: 1px solid var(--purple);">
+                    <div class="stat-label">Comprehensive Reform</div>
+                    <p style="font-size: 0.85rem; margin-top: 0.5rem;">Minister removed, prosecutions, legislative changes. <strong>Least likely but transformative.</strong></p>
+                </div>
+            </div>
+
+            <h3>Your Role</h3>
+
+            <p>The difference between scenarios is <strong>sustained civic pressure</strong>. Historical analysis shows accountability only happens with:</p>
+
+            <ul>
+                <li>Sustained media attention (follow-up every 2-4 weeks)</li>
+                <li>Civil society coordination (multiple organizations working together)</li>
+                <li>Parliamentary pressure (opposition maintaining focus)</li>
+                <li>Legal action (court challenges, PAIA requests)</li>
+                <li>Public mobilization (petitions, protests, campaigns)</li>
+                <li>Electoral consequences (voters citing scandal in decisions)</li>
+            </ul>
+
+            <blockquote>
+                <p>The Department of Social Development scandal is not an aberration. It is the system working as designed—a system where political connections supersede merit, where luxury is prioritized over service, where accountability is optional. Breaking this pattern requires more than outrage; it demands sustained, strategic, multi-level civic action.</p>
+            </blockquote>
+
+            <div class="card" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(236, 72, 153, 0.2)); border-color: var(--accent);">
+                <h4 style="color: var(--accent);">🔍 Living Document</h4>
+                <p>This investigation will be updated as new information emerges from parliamentary proceedings, PSC investigations, and journalistic reporting.</p>
+                <p><strong>Last Updated:</strong> October 22, 2025</p>
+                <p><strong>Next Update:</strong> November 30, 2025 (or sooner if major developments)</p>
+            </div>
+        </section>
+
+    </div>
+
+    <footer>
+        <p><strong>Sources:</strong> 
+        <a href="https://www.dailymaverick.co.za">Daily Maverick</a> • 
+        <a href="https://www.timeslive.co.za">Sunday Times</a> • 
+        <a href="https://www.pmg.org.za">PMG</a> • 
+        <a href="https://www.agsa.co.za">AGSA</a></p>
+        
+        <p><strong>Take Action:</strong> 
+        <a href="https://www.corruptionwatch.org.za">Corruption Watch</a> • 
+        <a href="https://www.outa.co.za">OUTA</a> • 
+        <a href="https://paia.org.za">PAIA Requests</a></p>
+        
+        <p style="margin-top: 1rem;"><strong>License:</strong> Creative Commons BY 4.0 • Free to share and adapt with attribution</p>
+        
+        <p style="margin-top: 0.5rem; font-size: 0.85rem;">Independent civic analysis based on publicly available information. Allegations attributed to sources. Individuals presumed innocent until proven guilty.</p>
+    </footer>
+
+</body>
+</html>

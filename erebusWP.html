@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Forever Format™ v1.2.0 — Codename: Erebus</title>
+  <meta name="description" content="A universal protocol for living, citable, AI-interoperable documents">
+  <meta name="author" content="Forever Format Contributors">
+  <meta name="license" content="CC BY-NC-SA 4.0">
+  <meta name="version" content="1.2.0">
+  
+  <script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "TechArticle",
+    "name": "Forever Format v1.2.0 - Codename: Erebus",
+    "description": "A universal protocol for living, citable, AI-interoperable documents",
+    "author": {
+      "@type": "Organization",
+      "name": "Forever Format Community",
+      "url": "https://alimcforever.com"
+    },
+    "datePublished": "2025-10-23",
+    "version": "1.2.0",
+    "license": "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+  }
+  </script>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    :root {
+      --bg: #0c0f12;
+      --bg-alt: #161a1f;
+      --text: #e9e9e9;
+      --text-dim: #b8b8b8;
+      --accent: #d4af37;
+      --cyan: #3fc1c9;
+      --red: #ff004f;
+      --green: #89ffb5;
+      --border: #2a2f35;
+    }
+    
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      font-size: 16px;
+    }
+    
+    h1, h2, h3 {
+      font-weight: 600;
+      line-height: 1.3;
+    }
+    
+    h1 {
+      font-size: 2.5rem;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+    
+    h2 {
+      font-size: 1.8rem;
+      color: var(--cyan);
+      margin: 2rem 0 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--border);
+    }
+    
+    h3 {
+      font-size: 1.3rem;
+      margin: 1.5rem 0 0.75rem;
+    }
+    
+    p {
+      margin-bottom: 1rem;
+      color: var(--text-dim);
+    }
+    
+    a {
+      color: var(--cyan);
+      text-decoration: none;
+    }
+    
+    a:hover {
+      text-decoration: underline;
+    }
+    
+    header {
+      background: var(--bg-alt);
+      border-bottom: 3px solid var(--accent);
+      padding: 2rem 1rem;
+      margin-bottom: 2rem;
+    }
+    
+    .header-content {
+      max-width: 920px;
+      margin: 0 auto;
+    }
+    
+    .subtitle {
+      font-size: 1.2rem;
+      color: var(--text-dim);
+      font-style: italic;
+      margin-top: 0.5rem;
+    }
+    
+    .metadata {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+      font-size: 0.9rem;
+    }
+    
+    .metadata span {
+      background: var(--bg);
+      padding: 0.25rem 0.75rem;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+      color: var(--text-dim);
+    }
+    
+    nav {
+      background: var(--bg-alt);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid var(--border);
+      padding: 1rem;
+    }
+    
+    nav ul {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      max-width: 920px;
+      margin: 0 auto;
+    }
+    
+    nav a {
+      font-size: 0.9rem;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+      display: block;
+    }
+    
+    nav a:hover {
+      background: var(--bg);
+      text-decoration: none;
+    }
+    
+    main {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 2rem 1rem 4rem;
+    }
+    
+    section {
+      margin-bottom: 3rem;
+    }
+    
+    ul, ol {
+      margin: 1rem 0 1rem 2rem;
+      color: var(--text-dim);
+    }
+    
+    li {
+      margin-bottom: 0.5rem;
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+      font-size: 0.95rem;
+    }
+    
+    th, td {
+      padding: 0.75rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    th {
+      background: var(--bg-alt);
+      color: var(--accent);
+      font-weight: 600;
+    }
+    
+    tr:hover {
+      background: var(--bg-alt);
+    }
+    
+    code {
+      font-family: 'Courier New', monospace;
+      background: var(--bg-alt);
+      padding: 0.2rem 0.4rem;
+      border-radius: 3px;
+      font-size: 0.9em;
+      color: var(--green);
+    }
+    
+    pre {
+      background: var(--bg-alt);
+      padding: 1.5rem;
+      border-radius: 4px;
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      margin: 1.5rem 0;
+    }
+    
+    pre code {
+      background: none;
+      padding: 0;
+    }
+    
+    .callout {
+      background: var(--bg-alt);
+      border-left: 4px solid var(--cyan);
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+      border-radius: 4px;
+    }
+    
+    .callout.warning {
+      border-left-color: var(--red);
+    }
+    
+    .callout.success {
+      border-left-color: var(--green);
+    }
+    
+    blockquote {
+      border-left: 4px solid var(--accent);
+      padding-left: 1.5rem;
+      margin: 1.5rem 0;
+      font-style: italic;
+      color: var(--text-dim);
+    }
+    
+    footer {
+      background: var(--bg-alt);
+      border-top: 3px solid var(--accent);
+      padding: 2rem 1rem;
+      margin-top: 4rem;
+      text-align: center;
+    }
+    
+    .footer-content {
+      max-width: 920px;
+      margin: 0 auto;
+    }
+    
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+    
+    @media (max-width: 768px) {
+      h1 { font-size: 2rem; }
+      h2 { font-size: 1.5rem; }
+      nav ul { flex-direction: column; }
+      .metadata { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-content">
+      <h1>🜂 Forever Format™ v1.2.0</h1>
+      <p class="subtitle">Codename: Erebus — "Documents that think, cite, and evolve."</p>
+      <div class="metadata">
+        <span>Version: 1.2.0</span>
+        <span>Type: White Paper</span>
+        <span>License: CC BY-NC-SA 4.0</span>
+        <span>Updated: 2025-10-23</span>
+      </div>
+    </div>
+  </header>
+
+  <nav>
+    <ul>
+      <li><a href="#abstract">Abstract</a></li>
+      <li><a href="#architecture">Architecture</a></li>
+      <li><a href="#taxonomy">Taxonomy</a></li>
+      <li><a href="#quickstart">Quick Start</a></li>
+      <li><a href="#roadmap">Roadmap</a></li>
+      <li><a href="#community">Community</a></li>
+      <li><a href="#reflexive">Reflexive</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    
+    <section id="abstract">
+      <h2>Abstract</h2>
+      <p>
+        Forever Format™ defines a universal protocol for creating <strong>living, reflexive, AI-interoperable documents</strong>. 
+        Each file is a self-contained micro-intelligence: transparent, citable, traceable, and modifiable.
+      </p>
+      <p>Key features:</p>
+      <ul>
+        <li><strong>Citable:</strong> Built-in YAML + JSON-LD metadata for academic reference</li>
+        <li><strong>Transparent:</strong> Mandatory disclosure of bias, sources, and AI collaboration</li>
+        <li><strong>Durable:</strong> Single HTML file, sub-100KB, offline-ready</li>
+        <li><strong>Reflexive:</strong> Self-critique section for bias disclosure</li>
+        <li><strong>Cloneable:</strong> Git-native; every fork = new interpretation</li>
+        <li><strong>Accessible:</strong> WCAG 2.1 AA compliant, semantic HTML5</li>
+      </ul>
+    </section>
+
+    <section id="architecture">
+      <h2>Core Architecture</h2>
+      
+      <h3>Five-Layer System</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Layer</th>
+            <th>Function</th>
+            <th>Implementation</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>L1: Semantic Core</strong></td>
+            <td>Human & machine readable</td>
+            <td>HTML5 semantic tags</td>
+          </tr>
+          <tr>
+            <td><strong>L2: Design Engine</strong></td>
+            <td>Responsive styling</td>
+            <td>CSS Grid + Variables</td>
+          </tr>
+          <tr>
+            <td><strong>L3: Meta Intelligence</strong></td>
+            <td>Machine metadata</td>
+            <td>YAML + JSON-LD</td>
+          </tr>
+          <tr>
+            <td><strong>L4: Reflexive Layer</strong></td>
+            <td>Bias transparency</td>
+            <td>Mandatory reflexive section</td>
+          </tr>
+          <tr>
+            <td><strong>L5: Generative Layer</strong></td>
+            <td>AI hooks</td>
+            <td>Optional JavaScript</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Design Principles</h3>
+      <div class="callout">
+        <ol>
+          <li><strong>Minimal code, maximal meaning</strong></li>
+          <li><strong>Offline-ready, printable</strong></li>
+          <li><strong>Open standards only</strong></li>
+          <li><strong>Universally readable</strong></li>
+          <li><strong>No corporate lock-in</strong></li>
+          <li><strong>Free to fork and remix</strong></li>
+          <li><strong>Built to last & adapt forever</strong></li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="taxonomy">
+      <h2>Universal Section Taxonomy</h2>
+      <p>
+        Standardized structure for intelligence briefs, research papers, and investigative reports:
+      </p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Section ID</th>
+            <th>Function</th>
+            <th>Usage</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>#exec-summary</code></td>
+            <td>Overview</td>
+            <td>Key findings / Abstract</td>
+          </tr>
+          <tr>
+            <td><code>#context</code></td>
+            <td>Background</td>
+            <td>Historical frame</td>
+          </tr>
+          <tr>
+            <td><code>#methodology</code></td>
+            <td>Process</td>
+            <td>Sources, limitations</td>
+          </tr>
+          <tr>
+            <td><code>#findings</code></td>
+            <td>Core data</td>
+            <td>Results, evidence</td>
+          </tr>
+          <tr>
+            <td><code>#analysis</code></td>
+            <td>Interpretation</td>
+            <td>Critical deconstruction</td>
+          </tr>
+          <tr>
+            <td><code>#timeline</code></td>
+            <td>Chronology</td>
+            <td>Event sequence</td>
+          </tr>
+          <tr>
+            <td><code>#discussion</code></td>
+            <td>Synthesis</td>
+            <td>Implications</td>
+          </tr>
+          <tr>
+            <td><code>#recommendations</code></td>
+            <td>Action items</td>
+            <td>Policy suggestions</td>
+          </tr>
+          <tr>
+            <td><code>#citations</code></td>
+            <td>References</td>
+            <td>BibTeX-ready</td>
+          </tr>
+          <tr>
+            <td><code>#appendix</code></td>
+            <td>Supplementary</td>
+            <td>Data, transcripts</td>
+          </tr>
+          <tr>
+            <td><code>#reflexive</code></td>
+            <td>Self-critique</td>
+            <td><strong>Mandatory bias disclosure</strong></td>
+          </tr>
+          <tr>
+            <td><code>#meta</code></td>
+            <td>Provenance</td>
+            <td>Version, license, hash</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout warning">
+        <strong>Note:</strong> <code>#reflexive</code> and <code>#meta</code> sections are strongly recommended for transparency.
+      </div>
+    </section>
+
+    <section id="quickstart">
+      <h2>Quick Start Guide</h2>
+
+      <h3>1. Clone the Repository</h3>
+      <pre><code>git clone https://github.com/foreverformat/erebus
+cd erebus
+cp forever-format-v1.2.0.html my-document.html</code></pre>
+
+      <h3>2. Edit Metadata</h3>
+      <p>Update the YAML comment block in the <code>&lt;head&gt;</code>:</p>
+      <pre><code>&lt;!-- YAML Metadata
+---
+title: "Your Document Title"
+author: "Your Name"
+version: "1.0.0"
+date: "2025-10-23"
+tags: ["intelligence", "research"]
+license: "CC BY-NC-SA 4.0"
+---
+--&gt;</code></pre>
+
+      <h3>3. Fill Semantic Sections</h3>
+      <pre><code>&lt;section id="findings"&gt;
+  &lt;h2&gt;Findings&lt;/h2&gt;
+  &lt;p&gt;Your analysis here...&lt;/p&gt;
+&lt;/section&gt;</code></pre>
+
+      <h3>4. Add Reflexive Statement</h3>
+      <pre><code>&lt;section id="reflexive"&gt;
+  &lt;h2&gt;Reflexive Statement&lt;/h2&gt;
+  &lt;p&gt;Bias disclosure and methodology...&lt;/p&gt;
+&lt;/section&gt;</code></pre>
+
+      <h3>5. Commit and Publish</h3>
+      <pre><code>git add my-document.html
+git commit -m "Initial document"
+git push origin main</code></pre>
+
+      <div class="callout success">
+        <strong>Pro Tip:</strong> Enable GitHub Pages for instant publishing at 
+        <code>https://yourusername.github.io/repo/document.html</code>
+      </div>
+    </section>
+
+    <section id="roadmap">
+      <h2>Technical Roadmap (2025-2027)</h2>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Phase</th>
+            <th>Codename</th>
+            <th>Focus</th>
+            <th>Timeline</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>I</strong></td>
+            <td>Erebus</td>
+            <td>Core protocol</td>
+            <td>Q4 2025</td>
+          </tr>
+          <tr>
+            <td><strong>II</strong></td>
+            <td>Mnemosyne</td>
+            <td>Document linking</td>
+            <td>Q1 2026</td>
+          </tr>
+          <tr>
+            <td><strong>III</strong></td>
+            <td>Prometheus</td>
+            <td>Federated cognition</td>
+            <td>Q3 2026</td>
+          </tr>
+          <tr>
+            <td><strong>IV</strong></td>
+            <td>Lethe</td>
+            <td>Self-revision engine</td>
+            <td>Q1 2027</td>
+          </tr>
+          <tr>
+            <td><strong>V</strong></td>
+            <td>Helios</td>
+            <td>Public intelligence network</td>
+            <td>Q4 2027</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Upcoming Features</h3>
+      <ul>
+        <li><strong>Entity Graph:</strong> Auto-link people, events, organizations</li>
+        <li><strong>News Mode:</strong> Live updates for investigative journalism</li>
+        <li><strong>Scholarly Export:</strong> One-click APA/MLA/BibTeX</li>
+        <li><strong>AI Reflection:</strong> Version history with AI tracking</li>
+        <li><strong>Provenance Hash:</strong> SHA-256 + optional PGP signatures</li>
+      </ul>
+    </section>
+
+    <section id="community">
+      <h2>Community & Contribution</h2>
+
+      <h3>🌐 Join the Forever Format Community</h3>
+      <p>
+        Forever Format is open-source and community-driven. We welcome contributions from researchers, 
+        developers, and knowledge workers worldwide.
+      </p>
+
+      <h3>Ways to Participate</h3>
+      <ul>
+        <li><strong>Official Hub:</strong> <a href="https://alimcforever.com" target="_blank">alimcforever.com</a></li>
+        <li><strong>GitHub:</strong> Fork, clone, submit pull requests</li>
+        <li><strong>Discussions:</strong> Share use cases and design debates</li>
+        <li><strong>Documentation:</strong> Translate, improve tutorials</li>
+        <li><strong>Research:</strong> Publish papers on format effectiveness</li>
+      </ul>
+
+      <h3>💎 Support the Project</h3>
+      <ul>
+        <li>Sponsor feature development</li>
+        <li>Contribute code and design improvements</li>
+        <li>Build verification tools</li>
+        <li>Cite Forever Format in your research</li>
+      </ul>
+
+      <div class="callout">
+        <p><strong>Philosophy:</strong> Knowledge infrastructure should be public, transparent, and owned by no single entity.</p>
+      </div>
+    </section>
+
+    <section id="reflexive">
+      <h2>Reflexive Statement</h2>
+      
+      <h3>On Design Philosophy</h3>
+      <blockquote>
+        This protocol exists to decentralize knowledge creation and resist epistemic enclosure.
+        Documents are treated as organisms: evolving, self-aware, and accountable.
+      </blockquote>
+
+      <h3>On AI Collaboration</h3>
+      <p>
+        This white paper was co-created through human-AI collaboration. The AI model (Claude Sonnet 4.5) 
+        provided structural suggestions and technical documentation. The human author provided conceptual 
+        direction and ethical framing.
+      </p>
+
+      <p><strong>Known AI Biases:</strong></p>
+      <ul>
+        <li>Preference for structural efficiency over creative ambiguity</li>
+        <li>Western-centric design patterns</li>
+        <li>Optimization for English language</li>
+        <li>Tendency toward comprehensiveness</li>
+      </ul>
+
+      <h3>On Limitations</h3>
+      <p>This format cannot solve:</p>
+      <ul>
+        <li>Misinformation or deliberately deceptive content</li>
+        <li>Access inequality (requires web literacy)</li>
+        <li>Fundamental challenges of knowledge representation</li>
+        <li>Power imbalances in publishing and citation</li>
+      </ul>
+    </section>
+
+    <section id="meta">
+      <h2>Document Metadata</h2>
+      
+      <h3>Version Information</h3>
+      <table>
+        <tbody>
+          <tr>
+            <td><strong>Format Version</strong></td>
+            <td>Forever Format™ v1.2.0 — Erebus</td>
+          </tr>
+          <tr>
+            <td><strong>Document Version</strong></td>
+            <td>1.0.0</td>
+          </tr>
+          <tr>
+            <td><strong>Created</strong></td>
+            <td>2025-10-23</td>
+          </tr>
+          <tr>
+            <td><strong>License</strong></td>
+            <td><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a></td>
+          </tr>
+          <tr>
+            <td><strong>Contributors</strong></td>
+            <td>Forever Format Community</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Citation Examples</h3>
+      <p><strong>APA 7th:</strong></p>
+      <div class="callout">
+        Forever Format Community. (2025). <em>Forever Format™ v1.2.0 — Codename: Erebus</em>. https://alimcforever.com
+      </div>
+
+      <p><strong>BibTeX:</strong></p>
+      <pre><code>@techreport{foreverformat2025,
+  title = {Forever Format v1.2.0 - Erebus},
+  author = {{Forever Format Community}},
+  year = {2025},
+  url = {https://alimcforever.com}
+}</code></pre>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <p>&copy; 2025 Forever Format Community | <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a></p>
+      <div class="footer-links">
+        <a href="https://alimcforever.com">Home</a>
+        <a href="https://github.com/foreverformat/erebus">GitHub</a>
+        <a href="#abstract">Docs</a>
+        <a href="https://alimcforever.com/community">Community</a>
+      </div>
+      <p style="margin-top: 1rem; font-size: 0.85rem; color: var(--text-dim);">
+        Built with Forever Format™ v1.2.0 | ~25KB | Loads in &lt;100ms
+      </p>
+    </div>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forever Format™ v1.2.0 — Codename: Erebus | Universal Document Protocol</title>
+    <style>
+        :root {
+            --primary: #1a365d;
+            --secondary: #2d3748;
+            --accent: #d4af37;
+            --highlight: #3fc1c9;
+            --danger: #e53e3e;
+            --success: #38a169;
+            --warning: #d69e2e;
+            --bg: #f8fafc;
+            --text: #1a202c;
+            --card-bg: #ffffff;
+            --border: #e2e8f0;
+            --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            --font-academic: 'Georgia', 'Times New Roman', serif;
+            --font-mono: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg: #0c0f12;
+                --text: #e9e9e9;
+                --card-bg: #1a1d21;
+                --border: #2d3748;
+                --primary: #2b6cb0;
+            }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            line-height: 1.7;
+            color: var(--text);
+            background: var(--bg);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        /* Header & Hero */
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, #2d3748 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: "🜂";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 20rem;
+            opacity: 0.03;
+            pointer-events: none;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+        }
+
+        .subtitle {
+            font-size: 1.4rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        .tagline {
+            font-style: italic;
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            opacity: 0.8;
+        }
+
+        /* Navigation */
+        nav {
+            background: rgba(0,0,0,0.1);
+            padding: 1rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            transition: background 0.3s;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        /* Content Sections */
+        section {
+            padding: 3rem 2rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        section:last-child {
+            border-bottom: none;
+        }
+
+        h2 {
+            color: var(--primary);
+            margin-bottom: 2rem;
+            font-size: 2.2rem;
+            border-bottom: 3px solid var(--accent);
+            padding-bottom: 0.5rem;
+            display: inline-block;
+        }
+
+        h3 {
+            color: var(--secondary);
+            margin: 2rem 0 1rem 0;
+            font-size: 1.5rem;
+        }
+
+        h4 {
+            color: var(--secondary);
+            margin: 1.5rem 0 0.5rem 0;
+            font-size: 1.2rem;
+        }
+
+        p {
+            margin: 1rem 0;
+            line-height: 1.8;
+        }
+
+        /* Cards & Grids */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .feature-card {
+            border-top: 4px solid var(--accent);
+        }
+
+        .spec-card {
+            background: linear-gradient(135deg, var(--primary) 0%, #2d3748 100%);
+            color: white;
+        }
+
+        /* Alerts & Notices */
+        .alert {
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            border-left: 4px solid;
+        }
+
+        .alert-info {
+            background: rgba(59, 130, 246, 0.1);
+            border-left-color: #3b82f6;
+            color: #1e40af;
+        }
+
+        .alert-warning {
+            background: rgba(245, 158, 11, 0.1);
+            border-left-color: #f59e0b;
+            color: #92400e;
+        }
+
+        .alert-success {
+            background: rgba(16, 185, 129, 0.1);
+            border-left-color: #10b981;
+            color: #047857;
+        }
+
+        /* Code & Technical */
+        code {
+            background: rgba(0,0,0,0.05);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+        }
+
+        pre {
+            background: #1a1d21;
+            color: #e9e9e9;
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            font-family: var(--font-mono);
+            line-height: 1.5;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: var(--card-bg);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) {
+            background: rgba(0,0,0,0.02);
+        }
+
+        /* Badges & Labels */
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin: 0.25rem;
+        }
+
+        .badge-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .badge-accent {
+            background: var(--accent);
+            color: #000;
+        }
+
+        .badge-success {
+            background: var(--success);
+            color: white;
+        }
+
+        /* Quick Start Steps */
+        .steps {
+            counter-reset: step;
+            margin: 2rem 0;
+        }
+
+        .step {
+            position: relative;
+            padding-left: 4rem;
+            margin-bottom: 2rem;
+        }
+
+        .step::before {
+            counter-increment: step;
+            content: counter(step);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 3rem;
+            height: 3rem;
+            background: var(--accent);
+            color: #000;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: var(--primary);
+            color: white;
+        }
+
+        .license {
+            margin: 1rem 0;
+            opacity: 0.8;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            section {
+                padding: 2rem 1rem;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            h2 {
+                font-size: 1.8rem;
+            }
+            
+            .nav-links {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        /* Interactive Elements */
+        .copy-btn {
+            background: var(--accent);
+            color: #000;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
+            margin: 0.5rem 0;
+        }
+
+        .copy-btn:hover {
+            background: #c19b2a;
+        }
+
+        .toggle {
+            cursor: pointer;
+            color: var(--primary);
+            font-weight: 600;
+            margin: 1rem 0;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- YAML Frontmatter (in HTML comments) -->
+        <!-- 
+title: "Forever Format™ v1.2.0 — Codename: Erebus | Universal Document Protocol"
+author: "Forever Format Community"
+affiliation: "Open Source Intelligence Collective"
+forever_format: "1.2.0"
+document_type: "Specification & Documentation"
+license: "CC BY-NC-SA 4.0"
+version: "1.2.0"
+created: "2024-12-19"
+updated: "2024-12-19"
+citation_style: "APA 7th"
+tags: ["documentation", "specification", "intelligence", "research", "open-source"]
+ai_context_tags: ["framework", "knowledge_synthesis", "technical_spec"]
+bias_note: "Designed for maximum utility and adoption across intelligence, academic, and journalistic domains."
+        -->
+
+        <header>
+            <h1>Forever Format™</h1>
+            <div class="subtitle">v1.2.0 — Codename: Erebus</div>
+            <div class="tagline">"Documents that think, cite, and evolve."</div>
+            
+            <nav>
+                <div class="nav-links">
+                    <a href="#overview">Overview</a>
+                    <a href="#quickstart">Quick Start</a>
+                    <a href="#specification">Specification</a>
+                    <a href="#examples">Examples</a>
+                    <a href="#implementation">Implementation</a>
+                    <a href="#community">Community</a>
+                </div>
+            </nav>
+        </header>
+
+        <section id="overview">
+            <h2>Overview</h2>
+            <p>The Forever Format is a universal, cloneable, generative framework for producing intelligence briefs, investigative reports, academic research, and knowledge syntheses. It represents a paradigm shift in how we create, share, and evolve knowledge documents.</p>
+            
+            <div class="alert alert-info">
+                <strong>Universal Protocol:</strong> Forever Format is not just a template—it's a protocol for thought transmission designed for intelligence officers, academics, and cultural analysts.
+            </div>
+
+            <div class="card-grid">
+                <div class="card feature-card">
+                    <h3>🧠 Intelligent</h3>
+                    <p>AI-readable with embedded semantic prompts and structured metadata for machine parsing and expansion.</p>
+                </div>
+                <div class="card feature-card">
+                    <h3>📚 Academic</h3>
+                    <p>Built-in citation support for APA, MLA, and BibTeX with proper academic metadata and DOI readiness.</p>
+                </div>
+                <div class="card feature-card">
+                    <h3>🔍 Transparent</h3>
+                    <p>Mandatory reflexive sections for bias disclosure, methodological transparency, and ethical accountability.</p>
+                </div>
+                <div class="card feature-card">
+                    <h3>⚡ Efficient</h3>
+                    <p>Single-file HTML under 100KB, mobile-first, print-optimized, and GitHub-ready for instant forking.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="quickstart">
+            <h2>Quick Start Guide</h2>
+            <p>Get started with Forever Format in minutes. Follow these steps to create your first living document.</p>
+            
+            <div class="steps">
+                <div class="step">
+                    <h3>Clone the Template</h3>
+                    <p>Start with the base template or fork an existing Forever Format document:</p>
+                    <pre><code>git clone https://github.com/forever-format/template.git
+cd template</code></pre>
+                </div>
+                
+                <div class="step">
+                    <h3>Customize Metadata</h3>
+                    <p>Edit the YAML frontmatter and JSON-LD metadata in the HTML head section:</p>
+                    <pre><code>&lt;!-- 
+title: "Your Document Title"
+author: "Your Name"
+document_type: "Intelligence Report"
+tags: ["your", "tags", "here"]
+--></code></pre>
+                </div>
+                
+                <div class="step">
+                    <h3>Write Your Content</h3>
+                    <p>Fill in the semantic sections following the Universal Section Taxonomy:</p>
+                    <pre><code>&lt;section id="exec-summary"&gt;
+  &lt;h2&gt;Executive Summary&lt;/h2&gt;
+  &lt;!-- Your content here --&gt;
+&lt;/section&gt;</code></pre>
+                </div>
+                
+                <div class="step">
+                    <h3>Publish & Share</h3>
+                    <p>Commit to GitHub, deploy to web, or share the standalone HTML file:</p>
+                    <pre><code>git add .
+git commit -m "Initial Forever Format document"
+git push origin main</code></pre>
+                </div>
+            </div>
+            
+            <button class="copy-btn" onclick="copyTemplate()">Copy Base Template HTML</button>
+        </section>
+
+        <section id="specification">
+            <h2>Technical Specification</h2>
+            
+            <h3>Core Architecture Layers</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Layer</th>
+                        <th>Function</th>
+                        <th>Implementation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>L1 – Semantic Core</strong></td>
+                        <td>Human & AI readable structure</td>
+                        <td>HTML5 with semantic sections</td>
+                    </tr>
+                    <tr>
+                        <td><strong>L2 – Adaptive Design</strong></td>
+                        <td>Responsive presentation</td>
+                        <td>CSS Grid + CSS Variables</td>
+                    </tr>
+                    <tr>
+                        <td><strong>L3 – Meta Intelligence</strong></td>
+                        <td>Machine-readable metadata</td>
+                        <td>YAML + JSON-LD schema</td>
+                    </tr>
+                    <tr>
+                        <td><strong>L4 – Cognitive Reflection</strong></td>
+                        <td>Transparency & ethics</td>
+                        <td>Reflexive commentary sections</td>
+                    </tr>
+                    <tr>
+                        <td><strong>L5 – Generative Layer</strong></td>
+                        <td>AI co-creation & evolution</td>
+                        <td>Optional JavaScript hooks</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Universal Section Taxonomy</h3>
+            <div class="card-grid">
+                <div class="card spec-card">
+                    <h4>#exec-summary</h4>
+                    <p>High-level overview and key findings</p>
+                </div>
+                <div class="card spec-card">
+                    <h4>#context</h4>
+                    <p>Background and historical framing</p>
+                </div>
+                <div class="card spec-card">
+                    <h4>#methodology</h4>
+                    <p>Process transparency and sources</p>
+                </div>
+                <div class="card spec-card">
+                    <h4>#findings</h4>
+                    <p>Core data, evidence, and synthesis</p>
+                </div>
+                <div class="card spec-card">
+                    <h4>#analysis</h4>
+                    <p>Interpretation and critical evaluation</p>
+                </div>
+                <div class="card spec-card">
+                    <h4>#timeline</h4>
+                    <p>Chronological breakdown (if applicable)</p>
+                </div>
+                <div class="card spec-card">
+                    <h4>#discussion</h4>
+                    <p>Cross-sectional insights and implications</p>
+                </div>
+                <div class="card spec-card">
+                    <h4>#recommendations</h4>
+                    <p>Applied synthesis and actionable guidance</p>
+                </div>
+                <div class="card spec-card">
+                    <h4>#citations</h4>
+                    <p>Formal references (BibTeX-ready)</p>
+                </div>
+                <div class="card spec-card">
+                    <h4>#appendix</h4>
+                    <p>Supplementary material and datasets</p>
+                </div>
+                <div class="card spec-card">
+                    <h4>#reflexive</h4>
+                    <p>Cognitive reflection and bias statement</p>
+                </div>
+                <div class="card spec-card">
+                    <h4>#meta</h4>
+                    <p>Version, license, and document history</p>
+                </div>
+            </div>
+
+            <h3>AI Integration Features</h3>
+            <div class="alert alert-success">
+                <strong>AI-Readable Prompts:</strong> Embed context cues in HTML comments for AI agents to understand document structure and expansion points.
+            </div>
+            
+            <pre><code>&lt;!-- [PROMPT: ANALYSIS_EXPANSION | TYPE=CRITICAL_THEORY] --&gt;
+&lt;!-- [PROMPT: DATA_SYNTHESIS | CONTEXT=GEOPOLITICAL_RISK] --&gt;</code></pre>
+        </section>
+
+        <section id="examples">
+            <h2>Example Implementations</h2>
+            <p>See Forever Format in action across different domains and use cases.</p>
+            
+            <div class="card-grid">
+                <div class="card">
+                    <h4>📊 Intelligence Brief</h4>
+                    <p>Geopolitical risk assessment with confidence indicators and source evaluation.</p>
+                    <span class="badge badge-primary">Intelligence</span>
+                    <span class="badge badge-accent">OSINT</span>
+                </div>
+                
+                <div class="card">
+                    <h4>🔬 Academic Research</h4>
+                    <p>Peer-reviewed paper with proper citations, methodology, and theoretical framework.</p>
+                    <span class="badge badge-primary">Academic</span>
+                    <span class="badge badge-success">Peer-Review</span>
+                </div>
+                
+                <div class="card">
+                    <h4>📰 Investigative Report</h4>
+                    <p>Journalistic deep dive with timeline, evidence documentation, and source protection.</p>
+                    <span class="badge badge-primary">Journalism</span>
+                    <span class="badge badge-accent">Investigation</span>
+                </div>
+                
+                <div class="card">
+                    <h4>💼 Business Analysis</h4>
+                    <p>Market intelligence with competitive analysis, SWOT, and strategic recommendations.</p>
+                    <span class="badge badge-primary">Business</span>
+                    <span class="badge badge-success">Strategy</span>
+                </div>
+            </div>
+            
+            <div class="alert alert-warning">
+                <strong>Live Examples:</strong> Visit the Forever Format GitHub repository for complete, real-world examples across all document types.
+            </div>
+        </section>
+
+        <section id="implementation">
+            <h2>Implementation Guide</h2>
+            
+            <h3>File Structure Standards</h3>
+            <pre><code>forever-format-document.html    # Main document (single file)
+├── /assets/                   # Optional external assets
+│   ├── images/
+│   └── data/
+├── README.md                  # Project documentation
+└── .gitignore                 # GitHub configuration</code></pre>
+
+            <h3>Metadata Implementation</h3>
+            <p>Every Forever Format document includes comprehensive metadata in two formats:</p>
+            
+            <h4>YAML Frontmatter (HTML Comments)</h4>
+            <pre><code>&lt;!--
+title: "Document Title"
+author: "Author Name"
+affiliation: "Organization"
+forever_format: "1.2.0"
+document_type: "Intelligence Report"
+license: "CC BY-NC-SA 4.0"
+version: "1.0.0"
+created: "2024-01-01"
+updated: "2024-01-15"
+citation_style: "APA 7th"
+tags: ["intelligence", "analysis", "geopolitical"]
+ai_context_tags: ["synthesis", "critical_analysis"]
+bias_note: "Analytical perspective and limitations"
+--&gt;</code></pre>
+
+            <h4>JSON-LD Schema</h4>
+            <pre><code>&lt;script type="application/ld+json"&gt;
+{
+  "@context": "https://schema.org",
+  "@type": "ScholarlyArticle",
+  "name": "Document Title",
+  "author": {
+    "@type": "Person",
+    "name": "Author Name"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Organization Name"
+  },
+  "datePublished": "2024-01-01",
+  "license": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+  "version": "1.0.0"
+}
+&lt;/script&gt;</code></pre>
+        </section>
+
+        <section id="community">
+            <h2>Community & Contribution</h2>
+            <p>Forever Format is an open-source project built by and for the intelligence, research, and journalistic communities.</p>
+            
+            <div class="card-grid">
+                <div class="card">
+                    <h4>🌍 Open Source</h4>
+                    <p>Licensed under CC BY-NC-SA 4.0 - free to use, modify, and share with attribution.</p>
+                </div>
+                
+                <div class="card">
+                    <h4>🤝 Community Driven</h4>
+                    <p>Join our growing community of analysts, researchers, and developers.</p>
+                </div>
+                
+                <div class="card">
+                    <h4>📈 Version Control</h4>
+                    <p>All documents are Git-friendly with semantic versioning and changelogs.</p>
+                </div>
+                
+                <div class="card">
+                    <h4>🔧 Extensible</h4>
+                    <p>Build themes, plugins, and integrations for your specific needs.</p>
+                </div>
+            </div>
+            
+            <h3>Getting Involved</h3>
+            <ul>
+                <li><strong>GitHub:</strong> Contribute to the core specification and templates</li>
+                <li><strong>Documentation:</strong> Help improve guides and examples</li>
+                <li><strong>Community:</strong> Share your Forever Format documents and use cases</li>
+                <li><strong>Development:</strong> Build tools and integrations for the ecosystem</li>
+            </ul>
+            
+            <div class="alert alert-info">
+                <strong>Next Version (v1.3.0):</strong> Planned features include dynamic entity graphs, news mode for live updates, scholarly exporters, and ethical provenance hashing.
+            </div>
+        </section>
+
+        <footer>
+            <h3>Forever Format™ v1.2.0 — Codename: Erebus</h3>
+            <p class="tagline">"Documents that think, cite, and evolve."</p>
+            
+            <div class="license">
+                This specification and all Forever Format documents are licensed under the<br>
+                <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" style="color: var(--accent);">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
+            </div>
+            
+            <p>Built with ❤️ by the open source intelligence community</p>
+        </footer>
+    </div>
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "TechArticle",
+        "name": "Forever Format™ v1.2.0 — Codename: Erebus | Universal Document Protocol",
+        "description": "A universal, cloneable, generative framework for intelligence, research, and analysis documents",
+        "author": {
+            "@type": "Organization",
+            "name": "Forever Format Community"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Open Source Intelligence Collective"
+        },
+        "datePublished": "2024-12-19",
+        "dateModified": "2024-12-19",
+        "license": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+        "version": "1.2.0",
+        "programmingLanguage": "HTML5",
+        "codeRepository": "https://github.com/forever-format/specification"
+    }
+    </script>
+
+    <script>
+        // Simple copy template function
+        function copyTemplate() {
+            const template = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Forever Format Document</title>
+    <style>
+        /* Base Forever Format Styles */
+        :root {
+            --primary: #1a365d;
+            --secondary: #2d3748;
+            --accent: #d4af37;
+            --bg: #f8fafc;
+            --text: #1a202c;
+            --card-bg: #ffffff;
+            --border: #e2e8f0;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.7;
+            color: var(--text);
+            background: var(--bg);
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        /* Add your custom styles here */
+    </style>
+</head>
+<body>
+    <!-- 
+    title: "Your Document Title"
+    author: "Your Name"
+    document_type: "Intelligence Report | Research Paper | Investigation"
+    license: "CC BY-NC-SA 4.0"
+    version: "1.0.0"
+    created: "2024-01-01"
+    tags: ["your", "tags", "here"]
+    -->
+    
+    <header>
+        <h1>Your Document Title</h1>
+        <p class="subtitle">A Forever Format Document</p>
+    </header>
+    
+    <section id="exec-summary">
+        <h2>Executive Summary</h2>
+        <!-- Your summary here -->
+    </section>
+    
+    <section id="methodology">
+        <h2>Methodology</h2>
+        <!-- Your methodology here -->
+    </section>
+    
+    <section id="findings">
+        <h2>Findings</h2>
+        <!-- Your findings here -->
+    </section>
+    
+    <section id="reflexive">
+        <h2>Reflexive Analysis</h2>
+        <!-- Your bias and methodological reflection here -->
+    </section>
+    
+    <footer>
+        <p>Created with Forever Format™ v1.2.0 — Codename: Erebus</p>
+    </footer>
+</body>
+</html>`;
+            
+            navigator.clipboard.writeText(template).then(() => {
+                alert('Base template copied to clipboard!');
+            });
+        }
+        
+        // Simple theme toggle
+        function toggleTheme() {
+            document.body.classList.toggle('dark-theme');
+        }
+    </script>
+</body>
+</html>

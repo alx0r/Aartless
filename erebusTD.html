@@ -1,0 +1,319 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <!--
+  forever-format: Erebus Technical Documentation v1.2.0
+  ---
+  title: "Forever Format™ — Erebus Technical Documentation"
+  subtitle: "Documents that think, cite, and evolve. — Technical Release"
+  author: "Project Erebus / Aartless (alx0r)"
+  version: "v1.2.0"
+  codename: "Erebus"
+  license: "CC BY-NC-SA 4.0"
+  built_to_last: true
+  date: 2025-10-23
+  tags: ["forever-format","erebus","documentation","technical","roadmap","accessibility","AR","verification"]
+  provenance:
+    repo: "https://github.com/alx0r/forever-format"
+    pages:
+      - "https://alx0r.github.io/Aartless/erabus.html"
+      - "https://alx0r.github.io/Aartless/erabusWP.html"
+      - "https://alx0r.github.io/Aartless/erabusRM.html"
+  ---
+  -->  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Forever Format™ — Erebus Technical Documentation (v1.2.0)</title>
+  <meta name="description" content="Technical documentation, legal, architecture, roadmap and team for Forever Format™ — Erebus (v1.2.0).">
+  <meta name="author" content="Project Erebus / Aartless">  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": ["TechArticle","CreativeWork","ScholarlyArticle"],
+    "name": "Forever Format™ — Erebus Technical Documentation",
+    "author": {"@type":"Organization","name":"Project Erebus / Aartless"},
+    "datePublished": "2025-10-23",
+    "license": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+    "keywords": "forever-format, erebus, living-document, technical, roadmap, AR, accessibility, verification"
+  }
+  </script>  <style>
+    :root{--bg:#06070a;--panel:#0b0f14;--muted:#99a3b1;--accent:#8bd3ff;--accent2:#c792ea;--glass:rgba(255,255,255,0.03);--mono:ui-monospace, SFMono-Regular, Menlo, Monaco, monospace}
+    html,body{height:100%;margin:0;font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;color:#eaf6ff;background:linear-gradient(180deg,#020305 0%, #07101a 100%);}
+    .wrap{max-width:980px;margin:28px auto;padding:26px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));box-shadow:0 6px 30px rgba(0,0,0,0.7);backdrop-filter:blur(6px)}
+    header{display:flex;flex-direction:column;gap:6px}
+    header h1{margin:0;font-size:1.5rem;letter-spacing:.2px}
+    header p.lead{margin:0;color:var(--muted)}
+    nav{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+    nav a{color:var(--accent);text-decoration:none;font-size:.92rem}
+    .grid{display:grid;grid-template-columns:1fr 320px;gap:18px}
+    maincol{min-width:0}
+    section{padding:12px 0;border-top:1px solid rgba(255,255,255,0.02)}
+    h2{font-size:1.02rem;margin:.2rem 0 .6rem}
+    h3{font-size:.98rem;margin:.2rem 0 .4rem}
+    pre,code{font-family:var(--mono);font-size:.88rem;background:rgba(255,255,255,0.02);padding:.25rem .5rem;border-radius:6px}
+    table{width:100%;border-collapse:collapse;font-size:.95rem}
+    td,th{padding:.35rem .5rem;border-bottom:1px dashed rgba(255,255,255,0.02)}
+    footer{font-size:.85rem;color:var(--muted);margin-top:14px}
+    .meta{font-size:.86rem;color:var(--muted)}
+    .pill{display:inline-block;padding:6px 10px;border-radius:999px;background:var(--glass);font-size:.82rem;color:var(--muted)}
+    .toc{font-size:.9rem;color:var(--muted);}
+    a.link{color:var(--accent2)}
+    details summary{cursor:pointer}
+    .team p{margin:.2rem 0}
+    @media (max-width:900px){.grid{grid-template-columns:1fr}}
+  </style></head>
+<body>
+  <div class="wrap" role="main">
+    <header>
+      <h1>Forever Format™ — <small style="opacity:.9">Erebus Technical Documentation</small> <span class="meta">v1.2.0</span></h1>
+      <p class="lead">Everything required to release, verify, and grow the first public instance — technical specs, legal bindings, architecture, roadmap, and founding team.</p><nav aria-label="top links">
+    <a href="https://alx0r.github.io/Aartless/erabus.html">Erebus</a>
+    <a href="https://alx0r.github.io/Aartless/erabusWP.html">White Paper</a>
+    <a href="https://alx0r.github.io/Aartless/erabusRM.html">Roadmap</a>
+    <a href="#provenance">Verification</a>
+    <a href="#team">Team</a>
+  </nav>
+</header>
+
+<div class="grid">
+  <div class="maincol">
+
+    <section id="exec-summary">
+      <h2>Abstract</h2>
+      <p>Forever Format™ is a minimal, citable, AI-readable protocol for living documents. This release package documents the full technical stack, legal constraints, roadmap, and community process for v1.2.0 — Codename: Erebus. Designed for longevity, auditability, and interoperable AI collaboration.</p>
+    </section>
+
+    <section id="technical">
+      <h2>Technical Specification</h2>
+
+      <h3>Core Format</h3>
+      <p>Single-file HTML template with inline CSS and semantic sections. Required sections and metadata are declared in the YAML front-matter comment and the JSON-LD block. Files must be &lt;100KB when empty of large binary assets. Use git for versioning; embed SHA256 for releases.</p>
+
+      <h3>Metadata Schema</h3>
+      <pre><code>YAML front-matter (commented):
+
+
+---
+
+title: "..." author: "..." date: "YYYY-MM-DD" version: "v1.2.0" provenance: repo: "https://github.com/.." commit: "<git-sha>"
+
+JSON-LD: {"@context":"https://schema.org","@type":["CreativeWork","TechArticle"]...} </code></pre>
+
+<h3>Integrity & Verification</h3>
+      <p>Each release must publish:</p>
+      <ul>
+        <li>Git commit SHA</li>
+        <li>SHA256 of the HTML file</li>
+        <li>Optional PGP or DID signature for author identity</li>
+        <li>Public mirror URLs and archive location (IPFS/gov archive)</li>
+      </ul>
+
+      <h3>Interoperability</h3>
+      <p>Default connectors and protocols:</p>
+      <table>
+        <tr><th>Layer</th><th>Protocol / Tool</th></tr>
+        <tr><td>AI Context</td><td>MCP (Anthropic) / OpenAI Prover-Verifier alignment</td></tr>
+        <tr><td>Verification</td><td>PGP / DID / Optional blockchain anchoring</td></tr>
+        <tr><td>Linking</td><td>Mnemosyne Graph Taxonomy (simple JSON-LD edges)</td></tr>
+        <tr><td>Public Mirrors</td><td>GitHub Pages / IPFS / Static CDN</td></tr>
+      </table>
+
+      <h3>APIs & Agents</h3>
+      <p>Define a minimal read/write metadata API for agents (RESTful):</p>
+      <pre><code>GET /doc/{sha} -> document metadata
+
+POST /doc/{sha}/annotate -> append annotation (requires signature) GET /graph/{node} -> adjacency list </code></pre>
+
+</section>
+
+    <section id="architecture">
+      <h2>Architecture Overview</h2>
+      <p>The Forever Format ecosystem is modular — each document is an independent node that participates in a federated net. Key subsystems:</p>
+      <ol>
+        <li><strong>Erebus Engine</strong> — Core single-file spec and format validator.</li>
+        <li><strong>Mnemosyne Graph</strong> — Cross-document linking, ontologies, and version recall.</li>
+        <li><strong>Prometheus Federation</strong> — Agent orchestration, co-authoring, and synthesis pipelines.</li>
+        <li><strong>Lethe Entropy</strong> — Revision, redaction, and ethical forgetting.</li>
+        <li><strong>Helios Verification</strong> — Public mirrors, signature validation, and ledger anchoring.</li>
+      </ol>
+
+      <h3>Data Model</h3>
+      <p>Stores small artifacts inline, larger datasets via pointers (IPFS, git-lfs). All pointers must include a content hash. Prefer declarative over procedural storage.</p>
+
+    </section>
+
+    <section id="roadmap">
+      <h2>Release Roadmap</h2>
+      <p>Detailed phase breakdown and mythic rationale are included. (See Roadmap supplement: Erebus → Mnemosyne → Prometheus → Lethe → Helios.)</p>
+
+      <details>
+        <summary><strong>Phase I — Erebus</strong> (Q4 2025)</summary>
+        <p>Deliverables: core template, validator, sample docs, verification script, release SHA. Validators: CLI tool to verify schema &amp; hash.</p>
+      </details>
+
+      <details>
+        <summary><strong>Phase II — Mnemosyne</strong> (Q1 2026)</summary>
+        <p>Deliverables: graph schema, linking primitives, citation crawler, memory API.</p>
+      </details>
+
+      <details>
+        <summary><strong>Phase III — Prometheus</strong> (Q3 2026)</summary>
+        <p>Deliverables: federation APIs, agent SDKs, provenance ledger prototypes.</p>
+      </details>
+
+      <details>
+        <summary><strong>Phase IV — Lethe</strong> (Q1 2027)</summary>
+        <p>Deliverables: self-revision engine, redaction protocols, legal templates for revision requests.</p>
+      </details>
+
+      <details>
+        <summary><strong>Phase V — Helios</strong> (2027–)</summary>
+        <p>Deliverables: public intelligence network, mirror network, audit consortium.</p>
+      </details>
+
+    </section>
+
+    <section id="emerging-tech">
+      <h2>Emerging Technology — AR & Accessibility</h2>
+      <p>Short-term and medium-term goals for integrating AR wearables and accessibility tech with Forever Format documents.</p>
+      <ul>
+        <li><strong>Artemis</strong>: AR document viewers and overlays for live annotation.</li>
+        <li><strong>Hephaestus</strong>: hardware-level accessibility, haptics, and low-power wearable integration.</li>
+        <li><strong>Hermes</strong>: networked collaboration for shared AR sessions and verification overlays.</li>
+        <li><strong>Athena</strong>: AI-driven cognitive assistance tuned for accessibility.</li>
+        <li><strong>Apollo</strong>: public deployment and SDKs for community content.</li>
+      </ul>
+
+      <h3>Accessibility Requirements</h3>
+      <ol>
+        <li>WCAG 2.1 AA baseline for document content.</li>
+        <li>ARIA roles for semantic sections and dynamic content.</li>
+        <li>Keyboard-first navigability and screen-reader friendly markup.</li>
+        <li>High-contrast and user-adjustable typography.</li>
+      </ol>
+
+    </section>
+
+    <section id="provenance">
+      <h2>Provenance & Verification</h2>
+      <p>Publishing checklist (release):</p>
+      <ol>
+        <li>Commit to GitHub: tag release `v1.2.0-erebus-doc`</li>
+        <li>Compute SHA256 and store in release notes</li>
+        <li>Sign artifact with PGP and optionally anchor to DID</li>
+        <li>Mirror to IPFS and a public archive</li>
+        <li>Run validator; publish validation report</li>
+      </ol>
+
+      <h3>Verification Node Spec (minimal)</h3>
+      <pre><code>Node:
+
+fetch(url)
+
+compute sha256(file)
+
+compare to release_sha
+
+fetch signature
+
+verify signature(pubkey)
+
+report status (ok|mismatch|unsigned) </code></pre>
+
+</section>
+
+  <section id="funding">
+    <h2>Funding & Partnerships</h2>
+    <p>Suggested partners for verification and funding:</p>
+    <ul>
+      <li>OpenAI — alignment &amp; verification research</li>
+      <li>Anthropic — Model Context Protocol integration</li>
+      <li>DeepSeek — prover/verifier tooling</li>
+      <li>Google — search and indexing verification</li>
+      <li>xAI / Grok — fact-checking protocols integration</li>
+      <li>Non-profits: Open Collective, Mozilla, Internet Archive</li>
+    </ul>
+
+    <p>Funding channels:</p>
+    <ul>
+      <li>Open Collective: ongoing community funding</li>
+      <li>Grants: research &amp; infrastructure grants (Mozilla, Shuttleworth)</li>
+      <li>Bounties: GitHub issues sponsored by donors</li>
+    </ul>
+  </section>
+
+  <section id="legal">
+    <h2>Legal & License</h2>
+    <p>Project licensed CC BY-NC-SA 4.0. Contributors sign a simple CLA that assigns non-commercial stewardship rights and affirms non-exploitative use. Legal templates:</p>
+    <ul>
+      <li>Contributor License Agreement (CLA) — non-commercial stewardship clause</li>
+      <li>Data Use Agreement — for datasets referenced in docs</li>
+      <li>Revision Request Form — standardized legal process for redaction/retraction under Lethe</li>
+    </ul>
+
+  </section>
+
+  <section id="appendix">
+    <h2>Appendix — Release Artifacts</h2>
+    <p>Included in release archive:</p>
+    <ul>
+      <li>erebus.html (core template)</li>
+      <li>erebus-docs.html (this file)</li>
+      <li>validator CLI (node/python)</li>
+      <li>mnemosyne-graph-schema.json</li>
+      <li>release_signatures/ (PGP sigs)</li>
+    </ul>
+  </section>
+
+  <section id="reflexive">
+    <h2>Reflexive Disclosure</h2>
+    <p>This document was prepared by the Project Erebus founding collective with AI assistance for drafting and formatting. All substantive decisions and legal text were human-reviewed. AI model fingerprints and prompt summaries are available in the release notes.</p>
+  </section>
+
+</div>
+
+<aside>
+  <section class="toc" aria-label="documentation summary">
+    <h3>Quick Links</h3>
+    <p class="pill">Version: v1.2.0 — Erebus</p>
+    <ul>
+      <li><a href="#technical">Technical Spec</a></li>
+      <li><a href="#architecture">Architecture</a></li>
+      <li><a href="#roadmap">Roadmap</a></li>
+      <li><a href="#emerging-tech">AR &amp; Accessibility</a></li>
+      <li><a href="#provenance">Verification</a></li>
+      <li><a href="#funding">Funding</a></li>
+      <li><a href="#legal">Legal</a></li>
+    </ul>
+  </section>
+
+  <section id="team" class="team">
+    <h3>Founding Collective</h3>
+    <p><strong>Ali</strong> — Knowledge Producer. Research curation, editorial integrity, academic liaison.</p>
+    <p><strong>Alexander</strong> — Strategic Architect. Systems design, governance, strategic foresight.</p>
+    <p><strong>Andie</strong> — Accessibility & Ethics Lead. Inclusive design, translation, ethical review.</p>
+    <p><strong>Son</strong> — Technology Director. Platformization, infra, verification nodes.</p>
+    <p><strong>Emm</strong> — Growth & Guidance. Community, partnerships, narrative strategy.</p>
+
+    <p class="meta">Join the project: <a class="link" href="https://github.com/alx0r/forever-format">GitHub</a> • <a class="link" href="https://opencollective.com/foreverformat">Support</a></p>
+  </section>
+
+</aside>
+
+  </div>  <footer>
+    <p class="meta">Released under CC BY-NC-SA 4.0 — Project Erebus / Aartless. Built to last — forever (rather). Last updated: <time datetime="2025-10-23">2025-10-23</time>.</p>
+  </footer>
+</div><script>
+  // tiny verifier helper to compute SHA256 if crypto is available
+  async function computeSHA256(str){
+    if(!('crypto' in window)) return null;
+    const enc = new TextEncoder();
+    const data = enc.encode(str);
+    const hash = await crypto.subtle.digest('SHA-256', data);
+    const hex = Array.from(new Uint8Array(hash)).map(b=>b.toString(16).padStart(2,'0')).join('');
+    return hex;
+  }
+  // keyboard reflexive cue
+  document.addEventListener('keydown', e=>{ if(e.ctrlKey&&e.key==='f'){ e.preventDefault(); alert('Reflexive cue: update #reflexive with AI model fingerprints and prompt summaries.'); } });
+</script>
+</body>
+</html>

@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EREBUS TECHNICAL DOCUMENTATION</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', monospace;
+        }
+
+        :root {
+            --primary: #00ff00;
+            --primary-dark: #00cc00;
+            --primary-light: #99ff99;
+            --bg-dark: #0a0a0a;
+            --bg-darker: #000000;
+            --text: #f0f0f0;
+            --text-dim: #888888;
+            --border: #003300;
+            --glow: 0 0 10px rgba(0, 255, 0, 0.7);
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--bg-darker);
+            border-bottom: 1px solid var(--primary);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--glow);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary);
+            text-shadow: 0 0 5px var(--primary);
+        }
+
+        .logo-subtitle {
+            font-size: 0.9rem;
+            color: var(--text-dim);
+            margin-top: 0.2rem;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav li {
+            margin-left: 1.5rem;
+        }
+
+        nav a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: color 0.3s, text-shadow 0.3s;
+            position: relative;
+        }
+
+        nav a:hover {
+            color: #ffffff;
+            text-shadow: 0 0 8px var(--primary);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--primary);
+            transition: width 0.3s;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Main Content Styles */
+        main {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem;
+            border: 1px solid var(--primary);
+            background-color: rgba(0, 255, 0, 0.05);
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.1);
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 10px var(--primary);
+            color: var(--primary);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            color: var(--text);
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 2rem;
+        }
+
+        .main-content {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 2rem;
+            border: 1px solid var(--primary);
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.1);
+        }
+
+        .sidebar {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 1.5rem;
+            border: 1px solid var(--primary);
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.1);
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+        }
+
+        section {
+            margin-bottom: 3rem;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+            border-bottom: 1px solid var(--primary);
+            padding-bottom: 0.5rem;
+        }
+
+        h3 {
+            font-size: 1.4rem;
+            margin: 1.5rem 0 0.5rem;
+            color: var(--primary);
+        }
+
+        h4 {
+            font-size: 1.2rem;
+            margin: 1rem 0 0.5rem;
+            color: var(--primary-light);
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        ul, ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        code {
+            background-color: rgba(0, 255, 0, 0.1);
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: var(--primary-light);
+        }
+
+        pre {
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 1rem;
+            border: 1px solid var(--primary);
+            overflow-x: auto;
+            margin-bottom: 1rem;
+            color: var(--primary-light);
+        }
+
+        .terminal {
+            background-color: #000;
+            border: 1px solid var(--primary);
+            padding: 1rem;
+            margin-bottom: 1rem;
+            font-family: 'Courier New', monospace;
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.2);
+        }
+
+        .terminal-line {
+            margin-bottom: 0.5rem;
+        }
+
+        .terminal-prompt {
+            color: var(--primary);
+        }
+
+        .terminal-command {
+            color: #ffffff;
+        }
+
+        .terminal-output {
+            color: #cccccc;
+        }
+
+        .card {
+            background-color: rgba(0, 0, 0, 0.8);
+            border: 1px solid var(--primary);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 255, 0, 0.2);
+        }
+
+        .card h3 {
+            margin-top: 0;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: transparent;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            transition: all 0.3s;
+            cursor: pointer;
+            margin-top: 0.5rem;
+        }
+
+        .btn:hover {
+            background-color: var(--primary);
+            color: #000;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .team-member {
+            background-color: rgba(0, 0, 0, 0.8);
+            border: 1px solid var(--primary);
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .team-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .team-name {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        .team-role {
+            font-style: italic;
+            color: var(--text-dim);
+            margin-bottom: 1rem;
+        }
+
+        .roadmap-container {
+            position: relative;
+            margin: 2rem 0;
+        }
+
+        .roadmap-line {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background-color: var(--primary);
+            transform: translateX(-50%);
+        }
+
+        .roadmap-item {
+            position: relative;
+            width: 45%;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background-color: rgba(0, 0, 0, 0.8);
+            border: 1px solid var(--primary);
+        }
+
+        .roadmap-item:nth-child(odd) {
+            margin-left: 0;
+            margin-right: auto;
+        }
+
+        .roadmap-item:nth-child(even) {
+            margin-left: auto;
+            margin-right: 0;
+        }
+
+        .roadmap-item::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 15px;
+            height: 15px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            transform: translateY(-50%);
+        }
+
+        .roadmap-item:nth-child(odd)::after {
+            right: -8px;
+        }
+
+        .roadmap-item:nth-child(even)::after {
+            left: -8px;
+        }
+
+        .roadmap-title {
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .roadmap-year {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1.5rem;
+        }
+
+        th, td {
+            border: 1px solid var(--primary);
+            padding: 0.75rem;
+            text-align: left;
+        }
+
+        th {
+            background-color: rgba(0, 255, 0, 0.1);
+            color: var(--primary);
+        }
+
+        /* Footer Styles */
+        footer {
+            background-color: #000;
+            border-top: 1px solid var(--primary);
+            padding: 2rem;
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links a {
+            color: var(--primary);
+            margin: 0 1rem;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: #ffffff;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 1rem;
+                justify-content: center;
+            }
+            
+            nav li {
+                margin: 0 0.75rem;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .roadmap-line {
+                left: 20px;
+            }
+            
+            .roadmap-item {
+                width: calc(100% - 40px);
+                margin-left: 40px !important;
+                margin-right: 0 !important;
+            }
+            
+            .roadmap-item:nth-child(odd)::after,
+            .roadmap-item:nth-child(even)::after {
+                left: -28px;
+                right: auto;
+            }
+        }
+
+        /* Animation Effects */
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        .cursor {
+            animation: blink 1s infinite;
+        }
+
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #000;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-dark);
+        }
+
+        .section-nav {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .section-nav li {
+            margin-bottom: 0.75rem;
+        }
+
+        .section-nav a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: color 0.3s;
+            display: block;
+            padding: 0.25rem 0;
+        }
+
+        .section-nav a:hover {
+            color: #ffffff;
+            text-shadow: 0 0 5px var(--primary);
+        }
+
+        .metadata-block {
+            background-color: rgba(0, 0, 0, 0.8);
+            border: 1px solid var(--primary);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        .metadata-title {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div>
+                <div class="logo">EREBUS DOCUMENTATION</div>
+                <div class="logo-subtitle">FOREVER FORMAT™ v1.2.0 — TECHNICAL REFERENCE</div>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#architecture">Architecture</a></li>
+                    <li><a href="#roadmap">Roadmap</a></li>
+                    <li><a href="#legal">Legal</a></li>
+                    <li><a href="#team">Team</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h1>FOREVER FORMAT™ TECHNICAL DOCUMENTATION</h1>
+            <p>A generative research framework for transparent, durable, and collaborative intelligence.</p>
+            <div class="terminal">
+                <div class="terminal-line">
+                    <span class="terminal-prompt">system@erebus:~$ </span>
+                    <span class="terminal-command">status --documentation</span>
+                </div>
+                <div class="terminal-line terminal-output">
+                    Documentation Status: <span style="color: #00ff00;">ACTIVE</span>
+                </div>
+                <div class="terminal-line terminal-output">
+                    Version: Forever Format™ v1.2.0
+                </div>
+                <div class="terminal-line terminal-output">
+                    License: CC BY-NC-SA 4.0
+                </div>
+            </div>
+        </section>
+
+        <div class="content-grid">
+            <div class="main-content">
+                <section id="exec-summary">
+                    <h2>Executive Summary</h2>
+                    <div class="card">
+                        <p>The Forever Format™ is a universal, cloneable, open-source protocol for creating living documents that are citable, verifiable, and self-reflexive.</p>
+                        <p>Each document is designed as a single-file intelligence node — lightweight, decentralized, and AI-readable. The system supports academic citation, metadata transparency, and long-term preservation through durable HTML, inline CSS, and structured semantic layers.</p>
+                        <div class="terminal">
+                            <div class="terminal-line">
+                                <span class="terminal-prompt">user@erebus:~$ </span>
+                                <span class="terminal-command">verify --format forever</span>
+                            </div>
+                            <div class="terminal-line terminal-output">
+                                Format Integrity: VERIFIED
+                            </div>
+                            <div class="terminal-line terminal-output">
+                                Semantic Layers: ACTIVE
+                            </div>
+                            <div class="terminal-line terminal-output">
+                                Citation Framework: ENABLED
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="architecture">
+                    <h2>System Architecture</h2>
+                    
+                    <div class="card">
+                        <h3>Core Components</h3>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Component</th>
+                                    <th>Function</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Core Document Kernel (Erebus Engine)</td>
+                                    <td>Minimal HTML template with reflexive metadata</td>
+                                    <td><span style="color: #00ff00;">ACTIVE</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Ontology Layer (Mnemosyne Extension)</td>
+                                    <td>Cross-document graph linking & auto-citation</td>
+                                    <td><span style="color: #ffff00;">DEVELOPMENT</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Federation Layer (Prometheus Engine)</td>
+                                    <td>Peer AI/human synthesis with ethical transparency</td>
+                                    <td><span style="color: #ffff00;">DEVELOPMENT</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Entropy Layer (Lethe Subsystem)</td>
+                                    <td>Self-revision and redaction protocols</td>
+                                    <td><span style="color: #ff6600;">PLANNED</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Verification Layer (Helios Network)</td>
+                                    <td>Blockchain/DID validation and open audits</td>
+                                    <td><span style="color: #ff6600;">PLANNED</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="card">
+                        <h3>Technical Stack</h3>
+                        <ul>
+                            <li><strong>Single-file .html architecture</strong> with inline CSS and semantic &lt;section&gt; tags</li>
+                            <li><strong>Embedded YAML metadata block</strong> for citation frameworks (APA, MLA, BibTeX)</li>
+                            <li><strong>Embedded JSON-LD schema</strong> for machine readability (CreativeWork + ScholarlyArticle)</li>
+                            <li><strong>Hash-lock integrity system</strong> for provenance verification</li>
+                            <li><strong>Optional DID/PGP signatures</strong> for authorship verification</li>
+                            <li><strong>Offline-first</strong> via Service Workers</li>
+                            <li><strong>Auto-generated citations</strong> & version history</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h3>Interoperability Protocols</h3>
+                        <ul>
+                            <li>Integration with Anthropic's Model Context Protocol (MCP)</li>
+                            <li>Verification alignment with OpenAI's Universal Verifier</li>
+                            <li>Cross-document linking via Mnemosyne Graph Taxonomy (MGT)</li>
+                            <li>API-ready metadata schema for federated AI collaboration</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section id="roadmap">
+                    <h2>Development Roadmap</h2>
+                    
+                    <div class="roadmap-container">
+                        <div class="roadmap-line"></div>
+                        
+                        <div class="roadmap-item">
+                            <div class="roadmap-title">I — Erebus (2025)</div>
+                            <div class="roadmap-year">PRIMORDIAL FRAMEWORK</div>
+                            <p>Core protocol, minimal architecture, semantic durability. Establishment of Forever Format foundation.</p>
+                        </div>
+                        
+                        <div class="roadmap-item">
+                            <div class="roadmap-title">II — Mnemosyne (2026)</div>
+                            <div class="roadmap-year">MEMORY & LINKING</div>
+                            <p>Document linking, graph-based memory, semantic relationships. Cross-referencing and citation networks.</p>
+                        </div>
+                        
+                        <div class="roadmap-item">
+                            <div class="roadmap-title">III — Prometheus (2026)</div>
+                            <div class="roadmap-year">FEDERATED COGNITION</div>
+                            <p>AI/human co-authorship, ethical verification, collaborative intelligence protocols.</p>
+                        </div>
+                        
+                        <div class="roadmap-item">
+                            <div class="roadmap-title">IV — Lethe (2027)</div>
+                            <div class="roadmap-year">ENTROPY MANAGEMENT</div>
+                            <p>Self-revision, selective forgetting, entropy-aware integrity. Adaptive document lifecycle.</p>
+                        </div>
+                        
+                        <div class="roadmap-item">
+                            <div class="roadmap-title">V — Helios (2027–)</div>
+                            <div class="roadmap-year">DECENTRALIZED TRANSPARENCY</div>
+                            <p>Network illumination, truth verification, decentralized audit systems.</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3>Emerging Technology Integration</h3>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Technology</th>
+                                    <th>Function</th>
+                                    <th>Timeline</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Artemis</td>
+                                    <td>AR overlay visualization of Forever documents</td>
+                                    <td>2026</td>
+                                </tr>
+                                <tr>
+                                    <td>Hephaestus</td>
+                                    <td>Accessibility and hardware optimization for wearables</td>
+                                    <td>2026-2027</td>
+                                </tr>
+                                <tr>
+                                    <td>Hermes</td>
+                                    <td>Networked interaction and real-time collaboration</td>
+                                    <td>2027</td>
+                                </tr>
+                                <tr>
+                                    <td>Athena</td>
+                                    <td>AI cognitive assistance and adaptive UX</td>
+                                    <td>2027-2028</td>
+                                </tr>
+                                <tr>
+                                    <td>Apollo</td>
+                                    <td>Public deployment and education layer</td>
+                                    <td>2028</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <section id="legal">
+                    <h2>Legal & Compliance Framework</h2>
+                    
+                    <div class="card">
+                        <h3>Licensing</h3>
+                        <p><strong>Primary License:</strong> CC BY-NC-SA 4.0</p>
+                        <p>You may share, adapt, and remix Forever Format documents for non-commercial use, provided attribution and shared licensing remain intact.</p>
+                        
+                        <div class="metadata-block">
+                            <div class="metadata-title">TRADEMARKS</div>
+                            <p>Forever Format™ and Documents that Think™ are conceptual trademarks under the Erebus Creative Commons Project.</p>
+                            <p>Attribution must reference the format and the founding team when used in derivative works.</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3>Verification Clause</h3>
+                        <p>All Forever Format documents must include:</p>
+                        <ul>
+                            <li>Verifiable checksum for integrity validation</li>
+                            <li>Author disclosure with role transparency</li>
+                            <li>Metadata transparency block with creation and modification history</li>
+                            <li>Clear marking of AI-generated content under the reflexive section</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h3>Accessibility & Compliance</h3>
+                        <ul>
+                            <li>WCAG 2.1 / ARIA-ready standard implementation</li>
+                            <li>Cross-platform compatibility (mobile, desktop, wearable)</li>
+                            <li>Multilingual support framework</li>
+                            <li>Progressive enhancement for limited connectivity environments</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h3>Ethical Standards</h3>
+                        <p>All participants commit to:</p>
+                        <ul>
+                            <li>Transparent co-authorship between humans and AI</li>
+                            <li>No commercial exploitation of the protocol without explicit consent</li>
+                            <li>Maintaining source integrity, version logs, and accountability for modifications</li>
+                            <li>Ethical AI training data sourcing and usage disclosure</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section id="team">
+                    <h2>Founding Team & Governance</h2>
+                    <p>Project Erebus Founding Collective (2025)</p>
+                    
+                    <div class="team-grid">
+                        <div class="team-member">
+                            <div class="team-icon">🧠</div>
+                            <div class="team-name">Ali</div>
+                            <div class="team-role">Knowledge Producer</div>
+                            <p>Leads epistemic design and research integrity. Oversees content synthesis and academic calibration.</p>
+                        </div>
+                        
+                        <div class="team-member">
+                            <div class="team-icon">♎</div>
+                            <div class="team-name">Alexander</div>
+                            <div class="team-role">Strategic Architect</div>
+                            <p>Designs system logic, governance models, and foresight pathways for sustainable intelligence architecture.</p>
+                        </div>
+                        
+                        <div class="team-member">
+                            <div class="team-icon">♿</div>
+                            <div class="team-name">Andie</div>
+                            <div class="team-role">Accessibility & Ethics Lead</div>
+                            <p>Ensures inclusivity, universal design, and ethical compliance. Oversees multilingual translation and adaptive interfaces.</p>
+                        </div>
+                        
+                        <div class="team-member">
+                            <div class="team-icon">⚙️</div>
+                            <div class="team-name">Son</div>
+                            <div class="team-role">Technological Director</div>
+                            <p>Manages infrastructure, platformization, and integration of decentralized protocols and AI systems.</p>
+                        </div>
+                        
+                        <div class="team-member">
+                            <div class="team-icon">🌿</div>
+                            <div class="team-name">Emm</div>
+                            <div class="team-role">Growth & Guidance Strategist</div>
+                            <p>Directs outreach, partnerships, and narrative cohesion. Ensures alignment with open-source community ethics.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="meta">
+                    <h2>Metadata & Version Information</h2>
+                    
+                    <div class="card">
+                        <div class="metadata-block">
+                            <div class="metadata-title">VERSION INFORMATION</div>
+                            <p><strong>Format:</strong> Forever Format™ v1.2.0 — Codename: Erebus</p>
+                            <p><strong>License:</strong> CC BY-NC-SA 4.0</p>
+                            <p><strong>Maintainers:</strong> Project Erebus Founding Collective</p>
+                            <p><strong>Last Updated:</strong> October 2025</p>
+                            <p><strong>Status:</strong> Public release draft — open for community review and verification</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3>File Structure</h3>
+                        <div class="terminal">
+                            <div class="terminal-line">
+                                <span class="terminal-prompt">user@erebus:~$ </span>
+                                <span class="terminal-command">tree --forever-format</span>
+                            </div>
+                            <div class="terminal-line terminal-output">
+                                ForeverFormat/
+                            </div>
+                            <div class="terminal-line terminal-output">
+                                ├── core/
+                            </div>
+                            <div class="terminal-line terminal-output">
+                                │   ├── template.html
+                            </div>
+                            <div class="terminal-line terminal-output">
+                                │   ├── styles.css
+                            </div>
+                            <div class="terminal-line terminal-output">
+                                │   └── verification.js
+                            </div>
+                            <div class="terminal-line terminal-output">
+                                ├── extensions/
+                            </div>
+                            <div class="terminal-line terminal-output">
+                                │   ├── mnemosyne/
+                            </div>
+                            <div class="terminal-line terminal-output">
+                                │   ├── prometheus/
+                            </div>
+                            <div class="terminal-line terminal-output">
+                                │   └── hephaestus/
+                            </div>
+                            <div class="terminal-line terminal-output">
+                                └── docs/
+                            </div>
+                            <div class="terminal-line terminal-output">
+                                &nbsp;&nbsp;&nbsp;&nbsp;├── technical.md
+                            </div>
+                            <div class="terminal-line terminal-output">
+                                &nbsp;&nbsp;&nbsp;&nbsp;└── governance.md
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <div class="sidebar">
+                <section>
+                    <h2>Quick Navigation</h2>
+                    <ul class="section-nav">
+                        <li><a href="#exec-summary">Executive Summary</a></li>
+                        <li><a href="#architecture">System Architecture</a></li>
+                        <li><a href="#roadmap">Development Roadmap</a></li>
+                        <li><a href="#legal">Legal Framework</a></li>
+                        <li><a href="#team">Founding Team</a></li>
+                        <li><a href="#meta">Metadata</a></li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>System Status</h2>
+                    <div class="terminal">
+                        <div class="terminal-line">
+                            <span class="terminal-prompt">sys@erebus:~$ </span>
+                            <span class="terminal-command">status --documentation</span>
+                        </div>
+                        <div class="terminal-line terminal-output">
+                            Core Protocol: <span style="color: #00ff00;">ACTIVE</span>
+                        </div>
+                        <div class="terminal-line terminal-output">
+                            Verification: <span style="color: #00ff00;">ENABLED</span>
+                        </div>
+                        <div class="terminal-line terminal-output">
+                            License: CC BY-NC-SA 4.0
+                        </div>
+                        <div class="terminal-line terminal-output">
+                            Version: v1.2.0
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h2>Verification</h2>
+                    <div class="metadata-block">
+                        <div class="metadata-title">CHECKSUM</div>
+                        <p>SHA-256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855</p>
+                    </div>
+                    <a href="#" class="btn" style="display: block; text-align: center; margin-bottom: 0.5rem;">Verify Integrity</a>
+                    <a href="#" class="btn" style="display: block; text-align: center; margin-bottom: 0.5rem;">Download Source</a>
+                    <a href="#" class="btn" style="display: block; text-align: center;">View License</a>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="#">GitHub Repository</a>
+                <a href="#">License Information</a>
+                <a href="#">Verification Portal</a>
+                <a href="#">Contact Team</a>
+            </div>
+            <p>&copy; 2025 Project Erebus. Forever Format™ released under CC BY-NC-SA 4.0.</p>
+            <p>Documents that think, cite, and evolve.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Add blinking cursor effect to terminal prompts
+        document.addEventListener('DOMContentLoaded', function() {
+            const prompts = document.querySelectorAll('.terminal-prompt');
+            prompts.forEach(prompt => {
+                const cursor = document.createElement('span');
+                cursor.className = 'cursor';
+                cursor.textContent = '_';
+                prompt.appendChild(cursor);
+            });
+
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // Add active class to current section in sidebar
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.section-nav a');
+            
+            window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    if (scrollY >= (sectionTop - 100)) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').substring(1) === current) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,2359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>alimcforever Discord Server - Complete Community Guide</title>
+    <style>
+        :root {
+            --primary: #5865F2;
+            --primary-dark: #4752C4;
+            --primary-light: #7983f5;
+            --secondary: #57F287;
+            --accent: #FEE75C;
+            --warning: #ED4245;
+            --info: #00b0f4;
+            --bg-main: #ffffff;
+            --bg-secondary: #f6f6f6;
+            --bg-tertiary: #e9ecef;
+            --bg-code: #2f3136;
+            --text-primary: #2c2f33;
+            --text-secondary: #5c5e66;
+            --text-muted: #6c757d;
+            --border: #e3e5e8;
+            --radius: 8px;
+            --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-main: #36393f;
+                --bg-secondary: #2f3136;
+                --bg-tertiary: #202225;
+                --bg-code: #1e1f22;
+                --text-primary: #dcddde;
+                --text-secondary: #b9bbbe;
+                --text-muted: #8e9297;
+                --border: #40444b;
+            }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--bg-main);
+            padding-bottom: 3rem;
+        }
+
+        /* Header Styles */
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 3rem 1rem;
+            text-align: center;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .hero .subtitle {
+            font-size: 1.25rem;
+            opacity: 0.95;
+            margin-bottom: 2rem;
+        }
+
+        .meta-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .meta-card {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 1rem;
+            border-radius: var(--radius);
+            backdrop-filter: blur(10px);
+        }
+
+        .meta-label {
+            font-size: 0.85rem;
+            opacity: 0.85;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .meta-value {
+            font-weight: 600;
+            margin-top: 0.25rem;
+            font-size: 1.1rem;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Navigation */
+        .nav-wrapper {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: var(--bg-main);
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+
+        .nav-toggle {
+            display: none;
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius);
+            font-size: 1rem;
+            cursor: pointer;
+            width: 100%;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .nav-toggle:hover {
+            background: var(--primary-dark);
+        }
+
+        .nav-toggle::after {
+            content: '▼';
+            float: right;
+            transition: transform 0.3s;
+        }
+
+        .nav-toggle.active::after {
+            transform: rotate(180deg);
+        }
+
+        .nav-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        nav a {
+            color: var(--primary);
+            text-decoration: none;
+            padding: 0.75rem 1rem;
+            background: var(--bg-secondary);
+            border-radius: 6px;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+            border: 2px solid transparent;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        nav a:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+            border-color: var(--primary-dark);
+        }
+
+        /* Quick Start Banner */
+        .quick-start-banner {
+            background: linear-gradient(135deg, var(--secondary) 0%, #45d072 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: var(--radius);
+            margin: 2rem 0;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .quick-start-banner h2 {
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+
+        .quick-start-banner p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .banner-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: 2px solid;
+        }
+
+        .btn-primary {
+            background: white;
+            color: var(--secondary);
+            border-color: white;
+        }
+
+        .btn-primary:hover {
+            background: transparent;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: white;
+            border-color: white;
+        }
+
+        .btn-outline:hover {
+            background: white;
+            color: var(--secondary);
+            transform: translateY(-2px);
+        }
+
+        /* Section Styles */
+        section {
+            margin: 3rem 0;
+            scroll-margin-top: 6rem;
+        }
+
+        h2 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            color: var(--text-primary);
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        h4 {
+            font-size: 1.25rem;
+            color: var(--text-primary);
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            line-height: 1.7;
+        }
+
+        ul, ol {
+            margin: 1rem 0 1rem 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        strong {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        /* Callout Boxes */
+        .callout {
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            margin: 1.5rem 0;
+            border-left: 4px solid;
+            box-shadow: var(--shadow);
+        }
+
+        .callout-info {
+            background: rgba(88, 101, 242, 0.08);
+            border-color: var(--primary);
+        }
+
+        .callout-success {
+            background: rgba(87, 242, 135, 0.08);
+            border-color: var(--secondary);
+        }
+
+        .callout-warning {
+            background: rgba(254, 231, 92, 0.08);
+            border-color: var(--accent);
+        }
+
+        .callout-danger {
+            background: rgba(237, 66, 69, 0.08);
+            border-color: var(--warning);
+        }
+
+        .callout-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Grid Layouts */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        /* Card Styles */
+        .card {
+            background: var(--bg-secondary);
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            transition: all 0.2s;
+            border-left: 4px solid var(--primary);
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .card-title {
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card-icon {
+            font-size: 1.5rem;
+        }
+
+        /* Step List */
+        .step-list {
+            counter-reset: step-counter;
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .step-list li {
+            counter-increment: step-counter;
+            position: relative;
+            padding: 1.5rem 1rem 1.5rem 4rem;
+            margin-bottom: 1rem;
+            background: var(--bg-secondary);
+            border-radius: var(--radius);
+            border-left: 4px solid var(--primary);
+            box-shadow: var(--shadow);
+        }
+
+        .step-list li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--primary);
+            color: white;
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        /* Tables */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: var(--bg-secondary);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .comparison-table th {
+            background: var(--primary);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .comparison-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .comparison-table .good {
+            border-left: 4px solid var(--secondary);
+        }
+
+        .comparison-table .bad {
+            border-left: 4px solid var(--warning);
+        }
+
+        /* Code and Markdown */
+        .markdown-examples {
+            background: var(--bg-tertiary);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .markdown-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .markdown-input, .markdown-output {
+            padding: 1rem;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+        }
+
+        .markdown-input {
+            font-family: 'Courier New', monospace;
+            background: var(--bg-code);
+            color: #f8f8f2;
+            font-size: 0.9rem;
+        }
+
+        .markdown-output {
+            background: var(--bg-main);
+            min-height: 60px;
+        }
+
+        code {
+            background: var(--bg-code);
+            color: #7289da;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: "Consolas", "Monaco", monospace;
+            font-size: 0.9em;
+        }
+
+        pre {
+            background: var(--bg-code);
+            color: #f8f8f2;
+            padding: 1rem;
+            border-radius: var(--radius);
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+
+        pre code {
+            background: none;
+            padding: 0;
+            color: #f8f8f2;
+        }
+
+        /* Strategy Section */
+        .strategy-card {
+            background: var(--bg-secondary);
+            padding: 2rem;
+            border-radius: var(--radius);
+            margin: 1.5rem 0;
+            border-top: 4px solid var(--primary);
+            box-shadow: var(--shadow);
+        }
+
+        .strategy-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        /* Governance Section */
+        .governance-box {
+            background: var(--bg-tertiary);
+            padding: 2rem;
+            border-radius: var(--radius);
+            margin: 1.5rem 0;
+            border-left: 4px solid var(--warning);
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 4rem;
+            padding: 2rem 1rem;
+            background: var(--bg-secondary);
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero .subtitle {
+                font-size: 1.1rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            h3 {
+                font-size: 1.25rem;
+            }
+
+            .nav-toggle {
+                display: block;
+            }
+
+            .nav-grid {
+                display: none;
+                grid-template-columns: 1fr;
+            }
+
+            .nav-grid.active {
+                display: grid;
+            }
+
+            .meta-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .grid-2, .grid-3 {
+                grid-template-columns: 1fr;
+            }
+
+            .markdown-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .step-list li {
+                padding: 1rem 1rem 1rem 3.5rem;
+            }
+
+            .step-list li::before {
+                width: 2rem;
+                height: 2rem;
+                font-size: 1rem;
+            }
+
+            .banner-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            .nav-wrapper, .quick-start-banner, footer {
+                display: none;
+            }
+
+            body {
+                max-width: 100%;
+                padding: 0;
+            }
+
+            section {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Header -->
+    <div class="hero">
+        <h1>alimcforever Discord Server</h1>
+        <p class="subtitle">A Digital Newsroom for Collective Thinking & Research</p>
+        
+        <div class="meta-grid">
+            <div class="meta-card">
+                <div class="meta-label">Vision</div>
+                <div class="meta-value">Scenius, not Genius</div>
+            </div>
+            <div class="meta-card">
+                <div class="meta-label">Focus</div>
+                <div class="meta-value">Research & Learning</div>
+            </div>
+            <div class="meta-card">
+                <div class="meta-label">Atmosphere</div>
+                <div class="meta-value">Calm & Respectful</div>
+            </div>
+            <div class="meta-card">
+                <div class="meta-label">Last Updated</div>
+                <div class="meta-value">October 2025</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sticky Navigation -->
+    <div class="nav-wrapper">
+        <nav>
+            <button class="nav-toggle" onclick="toggleNav()">Navigation Menu</button>
+            <div class="nav-grid" id="navGrid">
+                <a href="#quick-start">Quick Start</a>
+                <a href="#vision">Vision</a>
+                <a href="#getting-started">Getting Started</a>
+                <a href="#discord-tips">Discord Tips</a>
+                <a href="#markdown">Markdown</a>
+                <a href="#rules">Rules</a>
+                <a href="#safety">Safety</a>
+                <a href="#channels">Channels</a>
+                <a href="#engagement">Engagement</a>
+                <a href="#governance">Governance</a>
+                <a href="#moderation">Moderation</a>
+            </div>
+        </nav>
+    </div>
+
+    <div class="container">
+        <!-- Quick Start Banner -->
+        <div class="quick-start-banner" id="quick-start">
+            <h2>⚡ New Here? Quick Start Guide</h2>
+            <p>Get up and running in under 5 minutes with these essential steps:</p>
+            <ol style="margin-left: 1.5rem; margin-bottom: 1.5rem;">
+                <li><strong>Join the Server:</strong> Click the invite link and accept the rules</li>
+                <li><strong>Select Your Region:</strong> Go to Channels & Roles and pick your home country</li>
+                <li><strong>Choose Categories:</strong> Opt into CREATOR ARMY, HOBBY LOBBY, or SHARE YOUR IDEAS</li>
+                <li><strong>Read the Vision:</strong> Understand scenius and our research-focused culture</li>
+                <li><strong>Start Contributing:</strong> Use threads for deep discussions, keep the main chat calm</li>
+            </ol>
+            <div class="banner-buttons">
+                <a href="https://discord.gg/alimcforever" class="btn btn-primary" target="_blank">Join Our Server</a>
+                <a href="#getting-started" class="btn btn-outline">Full Setup Guide</a>
+            </div>
+        </div>
+
+        <!-- Vision Section -->
+        <section id="vision">
+            <h2>🎯 Vision: Scenius, Not Genius</h2>
+            
+            <p>This server is Ali's <strong>digital newsroom</strong>: a calm, small "third space" where shared learning and collective thinking (what Brian Eno describes as <strong>scenius</strong>) can happen. It is also a research and writing workspace, functioning as a <strong>real-time wire</strong> of notes, sources, and ideas.</p>
+            
+            <div class="callout callout-info">
+                <div class="callout-title">🎨 What is Scenius?</div>
+                <p>The focus is on <strong>collective creativity and community-driven knowledge</strong> over individual celebrity or parasocial worship. Scenius emphasizes the intelligence and intuition of a whole cultural scene rather than celebrating individual creators.</p>
+                <p>Scenius is the communal form of genius—the ecology of support, collaboration, and mutual inspiration that allows great work to emerge from communities, not just individuals.</p>
+                <p><a href="https://www.youtube.com/watch?v=example" target="_blank" style="color: var(--primary); font-weight: 600;">Watch Brian Eno explain "scenius" →</a></p>
+            </div>
+            
+            <h3>🏛️ Operational Philosophy</h3>
+            
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-title">📚 Research-Focused</div>
+                    <p>A working newsroom, not a fan club. This is a space for investigation, documentation, and knowledge synthesis.</p>
+                </div>
+                
+                <div class="card">
+                    <div class="card-title">🧘 Calm Third Space</div>
+                    <p>Designed for thoughtful discourse and shared learning. Heated debates and identity conflicts have no place here.</p>
+                </div>
+                
+                <div class="card">
+                    <div class="card-title">⚡ Real-Time Wire</div>
+                    <p>Functions as a living document of notes, sources, and emerging ideas. Your research feeds into collective knowledge.</p>
+                </div>
+                
+                <div class="card">
+                    <div class="card-title">🤝 Community Over Celebrity</div>
+                    <p>Access to Ali is not a feature; collective contribution is the value. We build together, not around one person.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Getting Started Section -->
+        <section id="getting-started">
+            <h2>🚀 Getting Started: Customize Your View</h2>
+            
+            <p>To reduce channel clutter and improve user flexibility, the server uses an <strong>opt-in system</strong>. Follow these steps to set up your personalized experience:</p>
+            
+            <ol class="step-list">
+                <li>
+                    <strong>Go to Channels & Roles</strong><br>
+                    Navigate to the Channels & Roles section in the Discord server (usually found in the server sidebar or settings)
+                </li>
+                <li>
+                    <strong>Select Your Home Country</strong><br>
+                    Choose <strong>ONE</strong> country (where you currently live) to unlock access to your regional chatroom. This helps you connect with local community members.
+                </li>
+                <li>
+                    <strong>Opt Into Categories</strong><br>
+                    Select which content categories you want to see:<br>
+                    <strong>• CREATOR ARMY</strong> - For content creators and media professionals<br>
+                    <strong>• HOBBY LOBBY</strong> - For personal interests and hobbies<br>
+                    <strong>• SHARE YOUR IDEAS</strong> - For community contributions and suggestions
+                </li>
+                <li>
+                    <strong>Specific Channel Access</strong><br>
+                    Some channels (like India) require you to react to a specific announcement message with an emoji to gain access. Check the announcements channel for details.
+                </li>
+            </ol>
+            
+            <div class="callout callout-success">
+                <div class="callout-title">📹 Video Tutorials Available</div>
+                <p>Short video tutorials are available in the announcement channels to guide you through these setup steps. Look for pinned messages or dedicated tutorial threads.</p>
+            </div>
+            
+            <h3>🧵 How to Use Threads (Essential!)</h3>
+            
+            <p>Threads are your <strong>primary tool</strong> for organizing deeper conversations and preventing valuable content from getting lost in busy channels. Think of them as mini-forums within channels.</p>
+            
+            <div class="grid-2">
+                <div>
+                    <h4>When to Create a Thread:</h4>
+                    <ul>
+                        <li>Sharing something <strong>long, detailed, or valuable</strong></li>
+                        <li>Deep thoughts, research findings, or resource collections</li>
+                        <li>Creating "rabbit holes" for unpacking complex ideas</li>
+                        <li>When your discussion will span multiple messages</li>
+                        <li>When you want to keep a conversation organized and findable</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4>Why Use Threads:</h4>
+                    <ul>
+                        <li>Prevents important messages from disappearing in active chat</li>
+                        <li>Makes it easy for Ali and others to find and reference discussions later</li>
+                        <li>Keeps main channels tidy and organized</li>
+                        <li>Creates a searchable archive of research and ideas</li>
+                        <li>Allows focused conversations without interrupting main chat</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="callout callout-info">
+                <div class="callout-title">💡 Thread Best Practice</div>
+                <p><strong>Anyone can create threads—don't be shy!</strong> To create one, hover over any message and click the "Create Thread" icon, or use the # button at the top of a channel. Give your thread a descriptive name so others can find it easily.</p>
+                <p>A video demonstration is available in server announcements showing exactly how to create and manage threads.</p>
+            </div>
+        </section>
+
+        <!-- Discord Tips Section -->
+        <section id="discord-tips">
+            <h2>💡 Discord Mastery: Pro Tips & Features</h2>
+            
+            <p>Master these Discord features to enhance your experience in our digital newsroom and communicate more effectively. These tools separate casual users from power users.</p>
+            
+            <div class="grid-3">
+                <div class="card">
+                    <div class="card-title"><span class="card-icon">🧵</span> Thread Organization</div>
+                    <p>Create threads for focused discussions. Right-click any message or use the # button in channels to start organized conversations that don't clutter main channels.</p>
+                    <p><strong>Pro tip:</strong> Follow threads you're interested in to get notifications when new messages are posted.</p>
+                </div>
+                
+                <div class="card">
+                    <div class="card-title"><span class="card-icon">🔔</span> Notification Control</div>
+                    <p>Right-click channels to mute or customize notifications. Use @mentions sparingly and respect others' notification preferences.</p>
+                    <p><strong>Pro tip:</strong> Set server notification settings to "Only @mentions" to reduce noise while staying informed.</p>
+                </div>
+                
+                <div class="card">
+                    <div class="card-title"><span class="card-icon">📌</span> Pinned Messages</div>
+                    <p>Check pinned messages in each channel for important resources and references. Moderators pin key information you shouldn't miss.</p>
+                    <p><strong>Pro tip:</strong> Click the pushpin icon at the top of any channel to see all pinned messages.</p>
+                </div>
+                
+                <div class="card">
+                    <div class="card-title"><span class="card-icon">🔍</span> Powerful Search</div>
+                    <p>Use Discord's search (<strong>Ctrl+K</strong> or <strong>Cmd+K</strong>) to find specific messages, links, or files. Filter by user, channel, date, or use <code>has:link</code>, <code>has:file</code> modifiers.</p>
+                    <p><strong>Pro tip:</strong> Search <code>from:username in:channel-name</code> to find specific user messages in specific channels.</p>
+                </div>
+                
+                <div class="card">
+                    <div class="card-title"><span class="card-icon">🎭</span> Custom Status</div>
+                    <p>Set a custom status to share what you're researching or working on. This helps others understand your focus areas and can spark collaboration.</p>
+                    <p><strong>Pro tip:</strong> Update your status when diving into research topics to attract like-minded contributors.</p>
+                </div>
+                
+                <div class="card">
+                    <div class="card-title"><span class="card-icon">⚡</span> Quick Switcher</div>
+                    <p>Press <strong>Ctrl+K</strong> (or <strong>Cmd+K</strong>) to quickly jump between channels and conversations without using your mouse. This is the fastest way to navigate.</p>
+                    <p><strong>Pro tip:</strong> You can also use this to search for users and DM them directly.</p>
+                </div>
+            </div>
+            
+            <h3>🔬 Advanced Research Features</h3>
+            
+            <div class="callout callout-success">
+                <div class="callout-title">Research Workflow Tips</div>
+                <ul>
+                    <li><strong>Use Threads for Deep Dives:</strong> Start a thread when sharing research findings to keep discussions organized and searchable</li>
+                    <li><strong>Cross-Reference with Links:</strong> Right-click any message and select "Copy Message Link" to connect related discussions across different channels or threads</li>
+                    <li><strong>Bookmark Important Messages:</strong> Right-click messages and select "Bookmark" to save them for later reference (visible only to you)</li>
+                    <li><strong>Organize with Categories:</strong> Our server uses categories to group related channels - pay attention to these groupings and use the right channel for your content</li>
+                    <li><strong>Archive Your Findings:</strong> Create personal threads or use bookmarks to build your own research library within the server</li>
+                    <li><strong>Cite Your Sources:</strong> Always link to primary sources. Use Discord's automatic link previews to give context without copying entire articles</li>
+                </ul>
+            </div>
+            
+            <h3>📱 Mobile Optimization</h3>
+            
+            <div class="callout callout-info">
+                <div class="callout-title">Mobile App Tips</div>
+                <ul>
+                    <li><strong>Enable push notifications</strong> for @mentions in important channels - you won't miss critical research discussions</li>
+                    <li><strong>Use the mobile app's quick reply feature</strong> by swiping right on messages for faster responses</li>
+                    <li><strong>Download the Discord app</strong> for better performance over browser - it's optimized for mobile viewing</li>
+                    <li><strong>Adjust text size</strong> in settings (User Settings → Appearance → Text Size) for comfortable reading</li>
+                    <li><strong>Use swipe gestures:</strong> Swipe right to reply, long-press for more options</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Markdown Guide Section -->
+        <section id="markdown">
+            <h2>📝 Discord Markdown: Complete Formatting Guide</h2>
+            
+            <p>Master Discord's text formatting to make your messages clearer, more organized, and more professional in our research-focused environment. Good formatting makes your contributions more valuable and easier to read.</p>
+            
+            <div class="callout callout-info">
+                <div class="callout-title">💡 Pro Tip: Live Preview</div>
+                <p>Discord shows a live preview of your formatted text as you type (on desktop). Use this to perfect your formatting before sending. On mobile, you won't see previews, so test your syntax on desktop first.</p>
+            </div>
+            
+            <h3>Basic Text Formatting</h3>
+            
+            <div class="markdown-grid">
+                <div class="markdown-input">
+**Bold Text**<br>
+*Italic Text*<br>
+***Bold Italic***<br>
+__Underline__<br>
+~~Strikethrough~~
+                </div>
+                <div class="markdown-output">
+                    <strong>Bold Text</strong><br>
+                    <em>Italic Text</em><br>
+                    <strong><em>Bold Italic</em></strong><br>
+                    <u>Underline</u><br>
+                    <s>Strikethrough</s>
+                </div>
+            </div>
+            
+            <h3>Headers & Structure</h3>
+            
+            <div class="markdown-grid">
+                <div class="markdown-input">
+# H1 Header<br>
+## H2 Header<br>
+### H3 Header
+                </div>
+                <div class="markdown-output">
+                    <h1 style="font-size: 1.5rem; margin: 0;">H1 Header</h1>
+                    <h2 style="font-size: 1.25rem; margin: 0;">H2 Header</h2>
+                    <h3 style="font-size: 1.1rem; margin: 0;">H3 Header</h3>
+                </div>
+            </div>
+            
+            <h3>Lists</h3>
+            
+            <div class="markdown-grid">
+                <div class="markdown-input">
+* Unordered list item<br>
+* Another item<br>
+&nbsp;&nbsp;* Nested item<br>
+<br>
+1. Ordered list item<br>
+2. Second item<br>
+&nbsp;&nbsp;&nbsp;1. Nested ordered item
+                </div>
+                <div class="markdown-output">
+                    • Unordered list item<br>
+                    • Another item<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;◦ Nested item<br>
+                    <br>
+                    1. Ordered list item<br>
+                    2. Second item<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;1. Nested ordered item
+                </div>
+            </div>
+            
+            <h3>Quotes & Code</h3>
+            
+            <div class="markdown-grid">
+                <div class="markdown-input">
+> Single line quote<br>
+>> Nested quote<br>
+<br>
+>>> Multi-line quote<br>
+Continues automatically<br>
+Until message ends<br>
+<br>
+`inline code`<br>
+<br>
+```<br>
+Multi-line code block<br>
+Preserves formatting<br>
+```
+                </div>
+                <div class="markdown-output">
+                    <blockquote style="border-left: 4px solid var(--border); padding-left: 1rem; margin: 0.5rem 0;">Single line quote</blockquote>
+                    <blockquote style="border-left: 4px solid var(--border); padding-left: 1rem; margin: 0.5rem 0 0.5rem 1rem;">Nested quote</blockquote>
+                    <blockquote style="border-left: 4px solid var(--border); padding-left: 1rem; margin: 0.5rem 0;">Multi-line quote<br>Continues automatically<br>Until message ends</blockquote>
+                    <code>inline code</code><br><br>
+                    <pre style="margin: 0; padding: 0.5rem;">Multi-line code block
+Preserves formatting</pre>
+                </div>
+            </div>
+            
+            <h3>Advanced: Spoilers & Syntax Highlighting</h3>
+            
+            <div class="markdown-grid">
+                <div class="markdown-input">
+||Spoiler Text||<br>
+<br>
+```python<br>
+# Python syntax highlighting<br>
+def research():<br>
+&nbsp;&nbsp;&nbsp;&nbsp;return "insights"<br>
+```
+                </div>
+                <div class="markdown-output">
+                    <span style="background: var(--bg-code); color: var(--bg-code); padding: 2px 4px; border-radius: 3px; cursor: pointer;" title="Click to reveal">Spoiler Text</span><br><br>
+                    <pre style="margin: 0; padding: 0.5rem; background: var(--bg-code); color: #f8f8f2;"><span style="color: #6272a4;"># Python syntax highlighting</span>
+<span style="color: #ff79c6;">def</span> <span style="color: #50fa7b;">research</span>():
+    <span style="color: #ff79c6;">return</span> <span style="color: #f1fa8c;">"insights"</span></pre>
+                </div>
+            </div>
+            
+            <h3>🎯 Practical Use Cases for Researchers</h3>
+            
+            <div class="strategy-card">
+                <div class="strategy-title">Formatting Research Posts</div>
+                <pre style="background: var(--bg-code); color: #f8f8f2; padding: 1rem; border-radius: var(--radius);">### Research Update: [Topic]
+
+**Source:** Study Title (Year)
+**Key Finding:** Significant correlation found between X and Y
+
+> "Direct quote from source here"
+
+**Methodology:** Longitudinal study (n=500)
+**Implications:** 
+* Finding 1 suggests...
+* Finding 2 indicates...
+
+**Next Steps:**
+1. Investigate correlation mechanism
+2. Review counter-evidence
+3. Cross-reference with related studies
+
+**Links:**
+* Primary source: [URL]
+* Related discussion: [Message Link]</pre>
+            </div>
+            
+            <div class="strategy-card">
+                <div class="strategy-title">Creating Discussion Prompts</div>
+                <pre style="background: var(--bg-code); color: #f8f8f2; padding: 1rem; border-radius: var(--radius);">## Discussion Prompt: [Topic]
+
+**Context:**
+Brief background on the issue (2-3 sentences)
+
+**Key Questions:**
+1. What are the implications of X?
+2. How does this connect to Y?
+3. What counter-evidence exists?
+
+**Ground Rules:**
+* Cite sources for factual claims
+* Steel-man opposing arguments
+* Focus on ideas, not individuals
+
+**Helpful Resources:**
+* Background thread: [Link]
+* Primary documents: [Link]</pre>
+            </div>
+            
+            <div class="callout callout-warning">
+                <div class="callout-title">⚠️ Markdown Limitations</div>
+                <p><strong>Discord does NOT support:</strong></p>
+                <ul>
+                    <li>Tables (use code blocks with ASCII tables instead)</li>
+                    <li>Masked hyperlinks like <code>[Click here](URL)</code> - you must show full URLs</li>
+                    <li>Some features like syntax highlighting may not work on mobile apps</li>
+                    <li>HTML tags won't render - stick to Markdown syntax</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Community Rules Section -->
+        <section id="rules">
+            <h2>📜 Community Rules & Guidelines</h2>
+            
+            <div class="callout callout-danger">
+                <div class="callout-title">⚠️ Important Disclaimer</div>
+                <p>All content shared in this server—including posts by members, moderators, or Ali—represents <strong>personal views only</strong>. Nothing here should be taken as the official position, policy, or endorsement of alimcforever, alimcforever© CIC, or any affiliated projects.</p>
+            </div>
+            
+            <h3>🤝 Essential Guidelines</h3>
+            
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-title">🤝 Respect the Space</div>
+                    <p>This is a calm room for research, not a debate forum. No heated arguments or identity conflicts. Disagree with ideas, not people.</p>
+                </div>
+                
+                <div class="card">
+                    <div class="card-title">📚 Stay On Topic</div>
+                    <p>Channels are for research, notes, and discussion related to the work. Off-topic chat should go to appropriate channels.</p>
+                </div>
+                
+                <div class="card">
+                    <div class="card-title">🔒 Protect Privacy</div>
+                    <p>Do NOT share or screenshot anything outside this server without consent. What happens in the newsroom stays in the newsroom.</p>
+                </div>
+                
+                <div class="card">
+                    <div class="card-title">👂 Balance Participation</div>
+                    <p>Listen as much as you talk. Contribute with sources, context, or thoughtful feedback. Quality over quantity.</p>
+                </div>
+                
+                <div class="card">
+                    <div class="card-title">🚫 No Spam or Self-Promo</div>
+                    <p>Share projects only if directly relevant to research. This isn't a marketing platform or advertisement space.</p>
+                </div>
+                
+                <div class="card">
+                    <div class="card-title">🛑 Keep It Safe</div>
+                    <p>No hate, harassment, or disruptive behavior. We maintain a zero-tolerance policy for violations of Discord's Community Guidelines.</p>
+                </div>
+            </div>
+            
+            <h3>✅ Healthy Disagreement vs. ❌ Derailment</h3>
+            
+            <p>We welcome constructive debate, but certain behaviors cross the line into disruption:</p>
+            
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>✅ Healthy Disagreement (Welcome)</th>
+                        <th>❌ Derailment (Results in Removal)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="good">Argue a point respectfully with evidence</td>
+                        <td class="bad">Reframing systemic critiques into narrow quibbles</td>
+                    </tr>
+                    <tr>
+                        <td class="good">Share evidence to support your view</td>
+                        <td class="bad">Using "trust me bro" instead of evidence</td>
+                    </tr>
+                    <tr>
+                        <td class="good">Push back with constructive feedback</td>
+                        <td class="bad">Talking down to others or being patronizing</td>
+                    </tr>
+                    <tr>
+                        <td class="good">Strengthen debate through dialogue</td>
+                        <td class="bad">Getting defensive or personalizing discussions</td>
+                    </tr>
+                    <tr>
+                        <td class="good">Engage in good faith with open mind</td>
+                        <td class="bad">Repeating behavior that drags debates off course</td>
+                    </tr>
+                    <tr>
+                        <td class="good">Acknowledge when you're wrong</td>
+                        <td class="bad">Moving goalposts or shifting arguments constantly</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h3>🔐 Conditions of Participation</h3>
+            
+            <p>Remaining in this server means you accept these <strong>legally binding terms</strong>:</p>
+            
+            <div class="governance-box">
+                <h4>Disclosure and Representation</h4>
+                <ul>
+                    <li>You <strong>must disclose to admins in writing</strong> if you are here on behalf of an employer, client, agency, government body, political organization, media outlet, or any third party</li>
+                    <li>Undisclosed representation or covert activity is <strong>strictly prohibited</strong></li>
+                    <li>If you work for a government agency, you must disclose this. Concealing it is a breach of contract</li>
+                    <li>Journalists and media professionals should identify themselves to maintain transparency</li>
+                </ul>
+            </div>
+            
+            <div class="governance-box">
+                <h4>Prohibited Conduct</h4>
+                <ul>
+                    <li><strong>Intelligence gathering, network mapping, scraping, logging</strong>, or any form of data capture beyond normal participation</li>
+                    <li><strong>Influence operations, astroturfing, brigading</strong>, or attempts to steer editorial decisions</li>
+                    <li><strong>Harassment, boundary-testing, demands for attention</strong>, or tagging Ali with off-topic asks</li>
+                    <li><strong>Romantic or sexual approaches</strong> toward Ali or members</li>
+                    <li><strong>Off-platform contact attempts</strong> without explicit invitation</li>
+                    <li><strong>Recording, screenshotting, forwarding, publishing</strong>, or repurposing content from this server without prior written permission</li>
+                    <li><strong>False statements</strong> about Ali or members, doxxing, or any activity that risks safety</li>
+                </ul>
+            </div>
+            
+            <div class="governance-box">
+                <h4>Enforcement</h4>
+                <ul>
+                    <li>Ali may remove content, restrict roles, time out, or ban any account at their discretion, <strong>without notice</strong></li>
+                    <li>Evidence may be preserved and escalated to platform Safety, employers, legal counsel, or authorities</li>
+                    <li>These conditions are governed by the <strong>laws of England and Wales</strong></li>
+                    <li>Moderation decisions are final; appeals can be submitted through official channels</li>
+                </ul>
+            </div>
+            
+            <h3>🚫 Parasocial Boundary Violations</h3>
+            
+            <div class="callout callout-danger">
+                <div class="callout-title">Grounds for Immediate Ban</div>
+                <p><strong>Access to Ali is NOT a feature of this server.</strong> The following behaviors result in immediate removal:</p>
+                <ul>
+                    <li>Tagging Ali with off-topic asks or opinions (repeated attempts = instant ban)</li>
+                    <li>Claims of a "special connection" or understanding with Ali</li>
+                    <li>Demands for personal attention or emotional labor</li>
+                    <li>Emotional manipulation attempts or guilt-tripping</li>
+                    <li>Stalking behavior across platforms (Discord, TikTok, Instagram, Twitter/X)</li>
+                    <li>Attempts to bypass official channels for direct access</li>
+                    <li>Using Discord intimacy to justify rule violations</li>
+                    <li>Monetizing association with the alimcforever™ brand</li>
+                    <li>Creating parasocial narratives or fan fiction involving Ali</li>
+                </ul>
+                <p><strong>This is a professional newsroom, not a fan community.</strong> Treat it accordingly.</p>
+            </div>
+        </section>
+
+        <!-- Safety & Moderation Section -->
+        <section id="safety">
+            <h2>🛡️ Community Safety, Moderation & Security</h2>
+            
+            <h3>👥 Moderation Team</h3>
+            
+            <p><strong>Tom</strong> is the Head of Community Safety. He has extensive experience helping large communities run smoothly and maintains oversight of all moderation activities.</p>
+            
+            <div class="callout callout-info">
+                <div class="callout-title">🛟 How to Report an Issue</div>
+                <p>If you spot an issue, please use the <strong>#support-and-feedback</strong> channel to report it. All reports are handled confidentially and taken seriously.</p>
+                <p><strong>For urgent safety issues:</strong> Tag @moderators or use Discord's Report Message feature (right-click message → Apps → Report Message)</p>
+            </div>
+            
+            <h3>🔐 Cross-Platform Intelligence & Security</h3>
+            
+            <p>The community employs <strong>active threat monitoring</strong> to protect members from coordinated harassment and bad actors:</p>
+            
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-title">🔍 Threat Actor Tracking</div>
+                    <p>Cross-platform monitoring across Discord, TikTok, Instagram, and Twitter/X to identify coordinated harassment campaigns and repeat offenders.</p>
+                </div>
+                
+                <div class="card">
+                    <div class="card-title">📊 Behavioral Pattern Analysis</div>
+                    <p>Sophisticated detection of astroturfing, brigading, and influence operations. Coordinated campaigns will be documented and reported to authorities.</p>
+                </div>
+                
+                <div class="card">
+                    <div class="card-title">⚖️ UK Jurisdiction Protections</div>
+                    <p>Community operates under UK law with legal protections for members. Serious violations may be reported to UK law enforcement.</p>
+                </div>
+                
+                <div class="card">
+                    <div class="card-title">🌍 International Coordination</div>
+                    <p>Works with platform safety teams and international authorities as needed to protect member safety and prosecute serious violations.</p>
+                </div>
+            </div>
+            
+            <div class="callout callout-warning">
+                <div class="callout-title">🔐 Security Notice</div>
+                <p>This server maintains active security protocols to protect against:</p>
+                <ul>
+                    <li>Coordinated harassment and brigading campaigns</li>
+                    <li>Data extraction and intelligence gathering</li>
+                    <li>Influence operations and astroturfing</li>
+                    <li>Doxxing and privacy violations</li>
+                </ul>
+                <p>Suspicious activity is monitored, documented, and may be reported to platform safety teams and law enforcement. We take member security seriously.</p>
+            </div>
+            
+            <h3>🚨 Crisis Response Protocols</h3>
+            
+            <div class="strategy-card">
+                <div class="strategy-title">For Members: What to Do in Emergencies</div>
+                <ul>
+                    <li><strong>Raids/Spam Attacks:</strong> Do not engage. Report to moderators immediately and let the team handle it.</li>
+                    <li><strong>Doxxing:</strong> Screenshot evidence, report to moderators, and Discord Trust & Safety. Do not share the doxx further.</li>
+                    <li><strong>Threats of Violence:</strong> Report immediately to moderators and Discord. In case of imminent danger, contact local authorities.</li>
+                    <li><strong>Harassment:</strong> Document with screenshots, report through official channels, block the user if needed.</li>
+                </ul>
+            </div>
+            
+            <h3>📝 Appeals Process</h3>
+            
+            <p>We believe in fair enforcement with accountability. If you've been moderated:</p>
+            
+            <ol>
+                <li><strong>Understand the Violation:</strong> Read the moderation message carefully to understand what rule was broken</li>
+                <li><strong>Reflect:</strong> Consider whether the action was justified and what you could have done differently</li>
+                <li><strong>Submit Appeal:</strong> Use the official appeals process (details in moderation DM) if you believe there was an error</li>
+                <li><strong>Wait for Review:</strong> Appeals are reviewed by senior moderators, not the person who issued the original action</li>
+            </ol>
+            
+            <div class="callout callout-info">
+                <div class="callout-title">⚖️ Appeals Philosophy</div>
+                <p>A transparent appeals process is a hallmark of a mature community. We want to get it right, and we acknowledge that moderators are human and can make mistakes. However, appeals are not automatic reversals—they're opportunities for fair review.</p>
+            </div>
+        </section>
+
+        <!-- Channel Guide Section -->
+        <section id="channels">
+            <h2>🗺️ Channel Guide: Navigate the Server</h2>
+            
+            <p>Here's your guide to navigating the server's main channels and spaces. Channels are organized into categories for easy navigation.</p>
+            
+            <h3>📍 Main Channels</h3>
+            
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-title"># The Mainroom / Pub</div>
+                    <p>The heart of the community. Chat, discuss ideas, and meet people. <strong>No debate or identity politics allowed.</strong> Think of this as the communal coffee shop—keep it light and welcoming.</p>
+                </div>
+                
+                <div class="card">
+                    <div class="card-title"># Rules & Guide</div>
+                    <p>Quick reference for server rules and this comprehensive guide. Bookmark this channel for easy access to important documentation.</p>
+                </div>
+                
+                <div class="card">
+                    <div class="card-title"># Announcements</div>
+                    <p>Ali's channel for broad context, regular research notes, and updates. This is where major server news and research drops happen. <strong>Turn on notifications for this channel.</strong></p>
+                </div>
+                
+                <div class="card">
+                    <div class="card-title"># Support & Feedback</div>
+                    <p>Need help? Want to report security issues, ask questions, or give feedback? This is your channel. Moderators monitor this closely.</p>
+                </div>
+            </div>
+            
+            <h3>💰 The Newsroom (Paid Access)</h3>
+            
+            <p>Access the full newsroom experience with a <strong>£3 Newspaper Pass</strong>. This unlocks premium research content and deeper analysis.</p>
+            
+            <div class="callout callout-success">
+                <div class="callout-title">What You Get with Newsroom Access</div>
+                <ul>
+                    <li><strong>Behind the Scenes:</strong> Ali's thinking process, analysis, and context the media won't provide</li>
+                    <li><strong>Research Libraries:</strong> Curated primary source archives from months of investigative work</li>
+                    <li><strong>Global Intelligence:</strong> Updates on what's really happening, before it hits the mainstream</li>
+                    <li><strong>Video Index:</strong> (Coming soon) Master spreadsheet indexing all videos by topic, source, or region</li>
+                </ul>
+            </div>
+            
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-title"># Newspaper Pass</div>
+                    <p>Purchase your £3 pass here to unlock the newsroom floor. This supports the community and gives you access to premium research content.</p>
+                </div>
+                
+                <div class="card">
+                    <div class="card-title"># Behind the Scenes</div>
+                    <p>Ali's thinking process, analysis methods, and the context that mainstream media misses or ignores. This is where you see how the sausage is made.</p>
+                </div>
+                
+                <div class="card">
+                    <div class="card-title"># Research Libraries</div>
+                    <p>Curated archives of primary sources, documents, and evidence collected over months of investigation. Everything is organized by topic.</p>
+                </div>
+                
+                <div class="card">
+                    <div class="card-title"># Global Intelligence</div>
+                    <p>Real-time updates on breaking situations and developing stories. This is your early warning system for emerging narratives.</p>
+                </div>
+            </div>
+            
+            <h3>🤝 Community & Contribution</h3>
+            
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-title"># Private Letters to the Editor</div>
+                    <p>Send private messages to Ali (questions, problems, or topics you want covered). This is not DMs—it goes through a formal channel for organization.</p>
+                </div>
+                
+                <div class="card">
+                    <div class="card-title"># Apply to be a Moderator</div>
+                    <p>Interested in helping run the newsroom? Apply here. We look for active, mature members who understand scenius culture.</p>
+                </div>
+                
+                <div class="card">
+                    <div class="card-title"># Share Photos & Videos</div>
+                    <p>Share <strong>original content you created</strong>. You reserve your rights; lifting content without poster permission may result in removal.</p>
+                </div>
+                
+                <div class="card">
+                    <div class="card-title"># Share Tunes</div>
+                    <p>Share music with Ali and the community. Discover new artists and connect through sound.</p>
+                </div>
+                
+                <div class="card">
+                    <div class="card-title"># Glimmers</div>
+                    <p>A glimmer is the <strong>opposite of a trigger</strong>. Share "tiny moments of OK-ness, joy, excitement, ease, calm" to reinforce resilience and spread positivity.</p>
+                </div>
+                
+                <div class="card">
+                    <div class="card-title"># Creator Channel</div>
+                    <p>For media personalities and content makers. Creator tag also unlocks the Influencer Network—a private channel to share talking points and strategies.</p>
+                </div>
+            </div>
+            
+            <h3>🌍 Places Spaces (Regional Channels)</h3>
+            
+            <p>Local channels for different countries to connect with people where you live. <strong>This is a dynamic, evolving system.</strong></p>
+            
+            <div class="callout callout-info">
+                <div class="callout-title">Regional Channel Framework</div>
+                <p><strong>How Regional Channels Work:</strong></p>
+                <ul>
+                    <li>Select ONE home country in Channels & Roles to unlock your regional chatroom</li>
+                    <li>Server language is English, but discussions should focus on that region's issues</li>
+                    <li>Respect each region's culture and local context</li>
+                    <li>Don't see your country? Request it in #support-and-feedback</li>
+                </ul>
+                <p><strong>Purpose:</strong> Connect with local community members, share region-specific news, and organize local meetups or research projects. These channels help build scenius within geographic communities.</p>
+            </div>
+            
+            <div class="callout callout-warning">
+                <div class="callout-title">🌐 Dynamic & Evolving</div>
+                <p>Regional channels are added based on community demand and activity. If you don't see your region, request it! Active regions may get additional sub-channels for cities or topics.</p>
+            </div>
+        </section>
+
+        <!-- Engagement Strategies Section -->
+        <section id="engagement">
+            <h2>🚀 Engagement Strategies: Building Thriving Conversations</h2>
+            
+            <p>Creating a vibrant community requires <strong>intentional design and active cultivation</strong>. This section provides strategic frameworks for members and moderators to increase meaningful engagement and build scenius.</p>
+            
+            <h3>🎨 The Scenius Activation Framework</h3>
+            
+            <p>To foster collective intelligence, we employ several strategic engagement mechanisms. These aren't rigid rules—they're patterns that encourage collaboration.</p>
+            
+            <div class="strategy-card">
+                <div class="strategy-title">1. Thread-First Architecture</div>
+                <p>Threads transform ephemeral chat into persistent knowledge repositories.</p>
+                <h4>For Members:</h4>
+                <ul>
+                    <li><strong>Create threads generously:</strong> When sharing research, start a thread. Don't wait for perfection.</li>
+                    <li><strong>Use descriptive titles:</strong> "Gaza Media Coverage Analysis 2024" not "thoughts"</li>
+                    <li><strong>Cross-reference threads:</strong> Link related discussions using message links</li>
+                    <li><strong>Follow threads you contribute to:</strong> Get notified of replies and keep conversations going</li>
+                </ul>
+                <h4>For Moderators:</h4>
+                <ul>
+                    <li><strong>Model thread usage:</strong> Start threads for substantive topics to demonstrate best practices</li>
+                    <li><strong>Pin important threads:</strong> Highlight exemplary research threads</li>
+                    <li><strong>Create thread archives:</strong> Compile best threads monthly in a dedicated channel</li>
+                </ul>
+            </div>
+            
+            <div class="strategy-card">
+                <div class="strategy-title">2. Research-Driven Participation</div>
+                <p>The newsroom model prioritizes evidence-based contributions over hot takes.</p>
+                
+                <h4>Quality Contribution Markers:</h4>
+                <div class="grid-2">
+                    <div class="callout callout-success" style="margin: 0;">
+                        <div class="callout-title">✅ High-Quality</div>
+                        <ul style="margin: 0;">
+                            <li>Primary source citations and links</li>
+                            <li>Contextualized analysis with historical framing</li>
+                            <li>Cross-referenced information from multiple sources</li>
+                            <li>Thoughtful synthesis rather than reactive commentary</li>
+                            <li>Follow-up questions that deepen investigation</li>
+                            <li>Acknowledgment of limitations and uncertainty</li>
+                        </ul>
+                    </div>
+                    <div class="callout callout-warning" style="margin: 0;">
+                        <div class="callout-title">⚠️ Low-Quality</div>
+                        <ul style="margin: 0;">
+                            <li>"Trust me bro" assertions without evidence</li>
+                            <li>Hot takes without research or context</li>
+                            <li>Sharing headlines without reading articles</li>
+                            <li>Reactive emotional responses to news</li>
+                            <li>Repeating talking points without verification</li>
+                            <li>Treating opinions as facts</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="strategy-card">
+                <div class="strategy-title">3. Prompting Collective Intelligence</div>
+                <p>Strategic prompts can activate scenius moments and spark collaborative research.</p>
+                
+                <h4>Effective Engagement Prompts:</h4>
+                <ul>
+                    <li><strong>"What are you researching this week?"</strong> – Regular check-ins create accountability and cross-pollination of ideas</li>
+                    <li><strong>"Share your rabbit hole"</strong> – Invite members to document their deep dives and unusual connections</li>
+                    <li><strong>"What's missing from this story?"</strong> – Crowd-source gaps in mainstream narratives</li>
+                    <li><strong>"Connect the dots"</strong> – Encourage synthesis across seemingly unrelated topics</li>
+                    <li><strong>"Primary source challenge"</strong> – Ask members to find and share original documents, not summaries</li>
+                    <li><strong>"Devil's advocate time"</strong> – Request the strongest counter-argument to prevailing views</li>
+                    <li><strong>"Historical parallel?"</strong> – Draw connections between current events and past patterns</li>
+                </ul>
+            </div>
+            
+            <div class="strategy-card">
+                <div class="strategy-title">4. Recognition Without Celebrity</div>
+                <p>Recognize contributions while maintaining the scenius ethos—celebrate research, not personalities.</p>
+                
+                <h4>Healthy Recognition Practices:</h4>
+                <ul>
+                    <li><strong>Highlight Research, Not Personalities:</strong> "This thread on X has excellent primary sources" rather than "User Y is amazing"</li>
+                    <li><strong>Create Research Digests:</strong> Weekly or monthly compilations of the best threads and findings</li>
+                    <li><strong>Cross-Platform Attribution:</strong> When community research informs Ali's content, acknowledge it collectively</li>
+                    <li><strong>Avoid Leaderboards:</strong> Don't gamify participation with message counts or rankings—quality matters, not quantity</li>
+                    <li><strong>Feature Anonymous Contributions:</strong> Sometimes share great insights without attributing them to specific users</li>
+                </ul>
+            </div>
+            
+            <h3>🚫 Anti-Patterns: What to Avoid</h3>
+            
+            <p>Understanding what <strong>not</strong> to do is as important as knowing best practices.</p>
+            
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>❌ Anti-Pattern (Degrades Community)</th>
+                        <th>✅ Better Approach (Builds Scenius)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="bad">Heated real-time debates in main channels</td>
+                        <td class="good">Thread-based discussions with time to research</td>
+                    </tr>
+                    <tr>
+                        <td class="bad">"Hot take" culture and performative posting</td>
+                        <td class="good">Evidence-first analysis with cited sources</td>
+                    </tr>
+                    <tr>
+                        <td class="bad">Attention-seeking behavior and main character syndrome</td>
+                        <td class="good">Contribution-seeking behavior focused on collective knowledge</td>
+                    </tr>
+                    <tr>
+                        <td class="bad">Flooding channels with short, rapid-fire messages</td>
+                        <td class="good">Consolidated, thoughtful messages in threads</td>
+                    </tr>
+                    <tr>
+                        <td class="bad">Parasocial dynamics and hero worship</td>
+                        <td class="good">Peer-to-peer knowledge sharing and collaboration</td>
+                    </tr>
+                    <tr>
+                        <td class="bad">Treating the server as a social media feed</td>
+                        <td class="good">Treating the server as a research workspace</td>
+                    </tr>
+                    <tr>
+                        <td class="bad">Demanding Ali's attention or validation</td>
+                        <td class="good">Contributing to collective research Ali can draw from</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h3>📊 Measuring Healthy Engagement</h3>
+            
+            <p>Unlike traditional metrics, scenius-driven communities measure different success indicators:</p>
+            
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-title">📈 Healthy Metrics</div>
+                    <ul>
+                        <li><strong>Thread Depth:</strong> Number of substantive responses per thread</li>
+                        <li><strong>Source Density:</strong> Percentage of messages that include citations</li>
+                        <li><strong>Cross-Pollination:</strong> How often members reference each other's research</li>
+                        <li><strong>Knowledge Synthesis:</strong> Frequency of "breakthrough" moments</li>
+                        <li><strong>Deep Contributor Retention:</strong> Long-term engagement of research-focused members</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <div class="card-title">⚠️ Unhealthy Metrics</div>
+                    <ul>
+                        <li><strong>Raw Message Count:</strong> Volume without substance</li>
+                        <li><strong>User Rankings:</strong> Creates competition instead of collaboration</li>
+                        <li><strong>Reaction Farming:</strong> Optimizing for likes instead of insight</li>
+                        <li><strong>Engagement Rate:</strong> Can reward low-quality, reactive content</li>
+                        <li><strong>Daily Active Users:</strong> Presence doesn't equal contribution</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="callout callout-warning">
+                <div class="callout-title">⚡ Engagement Warning</div>
+                <p><strong>High message volume does NOT equal healthy engagement.</strong> A quiet server with deep, researched threads is healthier than a chaotic server with hundreds of shallow messages. <strong>Optimize for insight density, not activity metrics.</strong></p>
+            </div>
+            
+            <h3>📅 Seasonal Engagement Rhythms</h3>
+            
+            <p>Create predictable patterns that members can anticipate and participate in:</p>
+            
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-title">📅 Weekly Rhythms</div>
+                    <ul>
+                        <li><strong>Monday:</strong> "What are you investigating this week?"</li>
+                        <li><strong>Wednesday:</strong> Mid-week research check-in and cross-pollination</li>
+                        <li><strong>Friday:</strong> Weekly research roundup highlighting best threads</li>
+                        <li><strong>Weekend:</strong> Lighter content, glimmers, and community connection</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <div class="card-title">📆 Monthly & Quarterly</div>
+                    <ul>
+                        <li><strong>Monthly Deep Dives:</strong> Community-selected topics for concentrated research</li>
+                        <li><strong>Monthly Digest:</strong> Compilation of best threads and findings</li>
+                        <li><strong>Quarterly Reviews:</strong> Reflect on collective learning and discoveries</li>
+                        <li><strong>Annual Archive:</strong> Year's most significant research contributions</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h3>🎯 Case Studies: Learning from Success</h3>
+            
+            <div class="strategy-card">
+                <div class="strategy-title">The Midjourney Model: Product as Community</div>
+                <p>Midjourney built its entire user interface within Discord, creating a massive collaborative learning environment. Key lessons:</p>
+                <ul>
+                    <li><strong>Transparency breeds learning:</strong> Public channels let users see each other's work and methods</li>
+                    <li><strong>Real-time feedback loops:</strong> Immediate results create addictive engagement</li>
+                    <li><strong>Community as feature:</strong> The platform became indispensable because of social dynamics</li>
+                </ul>
+                <p><strong>Application to our server:</strong> Make research visible. Let members see how others investigate topics. Create feedback loops where research leads to insights leads to more research.</p>
+            </div>
+            
+            <div class="strategy-card">
+                <div class="strategy-title">Brand Communities: Beyond Transactions</div>
+                <p>Nike, Chipotle, and Adobe successfully moved beyond transactional marketing to genuine community:</p>
+                <ul>
+                    <li><strong>Offer exclusivity and tangible value:</strong> Early access, special content, genuine insider knowledge</li>
+                    <li><strong>Treat servers as dedicated spaces for advocates:</strong> Not another advertising channel</li>
+                    <li><strong>Create collaboration opportunities:</strong> Let passionate members contribute meaningfully</li>
+                </ul>
+                <p><strong>Application to our server:</strong> The Newsroom offers exclusive research. Members get insider analysis. Contributors shape the research agenda through collective inquiry.</p>
+            </div>
+            
+            <div class="strategy-card">
+                <div class="strategy-title">Discord's Growth Strategy: Supernode Theory</div>
+                <p>Discord grew by targeting "supernodes"—natural community leaders who bring entire communities with them:</p>
+                <ul>
+                    <li><strong>Win over leaders, gain communities:</strong> Raid leaders, streamers, influential researchers</li>
+                    <li><strong>Empower ambassadors:</strong> Give enthusiastic members tools to spread the word</li>
+                    <li><strong>Authentic word-of-mouth:</strong> Let quality speak for itself</li>
+                </ul>
+                <p><strong>Application to our server:</strong> Identify natural connectors in the community. Empower them to invite like-minded researchers. Quality growth over rapid growth.</p>
+            </div>
+        </section>
+
+        <!-- Platform Governance Section -->
+        <section id="governance">
+            <h2>⚖️ Platform Governance: Discord's Foundation</h2>
+            
+            <p>Understanding Discord's foundational governance is essential for sustainable community management. This legal and ethical framework serves as the non-negotiable bedrock upon which all server-specific rules are built.</p>
+            
+            <div class="callout callout-danger">
+                <div class="callout-title">🚨 Critical Understanding</div>
+                <p>A failure to comprehend and adhere to Discord's platform governance exposes a community and its members to platform-level enforcement actions, including account and server suspension. <strong>Server rules cannot contradict Discord's policies.</strong></p>
+            </div>
+            
+            <h3>📜 The Discord Compact: Two-Tiered Governance</h3>
+            
+            <p>Every user operates within two layers of governance:</p>
+            
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-title">⚖️ Terms of Service (ToS)</div>
+                    <p><strong>The legally binding contract</strong> governing platform use. Establishes absolute minimum requirements.</p>
+                    <h4>Key Mandates:</h4>
+                    <ul>
+                        <li><strong>Age:</strong> Must be 13+ and meet digital consent age in your country</li>
+                        <li><strong>Account Responsibility:</strong> You're responsible for all account activity</li>
+                        <li><strong>No Account Transfer:</strong> Selling/lending accounts is prohibited</li>
+                        <li><strong>No Platform Harm:</strong> No cheats, hacks, scraping, or DDoS attacks</li>
+                        <li><strong>No Illegal Activity:</strong> Don't use Discord to plan or commit crimes</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <div class="card-title">🛡️ Community Guidelines</div>
+                    <p><strong>Behavioral standards</strong> defining acceptable content and conduct. Used by Trust & Safety for moderation.</p>
+                    <h4>Core Themes:</h4>
+                    <ul>
+                        <li><strong>Respect & Safety:</strong> No harassment, threats, or doxxing</li>
+                        <li><strong>Hateful Conduct:</strong> No attacks based on protected characteristics</li>
+                        <li><strong>Child Safety:</strong> Zero tolerance for CSAM or grooming</li>
+                        <li><strong>Authenticity:</strong> No misinformation causing harm, impersonation, or spam</li>
+                        <li><strong>Intellectual Property:</strong> Respect copyright and DMCA</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h3>⚠️ Discord Warning System</h3>
+            
+            <p>Discord employs a <strong>progressive disciplinary system</strong> that considers violation severity:</p>
+            
+            <div class="governance-box">
+                <h4>Account Status Tiers</h4>
+                <ol>
+                    <li><strong>All Good:</strong> No active violations</li>
+                    <li><strong>Limited:</strong> Temporary loss of some features (e.g., can't post images)</li>
+                    <li><strong>Very Limited:</strong> More extensive restrictions for longer duration</li>
+                    <li><strong>At Risk:</strong> Further violations may result in permanent suspension</li>
+                    <li><strong>Permanent Suspension:</strong> Complete loss of Discord access</li>
+                </ol>
+            </div>
+            
+            <div class="callout callout-danger">
+                <div class="callout-title">🚨 Severity Override</div>
+                <p><strong>A single egregious violation</strong> (especially concerning child safety) can bypass all lower tiers and result in immediate permanent suspension. This is NOT a "three strikes" system.</p>
+            </div>
+            
+            <h3>🔒 Privacy and Data</h3>
+            
+            <div class="callout callout-info">
+                <div class="callout-title">💰 Discord's Business Model</div>
+                <p>Discord is funded through <strong>subscriptions and paid products</strong>, not by selling user data to third parties. Key privacy points:</p>
+                <ul>
+                    <li>Messages are stored as directed by users</li>
+                    <li>Content is monitored for ToS/Guidelines violations</li>
+                    <li>CSAM is actively detected and reported to NCMEC</li>
+                    <li>Your data is not sold to advertisers or data brokers</li>
+                </ul>
+            </div>
+            
+            <h3>🏗️ From Guidelines to Guardrails: Crafting Server Rules</h3>
+            
+            <p>Server rules must harmonize with Discord's policies while creating specific cultural norms. This is an act of <strong>social architecture</strong>.</p>
+            
+            <div class="strategy-card">
+                <div class="strategy-title">Technical vs. Cultural Rules</div>
+                <p>The most effective rule sets build a specific type of social environment:</p>
+                
+                <h4>Technical Rules (Platform Requirements):</h4>
+                <ul>
+                    <li>"No spam" - enforces functionality</li>
+                    <li>"No harassment" - platform requirement</li>
+                    <li>"No illegal content" - legal compliance</li>
+                </ul>
+                
+                <h4>Cultural Rules (Community Values):</h4>
+                <ul>
+                    <li>"No short-breath messages" - cultivates thoughtful communication</li>
+                    <li>"No elitism" - creates inclusive atmosphere</li>
+                    <li>"Evidence-first debate" - promotes research culture</li>
+                    <li>"No parasocial boundary violations" - maintains professional newsroom atmosphere</li>
+                </ul>
+                
+                <p><strong>Our approach:</strong> We reverse-engineer rules from our cultural vision of scenius. Every rule serves the goal of collective intelligence.</p>
+            </div>
+            
+            <h3>📋 Core Rule Requirements</h3>
+            
+            <p>At minimum, server rules must:</p>
+            
+            <ol>
+                <li><strong>Explicitly uphold Discord's prohibitions</strong> (harassment, hate speech, doxxing, illegal content)</li>
+                <li><strong>Define content expectations</strong> (on-topic vs. off-topic, stance on politics/religion)</li>
+                <li><strong>Establish behavioral norms</strong> (no trolling, respect moderators, no punishment evasion)</li>
+                <li><strong>Set profile standards</strong> (appropriate nicknames, avatars, custom statuses)</li>
+            </ol>
+            
+            <div class="callout callout-warning">
+                <div class="callout-title">⚖️ Governance Philosophy</div>
+                <p>Server-level rules are the <strong>first line of defense and cultural curation</strong>. Failure to self-moderate effectively invites platform-level intervention from Discord's Trust & Safety team. <strong>Thoughtful rule-making is both community management and risk management.</strong></p>
+            </div>
+        </section>
+
+        <!-- Advanced Moderation Section -->
+        <section id="moderation">
+            <h2>🛡️ Advanced Moderation: The Sentinel's Handbook</h2>
+            
+            <p>This section addresses the most demanding aspect of community leadership: <strong>moderation of high-stakes and sensitive conversations</strong>. Effective moderation requires proactive environmental design, advanced tooling, and nuanced human intervention.</p>
+            
+            <div class="callout callout-info">
+                <div class="callout-title">👥 Audience for This Section</div>
+                <p>While this section is primarily for moderators and community architects, <strong>all members benefit from understanding how moderation works</strong>. Transparency builds trust, and knowing the "why" behind moderation helps everyone contribute to a healthy community.</p>
+            </div>
+            
+            <h3>🏗️ Building the Moderation Engine</h3>
+            
+            <p>A robust moderation framework is built on three pillars:</p>
+            
+            <div class="grid-3">
+                <div class="card">
+                    <div class="card-title">👥 Human Team</div>
+                    <p>Well-trained moderators from active, mature, level-headed community members</p>
+                </div>
+                
+                <div class="card">
+                    <div class="card-title">📋 Clear Protocols</div>
+                    <p>Consistent enforcement models and documented procedures</p>
+                </div>
+                
+                <div class="card">
+                    <div class="card-title">🤖 Technical Tools</div>
+                    <p>AutoMod, audit logs, and specialized bots</p>
+                </div>
+            </div>
+            
+            <h3>👥 The Human Element: Team and Protocols</h3>
+            
+            <div class="strategy-card">
+                <div class="strategy-title">Building the Moderation Team</div>
+                
+                <h4>Ideal Moderator Qualities:</h4>
+                <ul>
+                    <li><strong>Active participation:</strong> Regular presence and understanding of community culture</li>
+                    <li><strong>Mature judgment:</strong> Can remain calm under pressure and make nuanced decisions</li>
+                    <li><strong>Level-headed:</strong> Doesn't take things personally or escalate conflicts</li>
+                    <li><strong>Strong rule comprehension:</strong> Deeply understands both Discord's and server's rules</li>
+                    <li><strong>Communication skills:</strong> Can de-escalate and explain decisions clearly</li>
+                </ul>
+                
+                <h4>Hierarchy Structure:</h4>
+                <ul>
+                    <li><strong>Moderators:</strong> Focus on enforcing rules in chat, managing day-to-day issues</li>
+                    <li><strong>Senior Moderators:</strong> Handle appeals, train new mods, manage complex situations</li>
+                    <li><strong>Administrators:</strong> Broader responsibilities for server structure and staff management</li>
+                    <li><strong>Head of Community Safety (Tom):</strong> Oversees all moderation activities and final escalations</li>
+                </ul>
+            </div>
+            
+            <h3>⚖️ Enforcement Models</h3>
+            
+            <p>Consistency is the cornerstone of perceived fairness. Choose a model that fits your community:</p>
+            
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Model</th>
+                        <th>Description</th>
+                        <th>Pros</th>
+                        <th>Cons</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Case-by-Case</strong></td>
+                        <td>Highly flexible, tailored punishments based on context and severity</td>
+                        <td>Nuanced, can account for intent and circumstances</td>
+                        <td>Can lead to perceived inconsistency</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Infraction-Based</strong></td>
+                        <td>"Three strikes" system with escalating punishments</td>
+                        <td>Highly accountable and predictable</td>
+                        <td>Lacks nuance, treats minor and major infractions equally</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Points-Based</strong></td>
+                        <td>Each violation assigned points; accumulated points trigger punishments</td>
+                        <td>Balanced flexibility and structure</td>
+                        <td>More complex to implement and track</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="callout callout-success">
+                <div class="callout-title">🎯 Our Approach</div>
+                <p>We use a <strong>hybrid model</strong> combining case-by-case judgment with documented guidelines. Severity matters: a single egregious violation can result in immediate ban, while minor infractions get warnings with increasing consequences.</p>
+            </div>
+            
+            <h3>🤖 Technical Toolkit: Discord's Native Features</h3>
+            
+            <div class="strategy-card">
+                <div class="strategy-title">AutoMod: Proactive Content Filtering</div>
+                <p>Discord's native, automated content filtering system. It blocks harmful content <strong>before it's even posted</strong>.</p>
+                
+                <h4>Key Features:</h4>
+                <ul>
+                    <li><strong>Keyword Filters:</strong> Block specific words/phrases using pre-made lists (insults, sexual content, profanity) or custom lists with wildcard support</li>
+                    <li><strong>Spam Filters:</strong> Detect and block spam content or excessive @mentions</li>
+                    <li><strong>Configurable Responses:</strong> Block message, alert moderators, and/or auto-timeout the user</li>
+                </ul>
+                
+                <h4>Best Practices:</h4>
+                <ul>
+                    <li>Start conservative, add filters based on actual problems</li>
+                    <li>Review AutoMod alerts regularly to catch false positives</li>
+                    <li>Use wildcard filters carefully (hate* catches "hateful" but also "Hatteras")</li>
+                    <li>Combine AutoMod with human review for nuanced situations</li>
+                </ul>
+            </div>
+            
+            <div class="strategy-card">
+                <div class="strategy-title">Audit Log: Accountability & Investigation</div>
+                <p>Located in Server Settings, the <strong>Audit Log is an immutable record</strong> of all significant administrative actions.</p>
+                
+                <h4>What It Tracks:</h4>
+                <ul>
+                    <li>Message deletions (who deleted, when, where)</li>
+                    <li>Member kicks/bans (who issued, reason given)</li>
+                    <li>Role creations/modifications</li>
+                    <li>Channel edits and permission changes</li>
+                    <li>Server settings modifications</li>
+                </ul>
+                
+                <h4>Uses:</h4>
+                <ul>
+                    <li><strong>Accountability:</strong> Track moderator actions</li>
+                    <li><strong>Investigation:</strong> Understand what happened during incidents</li>
+                    <li><strong>Training:</strong> Review decisions with team members</li>
+                    <li><strong>Appeals:</strong> Verify facts when members appeal</li>
+                </ul>
+            </div>
+            
+            <h3>🎯 Moderating High-Stakes Conversations</h3>
+            
+            <p>Managing sensitive topics like politics requires <strong>architectural design, not just enforcement</strong>.</p>
+            
+            <div class="strategy-card">
+                <div class="strategy-title">Architecting Space for Constructive Debate</div>
+                
+                <h4>1. Containment and Consent</h4>
+                <p>Isolate sensitive discussions into specific, <strong>opt-in channels</strong>. This respects member agency and prevents server-wide contamination.</p>
+                
+                <h4>2. Enhanced Rules of Engagement</h4>
+                <p>Within dedicated channels, implement stricter rules:</p>
+                <ul>
+                    <li><strong>Require sources for factual claims</strong> - "citation needed" is enforced</li>
+                    <li><strong>Prohibit logical fallacies</strong> - ad hominem, straw man, whataboutism banned</li>
+                    <li><strong>Mandate steel-manning</strong> - must restate opponent's argument charitably before rebuttal</li>
+                    <li><strong>Evidence-first debate</strong> - opinions must be supported by data</li>
+                </ul>
+                
+                <h4>3. Slowing the Pace: Slow Mode</h4>
+                <p>Discord's <strong>Slow Mode</strong> is exceptionally powerful for heated discussions. By imposing delays (15-30 seconds) between messages, it:</p>
+                <ul>
+                    <li>Disrupts rapid-fire, reactive arguments</li>
+                    <li>Forces participants to be more deliberate</li>
+                    <li>Reduces emotional escalation</li>
+                    <li>Increases thoughtfulness and reduces volume</li>
+                </ul>
+            </div>
+            
+            <h3>🕊️ The Moderator as Facilitator: De-escalation</h3>
+            
+            <p>When conflicts arise, moderators must act as <strong>neutral facilitators</strong>, not police. This requires specific skills adapted for text-based communication.</p>
+            
+            <div class="strategy-card">
+                <div class="strategy-title">De-escalation Techniques</div>
+                
+                <h4>Core Principles:</h4>
+                <ul>
+                    <li><strong>Remain calm:</strong> Your tone sets the temperature</li>
+                    <li><strong>Use neutral language:</strong> Avoid accusatory or judgmental words</li>
+                    <li><strong>Demonstrate empathy:</strong> Acknowledge feelings without condoning behavior</li>
+                    <li><strong>Practice active listening:</strong> Show you understand before responding</li>
+                </ul>
+                
+                <h4>Practical Application:</h4>
+                
+                <p><strong>❌ Reactive (Bad):</strong></p>
+                <pre style="background: var(--bg-code); color: #ed4245; padding: 0.5rem;">@user Stop being toxic or you're banned.</pre>
+                
+                <p><strong>✅ Responsive (Good):</strong></p>
+                <pre style="background: var(--bg-code); color: #57F287; padding: 0.5rem;">I'm seeing this conversation becoming heated. Let's all take a moment to refocus on the topic, not on each other. Remember our rules about attacking ideas, not individuals.</pre>
+                
+                <h4>Specific Techniques:</h4>
+                <ul>
+                    <li><strong>Respond, Don't React:</strong> Pause and assess before intervening publicly</li>
+                    <li><strong>Validate Feelings, Not Behavior:</strong> "I understand you feel strongly about this, but personal attacks violate our conduct rules"</li>
+                    <li><strong>Redirect and Reframe:</strong> "We may not agree on solutions, but can we agree the problem matters? Let's explore that"</li>
+                    <li><strong>Strategic Disengagement:</strong> "This discussion is no longer productive and is now closed. Please move on to other topics"</li>
+                </ul>
+            </div>
+            
+            <h3>🚨 Crisis Management Protocols</h3>
+            
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-title">🚨 Responding to Raids</div>
+                    <p>Coordinated spam and harassment campaigns</p>
+                    <h4>Immediate Actions:</h4>
+                    <ul>
+                        <li>Temporarily increase Verification Level</li>
+                        <li>Enable Slow Mode in all channels</li>
+                        <li>Deploy anti-raid bots</li>
+                        <li>Execute lockdown procedure</li>
+                        <li>Ban attackers and delete content</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <div class="card-title">🔒 Doxxing & Severe Harassment</div>
+                    <p>Critical violations of Discord ToS</p>
+                    <h4>Immediate Actions:</h4>
+                    <ul>
+                        <li>Ban offender immediately</li>
+                        <li>Delete all offending content</li>
+                        <li>Screenshot evidence</li>
+                        <li>Report to Discord Trust & Safety</li>
+                        <li>Support victim, provide resources</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="callout callout-danger">
+                <div class="callout-title">🚨 Escalating to Discord Trust & Safety</div>
+                <p>Server moderators should NOT handle illegal activity or credible violence threats alone.</p>
+                
+                <h4>When to Escalate:</h4>
+                <ul>
+                    <li>Child safety violations (CSAM, grooming)</li>
+                    <li>Credible threats of violence or terrorism</li>
+                    <li>Doxxing with malicious intent</li>
+                    <li>Coordinated harassment campaigns</li>
+                    <li>Any illegal activity</li>
+                </ul>
+                
+                <h4>How to Report Effectively:</h4>
+                <ol>
+                    <li>Enable <strong>Developer Mode</strong> (User Settings → Advanced → Developer Mode)</li>
+                    <li>Right-click users/messages/servers to <strong>copy IDs</strong></li>
+                    <li>Screenshot evidence with context</li>
+                    <li>Submit report with all IDs and screenshots</li>
+                    <li>Preserve evidence locally in case it's deleted</li>
+                </ol>
+            </div>
+            
+            <h3>⚖️ The Human-Machine Partnership</h3>
+            
+            <div class="callout callout-success">
+                <div class="callout-title">🤝 Optimal Moderation Strategy</div>
+                <p>The most effective moderation is a <strong>human-machine partnership</strong>:</p>
+                <ul>
+                    <li><strong>Automated tools (AutoMod, bots):</strong> Handle high-volume, low-nuance work (spam filtering, common slurs, link moderation)</li>
+                    <li><strong>Human moderators:</strong> Focus on high-impact, high-nuance situations requiring empathy, context, and judgment</li>
+                </ul>
+                <p>This division prevents human burnout while ensuring complex situations get the attention they deserve. <strong>Machines filter; humans facilitate.</strong></p>
+            </div>
+            
+            <h3>📚 Moderation Resources</h3>
+            
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-title">For New Moderators</div>
+                    <ul>
+                        <li>Shadow experienced mods for 2 weeks</li>
+                        <li>Study the Audit Log to understand patterns</li>
+                        <li>Practice de-escalation in low-stakes situations</li>
+                        <li>Ask questions in mod-only channels</li>
+                        <li>Review appealed decisions to learn nuance</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <div class="card-title">For Experienced Moderators</div>
+                    <ul>
+                        <li>Document your decision-making process</li>
+                        <li>Mentor new moderators</li>
+                        <li>Contribute to policy discussions</li>
+                        <li>Take breaks to avoid burnout</li>
+                        <li>Seek peer review on difficult calls</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Conclusion Section -->
+        <section id="conclusion">
+            <h2>🎓 Conclusion: The Art of Community Architecture</h2>
+            
+            <p>Discord is far more than a simple chat application—it is a <strong>sophisticated and modular platform for building and managing complex digital communities</strong>. Creating a successful, engaged, and safe server is an act of <strong>deliberate architecture</strong>, requiring both technical mastery and nuanced understanding of social dynamics.</p>
+            
+            <h3>🏛️ Core Principles for Community Architects</h3>
+            
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-title">1. Governance is Layered</div>
+                    <p>Server rules exist within Discord's Terms of Service and Community Guidelines. Understanding and enforcing platform-wide standards is the baseline for mitigating risk.</p>
+                </div>
+                
+                <div class="card">
+                    <div class="card-title">2. Architecture Precedes Engagement</div>
+                    <p>The structure of your server—channels, roles, permissions—is the primary mechanism for shaping culture and guiding behavior. Design spaces, don't just police them.</p>
+                </div>
+                
+                <div class="card">
+                    <div class="card-title">3. Engagement is a System</div>
+                    <p>Vibrant communities result from interconnected engines: onboarding, recurring events, recognition systems, and reward structures working in concert.</p>
+                </div>
+                
+                <div class="card">
+                    <div class="card-title">4. Moderation is Partnership</div>
+                    <p>Optimal moderation combines automation (high-volume, low-nuance) with human judgment (high-impact, high-nuance) to prevent burnout while maintaining quality.</p>
+                </div>
+            </div>
+            
+            <h3>🎯 The Scenius Commitment</h3>
+            
+            <div class="callout callout-info">
+                <div class="callout-title">Our Collective Vision</div>
+                <p>The alimcforever Discord server is not just a community—it's an <strong>experiment in collective intelligence</strong>. By prioritizing scenius over genius, research over reaction, and collaboration over celebrity, we're building something rare: a digital space where knowledge compounds through shared inquiry.</p>
+                <p>This requires:</p>
+                <ul>
+                    <li><strong>Active participation:</strong> Contribute research, ask good questions, challenge assumptions</li>
+                    <li><strong>Thoughtful communication:</strong> Use threads, cite sources, format messages well</li>
+                    <li><strong>Cultural maintenance:</strong> Call out anti-patterns, model best practices, welcome newcomers</li>
+                    <li><strong>Mutual respect:</strong> Assume good faith, validate feelings, focus on ideas</li>
+                </ul>
+            </div>
+            
+            <h3>📈 Growth Philosophy</h3>
+            
+            <p>We prioritize <strong>quality growth over rapid growth</strong>. Better to have 100 engaged researchers than 10,000 passive lurkers. Our growth strategy:</p>
+            
+            <ul>
+                <li><strong>Supernode Theory:</strong> Win over natural community leaders who bring entire networks</li>
+                <li><strong>Value-First:</strong> Deliver tangible value through research, analysis, and exclusive content</li>
+                <li><strong>Organic Advocacy:</strong> Let quality speak for itself through member recommendations</li>
+                <li><strong>Selective Invitation:</strong> Members can invite like-minded researchers who fit the culture</li>
+            </ul>
+            
+            <h3>🔮 Future Development</h3>
+            
+            <p>The server continues to evolve based on community needs and emerging best practices:</p>
+            
+            <div class="grid-3">
+                <div class="card">
+                    <div class="card-title">📊 Planned Features</div>
+                    <ul>
+                        <li>Video Index (comprehensive catalog)</li>
+                        <li>Research collaboration tools</li>
+                        <li>Advanced search functionality</li>
+                        <li>Member contribution archives</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <div class="card-title">🌍 Regional Expansion</div>
+                    <ul>
+                        <li>New country channels by demand</li>
+                        <li>City-specific sub-channels</li>
+                        <li>Regional research projects</li>
+                        <li>Local meetup coordination</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <div class="card-title">🎓 Educational Resources</div>
+                    <ul>
+                        <li>Research methodology guides</li>
+                        <li>Source verification training</li>
+                        <li>Media literacy workshops</li>
+                        <li>Community skill-sharing</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="callout callout-success">
+                <div class="callout-title">🚀 Join the Experiment</div>
+                <p>Whether you're a casual observer or deep researcher, there's a place for you in this digital newsroom. The only requirement is <strong>intellectual honesty and genuine curiosity</strong>.</p>
+                <p>We're building the future of collaborative knowledge—one thread, one source, one insight at a time.</p>
+            </div>
+        </section>
+
+        <!-- Quick Reference Section -->
+        <section id="quick-reference">
+            <h2>⚡ Quick Reference Guide</h2>
+            
+            <p>Need something fast? Here's your cheat sheet for common tasks and questions.</p>
+            
+            <h3>🆘 Common Issues & Solutions</h3>
+            
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Issue</th>
+                        <th>Solution</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Can't see certain channels</td>
+                        <td>Go to Channels & Roles and opt into categories. Select your home country.</td>
+                    </tr>
+                    <tr>
+                        <td>Too many notifications</td>
+                        <td>Right-click channels → Mute. Set server to "Only @mentions" in Notification Settings.</td>
+                    </tr>
+                    <tr>
+                        <td>Can't find a past message</td>
+                        <td>Use Ctrl+K (Cmd+K) to search. Try filters like <code>from:username</code> or <code>has:link</code></td>
+                    </tr>
+                    <tr>
+                        <td>Want to report an issue</td>
+                        <td>Use #support-and-feedback channel or tag @moderators for urgent issues.</td>
+                    </tr>
+                    <tr>
+                        <td>Don't know where to post</td>
+                        <td>Check channel descriptions. When in doubt, ask in #support-and-feedback.</td>
+                    </tr>
+                    <tr>
+                        <td>Thread got buried</td>
+                        <td>Pin important threads, or ask mods to pin them. Follow threads to get notifications.</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h3>⌨️ Essential Keyboard Shortcuts</h3>
+            
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-title">🖥️ Desktop Shortcuts</div>
+                    <ul>
+                        <li><code>Ctrl+K</code> / <code>Cmd+K</code> - Quick Switcher & Search</li>
+                        <li><code>Ctrl+Shift+T</code> / <code>Cmd+Shift+T</code> - Create Thread</li>
+                        <li><code>Ctrl+/</code> / <code>Cmd+/</code> - View all shortcuts</li>
+                        <li><code>Ctrl+I</code> / <code>Cmd+I</code> - Toggle italic</li>
+                        <li><code>Ctrl+B</code> / <code>Cmd+B</code> - Toggle bold</li>
+                        <li><code>↑</code> (in chat) - Edit last message</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <div class="card-title">📱 Mobile Gestures</div>
+                    <ul>
+                        <li>Swipe right on message - Quick reply</li>
+                        <li>Long press message - More options</li>
+                        <li>Swipe left in channel list - Mark as read</li>
+                        <li>Pull down in channel - Jump to recent</li>
+                        <li>Tap user avatar - View profile</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h3>📋 Markdown Quick Reference</h3>
+            
+            <pre style="background: var(--bg-code); color: #f8f8f2; padding: 1rem; border-radius: var(--radius);">**bold**                  → bold text
+*italic*                 → italic text
+__underline__            → underlined text
+~~strikethrough~~        → strikethrough text
+
+# Header 1               → Large header
+## Header 2              → Medium header
+### Header 3             → Small header
+
+> quote                  → Block quote
+>>> multi-line quote     → Multi-line quote
+
+`code`                   → Inline code
+```code block```         → Multi-line code block
+```python code```        → Syntax highlighted code
+
+||spoiler||              → Hidden spoiler text
+
+* Bullet point           → Unordered list
+1. Numbered point        → Ordered list</pre>
+            
+            <h3>🔗 Important Links</h3>
+            
+            <div class="grid-3">
+                <div class="card">
+                    <div class="card-title">🔗 Server Resources</div>
+                    <ul>
+                        <li><a href="https://discord.gg/alimcforever" target="_blank">Server Invite</a></li>
+                        <li><a href="#rules">Community Rules</a></li>
+                        <li><a href="#channels">Channel Guide</a></li>
+                        <li><a href="#getting-started">Setup Guide</a></li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <div class="card-title">📚 Learning Resources</div>
+                    <ul>
+                        <li><a href="#markdown">Markdown Guide</a></li>
+                        <li><a href="#discord-tips">Discord Tips</a></li>
+                        <li><a href="#engagement">Engagement Strategies</a></li>
+                        <li><a href="#governance">Platform Governance</a></li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <div class="card-title">🛡️ Safety & Support</div>
+                    <ul>
+                        <li><a href="#safety">Safety & Moderation</a></li>
+                        <li><a href="https://support.discord.com" target="_blank">Discord Support</a></li>
+                        <li><a href="https://discord.com/safety" target="_blank">Trust & Safety</a></li>
+                        <li>In-server: #support-and-feedback</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <h3 style="margin-bottom: 1rem;">alimcforever Discord Server</h3>
+            <p><strong>A Digital Newsroom for Collective Thinking & Research</strong></p>
+            <p style="margin: 1rem 0;">Built on the principle of scenius over genius</p>
+            
+            <div style="margin: 2rem 0; padding: 1rem; background: var(--bg-tertiary); border-radius: var(--radius);">
+                <p style="margin: 0;"><strong>📖 Guide Version:</strong> 1.0.0 | <strong>Last Updated:</strong> October 2025</p>
+                <p style="margin: 0.5rem 0 0 0;"><strong>Platform:</strong> Discord | <strong>Framework:</strong> Community Architecture Best Practices</p>
+            </div>
+            
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 1rem;">
+                This guide synthesizes platform governance principles from Discord's official documentation,<br>
+                community management best practices from "The Architect's Guide to Discord,"<br>
+                and the operational framework of the alimcforever community.
+            </p>
+            
+            <p style="margin-top: 2rem;">
+                <a href="https://discord.gg/alimcforever" target="_blank" style="color: var(--primary); font-weight: 600;">Join Our Server</a> | 
+                <a href="#quick-start" style="color: var(--primary); font-weight: 600;">Quick Start</a> | 
+                <a href="#support" style="color: var(--primary); font-weight: 600;">Get Support</a>
+            </p>
+            
+            <p style="margin-top: 2rem; font-size: 0.85rem;">
+                <strong>Disclaimer:</strong> This guide represents operational documentation and community values.<br>
+                Content does not constitute official statements from alimcforever© CIC or affiliated organizations.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile navigation toggle
+        function toggleNav() {
+            const navGrid = document.getElementById('navGrid');
+            const navToggle = document.querySelector('.nav-toggle');
+            navGrid.classList.toggle('active');
+            navToggle.classList.toggle('active');
+        }
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    // Close mobile nav if open
+                    if (window.innerWidth <= 768) {
+                        const navGrid = document.getElementById('navGrid');
+                        const navToggle = document.querySelector('.nav-toggle');
+                        navGrid.classList.remove('active');
+                        navToggle.classList.remove('active');
+                    }
+                }
+            });
+        });
+
+        // Auto-close mobile nav when clicking outside
+        document.addEventListener('click', function(e) {
+            if (window.innerWidth <= 768) {
+                const nav = document.querySelector('nav');
+                const navToggle = document.querySelector('.nav-toggle');
+                const navGrid = document.getElementById('navGrid');
+                
+                if (!nav.contains(e.target) && navGrid.classList.contains('active')) {
+                    navGrid.classList.remove('active');
+                    navToggle.classList.remove('active');
+                }
+            }
+        });
+
+        // Add scroll progress indicator
+        window.addEventListener('scroll', function() {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            
+            // You could add a progress bar here if desired
+        });
+
+        // Highlight current section in navigation
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute('id');
+                    document.querySelectorAll('nav a').forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${id}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        }, {
+            rootMargin: '-20% 0px -35% 0px'
+        });
+
+        document.querySelectorAll('section[id]').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>

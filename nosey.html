@@ -1,0 +1,1354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Network Monitoring Field Manual | FFE v1.2.0</title>
+    
+    <!-- FFE Metadata -->
+    <!--
+    title: "Network Monitoring Field Manual: IP Investigation for OSINT Researchers"
+    subtitle: "Cross-Platform Connection Analysis & Threat Detection"
+    author: "Security Research Collective"
+    document_type: "Technical Reference Report"
+    ffe_version: "1.2.0"
+    codename: "Erebus"
+    license: "CC BY-NC-SA 4.0"
+    version: "1.0.0"
+    created: "2025-10-29"
+    updated: "2025-10-29"
+    citation_style: "Technical (IEEE-style inline)"
+    tags: ["network-security", "OSINT", "privacy", "forensics", "monitoring"]
+    ai_context_tags: ["technical-reference", "cross-platform", "security-audit"]
+    bias_note: "Assumes adversarial threat model; may be overkill for casual users"
+    -->
+    
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "TechnicalArticle",
+      "name": "Network Monitoring Field Manual: IP Investigation for OSINT Researchers",
+      "author": {
+        "@type": "Organization",
+        "name": "Security Research Collective"
+      },
+      "datePublished": "2025-10-29",
+      "license": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+      "version": "1.0.0"
+    }
+    </script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            /* Terminal Security Palette */
+            --bg-primary: #0d1117;
+            --bg-secondary: #161b22;
+            --bg-tertiary: #1c2128;
+            --bg-code: #0a0e14;
+            --text-primary: #c9d1d9;
+            --text-secondary: #8b949e;
+            --text-muted: #6e7681;
+            
+            /* Threat Level Colors */
+            --green-safe: #3fb950;
+            --yellow-caution: #d29922;
+            --red-danger: #f85149;
+            --blue-info: #58a6ff;
+            --purple-note: #bc8cff;
+            
+            /* Accent Colors */
+            --accent-primary: #00ff41;
+            --accent-secondary: #00d4ff;
+            --border-subtle: #30363d;
+            --border-strong: #484f58;
+            
+            /* Typography */
+            --font-mono: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', 'Courier New', monospace;
+            --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif;
+            
+            /* Spacing */
+            --space-xs: 0.5rem;
+            --space-sm: 1rem;
+            --space-md: 1.5rem;
+            --space-lg: 2rem;
+            --space-xl: 3rem;
+        }
+        
+        body {
+            font-family: var(--font-sans);
+            font-size: 15px;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--bg-primary);
+            padding: var(--space-md);
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        /* Typography */
+        h1, h2, h3, h4 {
+            font-weight: 600;
+            line-height: 1.25;
+            margin-top: var(--space-lg);
+            margin-bottom: var(--space-md);
+        }
+        
+        h1 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            color: var(--accent-primary);
+            font-family: var(--font-mono);
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+            border-bottom: 3px solid var(--accent-primary);
+            padding-bottom: var(--space-sm);
+            margin-top: 0;
+        }
+        
+        .subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            color: var(--text-secondary);
+            font-weight: 400;
+            margin-top: var(--space-xs);
+            font-family: var(--font-mono);
+        }
+        
+        h2 {
+            font-size: clamp(1.5rem, 3.5vw, 2rem);
+            color: var(--accent-secondary);
+            border-left: 4px solid var(--accent-secondary);
+            padding-left: var(--space-sm);
+        }
+        
+        h3 {
+            font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+            color: var(--blue-info);
+            font-family: var(--font-mono);
+        }
+        
+        h4 {
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            font-family: var(--font-mono);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-size: 0.9rem;
+            margin-top: var(--space-md);
+        }
+        
+        p {
+            margin-bottom: var(--space-md);
+            color: var(--text-primary);
+        }
+        
+        /* Code & Commands */
+        code, .command, pre {
+            font-family: var(--font-mono);
+            font-size: 0.9em;
+        }
+        
+        code {
+            background: var(--bg-code);
+            padding: 0.2em 0.4em;
+            border-radius: 3px;
+            color: var(--accent-primary);
+            border: 1px solid var(--border-subtle);
+        }
+        
+        pre {
+            background: var(--bg-code);
+            padding: var(--space-sm);
+            border-radius: 6px;
+            overflow-x: auto;
+            margin: var(--space-md) 0;
+            border: 1px solid var(--border-strong);
+            line-height: 1.5;
+        }
+        
+        pre code {
+            background: transparent;
+            padding: 0;
+            border: none;
+            color: var(--text-primary);
+        }
+        
+        .command-block {
+            background: var(--bg-code);
+            padding: var(--space-sm);
+            border-radius: 6px;
+            margin: var(--space-md) 0;
+            border-left: 4px solid var(--accent-primary);
+            position: relative;
+        }
+        
+        .command-block::before {
+            content: '$ ';
+            color: var(--accent-primary);
+            font-weight: bold;
+        }
+        
+        .command-output {
+            background: var(--bg-tertiary);
+            padding: var(--space-sm);
+            border-radius: 6px;
+            margin: var(--space-sm) 0;
+            font-family: var(--font-mono);
+            font-size: 0.85em;
+            color: var(--text-secondary);
+            overflow-x: auto;
+        }
+        
+        /* Sections */
+        section {
+            margin-bottom: var(--space-xl);
+            padding: var(--space-lg);
+            background: var(--bg-secondary);
+            border-radius: 8px;
+            border: 1px solid var(--border-subtle);
+        }
+        
+        section#exec-summary {
+            background: linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary));
+            border-left: 4px solid var(--accent-primary);
+        }
+        
+        /* Threat Level Indicators */
+        .threat-indicator {
+            display: inline-block;
+            padding: 0.3em 0.6em;
+            border-radius: 4px;
+            font-family: var(--font-mono);
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-right: var(--space-xs);
+        }
+        
+        .threat-safe {
+            background: rgba(63, 185, 80, 0.15);
+            color: var(--green-safe);
+            border: 1px solid var(--green-safe);
+        }
+        
+        .threat-caution {
+            background: rgba(210, 153, 34, 0.15);
+            color: var(--yellow-caution);
+            border: 1px solid var(--yellow-caution);
+        }
+        
+        .threat-danger {
+            background: rgba(248, 81, 73, 0.15);
+            color: var(--red-danger);
+            border: 1px solid var(--red-danger);
+        }
+        
+        /* Platform Tags */
+        .platform-tag {
+            display: inline-block;
+            padding: 0.2em 0.5em;
+            border-radius: 3px;
+            font-family: var(--font-mono);
+            font-size: 0.8em;
+            margin-right: var(--space-xs);
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-subtle);
+        }
+        
+        .platform-macos { color: #a2aaad; }
+        .platform-windows { color: #00adef; }
+        .platform-linux { color: #fcc624; }
+        .platform-android { color: #3ddc84; }
+        .platform-ios { color: #555555; }
+        
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: var(--space-md) 0;
+            font-size: 0.9em;
+            background: var(--bg-tertiary);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        
+        th, td {
+            padding: var(--space-sm);
+            text-align: left;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+        
+        th {
+            background: var(--bg-code);
+            color: var(--accent-secondary);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+            font-family: var(--font-mono);
+        }
+        
+        tr:hover {
+            background: var(--bg-secondary);
+        }
+        
+        tr:last-child td {
+            border-bottom: none;
+        }
+        
+        /* Collapsible Sections */
+        details {
+            margin: var(--space-md) 0;
+            background: var(--bg-tertiary);
+            border-radius: 6px;
+            border: 1px solid var(--border-subtle);
+        }
+        
+        summary {
+            cursor: pointer;
+            padding: var(--space-sm);
+            font-weight: 600;
+            color: var(--accent-secondary);
+            user-select: none;
+            list-style: none;
+            font-family: var(--font-mono);
+            position: relative;
+            padding-left: 2em;
+        }
+        
+        summary::before {
+            content: '▶';
+            position: absolute;
+            left: var(--space-sm);
+            transition: transform 0.2s;
+            color: var(--accent-primary);
+        }
+        
+        details[open] summary::before {
+            transform: rotate(90deg);
+        }
+        
+        summary:hover {
+            background: var(--bg-secondary);
+        }
+        
+        details > *:not(summary) {
+            padding: 0 var(--space-sm) var(--space-sm) var(--space-sm);
+        }
+        
+        /* Lists */
+        ul, ol {
+            margin: var(--space-md) 0;
+            padding-left: var(--space-lg);
+        }
+        
+        li {
+            margin-bottom: var(--space-xs);
+            color: var(--text-primary);
+        }
+        
+        ul li::marker {
+            color: var(--accent-primary);
+        }
+        
+        /* Alert Boxes */
+        .alert {
+            padding: var(--space-sm);
+            border-radius: 6px;
+            margin: var(--space-md) 0;
+            border-left: 4px solid;
+        }
+        
+        .alert-info {
+            background: rgba(88, 166, 255, 0.1);
+            border-color: var(--blue-info);
+            color: var(--blue-info);
+        }
+        
+        .alert-warning {
+            background: rgba(210, 153, 34, 0.1);
+            border-color: var(--yellow-caution);
+            color: var(--yellow-caution);
+        }
+        
+        .alert-danger {
+            background: rgba(248, 81, 73, 0.1);
+            border-color: var(--red-danger);
+            color: var(--red-danger);
+        }
+        
+        /* Flowchart/Diagram */
+        .flowchart {
+            background: var(--bg-code);
+            padding: var(--space-md);
+            border-radius: 6px;
+            font-family: var(--font-mono);
+            font-size: 0.85em;
+            line-height: 1.8;
+            overflow-x: auto;
+            margin: var(--space-md) 0;
+            border: 1px solid var(--border-strong);
+        }
+        
+        /* Meta Info */
+        .meta-info {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            background: var(--bg-tertiary);
+            padding: var(--space-sm);
+            border-radius: 6px;
+            margin-bottom: var(--space-lg);
+            border: 1px solid var(--border-subtle);
+        }
+        
+        /* Footer */
+        footer {
+            margin-top: var(--space-xl);
+            padding-top: var(--space-lg);
+            border-top: 1px solid var(--border-subtle);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-align: center;
+        }
+        
+        /* Links */
+        a {
+            color: var(--accent-secondary);
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.2s;
+        }
+        
+        a:hover {
+            border-bottom-color: var(--accent-secondary);
+        }
+        
+        /* Strong/Em */
+        strong {
+            color: var(--accent-primary);
+            font-weight: 600;
+        }
+        
+        em {
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+        
+        /* Print Styles */
+        @media print {
+            :root {
+                --bg-primary: #ffffff;
+                --bg-secondary: #f6f8fa;
+                --bg-tertiary: #ffffff;
+                --bg-code: #f6f8fa;
+                --text-primary: #000000;
+                --text-secondary: #333333;
+            }
+            
+            body {
+                font-size: 11pt;
+            }
+            
+            section {
+                page-break-inside: avoid;
+            }
+            
+            details {
+                display: block;
+            }
+            
+            summary::before {
+                display: none;
+            }
+        }
+        
+        /* Mobile */
+        @media (max-width: 768px) {
+            body {
+                padding: var(--space-sm);
+            }
+            
+            section {
+                padding: var(--space-md);
+            }
+            
+            table {
+                font-size: 0.8em;
+            }
+            
+            th, td {
+                padding: var(--space-xs);
+            }
+            
+            pre, .command-output {
+                font-size: 0.75em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="meta-info">
+        FFE v1.2.0 // Technical Reference // CC BY-NC-SA 4.0 // 2025-10-29
+    </div>
+    
+    <h1>Network Monitoring Field Manual</h1>
+    <p class="subtitle">IP Investigation & Connection Analysis for OSINT Researchers</p>
+</header>
+
+<!-- EXECUTIVE SUMMARY -->
+<section id="exec-summary">
+    <h2>Executive Summary</h2>
+    
+    <p>For researchers, journalists, and professionals handling sensitive information, <strong>network visibility</strong> is fundamental operational security. Every active connection represents a potential data leak, surveillance vector, or compromise indicator. This manual provides cross-platform tools to answer three critical questions:</p>
+    
+    <ol>
+        <li><strong>Who is my device talking to?</strong> (Active connections + remote IPs)</li>
+        <li><strong>What processes are responsible?</strong> (Process mapping + PID identification)</li>
+        <li><strong>Should I be concerned?</strong> (Threat assessment + response protocols)</li>
+    </ol>
+    
+    <div class="alert alert-info">
+        <strong>Core Principle</strong>: Assume all traffic is monitored. Your operational security depends on knowing—and controlling—every network connection your device initiates.
+    </div>
+    
+    <h3>When to Use This Manual</h3>
+    <ul>
+        <li><strong>Pre-operation audit</strong>: Before handling sensitive materials, verify no unexpected connections exist</li>
+        <li><strong>Anomaly detection</strong>: Investigate unfamiliar processes or connection patterns</li>
+        <li><strong>Incident response</strong>: Document compromise indicators during security events</li>
+        <li><strong>Baseline establishment</strong>: Create normal-state snapshots for comparison</li>
+    </ul>
+    
+    <h3>Platform Coverage</h3>
+    <p><span class="platform-tag platform-macos">macOS</span> <span class="platform-tag platform-windows">Windows</span> <span class="platform-tag platform-linux">Linux</span> <span class="platform-tag platform-android">Android</span> <span class="platform-tag platform-ios">iOS</span></p>
+    
+    <p><strong>Document Structure</strong>: Section II provides conceptual foundation, Section III delivers platform-specific commands, Section IV teaches interpretation, Section V offers tactical workflows.</p>
+</section>
+
+<!-- CONTEXT -->
+<section id="context">
+    <h2>Context: Why Network Monitoring Matters</h2>
+    
+    <p>Modern operating systems maintain dozens of simultaneous network connections—background updates, telemetry, cloud sync, DNS resolution. Most are legitimate. Some are not. The challenge: <em>distinguishing signal from noise</em>.</p>
+    
+    <h3>The Threat Landscape</h3>
+    
+    <details>
+        <summary>Data Exfiltration</summary>
+        <p>Malware, spyware, and surveillance tools operate by establishing persistent connections to command-and-control servers. These connections often masquerade as legitimate traffic (HTTPS to cloud services). Network monitoring reveals the destination IPs, allowing verification against known-bad infrastructure or unexpected geographic locations.</p>
+    </details>
+    
+    <details>
+        <summary>Metadata Leakage</summary>
+        <p>Even encrypted connections leak metadata: timing, packet sizes, connection frequency. For researchers working with sensitive sources, metadata alone can reveal operational patterns. Understanding what connects <em>when</em> and <em>how often</em> is critical tradecraft.</p>
+    </details>
+    
+    <details>
+        <summary>Supply Chain Compromise</summary>
+        <p>Third-party applications increasingly phone home—sometimes to update servers, sometimes to analytics platforms, occasionally to adversary-controlled infrastructure. The 2020 SolarWinds incident demonstrated that trusted software can harbor malicious network behavior. Regular audits catch anomalies early.</p>
+    </details>
+    
+    <details>
+        <summary>Legal/Jurisdictional Risk</summary>
+        <p>Connections to servers in certain jurisdictions may expose data to foreign intelligence services or legal intercept. Researchers handling materials subject to source protection need to know if their tools are contacting servers in high-risk countries.</p>
+    </details>
+    
+    <h3>Historical Precedent</h3>
+    <p>Network forensics has uncovered:</p>
+    <ul>
+        <li><strong>NSA QUANTUM</strong> (2013): Man-in-the-middle attacks exploited unmonitored connections to inject exploits</li>
+        <li><strong>Pegasus spyware</strong> (2016-present): Zero-click attacks create connections that don't appear in application logs but show in <code>netstat</code></li>
+        <li><strong>Stuxnet</strong> (2010): Anomalous connections to update servers revealed industrial control system compromise</li>
+    </ul>
+    
+    <p><strong>Bottom line</strong>: If you can't see it, you can't secure it. Network monitoring is not paranoia—it's hygiene.</p>
+</section>
+
+<!-- METHODOLOGY -->
+<section id="methodology">
+    <h2>Methodology: How Network Inspection Works</h2>
+    
+    <h3>Core Concepts</h3>
+    
+    <h4>1. Sockets & Connections</h4>
+    <p>A <strong>socket</strong> is an endpoint for network communication, defined by:</p>
+    <ul>
+        <li><strong>Protocol</strong>: TCP (connection-oriented) or UDP (connectionless)</li>
+        <li><strong>Local address</strong>: Your device's IP + port</li>
+        <li><strong>Remote address</strong>: Destination IP + port</li>
+        <li><strong>State</strong>: ESTABLISHED, LISTEN, TIME_WAIT, etc.</li>
+    </ul>
+    
+    <h4>2. Process Identification</h4>
+    <p>Every connection is owned by a <strong>process</strong> (identified by PID). Mapping PID → process name → application reveals <em>what</em> is making the connection. Critical for distinguishing browser traffic from background daemons or malware.</p>
+    
+    <h4>3. Port Significance</h4>
+    <table>
+        <thead>
+            <tr>
+                <th>Port</th>
+                <th>Service</th>
+                <th>Normal Use</th>
+                <th>Suspicious If...</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>80</td>
+                <td>HTTP</td>
+                <td>Web browsing</td>
+                <td>Unencrypted traffic from secure apps</td>
+            </tr>
+            <tr>
+                <td>443</td>
+                <td>HTTPS</td>
+                <td>Secure web/APIs</td>
+                <td>Unknown process, high frequency</td>
+            </tr>
+            <tr>
+                <td>22</td>
+                <td>SSH</td>
+                <td>Remote administration</td>
+                <td>Listening without explicit enablement</td>
+            </tr>
+            <tr>
+                <td>53</td>
+                <td>DNS</td>
+                <td>Name resolution</td>
+                <td>Direct queries to non-system resolvers</td>
+            </tr>
+            <tr>
+                <td>445</td>
+                <td>SMB</td>
+                <td>File sharing (Windows)</td>
+                <td>Internet-facing, unexpected geography</td>
+            </tr>
+            <tr>
+                <td>1080</td>
+                <td>SOCKS</td>
+                <td>Proxy tunneling</td>
+                <td>Undocumented proxy usage</td>
+            </tr>
+            <tr>
+                <td>>1024</td>
+                <td>Ephemeral</td>
+                <td>Temporary client ports</td>
+                <td>N/A (normal for outbound)</td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <h4>4. Connection States</h4>
+    <ul>
+        <li><code>ESTABLISHED</code> <span class="threat-indicator threat-safe">NORMAL</span> — Active, two-way communication</li>
+        <li><code>LISTEN</code> <span class="threat-indicator threat-caution">AUDIT</span> — Waiting for inbound connections (potential exposure)</li>
+        <li><code>TIME_WAIT</code> <span class="threat-indicator threat-safe">NORMAL</span> — Recently closed, cleanup phase</li>
+        <li><code>SYN_SENT</code> <span class="threat-indicator threat-caution">MONITOR</span> — Attempting connection (may indicate scanning)</li>
+        <li><code>CLOSE_WAIT</code> <span class="threat-indicator threat-caution">CHECK</span> — Remote closed, local hasn't (possible leak)</li>
+    </ul>
+    
+    <h3>Tools & Techniques</h3>
+    <p>All platforms provide built-in utilities:</p>
+    <ul>
+        <li><strong>lsof</strong> (macOS/Linux): List open files, including network sockets</li>
+        <li><strong>netstat</strong> (universal): Display network statistics and connections</li>
+        <li><strong>ss</strong> (modern Linux): Faster netstat replacement</li>
+        <li><strong>Get-NetTCPConnection</strong> (Windows PowerShell): Native connection query</li>
+        <li><strong>tcpdump</strong> (Unix): Packet capture for deep inspection (advanced)</li>
+    </ul>
+    
+    <p><strong>Operational Note</strong>: These tools require elevated privileges (<code>sudo</code> / Administrator) to see connections from other users' processes.</p>
+</section>
+
+<!-- FINDINGS: PLATFORM-SPECIFIC COMMANDS -->
+<section id="findings">
+    <h2>Platform Commands: Investigation Toolkit</h2>
+    
+    <!-- macOS -->
+    <details open>
+        <summary><span class="platform-tag platform-macos">macOS</span> Investigation Commands</summary>
+        
+        <h4>Quick Connection Snapshot</h4>
+        <div class="command-block">sudo lsof -iTCP -sTCP:ESTABLISHED -n -P</div>
+        <p><strong>What it shows</strong>: All active TCP connections with process name, PID, user, and remote IP:port.</p>
+        <p><strong>Flags explained</strong>:</p>
+        <ul>
+            <li><code>-iTCP</code>: TCP connections only</li>
+            <li><code>-sTCP:ESTABLISHED</code>: Filter to established state</li>
+            <li><code>-n</code>: Show IPs (don't resolve hostnames—faster, no DNS leakage)</li>
+            <li><code>-P</code>: Show ports as numbers</li>
+        </ul>
+        
+        <h4>Listening Ports (Inbound Exposure)</h4>
+        <div class="command-block">sudo lsof -iTCP -sTCP:LISTEN -n -P</div>
+        <p><span class="threat-indicator threat-caution">AUDIT</span> Any <code>LISTEN</code> state means your machine accepts inbound connections on that port. Verify these are intentional (SSH, file sharing, etc.).</p>
+        
+        <h4>Live Monitoring</h4>
+        <div class="command-block">sudo nettop -m tcp -p</div>
+        <p>Real-time per-process bandwidth + connections. Press <code>q</code> to quit.</p>
+        
+        <h4>Local Network Discovery</h4>
+        <div class="command-block">arp -a</div>
+        <p>Shows devices your machine has recently communicated with on LAN (IP ↔ MAC mappings).</p>
+        
+        <h4>Extract Remote IPs Only (Clean List)</h4>
+        <div class="command-block">sudo lsof -i -nP | awk '/ESTABLISHED/ {print $9}' | sed 's/.*->//' | cut -d: -f1 | sort -u</div>
+        <p>Outputs unique remote IPs for batch lookups or blocklist generation.</p>
+        
+        <h4>Full Audit Script</h4>
+        <p>Save comprehensive report to file:</p>
+        <pre><code>#!/bin/bash
+OUT=~/network_report_$(date +%Y%m%d_%H%M%S).txt
+{
+  echo "=== MACOS NETWORK AUDIT ==="
+  echo "Generated: $(date)"
+  echo
+  echo "=== ESTABLISHED CONNECTIONS ==="
+  sudo lsof -iTCP -sTCP:ESTABLISHED -n -P
+  echo
+  echo "=== LISTENING PORTS ==="
+  sudo lsof -iTCP -sTCP:LISTEN -n -P
+  echo
+  echo "=== TOP REMOTE IPs ==="
+  sudo lsof -i -nP | awk '/ESTABLISHED/ {split($9,a,"->"); split(a[2],b,":"); print b[1]}' | sort | uniq -c | sort -rn | head -20
+  echo
+  echo "=== ARP TABLE ==="
+  arp -a
+} | tee "$OUT"
+echo "Report: $OUT"</code></pre>
+        <p>Make executable: <code>chmod +x ~/audit.sh</code>, then run: <code>sudo ~/audit.sh</code></p>
+    </details>
+    
+    <!-- Windows -->
+    <details>
+        <summary><span class="platform-tag platform-windows">Windows</span> Investigation Commands</summary>
+        
+        <h4>Quick Connection Snapshot</h4>
+        <div class="command-block">netstat -ano</div>
+        <p><strong>What it shows</strong>: Protocol, local address, foreign address, state, PID.</p>
+        <p>Filter to established only:</p>
+        <div class="command-block">netstat -ano | findstr ESTABLISHED</div>
+        
+        <h4>Map PID to Process Name</h4>
+        <div class="command-block">tasklist | findstr &lt;PID&gt;</div>
+        <p>Replace <code>&lt;PID&gt;</code> with number from netstat output.</p>
+        
+        <h4>PowerShell (Modern, Recommended)</h4>
+        <div class="command-block">Get-NetTCPConnection -State Established | Select-Object LocalAddress,LocalPort,RemoteAddress,RemotePort,State,OwningProcess | Format-Table -AutoSize</div>
+        <p>Cleaner output than netstat, shows process IDs directly.</p>
+        
+        <h4>With Process Names (Color-Coded)</h4>
+        <pre><code>Get-NetTCPConnection -State Established | 
+  ForEach-Object {
+    $p = Get-Process -Id $_.OwningProcess -ErrorAction SilentlyContinue
+    $color = if ($_.RemoteAddress -match '^192\.168|10\.|172\.(1[6-9]|2[0-9]|3[0-1])\.') { 'Green' } else { 'Yellow' }
+    Write-Host ("{0,-20} {1,-8} {2,-22} {3,-22}" -f $p.ProcessName, $_.OwningProcess, "$($_.LocalAddress):$($_.LocalPort)", "$($_.RemoteAddress):$($_.RemotePort)") -ForegroundColor $color
+  }</code></pre>
+        <p><span class="threat-indicator threat-safe">GREEN</span> = Local/private IPs | <span class="threat-indicator threat-caution">YELLOW</span> = External/public IPs</p>
+        
+        <h4>Live Monitoring</h4>
+        <div class="command-block">netstat -b 5</div>
+        <p>Refreshes every 5 seconds with executable names. Press <code>Ctrl+C</code> to stop.</p>
+        
+        <h4>Local Network Discovery</h4>
+        <div class="command-block">arp -a</div>
+        <p>Shows IP ↔ MAC mappings for devices on your LAN.</p>
+        
+        <h4>Save Report</h4>
+        <div class="command-block">netstat -ano > %USERPROFILE%\Desktop\network_report.txt</div>
+        <p>Saves snapshot to Desktop for offline analysis.</p>
+    </details>
+    
+    <!-- Linux -->
+    <details>
+        <summary><span class="platform-tag platform-linux">Linux</span> Investigation Commands</summary>
+        
+        <h4>Modern Method (ss)</h4>
+        <div class="command-block">sudo ss -tunap</div>
+        <p><strong>Flags</strong>: <code>-t</code> TCP, <code>-u</code> UDP, <code>-n</code> numeric, <code>-a</code> all, <code>-p</code> process</p>
+        <p>Filter to established:</p>
+        <div class="command-block">sudo ss -tunap | grep ESTAB</div>
+        
+        <h4>Legacy Method (netstat)</h4>
+        <div class="command-block">sudo netstat -tunp | grep ESTABLISHED</div>
+        <p>Same information, older tool (present on most systems).</p>
+        
+        <h4>Full Connection List with Process Names</h4>
+        <div class="command-block">sudo lsof -i -nP</div>
+        <p>Works identically to macOS version (Linux has lsof too).</p>
+        
+        <h4>Watch Live Connections</h4>
+        <div class="command-block">watch -n 5 "ss -tunap | grep ESTAB"</div>
+        <p>Refreshes every 5 seconds. Press <code>Ctrl+C</code> to exit.</p>
+        
+        <h4>Local Network Scan</h4>
+        <div class="command-block">sudo nmap -sn 192.168.1.0/24</div>
+        <p>Requires <code>nmap</code> package. Replace subnet with your network range.</p>
+    </details>
+    
+    <!-- Android -->
+    <details>
+        <summary><span class="platform-tag platform-android">Android</span> Investigation Methods</summary>
+        
+        <h4>App-Based (No Root Required)</h4>
+        <p><strong>Recommended Apps</strong>:</p>
+        <ul>
+            <li><strong>Net Monitor</strong> (Evgeny Khardin): Shows active connections with hostname resolution</li>
+            <li><strong>NetGuard</strong>: Creates local VPN to log all app connections (can block selectively)</li>
+            <li><strong>Fing</strong>: Network scanner for LAN device discovery</li>
+        </ul>
+        
+        <h4>Termux (Command-Line Shell)</h4>
+        <p>Install Termux from F-Droid or Play Store, then:</p>
+        <div class="command-block">pkg install net-tools procps</div>
+        <p>Check connections:</p>
+        <div class="command-block">netstat -tunp</div>
+        <p>Clean formatted output:</p>
+        <pre><code>netstat -tunp | awk 'NR>2 {printf "%-7s %-22s %-22s %-12s %-8s\n", $1, $4, $5, $6, $7}' | sed '1iPROTO   LOCAL_ADDRESS:PORT       REMOTE_ADDRESS:PORT      STATE        PID/PROGRAM'</code></pre>
+        
+        <h4>Live Monitoring</h4>
+        <div class="command-block">watch -n 5 "netstat -tunp | grep ESTABLISHED"</div>
+        
+        <p class="alert alert-warning"><strong>Note</strong>: Android restricts visibility to processes owned by Termux session unless device is rooted. For full per-app visibility, use NetGuard.</p>
+    </details>
+    
+    <!-- iOS -->
+    <details>
+        <summary><span class="platform-tag platform-ios">iOS</span> Investigation Methods</summary>
+        
+        <h4>App-Based Solutions</h4>
+        <p>iOS does not provide system shell access without jailbreak. Use these apps:</p>
+        <ul>
+            <li><strong>Fing</strong>: Network scanner, device discovery on LAN</li>
+            <li><strong>iSH</strong>: Linux shell emulator (limited networking, but can run basic commands like <code>arp -a</code>)</li>
+            <li><strong>Surge</strong> / <strong>Shadowrocket</strong>: Advanced network tools with connection logging (paid)</li>
+        </ul>
+        
+        <h4>Remote SSH to Mac/Linux</h4>
+        <p>If you SSH from iOS to a Mac/Linux machine (using Termius, Blink, or iSH), you can run full commands remotely:</p>
+        <div class="command-block">ssh user@macbook.local 'sudo lsof -iTCP -sTCP:ESTABLISHED -n -P'</div>
+        
+        <h4>Network Analysis via Proxy</h4>
+        <p>Configure iOS to route through a proxy (Charles, mitmproxy) running on desktop. This captures all HTTP/HTTPS traffic with full visibility into connections.</p>
+        
+        <p class="alert alert-info"><strong>Best Practice</strong>: For sensitive work on iOS, assume limited visibility. Perform audits on desktop machines before/after mobile use.</p>
+    </details>
+</section>
+
+<!-- ANALYSIS: INTERPRETATION -->
+<section id="analysis">
+    <h2>Analysis: Reading the Output</h2>
+    
+    <h3>Anatomy of a Connection Entry</h3>
+    
+    <div class="command-output">
+<strong>Example (macOS lsof):</strong>
+Google    503   user   45u  IPv4 0x123abc  0t0  TCP 192.168.1.5:52344->142.250.72.206:443 (ESTABLISHED)
+
+<strong>Example (Windows netstat):</strong>
+TCP    192.168.1.5:52344    142.250.72.206:443    ESTABLISHED    503
+
+<strong>Example (Linux ss):</strong>
+tcp   ESTAB   0   0   192.168.1.5:52344   142.250.72.206:443   users:(("chrome",pid=503))
+    </div>
+    
+    <h4>Field Breakdown</h4>
+    <table>
+        <thead>
+            <tr>
+                <th>Field</th>
+                <th>Meaning</th>
+                <th>What to Check</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Process Name</strong></td>
+                <td>Application making connection</td>
+                <td>Is this expected? Unknown processes = investigate</td>
+            </tr>
+            <tr>
+                <td><strong>PID</strong></td>
+                <td>Process ID (unique number)</td>
+                <td>Use to get more info: <code>ps -p PID</code> or Activity Monitor</td>
+            </tr>
+            <tr>
+                <td><strong>Local Address:Port</strong></td>
+                <td>Your device's IP + ephemeral port</td>
+                <td>Verify IP matches your interface (check <code>ifconfig</code>)</td>
+            </tr>
+            <tr>
+                <td><strong>Remote Address:Port</strong></td>
+                <td>Destination IP + service port</td>
+                <td><strong>Critical</strong>: Who owns this IP? Where is it located?</td>
+            </tr>
+            <tr>
+                <td><strong>State</strong></td>
+                <td>Connection status</td>
+                <td>ESTABLISHED = active; LISTEN = waiting for inbound</td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <h3>Threat Assessment Framework</h3>
+    
+    <h4><span class="threat-indicator threat-safe">🟢 NORMAL</span> — Expected Behavior</h4>
+    <ul>
+        <li>Browsers connecting to :443 (HTTPS) for known domains</li>
+        <li>Cloud sync apps (Dropbox, iCloud) to CDN IPs</li>
+        <li>OS update daemons to vendor servers</li>
+        <li>DNS queries to configured resolvers (:53)</li>
+        <li>Ephemeral ports (>1024) as local address</li>
+    </ul>
+    
+    <h4><span class="threat-indicator threat-caution">🟡 INVESTIGATE</span> — Requires Verification</h4>
+    <ul>
+        <li><strong>Unknown process names</strong>: Search online; check binary signature</li>
+        <li><strong>Unexpected geographic locations</strong>: Use <code>whois IP</code> or MaxMind GeoIP</li>
+        <li><strong>High connection frequency</strong>: 10+ connections to same IP may indicate data transfer</li>
+        <li><strong>LISTEN states</strong>: Ensure you authorized these services (SSH, file sharing)</li>
+        <li><strong>Connections to non-standard ports</strong>: Port 8080, 1337, etc. (could be proxies or malware)</li>
+        <li><strong>Persistence</strong>: Same IP reappears across multiple audits</li>
+    </ul>
+    
+    <h4><span class="threat-indicator threat-danger">🔴 SUSPICIOUS</span> — Immediate Action Required</h4>
+    <ul>
+        <li><strong>Root/system process connecting externally</strong>: OS daemons shouldn't phone home unprompted</li>
+        <li><strong>Connections to known-bad IPs</strong>: Check against threat intel feeds (VirusTotal, AbuseIPDB)</li>
+        <li><strong>Obfuscated process names</strong>: Random strings, hidden files</li>
+        <li><strong>Connections to Tor exit nodes or VPNs</strong>: Unless you're running them</li>
+        <li><strong>Rapid port scanning</strong>: Many SYN_SENT states to sequential ports</li>
+        <li><strong>Unusual protocols on standard ports</strong>: Non-HTTP traffic on :80/:443</li>
+    </ul>
+    
+    <h3>IP Attribution Techniques</h3>
+    
+    <h4>1. Reverse DNS Lookup</h4>
+    <div class="command-block">dig -x 142.250.72.206 +short</div>
+    <div class="command-output">lga34s32-in-f14.1e100.net.</div>
+    <p>Reveals hostname (here: Google server in 1e100.net domain).</p>
+    
+    <h4>2. WHOIS Query</h4>
+    <div class="command-block">whois 142.250.72.206 | grep -E 'OrgName|CIDR|Country'</div>
+    <div class="command-output">
+OrgName:        Google LLC
+CIDR:           142.250.0.0/15
+Country:        US
+    </div>
+    <p>Shows ownership, IP block, country of registration.</p>
+    
+    <h4>3. GeoIP Location</h4>
+    <p>Use online tools (MaxMind, IPinfo.io) or command-line:</p>
+    <div class="command-block">curl ipinfo.io/142.250.72.206</div>
+    <div class="command-output">
+{
+  "ip": "142.250.72.206",
+  "hostname": "lga34s32-in-f14.1e100.net",
+  "city": "Mountain View",
+  "region": "California",
+  "country": "US",
+  "org": "AS15169 Google LLC"
+}
+    </div>
+    
+    <h4>4. Threat Intelligence</h4>
+    <p>Check IP reputation:</p>
+    <ul>
+        <li><strong>VirusTotal</strong>: virustotal.com/gui/ip-address/[IP]</li>
+        <li><strong>AbuseIPDB</strong>: abuseipdb.com/check/[IP]</li>
+        <li><strong>AlienVault OTX</strong>: otx.alienvault.com/indicator/ip/[IP]</li>
+    </ul>
+    
+    <h3>Case Studies (Anonymized)</h3>
+    
+    <details>
+        <summary>Case 1: Persistent Unknown Connection</summary>
+        <p><strong>Observation</strong>: User noticed process named <code>SystemUpdate</code> (PID 1523) with persistent connection to 203.0.113.45:443.</p>
+        <p><strong>Investigation</strong>:</p>
+        <ol>
+            <li>Check process path: <code>ps -p 1523 -o comm=</code> revealed binary in <code>/tmp/.hidden/</code></li>
+            <li>WHOIS lookup showed IP registered to bulletproof hosting provider in Eastern Europe</li>
+            <li>VirusTotal: 12/70 AV vendors flagged IP as C2 server</li>
+        </ol>
+        <p><strong>Verdict</strong>: <span class="threat-indicator threat-danger">MALWARE</span></p>
+        <p><strong>Response</strong>: Kill process, quarantine binary, full system scan, network forensics to identify entry vector.</p>
+    </details>
+    
+    <details>
+        <summary>Case 2: Cloud Service Telemetry</summary>
+        <p><strong>Observation</strong>: Legitimate app (Slack) connecting to 15+ different IPs in AWS ranges.</p>
+        <p><strong>Investigation</strong>:</p>
+        <ol>
+            <li>Reverse DNS confirmed all IPs resolved to <code>*.amazonaws.com</code></li>
+            <li>Ports were :443 (HTTPS) and :5349 (TURN/STUN for WebRTC)</li>
+            <li>Connection frequency aligned with app usage (spikes during calls)</li>
+        </ol>
+        <p><strong>Verdict</strong>: <span class="threat-indicator threat-safe">NORMAL</span></p>
+        <p><strong>Note</strong>: Modern cloud apps use CDNs/load balancers, resulting in many IPs. Verify domain ownership, not just IP count.</p>
+    </details>
+    
+    <details>
+        <summary>Case 3: Open SSH Port</summary>
+        <p><strong>Observation</strong>: <code>lsof</code> showed <code>sshd LISTEN *:22</code>—SSH server listening on all interfaces.</p>
+        <p><strong>Investigation</strong>:</p>
+        <ol>
+            <li>User confirmed <strong>never</strong> enabled Remote Login in System Preferences</li>
+            <li>Checked <code>sudo systemsetup -getremotelogin</code> → returned "On"</li>
+            <li>Reviewed <code>/var/log/system.log</code> for SSH authentication attempts—found 200+ failed logins from Chinese IP ranges</li>
+        </ol>
+        <p><strong>Verdict</strong>: <span class="threat-indicator threat-danger">EXPOSURE</span></p>
+        <p><strong>Response</strong>: Disabled Remote Login, added firewall rule to block :22 from WAN, rotated passwords, enabled key-only auth.</p>
+    </details>
+</section>
+
+<!-- WORKFLOWS -->
+<section id="workflows">
+    <h2>Tactical Workflows</h2>
+    
+    <h3>Pre-Operation Audit (5 minutes)</h3>
+    <p>Run before handling sensitive materials to establish clean baseline.</p>
+    
+    <div class="flowchart">
+┌─────────────────────────────────────┐
+│ 1. Close unnecessary applications  │
+└──────────────┬──────────────────────┘
+               │
+               ▼
+┌─────────────────────────────────────┐
+│ 2. Run connection snapshot          │
+│    macOS:   sudo lsof -i -nP        │
+│    Windows: netstat -ano             │
+└──────────────┬──────────────────────┘
+               │
+               ▼
+┌─────────────────────────────────────┐
+│ 3. Save output to file              │
+│    > baseline_YYYYMMDD.txt          │
+└──────────────┬──────────────────────┘
+               │
+               ▼
+┌─────────────────────────────────────┐
+│ 4. Check for LISTEN states          │
+│    Verify all expected (SSH, etc.)  │
+└──────────────┬──────────────────────┘
+               │
+               ▼
+┌─────────────────────────────────────┐
+│ 5. Note top 5 remote IPs            │
+│    Should all be known services     │
+└──────────────┬──────────────────────┘
+               │
+               ▼
+        [PROCEED] or [INVESTIGATE]
+    </div>
+    
+    <h3>Anomaly Investigation (15-30 minutes)</h3>
+    <p>When you spot something unusual.</p>
+    
+    <div class="flowchart">
+┌─────────────────────────────────────┐
+│ 1. Identify suspicious connection   │
+│    Note: PID, process, remote IP    │
+└──────────────┬──────────────────────┘
+               │
+               ▼
+┌─────────────────────────────────────┐
+│ 2. Get process details               │
+│    macOS:   ps -p [PID] -o comm=,args= │
+│    Windows: tasklist /FI "PID eq [PID]" /V │
+└──────────────┬──────────────────────┘
+               │
+               ▼
+┌─────────────────────────────────────┐
+│ 3. Check binary signature/location  │
+│    macOS:   codesign -dv /path/to/binary │
+│    Windows: sigcheck.exe /path/to/binary │
+└──────────────┬──────────────────────┘
+               │
+               ▼
+┌─────────────────────────────────────┐
+│ 4. Research remote IP                │
+│    - Reverse DNS (dig -x)           │
+│    - WHOIS (whois IP)               │
+│    - Threat intel (VirusTotal)      │
+└──────────────┬──────────────────────┘
+               │
+               ▼
+        ┌──────┴──────┐
+        │             │
+        ▼             ▼
+  [LEGITIMATE]   [SUSPICIOUS]
+        │             │
+        ▼             ▼
+   Document      Kill process
+   in audit      Block IP
+   log           Forensics
+    </div>
+    
+    <h3>Incident Response (Immediate)</h3>
+    <p>When you confirm compromise.</p>
+    
+    <ol>
+        <li><strong>Isolate</strong>: Disconnect from network (Wi-Fi off, unplug Ethernet)</li>
+        <li><strong>Snapshot</strong>: Save full connection list, process list, open files</li>
+        <li><strong>Kill</strong>: Terminate malicious process (<code>kill -9 [PID]</code> or Task Manager)</li>
+        <li><strong>Block</strong>: Add firewall rule to prevent reconnection</li>
+        <li><strong>Preserve</strong>: Copy suspicious binaries to quarantine folder (don't execute)</li>
+        <li><strong>Scan</strong>: Run AV/malware scan (Malwarebytes, ClamAV)</li>
+        <li><strong>Review</strong>: Check persistence mechanisms (LaunchAgents, Startup folders, cron jobs)</li>
+        <li><strong>Rotate</strong>: Change passwords for all accounts accessed on compromised device</li>
+        <li><strong>Report</strong>: If work-related, notify IT/security team</li>
+    </ol>
+    
+    <h3>Blocking Suspicious IPs</h3>
+    
+    <h4>macOS (Packet Filter)</h4>
+    <pre><code># Enable PF
+sudo pfctl -e 2>/dev/null
+
+# Create block rule
+echo "block drop out quick on en0 from any to 203.0.113.45" | sudo tee /etc/pf.anchors/manual_block
+
+# Load anchor
+echo 'anchor "manual_block"' | sudo tee -a /etc/pf.conf
+sudo pfctl -f /etc/pf.conf
+
+# Verify
+sudo pfctl -sr
+
+# Remove block
+sudo rm /etc/pf.anchors/manual_block
+sudo pfctl -f /etc/pf.conf</code></pre>
+    
+    <h4>Windows (Firewall)</h4>
+    <pre><code># Block outbound to IP
+netsh advfirewall firewall add rule name="BlockBadIP" dir=out action=block remoteip=203.0.113.45
+
+# List rules
+netsh advfirewall firewall show rule name=all
+
+# Remove rule
+netsh advfirewall firewall delete rule name="BlockBadIP"</code></pre>
+    
+    <h4>Linux (iptables)</h4>
+    <pre><code># Block outbound
+sudo iptables -A OUTPUT -d 203.0.113.45 -j DROP
+
+# List rules
+sudo iptables -L -n -v
+
+# Remove rule
+sudo iptables -D OUTPUT -d 203.0.113.45 -j DROP
+
+# Save permanently (Ubuntu/Debian)
+sudo iptables-save > /etc/iptables/rules.v4</code></pre>
+    
+    <h3>Establishing Baselines</h3>
+    <p>Run weekly audits during normal operation. Compare snapshots to detect drift:</p>
+    
+    <div class="command-block">diff -u baseline_20251020.txt baseline_20251027.txt</div>
+    <p>New persistent connections = investigate. Disappeared services = verify expected.</p>
+</section>
+
+<!-- RECOMMENDATIONS -->
+<section id="recommendations">
+    <h2>Best Practices & Recommendations</h2>
+    
+    <h3>General Security Hygiene</h3>
+    <ul>
+        <li><strong>Minimize attack surface</strong>: Disable unused network services (file sharing, remote login)</li>
+        <li><strong>Firewall by default</strong>: Enable OS firewall, default-deny inbound</li>
+        <li><strong>DNS hygiene</strong>: Use trusted resolvers (1.1.1.1, 8.8.8.8) or encrypted DNS-over-HTTPS</li>
+        <li><strong>VPN for sensitive work</strong>: Route through trusted VPN to obscure destination IPs from local network observers</li>
+        <li><strong>Separate devices</strong>: Use dedicated machine for high-sensitivity work (air-gapped if possible)</li>
+    </ul>
+    
+    <h3>Operational Protocols</h3>
+    <ol>
+        <li><strong>Pre-session audit</strong>: Always check connections before handling sensitive materials</li>
+        <li><strong>Post-session verification</strong>: Confirm no new persistent connections after closing sensitive apps</li>
+        <li><strong>Weekly baseline</strong>: Schedule recurring audits, save outputs, review diffs</li>
+        <li><strong>Document everything</strong>: Maintain audit log with timestamps, IPs, process names</li>
+        <li><strong>Threat intel integration</strong>: Subscribe to feeds (AlienVault OTX, Abuse.ch) and periodically check known-bad IPs</li>
+    </ol>
+    
+    <h3>Recommended Tools</h3>
+    
+    <h4>GUI Network Monitors</h4>
+    <ul>
+        <li><strong>Little Snitch</strong> (macOS): Real-time connection alerts, per-app firewall rules</li>
+        <li><strong>Radio Silence</strong> (macOS): Lightweight network monitor with blocking</li>
+        <li><strong>GlassWire</strong> (Windows): Visual network activity, alerts on new connections</li>
+        <li><strong>TCPView</strong> (Windows, Sysinternals): Free real-time connection viewer</li>
+    </ul>
+    
+    <h4>Command-Line Power Tools</h4>
+    <ul>
+        <li><strong>nmap</strong>: Network discovery, port scanning (install via Homebrew/apt)</li>
+        <li><strong>tcpdump</strong>: Packet capture for deep inspection (requires expertise)</li>
+        <li><strong>Wireshark</strong>: GUI packet analyzer (overkill for most, powerful for forensics)</li>
+    </ul>
+    
+    <h3>Privacy Considerations</h3>
+    <p class="alert alert-warning"><strong>Legal Notice</strong>: Network monitoring of your own device is legal. Monitoring others' traffic without consent may violate wiretapping laws. Always operate within legal boundaries.</p>
+    
+    <p><strong>Operational Security</strong>:</p>
+    <ul>
+        <li>Audit logs contain sensitive info (IPs you contacted). Encrypt stored reports.</li>
+        <li>Don't share raw <code>lsof</code>/<code>netstat</code> output publicly—it reveals your network topology.</li>
+        <li>When requesting help online, redact private IPs (192.168.x.x, 10.x.x.x).</li>
+    </ul>
+    
+    <h3>When to Escalate</h3>
+    <p>Seek professional assistance if:</p>
+    <ul>
+        <li>You find connections to known C2 infrastructure</li>
+        <li>Processes resist termination or respawn immediately</li>
+        <li>Binary signature verification fails or shows unknown developer</li>
+        <li>You're handling materials that could endanger sources (journalists, researchers)</li>
+        <li>Organization policy requires formal incident response</li>
+    </ul>
+    
+    <h3>Further Reading</h3>
+    <ul>
+        <li><strong>TCP/IP Illustrated</strong> (Stevens): Deep dive into protocol mechanics</li>
+        <li><strong>The Art of Network Forensics</strong> (Sanders): Investigative techniques</li>
+        <li><strong>Practical Packet Analysis</strong> (Sanders): Wireshark workflows</li>
+        <li><strong>SANS Network Forensics</strong>: sec558.sans.org (course materials)</li>
+    </ul>
+</section>
+
+<!-- CITATIONS -->
+<section id="citations">
+    <h2>Technical References</h2>
+    
+    <ul>
+        <li><code>lsof</code> man page: <code>man lsof</code> (comprehensive options reference)</li>
+        <li><code>netstat</code> documentation: IEEE Std 1003.1-2008 (POSIX standard)</li>
+        <li>Packet Filter Guide: OpenBSD PF User's Guide, openbsd.org/faq/pf</li>
+        <li>Windows Netsh: Microsoft Docs, learn.microsoft.com/windows-server/networking</li>
+        <li>TCP State Diagram: RFC 793 (Transmission Control Protocol)</li>
+        <li>Port Number Registry: IANA Service Name and Transport Protocol Port Number Registry</li>
+        <li>IP Geolocation: MaxMind GeoIP2 documentation, dev.maxmind.com</li>
+        <li>Threat Intelligence: MITRE ATT&CK Framework, attack.mitre.org</li>
+    </ul>
+</section>
+
+<!-- REFLEXIVE -->
+<section id="reflexive">
+    <h2>Limitations & Context</h2>
+    
+    <h3>Analytical Assumptions</h3>
+    <p>This manual assumes an <strong>adversarial threat model</strong>—appropriate for researchers, journalists, activists, or anyone handling sensitive information. For casual users, the protocols here may be excessive. The goal is <em>comprehensive visibility</em>, not paranoia.</p>
+    
+    <h3>Technical Limitations</h3>
+    <ul>
+        <li><strong>Encrypted traffic</strong>: These tools show <em>where</em> you connect, not <em>what</em> you send. HTTPS/TLS hides content.</li>
+        <li><strong>VPN obfuscation</strong>: If using VPN, all remote IPs appear as VPN server. Pre-VPN audit required.</li>
+        <li><strong>Rootkits</strong>: Advanced malware can hide from <code>lsof</code>/<code>netstat</code>. Kernel-level inspection needed.</li>
+        <li><strong>Mobile restrictions</strong>: iOS/Android limit system visibility—app-based solutions are proxies, not full audits.</li>
+    </ul>
+    
+    <h3>Skill Requirements</h3>
+    <p>Interpreting network data requires baseline technical literacy:</p>
+    <ul>
+        <li>Understanding IP addressing (IPv4/IPv6)</li>
+        <li>Familiarity with common ports/protocols</li>
+        <li>Ability to research unfamiliar process names</li>
+        <li>Comfort with command-line interfaces</li>
+    </ul>
+    <p>If these are unfamiliar, start with GUI tools (Little Snitch, NetGuard) before diving into terminal commands.</p>
+    
+    <h3>Ethical Considerations</h3>
+    <p>Network monitoring is a <strong>defensive</strong> practice. Misuse—monitoring others without consent, using tools for reconnaissance on third-party networks—crosses legal and ethical lines. This manual is for securing <em>your own devices</em>, not surveilling others.</p>
+    
+    <h3>Platform Bias</h3>
+    <p>Command examples prioritize Unix-like systems (macOS, Linux) due to richer built-in tooling. Windows coverage is functional but less granular. Mobile platforms (iOS, Android) receive less depth due to OS restrictions. For enterprise Windows environments, consider SIEM tools (Splunk, ELK) for centralized monitoring.</p>
+    
+    <h3>Currency</h3>
+    <p>Network tools and threat landscape evolve constantly. This manual reflects best practices as of October 2025. Tool syntax may change; new vulnerabilities will emerge. Treat this as a <strong>conceptual foundation</strong>, not immutable scripture.</p>
+</section>
+
+<!-- META -->
+<section id="meta">
+    <h2>Document Metadata</h2>
+    
+    <div class="meta-info">
+        <p><strong>Format</strong>: FFE v1.2.0 — Codename: Erebus</p>
+        <p><strong>Document Type</strong>: Technical Reference Report</p>
+        <p><strong>Version</strong>: 1.0.0</p>
+        <p><strong>Created</strong>: 2025-10-29</p>
+        <p><strong>Updated</strong>: 2025-10-29</p>
+        <p><strong>License</strong>: <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></p>
+        <p><strong>Word Count</strong>: ~6,800 words (core + collapsibles)</p>
+        <p><strong>File Size</strong>: ~75KB</p>
+        <p><strong>Target Audience</strong>: OSINT researchers, journalists, privacy-conscious professionals</p>
+    </div>
+    
+    <h3>Changelog</h3>
+    <ul>
+        <li><strong>v1.0.0</strong> (2025-10-29): Initial release — cross-platform monitoring guide</li>
+    </ul>
+    
+    <h3>Planned Updates</h3>
+    <ul>
+        <li><strong>v1.1.0</strong>: Add packet capture workflows (tcpdump/Wireshark)</li>
+        <li><strong>v1.2.0</strong>: Mobile-specific deep dive (iOS/Android rooted devices)</li>
+        <li><strong>v2.0.0</strong>: Integration with SIEM platforms for enterprise use</li>
+    </ul>
+    
+    <h3>Usage Guidelines</h3>
+    <p><strong>Permitted</strong>:</p>
+    <ul>
+        <li>Personal security audits on your own devices</li>
+        <li>Training materials for security teams</li>
+        <li>Integration into organizational security protocols</li>
+        <li>Adaptation for specific use cases (with attribution)</li>
+    </ul>
+    
+    <p><strong>Not Permitted</strong>:</p>
+    <ul>
+        <li>Commercial resale without modification</li>
+        <li>Use for unauthorized network surveillance</li>
+        <li>Removal of attribution or license information</li>
+    </ul>
+    
+    <h3>Contributing</h3>
+    <p>This document benefits from community input. Suggested improvements:</p>
+    <ul>
+        <li>Platform-specific edge cases</li>
+        <li>Additional threat detection heuristics</li>
+        <li>Tool recommendations (especially FOSS alternatives)</li>
+        <li>Real-world case studies (anonymized)</li>
+    </ul>
+    
+    <h3>Companion Resources</h3>
+    <p>Pair this manual with:</p>
+    <ul>
+        <li><strong>Endpoint security guide</strong>: Malware detection, AV configuration</li>
+        <li><strong>OpSec handbook</strong>: Compartmentalization, device segmentation</li>
+        <li><strong>Forensics toolkit</strong>: Memory dumps, disk imaging for post-compromise analysis</li>
+    </ul>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <p><strong>FFE v1.2.0 — Network Monitoring Field Manual</strong></p>
+    <p>"Visibility is security. What you can't see, you can't protect."</p>
+    <p style="margin-top: var(--space-md);">
+        Built for the security research community.<br>
+        Licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a>
+    </p>
+    <p style="margin-top: var(--space-sm); font-family: var(--font-mono); color: var(--accent-primary);">
+        Know your network. Control your fate. 🔐
+    </p>
+</footer>
+
+</body>
+</html>

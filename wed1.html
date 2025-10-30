@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sophia & Alessandro — June 21, 2026</title>
+    
+    <!-- YAML Metadata
+    ---
+    title: "Sophia & Alessandro Wedding"
+    date: "2026-06-21"
+    venue: "Villa Cimbrone, Ravello"
+    style: "romantic-garden"
+    template: "untitled-format-v1"
+    designers: "Sadie Bosworth Atelier"
+    ---
+    -->
+    
+    <style>
+        :root {
+            --color-primary: #3d3027;
+            --color-secondary: #8b7355;
+            --color-accent: #d4a574;
+            --color-soft: #f4ebe4;
+            --color-background: #fffdf9;
+            --font-script: 'Brush Script MT', cursive;
+            --font-serif: 'Baskerville', 'Georgia', serif;
+            --font-sans: 'Futura', 'Century Gothic', sans-serif;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-serif);
+            background: var(--color-background);
+            color: var(--color-primary);
+            line-height: 1.7;
+        }
+        
+        .floral-border {
+            position: fixed;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .floral-border.top-left {
+            top: 0;
+            left: 0;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle at 0% 0%, var(--color-accent) 0%, transparent 70%);
+            opacity: 0.1;
+        }
+        
+        .floral-border.bottom-right {
+            bottom: 0;
+            right: 0;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle at 100% 100%, var(--color-accent) 0%, transparent 70%);
+            opacity: 0.1;
+        }
+        
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 4rem 2rem;
+            position: relative;
+            background: linear-gradient(to bottom, var(--color-soft) 0%, var(--color-background) 100%);
+        }
+        
+        .ornament {
+            width: 80px;
+            height: 2px;
+            background: var(--color-accent);
+            margin: 2rem auto;
+            position: relative;
+        }
+        
+        .ornament::before,
+        .ornament::after {
+            content: '❦';
+            position: absolute;
+            top: -10px;
+            font-size: 1.2rem;
+            color: var(--color-accent);
+        }
+        
+        .ornament::before {
+            left: -30px;
+        }
+        
+        .ornament::after {
+            right: -30px;
+        }
+        
+        .invitation-header {
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--color-secondary);
+            margin-bottom: 2rem;
+        }
+        
+        .couple-names {
+            font-family: var(--font-script);
+            font-size: clamp(3.5rem, 12vw, 6rem);
+            font-weight: 400;
+            color: var(--color-secondary);
+            margin: 1rem 0;
+            line-height: 1.2;
+        }
+        
+        .first-name {
+            display: block;
+        }
+        
+        .ampersand {
+            display: block;
+            font-size: 0.5em;
+            margin: 0.5rem 0;
+            color: var(--color-accent);
+        }
+        
+        .wedding-date {
+            font-family: var(--font-sans);
+            font-size: 1rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            margin-top: 2rem;
+            color: var(--color-secondary);
+        }
+        
+        .location {
+            font-size: 1.1rem;
+            margin-top: 1rem;
+            font-style: italic;
+            color: var(--color-secondary);
+        }
+        
+        main {
+            position: relative;
+            z-index: 2;
+        }
+        
+        section {
+            max-width: 750px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+        
+        h2 {
+            font-family: var(--font-script);
+            font-size: 2.5rem;
+            font-weight: 400;
+            text-align: center;
+            margin-bottom: 2.5rem;
+            color: var(--color-secondary);
+        }
+        
+        .intro-text {
+            text-align: center;
+            font-size: 1.15rem;
+            line-height: 1.9;
+            color: var(--color-primary);
+            font-style: italic;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .detail-card {
+            background: var(--color-soft);
+            padding: 2.5rem;
+            margin: 2rem 0;
+            border-radius: 4px;
+            border: 1px solid var(--color-accent);
+            box-shadow: 0 4px 12px rgba(61, 48, 39, 0.08);
+        }
+        
+        .detail-title {
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--color-secondary);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        
+        .detail-content {
+            text-align: center;
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+        
+        .timeline-list {
+            list-style: none;
+            max-width: 550px;
+            margin: 2rem auto;
+        }
+        
+        .timeline-item {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: var(--color-soft);
+            border-radius: 4px;
+        }
+        
+        .timeline-time {
+            font-family: var(--font-sans);
+            font-weight: 600;
+            min-width: 70px;
+            color: var(--color-secondary);
+            font-size: 0.95rem;
+        }
+        
+        .timeline-event {
+            flex: 1;
+        }
+        
+        .timeline-event strong {
+            display: block;
+            margin-bottom: 0.25rem;
+            color: var(--color-primary);
+        }
+        
+        .rsvp-section {
+            background: linear-gradient(to bottom, var(--color-background) 0%, var(--color-soft) 100%);
+            padding: 5rem 2rem;
+            text-align: center;
+            margin-top: 4rem;
+        }
+        
+        .rsvp-box {
+            max-width: 500px;
+            margin: 2rem auto;
+            padding: 3rem;
+            background: var(--color-background);
+            border: 2px solid var(--color-accent);
+            border-radius: 4px;
+        }
+        
+        .rsvp-button {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 1rem 3rem;
+            background: var(--color-secondary);
+            color: var(--color-background);
+            text-decoration: none;
+            font-family: var(--font-sans);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+        }
+        
+        .rsvp-button:hover {
+            background: var(--color-primary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(61, 48, 39, 0.2);
+        }
+        
+        .registry-note {
+            background: var(--color-soft);
+            padding: 2rem;
+            margin: 3rem 0;
+            border-left: 3px solid var(--color-accent);
+            font-style: italic;
+            text-align: center;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: var(--color-secondary);
+            font-size: 0.85rem;
+        }
+        
+        footer .heart {
+            color: var(--color-accent);
+            margin: 0 0.5rem;
+        }
+        
+        @media (max-width: 768px) {
+            .couple-names {
+                font-size: 3rem;
+            }
+            
+            .timeline-item {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .detail-card {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floral-border top-left"></div>
+    <div class="floral-border bottom-right"></div>
+    
+    <header class="hero">
+        <p class="invitation-header">Together with their families</p>
+        <h1 class="couple-names">
+            <span class="first-name">Sophia</span>
+            <span class="ampersand">&</span>
+            <span class="first-name">Alessandro</span>
+        </h1>
+        <div class="ornament"></div>
+        <p class="invitation-header">Request the pleasure of your company</p>
+        <p class="wedding-date">June 21, 2026</p>
+        <p class="location">Villa Cimbrone • Ravello, Italy</p>
+    </header>
+    
+    <main>
+        <section id="invitation">
+            <h2>Our Story Begins</h2>
+            <p class="intro-text">
+                Join us as we celebrate our love surrounded by the gardens, 
+                lemon groves, and breathtaking views of the Amalfi Coast. 
+                We can't imagine this day without you.
+            </p>
+        </section>
+        
+        <section id="ceremony">
+            <h2>Ceremony</h2>
+            <div class="detail-card">
+                <div class="detail-title">Location</div>
+                <div class="detail-content">
+                    <strong>Villa Cimbrone</strong><br>
+                    Via Santa Chiara, 26<br>
+                    84010 Ravello, Salerno<br>
+                    Amalfi Coast, Italy
+                </div>
+            </div>
+            
+            <div class="detail-card">
+                <div class="detail-title">When</div>
+                <div class="detail-content">
+                    Sunday, June 21, 2026<br>
+                    Ceremony begins at 5:00 PM<br>
+                    <em>Please arrive by 4:45 PM</em>
+                </div>
+            </div>
+            
+            <div class="detail-card">
+                <div class="detail-title">Attire</div>
+                <div class="detail-content">
+                    Garden party elegant<br>
+                    Light fabrics, florals encouraged<br>
+                    Comfortable shoes for cobblestones
+                </div>
+            </div>
+        </section>
+        
+        <section id="schedule">
+            <h2>Celebration Timeline</h2>
+            <ul class="timeline-list">
+                <li class="timeline-item">
+                    <span class="timeline-time">5:00 PM</span>
+                    <div class="timeline-event">
+                        <strong>Ceremony</strong>
+                        Garden terrace with coastal views
+                    </div>
+                </li>
+                <li class="timeline-item">
+                    <span class="timeline-time">6:00 PM</span>
+                    <div class="timeline-event">
+                        <strong>Aperitivo Hour</strong>
+                        Prosecco, antipasti, and sunset
+                    </div>
+                </li>
+                <li class="timeline-item">
+                    <span class="timeline-time">7:30 PM</span>
+                    <div class="timeline-event">
+                        <strong>Dinner</strong>
+                        Five-course Italian feast
+                    </div>
+                </li>
+                <li class="timeline-item">
+                    <span class="timeline-time">10:00 PM</span>
+                    <div class="timeline-event">
+                        <strong>Dancing</strong>
+                        Under the stars until late
+                    </div>
+                </li>
+            </ul>
+        </section>
+        
+        <section id="travel">
+            <h2>Travel & Stay</h2>
+            
+            <div class="detail-card">
+                <div class="detail-title">Getting to Ravello</div>
+                <div class="detail-content">
+                    Fly into Naples (NAP)<br>
+                    1.5 hour drive to Ravello<br>
+                    We recommend arriving Friday to settle in
+                </div>
+            </div>
+            
+            <div class="detail-card">
+                <div class="detail-title">Accommodations</div>
+                <div class="detail-content">
+                    <strong>Hotel Caruso Ravello</strong><br>
+                    Room block available<br>
+                    Code: SOPHIAALESSANDRO<br>
+                    Book by May 1, 2026
+                </div>
+            </div>
+            
+            <div class="detail-card">
+                <div class="detail-title">Weekend Events</div>
+                <div class="detail-content">
+                    Friday welcome dinner at 7 PM<br>
+                    Sunday farewell brunch at 11 AM<br>
+                    Details to follow
+                </div>
+            </div>
+        </section>
+        
+        <section class="rsvp-section">
+            <h2>Please RSVP</h2>
+            <div class="rsvp-box">
+                <p style="font-size: 1.05rem; line-height: 1.8;">
+                    Kindly respond by April 15, 2026
+                </p>
+                <p style="margin-top: 1rem; color: var(--color-secondary);">
+                    Let us know if you can join us and<br>
+                    any dietary requirements
+                </p>
+                <a href="mailto:hello@sophiaalessandro2026.com" class="rsvp-button">RSVP Here</a>
+            </div>
+            
+            <div class="registry-note">
+                <p>Your presence is the greatest gift.</p>
+                <p style="margin-top: 0.5rem;">If you wish to celebrate with a gift, we've created a registry for our future home.</p>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <p>With love, Sophia <span class="heart">♥</span> Alessandro</p>
+        <p style="margin-top: 2rem; font-size: 0.75rem; opacity: 0.7;">
+            Designed by Sadie Bosworth Atelier • Living Invitations
+        </p>
+    </footer>
+</body>
+</html>

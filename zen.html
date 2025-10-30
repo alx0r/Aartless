@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alpine Awakening Yoga Retreat | Valley Shala</title>
+    <style>
+        :root {
+            --earth: #8B7355;
+            --forest: #556B2F;
+            --stone: #D3D3D3;
+            --sky: #87CEEB;
+            --white: #F5F5F5;
+        }
+        
+        body {
+            font-family: 'Georgia', serif;
+            margin: 0;
+            padding: 0;
+            background: var(--white);
+            color: #333;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .phase-indicator {
+            background: var(--forest);
+            color: white;
+            padding: 10px;
+            text-align: center;
+            margin-bottom: 30px;
+            border-radius: 5px;
+        }
+        
+        .update-log {
+            background: #f8f8f8;
+            padding: 15px;
+            margin: 20px 0;
+            border-left: 4px solid var(--earth);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Dynamic Phase Indicator -->
+        <div class="phase-indicator" id="retreatPhase">
+            <strong>RETREAT PHASE:</strong> Pre-Retreat Preparation
+        </div>
+        
+        <header>
+            <h1>Alpine Awakening Yoga Retreat</h1>
+            <p>March 15-22, 2025 • Swiss Alps • Hosted by Valley Shala</p>
+        </header>
+
+        <!-- Living Update Log -->
+        <div class="update-log">
+            <h3>📝 Latest Updates</h3>
+            <ul id="updatesList">
+                <li><strong>Mar 1:</strong> Weather update - pack warm layers!</li>
+                <li><strong>Feb 25:</strong> Added recommended reading list</li>
+                <li><strong>Feb 20:</strong> Airport transfer details confirmed</li>
+            </ul>
+        </div>
+
+        <!-- Evolving Content Sections -->
+        <section id="preRetreat">
+            <h2>Pre-Retreat Preparation</h2>
+            <div class="content-block">
+                <h3>What to Bring</h3>
+                <ul>
+                    <li>Yoga mat (we provide extras)</li>
+                    <li>Warm layers for alpine climate</li>
+                    <li>Journal and pen</li>
+                    <li>Water bottle</li>
+                </ul>
+            </div>
+            
+            <div class="content-block">
+                <h3>Recommended Reading</h3>
+                <p>Deepen your practice with these selections...</p>
+            </div>
+        </section>
+
+        <section id="duringRetreat" style="display: none;">
+            <h2>During Retreat</h2>
+            <!-- This section becomes active during retreat dates -->
+            <div class="daily-schedule">
+                <h3>Today's Schedule</h3>
+                <p>Dynamic content updated each morning</p>
+            </div>
+            
+            <div class="resources">
+                <h3>Session Resources</h3>
+                <p>Download today's practice notes, playlists, and reflections</p>
+            </div>
+        </section>
+
+        <section id="postRetreat" style="display: none;">
+            <h2>Post-Retreat Integration</h2>
+            <!-- This section activates after retreat ends -->
+            <div class="gallery">
+                <h3>Retreat Memories</h3>
+                <p>Photo gallery and shared memories</p>
+            </div>
+            
+            <div class="continuing-practice">
+                <h3>Continuing Your Practice</h3>
+                <p>Resources for maintaining your alpine awakening</p>
+            </div>
+        </section>
+
+        <!-- Persistent Elements -->
+        <section id="essentialInfo">
+            <h2>Essential Information</h2>
+            <div class="contact">
+                <h3>Emergency Contact</h3>
+                <p>Retreat Manager: +41 76 123 4567</p>
+            </div>
+            
+            <div class="location">
+                <h3>Retreat Location</h3>
+                <p>Alpine Sanctuary, Grindelwald, Switzerland</p>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Dynamic Phase Management
+        const retreatStart = new Date('2025-03-15');
+        const retreatEnd = new Date('2025-03-22');
+        const today = new Date();
+        
+        const phaseIndicator = document.getElementById('retreatPhase');
+        const preRetreat = document.getElementById('preRetreat');
+        const duringRetreat = document.getElementById('duringRetreat');
+        const postRetreat = document.getElementById('postRetreat');
+        
+        if (today < retreatStart) {
+            phaseIndicator.innerHTML = '<strong>RETREAT PHASE:</strong> Pre-Retreat Preparation';
+            preRetreat.style.display = 'block';
+        } else if (today >= retreatStart && today <= retreatEnd) {
+            phaseIndicator.innerHTML = '<strong>RETREAT PHASE:</strong> Live Retreat Experience';
+            duringRetreat.style.display = 'block';
+            // During retreat, host can update schedule daily
+        } else {
+            phaseIndicator.innerHTML = '<strong>RETREAT PHASE:</strong> Post-Retreat Integration';
+            postRetreat.style.display = 'block';
+            // After retreat, becomes memory archive
+        }
+        
+        // Simple update system (in real implementation, would pull from a simple data file)
+        function addUpdate(message) {
+            const updatesList = document.getElementById('updatesList');
+            const newUpdate = document.createElement('li');
+            const today = new Date().toLocaleDateString();
+            newUpdate.innerHTML = `<strong>${today}:</strong> ${message}`;
+            updatesList.insertBefore(newUpdate, updatesList.firstChild);
+        }
+        
+        // Example of how host would add updates
+        // addUpdate("Sunrise meditation moved to 6:30 AM due to weather");
+    </script>
+</body>
+</html>

@@ -3,20 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vinyasa Krama Immersion with Matthew Sweeney | Valley Shala</title>
+    <title>Vinyasa Krama Immersion | Valley Shala</title>
     
-    <!-- YAML Metadata
-    ---
-    title: "Vinyasa Krama Immersion"
-    teacher: "Matthew Sweeney"
-    date: "2026-01-16 to 2026-01-21"
-    location: "Valley Shala, Hout Bay"
-    status: "live"
-    framework: "Untitled Format™"
-    ---
-    -->
-    
+    <!-- Critical CSS Inlined -->
     <style>
+        /* CRITICAL CSS - Loads immediately */
         :root {
             --color-deep: #2C3E50;
             --color-accent: #E74C3C;
@@ -24,8 +15,6 @@
             --color-light: #ECF0F1;
             --color-mid: #7F8C8D;
             --color-dark: #1A252F;
-            --font-serif: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
-            --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
         }
         
         * {
@@ -35,714 +24,687 @@
         }
         
         body {
-            font-family: var(--font-sans);
-            line-height: 1.7;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
             color: var(--color-light);
-            background: linear-gradient(135deg, var(--color-dark) 0%, var(--color-deep) 100%);
+            background: var(--color-dark);
             min-height: 100vh;
         }
         
-        /* Header & Navigation */
-        header {
-            padding: 1.5rem 2rem;
+        /* Progressive Loading States */
+        .skeleton {
+            background: linear-gradient(90deg, #2C3E50 25%, #34495E 50%, #2C3E50 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+            border-radius: 4px;
+        }
+        
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+        
+        /* Critical Layout */
+        .app-shell {
+            min-height: 100vh;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(26, 37, 47, 0.9);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            backdrop-filter: blur(10px);
+            flex-direction: column;
         }
         
-        .logo {
-            font-family: var(--font-serif);
-            font-size: 1.5rem;
-            color: var(--color-light);
-            text-decoration: none;
-            font-weight: 600;
-        }
-        
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-        }
-        
-        .nav-links a {
-            color: var(--color-light);
-            text-decoration: none;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            transition: color 0.3s ease;
-        }
-        
-        .nav-links a:hover {
-            color: var(--color-gold);
-        }
-        
-        /* Hero Section */
-        .hero {
-            min-height: 80vh;
+        .hero-critical {
+            min-height: 60vh;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
-            padding: 4rem 2rem;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle at 30% 70%, rgba(243, 156, 18, 0.1) 0%, transparent 50%),
-                        radial-gradient(circle at 70% 30%, rgba(231, 76, 60, 0.1) 0%, transparent 50%);
-            pointer-events: none;
-        }
-        
-        .hero-content {
-            max-width: 900px;
-            position: relative;
-            z-index: 2;
-        }
-        
-        .event-badge {
-            display: inline-block;
-            background: var(--color-accent);
-            color: var(--color-light);
-            padding: 0.5rem 1.5rem;
-            border-radius: 30px;
-            font-size: 0.85rem;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            margin-bottom: 2rem;
-        }
-        
-        .hero h1 {
-            font-family: var(--font-serif);
-            font-size: clamp(2.5rem, 6vw, 5rem);
-            font-weight: 300;
-            line-height: 1.2;
-            margin-bottom: 1rem;
-            color: var(--color-light);
-        }
-        
-        .hero-subtitle {
-            font-size: 1.5rem;
-            color: var(--color-gold);
-            margin-bottom: 2rem;
-            font-weight: 300;
-        }
-        
-        .hero-dates {
-            font-size: 1.2rem;
-            margin-bottom: 3rem;
-            color: var(--color-mid);
-        }
-        
-        .cta-button {
-            display: inline-block;
-            background: var(--color-gold);
-            color: var(--color-dark);
-            padding: 1.2rem 3rem;
-            font-size: 1.1rem;
-            text-decoration: none;
-            border-radius: 4px;
-            transition: all 0.3s ease;
-            font-weight: 600;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-        }
-        
-        .cta-button:hover {
-            background: var(--color-accent);
-            color: var(--color-light);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        }
-        
-        /* Living Updates Section */
-        .updates-section {
-            background: rgba(44, 62, 80, 0.7);
-            padding: 4rem 2rem;
-            margin: 2rem auto;
-            max-width: 1200px;
-            border-radius: 10px;
-            backdrop-filter: blur(5px);
-        }
-        
-        .section-title {
-            font-family: var(--font-serif);
-            font-size: 2.5rem;
-            color: var(--color-light);
-            margin-bottom: 2rem;
-            text-align: center;
-        }
-        
-        .updates-container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        .update-item {
-            background: rgba(26, 37, 47, 0.8);
             padding: 2rem;
-            margin-bottom: 1.5rem;
-            border-radius: 8px;
-            border-left: 4px solid var(--color-gold);
+            background: linear-gradient(135deg, var(--color-dark) 0%, var(--color-deep) 100%);
         }
         
-        .update-header {
-            display: flex;
-            justify-content: between;
-            align-items: center;
-            margin-bottom: 1rem;
-        }
-        
-        .update-date {
-            font-weight: 600;
-            color: var(--color-gold);
-        }
-        
-        .update-tag {
-            background: var(--color-accent);
-            color: var(--color-light);
-            padding: 0.3rem 1rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-        }
-        
-        .update-content {
-            color: var(--color-light);
-            line-height: 1.6;
-        }
-        
-        /* Event Details */
-        .details-section {
-            padding: 4rem 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .details-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-        
-        .detail-card {
-            background: rgba(44, 62, 80, 0.7);
-            padding: 2rem;
-            border-radius: 8px;
-            text-align: center;
-            transition: transform 0.3s ease;
-        }
-        
-        .detail-card:hover {
-            transform: translateY(-5px);
-        }
-        
-        .detail-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            color: var(--color-gold);
-        }
-        
-        .detail-card h3 {
-            font-family: var(--font-serif);
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: var(--color-light);
-        }
-        
-        .detail-card p {
-            color: var(--color-mid);
-            line-height: 1.6;
-        }
-        
-        /* Schedule Section */
-        .schedule-section {
-            background: rgba(26, 37, 47, 0.8);
-            padding: 4rem 2rem;
-            margin: 2rem auto;
-            max-width: 1200px;
-            border-radius: 10px;
-        }
-        
-        .schedule-container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        .schedule-day {
-            margin-bottom: 3rem;
-        }
-        
-        .day-header {
-            font-family: var(--font-serif);
-            font-size: 1.8rem;
-            color: var(--color-gold);
-            margin-bottom: 1.5rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 1px solid rgba(127, 140, 141, 0.3);
-        }
-        
-        .schedule-items {
-            list-style: none;
-        }
-        
-        .schedule-item {
-            display: flex;
-            padding: 1.5rem;
-            border-bottom: 1px solid rgba(127, 140, 141, 0.2);
-        }
-        
-        .schedule-time {
-            min-width: 120px;
-            font-weight: 600;
-            color: var(--color-gold);
-        }
-        
-        .schedule-activity {
-            flex: 1;
-            color: var(--color-light);
-        }
-        
-        /* Teacher Section */
-        .teacher-section {
-            padding: 4rem 2rem;
-            max-width: 1000px;
-            margin: 0 auto;
-            text-align: center;
-        }
-        
-        .teacher-card {
-            background: rgba(44, 62, 80, 0.7);
-            padding: 3rem;
-            border-radius: 10px;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        .teacher-name {
-            font-family: var(--font-serif);
-            font-size: 2.5rem;
-            color: var(--color-light);
-            margin-bottom: 1rem;
-        }
-        
-        .teacher-title {
-            font-size: 1.2rem;
-            color: var(--color-gold);
-            margin-bottom: 2rem;
-            font-style: italic;
-        }
-        
-        .teacher-bio {
-            color: var(--color-light);
-            line-height: 1.8;
-            text-align: left;
-            font-size: 1.1rem;
-        }
-        
-        /* Booking Section */
-        .booking-section {
-            background: rgba(44, 62, 80, 0.9);
-            padding: 5rem 2rem;
-            text-align: center;
-        }
-        
-        .booking-container {
+        .hero-skeleton {
+            width: 100%;
             max-width: 600px;
             margin: 0 auto;
         }
         
-        .price-tag {
-            font-family: var(--font-serif);
-            font-size: 3rem;
-            color: var(--color-gold);
-            margin: 2rem 0;
+        .skeleton-badge {
+            width: 120px;
+            height: 30px;
+            margin: 0 auto 2rem;
         }
         
-        .availability {
-            color: var(--color-mid);
-            margin-bottom: 2rem;
+        .skeleton-title {
+            width: 80%;
+            height: 60px;
+            margin: 0 auto 1rem;
         }
         
-        /* Footer */
-        footer {
-            padding: 3rem 2rem;
-            text-align: center;
-            background: var(--color-dark);
+        .skeleton-subtitle {
+            width: 60%;
+            height: 30px;
+            margin: 0 auto 2rem;
         }
         
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin: 2rem 0;
-            flex-wrap: wrap;
-        }
-        
-        .footer-links a {
-            color: var(--color-mid);
-            text-decoration: none;
-            font-size: 0.9rem;
-        }
-        
-        .footer-links a:hover {
-            color: var(--color-light);
-        }
-        
-        .footer-credit {
-            margin-top: 2rem;
-            font-size: 0.85rem;
-            color: var(--color-mid);
-        }
-        
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-            
-            .schedule-item {
-                flex-direction: column;
-                gap: 0.5rem;
-            }
-            
-            .schedule-time {
-                min-width: auto;
-            }
-            
-            .footer-links {
-                flex-direction: column;
-                gap: 1rem;
-            }
-        }
-        
-        /* Animation for the page load */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .fade-in {
-            animation: fadeIn 0.8s ease-out;
-        }
-        
-        /* Phase indicator for living document */
-        .phase-indicator {
-            background: var(--color-accent);
-            color: white;
-            padding: 10px 20px;
-            text-align: center;
-            margin: 2rem auto;
-            border-radius: 5px;
-            max-width: 300px;
-            font-weight: 600;
+        .skeleton-button {
+            width: 200px;
+            height: 50px;
+            margin: 0 auto;
         }
     </style>
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" as="style" href="#full-styles">
+    <link rel="prefetch" href="#interactive-content">
 </head>
 <body>
-    <header>
-        <a href="#" class="logo">Valley Shala</a>
-        <nav class="nav-links">
-            <a href="#updates">Updates</a>
-            <a href="#details">Details</a>
-            <a href="#schedule">Schedule</a>
-            <a href="#teacher">Teacher</a>
-            <a href="#booking">Book Now</a>
-        </nav>
-    </header>
-    
-    <main>
-        <section class="hero fade-in">
-            <div class="hero-content">
-                <div class="event-badge">Immersion</div>
-                <h1>Vinyasa Krama Immersion</h1>
-                <p class="hero-subtitle">with Matthew Sweeney</p>
-                <p class="hero-dates">16 - 21 January 2026 | Valley Shala, Hout Bay</p>
-                <a href="#booking" class="cta-button">Reserve Your Spot</a>
+    <div class="app-shell">
+        <!-- Critical Above-the-Fold Content -->
+        <section class="hero-critical" id="critical-hero">
+            <div class="hero-skeleton">
+                <div class="skeleton-badge skeleton"></div>
+                <div class="skeleton-title skeleton"></div>
+                <div class="skeleton-subtitle skeleton"></div>
+                <div class="skeleton-button skeleton"></div>
             </div>
         </section>
-        
-        <!-- Living Updates Section -->
-        <section class="updates-section fade-in" id="updates">
-            <h2 class="section-title">Living Updates</h2>
-            <div class="phase-indicator">CURRENT PHASE: Early Registration</div>
-            
-            <div class="updates-container">
-                <div class="update-item">
-                    <div class="update-header">
-                        <span class="update-date">October 30, 2025</span>
-                        <span class="update-tag">New</span>
-                    </div>
-                    <div class="update-content">
-                        <p>Early bird registration is now open! Secure your spot before November 30 to receive a 15% discount. We've added detailed preparation materials to help you get the most out of this immersion.</p>
-                    </div>
-                </div>
-                
-                <div class="update-item">
-                    <div class="update-header">
-                        <span class="update-date">September 15, 2025</span>
-                        <span class="update-tag">Schedule</span>
-                    </div>
-                    <div class="update-content">
-                        <p>Detailed daily schedule has been published. Matthew has designed a progressive immersion that builds systematically over the 5 days. Each session includes practice, theory, and Q&A.</p>
-                    </div>
-                </div>
-                
-                <div class="update-item">
-                    <div class="update-header">
-                        <span class="update-date">August 5, 2025</span>
-                        <span class="update-tag">Announcement</span>
-                    </div>
-                    <div class="update-content">
-                        <p>We're thrilled to announce this special 5-day immersion with Matthew Sweeney. With limited spaces available, we recommend early registration to avoid disappointment.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Event Details -->
-        <section class="details-section fade-in" id="details">
-            <h2 class="section-title">Immersion Details</h2>
-            
-            <div class="details-grid">
-                <div class="detail-card">
-                    <div class="detail-icon">🧘</div>
-                    <h3>Vinyasa Krama</h3>
-                    <p>Explore the intelligent sequencing and progressive methodology that makes Matthew Sweeney's approach to Vinyasa so transformative.</p>
-                </div>
-                
-                <div class="detail-card">
-                    <div class="detail-icon">📚</div>
-                    <h3>Progressive Learning</h3>
-                    <p>Each day builds systematically on the previous, creating a cohesive learning journey from fundamentals to advanced applications.</p>
-                </div>
-                
-                <div class="detail-card">
-                    <div class="detail-icon">🌅</div>
-                    <h3>Daily Practice</h3>
-                    <p>Morning intensives followed by afternoon theory sessions, with ample time for integration, questions, and personal practice.</p>
-                </div>
-                
-                <div class="detail-card">
-                    <div class="detail-icon">👥</div>
-                    <h3>Limited Spaces</h3>
-                    <p>To ensure personalized attention, this immersion is limited to 20 participants. Early registration is strongly recommended.</p>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Schedule Section -->
-        <section class="schedule-section fade-in" id="schedule">
-            <h2 class="section-title">Immersion Schedule</h2>
-            
-            <div class="schedule-container">
-                <div class="schedule-day">
-                    <h3 class="day-header">Day 1: Friday, January 16</h3>
-                    <ul class="schedule-items">
-                        <li class="schedule-item">
-                            <span class="schedule-time">18:00 - 20:00</span>
-                            <span class="schedule-activity">Opening Ceremony & Introduction to Vinyasa Krama</span>
-                        </li>
-                    </ul>
-                </div>
-                
-                <div class="schedule-day">
-                    <h3 class="day-header">Day 2: Saturday, January 17</h3>
-                    <ul class="schedule-items">
-                        <li class="schedule-item">
-                            <span class="schedule-time">07:00 - 09:30</span>
-                            <span class="schedule-activity">Morning Intensive: Foundational Sequencing</span>
-                        </li>
-                        <li class="schedule-item">
-                            <span class="schedule-time">16:00 - 18:30</span>
-                            <span class="schedule-activity">Afternoon Session: Theory & Practice Integration</span>
-                        </li>
-                    </ul>
-                </div>
-                
-                <div class="schedule-day">
-                    <h3 class="day-header">Day 3: Sunday, January 18</h3>
-                    <ul class="schedule-items">
-                        <li class="schedule-item">
-                            <span class="schedule-time">07:00 - 09:30</span>
-                            <span class="schedule-activity">Morning Intensive: Intermediate Progressions</span>
-                        </li>
-                        <li class="schedule-item">
-                            <span class="schedule-time">16:00 - 18:30</span>
-                            <span class="schedule-activity">Afternoon Session: Adjustments & Variations</span>
-                        </li>
-                    </ul>
-                </div>
-                
-                <div class="schedule-day">
-                    <h3 class="day-header">Day 4: Monday, January 19</h3>
-                    <ul class="schedule-items">
-                        <li class="schedule-item">
-                            <span class="schedule-time">07:00 - 09:30</span>
-                            <span class="schedule-activity">Morning Intensive: Advanced Applications</span>
-                        </li>
-                        <li class="schedule-item">
-                            <span class="schedule-time">16:00 - 18:30</span>
-                            <span class="schedule-activity">Afternoon Session: Teaching Methodology</span>
-                        </li>
-                    </ul>
-                </div>
-                
-                <div class="schedule-day">
-                    <h3 class="day-header">Day 5: Tuesday, January 20</h3>
-                    <ul class="schedule-items">
-                        <li class="schedule-item">
-                            <span class="schedule-time">07:00 - 09:30</span>
-                            <span class="schedule-activity">Morning Intensive: Integration Practice</span>
-                        </li>
-                        <li class="schedule-item">
-                            <span class="schedule-time">16:00 - 18:30</span>
-                            <span class="schedule-activity">Afternoon Session: Q&A & Personal Practice Planning</span>
-                        </li>
-                    </ul>
-                </div>
-                
-                <div class="schedule-day">
-                    <h3 class="day-header">Day 6: Wednesday, January 21</h3>
-                    <ul class="schedule-items">
-                        <li class="schedule-item">
-                            <span class="schedule-time">08:00 - 10:00</span>
-                            <span class="schedule-activity">Closing Ceremony & Integration</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Teacher Section -->
-        <section class="teacher-section fade-in" id="teacher">
-            <h2 class="section-title">About Matthew Sweeney</h2>
-            
-            <div class="teacher-card">
-                <h3 class="teacher-name">Matthew Sweeney</h3>
-                <p class="teacher-title">Internationally Recognized Yoga Teacher & Author</p>
-                <div class="teacher-bio">
-                    <p>Matthew Sweeney is known for his intelligent, creative and accessible approach to Vinyasa Yoga. With over 25 years of teaching experience, he has developed a unique methodology that honors tradition while embracing innovation.</p>
-                    <p style="margin-top: 1rem;">His Vinyasa Krama system emphasizes intelligent sequencing, functional movement, and sustainable practice. Matthew is the author of several influential books on yoga and has taught workshops and teacher trainings worldwide.</p>
-                    <p style="margin-top: 1rem;">This immersion offers a rare opportunity to study directly with Matthew and experience his transformative approach to practice and teaching.</p>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Booking Section -->
-        <section class="booking-section fade-in" id="booking">
-            <h2 class="section-title">Reserve Your Spot</h2>
-            
-            <div class="booking-container">
-                <p class="availability">Only 6 spots remaining</p>
-                
-                <div class="price-tag">R 4,800</div>
-                
-                <p style="margin-bottom: 2rem; color: var(--color-light);">Early bird price until November 30, 2025</p>
-                
-                <a href="#" class="cta-button">Book Now</a>
-                
-                <p style="margin-top: 2rem; color: var(--color-mid); font-size: 0.9rem;">
-                    Includes all sessions from January 16-21, 2026<br>
-                    Comprehensive course manual included
-                </p>
-            </div>
-        </section>
-    </main>
-    
-    <footer>
-        <div class="footer-links">
-            <a href="#">Privacy Policy</a>
-            <a href="#">Accessibility Statement</a>
-            <a href="#">Terms & Conditions</a>
-            <a href="#">Refund Policy</a>
-        </div>
-        
-        <div class="footer-credit">
-            <p>© 2025 Valley Shala | Vinyasa Krama Immersion Living Portal</p>
-            <p style="margin-top: 0.5rem;">Powered by Untitled Format™ • Single HTML File • Always Current</p>
-        </div>
-    </footer>
-    
+    </div>
+
+    <!-- Full Content - Loaded After Critical Render -->
     <script>
-        // Simple script to handle the living page functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            // Update the phase indicator based on date
-            const today = new Date();
-            const eventStart = new Date('2026-01-16');
-            const earlyBirdEnd = new Date('2025-11-30');
+        // Enhanced loading strategy with performance monitoring
+        (function() {
+            'use strict';
             
-            const phaseIndicator = document.querySelector('.phase-indicator');
+            // Performance markers
+            performance.mark('loading-start');
             
-            if (today < earlyBirdEnd) {
-                phaseIndicator.textContent = 'CURRENT PHASE: Early Registration';
-                phaseIndicator.style.background = '#E74C3C';
-            } else if (today < eventStart) {
-                phaseIndicator.textContent = 'CURRENT PHASE: Regular Registration';
-                phaseIndicator.style.background = '#F39C12';
-            } else if (today >= eventStart && today <= new Date('2026-01-21')) {
-                phaseIndicator.textContent = 'CURRENT PHASE: Live Event';
-                phaseIndicator.style.background = '#2ECC71';
-            } else {
-                phaseIndicator.textContent = 'CURRENT PHASE: Completed';
-                phaseIndicator.style.background = '#7F8C8D';
+            // Load full content after critical render
+            function loadFullContent() {
+                // Remove skeleton
+                const criticalHero = document.getElementById('critical-hero');
+                if (criticalHero) {
+                    criticalHero.style.opacity = '0';
+                    setTimeout(() => {
+                        criticalHero.innerHTML = '';
+                        criticalHero.style.opacity = '1';
+                        injectFullContent();
+                    }, 50);
+                } else {
+                    injectFullContent();
+                }
             }
             
-            // Add booking button functionality
-            const bookButtons = document.querySelectorAll('.cta-button');
-            bookButtons.forEach(button => {
-                button.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    // In a real implementation, this would open a booking modal
-                    alert('Booking system would open here. This could connect to a simple form or payment processor.');
-                });
-            });
+            // Inject full content
+            function injectFullContent() {
+                const appShell = document.querySelector('.app-shell');
+                
+                // Full HTML content
+                appShell.innerHTML = `
+                    <!-- Optimized Header -->
+                    <header class="optimized-header">
+                        <a href="#" class="logo" onclick="return false;">Valley Shala</a>
+                        <nav class="nav-links">
+                            <a href="#updates" data-navigate>Updates</a>
+                            <a href="#details" data-navigate>Details</a>
+                            <a href="#schedule" data-navigate>Schedule</a>
+                            <a href="#teacher" data-navigate>Teacher</a>
+                            <a href="#booking" data-navigate>Book Now</a>
+                        </nav>
+                    </header>
+
+                    <!-- Hero Section -->
+                    <section class="hero-optimized">
+                        <div class="hero-content">
+                            <div class="event-badge">Immersion</div>
+                            <h1>Vinyasa Krama Immersion</h1>
+                            <p class="hero-subtitle">with Matthew Sweeney</p>
+                            <p class="hero-dates">16 - 21 January 2026 | Valley Shala, Hout Bay</p>
+                            <a href="#booking" class="cta-button" data-navigate>Reserve Your Spot</a>
+                        </div>
+                    </section>
+
+                    <!-- Living Updates -->
+                    <section class="updates-optimized" id="updates">
+                        <h2>Living Updates</h2>
+                        <div class="phase-indicator">CURRENT PHASE: Early Registration</div>
+                        
+                        <div class="updates-container">
+                            <article class="update-item">
+                                <header class="update-header">
+                                    <time datetime="2025-10-30">October 30, 2025</time>
+                                    <span class="update-tag">New</span>
+                                </header>
+                                <div class="update-content">
+                                    <p>Early bird registration is now open! Secure your spot before November 30 to receive a 15% discount.</p>
+                                </div>
+                            </article>
+                            
+                            <article class="update-item">
+                                <header class="update-header">
+                                    <time datetime="2025-09-15">September 15, 2025</time>
+                                    <span class="update-tag">Schedule</span>
+                                </header>
+                                <div class="update-content">
+                                    <p>Detailed daily schedule published. Progressive immersion builds systematically over 5 days.</p>
+                                </div>
+                            </article>
+                        </div>
+                    </section>
+
+                    <!-- Quick Details -->
+                    <section class="details-quick" id="details">
+                        <h2>Immersion Details</h2>
+                        <div class="details-grid-minimal">
+                            <div class="detail-card-mini">
+                                <div class="detail-emoji">🧘</div>
+                                <h3>Vinyasa Krama</h3>
+                                <p>Intelligent sequencing methodology</p>
+                            </div>
+                            <div class="detail-card-mini">
+                                <div class="detail-emoji">📚</div>
+                                <h3>Progressive Learning</h3>
+                                <p>Systematic daily progression</p>
+                            </div>
+                            <div class="detail-card-mini">
+                                <div class="detail-emoji">👥</div>
+                                <h3>Limited to 20</h3>
+                                <p>Personalized attention guaranteed</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Essential Schedule -->
+                    <section class="schedule-essential" id="schedule">
+                        <h2>Daily Rhythm</h2>
+                        <div class="schedule-minimal">
+                            <div class="day-summary">
+                                <strong>Mornings:</strong> 7:00-9:30 Practice Intensive
+                            </div>
+                            <div class="day-summary">
+                                <strong>Afternoons:</strong> 16:00-18:30 Theory & Integration
+                            </div>
+                            <div class="schedule-note">
+                                Full detailed schedule available upon registration
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Teacher Preview -->
+                    <section class="teacher-preview" id="teacher">
+                        <h2>About Matthew Sweeney</h2>
+                        <div class="teacher-card-mini">
+                            <p>Internationally recognized teacher with 25+ years experience. Known for intelligent, creative approach to Vinyasa Yoga.</p>
+                            <button class="read-more" data-expand="teacher-bio">Read full bio</button>
+                        </div>
+                    </section>
+
+                    <!-- Booking CTA -->
+                    <section class="booking-optimized" id="booking">
+                        <h2>Reserve Your Spot</h2>
+                        <div class="price-display">
+                            <span class="price">R 4,800</span>
+                            <span class="price-note">Early bird until Nov 30</span>
+                        </div>
+                        <div class="availability">6 spots remaining</div>
+                        <button class="cta-button-book" data-action="book">Book Now</button>
+                    </section>
+
+                    <!-- Footer -->
+                    <footer class="optimized-footer">
+                        <p>Valley Shala | Living Retreat Portal</p>
+                        <p>Powered by Untitled Format™</p>
+                    </footer>
+                `;
+                
+                // Now inject the optimized CSS
+                injectOptimizedCSS();
+                
+                // Initialize interactive features
+                initializeApp();
+                
+                performance.mark('loading-end');
+                performance.measure('full-content-load', 'loading-start', 'loading-end');
+                
+                // Log performance
+                const measure = performance.getEntriesByName('full-content-load')[0];
+                console.log(`Full content loaded in ${measure.duration.toFixed(2)}ms`);
+            }
             
-            // Add smooth scrolling for navigation
-            const navLinks = document.querySelectorAll('.nav-links a');
-            navLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    const targetId = this.getAttribute('href');
-                    const targetElement = document.querySelector(targetId);
-                    
-                    if (targetElement) {
-                        window.scrollTo({
-                            top: targetElement.offsetTop - 80,
-                            behavior: 'smooth'
-                        });
+            // Inject optimized CSS
+            function injectOptimizedCSS() {
+                const style = document.createElement('style');
+                style.textContent = `
+                    /* OPTIMIZED CSS - Minimal, efficient */
+                    .optimized-header {
+                        padding: 1rem 2rem;
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        background: var(--color-dark);
+                        position: sticky;
+                        top: 0;
+                        z-index: 100;
                     }
-                });
-            });
+                    
+                    .logo {
+                        font-family: 'Georgia', serif;
+                        font-size: 1.5rem;
+                        color: var(--color-light);
+                        text-decoration: none;
+                        font-weight: 600;
+                    }
+                    
+                    .nav-links {
+                        display: flex;
+                        gap: 1.5rem;
+                    }
+                    
+                    .nav-links a {
+                        color: var(--color-light);
+                        text-decoration: none;
+                        font-size: 0.9rem;
+                        transition: color 0.2s;
+                    }
+                    
+                    .nav-links a:hover {
+                        color: var(--color-gold);
+                    }
+                    
+                    .hero-optimized {
+                        min-height: 70vh;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        text-align: center;
+                        padding: 2rem;
+                        background: linear-gradient(135deg, var(--color-dark) 0%, var(--color-deep) 100%);
+                    }
+                    
+                    .hero-content {
+                        max-width: 600px;
+                    }
+                    
+                    .event-badge {
+                        display: inline-block;
+                        background: var(--color-accent);
+                        color: var(--color-light);
+                        padding: 0.5rem 1.5rem;
+                        border-radius: 30px;
+                        font-size: 0.85rem;
+                        margin-bottom: 2rem;
+                    }
+                    
+                    .hero-optimized h1 {
+                        font-family: 'Georgia', serif;
+                        font-size: clamp(2rem, 5vw, 3.5rem);
+                        font-weight: 300;
+                        line-height: 1.2;
+                        margin-bottom: 1rem;
+                    }
+                    
+                    .hero-subtitle {
+                        font-size: 1.3rem;
+                        color: var(--color-gold);
+                        margin-bottom: 1rem;
+                    }
+                    
+                    .hero-dates {
+                        color: var(--color-mid);
+                        margin-bottom: 2rem;
+                    }
+                    
+                    .cta-button {
+                        display: inline-block;
+                        background: var(--color-gold);
+                        color: var(--color-dark);
+                        padding: 1rem 2.5rem;
+                        text-decoration: none;
+                        border-radius: 4px;
+                        font-weight: 600;
+                        transition: all 0.3s;
+                    }
+                    
+                    .cta-button:hover {
+                        background: var(--color-accent);
+                        color: var(--color-light);
+                        transform: translateY(-2px);
+                    }
+                    
+                    .updates-optimized {
+                        padding: 3rem 2rem;
+                        max-width: 800px;
+                        margin: 0 auto;
+                    }
+                    
+                    .updates-optimized h2 {
+                        font-family: 'Georgia', serif;
+                        font-size: 2rem;
+                        text-align: center;
+                        margin-bottom: 1.5rem;
+                    }
+                    
+                    .phase-indicator {
+                        background: var(--color-accent);
+                        color: white;
+                        padding: 0.75rem;
+                        text-align: center;
+                        border-radius: 4px;
+                        margin-bottom: 2rem;
+                        font-weight: 600;
+                    }
+                    
+                    .update-item {
+                        background: rgba(44, 62, 80, 0.7);
+                        padding: 1.5rem;
+                        margin-bottom: 1rem;
+                        border-radius: 6px;
+                        border-left: 4px solid var(--color-gold);
+                    }
+                    
+                    .update-header {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        margin-bottom: 0.5rem;
+                    }
+                    
+                    .update-tag {
+                        background: var(--color-accent);
+                        color: var(--color-light);
+                        padding: 0.25rem 0.75rem;
+                        border-radius: 20px;
+                        font-size: 0.8rem;
+                    }
+                    
+                    .details-quick {
+                        padding: 3rem 2rem;
+                        max-width: 1000px;
+                        margin: 0 auto;
+                    }
+                    
+                    .details-quick h2 {
+                        font-family: 'Georgia', serif;
+                        font-size: 2rem;
+                        text-align: center;
+                        margin-bottom: 2rem;
+                    }
+                    
+                    .details-grid-minimal {
+                        display: grid;
+                        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                        gap: 1.5rem;
+                    }
+                    
+                    .detail-card-mini {
+                        background: rgba(44, 62, 80, 0.7);
+                        padding: 1.5rem;
+                        border-radius: 6px;
+                        text-align: center;
+                        transition: transform 0.2s;
+                    }
+                    
+                    .detail-card-mini:hover {
+                        transform: translateY(-3px);
+                    }
+                    
+                    .detail-emoji {
+                        font-size: 2rem;
+                        margin-bottom: 1rem;
+                    }
+                    
+                    .detail-card-mini h3 {
+                        margin-bottom: 0.5rem;
+                        color: var(--color-gold);
+                    }
+                    
+                    .schedule-essential {
+                        padding: 3rem 2rem;
+                        max-width: 600px;
+                        margin: 0 auto;
+                    }
+                    
+                    .schedule-essential h2 {
+                        font-family: 'Georgia', serif;
+                        font-size: 2rem;
+                        text-align: center;
+                        margin-bottom: 2rem;
+                    }
+                    
+                    .day-summary {
+                        background: rgba(44, 62, 80, 0.7);
+                        padding: 1rem;
+                        margin-bottom: 1rem;
+                        border-radius: 4px;
+                    }
+                    
+                    .schedule-note {
+                        text-align: center;
+                        color: var(--color-mid);
+                        font-style: italic;
+                        margin-top: 1rem;
+                    }
+                    
+                    .teacher-preview {
+                        padding: 3rem 2rem;
+                        max-width: 600px;
+                        margin: 0 auto;
+                        text-align: center;
+                    }
+                    
+                    .teacher-preview h2 {
+                        font-family: 'Georgia', serif;
+                        font-size: 2rem;
+                        margin-bottom: 1.5rem;
+                    }
+                    
+                    .teacher-card-mini {
+                        background: rgba(44, 62, 80, 0.7);
+                        padding: 2rem;
+                        border-radius: 6px;
+                    margin-bottom: 1rem;
+                    text-align: left;
+                    line-height: 1.6;
+                    position: relative;
+                    overflow: hidden;
+                    max-height: 200px;
+                        transition: max-height 0.3s ease;
+                    }
+                    
+                    .teacher-card-mini.expanded {
+                        max-height: 1000px;
+                    }
+                    
+                    .read-more {
+                        background: transparent;
+                        border: 1px solid var(--color-gold);
+                        color: var(--color-gold);
+                        padding: 0.5rem 1rem;
+                        border-radius: 4px;
+                        margin-top: 1rem;
+                        cursor: pointer;
+                        transition: all 0.2s;
+                    }
+                    
+                    .read-more:hover {
+                        background: var(--color-gold);
+                        color: var(--color-dark);
+                    }
+                    
+                    .booking-optimized {
+                        padding: 4rem 2rem;
+                        text-align: center;
+                        background: rgba(44, 62, 80, 0.9);
+                    }
+                    
+                    .booking-optimized h2 {
+                        font-family: 'Georgia', serif;
+                        font-size: 2rem;
+                        margin-bottom: 1.5rem;
+                    }
+                    
+                    .price-display {
+                        margin: 2rem 0;
+                    }
+                    
+                    .price {
+                        font-family: 'Georgia', serif;
+                        font-size: 3rem;
+                        color: var(--color-gold);
+                        display: block;
+                    }
+                    
+                    .price-note {
+                        color: var(--color-mid);
+                        font-size: 0.9rem;
+                    }
+                    
+                    .availability {
+                        color: var(--color-accent);
+                        margin-bottom: 2rem;
+                        font-weight: 600;
+                    }
+                    
+                    .cta-button-book {
+                        background: var(--color-gold);
+                        color: var(--color-dark);
+                        border: none;
+                        padding: 1rem 3rem;
+                        font-size: 1.1rem;
+                        border-radius: 4px;
+                        cursor: pointer;
+                        font-weight: 600;
+                        transition: all 0.3s;
+                    }
+                    
+                    .cta-button-book:hover {
+                        background: var(--color-accent);
+                        color: var(--color-light);
+                        transform: translateY(-2px);
+                    }
+                    
+                    .optimized-footer {
+                        padding: 2rem;
+                        text-align: center;
+                        background: var(--color-dark);
+                        color: var(--color-mid);
+                    }
+                    
+                    /* Responsive */
+                    @media (max-width: 768px) {
+                        .nav-links {
+                            display: none;
+                        }
+                        
+                        .hero-optimized {
+                            min-height: 60vh;
+                            padding: 1rem;
+                        }
+                        
+                        .details-grid-minimal {
+                            grid-template-columns: 1fr;
+                        }
+                    }
+                    
+                    /* Reduced motion support */
+                    @media (prefers-reduced-motion: reduce) {
+                        * {
+                            animation-duration: 0.01ms !important;
+                            animation-iteration-count: 1 !important;
+                            transition-duration: 0.01ms !important;
+                        }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
             
-            // Add some interactive elements to schedule items
-            const scheduleItems = document.querySelectorAll('.schedule-item');
-            scheduleItems.forEach(item => {
-                item.addEventListener('mouseenter', function() {
-                    this.style.background = 'rgba(243, 156, 18, 0.1)';
-                    this.style.transition = 'background 0.3s ease';
+            // Initialize interactive features
+            function initializeApp() {
+                // Smooth scrolling for navigation
+                document.querySelectorAll('[data-navigate]').forEach(link => {
+                    link.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const target = document.querySelector(this.getAttribute('href'));
+                        if (target) {
+                            target.scrollIntoView({ behavior: 'smooth' });
+                        }
+                    });
                 });
                 
-                item.addEventListener('mouseleave', function() {
-                    this.style.background = 'transparent';
+                // Expandable content
+                document.querySelectorAll('[data-expand]').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const targetClass = this.getAttribute('data-expand');
+                        const target = this.closest('.teacher-card-mini');
+                        if (target) {
+                            target.classList.toggle('expanded');
+                            this.textContent = target.classList.contains('expanded') ? 'Show less' : 'Read full bio';
+                        }
+                    });
                 });
-            });
-        });
+                
+                // Booking action
+                document.querySelectorAll('[data-action="book"]').forEach(button => {
+                    button.addEventListener('click', function() {
+                        // Simulate booking flow
+                        const currentSpots = 6;
+                        if (currentSpots > 0) {
+                            this.textContent = 'Processing...';
+                            this.disabled = true;
+                            
+                            setTimeout(() => {
+                                alert('Booking system would open here. In a real implementation, this would connect to your payment processor.');
+                                this.textContent = 'Book Now';
+                                this.disabled = false;
+                            }, 1000);
+                        }
+                    });
+                });
+                
+                // Dynamic phase indicator
+                function updatePhaseIndicator() {
+                    const today = new Date();
+                    const earlyBirdEnd = new Date('2025-11-30');
+                    const eventStart = new Date('2026-01-16');
+                    
+                    const indicator = document.querySelector('.phase-indicator');
+                    if (!indicator) return;
+                    
+                    if (today < earlyBirdEnd) {
+                        indicator.textContent = 'CURRENT PHASE: Early Registration';
+                        indicator.style.background = '#E74C3C';
+                    } else if (today < eventStart) {
+                        indicator.textContent = 'CURRENT PHASE: Regular Registration';
+                        indicator.style.background = '#F39C12';
+                    } else {
+                        indicator.textContent = 'CURRENT PHASE: Event Completed';
+                        indicator.style.background = '#7F8C8D';
+                    }
+                }
+                
+                updatePhaseIndicator();
+                
+                // Lazy load additional content if needed
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            // Could load more content here
+                            console.log('Section in view:', entry.target.id);
+                        }
+                    });
+                });
+                
+                document.querySelectorAll('section').forEach(section => {
+                    observer.observe(section);
+                });
+            }
+            
+            // Load full content after critical render
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', loadFullContent);
+            } else {
+                loadFullContent();
+            }
+        })();
     </script>
 </body>
 </html>

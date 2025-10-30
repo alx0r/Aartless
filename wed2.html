@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emma & James — October 14, 2026</title>
+    
+    <!-- YAML Metadata
+    ---
+    title: "Emma & James Wedding"
+    date: "2026-10-14"
+    venue: "The Glass House, Copenhagen"
+    style: "minimalist-elegance"
+    template: "untitled-format-v1"
+    designers: "Sadie Bosworth Atelier"
+    ---
+    -->
+    
+    <style>
+        :root {
+            --color-primary: #000000;
+            --color-secondary: #666666;
+            --color-accent: #e8e8e8;
+            --color-background: #ffffff;
+            --font-primary: 'Helvetica Neue', Arial, sans-serif;
+            --font-accent: 'Georgia', serif;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-primary);
+            background: var(--color-background);
+            color: var(--color-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            border-bottom: 1px solid var(--color-accent);
+            position: relative;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(180deg, transparent 0%, rgba(255,255,255,0.95) 100%);
+            z-index: 1;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            padding: 2rem;
+        }
+        
+        .couple-names {
+            font-family: var(--font-accent);
+            font-size: clamp(3rem, 10vw, 7rem);
+            font-weight: 300;
+            letter-spacing: 0.02em;
+            margin-bottom: 1rem;
+        }
+        
+        .ampersand {
+            display: block;
+            font-size: 0.6em;
+            opacity: 0.4;
+            margin: 0.5rem 0;
+        }
+        
+        .wedding-date {
+            font-size: 1.1rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            font-weight: 300;
+            margin-top: 2rem;
+            opacity: 0.7;
+        }
+        
+        .location {
+            font-size: 0.95rem;
+            margin-top: 0.5rem;
+            opacity: 0.5;
+            letter-spacing: 0.2em;
+        }
+        
+        section {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 5rem 2rem;
+        }
+        
+        h2 {
+            font-family: var(--font-accent);
+            font-size: 2rem;
+            font-weight: 300;
+            text-align: center;
+            margin-bottom: 3rem;
+            letter-spacing: 0.05em;
+        }
+        
+        .detail-block {
+            margin: 3rem 0;
+            padding: 2rem 0;
+            border-top: 1px solid var(--color-accent);
+        }
+        
+        .detail-block:last-child {
+            border-bottom: 1px solid var(--color-accent);
+        }
+        
+        .detail-label {
+            font-size: 0.8rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            opacity: 0.5;
+            margin-bottom: 0.75rem;
+        }
+        
+        .detail-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        .timeline {
+            list-style: none;
+        }
+        
+        .timeline li {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .timeline li:last-child {
+            border-bottom: none;
+        }
+        
+        .time {
+            font-family: var(--font-accent);
+            font-size: 1.1rem;
+            min-width: 80px;
+            opacity: 0.4;
+        }
+        
+        .event {
+            flex: 1;
+        }
+        
+        .rsvp-section {
+            background: #fafafa;
+            text-align: center;
+            padding: 4rem 2rem;
+            margin: 5rem 0 0 0;
+        }
+        
+        .rsvp-section h2 {
+            margin-bottom: 2rem;
+        }
+        
+        .rsvp-details {
+            font-size: 1rem;
+            line-height: 1.8;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .contact-link {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 1rem 3rem;
+            border: 1px solid var(--color-primary);
+            text-decoration: none;
+            color: var(--color-primary);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-link:hover {
+            background: var(--color-primary);
+            color: var(--color-background);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            font-size: 0.85rem;
+            opacity: 0.4;
+            letter-spacing: 0.1em;
+        }
+        
+        @media (max-width: 768px) {
+            .couple-names {
+                font-size: 2.5rem;
+            }
+            
+            .timeline li {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .time {
+                min-width: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="hero">
+        <div class="hero-content">
+            <h1 class="couple-names">
+                Emma
+                <span class="ampersand">&</span>
+                James
+            </h1>
+            <p class="wedding-date">October 14, 2026</p>
+            <p class="location">Copenhagen, Denmark</p>
+        </div>
+    </header>
+    
+    <main>
+        <section id="invitation">
+            <h2>You're Invited</h2>
+            <p style="text-align: center; font-size: 1.1rem; line-height: 1.9; opacity: 0.8;">
+                Join us for an intimate celebration of love,<br>
+                architecture, and new beginnings.<br>
+                We can't wait to share this day with you.
+            </p>
+        </section>
+        
+        <section id="details">
+            <h2>Event Details</h2>
+            
+            <div class="detail-block">
+                <div class="detail-label">Ceremony</div>
+                <div class="detail-content">
+                    The Glass House<br>
+                    Strandvejen 412<br>
+                    2930 Klampenborg, Copenhagen
+                </div>
+            </div>
+            
+            <div class="detail-block">
+                <div class="detail-label">Date & Time</div>
+                <div class="detail-content">
+                    Wednesday, October 14, 2026<br>
+                    4:00 PM — Ceremony begins<br>
+                    5:30 PM — Reception & dinner
+                </div>
+            </div>
+            
+            <div class="detail-block">
+                <div class="detail-label">Dress Code</div>
+                <div class="detail-content">
+                    Elegant minimalism.<br>
+                    Think neutral tones, clean lines, comfort.
+                </div>
+            </div>
+        </section>
+        
+        <section id="schedule">
+            <h2>Timeline</h2>
+            <ul class="timeline">
+                <li>
+                    <span class="time">4:00 PM</span>
+                    <div class="event">
+                        <strong>Ceremony</strong><br>
+                        Outdoor garden, weather permitting
+                    </div>
+                </li>
+                <li>
+                    <span class="time">5:00 PM</span>
+                    <div class="event">
+                        <strong>Cocktails</strong><br>
+                        Light refreshments on the terrace
+                    </div>
+                </li>
+                <li>
+                    <span class="time">6:30 PM</span>
+                    <div class="event">
+                        <strong>Dinner</strong><br>
+                        Four-course seasonal menu
+                    </div>
+                </li>
+                <li>
+                    <span class="time">9:00 PM</span>
+                    <div class="event">
+                        <strong>Dancing</strong><br>
+                        Until midnight
+                    </div>
+                </li>
+            </ul>
+        </section>
+        
+        <section id="travel">
+            <h2>Travel & Accommodations</h2>
+            
+            <div class="detail-block">
+                <div class="detail-label">Getting There</div>
+                <div class="detail-content">
+                    The venue is 20 minutes from Copenhagen city center.<br>
+                    Complimentary shuttle service available from Hotel d'Angleterre at 3:15 PM.
+                </div>
+            </div>
+            
+            <div class="detail-block">
+                <div class="detail-label">Where to Stay</div>
+                <div class="detail-content">
+                    We've reserved a block of rooms at:<br>
+                    <strong>Hotel d'Angleterre</strong><br>
+                    Use code: EMMAJAMES2026
+                </div>
+            </div>
+        </section>
+        
+        <section class="rsvp-section">
+            <h2>RSVP</h2>
+            <div class="rsvp-details">
+                <p>Please respond by September 1, 2026</p>
+                <p>Let us know if you can join us and any dietary preferences.</p>
+                <a href="mailto:rsvp@emmajames2026.com" class="contact-link">RSVP Here</a>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <p>DESIGNED BY SADIE BOSWORTH ATELIER</p>
+        <p style="margin-top: 0.5rem; opacity: 0.5;">Living Invitations — Built with Untitled Format™</p>
+    </footer>
+</body>
+</html>

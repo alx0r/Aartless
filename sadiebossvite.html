@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Living Invitations — Sadie Bosworth Atelier</title>
+    
+    <!-- YAML Metadata
+    ---
+    title: "Living Invitations by Sadie Bosworth Atelier"
+    subtitle: "Own Your Wedding Story"
+    version: "1.0.0"
+    date: "2025-10-30"
+    client: "Sadie Bosworth Atelier"
+    website: "sadiebosworthatelier.com"
+    framework: "Untitled Format™"
+    developer: "alx0r.github.io/Aartless"
+    ---
+    -->
+    
+    <style>
+        :root {
+            --color-primary: #1a1a1a;
+            --color-secondary: #666666;
+            --color-accent: #c9a885;
+            --color-background: #fafaf8;
+            --color-surface: #ffffff;
+            --font-serif: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+            --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-sans);
+            line-height: 1.7;
+            color: var(--color-primary);
+            background: var(--color-background);
+        }
+        
+        /* Hero Section */
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(135deg, #f5f3ef 0%, #ffffff 100%);
+            padding: 4rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 80%;
+            height: 150%;
+            background: radial-gradient(circle, rgba(201, 168, 133, 0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        
+        .hero-content {
+            max-width: 900px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .brand-tag {
+            font-size: 0.85rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--color-secondary);
+            margin-bottom: 2rem;
+        }
+        
+        .hero h1 {
+            font-family: var(--font-serif);
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 300;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: var(--color-secondary);
+            margin-bottom: 3rem;
+            font-weight: 300;
+        }
+        
+        .cta-primary {
+            display: inline-block;
+            padding: 1.2rem 3rem;
+            background: var(--color-primary);
+            color: var(--color-background);
+            text-decoration: none;
+            font-size: 0.9rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            margin: 0.5rem;
+        }
+        
+        .cta-primary:hover {
+            background: var(--color-accent);
+            color: var(--color-primary);
+            transform: translateY(-2px);
+        }
+        
+        .cta-secondary {
+            display: inline-block;
+            padding: 1.2rem 3rem;
+            border: 1px solid var(--color-primary);
+            color: var(--color-primary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            margin: 0.5rem;
+        }
+        
+        .cta-secondary:hover {
+            background: var(--color-primary);
+            color: var(--color-background);
+        }
+        
+        /* Section Styles */
+        section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 5rem 2rem;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        
+        .section-label {
+            font-size: 0.8rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--color-accent);
+            margin-bottom: 1rem;
+        }
+        
+        h2 {
+            font-family: var(--font-serif);
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 300;
+            margin-bottom: 1.5rem;
+        }
+        
+        .section-intro {
+            font-size: 1.15rem;
+            color: var(--color-secondary);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+        
+        /* Template Gallery */
+        .template-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+            margin: 4rem 0;
+        }
+        
+        .template-card {
+            background: var(--color-surface);
+            border-radius: 2px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .template-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+        }
+        
+        .template-preview {
+            height: 350px;
+            background: #e8e8e8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-serif);
+            font-size: 3rem;
+            color: rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .template-preview.minimalist {
+            background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
+            color: #000;
+        }
+        
+        .template-preview.romantic {
+            background: linear-gradient(135deg, #f4ebe4 0%, #e8ddd0 100%);
+            color: #8b7355;
+        }
+        
+        .template-preview.editorial {
+            background: linear-gradient(135deg, #1a1a1a 0%, #333333 100%);
+            color: #ff4d4d;
+        }
+        
+        .template-info {
+            padding: 2rem;
+        }
+        
+        .template-info h3 {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .template-info .style-tag {
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--color-secondary);
+            margin-bottom: 1rem;
+            display: block;
+        }
+        
+        .template-info p {
+            color: var(--color-secondary);
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+        
+        .view-demo {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background: transparent;
+            border: 1px solid var(--color-primary);
+            color: var(--color-primary);
+            text-decoration: none;
+            font-size: 0.8rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+        
+        .view-demo:hover {
+            background: var(--color-primary);
+            color: var(--color-surface);
+        }
+        
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3rem;
+            margin: 4rem 0;
+        }
+        
+        .feature {
+            text-align: center;
+        }
+        
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 1.5rem;
+            background: var(--color-accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        
+        .feature h3 {
+            font-family: var(--font-sans);
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        
+        .feature p {
+            color: var(--color-secondary);
+            line-height: 1.7;
+        }
+        
+        /* Comparison Table */
+        .comparison-section {
+            background: var(--color-surface);
+            padding: 5rem 2rem;
+            margin: 5rem 0;
+        }
+        
+        .comparison-table {
+            max-width: 900px;
+            margin: 3rem auto;
+            background: var(--color-background);
+            border-radius: 2px;
+            overflow: hidden;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+        }
+        
+        .comparison-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .comparison-table th,
+        .comparison-table td {
+            padding: 1.25rem;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .comparison-table th {
+            background: var(--color-primary);
+            color: var(--color-background);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+        }
+        
+        .comparison-table tr:hover {
+            background: #f9f9f9;
+        }
+        
+        .comparison-table .highlight-row {
+            background: #f0f8f0;
+            font-weight: 500;
+        }
+        
+        .check {
+            color: #4caf50;
+            font-weight: bold;
+        }
+        
+        .cross {
+            color: #f44336;
+        }
+        
+        /* Capabilities Section */
+        .capabilities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 4rem 0;
+        }
+        
+        .capability-card {
+            background: var(--color-surface);
+            padding: 2.5rem;
+            border-left: 3px solid var(--color-accent);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.06);
+        }
+        
+        .capability-card h3 {
+            font-family: var(--font-sans);
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+        }
+        
+        .capability-card ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .capability-card li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            color: var(--color-secondary);
+            font-size: 0.95rem;
+        }
+        
+        .capability-card li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--color-accent);
+        }
+        
+        /* Pricing Section */
+        .pricing-section {
+            background: linear-gradient(135deg, var(--color-primary) 0%, #2a2a2a 100%);
+            color: var(--color-background);
+            padding: 6rem 2rem;
+            text-align: center;
+            margin: 5rem 0;
+        }
+        
+        .pricing-section h2 {
+            color: var(--color-background);
+        }
+        
+        .pricing-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 4rem auto;
+        }
+        
+        .pricing-card {
+            background: var(--color-surface);
+            color: var(--color-primary);
+            padding: 3rem 2rem;
+            border-radius: 2px;
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .pricing-card.featured {
+            border: 3px solid var(--color-accent);
+            transform: scale(1.05);
+        }
+        
+        .price-tag {
+            font-family: var(--font-serif);
+            font-size: 3rem;
+            margin: 1rem 0;
+        }
+        
+        .price-tag small {
+            font-size: 1rem;
+            color: var(--color-secondary);
+        }
+        
+        .pricing-features {
+            list-style: none;
+            margin: 2rem 0;
+            text-align: left;
+        }
+        
+        .pricing-features li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #e0e0e0;
+            font-size: 0.9rem;
+        }
+        
+        /* Process Timeline */
+        .process-timeline {
+            max-width: 800px;
+            margin: 4rem auto;
+        }
+        
+        .timeline-step {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+        
+        .timeline-step::before {
+            content: '';
+            position: absolute;
+            left: 29px;
+            top: 60px;
+            bottom: -30px;
+            width: 2px;
+            background: var(--color-accent);
+            opacity: 0.3;
+        }
+        
+        .timeline-step:last-child::before {
+            display: none;
+        }
+        
+        .step-number {
+            flex-shrink: 0;
+            width: 60px;
+            height: 60px;
+            background: var(--color-accent);
+            color: var(--color-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .step-content h3 {
+            font-family: var(--font-sans);
+            font-size: 1.2rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .step-content p {
+            color: var(--color-secondary);
+            line-height: 1.7;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--color-primary);
+            color: var(--color-background);
+            padding: 4rem 2rem 2rem;
+            text-align: center;
+        }
+        
+        footer a {
+            color: var(--color-accent);
+            text-decoration: none;
+        }
+        
+        footer a:hover {
+            text-decoration: underline;
+        }
+        
+        .footer-links {
+            margin: 2rem 0;
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+        }
+        
+        .footer-credit {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.85rem;
+            opacity: 0.7;
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .template-grid,
+            .features-grid,
+            .capabilities-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .comparison-table {
+                overflow-x: auto;
+            }
+            
+            .timeline-step {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .timeline-step::before {
+                left: 29px;
+                top: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="hero-content">
+            <p class="brand-tag">Sadie Bosworth Atelier Presents</p>
+            <h1>Living Invitations</h1>
+            <p class="hero-subtitle">Wedding invitations that evolve with your story.<br>Own them forever. Update them anytime. Zero subscriptions.</p>
+            <div>
+                <a href="#templates" class="cta-primary">View Examples</a>
+                <a href="https://sadiebosworthatelier.com" class="cta-secondary">Visit Sadie's Atelier</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Introduction -->
+    <section>
+        <div class="section-header">
+            <p class="section-label">A New Approach</p>
+            <h2>Your Wedding, Your Rules</h2>
+            <p class="section-intro">
+                Just as your Sadie Bosworth gown is uniquely yours, your wedding invitation should be too. 
+                No templates. No subscriptions. No vendor lock-in. Just a beautifully designed, 
+                fully-owned digital invitation that lives as long as your love story.
+            </p>
+        </div>
+    </section>
+
+    <!-- Template Showcase -->
+    <section id="templates">
+        <div class="section-header">
+            <p class="section-label">Templates</p>
+            <h2>Three Distinct Styles</h2>
+            <p class="section-intro">Each fully customizable to match your wedding aesthetic</p>
+        </div>
+        
+        <div class="template-grid">
+            <div class="template-card">
+                <div class="template-preview minimalist">
+                    <span style="font-size: 4rem; font-weight: 300;">E & J</span>
+                </div>
+                <div class="template-info">
+                    <span class="style-tag">Minimalist Elegance</span>
+                    <h3>Emma & James</h3>
+                    <p>Clean lines, monochromatic palette, Scandinavian simplicity. Perfect for modern, architectural venues.</p>
+                    <a href="https://alx0r.github.io/Aartless/wed1.html" target="_blank" class="view-demo">View Demo →</a>
+                </div>
+            </div>
+            
+            <div class="template-card">
+                <div class="template-preview romantic">
+                    <span style="font-size: 3.5rem; font-style: italic;">S & A</span>
+                </div>
+                <div class="template-info">
+                    <span class="style-tag">Romantic Garden</span>
+                    <h3>Sophia & Alessandro</h3>
+                    <p>Warm tones, script fonts, vintage details. Ideal for garden parties and destination weddings.</p>
+                    <a href="https://alx0r.github.io/Aartless/wed2.html" target="_blank" class="view-demo">View Demo →</a>
+                </div>
+            </div>
+            
+            <div class="template-card">
+                <div class="template-preview editorial">
+                    <span style="font-size: 4rem; font-weight: 900;">M × K</span>
+                </div>
+                <div class="template-info">
+                    <span class="style-tag">Editorial Bold</span>
+                    <h3>Maya & Kai</h3>
+                    <p>High contrast, bold typography, urban edge. For fashion-forward, unconventional celebrations.</p>
+                    <a href="#contact" class="view-demo">Coming Soon →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section>
+        <div class="section-header">
+            <p class="section-label">What Makes It Special</p>
+            <h2>Built Different</h2>
+        </div>
+        
+        <div class="features-grid">
+            <div class="feature">
+                <div class="feature-icon">∞</div>
+                <h3>Living Document</h3>
+                <p>Update venue details, add schedule changes, or modify guest info anytime—no reprints needed.</p>
+            </div>
+            
+            <div class="feature">
+                <div class="feature-icon">👑</div>
+                <h3>Full Ownership</h3>
+                <p>You own the file forever. Host it yourself on GitHub (free), download it, move it anywhere.</p>
+            </div>
+            
+            <div class="feature">
+                <div class="feature-icon">🎨</div>
+                <h3>Custom Styled</h3>
+                <p>Every color, font, and layout element tailored to match your wedding aesthetic perfectly.</p>
+            </div>
+            
+            <div class="feature">
+                <div class="feature-icon">💸</div>
+                <h3>Zero Ongoing Costs</h3>
+                <p>One design fee. Free hosting forever via GitHub Pages. No subscriptions, no hidden fees.</p>
+            </div>
+            
+            <div class="feature">
+                <div class="feature-icon">📱</div>
+                <h3>Works Everywhere</h3>
+                <p>Responsive design looks perfect on phones, tablets, and desktops. Fast, accessible, printable.</p>
+            </div>
+            
+            <div class="feature">
+                <div class="feature-icon">🔒</div>
+                <h3>No Vendor Lock-In</h3>
+                <p>Never worry about a service shutting down or losing access. Your invitation, your control.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison Table -->
+    <div class="comparison-section">
+        <div class="section-header">
+            <p class="section-label">How We Compare</p>
+            <h2>Living Invitations vs Traditional Services</h2>
+        </div>
+        
+        <div class="comparison-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>Paperless Post</th>
+                        <th>Minted</th>
+                        <th>Zola/TheKnot</th>
+                        <th>Living Invitations</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Ownership</strong></td>
+                        <td><span class="cross">✗</span> Rented</td>
+                        <td><span class="cross">✗</span> Rented</td>
+                        <td><span class="cross">✗</span> Platform owns</td>
+                        <td><span class="check">✓</span> Full ownership</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Cost</strong></td>
+                        <td>$100-300+</td>
+                        <td>$200-500+</td>
+                        <td>Free (with ads)</td>
+                        <td>One-time $750-1500</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Customization</strong></td>
+                        <td>Templates only</td>
+                        <td>Limited options</td>
+                        <td>Very limited</td>
+                        <td><span class="check">✓</span> Fully bespoke</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Updates</strong></td>
+                        <td><span class="check">✓</span> Yes</td>
+                        <td><span class="check">✓</span> Yes</td>
+                        <td><span class="check">✓</span> Yes</td>
+                        <td><span class="check">✓</span> Unlimited</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Expiration</strong></td>
+                        <td>After event</td>
+                        <td>After event</td>
+                        <td>Platform dependent</td>
+                        <td><span class="check">✓</span> Never</td>
+                    </tr>
+                    <tr class="highlight-row">
+                        <td><strong>Your Data</strong></td>
+                        <td>Their servers</td>
+                        <td>Their servers</td>
+                        <td>Their servers</td>
+                        <td><span class="check">✓</span> You control it</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Capabilities -->
+    <section>
+        <div class="section-header">
+            <p class="section-label">What's Included</p>
+            <h2>Everything You Need</h2>
+        </div>
+        
+        <div class="capabilities-grid">
+            <div class="capability-card">
+                <h3>Core Features</h3>
+                <ul>
+                    <li>Event details & timeline</li>
+                    <li>Venue information & maps</li>
+                    <li>Travel & accommodation</li>
+                    <li>RSVP functionality</li>
+                    <li>Dress code guidance</li>
+                    <li>Registry links</li>
+                    <li>Photo galleries</li>
+                    <li>Guest FAQ section</li>
+                </ul>
+            </div>
+            
+            <div class="capability-card">
+                <h3>Advanced Options</h3>
+                <ul>
+                    <li>Password protection</li>
+                    <li>RSVP form with checkboxes</li>
+                    <li>Meal preference selection</li>
+                    <li>Plus-one management</li>
+                    <li>Song request forms</li>
+                    <li>Live photo feed integration</li>
+                    <li>Multi-language support</li>
+                    <li>Countdown timers</li>
+                </ul>
+            </div>
+            
+            <div class="capability-card">
+                <h3>Version Control</h3>
+                <ul>
+                    <li>Track all changes over time</li>
+                    <li>Revert to previous versions</li>
+                    <li>Save different draft versions</li>
+                    <li>Preview before publishing</li>
+                    <li>Scheduled updates</li>
+                    <li>Change log for guests</li>
+                    <li>Backup & recovery</li>
+                    <li>Collaboration tools</li>
+                </ul>
+            </div>
+            
+            <div class="capability-card">
+                <h3>Photography Options</h3>
+                <ul>
+                    <li>Engagement photo galleries</li>
+                    <li>Instagram feed integration</li>
+                    <li>Guest photo upload portal</li>
+                    <li>Live wedding day photos</li>
+                    <li>Slideshow presentations</li>
+                    <li>QR codes for photo sharing</li>
+                    <li>Photographer credits</li>
+                    <li>Download options for guests</li>
+                </ul>
+            </div>
+            
+            <div class="capability-card">
+                <h3>Style Customization</h3>
+                <ul>
+                    <li>Custom color palettes</li>
+                    <li>Typography selection</li>
+                    <li>Layout variations</li>
+                    <li>Animation & transitions</li>
+                    <li>Background patterns</li>
+                    <li>Icon & illustration sets</li>
+                    <li>Mobile-optimized views</li>
+                    <li>Print-friendly versions</li>
+                </ul>
+            </div>
+            
+            <div class="capability-card">
+                <h3>Technical Setup</h3>
+                <ul>
+                    <li>GitHub repository setup</li>
+                    <li>Custom domain connection</li>
+                    <li>SSL certificate (HTTPS)</li>
+                    <li>Analytics integration</li>
+                    <li>SEO optimization</li>
+                    <li>Social media previews</li>
+                    <li>QR code generation</li>
+                    <li>Training & documentation</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Timeline -->
+    <section>
+        <div class="section-header">
+            <p class="section-label">How It Works</p>
+            <h2>Your Journey</h2>
+        </div>
+        
+        <div class="process-timeline">
+            <div class="timeline-step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h3>Discovery Consultation</h3>
+                    <p>We meet to discuss your wedding vision, aesthetic preferences, and technical needs. Share inspiration, color palettes, and must-have features. 30-minute session via video or in-person.</p>
+                </div>
+            </div>
+            
+            <div class="timeline-step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h3>Custom Design</h3>
+                    <p>We create a unique design tailored to your wedding. Choose from our three base styles (Minimalist, Romantic, Editorial) or request something entirely custom. Review mockups and provide feedback.</p>
+                </div>
+            </div>
+            
+            <div class="timeline-step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h3>Content & Setup</h3>
+                    <p>We build your invitation with all your event details, photos, and information. Set up your GitHub repository, configure hosting, and connect a custom domain if desired. Everything is ready to share.</p>
+                </div>
+            </div>
+            
+            <div class="timeline-step">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <h3>Training & Launch</h3>
+                    <p>One-hour training session where we teach you how to make updates, add photos, and manage content. You'll learn simple editing techniques and version control basics. Then we launch together!</p>
+                </div>
+            </div>
+            
+            <div class="timeline-step">
+                <div class="step-number">5</div>
+                <div class="step-content">
+                    <h3>Ongoing Support</h3>
+                    <p>We're here if you need us. Optional support packages available for major updates, troubleshooting, or adding new features as your wedding plans evolve.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="pricing-section">
+        <div class="section-header">
+            <h2>Investment</h2>
+            <p class="section-intro" style="color: rgba(255, 255, 255, 0.8); margin-bottom: 0;">
+                One design fee. Lifetime ownership. Zero subscriptions.
+            </p>
+        </div>
+        
+        <div class="pricing-cards">
+            <div class="pricing-card">
+                <h3 style="font-family: var(--font-serif); font-size: 1.5rem; font-weight: 300;">Essential</h3>
+                <div class="price-tag">$750</div>
+                <ul class="pricing-features">
+                    <li>One template style (customized)</li>
+                    <li>All core features included</li>
+                    <li>GitHub setup & hosting</li>
+                    <li>1-hour training session</li>
+                    <li>Basic RSVP functionality</li>
+                    <li>Email support for 30 days</li>
+                    <li>Lifetime ownership</li>
+                </ul>
+                <a href="#contact" class="view-demo">Get Started</a>
+            </div>
+            
+            <div class="pricing-card featured">
+                <h3 style="font-family: var(--font-serif); font-size: 1.5rem; font-weight: 300;">Signature</h3>
+                <div class="price-tag">$1,200</div>
+                <ul class="pricing-features">
+                    <li>Fully custom design</li>
+                    <li>All features + advanced options</li>
+                    <li>Custom domain setup</li>
+                    <li>RSVP forms with checkboxes</li>
+                    <li>Photo gallery integration</li>
+                    <li>2-hour training session</li>
+                    <li>Email support for 90 days</li>
+                    <li>One major revision included</li>
+                </ul>
+                <a href="#contact" class="cta-primary" style="margin-top: 1rem;">Most Popular</a>
+            </div>
+            
+            <div class="pricing-card">
+                <h3 style="font-family: var(--font-serif); font-size: 1.5rem; font-weight: 300;">Couture</h3>
+                <div class="price-tag">$1,800</div>
+                <ul class="pricing-features">
+                    <li>Everything in Signature</li>
+                    <li>Multi-page invitation suite</li>
+                    <li>Password protection</li>
+                    <li>Advanced version control</li>
+                    <li>Live photo feed setup</li>
+                    <li>Unlimited revisions</li>
+                    <li>Priority support (6 months)</li>
+                    <li>Post-wedding updates included</li>
+                </ul>
+                <a href="#contact" class="view-demo">Inquire</a>
+            </div>
+        </div>
+        
+        <p style="margin-top: 3rem; opacity: 0.8; font-size: 0.95rem;">
+            All packages include lifetime ownership, free GitHub hosting, and responsive design.<br>
+            Add-ons available: Photography portal setup ($200), Multi-language support ($150), Custom animations ($250)
+        </p>
+    </section>
+
+    <!-- Real Examples -->
+    <section>
+        <div class="section-header">
+            <p class="section-label">See It In Action</p>
+            <h2>Interactive Demos</h2>
+            <p class="section-intro">
+                Explore fully functional wedding invitations. Click around, test the responsive design, 
+                and see how updates work in real-time.
+            </p>
+        </div>
+        
+        <div style="background: var(--color-surface); padding: 3rem; border-radius: 2px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); text-align: center; margin: 3rem 0;">
+            <h3 style="font-family: var(--font-serif); font-size: 2rem; margin-bottom: 2rem;">Live Examples</h3>
+            <div style="display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap;">
+                <div>
+                    <a href="https://alx0r.github.io/Aartless/wed1.html" target="_blank" class="cta-primary">Demo 1: Minimalist →</a>
+                    <p style="margin-top: 1rem; color: var(--color-secondary); font-size: 0.9rem;">Emma & James — Copenhagen</p>
+                </div>
+                <div>
+                    <a href="https://alx0r.github.io/Aartless/wed2.html" target="_blank" class="cta-primary">Demo 2: Romantic →</a>
+                    <p style="margin-top: 1rem; color: var(--color-secondary); font-size: 0.9rem;">Sophia & Alessandro — Amalfi Coast</p>
+                </div>
+            </div>
+            <p style="margin-top: 2rem; color: var(--color-secondary); font-style: italic;">
+                Try them on your phone, tablet, and desktop. Notice how they adapt and respond.
+            </p>
+        </div>
+    </section>
+
+    <!-- Interactive Feature Demo -->
+    <section>
+        <div class="section-header">
+            <p class="section-label">Interactive Elements</p>
+            <h2>Beyond Static Invitations</h2>
+        </div>
+        
+        <div class="capabilities-grid">
+            <div class="capability-card" style="background: linear-gradient(135deg, #f0f8f0 0%, #e8f5e8 100%);">
+                <h3>✓ RSVP Forms</h3>
+                <div style="margin-top: 1.5rem;">
+                    <label style="display: block; margin: 1rem 0; text-align: left;">
+                        <input type="checkbox" style="margin-right: 0.5rem;" checked disabled>
+                        <span style="color: var(--color-secondary);">Joyfully accepts</span>
+                    </label>
+                    <label style="display: block; margin: 1rem 0; text-align: left;">
+                        <input type="checkbox" style="margin-right: 0.5rem;" disabled>
+                        <span style="color: var(--color-secondary);">Regretfully declines</span>
+                    </label>
+                    <label style="display: block; margin: 1rem 0; text-align: left;">
+                        <input type="checkbox" style="margin-right: 0.5rem;" disabled>
+                        <span style="color: var(--color-secondary);">Plus one attending</span>
+                    </label>
+                </div>
+                <p style="margin-top: 1rem; font-size: 0.85rem; color: var(--color-secondary);">Custom checkboxes for dietary preferences, meal choices, and song requests</p>
+            </div>
+            
+            <div class="capability-card" style="background: linear-gradient(135deg, #fff4e6 0%, #ffe8cc 100%);">
+                <h3>📸 Photo Integration</h3>
+                <div style="margin-top: 1.5rem; text-align: center;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-bottom: 1rem;">
+                        <div style="background: #ddd; height: 80px; border-radius: 2px;"></div>
+                        <div style="background: #ccc; height: 80px; border-radius: 2px;"></div>
+                    </div>
+                    <p style="font-size: 0.85rem; color: var(--color-secondary);">Add engagement photos, venue shots, or create galleries</p>
+                </div>
+            </div>
+            
+            <div class="capability-card" style="background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);">
+                <h3>⏱️ Live Countdown</h3>
+                <div style="margin-top: 1.5rem; text-align: center;">
+                    <div style="font-family: var(--font-serif); font-size: 2.5rem; color: var(--color-accent); margin: 1rem 0;">127</div>
+                    <p style="font-size: 0.9rem; color: var(--color-secondary);">Days until the celebration</p>
+                    <p style="margin-top: 1rem; font-size: 0.85rem; color: var(--color-secondary);">Automatic countdown timer updates daily</p>
+                </div>
+            </div>
+            
+            <div class="capability-card" style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);">
+                <h3>🗓️ Version History</h3>
+                <div style="margin-top: 1.5rem;">
+                    <div style="text-align: left; font-size: 0.85rem; color: var(--color-secondary); line-height: 2;">
+                        <div style="padding: 0.5rem; background: rgba(255,255,255,0.5); margin-bottom: 0.5rem; border-radius: 2px;">
+                            <strong>v1.3</strong> — Updated venue address
+                        </div>
+                        <div style="padding: 0.5rem; background: rgba(255,255,255,0.3); margin-bottom: 0.5rem; border-radius: 2px;">
+                            <strong>v1.2</strong> — Added hotel information
+                        </div>
+                        <div style="padding: 0.5rem; background: rgba(255,255,255,0.2); border-radius: 2px;">
+                            <strong>v1.1</strong> — Changed ceremony time
+                        </div>
+                    </div>
+                    <p style="margin-top: 1rem; font-size: 0.85rem; color: var(--color-secondary);">Track all changes with GitHub's version control</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section>
+        <div class="section-header">
+            <p class="section-label">Questions</p>
+            <h2>What Brides Ask</h2>
+        </div>
+        
+        <div style="max-width: 800px; margin: 0 auto;">
+            <div class="capability-card" style="margin-bottom: 2rem;">
+                <h3>Do I need to know how to code?</h3>
+                <p style="color: var(--color-secondary); margin-top: 1rem;">
+                    Not at all. We handle all the technical setup and teach you simple editing through a visual interface. 
+                    If you can edit a Google Doc, you can update your invitation.
+                </p>
+            </div>
+            
+            <div class="capability-card" style="margin-bottom: 2rem;">
+                <h3>What if I want to change something after launch?</h3>
+                <p style="color: var(--color-secondary); margin-top: 1rem;">
+                    That's the whole point! Update venue details, add new photos, modify the schedule—anytime you want. 
+                    Changes go live instantly. No need to contact us unless you want design changes.
+                </p>
+            </div>
+            
+            <div class="capability-card" style="margin-bottom: 2rem;">
+                <h3>How long does the invitation last?</h3>
+                <p style="color: var(--color-secondary); margin-top: 1rem;">
+                    Forever. You own the file and it's hosted on GitHub for free, permanently. 
+                    Keep it as a digital keepsake, turn it into your wedding website archive, or download it anytime.
+                </p>
+            </div>
+            
+            <div class="capability-card" style="margin-bottom: 2rem;">
+                <h3>Can I use my own domain name?</h3>
+                <p style="color: var(--color-secondary); margin-top: 1rem;">
+                    Yes! We can connect it to yourdomain.com or younames.wedding. 
+                    Domain registration is separate (~$12/year), but we handle all the technical setup.
+                </p>
+            </div>
+            
+            <div class="capability-card" style="margin-bottom: 2rem;">
+                <h3>What happens after the wedding?</h3>
+                <p style="color: var(--color-secondary); margin-top: 1rem;">
+                    Your invitation becomes a beautiful digital memory. Add wedding day photos, thank you messages, 
+                    or links to your professional photos. Many couples transform it into a permanent wedding archive.
+                </p>
+            </div>
+            
+            <div class="capability-card">
+                <h3>Is this just for tech-savvy couples?</h3>
+                <p style="color: var(--color-secondary); margin-top: 1rem;">
+                    No! We've designed this for everyone. Our training makes it incredibly simple. 
+                    Think of it like having a custom website that you can edit as easily as updating your Instagram bio.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonial Section -->
+    <section style="background: var(--color-surface); padding: 5rem 2rem; margin: 5rem 0; text-align: center;">
+        <div style="max-width: 800px; margin: 0 auto;">
+            <p style="font-family: var(--font-serif); font-size: 1.8rem; line-height: 1.6; font-style: italic; color: var(--color-secondary); margin-bottom: 2rem;">
+                "Just like my Sadie Bosworth gown, my wedding invitation feels completely mine. 
+                No templates, no compromises. I own it forever, and I can update it whenever I want. 
+                It's exactly what I didn't know I needed."
+            </p>
+            <p style="font-size: 1rem; color: var(--color-secondary);">— Placeholder for Real Client Testimonial</p>
+        </div>
+    </section>
+
+    <!-- Technical Framework -->
+    <section>
+        <div class="section-header">
+            <p class="section-label">Built On</p>
+            <h2>The Untitled Format™ Framework</h2>
+            <p class="section-intro">
+                Living Invitations are powered by the Untitled Format™ protocol—a modern approach to creating 
+                living, self-contained documents that you fully own and control.
+            </p>
+        </div>
+        
+        <div class="two-column" style="grid-template-columns: 1fr; max-width: 800px; margin: 3rem auto;">
+            <div class="info-block">
+                <h3>Technical Philosophy</h3>
+                <ul style="list-style: none; padding: 0; color: var(--color-secondary);">
+                    <li style="padding: 0.75rem 0; border-bottom: 1px solid #e0e0e0;">
+                        <strong style="color: var(--color-primary);">Single HTML File</strong> — Everything in one place, no dependencies
+                    </li>
+                    <li style="padding: 0.75rem 0; border-bottom: 1px solid #e0e0e0;">
+                        <strong style="color: var(--color-primary);">Semantic Structure</strong> — Clean, readable code for humans and machines
+                    </li>
+                    <li style="padding: 0.75rem 0; border-bottom: 1px solid #e0e0e0;">
+                        <strong style="color: var(--color-primary);">GitHub Native</strong> — Version control, free hosting, global CDN
+                    </li>
+                    <li style="padding: 0.75rem 0; border-bottom: 1px solid #e0e0e0;">
+                        <strong style="color: var(--color-primary);">Offline-Ready</strong> — Works without internet, printable, archivable
+                    </li>
+                    <li style="padding: 0.75rem 0;">
+                        <strong style="color: var(--color-primary);">Future-Proof</strong> — Built on open standards that will last decades
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 3rem;">
+            <p style="color: var(--color-secondary); margin-bottom: 1rem;">
+                Developed by <a href="https://alx0r.github.io/Aartless/" target="_blank" style="color: var(--color-accent); text-decoration: none;">alx0r — Aartless Framework</a>
+            </p>
+            <p style="color: var(--color-secondary); font-size: 0.9rem;">
+                Open-source, transparent, and built to last
+            </p>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="contact" style="background: linear-gradient(135deg, var(--color-accent) 0%, #d4b890 100%); padding: 6rem 2rem; text-align: center; margin: 5rem 0 0 0;">
+        <h2 style="font-family: var(--font-serif); font-size: 3rem; margin-bottom: 2rem;">Ready to Create Yours?</h2>
+        <p style="font-size: 1.2rem; margin-bottom: 3rem; max-width: 600px; margin-left: auto; margin-right: auto;">
+            Schedule a consultation to discuss your wedding vision and see how a Living Invitation can be part of your story.
+        </p>
+        <div>
+            <a href="https://sadiebosworthatelier.com" class="cta-primary" style="background: var(--color-primary); margin: 0.5rem;">Book Consultation</a>
+            <a href="mailto:hello@sadiebosworthatelier.com" class="cta-secondary" style="border-color: var(--color-primary); color: var(--color-primary); background: transparent; margin: 0.5rem;">Email Sadie</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <h3 style="font-family: var(--font-serif); font-size: 2rem; font-weight: 300; margin-bottom: 1rem;">
+            Sadie Bosworth Atelier
+        </h3>
+        <p style="margin-bottom: 2rem; opacity: 0.8;">Bridal wear for the daring and unconventional</p>
+        
+        <div class="footer-links">
+            <a href="https://sadiebosworthatelier.com">Visit Atelier</a>
+            <a href="https://alx0r.github.io/Aartless/wed1.html" target="_blank">View Demo 1</a>
+            <a href="https://alx0r.github.io/Aartless/wed2.html" target="_blank">View Demo 2</a>
+            <a href="mailto:hello@sadiebosworthatelier.com">Contact</a>
+        </div>
+        
+        <div class="footer-credit">
+            <p>Living Invitations powered by <a href="https://alx0r.github.io/Aartless/" target="_blank">Untitled Format™</a></p>
+            <p style="margin-top: 0.5rem;">Developed by alx0r | Built with semantic HTML5</p>
+            <p style="margin-top: 1rem; opacity: 0.5;">© 2025 Sadie Bosworth Atelier | All rights reserved</p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BDK Yoga Workshop Series | Valley Shala</title>
+    
+    <!-- YAML Metadata
+    ---
+    title: "BDK Yoga Workshop Series"
+    subtitle: "Find Your Inner Ninja"
+    date: "2025-11-26"
+    instructor: "Tammy"
+    price: "1250 ZAR"
+    location: "Valley Shala, Hout Bay"
+    framework: "Untitled Format™"
+    ---
+    -->
+    
+    <style>
+        :root {
+            --color-earth: #8B7355;
+            --color-forest: #556B2F;
+            --color-stone: #D3D3D3;
+            --color-sky: #87CEEB;
+            --color-background: #FAF9F6;
+            --color-surface: #FFFFFF;
+            --color-text: #2F2F2F;
+            --color-accent: #C9A885;
+            --font-serif: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+            --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-sans);
+            line-height: 1.7;
+            color: var(--color-text);
+            background: var(--color-background);
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Skip Link */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--color-forest);
+            color: white;
+            padding: 8px;
+            text-decoration: none;
+            z-index: 100;
+        }
+        
+        .skip-link:focus {
+            top: 0;
+        }
+        
+        /* Header */
+        header {
+            padding: 2rem 0;
+            border-bottom: 1px solid var(--color-stone);
+            margin-bottom: 2rem;
+        }
+        
+        .logo {
+            font-family: var(--font-serif);
+            font-size: 1.8rem;
+            color: var(--color-earth);
+            text-decoration: none;
+        }
+        
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 3rem 1rem;
+            margin-bottom: 3rem;
+        }
+        
+        .workshop-badge {
+            display: inline-block;
+            background: var(--color-forest);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+        }
+        
+        .hero h1 {
+            font-family: var(--font-serif);
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 300;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            color: var(--color-earth);
+        }
+        
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: var(--color-forest);
+            margin-bottom: 2rem;
+            font-weight: 300;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* Workshop Details */
+        .workshop-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .detail-card {
+            background: var(--color-surface);
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            text-align: center;
+        }
+        
+        .detail-card h3 {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--color-forest);
+            margin-bottom: 0.5rem;
+        }
+        
+        .detail-card p {
+            font-size: 1.2rem;
+            color: var(--color-earth);
+            font-weight: 500;
+        }
+        
+        .price {
+            font-size: 2rem !important;
+            font-weight: 600;
+        }
+        
+        /* CTA Button */
+        .cta-section {
+            text-align: center;
+            margin: 3rem 0;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: var(--color-earth);
+            color: var(--color-background);
+            padding: 1.2rem 3rem;
+            font-size: 1.1rem;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+        }
+        
+        .cta-button:hover {
+            background: var(--color-forest);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Content Sections */
+        .content-section {
+            margin: 4rem 0;
+        }
+        
+        .section-title {
+            font-family: var(--font-serif);
+            font-size: 2rem;
+            color: var(--color-earth);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--color-stone);
+        }
+        
+        .description {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+        
+        .highlight-box {
+            background: linear-gradient(135deg, #f5f3ef 0%, #e8f5e8 100%);
+            padding: 2rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+            border-left: 4px solid var(--color-forest);
+        }
+        
+        .highlight-box p {
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+        
+        .highlight-box p:last-child {
+            margin-bottom: 0;
+        }
+        
+        /* Sessions List */
+        .sessions-list {
+            list-style: none;
+        }
+        
+        .session-item {
+            background: var(--color-surface);
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .session-date {
+            font-weight: 600;
+            color: var(--color-earth);
+        }
+        
+        .session-time {
+            color: var(--color-text);
+        }
+        
+        .session-action {
+            background: var(--color-forest);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        
+        .session-action:hover {
+            background: var(--color-earth);
+        }
+        
+        /* Contact Section */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .contact-card {
+            background: var(--color-surface);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .contact-card h3 {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            color: var(--color-earth);
+            margin-bottom: 1.5rem;
+        }
+        
+        .contact-info {
+            list-style: none;
+        }
+        
+        .contact-info li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--color-stone);
+        }
+        
+        .contact-info li:last-child {
+            border-bottom: none;
+        }
+        
+        .contact-label {
+            font-weight: 600;
+            color: var(--color-forest);
+            display: inline-block;
+            width: 120px;
+        }
+        
+        /* Footer */
+        footer {
+            margin-top: 5rem;
+            padding: 3rem 0;
+            border-top: 1px solid var(--color-stone);
+            text-align: center;
+            color: var(--color-text);
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .footer-links a {
+            color: var(--color-earth);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+        
+        .footer-credit {
+            margin-top: 2rem;
+            font-size: 0.85rem;
+            color: var(--color-text);
+            opacity: 0.7;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .session-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            .session-action {
+                align-self: stretch;
+                text-align: center;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+        
+        /* Animation for the page load */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.6s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <header>
+        <a href="#" class="logo">Valley Shala</a>
+    </header>
+    
+    <main id="main-content">
+        <section class="hero fade-in">
+            <div class="workshop-badge">Workshop Series</div>
+            <h1>Budokon Yoga Workshop Series</h1>
+            <p class="hero-subtitle">How to BDK with Tammy: find your inner ninja</p>
+        </section>
+        
+        <section class="workshop-details fade-in">
+            <div class="detail-card">
+                <h3>Starts</h3>
+                <p>26 November 2025</p>
+            </div>
+            <div class="detail-card">
+                <h3>Price</h3>
+                <p class="price">R 1,250</p>
+            </div>
+            <div class="detail-card">
+                <h3>Location</h3>
+                <p>Valley Shala</p>
+            </div>
+            <div class="detail-card">
+                <h3>Available Spots</h3>
+                <p>Limited</p>
+            </div>
+        </section>
+        
+        <section class="cta-section fade-in">
+            <a href="#book-now" class="cta-button">Book Now</a>
+        </section>
+        
+        <section class="content-section fade-in">
+            <h2 class="section-title">Service Description</h2>
+            <div class="description">
+                <p>Learn the BDK Yoga Primary Series Flow in this series of 6 workshop-style classes. This martial arts based yoga practice uses slow, precise movements and transitions to build tremendous strength in the body and mobility in the joints.</p>
+                
+                <div class="highlight-box">
+                    <p>From archer-style arrow shooting warriors to dancing dogs, BDK's primary series is a full body activation and a deeply meditative practice.</p>
+                    <p>Build up to practicing the full sequence with minimal teacher interference and experience the beauty and imagery of the BDK system.</p>
+                </div>
+                
+                <p><strong>OSU!</strong> - A Japanese martial arts term used as a greeting or acknowledgment, expressing respect, determination, and perseverance.</p>
+            </div>
+        </section>
+        
+        <section class="content-section fade-in" id="book-now">
+            <h2 class="section-title">Upcoming Sessions</h2>
+            <ul class="sessions-list">
+                <li class="session-item">
+                    <div>
+                        <div class="session-date">Session 1: November 26, 2025</div>
+                        <div class="session-time">6:00 PM - 7:30 PM</div>
+                    </div>
+                    <a href="#" class="session-action">Book Now</a>
+                </li>
+                <li class="session-item">
+                    <div>
+                        <div class="session-date">Session 2: December 3, 2025</div>
+                        <div class="session-time">6:00 PM - 7:30 PM</div>
+                    </div>
+                    <a href="#" class="session-action">Book Now</a>
+                </li>
+                <li class="session-item">
+                    <div>
+                        <div class="session-date">Session 3: December 10, 2025</div>
+                        <div class="session-time">6:00 PM - 7:30 PM</div>
+                    </div>
+                    <a href="#" class="session-action">Book Now</a>
+                </li>
+                <li class="session-item">
+                    <div>
+                        <div class="session-date">Session 4: December 17, 2025</div>
+                        <div class="session-time">6:00 PM - 7:30 PM</div>
+                    </div>
+                    <a href="#" class="session-action">Book Now</a>
+                </li>
+                <li class="session-item">
+                    <div>
+                        <div class="session-date">Session 5: January 7, 2026</div>
+                        <div class="session-time">6:00 PM - 7:30 PM</div>
+                    </div>
+                    <a href="#" class="session-action">Book Now</a>
+                </li>
+                <li class="session-item">
+                    <div>
+                        <div class="session-date">Session 6: January 14, 2026</div>
+                        <div class="session-time">6:00 PM - 7:30 PM</div>
+                    </div>
+                    <a href="#" class="session-action">Book Now</a>
+                </li>
+            </ul>
+        </section>
+        
+        <section class="content-section fade-in">
+            <h2 class="section-title">Contact Details</h2>
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <h3>Location</h3>
+                    <ul class="contact-info">
+                        <li>
+                            <span class="contact-label">Studio:</span>
+                            Valley Shala
+                        </li>
+                        <li>
+                            <span class="contact-label">Address:</span>
+                            79A Valley Road, Hout Bay
+                        </li>
+                        <li>
+                            <span class="contact-label">Area:</span>
+                            Cape Town, 7806
+                        </li>
+                        <li>
+                            <span class="contact-label">Country:</span>
+                            South Africa
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="contact-card">
+                    <h3>Contact</h3>
+                    <ul class="contact-info">
+                        <li>
+                            <span class="contact-label">Phone:</span>
+                            +27 82 779 9939
+                        </li>
+                        <li>
+                            <span class="contact-label">Email:</span>
+                            info@valleyshala.com
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer class="fade-in">
+        <div class="footer-links">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Accessibility Statement</a>
+            <a href="#">Terms & Conditions</a>
+            <a href="#">Refund Policy</a>
+        </div>
+        
+        <div class="footer-credit">
+            <p>© 2025 by Valley Shala. Powered by Untitled Format™</p>
+            <p style="margin-top: 0.5rem;">Single HTML file • Lightweight • Fast Loading</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Simple script to handle booking actions
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add click handlers to all booking buttons
+            const bookButtons = document.querySelectorAll('.session-action, .cta-button');
+            bookButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // In a real implementation, this would open a booking modal or redirect
+                    alert('Booking functionality would be implemented here. This could connect to a simple form or third-party booking service.');
+                    
+                    // For demo purposes, scroll to sessions
+                    if(this.classList.contains('cta-button')) {
+                        document.getElementById('book-now').scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Add some interactive elements
+            const sessionItems = document.querySelectorAll('.session-item');
+            sessionItems.forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px)';
+                    this.style.transition = 'transform 0.3s ease';
+                });
+                
+                item.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

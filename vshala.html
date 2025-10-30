@@ -5,33 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Valley Shala | Bespoke Yoga Shala & Event Venue</title>
     
-    <!-- Untitled Format™ Metadata -->
-    <!--
-    title: "Valley Shala Homepage"
-    client: "Valley Shala"
-    document_type: "Homepage"
-    version: "1.0.0"
-    created: "2025-10-30"
-    status: "active"
-    -->
-    
     <style>
-        /* Untitled Format™ - Valley Shala Design System */
+        /* Untitled Format™ - Valley Shala Design System v1.1 */
         :root {
             --earth: #8B7355;
             --forest: #556B2F;
-            --stone: #D3D3D3;
+            --stone: #B0B0B0; /* Lightened for softer borders */
             --paper: #FAF9F6;
+            --paper-light: #FFFFFF;
             --ink: #2F2F2F;
             --clay: #A86F4C;
             --sage: #87A96B;
             --sky: #87CEEB;
+            
+            /* Fluid Spacing */
+            --padding-section: clamp(3rem, 8vw, 6rem);
+            --padding-card: clamp(1rem, 4vw, 2rem);
+            
+            /* Fluid Typography */
+            --font-size-h1: clamp(2.5rem, 5vw + 1rem, 4.5rem);
+            --font-size-h2: clamp(2rem, 4vw + 1rem, 3rem);
+            --font-size-h3: clamp(1.25rem, 2vw + 1rem, 1.5rem);
+            --font-size-body: clamp(1rem, 1vw + 0.9rem, 1.1rem);
         }
         
+        /* 1. Global & Typography */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
         }
         
         body {
@@ -39,15 +45,59 @@
             line-height: 1.6;
             color: var(--ink);
             background: var(--paper);
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0;
+            font-size: var(--font-size-body);
         }
         
-        /* Header */
+        h1, h2, h3 {
+            font-weight: 600;
+            line-height: 1.2;
+        }
+        
+        h1 {
+            font-size: var(--font-size-h1);
+            font-weight: 300;
+        }
+        
+        h2 {
+            font-size: var(--font-size-h2);
+            color: var(--forest);
+            margin-bottom: 2.5rem;
+            text-align: center;
+        }
+        
+        h3 {
+            font-size: var(--font-size-h3);
+            color: var(--earth);
+            margin-bottom: 1rem;
+        }
+        
+        p {
+            margin-bottom: 1rem;
+            max-width: 70ch;
+        }
+        
+        a {
+            color: var(--forest);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        a:hover {
+            color: var(--earth);
+        }
+        
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 8px;
+        }
+        
+        /* 2. Innovative: Glassmorphism Header */
         .site-header {
-            background: var(--forest);
-            color: white;
+            background: rgba(250, 249, 246, 0.85); /* --paper at 85% opacity */
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             padding: 1rem 2rem;
             display: flex;
             justify-content: space-between;
@@ -55,13 +105,13 @@
             position: sticky;
             top: 0;
             z-index: 100;
+            border-bottom: 1px solid rgba(47, 47, 47, 0.1); /* --ink at 10% */
         }
         
         .logo {
             font-size: 1.5rem;
             font-weight: 600;
-            text-decoration: none;
-            color: white;
+            color: var(--ink);
         }
         
         .nav-links {
@@ -70,36 +120,54 @@
         }
         
         .nav-links a {
-            color: white;
-            text-decoration: none;
+            color: var(--ink);
             font-size: 0.9rem;
+            font-weight: 500;
+            position: relative;
         }
         
-        /* Hero Section */
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--forest);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        /* 3. Hero Section */
         .hero {
-            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), 
+            background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), 
                         url('https://static.wixstatic.com/media/1935ee_546815b1250d4a81bb52228ed8434c0a~mv2.jpg/v1/fill/w_1920,h_1080,al_c,q_90,usm_0.66_1.00_0.01/IMG_9815_edited.jpg') center/cover no-repeat;
             color: white;
-            padding: 6rem 2rem;
+            padding: 8rem 2rem;
             text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
         
         .hero-title {
-            font-size: 3rem;
+            font-size: var(--font-size-h1);
             margin-bottom: 1rem;
-            font-weight: 300;
         }
         
         .hero-subtitle {
-            font-size: 1.3rem;
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
             margin-bottom: 2rem;
             opacity: 0.9;
         }
         
         .hero-description {
             max-width: 600px;
-            margin: 0 auto 2rem auto;
-            font-size: 1.1rem;
+            margin: 0 auto 2.5rem auto;
+            font-size: var(--font-size-body);
             line-height: 1.7;
         }
         
@@ -107,99 +175,124 @@
             display: inline-block;
             background: var(--earth);
             color: white;
-            padding: 1rem 2rem;
+            padding: 1rem 2.5rem;
             text-decoration: none;
-            border-radius: 4px;
+            border-radius: 50px; /* Modern pill shape */
             font-weight: 600;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
         }
         
-        /* Content Sections */
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(139, 115, 85, 0.4); /* Shadow from --earth */
+            background: var(--clay);
+            color: white;
+        }
+        
+        /* 4. Content Sections & Cards */
         section {
-            padding: 4rem 2rem;
-            border-bottom: 1px solid var(--stone);
-        }
-        
-        section:last-child {
-            border-bottom: none;
-        }
-        
-        h2 {
-            font-size: 2rem;
-            color: var(--forest);
-            margin-bottom: 2rem;
-            text-align: center;
-        }
-        
-        h3 {
-            font-size: 1.5rem;
-            color: var(--earth);
-            margin: 2rem 0 1rem 0;
-        }
-        
-        p {
-            margin-bottom: 1rem;
-            line-height: 1.7;
-        }
-        
-        /* About Section */
-        .about-content {
-            max-width: 800px;
+            padding: var(--padding-section) 2rem;
+            max-width: 1200px;
             margin: 0 auto;
-            text-align: center;
+        }
+        
+        /* Alternating section colors for a "document" feel */
+        section:nth-of-type(even) {
+            background: var(--paper-light);
+        }
+        
+        /* 4.1. About Section - Dynamic Grid Layout */
+        #about {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+        
+        #about h2 {
+            grid-column: 1 / -1; /* Header spans both columns */
         }
         
         .about-image {
             width: 100%;
-            max-width: 500px;
-            height: 300px;
+            height: 400px;
             object-fit: cover;
-            border-radius: 4px;
-            margin: 2rem auto;
-            display: block;
+            border-radius: 8px;
         }
         
-        /* Classes Grid */
-        .classes-grid {
+        .about-content p {
+            max-width: 60ch;
+        }
+
+        /* 4.2. Classes & Events - Card Grids */
+        .classes-grid,
+        .events-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
-            margin: 2rem 0;
+        }
+        
+        .class-card,
+        .event-card {
+            background: var(--paper-light);
+            border: 1px solid var(--stone);
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden;
+        }
+        
+        .class-card:hover,
+        .event-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        
+        .class-image,
+        .event-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
         }
         
         .class-card {
-            background: white;
-            padding: 2rem;
-            border: 1px solid var(--stone);
-            border-radius: 4px;
+            padding: var(--padding-card);
             text-align: center;
         }
         
         .class-image {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
+            margin-bottom: 1.5rem;
+        }
+        
+        .event-content {
+            padding: 1.5rem;
+        }
+        
+        .event-date {
+            background: var(--earth);
+            color: white;
+            padding: 0.5rem 1rem;
             border-radius: 4px;
+            display: inline-block;
             margin-bottom: 1rem;
+            font-size: 0.9rem;
+            font-weight: 500;
         }
-        
-        .class-title {
-            font-size: 1.3rem;
-            color: var(--earth);
-            margin-bottom: 1rem;
-        }
-        
-        /* Schedule */
+
+        /* 4.3. Schedule Section */
         .schedule-container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
+            display: grid;
+            gap: 1.5rem;
         }
         
         .schedule-day {
-            margin-bottom: 2rem;
-            padding: 1.5rem;
-            background: white;
+            background: var(--paper-light);
             border: 1px solid var(--stone);
-            border-radius: 4px;
+            border-radius: 8px;
+            padding: 1.5rem;
         }
         
         .day-header {
@@ -215,7 +308,8 @@
             grid-template-columns: 100px 1fr 120px;
             gap: 1rem;
             padding: 1rem 0;
-            border-bottom: 1px solid var(--stone);
+            border-bottom: 1px solid rgba(176, 176, 176, 0.5); /* --stone at 50% */
+            align-items: center;
         }
         
         .schedule-item:last-child {
@@ -225,6 +319,13 @@
         .schedule-time {
             font-weight: 600;
             color: var(--forest);
+            font-size: 1.1rem;
+        }
+        
+        .schedule-details p {
+            margin: 0;
+            font-size: 0.95rem;
+            opacity: 0.8;
         }
         
         .schedule-action {
@@ -239,72 +340,59 @@
             text-decoration: none;
             border-radius: 4px;
             font-size: 0.9rem;
+            font-weight: 500;
+            transition: background 0.3s ease;
         }
         
-        /* Events */
-        .events-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin: 2rem 0;
-        }
-        
-        .event-card {
-            background: white;
-            border: 1px solid var(--stone);
-            border-radius: 4px;
-            overflow: hidden;
-        }
-        
-        .event-image {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-        
-        .event-content {
-            padding: 1.5rem;
-        }
-        
-        .event-date {
-            background: var(--earth);
+        .book-button:hover {
+            background: var(--sage);
             color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            display: inline-block;
-            margin-bottom: 1rem;
-            font-size: 0.9rem;
         }
         
-        .event-title {
-            font-size: 1.2rem;
-            color: var(--earth);
-            margin-bottom: 1rem;
+        /* 4.4. Ethos Section (Reflexive) */
+        .ethos-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            background: var(--forest);
+            color: var(--paper);
+            padding: 3rem;
+            border-radius: 8px;
         }
         
-        /* Gallery */
+        .ethos-content h3 {
+            color: var(--paper-light);
+        }
+        
+        /* 4.5. Gallery */
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 1rem;
-            margin: 2rem 0;
         }
         
         .gallery-item {
             width: 100%;
-            height: 200px;
+            height: 250px;
             object-fit: cover;
-            border-radius: 4px;
+            border-radius: 8px;
+            transition: transform 0.3s ease, opacity 0.3s ease;
         }
         
-        /* Contact Form */
+        .gallery-item:hover {
+            transform: scale(1.05);
+            opacity: 0.9;
+        }
+        
+        /* 4.6. Contact Form */
         .contact-form {
             max-width: 600px;
             margin: 0 auto;
-            background: white;
-            padding: 2rem;
+            background: var(--paper-light);
+            padding: 2.5rem;
             border: 1px solid var(--stone);
-            border-radius: 4px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
         }
         
         .form-group {
@@ -320,10 +408,18 @@
         
         input, textarea {
             width: 100%;
-            padding: 0.75rem;
+            padding: 0.75rem 1rem;
             border: 1px solid var(--stone);
             border-radius: 4px;
             font-family: inherit;
+            background: var(--paper);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        input:focus, textarea:focus {
+            border-color: var(--forest);
+            box-shadow: 0 0 0 3px rgba(85, 107, 47, 0.2);
+            outline: none;
         }
         
         textarea {
@@ -340,13 +436,19 @@
             font-weight: 600;
             cursor: pointer;
             width: 100%;
+            font-size: 1.1rem;
+            transition: background 0.3s ease;
         }
         
-        /* Footer */
+        .submit-button:hover {
+            background: var(--sage);
+        }
+        
+        /* 5. Footer */
         .site-footer {
-            background: var(--forest);
-            color: white;
-            padding: 3rem 2rem;
+            background: var(--ink);
+            color: var(--paper);
+            padding: 4rem 2rem;
             text-align: center;
         }
         
@@ -355,8 +457,14 @@
             margin: 0 auto;
         }
         
+        .footer-content h3 {
+            color: var(--paper-light);
+            font-size: 1.8rem;
+        }
+        
         .contact-info {
             margin: 2rem 0;
+            opacity: 0.8;
         }
         
         .footer-links {
@@ -368,18 +476,51 @@
         }
         
         .footer-links a {
-            color: white;
+            color: var(--paper);
             text-decoration: none;
             font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        .footer-links a:hover {
+            opacity: 1;
+            text-decoration: underline;
         }
         
         .format-credit {
             margin-top: 2rem;
             font-size: 0.9rem;
-            opacity: 0.8;
+            opacity: 0.6;
         }
         
-        /* Responsive */
+        /* 6. Innovative: CSS Scroll-Driven Animations */
+        @keyframes fade-in-up {
+            from {
+                opacity: 0;
+                transform: translateY(2rem);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Apply animation to key content blocks */
+        section h2, 
+        .about-content, .about-image,
+        .class-card, .event-card,
+        .schedule-day,
+        .ethos-content,
+        .gallery-grid,
+        .contact-form {
+            animation: fade-in-up linear;
+            animation-timeline: view();
+            /* Start animation when 5% of the element enters the view */
+            /* End animation when it's 30% covered */
+            animation-range: entry 5% cover 30%;
+        }
+        
+        /* 7. Responsive Design */
         @media (max-width: 768px) {
             .site-header {
                 flex-direction: column;
@@ -389,18 +530,23 @@
             .nav-links {
                 flex-wrap: wrap;
                 justify-content: center;
+                gap: 1.5rem;
             }
             
             .hero {
                 padding: 4rem 1rem;
             }
             
-            .hero-title {
-                font-size: 2.5rem;
+            section {
+                padding: var(--padding-section) 1rem;
             }
             
-            section {
-                padding: 3rem 1rem;
+            #about {
+                grid-template-columns: 1fr;
+            }
+            
+            .about-image {
+                height: 300px;
             }
             
             .schedule-item {
@@ -423,8 +569,133 @@
             .gallery-grid {
                 grid-template-columns: 1fr;
             }
+            
+            .contact-form {
+                padding: 1.5rem;
+            }
         }
     </style>
+    
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "YogaStudio",
+      "name": "Valley Shala",
+      "description": "Bespoke Yoga Shala and Event Venue nestled amidst breathtaking mountains in Hout Bay, Cape Town. We offer YogaSynergy, Hatha, Ashtanga, and more.",
+      "url": "https://www.valleyshala.com", // <-- UPDATE THIS WITH THE REAL URL
+      "telephone": "+27 82 779 9939",
+      "email": "info@valleyshala.com",
+      "image": "https://static.wixstatic.com/media/1935ee_546815b1250d4a81bb52228ed8434c0a~mv2.jpg/v1/fill/w_1920,h_1080,al_c,q_90,usm_0.66_1.00_0.01/IMG_9815_edited.jpg",
+      "logo": "https://static.wixstatic.com/media/1935ee_b75d635039734a6bacd4251d81484fd8~mv2.jpg/v1/fill/w_800,h_800,al_c,q_90,usm_0.66_1.00_0.01/1935ee_b75d635039734a6bacd4251d81484fd8~mv2.jpg", // <-- UPDATE WITH ACTUAL LOGO
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "79A Valley Road",
+        "addressLocality": "Hout Bay",
+        "addressRegion": "Cape Town",
+        "postalCode": "7806",
+        "addressCountry": "ZA"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "-34.0205", // <-- Placeholder Lat/Long for Hout Bay
+        "longitude": "18.3516"  // <-- Placeholder Lat/Long for Hout Bay
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": "Monday",
+          "opens": "18:00",
+          "closes": "19:00"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": "Tuesday",
+          "opens": "18:00",
+          "closes": "19:00"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": "Wednesday",
+          "opens": "17:30",
+          "closes": "18:30"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": "Thursday",
+          "opens": "18:00",
+          "closes": "19:15"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": "Friday",
+          "opens": "18:00",
+          "closes": "19:15"
+        }
+      ],
+      "makesOffer": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "YogaSynergy",
+            "description": "Experience the healing and regenerative power of the YogaSynergy practice.",
+            "url": "#classes"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Hatha Yoga",
+            "description": "A slow (but strong) and mindful asana practice, with a focus on breath and posture alignment.",
+            "url": "#classes"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Ashtanga Vinyasa Yoga",
+            "description": "A guided class or workshop series on the Ashtanga Vinyasa Yoga sequence.",
+            "url": "#classes"
+          }
+        }
+      ],
+      "event": [
+        {
+          "@type": "Event",
+          "name": "Vinyasa Krama Immersion with Matthew Sweeney",
+          "startDate": "2026-01-16",
+          "endDate": "2026-01-21",
+          "description": "Deep immersion into the Vinyasa Krama system with internationally recognized teacher Matthew Sweeney.",
+          "location": {
+            "@type": "Place",
+            "name": "Valley Shala"
+          },
+          "image": "https://static.wixstatic.com/media/1935ee_546815b1250d4a81bb52228ed8434c0a~mv2.jpg/v1/fill/w_600,h_400,al_c,q_90,usm_0.66_1.00_0.01/IMG_9815_edited.jpg",
+          "offers": {
+            "@type": "Offer",
+            "url": "#events"
+          }
+        },
+        {
+          "@type": "Event",
+          "name": "Budokon Yoga Workshop Series",
+          "startDate": "2025-11-26",
+          "description": "How to BDK with Tammy: find your inner ninja. Learn the BDK Yoga Primary Series Flow in this series of 6 workshop-style classes.",
+          "location": {
+            "@type": "Place",
+            "name": "Valley Shala"
+          },
+          "image": "https://static.wixstatic.com/media/1935ee_546815b1250d4a81bb52228ed8434c0a~mv2.jpg/v1/fill/w_600,h_400,al_c,q_90,usm_0.66_1.00_0.01/IMG_9815_edited.jpg",
+          "offers": {
+            "@type": "Offer",
+            "url": "#events"
+          }
+        }
+      ]
+    }
+    </script>
 </head>
 <body>
     <header class="site-header">
@@ -434,236 +705,252 @@
             <a href="#classes">Classes</a>
             <a href="#schedule">Schedule</a>
             <a href="#events">Events</a>
+            <a href="#ethos">Our Ethos</a>
             <a href="#gallery">Gallery</a>
             <a href="#contact">Contact</a>
         </nav>
     </header>
 
-    <section class="hero">
-        <h1 class="hero-title">Valley Shala</h1>
-        <p class="hero-subtitle">Bespoke Yoga Shala and Event Venue</p>
-        <p class="hero-description">
-            Nestled amidst breathtaking mountains, our venue is a true sanctuary, offering stunning views and a serene connection to nature that inspires tranquility and peace.
-        </p>
-        <a href="#schedule" class="cta-button">Book Your Practice</a>
-    </section>
+    <main>
+        <section class="hero" id="hero">
+            <h1 class="hero-title">Valley Shala</h1>
+            <p class="hero-subtitle">Bespoke Yoga Shala and Event Venue</p>
+            <p class="hero-description">
+                Nestled amidst breathtaking mountains, our venue is a true sanctuary, offering stunning views and a serene connection to nature that inspires tranquility and peace.
+            </p>
+            <a href="#schedule" class="cta-button">Book Your Practice</a>
+        </section>
 
-    <section id="about">
-        <h2>Our Story</h2>
-        <div class="about-content">
+        <section id="about">
+            <h2>Our Story</h2>
             <img src="https://static.wixstatic.com/media/1935ee_b75d635039734a6bacd4251d81484fd8~mv2.jpg/v1/fill/w_800,h_800,al_c,q_90,usm_0.66_1.00_0.01/1935ee_b75d635039734a6bacd4251d81484fd8~mv2.jpg" alt="Valley Shala space" class="about-image">
-            <p>
-                Valley Shala emerged as a collaboration of friends and family: a little passion project that unexpectedly became a unique workshop and event venue. Our space is a true hidden gem of the Valley.
-            </p>
-            <p>
-                What began as a bit of an experiment has slowly developed into an eclectic but selective venue, attracting fascinating collaborators and engaging visitors in deep transformative experiences.
-            </p>
-            <p>
-                We aim to offer only what we truly believe in, to create a space for authentic teachers to share their knowledge and skills, and to be a world class venue specialising in yogic and therapeutic practices.
-            </p>
-        </div>
-    </section>
+            <div class="about-content">
+                <p>
+                    Valley Shala emerged as a collaboration of friends and family: a little passion project that unexpectedly became a unique workshop and event venue. Our space is a true hidden gem of the Valley.
+                </p>
+                <p>
+                    What began as a bit of an experiment has slowly developed into an eclectic but selective venue, attracting fascinating collaborators and engaging visitors in deep transformative experiences.
+                </p>
+                <p>
+                    We aim to offer only what we truly believe in, to create a space for authentic teachers to share their knowledge and skills, and to be a world class venue specialising in yogic and therapeutic practices.
+                </p>
+            </div>
+        </section>
 
-    <section id="classes">
-        <h2>Our Yoga Practices</h2>
-        <div class="classes-grid">
-            <div class="class-card">
-                <img src="https://static.wixstatic.com/media/1935ee_546815b1250d4a81bb52228ed8434c0a~mv2.jpg/v1/fill/w_600,h_400,al_c,q_90,usm_0.66_1.00_0.01/IMG_9815_edited.jpg" alt="YogaSynergy" class="class-image">
-                <h3 class="class-title">YogaSynergy</h3>
-                <p>Experience the healing and regenerative power of the YogaSynergy practice. Founded by Australian Yoga Master and physiotherapist Simon Borg-Olivier, this practice is traditional yoga for the modern body.</p>
+        <section id="classes">
+            <h2>Our Yoga Practices</h2>
+            <div class="classes-grid">
+                <div class="class-card">
+                    <img src="https://static.wixstatic.com/media/1935ee_546815b1250d4a81bb52228ed8434c0a~mv2.jpg/v1/fill/w_600,h_400,al_c,q_90,usm_0.66_1.00_0.01/IMG_9815_edited.jpg" alt="YogaSynergy" class="class-image">
+                    <h3 class="class-title">YogaSynergy</h3>
+                    <p>Experience the healing and regenerative power of the YogaSynergy practice. Founded by Australian Yoga Master and physiotherapist Simon Borg-Olivier, this practice is traditional yoga for the modern body.</p>
+                </div>
+                
+                <div class="class-card">
+                    <img src="https://static.wixstatic.com/media/1935ee_546815b1250d4a81bb52228ed8434c0a~mv2.jpg/v1/fill/w_600,h_400,al_c,q_90,usm_0.66_1.00_0.01/IMG_9815_edited.jpg" alt="Hatha Yoga" class="class-image">
+                    <h3 class="class-title">Hatha Yoga</h3>
+                    <p>A slow (but strong) and mindful asana practice, with a focus on breath and posture alignment. Incorporating some flow and some longer holds, this traditional practice brings the mind back into the body.</p>
+                </div>
+                
+                <div class="class-card">
+                    <img src="https://static.wixstatic.com/media/1935ee_546815b1250d4a81bb52228ed8434c0a~mv2.jpg/v1/fill/w_600,h_400,al_c,q_90,usm_0.66_1.00_0.01/IMG_9815_edited.jpg" alt="Ashtanga Yoga" class="class-image">
+                    <h3 class="class-title">Ashtanga Vinyasa Yoga</h3>
+                    <p>This may be a class or a workshop series. One of our passionate teachers will either guide you through a regular "led class", giving you a taste of the sequence, or use a block of classes to offer you the benefits of building your self-practice.</p>
+                </div>
+                
+                <div class="class-card">
+                    <img src="https://static.wixstatic.com/media/1935ee_546815b1250d4a81bb52228ed8434c0a~mv2.jpg/v1/fill/w_600,h_400,al_c,q_90,usm_0.66_1.00_0.01/IMG_9815_edited.jpg" alt="Short Courses" class="class-image">
+                    <h3 class="class-title">Short Courses</h3>
+                    <p>Explore a new style of yoga or experience different practices and techniques in our specially designed short courses. These are groups of classes aimed at providing practitioners with tools to enhance their own self-practice.</p>
+                </div>
+                
+                <div class="class-card">
+                    <img src="https://static.wixstatic.com/media/1935ee_546815b1250d4a81bb52228ed8434c0a~mv2.jpg/v1/fill/w_600,h_400,al_c,q_90,usm_0.66_1.00_0.01/IMG_9815_edited.jpg" alt="Monthly Workshops" class="class-image">
+                    <h3 class="class-title">Monthly Workshops</h3>
+                    <p>Join one of our experienced teachers for a deeper dive into the practice. These workshops take place monthly and are a chance to explore more advanced asana practice or other specific aspects of the practice.</p>
+                </div>
+                
+                <div class="class-card">
+                    <img src="https://static.wixstatic.com/media/1935ee_546815b1250d4a81bb52228ed8434c0a~mv2.jpg/v1/fill/w_600,h_400,al_c,q_90,usm_0.66_1.00_0.01/IMG_9815_edited.jpg" alt="Pranayama and Meditation" class="class-image">
+                    <h3 class="class-title">Pranayama & Meditation</h3>
+                    <p>Look out for events, workshops and classes aimed at some of the more subtle 'limbs' of Yoga. Mantra chanting sessions, pranayama workshops and meditation classes as well as day/weekend retreats.</p>
+                </div>
             </div>
-            
-            <div class="class-card">
-                <img src="https://static.wixstatic.com/media/1935ee_546815b1250d4a81bb52228ed8434c0a~mv2.jpg/v1/fill/w_600,h_400,al_c,q_90,usm_0.66_1.00_0.01/IMG_9815_edited.jpg" alt="Hatha Yoga" class="class-image">
-                <h3 class="class-title">Hatha Yoga</h3>
-                <p>A slow (but strong) and mindful asana practice, with a focus on breath and posture alignment. Incorporating some flow and some longer holds, this traditional practice brings the mind back into the body.</p>
-            </div>
-            
-            <div class="class-card">
-                <img src="https://static.wixstatic.com/media/1935ee_546815b1250d4a81bb52228ed8434c0a~mv2.jpg/v1/fill/w_600,h_400,al_c,q_90,usm_0.66_1.00_0.01/IMG_9815_edited.jpg" alt="Ashtanga Yoga" class="class-image">
-                <h3 class="class-title">Ashtanga Vinyasa Yoga</h3>
-                <p>This may be a class or a workshop series. One of our passionate teachers will either guide you through a regular "led class", giving you a taste of the sequence, or use a block of classes to offer you the benefits of building your self-practice.</p>
-            </div>
-            
-            <div class="class-card">
-                <img src="https://static.wixstatic.com/media/1935ee_546815b1250d4a81bb52228ed8434c0a~mv2.jpg/v1/fill/w_600,h_400,al_c,q_90,usm_0.66_1.00_0.01/IMG_9815_edited.jpg" alt="Short Courses" class="class-image">
-                <h3 class="class-title">Short Courses</h3>
-                <p>Explore a new style of yoga or experience different practices and techniques in our specially designed short courses. These are groups of classes aimed at providing practitioners with tools to enhance their own self-practice.</p>
-            </div>
-            
-            <div class="class-card">
-                <img src="https://static.wixstatic.com/media/1935ee_546815b1250d4a81bb52228ed8434c0a~mv2.jpg/v1/fill/w_600,h_400,al_c,q_90,usm_0.66_1.00_0.01/IMG_9815_edited.jpg" alt="Monthly Workshops" class="class-image">
-                <h3 class="class-title">Monthly Workshops</h3>
-                <p>Join one of our experienced teachers for a deeper dive into the practice. These workshops take place monthly and are a chance to explore more advanced asana practice or other specific aspects of the practice.</p>
-            </div>
-            
-            <div class="class-card">
-                <img src="https://static.wixstatic.com/media/1935ee_546815b1250d4a81bb52228ed8434c0a~mv2.jpg/v1/fill/w_600,h_400,al_c,q_90,usm_0.66_1.00_0.01/IMG_9815_edited.jpg" alt="Pranayama and Meditation" class="class-image">
-                <h3 class="class-title">Pranayama & Meditation</h3>
-                <p>Look out for events, workshops and classes aimed at some of the more subtle 'limbs' of Yoga. Mantra chanting sessions, pranayama workshops and meditation classes as well as day/weekend retreats.</p>
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="schedule">
-        <h2>Weekly Schedule</h2>
-        <div class="schedule-container">
-            <div class="schedule-day">
-                <h3 class="day-header">Monday</h3>
-                <div class="schedule-item">
-                    <div class="schedule-time">18:00-19:00</div>
-                    <div class="schedule-details">
-                        <strong>Hatha Yoga with Michelle</strong>
-                        <p>Traditional and mindful Hatha Yoga flow class</p>
+        <section id="schedule">
+            <h2>Weekly Schedule</h2>
+            <div class="schedule-container">
+                <div class="schedule-day">
+                    <h3 class="day-header">Monday</h3>
+                    <div class="schedule-item">
+                        <div class="schedule-time">18:00-19:00</div>
+                        <div class="schedule-details">
+                            <strong>Hatha Yoga with Michelle</strong>
+                            <p>Traditional and mindful Hatha Yoga flow class</p>
+                        </div>
+                        <div class="schedule-action">
+                            <a href="#" class="book-button">Book Now</a>
+                        </div>
                     </div>
-                    <div class="schedule-action">
+                </div>
+                
+                <div class="schedule-day">
+                    <h3 class="day-header">Tuesday</h3>
+                    <div class="schedule-item">
+                        <div class="schedule-time">18:00-19:00</div>
+                        <div class="schedule-details">
+                            <strong>Hatha Yoga with Michelle</strong>
+                            <p>Traditional and mindful Hatha Yoga flow class</p>
+                        </div>
+                        <div class="schedule-action">
+                            <a href="#" class="book-button">Book Now</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="schedule-day">
+                    <h3 class="day-header">Wednesday</h3>
+                    <div class="schedule-item">
+                        <div class="schedule-time">17:30-18:30</div>
+                        <div class="schedule-details">
+                            <strong>White Tiger Qi Gong</strong>
+                            <p>Traditional Qi Gong practice</p>
+                        </div>
+                        <div class="schedule-action">
+                            <a href="#" class="book-button">Book Now</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="schedule-day">
+                    <h3 class="day-header">Thursday</h3>
+                    <div class="schedule-item">
+                        <div class="schedule-time">18:00-19:15</div>
+                        <div class="schedule-details">
+                            <strong>Asana Retuning with Moritz</strong>
+                            <p>An eclectic blend of movement and meditation practices</p>
+                        </div>
+                        <div class="schedule-action">
+                            <a href="#" class="book-button">Book Now</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="schedule-day">
+                    <h3 class="day-header">Friday</h3>
+                    <div class="schedule-item">
+                        <div class="schedule-time">18:00-19:15</div>
+                        <div class="schedule-details">
+                            <strong>Ashtanga - Guided Practice</strong>
+                            <p>An intro to the Ashtanga Vinyasa Yoga Primary Series</p>
+                        </div>
+                        <div class="schedule-action">
+                            <a href="#" class="book-button">Book Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="events">
+            <h2>Upcoming Events</h2>
+            <div class="events-grid">
+                <div class="event-card">
+                    <img src="https://static.wixstatic.com/media/1935ee_546815b1250d4a81bb52228ed8434c0a~mv2.jpg/v1/fill/w_600,h_400,al_c,q_90,usm_0.66_1.00_0.01/IMG_9815_edited.jpg" alt="Vinyasa Krama Immersion" class="event-image">
+                    <div class="event-content">
+                        <div class="event-date">Jan 16-21, 2026</div>
+                        <h3 class="event-title">Vinyasa Krama Immersion with Matthew Sweeney</h3>
+                        <p>Deep immersion into the Vinyasa Krama system with internationally recognized teacher Matthew Sweeney.</p>
+                        <a href="#" class="book-button">More Info</a>
+                    </div>
+                </div>
+                
+                <div class="event-card">
+                    <img src="https://static.wixstatic.com/media/1935ee_546815b1250d4a81bb52228ed8434c0a~mv2.jpg/v1/fill/w_600,h_400,al_c,q_90,usm_0.66_1.00_0.01/IMG_9815_edited.jpg" alt="Budokon Yoga Workshop" class="event-image">
+                    <div class="event-content">
+                        <div class="event-date">Starts Nov 26</div>
+                        <h3 class="event-title">Budokon Yoga Workshop Series</h3>
+                        <p>How to BDK with Tammy: find your inner ninja. Learn the BDK Yoga Primary Series Flow in this series of 6 workshop-style classes.</p>
+                        <a href="#" class="book-button">Book Now</a>
+                    </div>
+                </div>
+                
+                <div class="event-card">
+                    <img src="https://static.wixstatic.com/media/1935ee_546815b1250d4a81bb52228ed8434c0a~mv2.jpg/v1/fill/w_600,h_400,al_c,q_90,usm_0.66_1.00_0.01/IMG_9815_edited.jpg" alt="Free Opening Class" class="event-image">
+                    <div class="event-content">
+                        <div class="event-date">Friday</div>
+                        <h3 class="event-title">Free Opening Class</h3>
+                        <p>Ashtanga Vinyasa Yoga with Eva. 1 hour 15 minutes of guided practice.</p>
                         <a href="#" class="book-button">Book Now</a>
                     </div>
                 </div>
             </div>
-            
-            <div class="schedule-day">
-                <h3 class="day-header">Tuesday</h3>
-                <div class="schedule-item">
-                    <div class="schedule-time">18:00-19:00</div>
-                    <div class="schedule-details">
-                        <strong>Hatha Yoga with Michelle</strong>
-                        <p>Traditional and mindful Hatha Yoga flow class</p>
-                    </div>
-                    <div class="schedule-action">
-                        <a href="#" class="book-button">Book Now</a>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="schedule-day">
-                <h3 class="day-header">Wednesday</h3>
-                <div class="schedule-item">
-                    <div class="schedule-time">17:30-18:30</div>
-                    <div class="schedule-details">
-                        <strong>White Tiger Qi Gong</strong>
-                        <p>Traditional Qi Gong practice</p>
-                    </div>
-                    <div class="schedule-action">
-                        <a href="#" class="book-button">Book Now</a>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="schedule-day">
-                <h3 class="day-header">Thursday</h3>
-                <div class="schedule-item">
-                    <div class="schedule-time">18:00-19:15</div>
-                    <div class="schedule-details">
-                        <strong>Asana Retuning with Moritz</strong>
-                        <p>An eclectic blend of movement and meditation practices</p>
-                    </div>
-                    <div class="schedule-action">
-                        <a href="#" class="book-button">Book Now</a>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="schedule-day">
-                <h3 class="day-header">Friday</h3>
-                <div class="schedule-item">
-                    <div class="schedule-time">18:00-19:15</div>
-                    <div class="schedule-details">
-                        <strong>Ashtanga - Guided Practice</strong>
-                        <p>An intro to the Ashtanga Vinyasa Yoga Primary Series</p>
-                    </div>
-                    <div class="schedule-action">
-                        <a href="#" class="book-button">Book Now</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="events">
-        <h2>Upcoming Events</h2>
-        <div class="events-grid">
-            <div class="event-card">
-                <img src="https://static.wixstatic.com/media/1935ee_546815b1250d4a81bb52228ed8434c0a~mv2.jpg/v1/fill/w_600,h_400,al_c,q_90,usm_0.66_1.00_0.01/IMG_9815_edited.jpg" alt="Vinyasa Krama Immersion" class="event-image">
-                <div class="event-content">
-                    <div class="event-date">Jan 16-21, 2026</div>
-                    <h3 class="event-title">Vinyasa Krama Immersion with Matthew Sweeney</h3>
-                    <p>Deep immersion into the Vinyasa Krama system with internationally recognized teacher Matthew Sweeney.</p>
-                    <a href="#" class="book-button">More Info</a>
-                </div>
+        <section id="ethos">
+            <h2>Our Ethos</h2>
+            <div class="ethos-content">
+                 <h3>Authenticity & Collaboration</h3>
+                <p>
+                    Our "Untitled Format" is about transparency. In that spirit, our ethos is simple: we offer only what we truly believe in. We are not a high-volume studio, but a selective venue for authentic teachers to share their knowledge.
+                </p>
+                <p>
+                    We value collaboration over competition and believe in creating a sanctuary for deep, transformative experiences. This space is built on the passion of friends and family, and we extend that welcome to every collaborator and visitor.
+                </p>
             </div>
-            
-            <div class="event-card">
-                <img src="https://static.wixstatic.com/media/1935ee_546815b1250d4a81bb52228ed8434c0a~mv2.jpg/v1/fill/w_600,h_400,al_c,q_90,usm_0.66_1.00_0.01/IMG_9815_edited.jpg" alt="Budokon Yoga Workshop" class="event-image">
-                <div class="event-content">
-                    <div class="event-date">Starts Nov 26</div>
-                    <h3 class="event-title">Budokon Yoga Workshop Series</h3>
-                    <p>How to BDK with Tammy: find your inner ninja. Learn the BDK Yoga Primary Series Flow in this series of 6 workshop-style classes.</p>
-                    <a href="#" class="book-button">Book Now</a>
-                </div>
-            </div>
-            
-            <div class="event-card">
-                <img src="https://static.wixstatic.com/media/1935ee_546815b1250d4a81bb52228ed8434c0a~mv2.jpg/v1/fill/w_600,h_400,al_c,q_90,usm_0.66_1.00_0.01/IMG_9815_edited.jpg" alt="Free Opening Class" class="event-image">
-                <div class="event-content">
-                    <div class="event-date">Friday</div>
-                    <h3 class="event-title">Free Opening Class</h3>
-                    <p>Ashtanga Vinyasa Yoga with Eva. 1 hour 15 minutes of guided practice.</p>
-                    <a href="#" class="book-button">Book Now</a>
-                </div>
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="gallery">
-        <h2>Event Highlights</h2>
-        <p style="text-align: center; margin-bottom: 2rem;">Take a peek back at some of what has happened at Valley Shala since its inception.</p>
-        
-        <div class="gallery-grid">
-            <img src="https://static.wixstatic.com/media/1935ee_546815b1250d4a81bb52228ed8434c0a~mv2.jpg/v1/fill/w_400,h_300,al_c,q_90,usm_0.66_1.00_0.01/IMG_9815_edited.jpg" alt="Yoga practice" class="gallery-item">
-            <img src="https://static.wixstatic.com/media/1935ee_546815b1250d4a81bb52228ed8434c0a~mv2.jpg/v1/fill/w_400,h_300,al_c,q_90,usm_0.66_1.00_0.01/IMG_9815_edited.jpg" alt="Workshop" class="gallery-item">
-            <img src="https://static.wixstatic.com/media/1935ee_546815b1250d4a81bb52228ed8434c0a~mv2.jpg/v1/fill/w_400,h_300,al_c,q_90,usm_0.66_1.00_0.01/IMG_9815_edited.jpg" alt="Retreat" class="gallery-item">
-            <img src="https://static.wixstatic.com/media/1935ee_546815b1250d4a81bb52228ed8434c0a~mv2.jpg/v1/fill/w_400,h_300,al_c,q_90,usm_0.66_1.00_0.01/IMG_9815_edited.jpg" alt="Community" class="gallery-item">
-        </div>
-    </section>
-
-    <section id="contact">
-        <h2>Collaborate With Us</h2>
-        <div class="contact-form">
-            <p style="text-align: center; margin-bottom: 2rem;">
-                At Valley Shala, we proudly offer a vibrant community space where collaboration thrives. Our studio is not only home to our dedicated teachers but also serves as a venue for a diverse range of practitioners.
-            </p>
+        <section id="gallery">
+            <h2>Event Highlights</h2>
+            <p style="text-align: center; margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto;">Take a peek back at some of what has happened at Valley Shala since its inception.</p>
             
-            <form>
-                <div class="form-group">
-                    <label for="firstName">First name *</label>
-                    <input type="text" id="firstName" required>
-                </div>
+            <div class="gallery-grid">
+                <img src="https://static.wixstatic.com/media/1935ee_546815b1250d4a81bb52228ed8434c0a~mv2.jpg/v1/fill/w_400,h_300,al_c,q_90,usm_0.66_1.00_0.01/IMG_9815_edited.jpg" alt="Yoga practice" class="gallery-item">
+                <img src="https://static.wixstatic.com/media/1935ee_546815b1250d4a81bb52228ed8434c0a~mv2.jpg/v1/fill/w_400,h_300,al_c,q_90,usm_0.66_1.00_0.01/IMG_9815_edited.jpg" alt="Workshop" class="gallery-item">
+                <img src="https://static.wixstatic.com/media/1935ee_546815b1250d4a81bb52228ed8434c0a~mv2.jpg/v1/fill/w_400,h_300,al_c,q_90,usm_0.66_1.00_0.01/IMG_9815_edited.jpg" alt="Retreat" class="gallery-item">
+                <img src="https://static.wixstatic.com/media/1935ee_546815b1250d4a81bb52228ed8434c0a~mv2.jpg/v1/fill/w_400,h_300,al_c,q_90,usm_0.66_1.00_0.01/IMG_9815_edited.jpg" alt="Community" class="gallery-item">
+            </div>
+        </section>
+
+        <section id="contact">
+            <h2>Collaborate With Us</h2>
+            <div class="contact-form">
+                <p style="text-align: center; margin-bottom: 2rem;">
+                    At Valley Shala, we proudly offer a vibrant community space where collaboration thrives. Our studio is not only home to our dedicated teachers but also serves as a venue for a diverse range of practitioners.
+                </p>
                 
-                <div class="form-group">
-                    <label for="lastName">Last name *</label>
-                    <input type="text" id="lastName" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="email">Email *</label>
-                    <input type="email" id="email" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="description">Give us a brief description of what you are interested in offering *</label>
-                    <textarea id="description" required></textarea>
-                </div>
-                
-                <div class="form-group">
-                    <label for="website">Send us your website/link to social media for us to get more info</label>
-                    <input type="url" id="website">
-                </div>
-                
-                <button type="submit" class="submit-button">Submit</button>
-            </form>
-        </div>
-    </section>
+                <form>
+                    <div class="form-group">
+                        <label for="firstName">First name *</label>
+                        <input type="text" id="firstName" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="lastName">Last name *</label>
+                        <input type="text" id="lastName" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email *</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="description">Give us a brief description of what you are interested in offering *</label>
+                        <textarea id="description" required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="website">Send us your website/link to social media for us to get more info</label>
+                        <input type="url" id="website">
+                    </div>
+                    
+                    <button type="submit" class="submit-button">Submit</button>
+                </form>
+            </div>
+        </section>
+    </main>
 
     <footer class="site-footer">
         <div class="footer-content">

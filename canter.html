@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canter™ System — Complete Documentation</title>
+    <style>
+        :root {
+            --primary: #2d5016;
+            --secondary: #5a7f3a;
+            --accent: #8a9a5b;
+            --light: #f8f9fa;
+            --dark: #1a1a1a;
+            --gray: #6c757d;
+            --border: #e9ecef;
+            --shadow: 0 2px 8px rgba(0,0,0,0.08);
+            --code-bg: #f5f5f5;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background: var(--light);
+            padding: 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        h1, h2, h3, h4 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        h1 {
+            font-size: 2.2rem;
+            margin-top: 1rem;
+        }
+        
+        h2 {
+            font-size: 1.6rem;
+            margin-top: 2rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        h3 {
+            font-size: 1.3rem;
+            margin-top: 1.5rem;
+        }
+        
+        h4 {
+            font-size: 1.1rem;
+            margin-top: 1rem;
+        }
+        
+        section {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+        }
+        
+        .metadata {
+            background: #f8f9fa;
+            border-left: 4px solid var(--primary);
+            padding: 1rem;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+        }
+        
+        .system-overview {
+            background: linear-gradient(to right, #f0f7e9, #e8f4e1);
+            border: 1px solid var(--accent);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .architecture-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .arch-card {
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            background: white;
+        }
+        
+        .arch-card h4 {
+            color: var(--secondary);
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .workflow-diagram {
+            background: var(--light);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .workflow-step {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 6px;
+            border-left: 4px solid var(--accent);
+        }
+        
+        .step-number {
+            background: var(--primary);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .feature-card {
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 1rem;
+            background: white;
+        }
+        
+        .feature-card h4 {
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
+        
+        code {
+            background: var(--code-bg);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+        
+        pre {
+            background: var(--code-bg);
+            padding: 1rem;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin: 1rem 0;
+            border-left: 4px solid var(--primary);
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+        
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        th {
+            background: #f8f9fa;
+            font-weight: 600;
+        }
+        
+        .user-role-card {
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            background: white;
+        }
+        
+        .user-role-card h4 {
+            color: var(--secondary);
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        footer {
+            margin-top: 3rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+        
+        .alert {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 0.75rem;
+            border-radius: 4px;
+            margin: 0.5rem 0;
+        }
+        
+        .system-highlight {
+            background: linear-gradient(to right, #e8f4e1, #d4edda);
+            border: 1px solid #c3e6cb;
+            padding: 1rem;
+            border-radius: 6px;
+            margin: 1rem 0;
+        }
+        
+        @media (max-width: 768px) {
+            .architecture-grid, .feature-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            body {
+                padding: 0.5rem;
+            }
+            
+            section {
+                padding: 1rem;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Canter™ System Documentation</h1>
+        <p>Living Documentation for Dynamic Stable Intelligence</p>
+        
+        <div class="metadata">
+            <strong>System:</strong> Canter™ v1.0 — Commercial Stable Intelligence<br>
+            <strong>Format:</strong> Untitled Format v0.9.1 — Canter™<br>
+            <strong>Last Updated:</strong> 2025-10-30<br>
+            <strong>License:</strong> Commercial — Valley Heights Stables<br>
+            <strong>Documentation Version:</strong> 1.0.0
+        </div>
+    </header>
+
+    <main>
+        <section id="overview">
+            <div class="system-overview">
+                <h2>System Overview</h2>
+                <p>Canter™ is a dynamic stable intelligence system designed to transform fragmented daily operations into cohesive, actionable intelligence. By integrating multiple data sources—from whiteboard photos to WhatsApp chats—into a unified semantic framework, Canter™ creates living documents that evolve with your stable.</p>
+                
+                <div class="system-highlight">
+                    <h4>Core Innovation</h4>
+                    <p>Canter™ doesn't just store information—it understands relationships between horses, staff, schedules, and health data, creating a holistic view of stable operations that improves decision-making and horse welfare.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="architecture">
+            <h2>System Architecture</h2>
+            <p>Canter™ is built on a five-layer architecture that ensures robustness, flexibility, and intelligence.</p>
+            
+            <div class="architecture-grid">
+                <div class="arch-card">
+                    <h4>L1: Data Collection Layer</h4>
+                    <p><strong>Purpose:</strong> Aggregate data from multiple sources</p>
+                    <ul>
+                        <li>Whiteboard photo processing</li>
+                        <li>WhatsApp message parsing</li>
+                        <li>Manual entry forms</li>
+                        <li>Veterinary system integration</li>
+                    </ul>
+                </div>
+                
+                <div class="arch-card">
+                    <h4>L2: Semantic Processing</h4>
+                    <p><strong>Purpose:</strong> Understand and structure raw data</p>
+                    <ul>
+                        <li>Natural language processing</li>
+                        <li>Entity recognition (horses, staff, treatments)</li>
+                        <li>Relationship mapping</li>
+                        <li>Data validation</li>
+                    </ul>
+                </div>
+                
+                <div class="arch-card">
+                    <h4>L3: Intelligence Engine</h4>
+                    <p><strong>Purpose:</strong> Transform data into insights</p>
+                    <ul>
+                        <li>Pattern recognition</li>
+                        <li>Health trend analysis</li>
+                        <li>Schedule optimization</li>
+                        <li>Alert generation</li>
+                    </ul>
+                </div>
+                
+                <div class="arch-card">
+                    <h4>L4: Presentation Layer</h4>
+                    <p><strong>Purpose:</strong> Deliver insights in usable format</p>
+                    <ul>
+                        <li>Daily stable reports</li>
+                        <li>Mobile-responsive design</li>
+                        <li>Export capabilities</li>
+                        <li>Real-time updates</li>
+                    </ul>
+                </div>
+                
+                <div class="arch-card">
+                    <h4>L5: Version Control</h4>
+                    <p><strong>Purpose:</strong> Track changes and maintain history</p>
+                    <ul>
+                        <li>Git-based versioning</li>
+                        <li>Change attribution</li>
+                        <li>Audit trails</li>
+                        <li>Rollback capabilities</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="workflow">
+            <h2>Daily Workflow Integration</h2>
+            <p>Canter™ seamlessly integrates into your existing stable routines without disrupting workflow.</p>
+            
+            <div class="workflow-diagram">
+                <h3>Data Collection Process</h3>
+                
+                <div class="workflow-step">
+                    <div class="step-number">1</div>
+                    <div>
+                        <h4>Morning Checks & Whiteboards</h4>
+                        <p>Staff complete morning checks and update physical whiteboards as usual. Photos are automatically captured and processed.</p>
+                    </div>
+                </div>
+                
+                <div class="workflow-step">
+                    <div class="step-number">2</div>
+                    <div>
+                        <h4>Messaging Integration</h4>
+                        <p>WhatsApp messages between staff are parsed for relevant updates (health concerns, schedule changes, farrier notes).</p>
+                    </div>
+                </div>
+                
+                <div class="workflow-step">
+                    <div class="step-number">3</div>
+                    <div>
+                        <h4>Structured Data Entry</h4>
+                        <p>Trainers and vets input structured data through simple mobile forms for medications, training notes, and health updates.</p>
+                    </div>
+                </div>
+                
+                <div class="workflow-step">
+                    <div class="step-number">4</div>
+                    <div>
+                        <h4>AI Processing & Synthesis</h4>
+                        <p>All data sources are processed, validated, and synthesized into the daily intelligence report.</p>
+                    </div>
+                </div>
+                
+                <div class="workflow-step">
+                    <div class="step-number">5</div>
+                    <div>
+                        <h4>Review & Distribution</h4>
+                        <p>The completed daily report is reviewed by management and distributed to relevant stakeholders.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="ai-integration">
+            <h2>AI & Semantic Intelligence</h2>
+            <p>Canter™ uses advanced AI systems to understand context and relationships within your stable data.</p>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4>Natural Language Understanding</h4>
+                    <p>Processes informal messages and notes to extract structured information about horse health, training, and schedules.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <h4>Computer Vision</h4>
+                    <p>Reads whiteboard photos and handwritten notes, converting them to digital data while preserving context.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <h4>Entity Recognition</h4>
+                    <p>Identifies horses, staff, medications, treatments, and events across all data sources.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <h4>Relationship Mapping</h4>
+                    <p>Builds connections between entities (horse-rider, treatment-condition, event-participants).</p>
+                </div>
+                
+                <div class="feature-card">
+                    <h4>Trend Analysis</h4>
+                    <p>Identifies patterns in health, performance, and behavior over time.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <h4>Predictive Alerting</h4>
+                    <p>Flags potential issues before they become problems based on historical patterns.</p>
+                </div>
+            </div>
+            
+            <div class="system-highlight">
+                <h4>Example: AI Processing in Action</h4>
+                <p><strong>Input:</strong> WhatsApp message: "Eclipse looking a bit off behind after jumping today. Sarah thinks we should cold hose and check in morning."</p>
+                <p><strong>AI Processing:</strong> Identifies horse (Eclipse), issue (lameness), treatment (cold hosing), timeline (next morning check), and responsible person (Sarah).</p>
+                <p><strong>Output:</strong> Structured update in Eclipse's record with appropriate alerts and follow-up tasks.</p>
+            </div>
+        </section>
+
+        <section id="versioning">
+            <h2>Semantic Versioning & Control</h2>
+            <p>Every change in Canter™ is tracked with full attribution and context.</p>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Version Component</th>
+                        <th>Purpose</th>
+                        <th>Example</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Major Version</strong></td>
+                        <td>Structural changes to data model or system architecture</td>
+                        <td>v2.0.0</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Minor Version</strong></td>
+                        <td>New features or significant enhancements</td>
+                        <td>v1.5.0</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Patch Version</strong></td>
+                        <td>Bug fixes and minor improvements</td>
+                        <td>v1.0.3</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Build Metadata</strong></td>
+                        <td>Daily build identifiers and timestamps</td>
+                        <td>v1.0.0+20251030</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h3>Change Tracking Example</h3>
+            <pre>
+{
+  "version": "1.0.1",
+  "timestamp": "2025-10-30T14:30:00Z",
+  "changes": [
+    {
+      "entity": "Horse:Eclipse",
+      "field": "health_status",
+      "from": "Active training",
+      "to": "Light work only",
+      "reason": "Minor tendon sensitivity",
+      "author": "Dr. Sarah Johnson",
+      "source": "Veterinary check"
+    }
+  ],
+  "hash": "a1b2c3d4e5f6..."
+}</pre>
+        </section>
+
+        <section id="user-guides">
+            <h2>User Guides</h2>
+            <p>Canter™ is designed for different user roles with appropriate interfaces and permissions.</p>
+            
+            <div class="user-role-card">
+                <h4>For Stable Staff & Grooms</h4>
+                <p><strong>Primary Interface:</strong> Mobile app with simple forms and photo upload</p>
+                <ul>
+                    <li>Quick health status updates</li>
+                    <li>Photo upload of whiteboards</li>
+                    <li>Simple checklist completion</li>
+                    <li>Voice-to-text notes</li>
+                </ul>
+                <p><strong>Training:</strong> 15-minute onboarding, focus on practical daily use</p>
+            </div>
+            
+            <div class="user-role-card">
+                <h4>For Trainers & Riders</h4>
+                <p><strong>Primary Interface:</strong> Tablet-optimized web interface</p>
+                <ul>
+                    <li>Training session logging</li>
+                    <li>Performance notes</li>
+                    <li>Competition planning</li>
+                    <li>Horse-rider pairing suggestions</li>
+                </ul>
+                <p><strong>Training:</strong> 30-minute session covering data entry and report access</p>
+            </div>
+            
+            <div class="user-role-card">
+                <h4>For Management & Owners</h4>
+                <p><strong>Primary Interface:</strong> Desktop dashboard with analytics</p>
+                <ul>
+                    <li>Overall stable health overview</li>
+                    <li>Financial tracking integration</li>
+                    <li>Performance analytics</li>
+                    <li>Export capabilities for reports</li>
+                </ul>
+                <p><strong>Training:</strong> Custom session based on specific reporting needs</p>
+            </div>
+            
+            <div class="user-role-card">
+                <h4>For Veterinarians & Farriers</h4>
+                <p><strong>Primary Interface:</strong> Secure professional portal</p>
+                <ul>
+                    <li>Medical record access and updates</li>
+                    <li>Treatment plan tracking</li>
+                    <li>Alert subscriptions</li>
+                    <li>Professional note integration</li>
+                </ul>
+                <p><strong>Access:</strong> Role-based permissions with audit trails</p>
+            </div>
+        </section>
+
+        <section id="technical">
+            <h2>Technical Specifications</h2>
+            
+            <h3>Data Standards</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Component</th>
+                        <th>Standard</th>
+                        <th>Purpose</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Metadata</td>
+                        <td>YAML + JSON-LD</td>
+                        <td>Machine-readable document information</td>
+                    </tr>
+                    <tr>
+                        <td>Horse Data</td>
+                        <td>Custom schema based on FEI standards</td>
+                        <td>Consistent horse identification and records</td>
+                    </tr>
+                    <tr>
+                        <td>Medical Data</td>
+                        <td>Adapted veterinary EHR standards</td>
+                        <td>Interoperability with veterinary systems</td>
+                    </tr>
+                    <tr>
+                        <td>Export Formats</td>
+                        <td>PDF, CSV, JSON, XML</td>
+                        <td>Compatibility with other systems</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h3>Integration Endpoints</h3>
+            <pre>
+// Example API endpoint for horse updates
+POST /api/v1/horses/{id}/updates
+Content-Type: application/json
+
+{
+  "timestamp": "2025-10-30T08:15:00Z",
+  "type": "health_update",
+  "data": {
+    "status": "active",
+    "notes": "Sound and eager to work",
+    "temperature": 37.8,
+    "heart_rate": 36
+  },
+  "source": "morning_check",
+  "staff_member": "Maria Santos"
+}</pre>
+            
+            <h3>Security & Privacy</h3>
+            <ul>
+                <li>End-to-end encryption for all sensitive data</li>
+                <li>Role-based access control (RBAC)</li>
+                <li>Comprehensive audit logging</li>
+                <li>GDPR-compliant data handling</li>
+                <li>Regular security penetration testing</li>
+            </ul>
+        </section>
+
+        <section id="implementation">
+            <h2>Implementation Roadmap</h2>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Phase</th>
+                        <th>Timeline</th>
+                        <th>Key Deliverables</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Phase 1: Foundation</strong></td>
+                        <td>Weeks 1-2</td>
+                        <td>Basic data structure, manual entry system, daily report generation</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Phase 2: Integration</strong></td>
+                        <td>Weeks 3-4</td>
+                        <td>WhatsApp parsing, whiteboard photo processing, mobile interfaces</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Phase 3: Intelligence</strong></td>
+                        <td>Weeks 5-6</td>
+                        <td>AI processing, trend analysis, alert system, predictive features</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Phase 4: Optimization</strong></td>
+                        <td>Weeks 7-8</td>
+                        <td>Performance tuning, user feedback implementation, advanced reporting</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="alert">
+                <strong>Current Status:</strong> Phase 1 Complete — Basic system operational at Valley Heights Stables
+            </div>
+        </section>
+
+        <section id="reflexive">
+            <h2>Reflexive Statement</h2>
+            <p>Canter™ is designed with transparency and continuous improvement at its core. This documentation itself is a living document that evolves with the system.</p>
+            
+            <h3>Design Philosophy</h3>
+            <p>We believe stable management systems should augment human expertise, not replace it. Canter™ is designed to handle the routine data processing so staff can focus on what matters most—horse care and training.</p>
+            
+            <h3>Known Limitations</h3>
+            <ul>
+                <li>Initial setup requires cultural adaptation to digital processes</li>
+                <li>AI processing accuracy improves with data volume over time</li>
+                <li>Integration with legacy systems may require custom development</li>
+                <li>Rural locations with poor connectivity need offline capabilities</li>
+            </ul>
+            
+            <h3>Future Development</h3>
+            <p>Based on user feedback and technological advancements, we're exploring:</p>
+            <ul>
+                <li>Wearable sensor integration for real-time health monitoring</li>
+                <li>Advanced predictive analytics for performance optimization</li>
+                <li>Blockchain-based provenance tracking for competition horses</li>
+                <li>Multi-stable federation for industry-wide insights</li>
+            </ul>
+        </section>
+
+        <section id="meta">
+            <h2>System Metadata</h2>
+            <div class="metadata">
+                <strong>System Version:</strong> Canter™ v1.0.0<br>
+                <strong>Format Version:</strong> Untitled Format v0.9.1<br>
+                <strong>Documentation Version:</strong> 1.0.0<br>
+                <strong>Last Updated:</strong> 2025-10-30<br>
+                <strong>License:</strong> Commercial — Valley Heights Stables<br>
+                <strong>Implementation Status:</strong> Phase 1 Complete<br>
+                <strong>Supported Users:</strong> 25+ (staff, trainers, management)<br>
+                <strong>Data Sources Integrated:</strong> 4 (manual, WhatsApp, whiteboards, veterinary)<br>
+                <strong>AI Model Version:</strong> Canter-AI v2.3<br>
+                <strong>Security Level:</strong> Enterprise Grade B<br>
+                <strong>Uptime:</strong> 99.95% (30-day average)
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Canter™ System — Valley Heights Stables Intelligence Platform</p>
+        <p>Built with Untitled Format v0.9.1 | Living Documentation System</p>
+        <p>© 2025 Valley Heights Stables — All Rights Reserved</p>
+    </footer>
+</body>
+</html>

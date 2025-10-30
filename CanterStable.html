@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valley Heights Stables — Daily System</title>
+    <style>
+        :root {
+            --primary: #2d5016;
+            --secondary: #5a7f3a;
+            --accent: #8a9a5b;
+            --light: #f8f9fa;
+            --dark: #1a1a1a;
+            --gray: #6c757d;
+            --border: #e9ecef;
+            --shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background: var(--light);
+            padding: 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        h1, h2, h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        h1 {
+            font-size: 1.8rem;
+        }
+        
+        h2 {
+            font-size: 1.4rem;
+            margin-top: 1.5rem;
+        }
+        
+        section {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+        }
+        
+        .metadata {
+            background: #f8f9fa;
+            border-left: 4px solid var(--primary);
+            padding: 1rem;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+        }
+        
+        .daily-overview {
+            background: linear-gradient(to right, #f0f7e9, #e8f4e1);
+            border: 1px solid var(--accent);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .date-marker {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        
+        .horse-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .horse-card {
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        
+        .horse-card summary {
+            padding: 1rem;
+            background: #f8f9fa;
+            cursor: pointer;
+            font-weight: 600;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .horse-card details[open] summary {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .horse-details {
+            padding: 1rem;
+        }
+        
+        .detail-row {
+            margin-bottom: 0.8rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+        
+        .status-indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+        }
+        
+        .status-active {
+            background: #28a745;
+        }
+        
+        .status-resting {
+            background: #ffc107;
+        }
+        
+        .status-injured {
+            background: #dc3545;
+        }
+        
+        .status-maintenance {
+            background: #17a2b8;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+        
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        th {
+            background: #f8f9fa;
+            font-weight: 600;
+        }
+        
+        footer {
+            margin-top: 3rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+        
+        .alert {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 0.75rem;
+            border-radius: 4px;
+            margin: 0.5rem 0;
+        }
+        
+        @media (max-width: 768px) {
+            .horse-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            body {
+                padding: 0.5rem;
+            }
+            
+            section {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Valley Heights Stables</h1>
+        <p>Daily Stable Management System — Hout Bay, South Africa</p>
+        
+        <div class="metadata">
+            <strong>Format:</strong> Untitled Format v0.9.1 — Canter™<br>
+            <strong>Last Updated:</strong> 2025-10-30<br>
+            <strong>Update Cycle:</strong> Daily<br>
+            <strong>License:</strong> Commercial — Valley Heights Stables
+        </div>
+    </header>
+
+    <main>
+        <section id="overview">
+            <h2>Stable Overview</h2>
+            <p>Valley Heights Stables is a premier show jumping facility located in Hout Bay, specializing in the training and competition preparation of elite sport horses. Our focus is on holistic horse care, progressive training methodologies, and competition excellence.</p>
+        </section>
+
+        <section id="daily-brief">
+            <div class="daily-overview">
+                <div class="date-marker">Today: October 30, 2025</div>
+                <h2>Daily Brief</h2>
+                <p><strong>Weather:</strong> Sunny, 22°C — Ideal training conditions</p>
+                <p><strong>Focus:</strong> Preparation for Cape Town Classic (Nov 5-7)</p>
+                <p><strong>Key Updates:</strong> Eclipse cleared for full training, veterinary check completed on 8 horses, farrier visit scheduled for Thursday.</p>
+                <div class="alert">
+                    <strong>Attention:</strong> Storm warning for Friday — adjust turnout schedules accordingly.
+                </div>
+            </div>
+        </section>
+
+        <section id="horses">
+            <h2>Horse Roster (15)</h2>
+            <p>Current status and daily updates for all horses in training.</p>
+            
+            <div class="horse-grid">
+                <!-- Horse 1 -->
+                <div class="horse-card">
+                    <details>
+                        <summary>
+                            <span class="status-indicator status-active"></span>
+                            Eclipse — 9 y/o Warmblood
+                        </summary>
+                        <div class="horse-details">
+                            <div class="detail-row">
+                                <strong>Discipline:</strong> Show Jumping
+                            </div>
+                            <div class="detail-row">
+                                <strong>Rider:</strong> Sarah van Dyk<br>
+                                <strong>Groom:</strong> Maria Santos
+                            </div>
+                            <div class="detail-row">
+                                <strong>Feed:</strong> 4kg Competitor Mix, 2kg alfalfa, electrolytes AM/PM
+                            </div>
+                            <div class="detail-row">
+                                <strong>Bandages:</strong> Support wraps after work, standing wraps overnight
+                            </div>
+                            <div class="detail-row">
+                                <strong>Health:</strong> Cleared for full work after tendon rest. Regular ice therapy.
+                            </div>
+                            <div class="detail-row">
+                                <strong>Vet Notes:</strong> Last check: Oct 28 — Sound. Next: Nov 15
+                            </div>
+                            <div class="detail-row">
+                                <strong>Next Event:</strong> Cape Town Classic
+                            </div>
+                        </div>
+                    </details>
+                </div>
+                
+                <!-- Horse 2 -->
+                <div class="horse-card">
+                    <details>
+                        <summary>
+                            <span class="status-indicator status-resting"></span>
+                            Midnight — 7 y/o Hanoverian
+                        </summary>
+                        <div class="horse-details">
+                            <div class="detail-row">
+                                <strong>Discipline:</strong> Dressage
+                            </div>
+                            <div class="detail-row">
+                                <strong>Rider:</strong> James Peterson<br>
+                                <strong>Groom:</strong> Tom Bhengu
+                            </div>
+                            <div class="detail-row">
+                                <strong>Feed:</strong> 3kg Maintenance Mix, 1.5kg timothy hay, joint supplement
+                            </div>
+                            <div class="detail-row">
+                                <strong>Bandages:</strong> Light polo wraps for turnout
+                            </div>
+                            <div class="detail-row">
+                                <strong>Health:</strong> Recovering from minor muscle strain. Walking and light trot only.
+                            </div>
+                            <div class="detail-row">
+                                <strong>Vet Notes:</strong> Last check: Oct 25 — Improving. Next: Nov 5
+                            </div>
+                            <div class="detail-row">
+                                <strong>Next Event:</strong> TBD
+                            </div>
+                        </div>
+                    </details>
+                </div>
+                
+                <!-- Horse 3 -->
+                <div class="horse-card">
+                    <details>
+                        <summary>
+                            <span class="status-indicator status-active"></span>
+                            Thunder — 10 y/o Dutch Warmblood
+                        </summary>
+                        <div class="horse-details">
+                            <div class="detail-row">
+                                <strong>Discipline:</strong> Show Jumping
+                            </div>
+                            <div class="detail-row">
+                                <strong>Rider:</strong> Michael Chen<br>
+                                <strong>Groom:</strong> Sarah Johnson
+                            </div>
+                            <div class="detail-row">
+                                <strong>Feed:</strong> 4.5kg Performance Mix, 2.5kg alfalfa, oil supplement
+                            </div>
+                            <div class="detail-row">
+                                <strong>Bandages:</strong> Sports medicine boots for jumping, ice boots after work
+                            </div>
+                            <div class="detail-row">
+                                <strong>Health:</strong> Excellent form. Focus on tight turns and collection.
+                            </div>
+                            <div class="detail-row">
+                                <strong>Vet Notes:</strong> Last check: Oct 20 — Sound. Next: Routine Nov 10
+                            </div>
+                            <div class="detail-row">
+                                <strong>Next Event:</strong> Cape Town Classic
+                            </div>
+                        </div>
+                    </details>
+                </div>
+                
+                <!-- Horse 4 -->
+                <div class="horse-card">
+                    <details>
+                        <summary>
+                            <span class="status-indicator status-maintenance"></span>
+                            Apollo — 12 y/o Holsteiner
+                        </summary>
+                        <div class="horse-details">
+                            <div class="detail-row">
+                                <strong>Discipline:</strong> Show Jumping
+                            </div>
+                            <div class="detail-row">
+                                <strong>Rider:</strong> Lisa Williams<br>
+                                <strong>Groom:</strong> David Brown
+                            </div>
+                            <div class="detail-row">
+                                <strong>Feed:</strong> 3.5kg Senior Mix, 2kg meadow hay, glucosamine supplement
+                            </div>
+                            <div class="detail-row">
+                                <strong>Bandages:</strong> Magnetic wraps overnight, support boots for work
+                            </div>
+                            <div class="detail-row">
+                                <strong>Health:</strong> Mild arthritis management. Light work schedule.
+                            </div>
+                            <div class="detail-row">
+                                <strong>Vet Notes:</strong> Last check: Oct 22 — Managing well. Next: Dec 1
+                            </div>
+                            <div class="detail-row">
+                                <strong>Next Event:</strong> Local schooling show
+                            </div>
+                        </div>
+                    </details>
+                </div>
+                
+                <!-- Horse 5 -->
+                <div class="horse-card">
+                    <details>
+                        <summary>
+                            <span class="status-indicator status-active"></span>
+                            Zeus — 8 y/o Oldenburg
+                        </summary>
+                        <div class="horse-details">
+                            <div class="detail-row">
+                                <strong>Discipline:</strong> Eventing
+                            </div>
+                            <div class="detail-row">
+                                <strong>Rider:</strong> Emma Roberts<br>
+                                <strong>Groom:</strong> Maria Santos
+                            </div>
+                            <div class="detail-row">
+                                <strong>Feed:</strong> 4kg Endurance Mix, 3kg grass hay, electrolyte paste
+                            </div>
+                            <div class="detail-row">
+                                <strong>Bandages:</strong> Cross-country boots, tendon boots for jumping
+                            </div>
+                            <div class="detail-row">
+                                <strong>Health:</strong> Building fitness for 3-day event season.
+                            </div>
+                            <div class="detail-row">
+                                <strong>Vet Notes:</strong> Last check: Oct 18 — Fit. Next: Pre-event check Nov 2
+                            </div>
+                            <div class="detail-row">
+                                <strong>Next Event:</strong> Stellenbosch Horse Trials
+                            </div>
+                        </div>
+                    </details>
+                </div>
+                
+                <!-- Horse 6 -->
+                <div class="horse-card">
+                    <details>
+                        <summary>
+                            <span class="status-indicator status-injured"></span>
+                            Hercules — 6 y/o Irish Sport Horse
+                        </summary>
+                        <div class="horse-details">
+                            <div class="detail-row">
+                                <strong>Discipline:</strong> Show Jumping
+                            </div>
+                            <div class="detail-row">
+                                <strong>Rider:</strong> Sarah van Dyk<br>
+                                <strong>Groom:</strong> Tom Bhengu
+                            </div>
+                            <div class="detail-row">
+                                <strong>Feed:</strong> 2.5kg Maintenance, 1.5kg hay, anti-inflammatory supplement
+                            </div>
+                            <div class="detail-row">
+                                <strong>Bandages:</strong> Stable bandages with poultice, cold hosing 2x daily
+                            </div>
+                            <div class="detail-row">
+                                <strong>Health:</strong> Suspensory strain — strict stall rest for 2 weeks
+                            </div>
+                            <div class="detail-row">
+                                <strong>Vet Notes:</strong> Last check: Oct 29 — Ultrasound showed improvement
+                            </div>
+                            <div class="detail-row">
+                                <strong>Next Event:</strong> Out until December
+                            </div>
+                        </div>
+                    </details>
+                </div>
+                
+                <!-- Horse 7 -->
+                <div class="horse-card">
+                    <details>
+                        <summary>
+                            <span class="status-indicator status-active"></span>
+                            Atlas — 11 y/o Belgian Warmblood
+                        </summary>
+                        <div class="horse-details">
+                            <div class="detail-row">
+                                <strong>Discipline:</strong> Dressage
+                            </div>
+                            <div class="detail-row">
+                                <strong>Rider:</strong> James Peterson<br>
+                                <strong>Groom:</strong> Sarah Johnson
+                            </div>
+                            <div class="detail-row">
+                                <strong>Feed:</strong> 3.5kg Dressage Mix, 2kg alfalfa, calming supplement
+                            </div>
+                            <div class="detail-row">
+                                <strong>Bandages:</strong> Dressage wraps for work, magnetic blanket overnight
+                            </div>
+                            <div class="detail-row">
+                                <strong>Health:</strong> Working on piaffe and passage movements.
+                            </div>
+                            <div class="detail-row">
+                                <strong>Vet Notes:</strong> Last check: Oct 15 — Sound. Next: Routine Nov 20
+                            </div>
+                            <div class="detail-row">
+                                <strong>Next Event:</strong> National Dressage Championships
+                            </div>
+                        </div>
+                    </details>
+                </div>
+                
+                <!-- Horse 8 -->
+                <div class="horse-card">
+                    <details>
+                        <summary>
+                            <span class="status-indicator status-active"></span>
+                            Titan — 7 y/o Selle Français
+                        </summary>
+                        <div class="horse-details">
+                            <div class="detail-row">
+                                <strong>Discipline:</strong> Show Jumping
+                            </div>
+                            <div class="detail-row">
+                                <strong>Rider:</strong> Michael Chen<br>
+                                <strong>Groom:</strong> David Brown
+                            </div>
+                            <div class="detail-row">
+                                <strong>Feed:</strong> 4kg Competitor Mix, 2kg alfalfa, vitamin E supplement
+                            </div>
+                            <div class="detail-row">
+                                <strong>Bandages:</strong> Sports medicine boots, ice therapy after jumping
+                            </div>
+                            <div class="detail-row">
+                                <strong>Health:</strong> Strong and confident over 1.40m courses.
+                            </div>
+                            <div class="detail-row">
+                                <strong>Vet Notes:</strong> Last check: Oct 25 — Excellent condition
+                            </div>
+                            <div class="detail-row">
+                                <strong>Next Event:</strong> Cape Town Classic
+                            </div>
+                        </div>
+                    </details>
+                </div>
+                
+                <!-- Horse 9 -->
+                <div class="horse-card">
+                    <details>
+                        <summary>
+                            <span class="status-indicator status-resting"></span>
+                            Odin — 14 y/o Swedish Warmblood
+                        </summary>
+                        <div class="horse-details">
+                            <div class="detail-row">
+                                <strong>Discipline:</strong> Schoolmaster
+                            </div>
+                            <div class="detail-row">
+                                <strong>Rider:</strong> Training clients<br>
+                                <strong>Groom:</strong> Maria Santos
+                            </div>
+                            <div class="detail-row">
+                                <strong>Feed:</strong> 3kg Senior Mix, 2kg meadow hay, joint supplement
+                            </div>
+                            <div class="detail-row">
+                                <strong>Bandages:</strong> Light support wraps for work days
+                            </div>
+                            <div class="detail-row">
+                                <strong>Health:</strong> Light work schedule — 3 days per week maximum.
+                            </div>
+                            <div class="detail-row">
+                                <strong>Vet Notes:</strong> Last check: Oct 10 — Managing arthritis well
+                            </div>
+                            <div class="detail-row">
+                                <strong>Next Event:</strong> Teaching only
+                            </div>
+                        </div>
+                    </details>
+                </div>
+                
+                <!-- Horse 10 -->
+                <div class="horse-card">
+                    <details>
+                        <summary>
+                            <span class="status-indicator status-active"></span>
+                            Thor — 5 y/o Westphalian
+                        </summary>
+                        <div class="horse-details">
+                            <div class="detail-row">
+                                <strong>Discipline:</strong> Young Horse
+                            </div>
+                            <div class="detail-row">
+                                <strong>Rider:</strong> Lisa Williams<br>
+                                <strong>Groom:</strong> Tom Bhengu
+                            </div>
+                            <div class="detail-row">
+                                <strong>Feed:</strong> 3kg Growth Mix, 2kg alfalfa/grass mix, development supplement
+                            </div>
+                            <div class="detail-row">
+                                <strong>Bandages:</strong> Training boots for all work, turnout boots
+                            </div>
+                            <div class="detail-row">
+                                <strong>Health:</strong> Basic flatwork and small jumps. Growing steadily.
+                            </div>
+                            <div class="detail-row">
+                                <strong>Vet Notes:</strong> Last check: Oct 28 — Growing well. Next: 6-month check
+                            </div>
+                            <div class="detail-row">
+                                <strong>Next Event:</strong> Young Horse classes in spring
+                            </div>
+                        </div>
+                    </details>
+                </div>
+                
+                <!-- Horse 11 -->
+                <div class="horse-card">
+                    <details>
+                        <summary>
+                            <span class="status-indicator status-active"></span>
+                            Loki — 8 y/o Trakehner
+                        </summary>
+                        <div class="horse-details">
+                            <div class="detail-row">
+                                <strong>Discipline:</strong> Eventing
+                            </div>
+                            <div class="detail-row">
+                                <strong>Rider:</strong> Emma Roberts<br>
+                                <strong>Groom:</strong> Sarah Johnson
+                            </div>
+                            <div class="detail-row">
+                                <strong>Feed:</strong> 4kg Endurance Mix, 2.5kg hay, electrolyte supplement
+                            </div>
+                            <div class="detail-row">
+                                <strong>Bandages:</strong> Eventing boots, tendon support for cross-country
+                            </div>
+                            <div class="detail-row">
+                                <strong>Health:</strong> Fitness building phase — increasing gallop work.
+                            </div>
+                            <div class="detail-row">
+                                <strong>Vet Notes:</strong> Last check: Oct 22 — Sound and fit
+                            </div>
+                            <div class="detail-row">
+                                <strong>Next Event:</strong> Stellenbosch Horse Trials
+                            </div>
+                        </div>
+                    </details>
+                </div>
+                
+                <!-- Horse 12 -->
+                <div class="horse-card">
+                    <details>
+                        <summary>
+                            <span class="status-indicator status-maintenance"></span>
+                            Ares — 13 y/o Dutch Warmblood
+                        </summary>
+                        <div class="horse-details">
+                            <div class="detail-row">
+                                <strong>Discipline:</strong> Show Jumping
+                            </div>
+                            <div class="detail-row">
+                                <strong>Rider:</strong> Sarah van Dyk<br>
+                                <strong>Groom:</strong> David Brown
+                            </div>
+                            <div class="detail-row">
+                                <strong>Feed:</strong> 3.5kg Senior Performance, 2kg alfalfa, joint supplement
+                            </div>
+                            <div class="detail-row">
+                                <strong>Bandages:</strong> Support wraps for work, magnetic therapy overnight
+                            </div>
+                            <div class="detail-row">
+                                <strong>Health:</strong> Managing mild arthritis. Jumping 2x weekly only.
+                            </div>
+                            <div class="detail-row">
+                                <strong>Vet Notes:</strong> Last check: Oct 18 — Managing well. Next: Nov 25
+                            </div>
+                            <div class="detail-row">
+                                <strong>Next Event:</strong> Local 1.20m classes
+                            </div>
+                        </div>
+                    </details>
+                </div>
+                
+                <!-- Horse 13 -->
+                <div class="horse-card">
+                    <details>
+                        <summary>
+                            <span class="status-indicator status-active"></span>
+                            Poseidon — 9 y/o Holsteiner
+                        </summary>
+                        <div class="horse-details">
+                            <div class="detail-row">
+                                <strong>Discipline:</strong> Show Jumping
+                            </div>
+                            <div class="detail-row">
+                                <strong>Rider:</strong> Michael Chen<br>
+                                <strong>Groom:</strong> Maria Santos
+                            </div>
+                            <div class="detail-row">
+                                <strong>Feed:</strong> 4.5kg Performance Mix, 2.5kg alfalfa, oil supplement
+                            </div>
+                            <div class="detail-row">
+                                <strong>Bandages:</strong> Jumping boots, ice therapy after work
+                            </div>
+                            <div class="detail-row">
+                                <strong>Health:</strong> Power and scope developing well over bigger courses.
+                            </div>
+                            <div class="detail-row">
+                                <strong>Vet Notes:</strong> Last check: Oct 20 — Excellent condition
+                            </div>
+                            <div class="detail-row">
+                                <strong>Next Event:</strong> Cape Town Classic
+                            </div>
+                        </div>
+                    </details>
+                </div>
+                
+                <!-- Horse 14 -->
+                <div class="horse-card">
+                    <details>
+                        <summary>
+                            <span class="status-indicator status-resting"></span>
+                            Hades — 10 y/o Hanoverian
+                        </summary>
+                        <div class="horse-details">
+                            <div class="detail-row">
+                                <strong>Discipline:</strong> Dressage
+                            </div>
+                            <div class="detail-row">
+                                <strong>Rider:</strong> James Peterson<br>
+                                <strong>Groom:</strong> Tom Bhengu
+                            </div>
+                            <div class="detail-row">
+                                <strong>Feed:</strong> 3kg Maintenance, 2kg hay, calming supplement
+                            </div>
+                            <div class="detail-row">
+                                <strong>Bandages:</strong> Light dressage wraps, magnetic blanket
+                            </div>
+                            <div class="detail-row">
+                                <strong>Health:</strong> Post-competition rest week. Light hacking only.
+                            </div>
+                            <div class="detail-row">
+                                <strong>Vet Notes:</strong> Last check: Oct 12 — Sound. Next: Routine Dec 1
+                            </div>
+                            <div class="detail-row">
+                                <strong>Next Event:</strong> Winter Series in June
+                            </div>
+                        </div>
+                    </details>
+                </div>
+                
+                <!-- Horse 15 -->
+                <div class="horse-card">
+                    <details>
+                        <summary>
+                            <span class="status-indicator status-active"></span>
+                            Dionysus — 6 y/o Oldenburg
+                        </summary>
+                        <div class="horse-details">
+                            <div class="detail-row">
+                                <strong>Discipline:</strong> Young Horse
+                            </div>
+                            <div class="detail-row">
+                                <strong>Rider:</strong> Lisa Williams<br>
+                                <strong>Groom:</strong> Sarah Johnson
+                            </div>
+                            <div class="detail-row">
+                                <strong>Feed:</strong> 3.5kg Growth Mix, 2kg alfalfa/grass mix, development supplement
+                            </div>
+                            <div class="detail-row">
+                                <strong>Bandages:</strong> Training boots, protective turnout boots
+                            </div>
+                            <div class="detail-row">
+                                <strong>Health:</strong> Introduction to jumping. Showing good aptitude.
+                            </div>
+                            <div class="detail-row">
+                                <strong>Vet Notes:</strong> Last check: Oct 28 — Growing well. Next: 6-month check
+                            </div>
+                            <div class="detail-row">
+                                <strong>Next Event:</strong> Young Horse classes in spring
+                            </div>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+        <section id="training">
+            <h2>Training Schedule</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Time</th>
+                        <th>Horse</th>
+                        <th>Rider</th>
+                        <th>Focus</th>
+                        <th>Arena</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>08:00</td>
+                        <td>Eclipse</td>
+                        <td>Sarah</td>
+                        <td>Jumping technique</td>
+                        <td>Main</td>
+                    </tr>
+                    <tr>
+                        <td>09:30</td>
+                        <td>Thunder</td>
+                        <td>Michael</td>
+                        <td>Course work</td>
+                        <td>Main</td>
+                    </tr>
+                    <tr>
+                        <td>11:00</td>
+                        <td>Midnight</td>
+                        <td>James</td>
+                        <td>Walk/trot</td>
+                        <td>Small</td>
+                    </tr>
+                    <tr>
+                        <td>13:00</td>
+                        <td>Zeus</td>
+                        <td>Emma</td>
+                        <td>Cross-country</td>
+                        <td>XC field</td>
+                    </tr>
+                    <tr>
+                        <td>14:30</td>
+                        <td>Atlas</td>
+                        <td>James</td>
+                        <td>Upper level movements</td>
+                        <td>Dressage</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="upcoming">
+            <h2>Upcoming Events</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Event</th>
+                        <th>Horses</th>
+                        <th>Location</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Nov 5-7</td>
+                        <td>Cape Town Classic</td>
+                        <td>Eclipse, Thunder, Titan, Poseidon</td>
+                        <td>CTICC Arena</td>
+                    </tr>
+                    <tr>
+                        <td>Nov 15</td>
+                        <td>Stellenbosch Horse Trials</td>
+                        <td>Zeus, Loki</td>
+                        <td>Stellenbosch</td>
+                    </tr>
+                    <tr>
+                        <td>Nov 28</td>
+                        <td>National Dressage Championships</td>
+                        <td>Atlas</td>
+                        <td>Durbanville</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="reflexive">
+            <h2>Reflexive Statement</h2>
+            <p>This daily system is designed for operational clarity and horse welfare transparency. All information is updated daily by grooms and trainers, with veterinary input recorded accurately.</p>
+            <p><strong>Methodology:</strong> Daily morning checks, feed records, training logs, and veterinary updates are compiled each evening for the following day's planning.</p>
+            <p><strong>Limitations:</strong> This system relies on manual input and may not capture minute-by-minute changes in horse condition.</p>
+        </section>
+
+        <section id="meta">
+            <h2>Document Metadata</h2>
+            <div class="metadata">
+                <strong>Format Version:</strong> Untitled Format v0.9.1 — Canter™<br>
+                <strong>Document Version:</strong> 1.0.0<br>
+                <strong>Created:</strong> 2025-10-30<br>
+                <strong>Updated:</strong> 2025-10-30<br>
+                <strong>License:</strong> Commercial — Valley Heights Stables<br>
+                <strong>Contributors:</strong> Stable Manager, Head Groom, Trainers<br>
+                <strong>File Size:</strong> ~12KB<br>
+                <strong>Accessibility:</strong> WCAG 2.1 AA Compliant
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Valley Heights Stables — Hout Bay, South Africa</p>
+        <p>Built with Untitled Format v0.9.1 — Canter™ | Daily Stable Intelligence System</p>
+    </footer>
+</body>
+</html>

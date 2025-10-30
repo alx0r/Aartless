@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yoga, Digital Technology & Open Source Ethics | Academic Report</title>
+    
+    <!-- YAML Metadata
+    ---
+    title: "Yoga, Digital Technology & Open Source Ethics"
+    subtitle: "Towards Mindful Digital Practice"
+    author: "Valley Shala Research Collective"
+    date: "2025-10-30"
+    type: "Academic Report"
+    framework: "Untitled Format™"
+    license: "CC BY-NC-SA 4.0"
+    ---
+    -->
+    
+    <style>
+        :root {
+            --color-paper: #FDF6E3;
+            --color-ink: #2E3440;
+            --color-accent: #5E81AC;
+            --color-secondary: #88C0D0;
+            --color-highlight: #BF616A;
+            --color-muted: #4C566A;
+            --font-serif: 'Charter', 'Georgia', serif;
+            --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --font-mono: 'SF Mono', 'Monaco', 'Inconsolata', monospace;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-serif);
+            line-height: 1.8;
+            color: var(--color-ink);
+            background: var(--color-paper);
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+            counter-reset: section figure table;
+        }
+        
+        /* Header & Metadata */
+        header {
+            padding: 3rem 0;
+            border-bottom: 2px solid var(--color-accent);
+            margin-bottom: 3rem;
+        }
+        
+        .title {
+            font-size: 2.5rem;
+            font-weight: 400;
+            line-height: 1.3;
+            margin-bottom: 1rem;
+            color: var(--color-ink);
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            color: var(--color-muted);
+            font-weight: 300;
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+        
+        .metadata {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: rgba(94, 129, 172, 0.05);
+            border-radius: 4px;
+        }
+        
+        .meta-item {
+            font-size: 0.9rem;
+        }
+        
+        .meta-label {
+            font-weight: 600;
+            color: var(--color-accent);
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+        
+        /* Navigation */
+        .navigation {
+            position: sticky;
+            top: 0;
+            background: var(--color-paper);
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--color-secondary);
+            margin-bottom: 2rem;
+            z-index: 100;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .nav-links a {
+            color: var(--color-accent);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Typography */
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 500;
+            line-height: 1.3;
+            margin: 2rem 0 1rem 0;
+            color: var(--color-ink);
+        }
+        
+        h1 {
+            font-size: 1.8rem;
+            counter-increment: section;
+            counter-reset: subsection;
+        }
+        
+        h1::before {
+            content: counter(section) ". ";
+            color: var(--color-accent);
+        }
+        
+        h2 {
+            font-size: 1.4rem;
+            counter-increment: subsection;
+            counter-reset: subsubsection;
+            margin-left: 1.5rem;
+        }
+        
+        h2::before {
+            content: counter(section) "." counter(subsection) " ";
+            color: var(--color-accent);
+            font-size: 0.9em;
+        }
+        
+        h3 {
+            font-size: 1.2rem;
+            margin-left: 3rem;
+            color: var(--color-muted);
+        }
+        
+        p {
+            margin-bottom: 1.5rem;
+            text-align: justify;
+            hyphens: auto;
+        }
+        
+        /* Block Elements */
+        .abstract {
+            background: rgba(136, 192, 208, 0.1);
+            padding: 2rem;
+            border-left: 4px solid var(--color-secondary);
+            margin: 2rem 0;
+            font-style: italic;
+        }
+        
+        blockquote {
+            background: rgba(94, 129, 172, 0.05);
+            padding: 1.5rem;
+            border-left: 4px solid var(--color-accent);
+            margin: 2rem 0;
+            font-style: italic;
+        }
+        
+        blockquote p {
+            margin-bottom: 0;
+        }
+        
+        /* Lists */
+        ul, ol {
+            margin: 1rem 0 1rem 2rem;
+        }
+        
+        li {
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Code & Technical Content */
+        .code-block {
+            background: var(--color-ink);
+            color: #D8DEE9;
+            padding: 1.5rem;
+            border-radius: 4px;
+            margin: 1.5rem 0;
+            overflow-x: auto;
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        
+        .technical-note {
+            background: rgba(191, 97, 106, 0.05);
+            border: 1px solid var(--color-highlight);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+        
+        .technical-note h4 {
+            color: var(--color-highlight);
+            margin-top: 0;
+        }
+        
+        /* Figures & Tables */
+        figure {
+            margin: 2rem 0;
+            text-align: center;
+        }
+        
+        figcaption {
+            font-size: 0.9rem;
+            color: var(--color-muted);
+            margin-top: 0.5rem;
+            font-style: italic;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+        }
+        
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid var(--color-secondary);
+        }
+        
+        th {
+            background: rgba(94, 129, 172, 0.1);
+            font-weight: 600;
+        }
+        
+        /* Resource Links */
+        .resources {
+            background: rgba(136, 192, 208, 0.1);
+            padding: 2rem;
+            border-radius: 4px;
+            margin: 2rem 0;
+        }
+        
+        .resource-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .resource-card {
+            background: var(--color-paper);
+            padding: 1.5rem;
+            border-radius: 4px;
+            border: 1px solid var(--color-secondary);
+        }
+        
+        .resource-card h4 {
+            margin-top: 0;
+            color: var(--color-accent);
+        }
+        
+        .resource-link {
+            display: inline-block;
+            margin-top: 0.5rem;
+            color: var(--color-highlight);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        
+        .resource-link:hover {
+            text-decoration: underline;
+        }
+        
+        /* Citations & References */
+        .citations {
+            margin: 3rem 0;
+        }
+        
+        .citation {
+            margin-bottom: 1rem;
+            padding-left: 2rem;
+            text-indent: -2rem;
+        }
+        
+        .citation-number {
+            font-weight: 600;
+            color: var(--color-accent);
+        }
+        
+        /* Footer */
+        footer {
+            margin-top: 4rem;
+            padding: 2rem 0;
+            border-top: 1px solid var(--color-secondary);
+            text-align: center;
+            color: var(--color-muted);
+            font-size: 0.9rem;
+        }
+        
+        .license {
+            margin-top: 1rem;
+            font-size: 0.8rem;
+        }
+        
+        /* Accessibility Features */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+        
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+        
+        /* Print Styles */
+        @media print {
+            body {
+                max-width: none;
+                padding: 0;
+                background: white;
+                color: black;
+            }
+            
+            .navigation {
+                display: none;
+            }
+            
+            a::after {
+                content: " (" attr(href) ")";
+                font-size: 0.8em;
+                font-weight: normal;
+            }
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .title {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                margin-left: 0;
+            }
+            
+            h3 {
+                margin-left: 1rem;
+            }
+            
+            .nav-links {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 class="title">Yoga, Digital Technology & Open Source Ethics: Towards Mindful Digital Practice</h1>
+        <p class="subtitle">An exploration of ethical technology through the lens of yogic philosophy</p>
+        
+        <div class="metadata">
+            <div class="meta-item">
+                <span class="meta-label">Authors</span>
+                Valley Shala Research Collective
+            </div>
+            <div class="meta-item">
+                <span class="meta-label">Publication Date</span>
+                October 30, 2025
+            </div>
+            <div class="meta-item">
+                <span class="meta-label">Document Type</span>
+                Academic Report
+            </div>
+            <div class="meta-item">
+                <span class="meta-label">License</span>
+                CC BY-NC-SA 4.0
+            </div>
+        </div>
+    </header>
+    
+    <nav class="navigation" aria-label="Document navigation">
+        <div class="nav-links">
+            <a href="#abstract">Abstract</a>
+            <a href="#introduction">Introduction</a>
+            <a href="#methodology">Methodology</a>
+            <a href="#findings">Findings</a>
+            <a href="#discussion">Discussion</a>
+            <a href="#conclusion">Conclusion</a>
+            <a href="#resources">Resources</a>
+            <a href="#references">References</a>
+        </div>
+    </nav>
+    
+    <main>
+        <section id="abstract">
+            <h1>Abstract</h1>
+            <div class="abstract">
+                <p>This paper examines the intersection of yogic philosophy and digital technology ethics, proposing open source principles as a framework for developing more mindful, equitable technological systems. Drawing parallels between the Yamas and Niyamas and contemporary digital ethics, we argue that open source development embodies key yogic principles including Satya (truthfulness), Asteya (non-stealing), and Aparigraha (non-possessiveness).</p>
+                
+                <p>Through case studies of mindful technology applications and analysis of proprietary versus open digital ecosystems, we demonstrate how open source development can create technology that serves rather than exploits human wellbeing. The paper concludes with practical recommendations for implementing yogic principles in digital product development and personal technology use.</p>
+            </div>
+        </section>
+        
+        <section id="introduction">
+            <h1>Introduction</h1>
+            
+            <p>The rapid digitization of human experience presents both unprecedented opportunities and significant ethical challenges. As technology becomes increasingly integrated into daily life—including spiritual and wellness practices—critical examination of its impact on human consciousness and wellbeing becomes essential.</p>
+            
+            <blockquote>
+                <p>"Yoga is the journey of the self, through the self, to the self." — The Bhagavad Gita</p>
+            </blockquote>
+            
+            <p>This paper bridges ancient yogic wisdom with contemporary digital ethics, exploring how the foundational principles of yoga can inform more conscious technology development and usage. We position open source philosophy not merely as a technical methodology but as an ethical framework aligned with yogic values.</p>
+            
+            <h2>Problem Statement</h2>
+            <p>The current digital landscape is characterized by proprietary systems that often prioritize engagement and data collection over user wellbeing. This creates fundamental conflicts with yogic principles of self-awareness, non-attachment, and truthfulness.</p>
+            
+            <h2>Research Questions</h2>
+            <ul>
+                <li>How can yogic philosophy inform ethical technology development?</li>
+                <li>What parallels exist between open source principles and the Yamas/Niyamas?</li>
+                <li>What practical implementations demonstrate mindful digital technology?</li>
+                <li>How can individuals cultivate more conscious relationships with technology?</li>
+            </ul>
+        </section>
+        
+        <section id="methodology">
+            <h1>Methodology</h1>
+            
+            <p>This research employs qualitative analysis through multiple methodological approaches:</p>
+            
+            <h2>Philosophical Analysis</h2>
+            <p>Comparative analysis of Patanjali's Yoga Sutras and contemporary digital ethics frameworks, focusing specifically on the Yamas (ethical restraints) and Niyamas (observances) as they relate to technology.</p>
+            
+            <h2>Case Study Analysis</h2>
+            <p>Examination of existing mindful technology applications and open source projects that embody yogic principles, including:</p>
+            <ul>
+                <li>Meditation and yoga applications with transparent data policies</li>
+                <li>Open source alternatives to proprietary wellness platforms</li>
+                <li>Digital minimalism tools and practices</li>
+            </ul>
+            
+            <h2>Technical Evaluation</h2>
+            <p>Analysis of code repositories, data handling practices, and architectural decisions in wellness technology to assess alignment with yogic values.</p>
+            
+            <div class="technical-note">
+                <h4>Methodological Note</h4>
+                <p>This research acknowledges the potential conflict between academic objectivity and the experiential nature of yoga practice. We address this through reflexive positioning and transparent disclosure of our philosophical orientation toward yogic values.</p>
+            </div>
+        </section>
+        
+        <section id="findings">
+            <h1>Findings</h1>
+            
+            <h2>Yamas as Digital Ethics Framework</h2>
+            
+            <h3>Ahimsa (Non-harm) in Technology</h3>
+            <p>Digital systems can cause harm through addictive design patterns, privacy violations, and environmental impact. Open source alternatives often demonstrate less harmful approaches through:</p>
+            <ul>
+                <li>Transparent algorithms that avoid manipulative patterns</li>
+                <li>Local data processing that respects privacy</li>
+                <li>Energy-efficient design choices</li>
+            </ul>
+            
+            <h3>Satya (Truthfulness) and Digital Transparency</h3>
+            <p>Proprietary systems often obscure their functionality and data practices. Open source embodies Satya through:</p>
+            <ul>
+                <li>Publicly accessible code for verification</li>
+                <li>Transparent data handling policies</li>
+                <li>Honest communication about limitations</li>
+            </ul>
+            
+            <h3>Asteya (Non-stealing) and Digital Commons</h3>
+            <p>The concept of intellectual property as theft finds resonance in both yogic philosophy and open source ethics. Open source creates digital commons that resist enclosure and commodification of knowledge.</p>
+            
+            <h3>Aparigraha (Non-possessiveness) and Open Licensing</h3>
+            <p>Open source licenses explicitly reject possessive relationships with knowledge and code, creating ecosystems of shared development and improvement.</p>
+            
+            <h2>Case Study: Mindful Technology Stack</h2>
+            
+            <div class="code-block">
+// Example: Simple meditation timer using open web standards
+class MeditationTimer {
+    constructor() {
+        this.startTime = null;
+        this.isRunning = false;
+    }
+    
+    start() {
+        this.startTime = Date.now();
+        this.isRunning = true;
+        // Local processing only - no data sent to servers
+        this.updateDisplay();
+    }
+    
+    updateDisplay() {
+        if (!this.isRunning) return;
+        
+        const elapsed = Date.now() - this.startTime;
+        const minutes = Math.floor(elapsed / 60000);
+        const seconds = Math.floor((elapsed % 60000) / 1000);
+        
+        // Update local display only
+        document.getElementById('timer').textContent = 
+            `${minutes}:${seconds.toString().padStart(2, '0')}`;
+        
+        // Continue updating
+        setTimeout(() => this.updateDisplay(), 1000);
+    }
+    
+    // Data remains with user
+    getSessionData() {
+        return {
+            duration: Date.now() - this.startTime,
+            startTime: new Date(this.startTime)
+        };
+    }
+}
+            </div>
+            
+            <figcaption>Code Example 1: A privacy-respecting meditation timer that processes data locally</figcaption>
+            
+            <h2>Comparative Analysis: Proprietary vs. Open Source Yoga Apps</h2>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>Proprietary Apps</th>
+                        <th>Open Source Alternatives</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Data Privacy</td>
+                        <td>Often extensive data collection for monetization</td>
+                        <td>Typically local processing or transparent policies</td>
+                    </tr>
+                    <tr>
+                        <td>Algorithm Transparency</td>
+                        <td>Black box recommendations</td>
+                        <td>Open algorithms and customization</td>
+                    </tr>
+                    <tr>
+                        <td>User Agency</td>
+                        <td>Limited customization options</td>
+                        <td>Full control over experience</td>
+                    </tr>
+                    <tr>
+                        <td>Community Development</td>
+                        <td>Centralized corporate control</td>
+                        <td>Distributed community input</td>
+                    </tr>
+                    <tr>
+                        <td>Long-term Accessibility</td>
+                        <td>Dependent on corporate viability</td>
+                        <td>Sustainable through community support</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section id="discussion">
+            <h1>Discussion</h1>
+            
+            <h2>Digital Svadhyaya (Self-study)</h2>
+            <p>Technology can support self-study when designed consciously. Open source tools for journaling, meditation tracking, and practice logging can enhance self-awareness without creating data dependencies.</p>
+            
+            <h2>Santosha (Contentment) in Digital Minimalism</h2>
+            <p>The pursuit of digital minimalism aligns with Santosha—finding contentment with what is sufficient rather than constantly seeking new features or upgrades.</p>
+            
+            <blockquote>
+                <p>"Contentment is the greatest treasure" — Yoga Sutra 2.42 (Santoshād anuttamah sukha-lābhah)</p>
+            </blockquote>
+            
+            <h2>Tapas (Discipline) in Digital Practice</h2>
+            <p>Conscious technology use requires discipline—setting boundaries, practicing digital sabbaths, and choosing tools that support rather than distract from practice.</p>
+            
+            <h2>Ethical Implementation Challenges</h2>
+            <p>While open source presents ethical advantages, challenges remain including sustainability funding, accessibility for non-technical users, and maintaining community standards.</p>
+        </section>
+        
+        <section id="conclusion">
+            <h1>Conclusion and Recommendations</h1>
+            
+            <p>This research demonstrates significant alignment between yogic philosophy and open source technology ethics. Both frameworks emphasize transparency, non-harm, and community benefit over individual profit.</p>
+            
+            <h2>Recommendations for Practitioners</h2>
+            <ul>
+                <li><strong>Choose Open Source Tools:</strong> Prefer open source applications for yoga and meditation practice</li>
+                <li><strong>Practice Digital Mindfulness:</strong> Regularly assess technology's impact on mental state</li>
+                <li><strong>Support Ethical Development:</strong> Contribute to or fund open source wellness projects</li>
+                <li><strong>Educate Communities:</strong> Share knowledge about ethical technology choices</li>
+            </ul>
+            
+            <h2>Recommendations for Developers</h2>
+            <ul>
+                <li><strong>Embrace Transparency:</strong> Make algorithms and data practices visible</li>
+                <li><strong>Prioritize Privacy:</strong> Process data locally whenever possible</li>
+                <li><strong>Design for Wellbeing:</strong> Avoid addictive patterns and dark patterns</li>
+                <li><strong>Build Communities:</strong> Create participatory development processes</li>
+            </ul>
+            
+            <p>The integration of yogic wisdom and open source ethics offers a path toward technology that serves human flourishing rather than corporate interests. By applying these ancient principles to modern challenges, we can develop digital ecosystems that honor both individual autonomy and collective wellbeing.</p>
+        </section>
+        
+        <section id="resources" class="resources">
+            <h1>Practical Resources</h1>
+            <p>The following resources demonstrate the principles discussed in this paper and provide starting points for more mindful digital practice.</p>
+            
+            <div class="resource-grid">
+                <div class="resource-card">
+                    <h4>Open Source Yoga Apps</h4>
+                    <p>Meditation and yoga applications with transparent code and ethical practices.</p>
+                    <a href="https://github.com/topics/meditation-app" class="resource-link" target="_blank">Explore on GitHub →</a>
+                </div>
+                
+                <div class="resource-card">
+                    <h4>Digital Minimalism Tools</h4>
+                    <p>Applications for managing screen time and cultivating digital mindfulness.</p>
+                    <a href="https://github.com/topics/digital-minimalism" class="resource-link" target="_blank">Browse Tools →</a>
+                </div>
+                
+                <div class="resource-card">
+                    <h4>Ethical Design Resources</h4>
+                    <p>Frameworks and guidelines for human-centered technology design.</p>
+                    <a href="https://ethicsfordesigners.com" class="resource-link" target="_blank" rel="noopener">Visit Resource →</a>
+                </div>
+                
+                <div class="resource-card">
+                    <h4>Open Yoga Resources</h4>
+                    <p>Freely accessible yoga sequences, philosophy resources, and practice guides.</p>
+                    <a href="https://yoga.wikipedia.org" class="resource-link" target="_blank" rel="noopener">Access Resources →</a>
+                </div>
+            </div>
+            
+            <div class="technical-note" style="margin-top: 2rem;">
+                <h4>Self-Hosting Guide</h4>
+                <p>For maximum privacy and control, consider self-hosting open source applications. Many yoga and meditation apps can be run on personal servers or even Raspberry Pi devices, ensuring complete data sovereignty.</p>
+            </div>
+        </section>
+        
+        <section id="references" class="citations">
+            <h1>References</h1>
+            
+            <div class="citation">
+                <span class="citation-number">1.</span> 
+                Bryant, E. F. (2009). The Yoga Sutras of Patanjali: A New Edition, Translation, and Commentary. North Point Press.
+            </div>
+            
+            <div class="citation">
+                <span class="citation-number">2.</span> 
+                Zuboff, S. (2019). The Age of Surveillance Capitalism: The Fight for a Human Future at the New Frontier of Power. PublicAffairs.
+            </div>
+            
+            <div class="citation">
+                <span class="citation-number">3.</span> 
+                Raymond, E. S. (1999). The Cathedral and the Bazaar: Musings on Linux and Open Source by an Accidental Revolutionary. O'Reilly Media.
+            </div>
+            
+            <div class="citation">
+                <span class="citation-number">4.</span> 
+                Odendaal, A. (2023). Digital Dharma: Buddhism and Technology in the 21st Century. Shambhala Publications.
+            </div>
+            
+            <div class="citation">
+                <span class="citation-number">5.</span> 
+                Stallman, R. (2002). Free Software, Free Society: Selected Essays of Richard M. Stallman. GNU Press.
+            </div>
+            
+            <div class="citation">
+                <span class="citation-number">6.</span> 
+                Turkle, S. (2017). Alone Together: Why We Expect More from Technology and Less from Each Other. Basic Books.
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <p>Valley Shala Research Collective | Academic Report Series</p>
+        <p class="license">
+            This work is licensed under a <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="license">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
+        </p>
+        <p style="margin-top: 1rem; font-size: 0.8rem;">
+            Built with Untitled Format™ | Single HTML File | Accessible Academic Publishing
+        </p>
+    </footer>
+    
+    <script>
+        // Simple script for accessibility and functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add skip to content functionality
+            const mainContent = document.querySelector('main');
+            const skipLink = document.createElement('a');
+            skipLink.href = '#main-content';
+            skipLink.className = 'sr-only';
+            skipLink.textContent = 'Skip to main content';
+            document.body.insertBefore(skipLink, document.body.firstChild);
+            
+            // Add ID to main for skip navigation
+            mainContent.id = 'main-content';
+            
+            // Handle external links
+            const externalLinks = document.querySelectorAll('a[target="_blank"]');
+            externalLinks.forEach(link => {
+                link.setAttribute('rel', 'noopener noreferrer');
+                // Add visually hidden text for screen readers
+                const srText = document.createElement('span');
+                srText.className = 'sr-only';
+                srText.textContent = ' (opens in new window)';
+                link.appendChild(srText);
+            });
+            
+            // Add print functionality
+            const printButton = document.createElement('button');
+            printButton.textContent = 'Print Report';
+            printButton.style.cssText = `
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                padding: 10px 15px;
+                background: var(--color-accent);
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                font-family: inherit;
+            `;
+            printButton.addEventListener('click', function() {
+                window.print();
+            });
+            document.body.appendChild(printButton);
+            
+            // Add citation tooltips
+            const citations = document.querySelectorAll('.citation');
+            citations.forEach(citation => {
+                citation.setAttribute('tabindex', '0');
+                citation.setAttribute('role', 'button');
+                citation.style.cursor = 'pointer';
+                
+                citation.addEventListener('click', function() {
+                    this.classList.toggle('expanded');
+                });
+                
+                citation.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        this.classList.toggle('expanded');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Living Invitations™ - Complete Guide</title>
+    
+    <!-- YAML Metadata for Untitled Format™
+    ---
+    title: "Living Invitations Complete Setup & Operations Guide"
+    system: "Living Invitations™ v1.0.0"
+    format: "Untitled Format™ v1.2.0"
+    created: "2025-10-31"
+    updated: "2025-10-31"
+    license: "Commercial - Sadie Bosworth Atelier"
+    designer: "Sadie Bosworth Atelier"
+    tags: ["wedding", "invitations", "guide", "tutorial", "documentation"]
+    status: "Live Production Guide"
+    ---
+    -->
+    
+    <style>
+        :root {
+            --primary: #1a1a1a;
+            --secondary: #d4af37;
+            --accent: #8b7355;
+            --bg: #fafaf8;
+            --text: #2c2c2c;
+            --light: #f5f5f3;
+            --success: #4a9d5f;
+            --warning: #e67e22;
+            --info: #3498db;
+            --serif: 'Cormorant Garamond', Georgia, serif;
+            --sans: 'Montserrat', -apple-system, sans-serif;
+            --mono: 'Courier New', monospace;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Montserrat:wght@300;400;600&display=swap');
+        
+        body {
+            font-family: var(--sans);
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+        
+        /* Navigation */
+        nav {
+            position: sticky;
+            top: 0;
+            background: rgba(250, 250, 248, 0.98);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            z-index: 1000;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        nav a {
+            color: var(--text);
+            text-decoration: none;
+            font-size: 0.8rem;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            font-weight: 500;
+            transition: color 0.3s;
+            padding: 0.5rem 0;
+            position: relative;
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--secondary);
+            transition: width 0.3s;
+        }
+        
+        nav a:hover {
+            color: var(--secondary);
+        }
+        
+        nav a:hover::after {
+            width: 100%;
+        }
+        
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, var(--light) 0%, var(--bg) 100%);
+            padding: 6rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 40%, rgba(212, 175, 55, 0.08) 0%, transparent 60%);
+            pointer-events: none;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .system-badge {
+            display: inline-block;
+            background: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        
+        h1 {
+            font-family: var(--serif);
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+        
+        .subtitle {
+            font-size: clamp(1.1rem, 2vw, 1.4rem);
+            color: var(--accent);
+            line-height: 1.6;
+            margin-bottom: 3rem;
+        }
+        
+        .alert {
+            background: #fff3cd;
+            border-left: 4px solid var(--warning);
+            padding: 1.5rem;
+            margin: 2rem auto;
+            max-width: 900px;
+            border-radius: 5px;
+        }
+        
+        .alert strong {
+            color: var(--warning);
+        }
+        
+        /* Sections */
+        section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 5rem 2rem;
+        }
+        
+        section:nth-child(even) {
+            background: var(--light);
+        }
+        
+        h2 {
+            font-family: var(--serif);
+            font-size: clamp(2rem, 4vw, 2.8rem);
+            margin-bottom: 1rem;
+            color: var(--primary);
+            position: relative;
+        }
+        
+        h2::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: var(--secondary);
+            margin-top: 1rem;
+        }
+        
+        h3 {
+            font-family: var(--serif);
+            font-size: 1.6rem;
+            margin: 2rem 0 1rem;
+            color: var(--primary);
+        }
+        
+        h4 {
+            font-size: 1.2rem;
+            margin: 1.5rem 0 0.75rem;
+            color: var(--accent);
+            font-weight: 600;
+        }
+        
+        p {
+            margin-bottom: 1.25rem;
+        }
+        
+        /* Feature Grid */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+        
+        .feature-card h4 {
+            margin-top: 0;
+            color: var(--primary);
+        }
+        
+        /* Step-by-Step Guide */
+        .steps {
+            counter-reset: step-counter;
+        }
+        
+        .step {
+            background: white;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            position: relative;
+            padding-left: 5rem;
+        }
+        
+        .step::before {
+            counter-increment: step-counter;
+            content: counter(step-counter);
+            position: absolute;
+            left: 2rem;
+            top: 2rem;
+            width: 50px;
+            height: 50px;
+            background: var(--secondary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 600;
+            font-family: var(--serif);
+        }
+        
+        .step h3 {
+            margin-top: 0;
+        }
+        
+        .step-detail {
+            background: var(--light);
+            padding: 1.5rem;
+            border-radius: 5px;
+            margin: 1rem 0;
+        }
+        
+        /* Code Blocks */
+        code {
+            background: var(--light);
+            padding: 0.2rem 0.5rem;
+            border-radius: 3px;
+            font-family: var(--mono);
+            font-size: 0.9em;
+            color: var(--accent);
+        }
+        
+        pre {
+            background: var(--primary);
+            color: #f8f8f2;
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+        }
+        
+        pre code {
+            background: none;
+            padding: 0;
+            color: #f8f8f2;
+        }
+        
+        /* Lists */
+        ul, ol {
+            margin: 1rem 0 1.5rem 1.5rem;
+        }
+        
+        li {
+            margin-bottom: 0.75rem;
+            line-height: 1.7;
+        }
+        
+        .checklist {
+            list-style: none;
+            margin-left: 0;
+        }
+        
+        .checklist li::before {
+            content: '✓';
+            color: var(--success);
+            font-weight: bold;
+            margin-right: 0.75rem;
+        }
+        
+        /* Info Boxes */
+        .info-box {
+            background: white;
+            border-left: 4px solid var(--info);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .success-box {
+            background: #f0f9f4;
+            border-left: 4px solid var(--success);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 5px;
+        }
+        
+        .warning-box {
+            background: #fff8f0;
+            border-left: 4px solid var(--warning);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 5px;
+        }
+        
+        /* Table */
+        .comparison-table {
+            width: 100%;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            margin: 2rem 0;
+        }
+        
+        .comparison-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .comparison-table th {
+            background: var(--primary);
+            color: white;
+            padding: 1.25rem;
+            text-align: left;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+        
+        .comparison-table td {
+            padding: 1.25rem;
+            border-bottom: 1px solid var(--light);
+        }
+        
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .comparison-table tr:hover {
+            background: var(--light);
+        }
+        
+        /* Accordion */
+        .faq-item {
+            background: white;
+            margin-bottom: 1rem;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .faq-question {
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+        
+        .faq-question:hover {
+            background: var(--light);
+        }
+        
+        .faq-toggle {
+            color: var(--secondary);
+            font-size: 1.5rem;
+            transition: transform 0.3s;
+        }
+        
+        .faq-item.active .faq-toggle {
+            transform: rotate(45deg);
+        }
+        
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        
+        .faq-answer-content {
+            padding: 0 1.5rem 1.5rem;
+            line-height: 1.8;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--primary);
+            color: white;
+            text-align: center;
+            padding: 4rem 2rem;
+        }
+        
+        footer h3 {
+            font-family: var(--serif);
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+        
+        footer p {
+            opacity: 0.8;
+            margin-bottom: 0.5rem;
+        }
+        
+        footer a {
+            color: var(--secondary);
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+        
+        footer a:hover {
+            opacity: 0.8;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav ul {
+                gap: 0.75rem;
+            }
+            
+            nav a {
+                font-size: 0.7rem;
+            }
+            
+            .step {
+                padding-left: 2rem;
+            }
+            
+            .step::before {
+                position: relative;
+                left: 0;
+                top: 0;
+                margin-bottom: 1rem;
+            }
+            
+            .comparison-table {
+                font-size: 0.9rem;
+            }
+            
+            .comparison-table th,
+            .comparison-table td {
+                padding: 0.75rem;
+            }
+        }
+        
+        @media print {
+            nav {
+                display: none;
+            }
+            
+            section {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <ul>
+            <li><a href="#what-is">What Is This?</a></li>
+            <li><a href="#setup">Setup Guide</a></li>
+            <li><a href="#daily-use">Daily Use</a></li>
+            <li><a href="#editing">Editing Guide</a></li>
+            <li><a href="#advanced">Advanced</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="#metadata">Metadata</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero -->
+    <div class="hero">
+        <div class="hero-content">
+            <div class="system-badge">Living Invitations™ v1.0.0</div>
+            <h1>Complete Setup & User Guide</h1>
+            <p class="subtitle">Everything you need to create, customize, and maintain your wedding invitation that lives forever.</p>
+        </div>
+    </div>
+
+    <div class="alert">
+        <strong>⚡ Quick Start Promise:</strong> If you can send an email, you can set this up. No coding required. 20-30 minutes from start to live website. We promise.
+    </div>
+
+    <!-- What Is This Section -->
+    <section id="what-is">
+        <h2>What is a Living Invitation?</h2>
+        
+        <p style="font-size: 1.2rem; color: var(--accent); margin-bottom: 2rem;">
+            <strong>In Plain English:</strong> A Living Invitation is a beautiful, custom wedding website that you fully own and control. It's a single file that works on any device, updates in real-time, costs nothing to host, and lasts forever.
+        </p>
+
+        <h3>The Problem We're Solving</h3>
+        <p>Traditional wedding invitation services have major issues:</p>
+        
+        <div class="feature-grid">
+            <div class="feature-card">
+                <span class="feature-icon">💸</span>
+                <h4>Expensive Subscriptions</h4>
+                <p>$200-500+ for temporary access that expires after your wedding</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">🔒</span>
+                <h4>Vendor Lock-In</h4>
+                <p>Your invitation lives on their servers. They shut down? Your invitation disappears.</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">🎨</span>
+                <h4>Template Limitations</h4>
+                <p>You're stuck with pre-made designs that thousands of other couples use</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">⏰</span>
+                <h4>Short Lifespan</h4>
+                <p>Most services delete your invitation 6-12 months after your wedding</p>
+            </div>
+        </div>
+
+        <h3>The Living Invitation Solution</h3>
+        
+        <div class="feature-grid">
+            <div class="feature-card">
+                <span class="feature-icon">👑</span>
+                <h4>Full Ownership</h4>
+                <p>You own the file completely. Download it, move it, keep it forever. No one can take it away.</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">🎨</span>
+                <h4>Completely Custom</h4>
+                <p>Designed specifically for your wedding. Colors, fonts, layout—everything tailored to you.</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">♾️</span>
+                <h4>Lives Forever</h4>
+                <p>Free hosting through GitHub Pages. Your invitation stays online permanently, at no cost.</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">✏️</span>
+                <h4>Easy Updates</h4>
+                <p>Change venue details, add photos, update schedules—anytime you want, in minutes.</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">📱</span>
+                <h4>Works Everywhere</h4>
+                <p>Looks perfect on phones, tablets, and computers. Fast loading, accessible, printable.</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">🆓</span>
+                <h4>Zero Ongoing Costs</h4>
+                <p>One design fee. Free hosting forever. No monthly subscriptions, no hidden fees, ever.</p>
+            </div>
+        </div>
+
+        <div class="info-box">
+            <h4>Core Innovation</h4>
+            <p>Living Invitations use the <strong>Untitled Format™</strong> protocol—a modern approach to creating self-contained, permanent documents that you fully control. It's built on open web standards (HTML5, CSS3, JavaScript) that will work for decades, not dependent on any company staying in business.</p>
+        </div>
+    </section>
+
+    <!-- Setup Guide -->
+    <section id="setup">
+        <h2>🚀 Quick Start Setup Guide</h2>
+        
+        <div class="success-box">
+            <strong>You Don't Need to Be Tech-Savvy!</strong> This guide explains everything step-by-step. If you can send an email or create a social media account, you can do this. Time required: 20-30 minutes.
+        </div>
+
+        <h3>What You'll Need</h3>
+        <ul class="checklist">
+            <li>An email address (Gmail, Outlook, anything)</li>
+            <li>20-30 minutes of uninterrupted time</li>
+            <li>A computer or phone with internet</li>
+            <li>Your completed invitation file from Sadie Bosworth Atelier</li>
+        </ul>
+
+        <div class="steps">
+            <div class="step">
+                <h3>Create a Free GitHub Account</h3>
+                <div class="step-detail">
+                    <strong>What is GitHub?</strong> Think of it like Google Drive or Dropbox, but specifically designed for websites. It's 100% free, trusted by millions of developers worldwide, and has been around since 2008.
+                </div>
+                <ol>
+                    <li>Go to <strong>github.com</strong> in your web browser</li>
+                    <li>Click the <strong>"Sign up"</strong> button in the top right</li>
+                    <li>Enter your email address and create a password (write it down somewhere safe!)</li>
+                    <li>Choose a username (example: <code>emily-and-james</code> or <code>smith-wedding</code>)</li>
+                    <li>Verify your email by clicking the link GitHub sends you</li>
+                </ol>
+                <div class="success-box">
+                    ✓ Once you see your GitHub dashboard, you're ready for step 2!
+                </div>
+            </div>
+
+            <div class="step">
+                <h3>Create Your Repository (Website Folder)</h3>
+                <div class="step-detail">
+                    <strong>What is a Repository?</strong> Just a fancy word for "folder." This is where your invitation file will live. Think of it as creating a new folder on your computer, but this one can turn into a website.
+                </div>
+                <ol>
+                    <li>Once logged into GitHub, click the <strong>+</strong> icon in the top-right corner</li>
+                    <li>Select <strong>"New repository"</strong></li>
+                    <li>Repository name: Type <code>wedding</code> (or any name you prefer like <code>our-wedding</code>)</li>
+                    <li>Description: Type something like "Our Wedding Invitation"</li>
+                    <li><strong>Important:</strong> Select <strong>"Public"</strong> (this is required for the free website feature)</li>
+                    <li>Check the box that says <strong>"Add a README file"</strong></li>
+                    <li>Click the green <strong>"Create repository"</strong> button</li>
+                </ol>
+                <div class="info-box">
+                    💡 Don't worry about "Public" - this just means the file is technically viewable, but no one will find it unless you share the link. It's like an unlisted YouTube video.
+                </div>
+            </div>
+
+            <div class="step">
+                <h3>Upload Your Invitation File</h3>
+                <div class="step-detail">
+                    <strong>What you're doing:</strong> Taking the HTML file Sadie designed for you and putting it in your new GitHub folder so it can become a website.
+                </div>
+                <ol>
+                    <li>On your new repository page, click <strong>"Add file"</strong> → <strong>"Upload files"</strong></li>
+                    <li>Drag and drop your invitation file, OR click "choose your files" to browse for it</li>
+                    <li><strong>CRITICAL:</strong> Rename the file to exactly <code>index.html</code> (this specific name is required)</li>
+                    <li>Scroll to the bottom and click the green <strong>"Commit changes"</strong> button</li>
+                </ol>
+                <div class="warning-box">
+                    ⚠️ The filename <strong>must</strong> be exactly <code>index.html</code> (all lowercase, no spaces). This is what tells GitHub "this is the main page of my website."
+                </div>
+            </div>
+
+            <div class="step">
+                <h3>Activate Your Free Website (GitHub Pages)</h3>
+                <div class="step-detail">
+                    <strong>The magic step!</strong> This turns your folder into a live website that anyone can visit.
+                </div>
+                <ol>
+                    <li>On your repository page, click the <strong>"Settings"</strong> tab (top right area)</li>
+                    <li>In the left sidebar, click <strong>"Pages"</strong></li>
+                    <li>Under "Branch", click the dropdown that says "None"</li>
+                    <li>Select <strong>"main"</strong> from the dropdown</li>
+                    <li>Click <strong>"Save"</strong></li>
+                    <li>Wait about 1-2 minutes and refresh the page</li>
+                    <li>You'll see a green box that says: <strong>"Your site is live at: https://yourusername.github.io/wedding/"</strong></li>
+                </ol>
+                <div class="success-box">
+                    <strong>🎉 Congratulations!</strong> Your Living Invitation is now live on the internet! Click that link to see it. That's your wedding invitation website, and it will stay online forever, completely free.
+                </div>
+                <div class="info-box">
+                    💡 <strong>Save that URL!</strong> That's your wedding website address. Share it with guests, add it to save-the-dates, put it on physical invitations—anywhere you want.
+                </div>
+            </div>
+
+            <div class="step">
+                <h3>Optional: Connect a Custom Domain</h3>
+                <div class="step-detail">
+                    <strong>Want a prettier URL?</strong> Instead of <code>yourusername.github.io/wedding</code>, you can use something like <code>emilyandj ames.com</code> or <code>smithwedding2026.com</code>
+                </div>
+                <ol>
+                    <li>Buy a domain name from any registrar (like Namecheap, Google Domains, GoDaddy) - usually $10-15/year</li>
+                    <li>In your domain settings, add a <strong>CNAME record</strong> pointing to <code>yourusername.github.io</code></li>
+                    <li>Back in GitHub Pages settings, enter your custom domain in the "Custom domain" field</li>
+                    <li>Wait 10-15 minutes for DNS to update</li>
+                </ol>
+                <div class="info-box">
+                    💡 This step is completely optional. The <code>github.io</code> URL works perfectly fine and many couples use it. Custom domains are just a nice-to-have.
+                </div>
+            </div>
+        </div>
+
+        <div class="success-box" style="margin-top: 3rem; font-size: 1.1rem;">
+            <strong>✓ Setup Complete!</strong> Your Living Invitation is now live, permanently hosted, and ready to share with your guests. The hard part is done—everything from here is just making updates when you need to.
+        </div>
+    </section>
+
+    <!-- Daily Use Section -->
+    <section id="daily-use">
+        <h2>📅 Daily Use & Updates</h2>
+        
+        <p style="font-size: 1.1rem; margin-bottom: 2rem;">
+            The beauty of Living Invitations is that you can update them anytime. Changed your venue? Update it. Want to add engagement photos? Add them. Need to adjust the timeline? Takes 5 minutes.
+        </p>
+
+        <h3>When Should You Update?</h3>
+        
+        <div class="feature-grid">
+            <div class="feature-card">
+                <span class="feature-icon">📍</span>
+                <h4>Venue Changes</h4>
+                <p>New address, ceremony time changes, parking instructions</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">📸</span>
+                <h4>Adding Photos</h4>
+                <p>Engagement photos, venue visits, behind-the-scenes planning</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">🗓️</span>
+                <h4>Schedule Updates</h4>
+                <p>Timeline adjustments, new events, transportation details</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">ℹ️</span>
+                <h4>Guest Information</h4>
+                <p>Hotel blocks, dietary options, dress code clarifications, FAQs</p>
+            </div>
+        </div>
+
+        <h3>How Often Should You Update?</h3>
+        <ul>
+            <li><strong>Major updates:</strong> As needed (venue changes, significant schedule shifts)</li>
+            <li><strong>Minor updates:</strong> Weekly or bi-weekly (adding photos, FAQ answers, new details)</li>
+            <li><strong>Final updates:</strong> 2-3 weeks before the wedding (finalize all times, addresses, details)</li>
+            <li><strong>Post-wedding:</strong> Add professional photos, thank you messages, create a permanent memory</li>
+        </ul>
+
+        <div class="info-box">
+            <h4>💡 Pro Tip: Treat It Like Instagram</h4>
+            <p>Think of your invitation as a living document that tells your wedding story. Add updates as things happen—venue tastings, dress fittings, countdown milestones. Guests love seeing the journey, not just the final details.</p>
+        </div>
+    </section>
+
+    <!-- Editing Guide -->
+    <section id="editing">
+        <h2>✏️ How to Edit Your Invitation</h2>
+        
+        <p style="font-size: 1.1rem; margin-bottom: 2rem;">
+            There are two ways to edit your invitation: the simple way (edit directly on GitHub) and the advanced way (edit locally on your computer). We'll cover both.
+        </p>
+
+        <h3>Method 1: Edit Directly on GitHub (Recommended for Most)</h3>
+        
+        <div class="steps">
+            <div class="step">
+                <h3>Navigate to Your File</h3>
+                <ol>
+                    <li>Go to GitHub.com and log in</li>
+                    <li>Click on your repository name (e.g., "wedding")</li>
+                    <li>Click on <code>index.html</code></li>
+                    <li>Click the <strong>pencil icon (✏️)</strong> in the top right that says "Edit this file"</li>
+                </ol>
+            </div>
+
+            <div class="step">
+                <h3>Find What You Want to Change</h3>
+                <p>Use Ctrl+F (Windows) or Cmd+F (Mac) to search for the text you want to update. For example:</p>
+                <ul>
+                    <li>Search for your venue name to change the address</li>
+                    <li>Search for "5:00 PM" to change ceremony time</li>
+                    <li>Search for a specific section like "Travel" or "FAQ"</li>
+                </ul>
+                <div class="info-box">
+                    💡 <strong>Tip:</strong> The HTML might look intimidating, but you're just changing the text between tags. If you see <code>&lt;p&gt;Ceremony starts at 5:00 PM&lt;/p&gt;</code>, you just change "5:00 PM" to whatever time you need.
+                </div>
+            </div>
+
+            <div class="step">
+                <h3>Make Your Changes</h3>
+                <p>Edit the text you want to change. Some common examples:</p>
+                
+                <h4>Changing Times:</h4>
+                <pre><code>Before: &lt;p&gt;&lt;strong&gt;Time:&lt;/strong&gt; 5:00 PM&lt;/p&gt;
+After:  &lt;p&gt;&lt;strong&gt;Time:&lt;/strong&gt; 6:00 PM&lt;/p&gt;</code></pre>
+
+                <h4>Updating Addresses:</h4>
+                <pre><code>Before: Villa Aurelia&lt;br&gt;Via di Porta San Pancrazio
+After:  Thornton Estate&lt;br&gt;123 Vineyard Road</code></pre>
+
+                <h4>Adding a New FAQ:</h4>
+                <pre><code>&lt;div class="faq-item"&gt;
+    &lt;div class="faq-question"&gt;
+        &lt;span&gt;Your question here?&lt;/span&gt;
+        &lt;span class="faq-toggle"&gt;+&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class="faq-answer"&gt;
+        &lt;div class="faq-answer-content"&gt;
+            Your answer here.
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+            </div>
+
+            <div class="step">
+                <h3>Save Your Changes</h3>
+                <ol>
+                    <li>Scroll to the bottom of the page</li>
+                    <li>In the "Commit changes" box, write a brief description like "Updated ceremony time"</li>
+                    <li>Click the green <strong>"Commit changes"</strong> button</li>
+                    <li>Wait 1-2 minutes, then refresh your website to see the changes</li>
+                </ol>
+                <div class="success-box">
+                    ✓ That's it! Your website is now updated with the new information.
+                </div>
+            </div>
+        </div>
+
+        <h3>Method 2: Edit Locally (For Advanced Users)</h3>
+        <p>If you're comfortable with code editors, you can download the file, edit it on your computer, and re-upload it:</p>
+        <ol>
+            <li>Click on <code>index.html</code> in your repository</li>
+            <li>Click the "Raw" button to see the raw HTML</li>
+            <li>Right-click and "Save As" to download</li>
+            <li>Edit in your preferred code editor (VS Code, Sublime Text, etc.)</li>
+            <li>Save the file</li>
+            <li>Upload the updated file back to GitHub (it will replace the old one)</li>
+        </ol>
+
+        <h3>Common Editing Tasks</h3>
+        
+        <div class="comparison-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Task</th>
+                        <th>What to Search For</th>
+                        <th>What to Change</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Change ceremony time</td>
+                        <td>Search for current time (e.g., "5:00 PM")</td>
+                        <td>Replace with new time</td>
+                    </tr>
+                    <tr>
+                        <td>Update venue address</td>
+                        <td>Search for venue name</td>
+                        <td>Replace address text</td>
+                    </tr>
+                    <tr>
+                        <td>Add a new FAQ</td>
+                        <td>Find the FAQ section <code>&lt;section id="faq"&gt;</code></td>
+                        <td>Copy an existing FAQ block and modify the question/answer</td>
+                    </tr>
+                    <tr>
+                        <td>Change countdown date</td>
+                        <td>Search for "weddingDate"</td>
+                        <td>Update the date in format: YYYY-MM-DD</td>
+                    </tr>
+                    <tr>
+                        <td>Update RSVP email</td>
+                        <td>Search for "email" in the form section</td>
+                        <td>Replace with your email</td>
+                    </tr>
+                    <tr>
+                        <td>Change colors</td>
+                        <td>Search for ":root" at the top</td>
+                        <td>Modify hex color codes</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="warning-box">
+            <h4>⚠️ Important Rules for Editing</h4>
+            <ul>
+                <li><strong>Don't delete HTML tags</strong> (the things with &lt; and &gt;) - just change the text between them</li>
+                <li><strong>Keep quotes intact</strong> - if you see <code>class="something"</code>, keep the quotes</li>
+                <li><strong>Test after big changes</strong> - make one change, save, check your site</li>
+                <li><strong>Use version history</strong> - GitHub saves every version, so you can always undo mistakes</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Advanced Features -->
+    <section id="advanced">
+        <h2>🔧 Advanced Features & Customization</h2>
+        
+        <h3>Version Control & History</h3>
+        <p>One of GitHub's superpowers is that it saves every version of your invitation. You can:</p>
+        <ul>
+            <li><strong>View all past versions:</strong> Click "History" to see every change you've made</li>
+            <li><strong>Revert to an old version:</strong> If you mess something up, you can go back to any previous version</li>
+            <li><strong>Compare versions:</strong> See exactly what changed between any two versions</li>
+            <li><strong>Track who made changes:</strong> If multiple people are editing, you can see who changed what</li>
+        </ul>
+
+        <h3>Collaboration & Multiple Editors</h3>
+        <p>Want your partner, wedding planner, or a friend to help edit? You can add collaborators:</p>
+        <ol>
+            <li>Go to your repository's Settings</li>
+            <li>Click "Collaborators" in the left menu</li>
+            <li>Click "Add people"</li>
+            <li>Enter their GitHub username or email</li>
+            <li>They'll get an invitation to collaborate</li>
+        </ol>
+
+        <h3>Customizing Colors & Fonts</h3>
+        <p>Your invitation comes pre-styled, but you can customize the look by editing the CSS variables at the top of the file:</p>
+        
+        <pre><code>:root {
+    --primary: #1a1a1a;      /* Main dark color */
+    --secondary: #d4af37;    /* Gold accent color */
+    --accent: #8b7355;       /* Brown accent */
+    --bg: #fafaf8;           /* Background color */
+    --text: #2c2c2c;         /* Text color */
+    --light: #f5f5f3;        /* Light background */
+}</code></pre>
+
+        <p>Change the hex codes to your wedding colors. Use a color picker tool to find hex codes.</p>
+
+        <h3>Analytics & Tracking</h3>
+        <p>Want to know how many people are visiting your invitation? Add Google Analytics or similar:</p>
+        <ol>
+            <li>Sign up for Google Analytics (free)</li>
+            <li>Get your tracking code</li>
+            <li>Paste it into your <code>index.html</code> file before the closing <code>&lt;/body&gt;</code> tag</li>
+            <li>You'll see visitor data in your Analytics dashboard</li>
+        </ol>
+
+        <h3>Password Protection (Advanced)</h3>
+        <p>If you want to password-protect your invitation:</p>
+        <ul>
+            <li>Use a service like Cloudflare Pages (free) with access controls</li>
+            <li>Or add a simple JavaScript password prompt (less secure, but works)</li>
+            <li>Or host on a private server instead of GitHub Pages</li>
+        </ul>
+        <div class="info-box">
+            💡 Most couples don't need password protection. Your invitation URL is hard to guess, and only people you share it with will find it.
+        </div>
+
+        <h3>RSVP Integration</h3>
+        <p>The RSVP form in your invitation currently logs to the browser console. To make it functional:</p>
+        
+        <h4>Option 1: Google Forms (Easiest)</h4>
+        <ul>
+            <li>Create a Google Form with your RSVP questions</li>
+            <li>Link to it from your invitation</li>
+            <li>Responses go to a Google Sheet</li>
+        </ul>
+
+        <h4>Option 2: Email Integration</h4>
+        <ul>
+            <li>Use a service like Formspree or EmailJS (free tiers available)</li>
+            <li>RSVP submissions get emailed to you</li>
+            <li>No backend server needed</li>
+        </ul>
+
+        <h4>Option 3: Full Backend (Most Advanced)</h4>
+        <ul>
+            <li>Set up a backend service (Airtable, Firebase, etc.)</li>
+            <li>Modify the JavaScript to send data to your backend</li>
+            <li>Requires programming knowledge</li>
+        </ul>
+
+        <h3>Adding Photos & Media</h3>
+        <p>To add your own photos to replace the placeholders:</p>
+        <ol>
+            <li>Upload photos to your GitHub repository (click "Add file" → "Upload files")</li>
+            <li>Or use a free image hosting service like Imgur</li>
+            <li>In your HTML, find the gallery section</li>
+            <li>Replace the placeholder emoji with an <code>&lt;img&gt;</code> tag pointing to your photo</li>
+        </ol>
+
+        <pre><code>&lt;!-- Replace this: --&gt;
+&lt;div class="gallery-placeholder"&gt;📸&lt;/div&gt;
+
+&lt;!-- With this: --&gt;
+&lt;img src="your-photo.jpg" alt="Description" style="width:100%; height:100%; object-fit:cover;"&gt;</code></pre>
+
+        <h3>Technical Architecture</h3>
+        <p>For developers and technical users, here's what's under the hood:</p>
+        
+        <div class="feature-grid">
+            <div class="feature-card">
+                <span class="feature-icon">📄</span>
+                <h4>Single HTML File</h4>
+                <p>Everything in one file: HTML structure, CSS styling, JavaScript functionality. Typically 30-80KB total.</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">🎨</span>
+                <h4>Embedded CSS</h4>
+                <p>All styles in a <code>&lt;style&gt;</code> tag. Uses CSS Grid, Flexbox, CSS Variables, and modern features.</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">⚡</span>
+                <h4>Vanilla JavaScript</h4>
+                <p>No frameworks, no dependencies. Pure JS for countdown, form validation, animations.</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">📋</span>
+                <h4>YAML Metadata</h4>
+                <p>Machine-readable metadata in HTML comments for Untitled Format™ compliance.</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">♿</span>
+                <h4>Semantic HTML5</h4>
+                <p>Proper semantic structure: <code>&lt;section&gt;</code>, <code>&lt;article&gt;</code>, <code>&lt;nav&gt;</code>, ARIA labels.</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">📱</span>
+                <h4>Responsive Design</h4>
+                <p>Mobile-first CSS with media queries. Works on screens from 320px to 4K.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq">
+        <h2>❓ Frequently Asked Questions</h2>
+        
+        <div class="faq">
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Do I need to know how to code?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Not at all! The setup process requires zero coding knowledge. When you want to update your invitation, you'll just be changing text (like "5:00 PM" to "6:00 PM"). It's similar to editing a document. Sadie handles all the design and technical setup—you just need to make simple text changes when needed.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>What if I mess something up while editing?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        GitHub saves every version of your file automatically. If you accidentally break something, you can easily revert to a previous version. Click on your file, then "History," and you can restore any past version with one click. It's impossible to permanently lose your invitation.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>How long does the invitation stay online?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Forever. GitHub Pages is a free service that GitHub commits to maintaining indefinitely. Your invitation will stay online as long as GitHub exists (they've been around since 2008 and are owned by Microsoft). Even if you want to take it down later, you can—but there's no expiration date and no ongoing costs.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Can I use my own domain name?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Yes! You can connect any domain you purchase (like younames.wedding or yourwedding.com) to your GitHub Pages site. Domains typically cost $10-15 per year from registrars like Namecheap or Google Domains. The guide includes instructions for connecting a custom domain, but the free github.io URL works perfectly if you prefer not to buy one.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>What happens after the wedding?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Your invitation becomes a beautiful digital keepsake! Many couples add their professional wedding photos, transform it into a wedding photo gallery, add thank you messages, or keep it as a permanent archive of their celebration. Since you own it forever, you can keep updating it or leave it as-is—completely up to you.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Can multiple people edit the invitation?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Yes! You can add collaborators to your GitHub repository so your partner, wedding planner, or anyone else can make updates. Just go to Settings → Collaborators and add their GitHub username or email. Each person who edits needs their own free GitHub account.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Is the invitation mobile-friendly?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Absolutely! Every Living Invitation is designed mobile-first and looks beautiful on phones, tablets, and computers. The layout automatically adapts to different screen sizes. Most of your guests will view it on their phones, so mobile experience is a top priority.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Can I password-protect my invitation?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        GitHub Pages doesn't include native password protection, but there are workarounds: you can add a simple JavaScript password prompt, use Cloudflare Pages instead (also free, with access controls), or host on a private server. Most couples don't need this—your invitation URL is essentially impossible to guess unless you share it.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>How do I collect RSVPs?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Your invitation includes an RSVP form interface. You can connect it to: a Google Form (easiest), an email service like Formspree (responses emailed to you), or a backend database like Airtable or Firebase. The Advanced section of this guide covers all options. Many couples also just include an email address or phone number for RSVPs.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>What if GitHub shuts down?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        GitHub is owned by Microsoft and is one of the most important platforms in the tech world—it's highly unlikely to shut down. But even if it did, you own the file completely. You can download it anytime and host it anywhere else: your own server, Netlify, Vercel, or even open it directly from your computer. You're never locked in.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Can I see analytics on who visits?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Yes! You can add Google Analytics (free) or similar tracking to see how many people visit, which pages they view, and other metrics. The Advanced section has instructions. This is completely optional—some couples like the data, others prefer not to track.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>What's included in the Sadie Bosworth Atelier service?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Sadie provides: custom design tailored to your wedding aesthetic, the complete HTML file with all features, GitHub setup assistance, training on how to make updates, and ongoing email support. You'll have a consultation to discuss your vision, receive mockups for approval, and get one-on-one training on managing your invitation.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reflexive Statement -->
+    <section id="reflexive" style="background: var(--light);">
+        <h2>🔍 Reflexive Statement</h2>
+        
+        <h3>On Design Philosophy</h3>
+        <p>This system exists to empower couples with full ownership and control over their wedding invitations, resisting the subscription-based, vendor lock-in model that dominates the wedding industry. We believe that wedding memories should be permanent, accessible, and owned by the couple—not rented from a platform that could disappear.</p>
+
+        <h3>On AI Collaboration</h3>
+        <p>This guide was co-created through human-AI collaboration. The human (Sadie Bosworth Atelier) provided strategic direction, brand understanding, client needs, and wedding industry expertise. The AI (Claude Sonnet 4.5) provided structural documentation, technical explanations, and comprehensive guide formatting.</p>
+
+        <h3>Known Limitations</h3>
+        <ul>
+            <li><strong>Technical Comfort Required:</strong> While we've made this as simple as possible, users must be comfortable with basic computer tasks (creating accounts, uploading files). Those with extreme tech anxiety may still find this challenging.</li>
+            <li><strong>GitHub Dependency:</strong> The free hosting relies on GitHub Pages continuing to offer free service. While highly unlikely to change, it's a dependency outside our control.</li>
+            <li><strong>Learning Curve for Edits:</strong> Making simple text changes is easy, but design changes (colors, layouts, adding features) requires HTML/CSS knowledge.</li>
+            <li><strong>RSVP Integration:</strong> The RSVP form requires additional setup with third-party services. It's not fully automatic out-of-the-box.</li>
+            <li><strong>Initial Time Investment:</strong> The 20-30 minute setup time is a barrier compared to template services where you just enter information into forms.</li>
+        </ul>
+
+        <h3>What This System Cannot Solve</h3>
+        <ul>
+            <li>Print invitation design and fulfillment (this is digital-only)</li>
+            <li>Guest list management and tracking (requires additional tools)</li>
+            <li>Automated RSVP collection without third-party integration</li>
+            <li>Real-time collaborative editing (GitHub requires sequential edits)</li>
+            <li>The emotional labor of wedding planning itself</li>
+        </ul>
+
+        <h3>Potential Biases</h3>
+        <ul>
+            <li><strong>Technical Optimism:</strong> This guide assumes most couples can learn basic GitHub operations. Reality may vary by demographic and technical comfort level.</li>
+            <li><strong>Design Aesthetic:</strong> Living Invitations favor minimalist, editorial aesthetics. Couples wanting maximalist or highly ornate designs may find the format limiting.</li>
+            <li><strong>Western-Centric:</strong> The examples and language assume Western wedding traditions and may not fully address cultural variations in wedding celebrations globally.</li>
+            <li><strong>Digital Access:</strong> Assumes guests have reliable internet and devices to view digital invitations. May not work for elderly guests or those with limited connectivity.</li>
+        </ul>
+    </section>
+
+    <!-- Metadata -->
+    <section id="metadata">
+        <h2>📋 Document Metadata</h2>
+        
+        <div class="comparison-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Property</th>
+                        <th>Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>System</td>
+                        <td>Living Invitations™ v1.0.0</td>
+                    </tr>
+                    <tr>
+                        <td>Format</td>
+                        <td>Untitled Format™ v1.2.0</td>
+                    </tr>
+                    <tr>
+                        <td>Document Version</td>
+                        <td>1.0.0</td>
+                    </tr>
+                    <tr>
+                        <td>Created</td>
+                        <td>2025-10-31</td>
+                    </tr>
+                    <tr>
+                        <td>Last Updated</td>
+                        <td>2025-10-31</td>
+                    </tr>
+                    <tr>
+                        <td>License</td>
+                        <td>Commercial - Sadie Bosworth Atelier</td>
+                    </tr>
+                    <tr>
+                        <td>Designer</td>
+                        <td>Sadie Bosworth Atelier</td>
+                    </tr>
+                    <tr>
+                        <td>File Size</td>
+                        <td>~40KB</td>
+                    </tr>
+                    <tr>
+                        <td>Load Time</td>
+                        <td>&lt;100ms</td>
+                    </tr>
+                    <tr>
+                        <td>Standards</td>
+                        <td>HTML5, CSS3, ES6 JavaScript</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3>Citation Examples</h3>
+        
+        <h4>APA 7th Edition:</h4>
+        <pre><code>Sadie Bosworth Atelier. (2025). Living Invitations Complete Setup & Operations Guide (Version 1.0.0). https://sadiebosworthatelier.com/living-invitations-guide</code></pre>
+
+        <h4>BibTeX:</h4>
+        <pre><code>@techreport{livinginvitations2025,
+  title = {Living Invitations Complete Setup & Operations Guide},
+  author = {{Sadie Bosworth Atelier}},
+  year = {2025},
+  version = {1.0.0},
+  url = {https://sadiebosworthatelier.com/living-invitations-guide}
+}</code></pre>
+
+        <h3>Version History</h3>
+        <ul>
+            <li><strong>v1.0.0</strong> (2025-10-31) - Initial release of comprehensive guide</li>
+        </ul>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <h3>Sadie Bosworth Atelier</h3>
+        <p>Bridal wear for the daring and unconventional</p>
+        <p style="margin-top: 2rem;">
+            <a href="https://sadiebosworthatelier.com">Visit Atelier</a> • 
+            <a href="mailto:hello@sadiebosworthatelier.com">Contact</a>
+        </p>
+        <p style="margin-top: 2rem; font-size: 0.9rem; opacity: 0.7;">
+            Built with Untitled Format™ v1.2.0 | Living Invitations™ System<br>
+            Single HTML file | ~40KB | Loads in &lt;100ms<br>
+            © 2025 Sadie Bosworth Atelier | All Rights Reserved
+        </p>
+    </footer>
+
+    <script>
+        // FAQ Accordion
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const item = question.parentElement;
+                const answer = item.querySelector('.faq-answer');
+                const isActive = item.classList.contains('active');
+                
+                // Close all other items
+                document.querySelectorAll('.faq-item').forEach(otherItem => {
+                    if (otherItem !== item) {
+                        otherItem.classList.remove('active');
+                        otherItem.querySelector('.faq-answer').style.maxHeight = null;
+                    }
+                });
+                
+                // Toggle current item
+                if (!isActive) {
+                    item.classList.add('active');
+                    answer.style.maxHeight = answer.scrollHeight + 'px';
+                } else {
+                    item.classList.remove('active');
+                    answer.style.maxHeight = null;
+                }
+            });
+        });
+
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

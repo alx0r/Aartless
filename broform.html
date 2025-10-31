@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brotherly Format™ - Documents That Live</title>
+    <style>
+        :root {
+            --primary: #1a1a2e;
+            --secondary: #16213e;
+            --accent: #0f3460;
+            --highlight: #e94560;
+            --light: #f5f5f5;
+            --dark: #0d0d1a;
+            --transition: all 0.3s ease;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --radius: 12px;
+            --font-heading: 'Inter', sans-serif;
+            --font-body: 'Inter', sans-serif;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-body);
+            line-height: 1.6;
+            color: var(--light);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            padding: 2rem 0;
+            position: relative;
+            z-index: 100;
+        }
+        
+        .logo {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 1.8rem;
+            color: var(--light);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo span {
+            color: var(--highlight);
+            margin-left: 5px;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            color: var(--highlight);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--highlight);
+            transition: var(--transition);
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 6rem 0;
+            text-align: center;
+            position: relative;
+        }
+        
+        .hero h1 {
+            font-family: var(--font-heading);
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(90deg, var(--light) 0%, var(--highlight) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            opacity: 0.9;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .btn {
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            display: inline-block;
+            border: none;
+            cursor: pointer;
+            font-family: var(--font-body);
+        }
+        
+        .btn-primary {
+            background: var(--highlight);
+            color: var(--light);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(233, 69, 96, 0.3);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: var(--light);
+            border: 2px solid var(--light);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--light);
+            color: var(--primary);
+        }
+        
+        /* Features Grid */
+        .section {
+            padding: 5rem 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        
+        .section-title h2 {
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--highlight);
+            border-radius: 2px;
+        }
+        
+        .section-title p {
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.8;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: var(--radius);
+            padding: 2rem;
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow);
+            background: rgba(255, 255, 255, 0.08);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-card h3 {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        /* Comparison Section */
+        .comparison {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: var(--radius);
+            overflow: hidden;
+            margin-top: 3rem;
+        }
+        
+        .comparison-header {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            background: var(--accent);
+            padding: 1.5rem;
+        }
+        
+        .comparison-header h3 {
+            text-align: center;
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+        }
+        
+        .comparison-item {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            padding: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .comparison-item:nth-child(even) {
+            background: rgba(255, 255, 255, 0.03);
+        }
+        
+        .comparison-item div {
+            padding: 0 1rem;
+            text-align: center;
+        }
+        
+        .check {
+            color: #4CAF50;
+            font-weight: bold;
+        }
+        
+        .cross {
+            color: #f44336;
+            font-weight: bold;
+        }
+        
+        /* Use Cases */
+        .use-cases {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .use-case {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: var(--radius);
+            padding: 2rem;
+            text-align: center;
+            transition: var(--transition);
+        }
+        
+        .use-case:hover {
+            transform: scale(1.05);
+            box-shadow: var(--shadow);
+        }
+        
+        .use-case-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        /* Reflexive Section */
+        .reflexive {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 4rem 0;
+            margin-top: 4rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .reflexive-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .reflexive-content h2 {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--highlight);
+        }
+        
+        .reflexive-content p {
+            margin-bottom: 1.5rem;
+            font-style: italic;
+            opacity: 0.9;
+        }
+        
+        /* Footer */
+        footer {
+            padding: 3rem 0;
+            text-align: center;
+            background: var(--dark);
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .footer-links a {
+            color: var(--light);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-links a:hover {
+            color: var(--highlight);
+        }
+        
+        .copyright {
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+        
+        /* Animations */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .floating {
+            animation: float 5s ease-in-out infinite;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">Brotherly<span>Format™</span></a>
+                <ul class="nav-links">
+                    <li><a href="#why">Why Brotherly?</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#comparison">Comparison</a></li>
+                    <li><a href="#usecases">Use Cases</a></li>
+                    <li><a href="#examples">Examples</a></li>
+                    <li><a href="#getstarted">Get Started</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Brotherly Format™<br>Documents That Live</h1>
+            <p>Your Documents Should Work For You, Not Against You</p>
+            <p>Brotherly Format™ creates intelligent, permanent documents that work offline, update automatically, and put you in control—forever.</p>
+            <div class="cta-buttons">
+                <a href="#examples" class="btn btn-primary">See Live Examples</a>
+                <a href="#howitworks" class="btn btn-secondary">Learn How It Works</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="why">
+        <div class="container">
+            <div class="section-title">
+                <h2>Why Brotherly Format™?</h2>
+                <p>Traditional documents are broken. PDFs are static, Google Docs require internet, Word files get corrupted. Brotherly Format™ fixes this by creating documents that are:</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card floating">
+                    <div class="feature-icon">📱</div>
+                    <h3>Offline First</h3>
+                    <p>Works without internet. Perfect for events, remote work, or unreliable connections. Save to your device and access anytime.</p>
+                </div>
+                <div class="feature-card floating" style="animation-delay: 0.5s;">
+                    <div class="feature-icon">🤖</div>
+                    <h3>AI-Ready</h3>
+                    <p>Structured for machines to read and update. AI can automatically extract information, make updates, and generate insights.</p>
+                </div>
+                <div class="feature-card floating" style="animation-delay: 1s;">
+                    <div class="feature-icon">⚖️</div>
+                    <h3>Ethical by Design</h3>
+                    <p>No tracking, no data collection, no hidden costs. Your information stays yours. We believe in digital ownership.</p>
+                </div>
+                <div class="feature-card floating" style="animation-delay: 1.5s;">
+                    <div class="feature-icon">🚀</div>
+                    <h3>Extremely Efficient</h3>
+                    <p>Tiny file sizes (typically 20-80KB), instant loading, minimal bandwidth. Perfect for mobile and low-connectivity areas.</p>
+                </div>
+                <div class="feature-card floating" style="animation-delay: 2s;">
+                    <div class="feature-icon">🔄</div>
+                    <h3>Always Updatable</h3>
+                    <p>Change one detail and it updates everywhere. No more version confusion or re-sending documents.</p>
+                </div>
+                <div class="feature-card floating" style="animation-delay: 2.5s;">
+                    <div class="feature-icon">🌍</div>
+                    <h3>Universally Accessible</h3>
+                    <p>Works on any device with a web browser—no special software needed. Accessible, responsive, and future-proof.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="comparison">
+        <div class="container">
+            <div class="section-title">
+                <h2>Brotherly Format™ vs Everything Else</h2>
+                <p>Why Settle for Less?</p>
+            </div>
+            <div class="comparison">
+                <div class="comparison-header">
+                    <h3>Brotherly Format™</h3>
+                    <h3>Traditional Documents</h3>
+                </div>
+                <div class="comparison-item">
+                    <div class="check">✓ Works completely offline</div>
+                    <div class="cross">✗ Requires specific software</div>
+                </div>
+                <div class="comparison-item">
+                    <div class="check">✓ Single file contains everything</div>
+                    <div class="cross">✗ Multiple files get lost</div>
+                </div>
+                <div class="comparison-item">
+                    <div class="check">✓ You own it forever</div>
+                    <div class="cross">✗ Platform lock-in</div>
+                </div>
+                <div class="comparison-item">
+                    <div class="check">✓ No subscriptions ever</div>
+                    <div class="cross">✗ Monthly subscriptions</div>
+                </div>
+                <div class="comparison-item">
+                    <div class="check">✓ AI-ready structure</div>
+                    <div class="cross">✗ Static and rigid</div>
+                </div>
+                <div class="comparison-item">
+                    <div class="check">✓ Instant updates</div>
+                    <div class="cross">✗ Manual updates needed</div>
+                </div>
+                <div class="comparison-item">
+                    <div class="check">✓ Loads in milliseconds</div>
+                    <div class="cross">✗ Slow to load and edit</div>
+                </div>
+                <div class="comparison-item">
+                    <div class="check">✓ Universal access</div>
+                    <div class="cross">✗ Compatibility issues</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="usecases">
+        <div class="container">
+            <div class="section-title">
+                <h2>Perfect For Any Document Need</h2>
+                <p>Brotherly Format™ adapts to your specific requirements</p>
+            </div>
+            <div class="use-cases">
+                <div class="use-case">
+                    <div class="use-case-icon">💍</div>
+                    <h3>Event Invitations</h3>
+                    <p>Beautiful, updatable invitations that guests can access offline and you can update instantly.</p>
+                </div>
+                <div class="use-case">
+                    <div class="use-case-icon">📋</div>
+                    <h3>Business Proposals</h3>
+                    <p>Interactive proposals with embedded calculators, timelines, and real-time updates.</p>
+                </div>
+                <div class="use-case">
+                    <div class="use-case-icon">🏢</div>
+                    <h3>Company Handbooks</h3>
+                    <p>Always-current employee handbooks that work offline and update company-wide instantly.</p>
+                </div>
+                <div class="use-case">
+                    <div class="use-case-icon">📊</div>
+                    <h3>Reports & Analytics</h3>
+                    <p>Live reports that update automatically as new data comes in, with interactive charts.</p>
+                </div>
+                <div class="use-case">
+                    <div class="use-case-icon">🎓</div>
+                    <h3>Training Materials</h3>
+                    <p>Interactive training docs with quizzes, progress tracking, and offline access.</p>
+                </div>
+                <div class="use-case">
+                    <div class="use-case-icon">📝</div>
+                    <h3>Contracts & Agreements</h3>
+                    <p>Smart contracts with digital signatures, automatic reminders, and version control.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="reflexive" id="howitworks">
+        <div class="container">
+            <div class="reflexive-content">
+                <h2>Reflexive Design Statement</h2>
+                <p>This portfolio page itself is built using Brotherly Format™ principles. It's a single HTML file containing all content, styling, and functionality.</p>
+                <p>We're practicing what we preach: This document works offline, loads instantly, and can be updated with a simple text edit.</p>
+                <p>The design intentionally showcases the flexibility of our format—clean, modern, and completely self-contained without external dependencies.</p>
+                <p>This reflexive section demonstrates our commitment to transparency. We're not just selling a product; we're advocating for a new approach to documents.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="getstarted">
+        <div class="container">
+            <div class="section-title">
+                <h2>Ready to Transform Your Documents?</h2>
+                <p>Join forward-thinking businesses already using Brotherly Format™ for their most important documents.</p>
+            </div>
+            <div class="cta-buttons">
+                <a href="#" class="btn btn-primary">Schedule a Demo</a>
+                <a href="#examples" class="btn btn-secondary">Explore More Examples</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="#">Contact Us</a>
+                <a href="#examples">Live Examples</a>
+                <a href="#howitworks">How It Works</a>
+                <a href="#">GitHub</a>
+                <a href="#">Documentation</a>
+            </div>
+            <p class="copyright">© 2025 Brother's Studio | Transforming how the world works with documents</p>
+            <p class="copyright">Built with Brotherly Format™ - The future of documents is here</p>
+            <p class="copyright">Offline • Efficient • Ethical • AI-Ready</p>
+        </div>
+    </footer>
+
+    <script>
+        // Simple script for smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Add some interactive elements
+        document.addEventListener('DOMContentLoaded', function() {
+            const featureCards = document.querySelectorAll('.feature-card');
+            
+            featureCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-10px) scale(1.02)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

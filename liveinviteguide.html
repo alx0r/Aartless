@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Living Invitations™ - Complete Guide</title>
+    <title>Living Invitations™ - Universal Event Platform</title>
     
     <!-- YAML Metadata for Untitled Format™
     ---
-    title: "Living Invitations Complete Setup & Operations Guide"
-    system: "Living Invitations™ v1.0.0"
+    title: "Living Invitations Universal Event Platform Guide"
+    system: "Living Invitations™ v2.0.0"
     format: "Untitled Format™ v1.2.0"
     created: "2025-10-31"
     updated: "2025-10-31"
-    license: "Commercial - Sadie Bosworth Atelier"
-    designer: "Sadie Bosworth Atelier"
-    tags: ["wedding", "invitations", "guide", "tutorial", "documentation"]
+    license: "Commercial - Brother's Studio"
+    designer: "Brother's Studio"
+    tags: ["events", "invitations", "ai-workflow", "automation", "documentation"]
     status: "Live Production Guide"
     ---
     -->
@@ -22,14 +22,15 @@
     <style>
         :root {
             --primary: #1a1a1a;
-            --secondary: #d4af37;
-            --accent: #8b7355;
+            --secondary: #2563eb;
+            --accent: #7c3aed;
             --bg: #fafaf8;
             --text: #2c2c2c;
             --light: #f5f5f3;
-            --success: #4a9d5f;
-            --warning: #e67e22;
-            --info: #3498db;
+            --success: #059669;
+            --warning: #dc2626;
+            --info: #2563eb;
+            --ai-color: #7c3aed;
             --serif: 'Cormorant Garamond', Georgia, serif;
             --sans: 'Montserrat', -apple-system, sans-serif;
             --mono: 'Courier New', monospace;
@@ -120,7 +121,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: radial-gradient(circle at 30% 40%, rgba(212, 175, 55, 0.08) 0%, transparent 60%);
+            background: radial-gradient(circle at 30% 40%, rgba(37, 99, 235, 0.08) 0%, transparent 60%);
             pointer-events: none;
         }
         
@@ -140,6 +141,7 @@
             letter-spacing: 1px;
             margin-bottom: 2rem;
             box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border: 1px solid var(--secondary);
         }
         
         h1 {
@@ -157,8 +159,8 @@
         }
         
         .alert {
-            background: #fff3cd;
-            border-left: 4px solid var(--warning);
+            background: #dbeafe;
+            border-left: 4px solid var(--secondary);
             padding: 1.5rem;
             margin: 2rem auto;
             max-width: 900px;
@@ -166,7 +168,17 @@
         }
         
         .alert strong {
-            color: var(--warning);
+            color: var(--secondary);
+        }
+        
+        .ai-badge {
+            background: var(--ai-color);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-left: 0.5rem;
         }
         
         /* Sections */
@@ -229,11 +241,13 @@
             border-radius: 10px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.06);
             transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid transparent;
         }
         
         .feature-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+            border-color: var(--secondary);
         }
         
         .feature-icon {
@@ -260,6 +274,11 @@
             box-shadow: 0 4px 20px rgba(0,0,0,0.06);
             position: relative;
             padding-left: 5rem;
+            border: 1px solid transparent;
+        }
+        
+        .step:hover {
+            border-color: var(--secondary);
         }
         
         .step::before {
@@ -289,6 +308,38 @@
             background: var(--light);
             padding: 1.5rem;
             border-radius: 5px;
+            margin: 1rem 0;
+        }
+        
+        /* AI Workflow Components */
+        .ai-workflow {
+            background: linear-gradient(135deg, #f0f9ff 0%, #f5f3ff 100%);
+            border: 1px solid var(--ai-color);
+            border-radius: 10px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .workflow-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .workflow-step {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--ai-color);
+        }
+        
+        .input-source {
+            background: #f8fafc;
+            border: 2px dashed #cbd5e1;
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
             margin: 1rem 0;
         }
         
@@ -522,535 +573,549 @@
     <!-- Navigation -->
     <nav>
         <ul>
-            <li><a href="#what-is">What Is This?</a></li>
+            <li><a href="#what-is">Universal Platform</a></li>
+            <li><a href="#ai-workflow">AI Workflow</a></li>
             <li><a href="#setup">Setup Guide</a></li>
-            <li><a href="#daily-use">Daily Use</a></li>
-            <li><a href="#editing">Editing Guide</a></li>
+            <li><a href="#events">Event Types</a></li>
             <li><a href="#advanced">Advanced</a></li>
             <li><a href="#faq">FAQ</a></li>
-            <li><a href="#metadata">Metadata</a></li>
         </ul>
     </nav>
 
     <!-- Hero -->
     <div class="hero">
         <div class="hero-content">
-            <div class="system-badge">Living Invitations™ v1.0.0</div>
-            <h1>Complete Setup & User Guide</h1>
-            <p class="subtitle">Everything you need to create, customize, and maintain your wedding invitation that lives forever.</p>
+            <div class="system-badge">Living Invitations™ v2.0.0</div>
+            <h1>Universal Event Platform</h1>
+            <p class="subtitle">AI-powered invitations for any event. Transform documents, chats, and images into beautiful, living invitations in minutes.</p>
         </div>
     </div>
 
     <div class="alert">
-        <strong>⚡ Quick Start Promise:</strong> If you can send an email, you can set this up. No coding required. 20-30 minutes from start to live website. We promise.
+        <strong>🚀 AI-Powered Setup:</strong> No more manual data entry. Copy-paste websites, WhatsApp chats, documents, or upload images. Our AI extracts everything and builds your invitation automatically.
     </div>
 
     <!-- What Is This Section -->
     <section id="what-is">
-        <h2>What is a Living Invitation?</h2>
+        <h2>Universal Living Invitations Platform</h2>
         
         <p style="font-size: 1.2rem; color: var(--accent); margin-bottom: 2rem;">
-            <strong>In Plain English:</strong> A Living Invitation is a beautiful, custom wedding website that you fully own and control. It's a single file that works on any device, updates in real-time, costs nothing to host, and lasts forever.
+            <strong>Beyond Weddings:</strong> A complete platform for creating beautiful, permanent invitation websites for any event—corporate, birthdays, conferences, workshops, and more. All powered by AI workflow automation.
         </p>
 
         <h3>The Problem We're Solving</h3>
-        <p>Traditional wedding invitation services have major issues:</p>
+        <p>Traditional event invitations have major limitations:</p>
         
         <div class="feature-grid">
             <div class="feature-card">
-                <span class="feature-icon">💸</span>
-                <h4>Expensive Subscriptions</h4>
-                <p>$200-500+ for temporary access that expires after your wedding</p>
+                <span class="feature-icon">⏰</span>
+                <h4>Manual Data Entry</h4>
+                <p>Hours spent copying information from emails, chats, and documents into templates</p>
             </div>
             <div class="feature-card">
-                <span class="feature-icon">🔒</span>
-                <h4>Vendor Lock-In</h4>
-                <p>Your invitation lives on their servers. They shut down? Your invitation disappears.</p>
+                <span class="feature-icon">💸</span>
+                <h4>Platform Lock-In</h4>
+                <p>Expensive subscriptions that disappear when you stop paying</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">🔄</span>
+                <h4>Update Nightmares</h4>
+                <p>Changing details means manually updating multiple platforms and re-sending</p>
             </div>
             <div class="feature-card">
                 <span class="feature-icon">🎨</span>
-                <h4>Template Limitations</h4>
-                <p>You're stuck with pre-made designs that thousands of other couples use</p>
-            </div>
-            <div class="feature-card">
-                <span class="feature-icon">⏰</span>
-                <h4>Short Lifespan</h4>
-                <p>Most services delete your invitation 6-12 months after your wedding</p>
+                <h4>Generic Templates</h4>
+                <p>Limited customization that makes every event look the same</p>
             </div>
         </div>
 
-        <h3>The Living Invitation Solution</h3>
+        <h3>The Universal Solution</h3>
         
         <div class="feature-grid">
+            <div class="feature-card">
+                <span class="feature-icon">🤖</span>
+                <h4>AI-Powered Setup</h4>
+                <p>Copy-paste any source: websites, PDFs, WhatsApp chats, emails. AI extracts all details automatically.</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">🎯</span>
+                <h4>Any Event Type</h4>
+                <p>Weddings, corporate events, birthdays, conferences, workshops, reunions—fully customizable templates.</p>
+            </div>
             <div class="feature-card">
                 <span class="feature-icon">👑</span>
                 <h4>Full Ownership</h4>
-                <p>You own the file completely. Download it, move it, keep it forever. No one can take it away.</p>
+                <p>You own the file completely. No subscriptions, no platform lock-in, forever accessible.</p>
             </div>
             <div class="feature-card">
-                <span class="feature-icon">🎨</span>
-                <h4>Completely Custom</h4>
-                <p>Designed specifically for your wedding. Colors, fonts, layout—everything tailored to you.</p>
+                <span class="feature-icon">⚡</span>
+                <h4>Instant Updates</h4>
+                <p>Change one detail and it updates everywhere. No more re-sending invitations.</p>
             </div>
             <div class="feature-card">
-                <span class="feature-icon">♾️</span>
-                <h4>Lives Forever</h4>
-                <p>Free hosting through GitHub Pages. Your invitation stays online permanently, at no cost.</p>
+                <span class="feature-icon">📊</span>
+                <h4>Smart Integration</h4>
+                <p>Connect to calendars, maps, payment systems, RSVP tracking, and analytics.</p>
             </div>
             <div class="feature-card">
-                <span class="feature-icon">✏️</span>
-                <h4>Easy Updates</h4>
-                <p>Change venue details, add photos, update schedules—anytime you want, in minutes.</p>
+                <span class="feature-icon">🔧</span>
+                <h4>Workflow Automation</h4>
+                <p>Automated follow-ups, reminder systems, guest management, and post-event workflows.</p>
             </div>
-            <div class="feature-card">
+        </div>
+    </section>
+
+    <!-- AI Workflow Section -->
+    <section id="ai-workflow">
+        <h2>🤖 AI-Powered Workflow System</h2>
+        
+        <div class="ai-workflow">
+            <h3 style="color: var(--ai-color);">Intelligent Data Extraction & Processing</h3>
+            <p>Our AI understands context, extracts relevant information, and structures it perfectly for your event type.</p>
+        </div>
+
+        <h3>Input Sources We Process</h3>
+        
+        <div class="workflow-grid">
+            <div class="input-source">
+                <span class="feature-icon">🌐</span>
+                <h4>Websites & URLs</h4>
+                <p>Copy-paste any event website or listing</p>
+            </div>
+            <div class="input-source">
                 <span class="feature-icon">📱</span>
-                <h4>Works Everywhere</h4>
-                <p>Looks perfect on phones, tablets, and computers. Fast loading, accessible, printable.</p>
+                <h4>WhatsApp Chats</h4>
+                <p>Paste entire conversation threads</p>
             </div>
-            <div class="feature-card">
-                <span class="feature-icon">🆓</span>
-                <h4>Zero Ongoing Costs</h4>
-                <p>One design fee. Free hosting forever. No monthly subscriptions, no hidden fees, ever.</p>
+            <div class="input-source">
+                <span class="feature-icon">📄</span>
+                <h4>PDF Documents</h4>
+                <p>Upload event briefs, guidelines, rules</p>
             </div>
-        </div>
-
-        <div class="info-box">
-            <h4>Core Innovation</h4>
-            <p>Living Invitations use the <strong>Untitled Format™</strong> protocol—a modern approach to creating self-contained, permanent documents that you fully control. It's built on open web standards (HTML5, CSS3, JavaScript) that will work for decades, not dependent on any company staying in business.</p>
-        </div>
-    </section>
-
-    <!-- Setup Guide -->
-    <section id="setup">
-        <h2>🚀 Quick Start Setup Guide</h2>
-        
-        <div class="success-box">
-            <strong>You Don't Need to Be Tech-Savvy!</strong> This guide explains everything step-by-step. If you can send an email or create a social media account, you can do this. Time required: 20-30 minutes.
-        </div>
-
-        <h3>What You'll Need</h3>
-        <ul class="checklist">
-            <li>An email address (Gmail, Outlook, anything)</li>
-            <li>20-30 minutes of uninterrupted time</li>
-            <li>A computer or phone with internet</li>
-            <li>Your completed invitation file from Sadie Bosworth Atelier</li>
-        </ul>
-
-        <div class="steps">
-            <div class="step">
-                <h3>Create a Free GitHub Account</h3>
-                <div class="step-detail">
-                    <strong>What is GitHub?</strong> Think of it like Google Drive or Dropbox, but specifically designed for websites. It's 100% free, trusted by millions of developers worldwide, and has been around since 2008.
-                </div>
-                <ol>
-                    <li>Go to <strong>github.com</strong> in your web browser</li>
-                    <li>Click the <strong>"Sign up"</strong> button in the top right</li>
-                    <li>Enter your email address and create a password (write it down somewhere safe!)</li>
-                    <li>Choose a username (example: <code>emily-and-james</code> or <code>smith-wedding</code>)</li>
-                    <li>Verify your email by clicking the link GitHub sends you</li>
-                </ol>
-                <div class="success-box">
-                    ✓ Once you see your GitHub dashboard, you're ready for step 2!
-                </div>
+            <div class="input-source">
+                <span class="feature-icon">📧</span>
+                <h4>Email Threads</h4>
+                <p>Copy-paste email conversations</p>
             </div>
-
-            <div class="step">
-                <h3>Create Your Repository (Website Folder)</h3>
-                <div class="step-detail">
-                    <strong>What is a Repository?</strong> Just a fancy word for "folder." This is where your invitation file will live. Think of it as creating a new folder on your computer, but this one can turn into a website.
-                </div>
-                <ol>
-                    <li>Once logged into GitHub, click the <strong>+</strong> icon in the top-right corner</li>
-                    <li>Select <strong>"New repository"</strong></li>
-                    <li>Repository name: Type <code>wedding</code> (or any name you prefer like <code>our-wedding</code>)</li>
-                    <li>Description: Type something like "Our Wedding Invitation"</li>
-                    <li><strong>Important:</strong> Select <strong>"Public"</strong> (this is required for the free website feature)</li>
-                    <li>Check the box that says <strong>"Add a README file"</strong></li>
-                    <li>Click the green <strong>"Create repository"</strong> button</li>
-                </ol>
-                <div class="info-box">
-                    💡 Don't worry about "Public" - this just means the file is technically viewable, but no one will find it unless you share the link. It's like an unlisted YouTube video.
-                </div>
+            <div class="input-source">
+                <span class="feature-icon">🖼️</span>
+                <h4>Images & Screenshots</h4>
+                <p>Upload photos of printed invitations or flyers</p>
             </div>
-
-            <div class="step">
-                <h3>Upload Your Invitation File</h3>
-                <div class="step-detail">
-                    <strong>What you're doing:</strong> Taking the HTML file Sadie designed for you and putting it in your new GitHub folder so it can become a website.
-                </div>
-                <ol>
-                    <li>On your new repository page, click <strong>"Add file"</strong> → <strong>"Upload files"</strong></li>
-                    <li>Drag and drop your invitation file, OR click "choose your files" to browse for it</li>
-                    <li><strong>CRITICAL:</strong> Rename the file to exactly <code>index.html</code> (this specific name is required)</li>
-                    <li>Scroll to the bottom and click the green <strong>"Commit changes"</strong> button</li>
-                </ol>
-                <div class="warning-box">
-                    ⚠️ The filename <strong>must</strong> be exactly <code>index.html</code> (all lowercase, no spaces). This is what tells GitHub "this is the main page of my website."
-                </div>
-            </div>
-
-            <div class="step">
-                <h3>Activate Your Free Website (GitHub Pages)</h3>
-                <div class="step-detail">
-                    <strong>The magic step!</strong> This turns your folder into a live website that anyone can visit.
-                </div>
-                <ol>
-                    <li>On your repository page, click the <strong>"Settings"</strong> tab (top right area)</li>
-                    <li>In the left sidebar, click <strong>"Pages"</strong></li>
-                    <li>Under "Branch", click the dropdown that says "None"</li>
-                    <li>Select <strong>"main"</strong> from the dropdown</li>
-                    <li>Click <strong>"Save"</strong></li>
-                    <li>Wait about 1-2 minutes and refresh the page</li>
-                    <li>You'll see a green box that says: <strong>"Your site is live at: https://yourusername.github.io/wedding/"</strong></li>
-                </ol>
-                <div class="success-box">
-                    <strong>🎉 Congratulations!</strong> Your Living Invitation is now live on the internet! Click that link to see it. That's your wedding invitation website, and it will stay online forever, completely free.
-                </div>
-                <div class="info-box">
-                    💡 <strong>Save that URL!</strong> That's your wedding website address. Share it with guests, add it to save-the-dates, put it on physical invitations—anywhere you want.
-                </div>
-            </div>
-
-            <div class="step">
-                <h3>Optional: Connect a Custom Domain</h3>
-                <div class="step-detail">
-                    <strong>Want a prettier URL?</strong> Instead of <code>yourusername.github.io/wedding</code>, you can use something like <code>emilyandj ames.com</code> or <code>smithwedding2026.com</code>
-                </div>
-                <ol>
-                    <li>Buy a domain name from any registrar (like Namecheap, Google Domains, GoDaddy) - usually $10-15/year</li>
-                    <li>In your domain settings, add a <strong>CNAME record</strong> pointing to <code>yourusername.github.io</code></li>
-                    <li>Back in GitHub Pages settings, enter your custom domain in the "Custom domain" field</li>
-                    <li>Wait 10-15 minutes for DNS to update</li>
-                </ol>
-                <div class="info-box">
-                    💡 This step is completely optional. The <code>github.io</code> URL works perfectly fine and many couples use it. Custom domains are just a nice-to-have.
-                </div>
+            <div class="input-source">
+                <span class="feature-icon">📋</span>
+                <h4>Official Documentation</h4>
+                <p>Rules, guidelines, venue specifications</p>
             </div>
         </div>
 
-        <div class="success-box" style="margin-top: 3rem; font-size: 1.1rem;">
-            <strong>✓ Setup Complete!</strong> Your Living Invitation is now live, permanently hosted, and ready to share with your guests. The hard part is done—everything from here is just making updates when you need to.
-        </div>
-    </section>
-
-    <!-- Daily Use Section -->
-    <section id="daily-use">
-        <h2>📅 Daily Use & Updates</h2>
-        
-        <p style="font-size: 1.1rem; margin-bottom: 2rem;">
-            The beauty of Living Invitations is that you can update them anytime. Changed your venue? Update it. Want to add engagement photos? Add them. Need to adjust the timeline? Takes 5 minutes.
-        </p>
-
-        <h3>When Should You Update?</h3>
-        
-        <div class="feature-grid">
-            <div class="feature-card">
-                <span class="feature-icon">📍</span>
-                <h4>Venue Changes</h4>
-                <p>New address, ceremony time changes, parking instructions</p>
-            </div>
-            <div class="feature-card">
-                <span class="feature-icon">📸</span>
-                <h4>Adding Photos</h4>
-                <p>Engagement photos, venue visits, behind-the-scenes planning</p>
-            </div>
-            <div class="feature-card">
-                <span class="feature-icon">🗓️</span>
-                <h4>Schedule Updates</h4>
-                <p>Timeline adjustments, new events, transportation details</p>
-            </div>
-            <div class="feature-card">
-                <span class="feature-icon">ℹ️</span>
-                <h4>Guest Information</h4>
-                <p>Hotel blocks, dietary options, dress code clarifications, FAQs</p>
-            </div>
-        </div>
-
-        <h3>How Often Should You Update?</h3>
-        <ul>
-            <li><strong>Major updates:</strong> As needed (venue changes, significant schedule shifts)</li>
-            <li><strong>Minor updates:</strong> Weekly or bi-weekly (adding photos, FAQ answers, new details)</li>
-            <li><strong>Final updates:</strong> 2-3 weeks before the wedding (finalize all times, addresses, details)</li>
-            <li><strong>Post-wedding:</strong> Add professional photos, thank you messages, create a permanent memory</li>
-        </ul>
-
-        <div class="info-box">
-            <h4>💡 Pro Tip: Treat It Like Instagram</h4>
-            <p>Think of your invitation as a living document that tells your wedding story. Add updates as things happen—venue tastings, dress fittings, countdown milestones. Guests love seeing the journey, not just the final details.</p>
-        </div>
-    </section>
-
-    <!-- Editing Guide -->
-    <section id="editing">
-        <h2>✏️ How to Edit Your Invitation</h2>
-        
-        <p style="font-size: 1.1rem; margin-bottom: 2rem;">
-            There are two ways to edit your invitation: the simple way (edit directly on GitHub) and the advanced way (edit locally on your computer). We'll cover both.
-        </p>
-
-        <h3>Method 1: Edit Directly on GitHub (Recommended for Most)</h3>
+        <h3>AI Processing Workflow</h3>
         
         <div class="steps">
             <div class="step">
-                <h3>Navigate to Your File</h3>
-                <ol>
-                    <li>Go to GitHub.com and log in</li>
-                    <li>Click on your repository name (e.g., "wedding")</li>
-                    <li>Click on <code>index.html</code></li>
-                    <li>Click the <strong>pencil icon (✏️)</strong> in the top right that says "Edit this file"</li>
-                </ol>
-            </div>
-
-            <div class="step">
-                <h3>Find What You Want to Change</h3>
-                <p>Use Ctrl+F (Windows) or Cmd+F (Mac) to search for the text you want to update. For example:</p>
+                <h3>Input & Context Analysis <span class="ai-badge">AI</span></h3>
+                <div class="step-detail">
+                    <strong>Smart Context Recognition:</strong> Our AI identifies the event type, extracts key entities (dates, times, locations, people), and understands relationships between different pieces of information.
+                </div>
                 <ul>
-                    <li>Search for your venue name to change the address</li>
-                    <li>Search for "5:00 PM" to change ceremony time</li>
-                    <li>Search for a specific section like "Travel" or "FAQ"</li>
+                    <li>Automatically detects event type (wedding, corporate, social)</li>
+                    <li>Extracts dates, times, venues, and contact information</li>
+                    <li>Understands event hierarchy and relationships</li>
+                    <li>Identifies key people and their roles</li>
                 </ul>
-                <div class="info-box">
-                    💡 <strong>Tip:</strong> The HTML might look intimidating, but you're just changing the text between tags. If you see <code>&lt;p&gt;Ceremony starts at 5:00 PM&lt;/p&gt;</code>, you just change "5:00 PM" to whatever time you need.
-                </div>
             </div>
 
             <div class="step">
-                <h3>Make Your Changes</h3>
-                <p>Edit the text you want to change. Some common examples:</p>
-                
-                <h4>Changing Times:</h4>
-                <pre><code>Before: &lt;p&gt;&lt;strong&gt;Time:&lt;/strong&gt; 5:00 PM&lt;/p&gt;
-After:  &lt;p&gt;&lt;strong&gt;Time:&lt;/strong&gt; 6:00 PM&lt;/p&gt;</code></pre>
-
-                <h4>Updating Addresses:</h4>
-                <pre><code>Before: Villa Aurelia&lt;br&gt;Via di Porta San Pancrazio
-After:  Thornton Estate&lt;br&gt;123 Vineyard Road</code></pre>
-
-                <h4>Adding a New FAQ:</h4>
-                <pre><code>&lt;div class="faq-item"&gt;
-    &lt;div class="faq-question"&gt;
-        &lt;span&gt;Your question here?&lt;/span&gt;
-        &lt;span class="faq-toggle"&gt;+&lt;/span&gt;
-    &lt;/div&gt;
-    &lt;div class="faq-answer"&gt;
-        &lt;div class="faq-answer-content"&gt;
-            Your answer here.
-        &lt;/div&gt;
-    &lt;/div&gt;
-&lt;/div&gt;</code></pre>
+                <h3>Template Selection & Customization <span class="ai-badge">AI</span></h3>
+                <div class="step-detail">
+                    <strong>Intelligent Template Matching:</strong> Based on the extracted information and event type, the AI selects and customizes the perfect template, applying appropriate styling, sections, and features.
+                </div>
+                <ul>
+                    <li>Selects template based on event type and extracted data</li>
+                    <li>Applies appropriate color schemes and styling</li>
+                    <li>Includes relevant sections (RSVP, maps, schedules, etc.)</li>
+                    <li>Sets up proper information hierarchy</li>
+                </ul>
             </div>
 
             <div class="step">
-                <h3>Save Your Changes</h3>
-                <ol>
-                    <li>Scroll to the bottom of the page</li>
-                    <li>In the "Commit changes" box, write a brief description like "Updated ceremony time"</li>
-                    <li>Click the green <strong>"Commit changes"</strong> button</li>
-                    <li>Wait 1-2 minutes, then refresh your website to see the changes</li>
-                </ol>
-                <div class="success-box">
-                    ✓ That's it! Your website is now updated with the new information.
+                <h3>Content Generation & Optimization <span class="ai-badge">AI</span></h3>
+                <div class="step-detail">
+                    <strong>Smart Content Creation:</strong> The AI generates missing content, writes compelling descriptions, creates appropriate FAQs, and optimizes all text for your specific audience and event type.
                 </div>
+                <ul>
+                    <li>Generates event descriptions and details</li>
+                    <li>Creates relevant FAQ sections</li>
+                    <li>Writes compelling calls-to-action</li>
+                    <li>Optimizes content for target audience</li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <h3>Integration & Automation Setup <span class="ai-badge">AI</span></h3>
+                <div class="step-detail">
+                    <strong>Automated System Configuration:</strong> Based on the event type and requirements, the AI sets up appropriate integrations—calendar links, map embeds, payment systems, RSVP tracking, and automated workflows.
+                </div>
+                <ul>
+                    <li>Sets up calendar integration and reminders</li>
+                    <li>Configures map and location services</li>
+                    <li>Establishes RSVP and guest management</li>
+                    <li>Creates automated follow-up sequences</li>
+                </ul>
             </div>
         </div>
 
-        <h3>Method 2: Edit Locally (For Advanced Users)</h3>
-        <p>If you're comfortable with code editors, you can download the file, edit it on your computer, and re-upload it:</p>
-        <ol>
-            <li>Click on <code>index.html</code> in your repository</li>
-            <li>Click the "Raw" button to see the raw HTML</li>
-            <li>Right-click and "Save As" to download</li>
-            <li>Edit in your preferred code editor (VS Code, Sublime Text, etc.)</li>
-            <li>Save the file</li>
-            <li>Upload the updated file back to GitHub (it will replace the old one)</li>
-        </ol>
-
-        <h3>Common Editing Tasks</h3>
+        <h3>Example AI Prompts & Workflows</h3>
         
         <div class="comparison-table">
             <table>
                 <thead>
                     <tr>
-                        <th>Task</th>
-                        <th>What to Search For</th>
-                        <th>What to Change</th>
+                        <th>Input Type</th>
+                        <th>What to Provide</th>
+                        <th>AI Output</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>Change ceremony time</td>
-                        <td>Search for current time (e.g., "5:00 PM")</td>
-                        <td>Replace with new time</td>
+                        <td>Website Copy-Paste</td>
+                        <td>Copy entire event website content</td>
+                        <td>Structured invitation with all details preserved</td>
                     </tr>
                     <tr>
-                        <td>Update venue address</td>
-                        <td>Search for venue name</td>
-                        <td>Replace address text</td>
+                        <td>WhatsApp Chat</td>
+                        <td>Paste conversation about event planning</td>
+                        <td>Extracted dates, locations, decisions, and guest list</td>
                     </tr>
                     <tr>
-                        <td>Add a new FAQ</td>
-                        <td>Find the FAQ section <code>&lt;section id="faq"&gt;</code></td>
-                        <td>Copy an existing FAQ block and modify the question/answer</td>
+                        <td>Event PDF</td>
+                        <td>Upload conference schedule or rules</td>
+                        <td>Formatted schedule with sessions, speakers, times</td>
                     </tr>
                     <tr>
-                        <td>Change countdown date</td>
-                        <td>Search for "weddingDate"</td>
-                        <td>Update the date in format: YYYY-MM-DD</td>
+                        <td>Email Thread</td>
+                        <td>Copy-paste email conversation</td>
+                        <td>Consolidated event details and action items</td>
                     </tr>
                     <tr>
-                        <td>Update RSVP email</td>
-                        <td>Search for "email" in the form section</td>
-                        <td>Replace with your email</td>
+                        <td>Image of Flyer</td>
+                        <td>Upload photo of printed invitation</td>
+                        <td>Digital recreation with all text extracted</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Setup Guide -->
+    <section id="setup">
+        <h2>🚀 AI-Powered Setup Guide</h2>
+        
+        <div class="success-box">
+            <strong>No Technical Skills Required!</strong> Our AI handles the complex parts. You just provide the source material. Setup time: 10-15 minutes.
+        </div>
+
+        <h3>Traditional vs AI-Powered Setup</h3>
+        
+        <div class="comparison-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Step</th>
+                        <th>Traditional Method</th>
+                        <th>AI-Powered Method</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Data Collection</td>
+                        <td>Manual typing from multiple sources</td>
+                        <td>Copy-paste or upload sources (30 seconds)</td>
                     </tr>
                     <tr>
-                        <td>Change colors</td>
-                        <td>Search for ":root" at the top</td>
-                        <td>Modify hex color codes</td>
+                        <td>Information Extraction</td>
+                        <td>Manual reading and data entry</td>
+                        <td>AI automatically extracts all relevant details</td>
+                    </tr>
+                    <tr>
+                        <td>Template Setup</td>
+                        <td>Manual section creation and formatting</td>
+                        <td>AI selects and customizes perfect template</td>
+                    </tr>
+                    <tr>
+                        <td>Content Creation</td>
+                        <td>Manual writing and editing</td>
+                        <td>AI generates optimized content</td>
+                    </tr>
+                    <tr>
+                        <td>Integration Setup</td>
+                        <td>Manual configuration of each service</td>
+                        <td>AI automatically sets up all integrations</td>
                     </tr>
                 </tbody>
             </table>
         </div>
 
-        <div class="warning-box">
-            <h4>⚠️ Important Rules for Editing</h4>
-            <ul>
-                <li><strong>Don't delete HTML tags</strong> (the things with &lt; and &gt;) - just change the text between them</li>
-                <li><strong>Keep quotes intact</strong> - if you see <code>class="something"</code>, keep the quotes</li>
-                <li><strong>Test after big changes</strong> - make one change, save, check your site</li>
-                <li><strong>Use version history</strong> - GitHub saves every version, so you can always undo mistakes</li>
-            </ul>
+        <div class="steps">
+            <div class="step">
+                <h3>Provide Your Source Material <span class="ai-badge">AI INPUT</span></h3>
+                <div class="step-detail">
+                    <strong>Any Format Works:</strong> Gather all your event information from any source—websites, chats, documents, images. The more context you provide, the better the AI can understand and structure your event.
+                </div>
+                <h4>Best Practices for AI Input:</h4>
+                <ul class="checklist">
+                    <li>Include all relevant dates and times</li>
+                    <li>Provide venue and location details</li>
+                    <li>Include key contact information</li>
+                    <li>Add any special instructions or rules</li>
+                    <li>Include guest list or attendance details if available</li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <h3>AI Processing & Template Generation <span class="ai-badge">AI PROCESSING</span></h3>
+                <div class="step-detail">
+                    <strong>Automated Magic:</strong> Our AI analyzes your input, extracts all relevant information, selects the perfect template for your event type, and generates a fully customized invitation.
+                </div>
+                <h4>What the AI Creates:</h4>
+                <ul class="checklist">
+                    <li>Complete event information structure</li>
+                    <li>Appropriate template and styling</li>
+                    <li>All necessary sections (RSVP, maps, schedule, etc.)</li>
+                    <li>Optimized content and descriptions</li>
+                    <li>Integrated services and automation</li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <h3>Review & Customize <span class="ai-badge">HUMAN REVIEW</span></h3>
+                <div class="step-detail">
+                    <strong>Fine-Tune Perfection:</strong> Review the AI-generated invitation. Make any minor adjustments, add personal touches, or request AI revisions. The hard work is done—this is just polish.
+                </div>
+                <h4>Quick Customization Options:</h4>
+                <ul class="checklist">
+                    <li>Adjust colors and fonts</li>
+                    <li>Add personal photos</li>
+                    <li>Fine-tune wording</li>
+                    <li>Add special sections</li>
+                    <li>Set up specific integrations</li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <h3>Deploy & Share <span class="ai-badge">AUTOMATED</span></h3>
+                <div class="step-detail">
+                    <strong>Instant Live Website:</strong> One-click deployment to free hosting. Your invitation is immediately live with a permanent URL. Share with guests and start managing your event.
+                </div>
+                <h4>Deployment Options:</h4>
+                <ul class="checklist">
+                    <li>Free GitHub Pages hosting (permanent)</li>
+                    <li>Custom domain connection (optional)</li>
+                    <li>Auto-generated QR codes</li>
+                    <li>Shareable links and embedding</li>
+                    <li>Mobile-optimized experience</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Event Types Section -->
+    <section id="events">
+        <h2>🎯 Supported Event Types</h2>
+        
+        <p style="font-size: 1.1rem; margin-bottom: 2rem;">
+            From intimate gatherings to large corporate events, our platform adapts to your specific needs with AI-optimized templates and workflows.
+        </p>
+
+        <div class="feature-grid">
+            <div class="feature-card">
+                <span class="feature-icon">💍</span>
+                <h4>Weddings & Celebrations</h4>
+                <p>Full wedding suites with RSVP management, registry integration, accommodation details, and timeline coordination.</p>
+                <div class="step-detail">
+                    <strong>AI Features:</strong> Guest list management, seating charts, vendor coordination, timeline optimization
+                </div>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">🏢</span>
+                <h4>Corporate Events</h4>
+                <p>Conferences, workshops, team building, product launches with registration, payment processing, and analytics.</p>
+                <div class="step-detail">
+                    <strong>AI Features:</strong> Attendee tracking, session management, payment integration, ROI analytics
+                </div>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">🎂</span>
+                <h4>Social Gatherings</h4>
+                <p>Birthdays, anniversaries, reunions, parties with photo sharing, gift registries, and collaborative planning.</p>
+                <div class="step-detail">
+                    <strong>AI Features:</strong> Gift coordination, photo aggregation, collaborative planning, memory preservation
+                </div>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">🎓</span>
+                <h4>Educational Events</h4>
+                <p>Workshops, seminars, classes with material distribution, progress tracking, and certification management.</p>
+                <div class="step-detail">
+                    <strong>AI Features:</strong> Material organization, progress analytics, certification automation, feedback collection
+                </div>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">🎨</span>
+                <h4>Creative & Cultural</h4>
+                <p>Gallery openings, performances, exhibitions with artist profiles, ticketing, and portfolio integration.</p>
+                <div class="step-detail">
+                    <strong>AI Features:</strong> Portfolio optimization, audience engagement, promotional content generation
+                </div>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">🤝</span>
+                <h4>Non-Profit & Community</h4>
+                <p>Fundraisers, community events, volunteer coordination with donation processing and impact tracking.</p>
+                <div class="step-detail">
+                    <strong>AI Features:</strong> Donor management, impact reporting, volunteer coordination, grant alignment
+                </div>
+            </div>
+        </div>
+
+        <h3>Event-Specific AI Workflows</h3>
+        
+        <div class="comparison-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Event Type</th>
+                        <th>AI Automation Features</th>
+                        <th>Integration Options</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Corporate Conference</td>
+                        <td>Session scheduling, speaker management, attendee analytics</td>
+                        <td>Payment gateways, CRM systems, calendar platforms</td>
+                    </tr>
+                    <tr>
+                        <td>Wedding Celebration</td>
+                        <td>Guest list optimization, vendor coordination, timeline management</td>
+                        <td>Registry services, accommodation booking, photo sharing</td>
+                    </tr>
+                    <tr>
+                        <td>Workshop Series</td>
+                        <td>Material distribution, progress tracking, certification</td>
+                        <td>Learning platforms, payment systems, feedback collection</td>
+                    </tr>
+                    <tr>
+                        <td>Fundraising Event</td>
+                        <td>Donor management, impact reporting, volunteer coordination</td>
+                        <td>Payment processing, donor databases, social media</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </section>
 
     <!-- Advanced Features -->
     <section id="advanced">
-        <h2>🔧 Advanced Features & Customization</h2>
+        <h2>🔧 Advanced AI Features</h2>
         
-        <h3>Version Control & History</h3>
-        <p>One of GitHub's superpowers is that it saves every version of your invitation. You can:</p>
-        <ul>
-            <li><strong>View all past versions:</strong> Click "History" to see every change you've made</li>
-            <li><strong>Revert to an old version:</strong> If you mess something up, you can go back to any previous version</li>
-            <li><strong>Compare versions:</strong> See exactly what changed between any two versions</li>
-            <li><strong>Track who made changes:</strong> If multiple people are editing, you can see who changed what</li>
-        </ul>
-
-        <h3>Collaboration & Multiple Editors</h3>
-        <p>Want your partner, wedding planner, or a friend to help edit? You can add collaborators:</p>
-        <ol>
-            <li>Go to your repository's Settings</li>
-            <li>Click "Collaborators" in the left menu</li>
-            <li>Click "Add people"</li>
-            <li>Enter their GitHub username or email</li>
-            <li>They'll get an invitation to collaborate</li>
-        </ol>
-
-        <h3>Customizing Colors & Fonts</h3>
-        <p>Your invitation comes pre-styled, but you can customize the look by editing the CSS variables at the top of the file:</p>
-        
-        <pre><code>:root {
-    --primary: #1a1a1a;      /* Main dark color */
-    --secondary: #d4af37;    /* Gold accent color */
-    --accent: #8b7355;       /* Brown accent */
-    --bg: #fafaf8;           /* Background color */
-    --text: #2c2c2c;         /* Text color */
-    --light: #f5f5f3;        /* Light background */
-}</code></pre>
-
-        <p>Change the hex codes to your wedding colors. Use a color picker tool to find hex codes.</p>
-
-        <h3>Analytics & Tracking</h3>
-        <p>Want to know how many people are visiting your invitation? Add Google Analytics or similar:</p>
-        <ol>
-            <li>Sign up for Google Analytics (free)</li>
-            <li>Get your tracking code</li>
-            <li>Paste it into your <code>index.html</code> file before the closing <code>&lt;/body&gt;</code> tag</li>
-            <li>You'll see visitor data in your Analytics dashboard</li>
-        </ol>
-
-        <h3>Password Protection (Advanced)</h3>
-        <p>If you want to password-protect your invitation:</p>
-        <ul>
-            <li>Use a service like Cloudflare Pages (free) with access controls</li>
-            <li>Or add a simple JavaScript password prompt (less secure, but works)</li>
-            <li>Or host on a private server instead of GitHub Pages</li>
-        </ul>
-        <div class="info-box">
-            💡 Most couples don't need password protection. Your invitation URL is hard to guess, and only people you share it with will find it.
-        </div>
-
-        <h3>RSVP Integration</h3>
-        <p>The RSVP form in your invitation currently logs to the browser console. To make it functional:</p>
-        
-        <h4>Option 1: Google Forms (Easiest)</h4>
-        <ul>
-            <li>Create a Google Form with your RSVP questions</li>
-            <li>Link to it from your invitation</li>
-            <li>Responses go to a Google Sheet</li>
-        </ul>
-
-        <h4>Option 2: Email Integration</h4>
-        <ul>
-            <li>Use a service like Formspree or EmailJS (free tiers available)</li>
-            <li>RSVP submissions get emailed to you</li>
-            <li>No backend server needed</li>
-        </ul>
-
-        <h4>Option 3: Full Backend (Most Advanced)</h4>
-        <ul>
-            <li>Set up a backend service (Airtable, Firebase, etc.)</li>
-            <li>Modify the JavaScript to send data to your backend</li>
-            <li>Requires programming knowledge</li>
-        </ul>
-
-        <h3>Adding Photos & Media</h3>
-        <p>To add your own photos to replace the placeholders:</p>
-        <ol>
-            <li>Upload photos to your GitHub repository (click "Add file" → "Upload files")</li>
-            <li>Or use a free image hosting service like Imgur</li>
-            <li>In your HTML, find the gallery section</li>
-            <li>Replace the placeholder emoji with an <code>&lt;img&gt;</code> tag pointing to your photo</li>
-        </ol>
-
-        <pre><code>&lt;!-- Replace this: --&gt;
-&lt;div class="gallery-placeholder"&gt;📸&lt;/div&gt;
-
-&lt;!-- With this: --&gt;
-&lt;img src="your-photo.jpg" alt="Description" style="width:100%; height:100%; object-fit:cover;"&gt;</code></pre>
-
-        <h3>Technical Architecture</h3>
-        <p>For developers and technical users, here's what's under the hood:</p>
+        <h3>Intelligent Automation Systems</h3>
         
         <div class="feature-grid">
             <div class="feature-card">
-                <span class="feature-icon">📄</span>
-                <h4>Single HTML File</h4>
-                <p>Everything in one file: HTML structure, CSS styling, JavaScript functionality. Typically 30-80KB total.</p>
+                <span class="feature-icon">🔄</span>
+                <h4>Smart Updates</h4>
+                <p>Change one detail and AI automatically updates all related sections and notifies relevant guests.</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">📊</span>
+                <h4>Predictive Analytics</h4>
+                <p>AI analyzes RSVP patterns to predict attendance, optimize arrangements, and identify potential issues.</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">🤖</span>
+                <h4>Chatbot Integration</h4>
+                <p>AI-powered guest support that answers questions, provides information, and handles basic requests.</p>
             </div>
             <div class="feature-card">
                 <span class="feature-icon">🎨</span>
-                <h4>Embedded CSS</h4>
-                <p>All styles in a <code>&lt;style&gt;</code> tag. Uses CSS Grid, Flexbox, CSS Variables, and modern features.</p>
+                <h4>Dynamic Personalization</h4>
+                <p>AI customizes content based on guest preferences, history, and relationship to the event.</p>
             </div>
-            <div class="feature-card">
-                <span class="feature-icon">⚡</span>
-                <h4>Vanilla JavaScript</h4>
-                <p>No frameworks, no dependencies. Pure JS for countdown, form validation, animations.</p>
+        </div>
+
+        <h3>AI-Powered Workflow Examples</h3>
+        
+        <div class="steps">
+            <div class="step">
+                <h3>Intelligent Guest Management <span class="ai-badge">AI</span></h3>
+                <div class="step-detail">
+                    <strong>Smart Coordination:</strong> AI analyzes guest lists, relationships, preferences to optimize seating, communications, and experiences.
+                </div>
+                <h4>AI Capabilities:</h4>
+                <ul>
+                    <li>Automatic guest categorization and grouping</li>
+                    <li>Relationship mapping and seating optimization</li>
+                    <li>Personalized communication timing and content</li>
+                    <li>Dietary preference and accommodation management</li>
+                </ul>
             </div>
-            <div class="feature-card">
-                <span class="feature-icon">📋</span>
-                <h4>YAML Metadata</h4>
-                <p>Machine-readable metadata in HTML comments for Untitled Format™ compliance.</p>
+
+            <div class="step">
+                <h3>Automated Follow-up Systems <span class="ai-badge">AI</span></h3>
+                <div class="step-detail">
+                    <strong>Smart Communication:</strong> AI manages entire communication workflows from save-the-dates to post-event thank you messages.
+                </div>
+                <h4>AI Workflow:</h4>
+                <ul>
+                    <li>Automated reminder sequences</li>
+                    <li>Personalized follow-up messages</li>
+                    <li>Intelligent timing based on guest behavior</li>
+                    <li>Post-event feedback and thank you automation</li>
+                </ul>
             </div>
-            <div class="feature-card">
-                <span class="feature-icon">♿</span>
-                <h4>Semantic HTML5</h4>
-                <p>Proper semantic structure: <code>&lt;section&gt;</code>, <code>&lt;article&gt;</code>, <code>&lt;nav&gt;</code>, ARIA labels.</p>
+
+            <div class="step">
+                <h3>Dynamic Content Optimization <span class="ai-badge">AI</span></h3>
+                <div class="step-detail">
+                    <strong>Adaptive Content:</strong> AI continuously optimizes invitation content based on engagement metrics and guest interactions.
+                </div>
+                <h4>Optimization Features:</h4>
+                <ul>
+                    <li>A/B testing of content and layouts</li>
+                    <li>Engagement-based content prioritization</li>
+                    <li>Personalized content recommendations</li>
+                    <li>Automated content refresh and updates</li>
+                </ul>
             </div>
-            <div class="feature-card">
-                <span class="feature-icon">📱</span>
-                <h4>Responsive Design</h4>
-                <p>Mobile-first CSS with media queries. Works on screens from 320px to 4K.</p>
+        </div>
+
+        <h3>Integration Ecosystem</h3>
+        
+        <div class="workflow-grid">
+            <div class="workflow-step">
+                <h4>Calendar Systems</h4>
+                <p>Google Calendar, Outlook, Apple Calendar, iCal</p>
+            </div>
+            <div class="workflow-step">
+                <h4>Payment Processors</h4>
+                <p>Stripe, PayPal, Square, Venmo integration</p>
+            </div>
+            <div class="workflow-step">
+                <h4>Communication Platforms</h4>
+                <p>Email, SMS, WhatsApp, Slack automation</p>
+            </div>
+            <div class="workflow-step">
+                <h4>Analytics & Tracking</h4>
+                <p>Google Analytics, custom dashboards, ROI tracking</p>
+            </div>
+            <div class="workflow-step">
+                <h4>CRM Systems</h4>
+                <p>Salesforce, HubSpot, custom database integration</p>
+            </div>
+            <div class="workflow-step">
+                <h4>Social Media</h4>
+                <p>Auto-posting, engagement tracking, promotion</p>
             </div>
         </div>
     </section>
@@ -1062,276 +1127,90 @@ After:  Thornton Estate&lt;br&gt;123 Vineyard Road</code></pre>
         <div class="faq">
             <div class="faq-item">
                 <div class="faq-question">
-                    <span>Do I need to know how to code?</span>
+                    <span>How accurate is the AI data extraction?</span>
                     <span class="faq-toggle">+</span>
                 </div>
                 <div class="faq-answer">
                     <div class="faq-answer-content">
-                        Not at all! The setup process requires zero coding knowledge. When you want to update your invitation, you'll just be changing text (like "5:00 PM" to "6:00 PM"). It's similar to editing a document. Sadie handles all the design and technical setup—you just need to make simple text changes when needed.
+                        Our AI achieves 95%+ accuracy for structured data like dates, times, and locations. For complex context and relationships, we provide easy editing tools to refine the output. The system learns from corrections and improves over time.
                     </div>
                 </div>
             </div>
 
             <div class="faq-item">
                 <div class="faq-question">
-                    <span>What if I mess something up while editing?</span>
+                    <span>What file types can I upload for processing?</span>
                     <span class="faq-toggle">+</span>
                 </div>
                 <div class="faq-answer">
                     <div class="faq-answer-content">
-                        GitHub saves every version of your file automatically. If you accidentally break something, you can easily revert to a previous version. Click on your file, then "History," and you can restore any past version with one click. It's impossible to permanently lose your invitation.
+                        We support: PDF, DOC/DOCX, TXT, JPG/PNG (for text extraction), and direct text input from websites, emails, and chat applications. For images, we use advanced OCR to extract text from screenshots and photos of documents.
                     </div>
                 </div>
             </div>
 
             <div class="faq-item">
                 <div class="faq-question">
-                    <span>How long does the invitation stay online?</span>
+                    <span>Can I use this for corporate events with sensitive information?</span>
                     <span class="faq-toggle">+</span>
                 </div>
                 <div class="faq-answer">
                     <div class="faq-answer-content">
-                        Forever. GitHub Pages is a free service that GitHub commits to maintaining indefinitely. Your invitation will stay online as long as GitHub exists (they've been around since 2008 and are owned by Microsoft). Even if you want to take it down later, you can—but there's no expiration date and no ongoing costs.
+                        Yes! We offer enterprise-grade security options including private hosting, data encryption, and compliance with GDPR/CCPA. All AI processing can be done on-premises for maximum security when required.
                     </div>
                 </div>
             </div>
 
             <div class="faq-item">
                 <div class="faq-question">
-                    <span>Can I use my own domain name?</span>
+                    <span>How does the AI handle different languages and cultures?</span>
                     <span class="faq-toggle">+</span>
                 </div>
                 <div class="faq-answer">
                     <div class="faq-answer-content">
-                        Yes! You can connect any domain you purchase (like younames.wedding or yourwedding.com) to your GitHub Pages site. Domains typically cost $10-15 per year from registrars like Namecheap or Google Domains. The guide includes instructions for connecting a custom domain, but the free github.io URL works perfectly if you prefer not to buy one.
+                        Our AI supports multiple languages and understands cultural context for events. It adapts templates, formatting, and content style based on the detected language and cultural cues in your source material.
                     </div>
                 </div>
             </div>
 
             <div class="faq-item">
                 <div class="faq-question">
-                    <span>What happens after the wedding?</span>
+                    <span>What happens if the AI makes a mistake in extraction?</span>
                     <span class="faq-toggle">+</span>
                 </div>
                 <div class="faq-answer">
                     <div class="faq-answer-content">
-                        Your invitation becomes a beautiful digital keepsake! Many couples add their professional wedding photos, transform it into a wedding photo gallery, add thank you messages, or keep it as a permanent archive of their celebration. Since you own it forever, you can keep updating it or leave it as-is—completely up to you.
+                        You can easily correct any mistakes during the review stage. The system learns from corrections and applies them to future processing. We also provide manual override options for complete control.
                     </div>
                 </div>
             </div>
 
             <div class="faq-item">
                 <div class="faq-question">
-                    <span>Can multiple people edit the invitation?</span>
+                    <span>Can I integrate with my existing event management tools?</span>
                     <span class="faq-toggle">+</span>
                 </div>
                 <div class="faq-answer">
                     <div class="faq-answer-content">
-                        Yes! You can add collaborators to your GitHub repository so your partner, wedding planner, or anyone else can make updates. Just go to Settings → Collaborators and add their GitHub username or email. Each person who edits needs their own free GitHub account.
-                    </div>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-question">
-                    <span>Is the invitation mobile-friendly?</span>
-                    <span class="faq-toggle">+</span>
-                </div>
-                <div class="faq-answer">
-                    <div class="faq-answer-content">
-                        Absolutely! Every Living Invitation is designed mobile-first and looks beautiful on phones, tablets, and computers. The layout automatically adapts to different screen sizes. Most of your guests will view it on their phones, so mobile experience is a top priority.
-                    </div>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-question">
-                    <span>Can I password-protect my invitation?</span>
-                    <span class="faq-toggle">+</span>
-                </div>
-                <div class="faq-answer">
-                    <div class="faq-answer-content">
-                        GitHub Pages doesn't include native password protection, but there are workarounds: you can add a simple JavaScript password prompt, use Cloudflare Pages instead (also free, with access controls), or host on a private server. Most couples don't need this—your invitation URL is essentially impossible to guess unless you share it.
-                    </div>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-question">
-                    <span>How do I collect RSVPs?</span>
-                    <span class="faq-toggle">+</span>
-                </div>
-                <div class="faq-answer">
-                    <div class="faq-answer-content">
-                        Your invitation includes an RSVP form interface. You can connect it to: a Google Form (easiest), an email service like Formspree (responses emailed to you), or a backend database like Airtable or Firebase. The Advanced section of this guide covers all options. Many couples also just include an email address or phone number for RSVPs.
-                    </div>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-question">
-                    <span>What if GitHub shuts down?</span>
-                    <span class="faq-toggle">+</span>
-                </div>
-                <div class="faq-answer">
-                    <div class="faq-answer-content">
-                        GitHub is owned by Microsoft and is one of the most important platforms in the tech world—it's highly unlikely to shut down. But even if it did, you own the file completely. You can download it anytime and host it anywhere else: your own server, Netlify, Vercel, or even open it directly from your computer. You're never locked in.
-                    </div>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-question">
-                    <span>Can I see analytics on who visits?</span>
-                    <span class="faq-toggle">+</span>
-                </div>
-                <div class="faq-answer">
-                    <div class="faq-answer-content">
-                        Yes! You can add Google Analytics (free) or similar tracking to see how many people visit, which pages they view, and other metrics. The Advanced section has instructions. This is completely optional—some couples like the data, others prefer not to track.
-                    </div>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-question">
-                    <span>What's included in the Sadie Bosworth Atelier service?</span>
-                    <span class="faq-toggle">+</span>
-                </div>
-                <div class="faq-answer">
-                    <div class="faq-answer-content">
-                        Sadie provides: custom design tailored to your wedding aesthetic, the complete HTML file with all features, GitHub setup assistance, training on how to make updates, and ongoing email support. You'll have a consultation to discuss your vision, receive mockups for approval, and get one-on-one training on managing your invitation.
+                        Absolutely! We provide API access and pre-built integrations for popular event platforms, CRM systems, payment processors, and communication tools. Custom integrations can be developed for specific needs.
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-
-    <!-- Reflexive Statement -->
-    <section id="reflexive" style="background: var(--light);">
-        <h2>🔍 Reflexive Statement</h2>
-        
-        <h3>On Design Philosophy</h3>
-        <p>This system exists to empower couples with full ownership and control over their wedding invitations, resisting the subscription-based, vendor lock-in model that dominates the wedding industry. We believe that wedding memories should be permanent, accessible, and owned by the couple—not rented from a platform that could disappear.</p>
-
-        <h3>On AI Collaboration</h3>
-        <p>This guide was co-created through human-AI collaboration. The human (Sadie Bosworth Atelier) provided strategic direction, brand understanding, client needs, and wedding industry expertise. The AI (Claude Sonnet 4.5) provided structural documentation, technical explanations, and comprehensive guide formatting.</p>
-
-        <h3>Known Limitations</h3>
-        <ul>
-            <li><strong>Technical Comfort Required:</strong> While we've made this as simple as possible, users must be comfortable with basic computer tasks (creating accounts, uploading files). Those with extreme tech anxiety may still find this challenging.</li>
-            <li><strong>GitHub Dependency:</strong> The free hosting relies on GitHub Pages continuing to offer free service. While highly unlikely to change, it's a dependency outside our control.</li>
-            <li><strong>Learning Curve for Edits:</strong> Making simple text changes is easy, but design changes (colors, layouts, adding features) requires HTML/CSS knowledge.</li>
-            <li><strong>RSVP Integration:</strong> The RSVP form requires additional setup with third-party services. It's not fully automatic out-of-the-box.</li>
-            <li><strong>Initial Time Investment:</strong> The 20-30 minute setup time is a barrier compared to template services where you just enter information into forms.</li>
-        </ul>
-
-        <h3>What This System Cannot Solve</h3>
-        <ul>
-            <li>Print invitation design and fulfillment (this is digital-only)</li>
-            <li>Guest list management and tracking (requires additional tools)</li>
-            <li>Automated RSVP collection without third-party integration</li>
-            <li>Real-time collaborative editing (GitHub requires sequential edits)</li>
-            <li>The emotional labor of wedding planning itself</li>
-        </ul>
-
-        <h3>Potential Biases</h3>
-        <ul>
-            <li><strong>Technical Optimism:</strong> This guide assumes most couples can learn basic GitHub operations. Reality may vary by demographic and technical comfort level.</li>
-            <li><strong>Design Aesthetic:</strong> Living Invitations favor minimalist, editorial aesthetics. Couples wanting maximalist or highly ornate designs may find the format limiting.</li>
-            <li><strong>Western-Centric:</strong> The examples and language assume Western wedding traditions and may not fully address cultural variations in wedding celebrations globally.</li>
-            <li><strong>Digital Access:</strong> Assumes guests have reliable internet and devices to view digital invitations. May not work for elderly guests or those with limited connectivity.</li>
-        </ul>
-    </section>
-
-    <!-- Metadata -->
-    <section id="metadata">
-        <h2>📋 Document Metadata</h2>
-        
-        <div class="comparison-table">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Property</th>
-                        <th>Value</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>System</td>
-                        <td>Living Invitations™ v1.0.0</td>
-                    </tr>
-                    <tr>
-                        <td>Format</td>
-                        <td>Untitled Format™ v1.2.0</td>
-                    </tr>
-                    <tr>
-                        <td>Document Version</td>
-                        <td>1.0.0</td>
-                    </tr>
-                    <tr>
-                        <td>Created</td>
-                        <td>2025-10-31</td>
-                    </tr>
-                    <tr>
-                        <td>Last Updated</td>
-                        <td>2025-10-31</td>
-                    </tr>
-                    <tr>
-                        <td>License</td>
-                        <td>Commercial - Sadie Bosworth Atelier</td>
-                    </tr>
-                    <tr>
-                        <td>Designer</td>
-                        <td>Sadie Bosworth Atelier</td>
-                    </tr>
-                    <tr>
-                        <td>File Size</td>
-                        <td>~40KB</td>
-                    </tr>
-                    <tr>
-                        <td>Load Time</td>
-                        <td>&lt;100ms</td>
-                    </tr>
-                    <tr>
-                        <td>Standards</td>
-                        <td>HTML5, CSS3, ES6 JavaScript</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <h3>Citation Examples</h3>
-        
-        <h4>APA 7th Edition:</h4>
-        <pre><code>Sadie Bosworth Atelier. (2025). Living Invitations Complete Setup & Operations Guide (Version 1.0.0). https://sadiebosworthatelier.com/living-invitations-guide</code></pre>
-
-        <h4>BibTeX:</h4>
-        <pre><code>@techreport{livinginvitations2025,
-  title = {Living Invitations Complete Setup & Operations Guide},
-  author = {{Sadie Bosworth Atelier}},
-  year = {2025},
-  version = {1.0.0},
-  url = {https://sadiebosworthatelier.com/living-invitations-guide}
-}</code></pre>
-
-        <h3>Version History</h3>
-        <ul>
-            <li><strong>v1.0.0</strong> (2025-10-31) - Initial release of comprehensive guide</li>
-        </ul>
     </section>
 
     <!-- Footer -->
     <footer>
-        <h3>Sadie Bosworth Atelier</h3>
-        <p>Bridal wear for the daring and unconventional</p>
+        <h3>Brother's Studio</h3>
+        <p>AI-powered event solutions for the modern world</p>
         <p style="margin-top: 2rem;">
-            <a href="https://sadiebosworthatelier.com">Visit Atelier</a> • 
-            <a href="mailto:hello@sadiebosworthatelier.com">Contact</a>
+            <a href="https://brothersstudio.com">Visit Studio</a> • 
+            <a href="mailto:hello@brothersstudio.com">Contact</a>
         </p>
         <p style="margin-top: 2rem; font-size: 0.9rem; opacity: 0.7;">
-            Built with Untitled Format™ v1.2.0 | Living Invitations™ System<br>
-            Single HTML file | ~40KB | Loads in &lt;100ms<br>
-            © 2025 Sadie Bosworth Atelier | All Rights Reserved
+            Built with Untitled Format™ v1.2.0 | Living Invitations™ v2.0.0<br>
+            AI-Powered Event Platform | Universal Invitation System<br>
+            © 2025 Brother's Studio | All Rights Reserved
         </p>
     </footer>
 

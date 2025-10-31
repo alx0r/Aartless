@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Living Invitations - Quick Reference</title>
+    
+    <!-- YAML Metadata
+    ---
+    title: "Living Invitations Quick Reference Card"
+    type: "Quick Reference Guide"
+    format: "Untitled Format™ v1.2.0"
+    created: "2025-10-31"
+    version: "1.0.0"
+    license: "Commercial - Sadie Bosworth Atelier"
+    purpose: "One-page reference for common tasks"
+    ---
+    -->
+    
+    <style>
+        :root {
+            --primary: #1a1a1a;
+            --secondary: #d4af37;
+            --accent: #8b7355;
+            --bg: #fafaf8;
+            --text: #2c2c2c;
+            --light: #f5f5f3;
+            --success: #4a9d5f;
+            --warning: #e67e22;
+            --serif: 'Cormorant Garamond', Georgia, serif;
+            --sans: 'Montserrat', -apple-system, sans-serif;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Montserrat:wght@400;600&display=swap');
+        
+        body {
+            font-family: var(--sans);
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.5;
+            padding: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, #2d2d2d 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        h1 {
+            font-family: var(--serif);
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .subtitle {
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+        
+        .content {
+            padding: 2rem;
+        }
+        
+        .section {
+            margin-bottom: 2rem;
+        }
+        
+        h2 {
+            font-family: var(--serif);
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--secondary);
+        }
+        
+        h3 {
+            font-size: 1.2rem;
+            color: var(--accent);
+            margin: 1rem 0 0.5rem;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+        
+        .box {
+            background: var(--light);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--secondary);
+        }
+        
+        .box h3 {
+            margin-top: 0;
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+        
+        .steps {
+            list-style: none;
+            counter-reset: step;
+        }
+        
+        .steps li {
+            counter-increment: step;
+            margin-bottom: 0.75rem;
+            padding-left: 2rem;
+            position: relative;
+        }
+        
+        .steps li::before {
+            content: counter(step);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: var(--secondary);
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        
+        .command {
+            background: var(--primary);
+            color: white;
+            padding: 0.75rem;
+            border-radius: 5px;
+            font-family: monospace;
+            font-size: 0.9rem;
+            margin: 0.5rem 0;
+            overflow-x: auto;
+        }
+        
+        .emergency {
+            background: #fff3cd;
+            border: 2px solid var(--warning);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        
+        .emergency strong {
+            color: var(--warning);
+            font-size: 1.1rem;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+        
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid var(--light);
+        }
+        
+        th {
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+        }
+        
+        tr:hover {
+            background: var(--light);
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 1.5rem;
+            background: var(--light);
+            font-size: 0.9rem;
+            color: var(--accent);
+        }
+        
+        .icon {
+            font-size: 1.5rem;
+            margin-right: 0.5rem;
+        }
+        
+        @media print {
+            body {
+                padding: 0;
+            }
+            
+            .card {
+                box-shadow: none;
+            }
+            
+            .section {
+                page-break-inside: avoid;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+            
+            .content {
+                padding: 1.5rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <header>
+            <h1>Living Invitations™</h1>
+            <p class="subtitle">Quick Reference Card</p>
+        </header>
+        
+        <div class="content">
+            <div class="emergency">
+                <strong>⚡ Your Website URL:</strong> https://[your-username].github.io/[repository-name]/<br>
+                <small>Bookmark this! This is where your invitation lives.</small>
+            </div>
+
+            <!-- Quick Start -->
+            <div class="section">
+                <h2><span class="icon">🚀</span>30-Second Reminder: How to Edit</h2>
+                <ol class="steps">
+                    <li>Go to <strong>github.com</strong> and log in</li>
+                    <li>Click your repository name (e.g., "wedding")</li>
+                    <li>Click <strong>index.html</strong></li>
+                    <li>Click the <strong>pencil icon (✏️)</strong> to edit</li>
+                    <li>Find your text with <strong>Ctrl+F</strong> (Windows) or <strong>Cmd+F</strong> (Mac)</li>
+                    <li>Make your changes</li>
+                    <li>Scroll down and click <strong>"Commit changes"</strong></li>
+                    <li>Wait 1-2 minutes, refresh your website</li>
+                </ol>
+            </div>
+
+            <!-- Common Tasks -->
+            <div class="section">
+                <h2><span class="icon">✏️</span>Common Editing Tasks</h2>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Task</th>
+                            <th>What to Search For</th>
+                            <th>What to Change</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Change time</td>
+                            <td>Current time (e.g., "5:00 PM")</td>
+                            <td>Replace with new time</td>
+                        </tr>
+                        <tr>
+                            <td>Update address</td>
+                            <td>Venue name</td>
+                            <td>Replace address lines</td>
+                        </tr>
+                        <tr>
+                            <td>Change date</td>
+                            <td>Search "weddingDate"</td>
+                            <td>Update in YYYY-MM-DD format</td>
+                        </tr>
+                        <tr>
+                            <td>Add FAQ</td>
+                            <td>Find &lt;section id="faq"&gt;</td>
+                            <td>Copy existing FAQ block, modify text</td>
+                        </tr>
+                        <tr>
+                            <td>Update RSVP info</td>
+                            <td>Search "RSVP" or "email"</td>
+                            <td>Replace contact info</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Emergency Fixes -->
+            <div class="section">
+                <h2><span class="icon">🆘</span>Emergency: "I Broke Something!"</h2>
+                
+                <div class="grid">
+                    <div class="box">
+                        <h3>Undo Your Last Change</h3>
+                        <ol class="steps">
+                            <li>Go to your repository</li>
+                            <li>Click "History" or "commits"</li>
+                            <li>Find the change before yours</li>
+                            <li>Click "Revert" or "View"</li>
+                            <li>Copy that old version</li>
+                            <li>Edit index.html and paste</li>
+                        </ol>
+                    </div>
+                    
+                    <div class="box">
+                        <h3>Site Won't Load</h3>
+                        <ul>
+                            <li>Wait 2-3 minutes after editing</li>
+                            <li>Clear browser cache (Ctrl+Shift+R)</li>
+                            <li>Try incognito/private window</li>
+                            <li>Check Settings → Pages is enabled</li>
+                            <li>Verify file is named "index.html"</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- HTML Basics -->
+            <div class="section">
+                <h2><span class="icon">📝</span>HTML Quick Rules</h2>
+                
+                <div class="grid">
+                    <div class="box">
+                        <h3>✅ DO:</h3>
+                        <ul>
+                            <li>Change text between tags</li>
+                            <li>Update times, dates, addresses</li>
+                            <li>Copy entire blocks to duplicate</li>
+                            <li>Save often with clear descriptions</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="box">
+                        <h3>❌ DON'T:</h3>
+                        <ul>
+                            <li>Delete tags (&lt; &gt;)</li>
+                            <li>Remove quotes from attributes</li>
+                            <li>Change class names randomly</li>
+                            <li>Delete entire sections without backups</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Example Edits -->
+            <div class="section">
+                <h2><span class="icon">💡</span>Copy-Paste Examples</h2>
+                
+                <h3>Changing a Time</h3>
+                <div class="command">
+                    &lt;p&gt;&lt;strong&gt;Time:&lt;/strong&gt; 5:00 PM&lt;/p&gt;<br>
+                    <span style="color: var(--secondary);">↓ Change to ↓</span><br>
+                    &lt;p&gt;&lt;strong&gt;Time:&lt;/strong&gt; 6:30 PM&lt;/p&gt;
+                </div>
+
+                <h3>Adding a New FAQ</h3>
+                <div class="command">
+                    &lt;div class="faq-item"&gt;<br>
+                    &nbsp;&nbsp;&lt;div class="faq-question"&gt;<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&lt;span&gt;Your question here?&lt;/span&gt;<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&lt;span class="faq-toggle"&gt;+&lt;/span&gt;<br>
+                    &nbsp;&nbsp;&lt;/div&gt;<br>
+                    &nbsp;&nbsp;&lt;div class="faq-answer"&gt;<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="faq-answer-content"&gt;<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Your answer here.<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;<br>
+                    &nbsp;&nbsp;&lt;/div&gt;<br>
+                    &lt;/div&gt;
+                </div>
+
+                <h3>Updating Colors (Advanced)</h3>
+                <div class="command">
+                    Find this at the top of your file:<br>
+                    --primary: #1a1a1a; &nbsp;&nbsp;<span style="color: var(--secondary);">← Main dark color</span><br>
+                    --secondary: #d4af37; <span style="color: var(--secondary);">← Gold accent</span><br>
+                    --accent: #8b7355; &nbsp;&nbsp;&nbsp;<span style="color: var(--secondary);">← Brown accent</span>
+                </div>
+            </div>
+
+            <!-- Support -->
+            <div class="section">
+                <h2><span class="icon">📞</span>Need Help?</h2>
+                
+                <div class="grid">
+                    <div class="box">
+                        <h3>Sadie Bosworth Atelier</h3>
+                        <p><strong>Email:</strong> hello@sadiebosworthatelier.com</p>
+                        <p><strong>Support Hours:</strong> Available based on your package</p>
+                        <p><small>Include your GitHub username and describe what you're trying to do</small></p>
+                    </div>
+                    
+                    <div class="box">
+                        <h3>Resources</h3>
+                        <ul>
+                            <li><strong>Full Guide:</strong> Complete documentation</li>
+                            <li><strong>GitHub Help:</strong> docs.github.com</li>
+                            <li><strong>Color Picker:</strong> Use Google "color picker"</li>
+                            <li><strong>HTML Validator:</strong> validator.w3.org</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Tips -->
+            <div class="section">
+                <h2><span class="icon">💎</span>Pro Tips</h2>
+                
+                <div class="grid">
+                    <div class="box">
+                        <h3>Before Big Edits</h3>
+                        <ul>
+                            <li>Download a backup copy</li>
+                            <li>Note the current version</li>
+                            <li>Edit one thing at a time</li>
+                            <li>Test after each change</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="box">
+                        <h3>Update Schedule</h3>
+                        <ul>
+                            <li>Initial: Add all basic details</li>
+                            <li>Monthly: Add new info as it comes</li>
+                            <li>2 weeks before: Finalize everything</li>
+                            <li>After: Add wedding photos!</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="box">
+                        <h3>Share Your URL</h3>
+                        <ul>
+                            <li>Add to physical invitations</li>
+                            <li>Share via text/email</li>
+                            <li>Post on social media</li>
+                            <li>QR code on save-the-dates</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="box">
+                        <h3>Security Notes</h3>
+                        <ul>
+                            <li>URL is "secret" - not indexed by Google</li>
+                            <li>Only people you share it with will find it</li>
+                            <li>Can add password protection (Advanced)</li>
+                            <li>Download anytime for backup</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p><strong>Living Invitations™</strong> by Sadie Bosworth Atelier</p>
+            <p>Built with Untitled Format™ v1.2.0</p>
+            <p style="margin-top: 0.5rem; font-size: 0.85rem;">
+                Single HTML file • Loads in &lt;100ms • Yours forever<br>
+                © 2025 Sadie Bosworth Atelier
+            </p>
+        </div>
+    </div>
+    
+    <div style="text-align: center; margin-top: 2rem; color: var(--accent);">
+        <p><small>💡 Print this page for easy reference | Press Ctrl+P (Windows) or Cmd+P (Mac)</small></p>
+    </div>
+</body>
+</html>

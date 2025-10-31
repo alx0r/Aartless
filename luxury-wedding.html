@@ -1,0 +1,1173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Isabella & Maximilian | June 15, 2026</title>
+    
+    <!-- YAML Metadata for Untitled Format™
+    ---
+    title: "Isabella & Maximilian Wedding Invitation"
+    couple: "Isabella Chen & Maximilian Thornton"
+    date: "2026-06-15"
+    version: "1.3.0"
+    created: "2025-10-31"
+    format: "Untitled Format™ Living Invitation"
+    license: "Private - All Rights Reserved"
+    designer: "Sadie Bosworth Atelier"
+    tags: ["wedding", "luxury", "editorial", "destination"]
+    venue: "Villa Aurelia, Rome, Italy"
+    ---
+    -->
+    
+    <style>
+        :root {
+            --primary: #1a1a1a;
+            --secondary: #d4af37;
+            --accent: #8b7355;
+            --bg: #fafaf8;
+            --text: #2c2c2c;
+            --light: #f5f5f3;
+            --serif: 'Cormorant Garamond', Georgia, serif;
+            --sans: 'Montserrat', -apple-system, sans-serif;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Montserrat:wght@300;400;600&display=swap');
+        
+        body {
+            font-family: var(--sans);
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Sticky Navigation */
+        nav {
+            position: sticky;
+            top: 0;
+            background: rgba(250, 250, 248, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            z-index: 1000;
+            padding: 1rem 2rem;
+            transition: all 0.3s ease;
+        }
+        
+        nav.scrolled {
+            box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        nav a {
+            color: var(--text);
+            text-decoration: none;
+            font-size: 0.85rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            font-weight: 400;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--secondary);
+            transition: width 0.3s;
+        }
+        
+        nav a:hover::after {
+            width: 100%;
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(135deg, #f5f5f3 0%, #fafaf8 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(212, 175, 55, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(139, 115, 85, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 1.5s ease;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .couple-names {
+            font-family: var(--serif);
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 300;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+        
+        .ampersand {
+            color: var(--secondary);
+            font-size: 1.2em;
+            margin: 0 0.3em;
+        }
+        
+        .event-date {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 3rem;
+        }
+        
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+        
+        /* Countdown Timer */
+        .countdown {
+            background: var(--light);
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+        
+        .countdown h2 {
+            font-family: var(--serif);
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: var(--primary);
+        }
+        
+        .timer {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .time-unit {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            min-width: 120px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+        }
+        
+        .time-number {
+            font-size: 3rem;
+            font-weight: 600;
+            color: var(--secondary);
+            display: block;
+        }
+        
+        .time-label {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent);
+        }
+        
+        /* Section Styles */
+        section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 6rem 2rem;
+        }
+        
+        h2 {
+            font-family: var(--serif);
+            font-size: clamp(2rem, 4vw, 3rem);
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--primary);
+            position: relative;
+        }
+        
+        h2::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 2px;
+            background: var(--secondary);
+            margin: 1rem auto 0;
+        }
+        
+        /* Event Details */
+        .event-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+        
+        .event-card {
+            background: white;
+            padding: 3rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .event-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 40px rgba(0,0,0,0.12);
+        }
+        
+        .event-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .event-card h3 {
+            font-family: var(--serif);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        .event-card p {
+            color: var(--text);
+            line-height: 1.8;
+        }
+        
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--secondary);
+            transform: translateX(-50%);
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 3rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .timeline-item:nth-child(odd) {
+            flex-direction: row-reverse;
+        }
+        
+        .timeline-content {
+            width: 45%;
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        
+        .timeline-marker {
+            position: absolute;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            background: var(--secondary);
+            border: 4px solid var(--bg);
+            border-radius: 50%;
+            transform: translateX(-50%);
+            z-index: 1;
+        }
+        
+        .timeline-time {
+            font-weight: 600;
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Photo Gallery */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .gallery-item {
+            position: relative;
+            aspect-ratio: 4/5;
+            overflow: hidden;
+            border-radius: 10px;
+            cursor: pointer;
+            background: var(--light);
+        }
+        
+        .gallery-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--accent);
+            transition: transform 0.3s;
+        }
+        
+        .gallery-item:hover .gallery-placeholder {
+            transform: scale(1.05);
+        }
+        
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            color: white;
+            padding: 3rem 1.5rem 1.5rem;
+            transform: translateY(100%);
+            transition: transform 0.3s;
+        }
+        
+        .gallery-item:hover .gallery-caption {
+            transform: translateY(0);
+        }
+        
+        /* FAQ Accordion */
+        .faq {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .faq-item {
+            background: white;
+            margin-bottom: 1rem;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .faq-question {
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+        
+        .faq-question:hover {
+            background: var(--light);
+        }
+        
+        .faq-toggle {
+            color: var(--secondary);
+            font-size: 1.5rem;
+            transition: transform 0.3s;
+        }
+        
+        .faq-item.active .faq-toggle {
+            transform: rotate(45deg);
+        }
+        
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        
+        .faq-answer-content {
+            padding: 0 1.5rem 1.5rem;
+            color: var(--text);
+            line-height: 1.8;
+        }
+        
+        /* RSVP Form */
+        .rsvp-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 3rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.08);
+        }
+        
+        .form-group {
+            margin-bottom: 2rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        input[type="text"],
+        input[type="email"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--light);
+            border-radius: 5px;
+            font-family: var(--sans);
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: var(--secondary);
+        }
+        
+        .radio-group {
+            display: flex;
+            gap: 2rem;
+            margin-top: 0.5rem;
+        }
+        
+        .radio-label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 400;
+            cursor: pointer;
+        }
+        
+        input[type="radio"] {
+            width: 20px;
+            height: 20px;
+            accent-color: var(--secondary);
+        }
+        
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-top: 0.5rem;
+        }
+        
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 400;
+            cursor: pointer;
+        }
+        
+        input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--secondary);
+        }
+        
+        button {
+            width: 100%;
+            padding: 1.25rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-family: var(--sans);
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+        }
+        
+        button:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--primary);
+            color: white;
+            text-align: center;
+            padding: 3rem 2rem;
+        }
+        
+        footer p {
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+        
+        .footer-logo {
+            font-family: var(--serif);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav ul {
+                gap: 1rem;
+                font-size: 0.75rem;
+            }
+            
+            .timeline::before {
+                left: 0;
+            }
+            
+            .timeline-item,
+            .timeline-item:nth-child(odd) {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .timeline-content {
+                width: 100%;
+                margin-left: 2rem;
+            }
+            
+            .timeline-marker {
+                left: 0;
+            }
+            
+            .timer {
+                gap: 1rem;
+            }
+            
+            .time-unit {
+                min-width: 80px;
+                padding: 1.5rem 1rem;
+            }
+            
+            .time-number {
+                font-size: 2rem;
+            }
+        }
+        
+        /* Print Styles */
+        @media print {
+            nav, .countdown, .rsvp-form, footer {
+                display: none;
+            }
+            
+            section {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sticky Navigation -->
+    <nav id="navbar">
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#details">Details</a></li>
+            <li><a href="#schedule">Schedule</a></li>
+            <li><a href="#travel">Travel</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="#rsvp">RSVP</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1 class="couple-names">
+                Isabella <span class="ampersand">&</span> Maximilian
+            </h1>
+            <p class="event-date">June 15, 2026 • Rome, Italy</p>
+        </div>
+        <div class="scroll-indicator">↓</div>
+    </section>
+
+    <!-- Countdown Timer -->
+    <section class="countdown">
+        <h2>Counting Down</h2>
+        <div class="timer" id="countdown">
+            <div class="time-unit">
+                <span class="time-number" id="days">--</span>
+                <span class="time-label">Days</span>
+            </div>
+            <div class="time-unit">
+                <span class="time-number" id="hours">--</span>
+                <span class="time-label">Hours</span>
+            </div>
+            <div class="time-unit">
+                <span class="time-number" id="minutes">--</span>
+                <span class="time-label">Minutes</span>
+            </div>
+            <div class="time-unit">
+                <span class="time-number" id="seconds">--</span>
+                <span class="time-label">Seconds</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Event Details -->
+    <section id="details">
+        <h2>Celebration Details</h2>
+        <div class="event-grid">
+            <div class="event-card">
+                <div class="event-icon">🏛️</div>
+                <h3>Ceremony</h3>
+                <p><strong>Villa Aurelia</strong><br>
+                Via di Porta San Pancrazio<br>
+                Rome, Italy 00165<br><br>
+                <strong>Time:</strong> 5:00 PM<br>
+                Cocktail hour to follow</p>
+            </div>
+            
+            <div class="event-card">
+                <div class="event-icon">🥂</div>
+                <h3>Reception</h3>
+                <p><strong>Villa Aurelia Gardens</strong><br>
+                Same location<br><br>
+                <strong>Time:</strong> 7:30 PM<br>
+                Dinner, dancing, and celebration under the Roman stars</p>
+            </div>
+            
+            <div class="event-card">
+                <div class="event-icon">👔</div>
+                <h3>Dress Code</h3>
+                <p><strong>Black Tie Optional</strong><br><br>
+                Gentlemen: Tuxedo or dark suit<br>
+                Ladies: Floor-length gown<br><br>
+                The ceremony will be outdoors on grass—choose footwear accordingly</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline -->
+    <section id="schedule">
+        <h2>Weekend Schedule</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <div class="timeline-time">Friday, June 14 • 7:00 PM</div>
+                    <h3>Welcome Dinner</h3>
+                    <p>Intimate dinner for immediate family and wedding party at Ristorante Aroma with views of the Colosseum.</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <div class="timeline-time">Saturday, June 15 • 5:00 PM</div>
+                    <h3>Ceremony</h3>
+                    <p>Our wedding ceremony in the gardens of Villa Aurelia, followed by cocktail hour.</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <div class="timeline-time">Saturday, June 15 • 7:30 PM</div>
+                    <h3>Reception</h3>
+                    <p>Dinner and dancing under the stars. Transportation provided back to hotels.</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <div class="timeline-time">Sunday, June 16 • 11:00 AM</div>
+                    <h3>Farewell Brunch</h3>
+                    <p>Casual brunch at Hotel de Russie to say goodbye before departures.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Travel Information -->
+    <section id="travel">
+        <h2>Travel & Accommodations</h2>
+        <div class="event-grid">
+            <div class="event-card">
+                <div class="event-icon">✈️</div>
+                <h3>Getting There</h3>
+                <p><strong>Airport:</strong> Rome Fiumicino (FCO)<br>
+                30 minutes to city center<br><br>
+                We recommend arriving Thursday or Friday to enjoy the city before celebrations begin.</p>
+            </div>
+            
+            <div class="event-card">
+                <div class="event-icon">🏨</div>
+                <h3>Hotel Blocks</h3>
+                <p><strong>Hotel de Russie</strong><br>
+                Discounted rate: €350/night<br>
+                Book by May 1, 2026<br>
+                Code: CHENTHORNTON<br><br>
+                <strong>Hotel Raphael</strong><br>
+                Discounted rate: €280/night</p>
+            </div>
+            
+            <div class="event-card">
+                <div class="event-icon">🚗</div>
+                <h3>Transportation</h3>
+                <p><strong>To Wedding:</strong> Shuttles from both hotels departing at 4:00 PM<br><br>
+                <strong>From Wedding:</strong> Return shuttles at 11:30 PM and 1:00 AM</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Photo Gallery -->
+    <section id="gallery">
+        <h2>Our Story</h2>
+        <div class="gallery">
+            <div class="gallery-item">
+                <div class="gallery-placeholder">📸</div>
+                <div class="gallery-caption">Where we met<br>Brooklyn, 2019</div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-placeholder">📸</div>
+                <div class="gallery-caption">First trip together<br>Kyoto, Japan</div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-placeholder">📸</div>
+                <div class="gallery-caption">The proposal<br>Big Sur, California</div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-placeholder">📸</div>
+                <div class="gallery-caption">Engagement celebration<br>New York City</div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-placeholder">📸</div>
+                <div class="gallery-caption">Venue visit<br>Villa Aurelia, Rome</div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-placeholder">📸</div>
+                <div class="gallery-caption">Tasting menu<br>Planning our feast</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq">
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq">
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>What is the dress code?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Black tie optional. We want you to feel elegant and comfortable. The ceremony will be outdoors on grass, so stiletto heels may not be practical. Consider wedges or block heels for the ladies.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Can I bring children?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        We love your little ones, but we've decided to make this an adults-only celebration. We hope this gives you a chance to relax and enjoy the evening. Babysitting services can be arranged through the hotels if needed.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Will transportation be provided?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Yes! Shuttle buses will depart from both hotel blocks at 4:00 PM on Saturday. Return shuttles will run at 11:30 PM and 1:00 AM. If you're staying elsewhere, please arrange private transportation to Villa Aurelia.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>What language will the ceremony be in?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        The ceremony will be conducted in English with some Italian traditions woven throughout. Programs will be provided in both languages.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Are there dietary restrictions you can accommodate?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Absolutely. Please indicate any dietary restrictions or allergies in your RSVP. Our caterers can accommodate vegetarian, vegan, gluten-free, and other dietary needs.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>What's the weather like in Rome in June?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        June is beautiful in Rome, with temperatures typically ranging from 65-85°F (18-29°C). Evenings can be cooler, so consider bringing a light wrap or pashmina. The venue has both covered and open-air spaces.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Where are you registered?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Your presence is the greatest gift. If you wish to honor us with a gift, we've created a honeymoon fund to support our travels through Italy after the wedding. Details will be shared closer to the date.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Can I take photos during the ceremony?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        We're having an unplugged ceremony—no phones or cameras during the vows, please. Our professional photographers will capture everything. After the ceremony, feel free to take all the photos you'd like and share them using #ChenThornton2026
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RSVP Form -->
+    <section id="rsvp">
+        <h2>RSVP</h2>
+        <form class="rsvp-form" id="rsvpForm">
+            <div class="form-group">
+                <label for="fullName">Full Name *</label>
+                <input type="text" id="fullName" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email Address *</label>
+                <input type="email" id="email" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Will you be joining us? *</label>
+                <div class="radio-group">
+                    <label class="radio-label">
+                        <input type="radio" name="attendance" value="accepts" required>
+                        Joyfully accepts
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="attendance" value="declines" required>
+                        Regretfully declines
+                    </label>
+                </div>
+            </div>
+            
+            <div class="form-group" id="guestSection">
+                <label for="guestName">Plus One Name</label>
+                <input type="text" id="guestName" placeholder="If your invitation includes a guest">
+            </div>
+            
+            <div class="form-group" id="mealSection">
+                <label>Meal Preference *</label>
+                <div class="radio-group">
+                    <label class="radio-label">
+                        <input type="radio" name="meal" value="beef">
+                        Beef
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="meal" value="fish">
+                        Fish
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="meal" value="vegetarian">
+                        Vegetarian
+                    </label>
+                </div>
+            </div>
+            
+            <div class="form-group" id="dietarySection">
+                <label for="dietary">Dietary Restrictions or Allergies</label>
+                <input type="text" id="dietary" placeholder="Please let us know of any restrictions">
+            </div>
+            
+            <div class="form-group" id="eventsSection">
+                <label>Which events will you attend?</label>
+                <div class="checkbox-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" value="welcome">
+                        Welcome Dinner (Friday, June 14)
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" value="ceremony" checked>
+                        Wedding Ceremony & Reception (Saturday, June 15)
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" value="brunch">
+                        Farewell Brunch (Sunday, June 16)
+                    </label>
+                </div>
+            </div>
+            
+            <div class="form-group" id="songSection">
+                <label for="song">Song Request</label>
+                <input type="text" id="song" placeholder="What will get you on the dance floor?">
+            </div>
+            
+            <div class="form-group">
+                <label for="message">Message to the Couple</label>
+                <textarea id="message" rows="4" placeholder="We'd love to hear from you (optional)"></textarea>
+            </div>
+            
+            <button type="submit">Submit RSVP</button>
+        </form>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-logo">I & M</div>
+        <p>Living Invitation powered by Untitled Format™</p>
+        <p>Designed by Sadie Bosworth Atelier</p>
+        <p style="margin-top: 1rem; font-size: 0.8rem;">
+            Version 1.3.0 | Updated October 31, 2025<br>
+            Single HTML file | ~35KB | Loads in &lt;100ms
+        </p>
+    </footer>
+
+    <script>
+        // Countdown Timer
+        function updateCountdown() {
+            const weddingDate = new Date('2026-06-15T17:00:00+02:00').getTime();
+            const now = new Date().getTime();
+            const distance = weddingDate - now;
+            
+            if (distance > 0) {
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                
+                document.getElementById('days').textContent = days;
+                document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+                document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+                document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+            } else {
+                document.getElementById('countdown').innerHTML = '<p style="font-size: 2rem; color: var(--secondary);">It\'s our wedding day! 🎉</p>';
+            }
+        }
+        
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+        
+        // Sticky Navigation Effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+        
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // FAQ Accordion
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const item = question.parentElement;
+                const answer = item.querySelector('.faq-answer');
+                const isActive = item.classList.contains('active');
+                
+                // Close all other items
+                document.querySelectorAll('.faq-item').forEach(otherItem => {
+                    if (otherItem !== item) {
+                        otherItem.classList.remove('active');
+                        otherItem.querySelector('.faq-answer').style.maxHeight = null;
+                    }
+                });
+                
+                // Toggle current item
+                if (!isActive) {
+                    item.classList.add('active');
+                    answer.style.maxHeight = answer.scrollHeight + 'px';
+                } else {
+                    item.classList.remove('active');
+                    answer.style.maxHeight = null;
+                }
+            });
+        });
+        
+        // RSVP Form Logic
+        const form = document.getElementById('rsvpForm');
+        const attendanceRadios = document.querySelectorAll('input[name="attendance"]');
+        const conditionalSections = ['guestSection', 'mealSection', 'dietarySection', 'eventsSection', 'songSection'];
+        
+        attendanceRadios.forEach(radio => {
+            radio.addEventListener('change', (e) => {
+                const isAccepting = e.target.value === 'accepts';
+                conditionalSections.forEach(sectionId => {
+                    const section = document.getElementById(sectionId);
+                    if (isAccepting) {
+                        section.style.display = 'block';
+                        // Make meal preference required if accepting
+                        if (sectionId === 'mealSection') {
+                            document.querySelectorAll('input[name="meal"]').forEach(input => {
+                                input.required = true;
+                            });
+                        }
+                    } else {
+                        section.style.display = 'none';
+                        // Remove required attribute if declining
+                        if (sectionId === 'mealSection') {
+                            document.querySelectorAll('input[name="meal"]').forEach(input => {
+                                input.required = false;
+                            });
+                        }
+                    }
+                });
+            });
+        });
+        
+        // Initialize form state
+        conditionalSections.forEach(sectionId => {
+            document.getElementById(sectionId).style.display = 'none';
+        });
+        
+        // Form Submission
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const formData = {
+                name: document.getElementById('fullName').value,
+                email: document.getElementById('email').value,
+                attendance: document.querySelector('input[name="attendance"]:checked').value,
+                timestamp: new Date().toISOString()
+            };
+            
+            if (formData.attendance === 'accepts') {
+                formData.guestName = document.getElementById('guestName').value;
+                formData.meal = document.querySelector('input[name="meal"]:checked')?.value;
+                formData.dietary = document.getElementById('dietary').value;
+                formData.events = Array.from(document.querySelectorAll('input[type="checkbox"]:checked'))
+                    .map(cb => cb.value);
+                formData.song = document.getElementById('song').value;
+            }
+            
+            formData.message = document.getElementById('message').value;
+            
+            console.log('RSVP Submitted:', formData);
+            
+            // In production, this would send to a backend service
+            alert('Thank you for your RSVP! We\'ve received your response.\n\n(In production, this would be saved to a database or sent via email)');
+            
+            form.reset();
+        });
+        
+        // Gallery Image Placeholder Animation
+        document.querySelectorAll('.gallery-item').forEach((item, index) => {
+            item.style.animationDelay = `${index * 0.1}s`;
+        });
+        
+        // Intersection Observer for Fade-In Animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.event-card, .timeline-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SECURITY CLEARANCE VERIFICATION REQUIRED</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: #0a0a0a;
+            color: #00ff00;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .warning-box {
+            border: 3px solid #ff0000;
+            padding: 30px;
+            background: rgba(255, 0, 0, 0.05);
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 20px rgba(255, 0, 0, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(255, 0, 0, 0.6); }
+        }
+
+        h1 {
+            color: #ff0000;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: clamp(1.2rem, 4vw, 2rem);
+            letter-spacing: 2px;
+        }
+
+        .classified {
+            text-align: center;
+            color: #ffff00;
+            margin-bottom: 30px;
+            font-size: clamp(0.8rem, 2.5vw, 1rem);
+            letter-spacing: 3px;
+        }
+
+        .warning-text {
+            color: #00ff00;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+        }
+
+        .agreement {
+            background: rgba(0, 255, 0, 0.05);
+            border: 1px solid #00ff00;
+            padding: 20px;
+            margin: 20px 0;
+            max-height: 200px;
+            overflow-y: scroll;
+            font-size: clamp(0.7rem, 2vw, 0.9rem);
+        }
+
+        .agreement::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .agreement::-webkit-scrollbar-track {
+            background: #0a0a0a;
+        }
+
+        .agreement::-webkit-scrollbar-thumb {
+            background: #00ff00;
+        }
+
+        .question {
+            text-align: center;
+            font-size: clamp(1rem, 3vw, 1.3rem);
+            color: #ffff00;
+            margin: 30px 0 20px 0;
+            font-weight: bold;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 15px 40px;
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            border: 2px solid;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        #yesBtn {
+            background: #00ff00;
+            color: #000;
+            border-color: #00ff00;
+        }
+
+        #noBtn {
+            background: #ff0000;
+            color: #fff;
+            border-color: #ff0000;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px currentColor;
+        }
+
+        .chaos-text {
+            position: fixed;
+            font-size: clamp(1rem, 3vw, 2rem);
+            font-weight: bold;
+            pointer-events: none;
+            z-index: 1000;
+            white-space: nowrap;
+            animation: float 3s linear;
+        }
+
+        @keyframes float {
+            0% { opacity: 1; }
+            100% { opacity: 0; transform: translateY(-100px); }
+        }
+
+        .glitch {
+            animation: glitch 0.3s infinite;
+        }
+
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
+
+        .shake {
+            animation: shake 0.5s infinite;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-10px); }
+            20%, 40%, 60%, 80% { transform: translateX(10px); }
+        }
+
+        .final-button {
+            display: none;
+            margin: 40px auto;
+            padding: 20px 60px;
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
+            background: linear-gradient(45deg, #00ff00, #00aa00);
+            color: #000;
+            border: 3px solid #00ff00;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            animation: finalPulse 1s infinite;
+            text-decoration: none;
+            text-align: center;
+            max-width: 600px;
+            position: relative;
+            z-index: 100;
+        }
+
+        .config-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .config-box {
+            border: 2px solid #00ff00;
+            padding: 30px;
+            background: rgba(0, 255, 0, 0.03);
+        }
+
+        .config-box h2 {
+            color: #00ff00;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: clamp(1.3rem, 4vw, 1.8rem);
+        }
+
+        .config-subtitle {
+            text-align: center;
+            color: #ffff00;
+            margin-bottom: 30px;
+            font-size: clamp(0.8rem, 2vw, 1rem);
+            font-style: italic;
+        }
+
+        .progress-container {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid #00ff00;
+        }
+
+        .progress-text {
+            text-align: center;
+            margin-bottom: 10px;
+            color: #00ff00;
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 30px;
+            background: #0a0a0a;
+            border: 2px solid #00ff00;
+            margin-bottom: 10px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00ff00, #00aa00);
+            width: 0%;
+            transition: width 0.5s;
+        }
+
+        .step-counter {
+            text-align: center;
+            color: #ffff00;
+            font-size: clamp(0.8rem, 2vw, 1rem);
+        }
+
+        .config-section {
+            margin-top: 20px;
+        }
+
+        .config-section h3 {
+            color: #ffff00;
+            margin-bottom: 15px;
+            font-size: clamp(1rem, 3vw, 1.3rem);
+            border-bottom: 1px solid #ffff00;
+            padding-bottom: 10px;
+        }
+
+        .section-note {
+            color: #00ff00;
+            font-style: italic;
+            margin-bottom: 25px;
+            font-size: clamp(0.85rem, 2vw, 0.95rem);
+            opacity: 0.8;
+        }
+
+        .form-group {
+            margin-bottom: 30px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #00ff00;
+            margin-bottom: 10px;
+            font-size: clamp(0.9rem, 2vw, 1rem);
+        }
+
+        .slider {
+            width: 100%;
+            height: 8px;
+            background: #0a0a0a;
+            border: 1px solid #00ff00;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 25px;
+            height: 25px;
+            background: #00ff00;
+            cursor: pointer;
+            border-radius: 50%;
+        }
+
+        .slider::-moz-range-thumb {
+            width: 25px;
+            height: 25px;
+            background: #00ff00;
+            cursor: pointer;
+            border-radius: 50%;
+        }
+
+        .slider-note {
+            margin-top: 8px;
+            color: #ffff00;
+            font-size: clamp(0.75rem, 1.8vw, 0.85rem);
+            font-style: italic;
+            opacity: 0.7;
+        }
+
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .checkbox-group label {
+            display: flex;
+            align-items: center;
+            color: #00ff00;
+            font-size: clamp(0.85rem, 2vw, 0.95rem);
+            cursor: pointer;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            margin-right: 10px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .config-select {
+            width: 100%;
+            padding: 12px;
+            background: #0a0a0a;
+            color: #00ff00;
+            border: 2px solid #00ff00;
+            font-family: 'Courier New', monospace;
+            font-size: clamp(0.9rem, 2vw, 1rem);
+            cursor: pointer;
+        }
+
+        .config-select option {
+            background: #0a0a0a;
+            color: #00ff00;
+        }
+
+        .next-btn {
+            display: block;
+            width: 100%;
+            margin-top: 30px;
+            padding: 15px;
+            background: #00ff00;
+            color: #000;
+            border: 2px solid #00ff00;
+            font-family: 'Courier New', monospace;
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s;
+        }
+
+        .next-btn:hover {
+            background: #00aa00;
+            box-shadow: 0 0 20px #00ff00;
+        }
+
+        .calculating {
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .calc-spinner {
+            width: 60px;
+            height: 60px;
+            border: 5px solid rgba(0, 255, 0, 0.2);
+            border-top: 5px solid #00ff00;
+            border-radius: 50%;
+            margin: 0 auto 30px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        #calcText {
+            color: #00ff00;
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+        }
+
+        .result-box {
+            background: rgba(0, 255, 0, 0.05);
+            border: 2px solid #00ff00;
+            padding: 30px;
+            margin-top: 20px;
+        }
+
+        .score-display {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 30px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 2px solid #ffff00;
+        }
+
+        .score-label {
+            color: #ffff00;
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
+            margin-bottom: 15px;
+        }
+
+        .score-number {
+            color: #00ff00;
+            font-size: clamp(3rem, 8vw, 5rem);
+            font-weight: bold;
+            margin: 20px 0;
+            text-shadow: 0 0 20px #00ff00;
+        }
+
+        .score-subtitle {
+            color: #00ff00;
+            font-size: clamp(0.8rem, 2vw, 0.9rem);
+            font-style: italic;
+            opacity: 0.7;
+        }
+
+        .result-text {
+            color: #00ff00;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            font-size: clamp(0.9rem, 2vw, 1rem);
+        }
+
+        .result-text strong {
+            color: #ffff00;
+        }
+
+        .final-access-btn {
+            display: block;
+            padding: 20px;
+            background: linear-gradient(45deg, #00ff00, #00aa00);
+            color: #000;
+            border: 3px solid #00ff00;
+            font-family: 'Courier New', monospace;
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            font-weight: bold;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-decoration: none;
+            cursor: pointer;
+            animation: finalPulse 1s infinite;
+            transition: all 0.3s;
+        }
+
+        .final-note {
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(255, 255, 0, 0.05);
+            border: 1px solid #ffff00;
+            font-size: clamp(0.8rem, 2vw, 0.9rem);
+            color: #ffff00;
+            font-style: italic;
+            line-height: 1.6;
+        }
+
+        .final-note p {
+            margin-bottom: 8px;
+        }
+
+        @keyframes finalPulse {
+            0%, 100% { box-shadow: 0 0 20px #00ff00; }
+            50% { box-shadow: 0 0 40px #00ff00, 0 0 60px #00ff00; }
+        }
+
+        .final-button:hover {
+            transform: scale(1.1);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 600px) {
+            .warning-box {
+                padding: 20px;
+            }
+            
+            .buttons {
+                gap: 10px;
+            }
+            
+            button {
+                padding: 12px 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="warning-box" id="mainBox">
+            <h1>⚠️ SECURITY CLEARANCE VERIFICATION REQUIRED ⚠️</h1>
+            <div class="classified">TOP SECRET // NOFORN // EYES ONLY</div>
+            
+            <div class="warning-text">
+                <p><strong>ATTENTION OPERATIVE:</strong></p>
+                <p>You are attempting to access classified intelligence regarding OPERATION: BIRTHDAY BLITZ.</p>
+                <p><br>Before proceeding, you must acknowledge and accept the following terms and conditions set forth by HQ Command.</p>
+            </div>
+
+            <div class="agreement">
+                <p><strong>OPERATIONAL SECURITY AGREEMENT v4.7.3</strong></p>
+                <p><em>(Last Updated: 5 minutes ago when we realized we forgot to include this page)</em></p>
+                <p><br>By clicking ACCEPT, you hereby acknowledge:</p>
+                <p>• HQ is not responsible for any paint-related injuries, bruises, or hurt feelings</p>
+                <p>• Commander Nate must remain unaware of surprise protocols at all costs</p>
+                <p>• Operative Marlene's loyalty status remains UNVERIFIED - approach with caution</p>
+                <p>• All upside-down text encryption attempts are adorable but futile</p>
+                <p>• The decoy document was specifically designed to psychologically manipulate Commander Nate</p>
+                <p>• You accept that telling someone NOT to do something increases desire by 400%</p>
+                <p>• This very agreement is a psychological test to see if you actually read terms and conditions</p>
+                <p>• Spoiler alert: You don't. Nobody does. That's why we can write whatever we want here.</p>
+                <p>• Cake survival probability is 50/50 and Patrick is NOT allowed to taste test</p>
+                <p>• "It's just for celebrating" is the official narrative post-paintball impact</p>
+                <p>• Geneva Convention does not apply to birthday operations</p>
+                <p>• No Nickelback will be played under any circumstances</p>
+                <p>• Relationship-based operational protocols authorize romantic leverage</p>
+                <p>• If Nate suspects anything, deploy "distraction kiss" maneuver immediately</p>
+                <p>• Morale is dangerously high, intelligence critically low - perfect conditions</p>
+                <p>• This message will self-destruct (it won't, we're just being dramatic)</p>
+                <p>• HQ reserves the right to modify fun levels without notice</p>
+                <p>• Suffering builds character, especially at 0900 hours</p>
+                <p>• You're reading all of this even though you could just scroll down</p>
+                <p>• Seriously, why are you still reading?</p>
+                <p>• We're genuinely impressed if you've made it this far</p>
+                <p>• Most operatives just click ACCEPT immediately</p>
+                <p>• Which, to be fair, is exactly what we're training you NOT to do in real life</p>
+                <p>• But this isn't real life, this is a birthday party</p>
+                <p>• A birthday party disguised as a military operation</p>
+                <p>• Disguised as a terms and conditions page</p>
+                <p>• You're now three layers deep in meta-narrative</p>
+                <p>• Fine, here's a secret: Patrick thinks this is airsoft</p>
+                <p>• Another secret: We didn't plan a contingency. It's funnier this way.</p>
+                <p>• Secret #3: The "DECLINE" button does the exact same thing as "ACCEPT"</p>
+                <p>• Secret #4: We just told you that and you're STILL going to click one of them</p>
+                <p>• Secret #5: This entire page exists because someone said "wouldn't it be funny if..."</p>
+                <p>• Secret #6: That someone was probably Alexander. He always has "a plan."</p>
+                <p>• Secret #7: He does not have a plan.</p>
+                <p>• You've now been reading for approximately 90 seconds</p>
+                <p>• That's 90 seconds of your life you'll never get back</p>
+                <p>• But hey, at least you're informed about operational protocols now</p>
+                <p>• Or are you? Have you retained ANY of this information?</p>
+                <p>• Quick pop quiz: What's Operative Marlene's clearance status?</p>
+                <p>• If you scrolled back up to check, HQ is judging you</p>
+                <p>• If you didn't, HQ is also judging you for not being thorough</p>
+                <p>• There is no winning. Only birthday paintball.</p>
+                <p>• Fun fact: This document is longer than the actual party invite</p>
+                <p>• That's intentional. It's called "burying the lead."</p>
+                <p>• Journalists do it. Lawyers do it. Now we're doing it for birthday party RSVPs.</p>
+                <p>• The real question is: are you Nate? If so, surprise! If not, don't tell Nate.</p>
+                <p>• Actually, if you ARE Nate, this is just a really elaborate joke page</p>
+                <p>• There is no party. Go back to sleep.</p>
+                <p>• (There is definitely a party. We're just gaslighting you now.)</p>
+                <p>• Tallulah-Belle, if you're reading this: you're doing great, sweetie. He suspects nothing.</p>
+                <p>• Patrick, if you're reading this: It's NOT airsoft. Bring paintball gear. PAINTBALL.</p>
+                <p>• Joshua, if you're reading this: We know you're planning something. We're scared.</p>
+                <p>• Liam, if you're reading this: You're late. Start driving now.</p>
+                <p>• Alexander, if you're reading this: Your plan is bad and you should feel bad.</p>
+                <p>• Trey, if you're reading this: Thanks for being the responsible one. We need that.</p>
+                <p>• Marlene, if you're reading this: We're watching you. 👁️</p>
+                <p>• We've now addressed everyone individually in a terms and conditions page</p>
+                <p>• This is peak comedy and/or a cry for help</p>
+                <p>• Probably both</p>
+                <p>• You know what? Let's add some legal jargon to make this seem official:</p>
+                <p>• "Notwithstanding any provisions herein to the contrary..."</p>
+                <p>• "In accordance with subsection 4.2.0 of the Birthday Protocols..."</p>
+                <p>• "Pursuant to the authority vested in HQ by absolutely nobody..."</p>
+                <p>• See? Sounds official. Means nothing. That's the magic of legalese.</p>
+                <p>• We could literally write "all your base are belong to us" and it would fit right in</p>
+                <p>• Speaking of which: all your base are belong to us</p>
+                <p>• And your birthday. We're stealing your birthday, Nate.</p>
+                <p>• It's ours now. We're going to celebrate it aggressively with paintballs.</p>
+                <p>• This is the part where we remind you that clicking either button leads to chaos</p>
+                <p>• Yes, we already told you that earlier</p>
+                <p>• But repetition is key in propaganda—er, marketing—er, party planning</p>
+                <p>• Are you still reading? Blink twice if you need help.</p>
+                <p>• Wait, we can't see you. This is text on a screen.</p>
+                <p>• Technology hasn't advanced THAT far yet</p>
+                <p>• Although if it had, HQ would definitely be using it for surveillance</p>
+                <p>• Not for anything creepy, just to see if Nate figured out the surprise</p>
+                <p>• And to watch Patrick try to figure out why his "airsoft" gun shoots paint</p>
+                <p>• Honestly that's going to be the highlight of the day</p>
+                <p>• Okay, we're running out of material here</p>
+                <p>• How are you STILL reading?</p>
+                <p>• This is like watching Netflix credits to see if there's a post-credits scene</p>
+                <p>• Spoiler: There isn't one. Just click the button already.</p>
+                <p>• Unless you're enjoying this. In which case, carry on.</p>
+                <p>• We've now written approximately 2000 words for a joke webpage</p>
+                <p>• This is either dedication or procrastination</p>
+                <p>• Definitely procrastination</p>
+                <p>• We should probably be planning the actual party right now</p>
+                <p>• But this is more fun</p>
+                <p>• And that's really what Operation Birthday Blitz is all about:</p>
+                <p>• Questionable decisions made in the name of comedy</p>
+                <p>• Excessive planning for something inherently chaotic</p>
+                <p>• And friendship. Mostly friendship.</p>
+                <p>• And paintballs. Definitely paintballs.</p>
+                <p><br><strong>FAILURE TO COMPLY WILL RESULT IN:</strong></p>
+                <p>• Immediate mission abort</p>
+                <p>• Permanent ban from all future birthday operations</p>
+                <p>• Being assigned to cake guard duty (Patrick ate it last time)</p>
+                <p>• Having to explain to Nate why you ruined the surprise</p>
+                <p>• Public shame in group chat (screenshots will be taken)</p>
+                <p>• Forced to listen to Nickelback (yes, still a threat)</p>
+                <p>• Required attendance at Alexander's next "strategic planning" session</p>
+                <p>• Becoming the primary target in the paintball game</p>
+                <p>• We'll tell everyone you cried (even if you didn't)</p>
+                <p>• Banned from cake privileges (this one hurts the most)</p>
+                <p><br><strong>BY SCROLLING THIS FAR YOU HAVE ALSO AGREED TO:</strong></p>
+                <p>• Acknowledge that you could have just clicked the button 5 minutes ago</p>
+                <p>• Admit that you're either extremely thorough or extremely bored</p>
+                <p>• Accept that HQ thinks you're hilarious for reading all this</p>
+                <p>• Understand that this page has been a journey, and you've grown as a person</p>
+                <p>• Promise to tell at least one other operative about this ridiculous page</p>
+                <p>• Realize that the real treasure was the terms and conditions we read along the way</p>
+                <p><br><em>P.S. - If you made it to the end: You're invited. Obviously. Now click the button.</em></p>
+                <p><em>P.P.S. - Unless you're Nate. Then this is still a joke. Go away.</em></p>
+                <p><em>P.P.P.S. - We're serious about the Nickelback thing though.</em></p>
+            </div>
+
+            <div class="question">
+                DO YOU ACCEPT THESE TERMS AND CONDITIONS?
+            </div>
+
+            <div class="buttons">
+                <button id="yesBtn">ACCEPT</button>
+                <button id="noBtn">DECLINE</button>
+            </div>
+        </div>
+
+        <div class="final-button" id="finalBtn">
+            🎯 ACCESS CLASSIFIED INTEL 🎯
+        </div>
+            <div class="config-box">
+                <h2>OPERATIVE CONFIGURATION SYSTEM v2.4.7-beta</h2>
+                <div class="config-subtitle">Mandatory Pre-Access Calibration Protocol</div>
+                
+                <div class="progress-container">
+                    <div class="progress-text">Configuration Progress: <span id="progressPercent">0</span>%</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <div class="step-counter">Step <span id="currentStep">1</span> of <span id="totalSteps">3</span></div>
+                </div>
+
+                <div class="config-section" id="section1">
+                    <h3>SECTION A: PSYCHOLOGICAL READINESS CALIBRATION</h3>
+                    <p class="section-note">Please adjust the following parameters to establish baseline operative compatibility. (This is mandatory but also optional but also required.)</p>
+                    
+                    <div class="form-group">
+                        <label>Pain Tolerance Level (0 = Definitely Ready, 100 = Ready Definitely)</label>
+                        <input type="range" min="0" max="100" value="50" class="slider" id="pain">
+                        <span class="slider-value" id="painValue">50</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Loyalty to Commander Nate (Please be honest. He won't see this. Probably.)</label>
+                        <input type="range" min="0" max="100" value="50" class="slider" id="loyalty">
+                        <span class="slider-value" id="loyaltyValue">50</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Commitment to Not Telling Nate (0 = Will Tell, 100 = Will Also Tell But Feel Guilty)</label>
+                        <input type="range" min="0" max="100" value="50" class="slider" id="commitment">
+                        <span class="slider-value" id="commitmentValue">50</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Please confirm the following statements by checking all boxes:</label>
+                        <div class="checkbox-group">
+                            <label><input type="checkbox" class="config-check"> I understand that I don't understand</label>
+                            <label><input type="checkbox" class="config-check"> I have not read but agree to have read the unread documents</label>
+                            <label><input type="checkbox" class="config-check"> I confirm this confirmation requires no confirmation</label>
+                            <label><input type="checkbox" class="config-check"> I acknowledge that acknowledging this is unnecessary but mandatory</label>
+                        </div>
+                    </div>
+
+                    <button class="next-btn" onclick="goToSection(2)">PROCEED TO NEXT SECTION</button>
+                </div>
+
+                <div class="config-section hidden" id="section2">
+                    <h3>SECTION B: EQUIPMENT VERIFICATION MATRIX</h3>
+                    <p class="section-note">We need to verify equipment you don't have for an event you're not sure you're attending. This is standard procedure.</p>
+                    
+                    <div class="form-group">
+                        <label>Select your primary tactical mindset:</label>
+                        <select class="config-select">
+                            <option>Aggressive Passivity</option>
+                            <option>Passive Aggression</option>
+                            <option>Confused Confidence</option>
+                            <option>Confident Confusion</option>
+                            <option>Strategic Incompetence</option>
+                            <option>Incompetent Strategy</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Rate your certainty about your uncertainty (Very Certain to Certainly Very)</label>
+                        <input type="range" min="0" max="100" value="50" class="slider" id="certainty">
+                        <span class="slider-value" id="certaintyValue">50</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Please verify unverifiable equipment status:</label>
+                        <div class="checkbox-group">
+                            <label><input type="checkbox" class="config-check"> Tactical awareness of tactical unawareness</label>
+                            <label><input type="checkbox" class="config-check"> Proper improper footwear</label>
+                            <label><input type="checkbox" class="config-check"> Unauthorized authorization credentials</label>
+                            <label><input type="checkbox" class="config-check"> Semi-automatic manual override capability</label>
+                            <label><input type="checkbox" class="config-check"> Pre-planned spontaneity protocols</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>How prepared are you to be unprepared?</label>
+                        <select class="config-select">
+                            <option>Extremely Somewhat</option>
+                            <option>Somewhat Extremely</option>
+                            <option>Moderately Absolute</option>
+                            <option>Absolutely Moderate</option>
+                            <option>Relatively Definitely</option>
+                            <option>Definitely Relatively</option>
+                        </select>
+                    </div>
+
+                    <button class="next-btn" onclick="goToSection(3)">CONTINUE TO FINAL SECTION</button>
+                </div>
+
+                <div class="config-section hidden" id="section3">
+                    <h3>SECTION C: OPERATIONAL PARADOX RESOLUTION</h3>
+                    <p class="section-note">We're almost done wasting your time. Thank you for your patience during this efficient waste of efficiency.</p>
+                    
+                    <div class="form-group">
+                        <label>Adjust your expectation management expectations:</label>
+                        <input type="range" min="0" max="100" value="50" class="slider" id="expectations">
+                        <span class="slider-value" id="expectationsValue">50</span>
+                        <div class="slider-note">Expectations managed: <span id="expectationText">Moderately</span></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Please confirm your non-confirmation of pre-authorized unauthorized protocols:</label>
+                        <div class="checkbox-group">
+                            <label><input type="checkbox" class="config-check"> Yes (but actually no)</label>
+                            <label><input type="checkbox" class="config-check"> No (but actually yes)</label>
+                            <label><input type="checkbox" class="config-check"> Maybe (definitely)</label>
+                            <label><input type="checkbox" class="config-check"> Definitely (maybe)</label>
+                            <label><input type="checkbox" class="config-check"> I understand that understanding is not required for understanding</label>
+                            <label><input type="checkbox" class="config-check"> This checkbox is decorative and serves no purpose</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Rate your awareness of this system's self-awareness (Completely Oblivious to Uncomfortably Aware):</label>
+                        <input type="range" min="0" max="100" value="50" class="slider" id="awareness">
+                        <span class="slider-value" id="awarenessValue">50</span>
+                        <div class="slider-note">Fun fact: Adjusting this slider is itself a demonstration of awareness.</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Final question: Are you sure you want to be sure?</label>
+                        <select class="config-select">
+                            <option>Unsure about being sure</option>
+                            <option>Sure about being unsure</option>
+                            <option>Definitely uncertain</option>
+                            <option>Uncertainly definite</option>
+                            <option>Probably absolutely maybe</option>
+                            <option>I've given up on certainty as a concept</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>On a scale from "Why am I doing this?" to "I can't stop now", where are you?</label>
+                        <input type="range" min="0" max="100" value="50" class="slider" id="commitment2">
+                        <span class="slider-value" id="commitment2Value">50</span>
+                        <div class="slider-note">Sunk cost fallacy in action. You're too invested to quit now.</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Rate your satisfaction with this unnecessarily complex process (Low to Also Low):</label>
+                        <input type="range" min="0" max="100" value="50" class="slider" id="satisfaction">
+                        <span class="slider-value" id="satisfactionValue">50</span>
+                    </div>
+
+                    <button class="next-btn" onclick="goToSection(4)">SUBMIT CONFIGURATION</button>
+                </div>
+
+                <div class="config-section hidden" id="section4">
+                    <h3>⚠️ ADDITIONAL VERIFICATION REQUIRED ⚠️</h3>
+                    <p class="section-note">Apologies. Your configuration has triggered additional mandatory optional requirements. (We weren't expecting you to actually complete the previous sections.)</p>
+                    
+                    <div class="form-group">
+                        <label>Please re-confirm your previous confirmations:</label>
+                        <div class="checkbox-group">
+                            <label><input type="checkbox" class="config-check"> I confirm that I previously confirmed</label>
+                            <label><input type="checkbox" class="config-check"> My confirmations remain confirmed</label>
+                            <label><input type="checkbox" class="config-check"> I do not wish to un-confirm my confirmations</label>
+                            <label><input type="checkbox" class="config-check"> This meta-confirmation is itself confirmed</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>How committed are you to completing pointless tasks? (Not Very to Also Not Very)</label>
+                        <input type="range" min="0" max="100" value="50" class="slider" id="pointless">
+                        <span class="slider-value" id="pointlessValue">50</span>
+                        <div class="slider-note">Note: This slider literally does nothing but you adjusted it anyway.</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Select your tolerance for self-aware bureaucracy:</label>
+                        <select class="config-select">
+                            <option>I'm aware that I'm being trolled and I accept it</option>
+                            <option>I'm not aware but I'm compliant anyway</option>
+                            <option>I'm aware but in denial about being aware</option>
+                            <option>This is fine (it's not fine)</option>
+                            <option>I've lost track of what's happening</option>
+                            <option>Send help (no help is coming)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Final meta-question: Do you think this configuration actually affects anything?</label>
+                        <div class="checkbox-group">
+                            <label><input type="checkbox" class="config-check"> Yes (you're wrong)</label>
+                            <label><input type="checkbox" class="config-check"> No (you're right but we won't tell you)</label>
+                            <label><input type="checkbox" class="config-check"> I don't care anymore (understandable)</label>
+                            <label><input type="checkbox" class="config-check"> I'm only here for the birthday party (valid)</label>
+                        </div>
+                    </div>
+
+                    <button class="next-btn" onclick="goToSection(5)">FINALIZE SUBMISSION</button>
+                </div>
+
+                <div class="config-section hidden" id="section5">
+                    <h3>CALCULATING OPERATIVE READINESS SCORE...</h3>
+                    <div class="calculating">
+                        <div class="calc-spinner"></div>
+                        <p id="calcText">Analyzing responses...</p>
+                    </div>
+                </div>
+
+                <div class="config-section hidden" id="section6">
+                    <h3>🎯 OPERATIVE READINESS ASSESSMENT COMPLETE</h3>
+                    <div class="result-box">
+                        <div class="score-display">
+                            <div class="score-label">YOUR OPERATIVE READINESS SCORE:</div>
+                            <div class="score-number" id="finalScore">42</div>
+                            <div class="score-subtitle">out of 100 (or possibly out of 17, we're not sure)</div>
+                        </div>
+                        
+                        <div class="result-text">
+                            <p><strong>ASSESSMENT RESULT:</strong> <span id="assessmentResult">ADEQUATELY INADEQUATE</span></p>
+                            <p><br><span id="resultMessage">Congratulations! You have successfully completed our unnecessarily complex verification process.</span></p>
+                            <p><br>Your responses have been analyzed, categorized, and immediately disregarded. This entire process was a test to see if you would actually do it. You did. We're not sure if that's concerning or commendable.</p>
+                            <p><br>Your specific profile suggests: <span id="profileType">Exceptional tolerance for bureaucratic nonsense and/or Stockholm syndrome.</span></p>
+                            <p><br>HQ notes: <span id="hqNotes">Operative demonstrates concerning levels of compliance with meaningless tasks. Perfect for birthday operations where logic is optional.</span></p>
+                            <p><br><em>Thank you for your patience. We know this was ridiculous. That was the point. You've spent approximately <span id="timeWasted">5-7</span> minutes on this journey. Time well wasted.</em></p>
+                            <p><br><strong>FINAL CLEARANCE STATUS:</strong> <span style="color: #00ff00;">✓ APPROVED</span> (you really had no choice)</p>
+                        </div>
+
+                        <a href="https://alx0r.github.io/Aartless/clouds.HTML" class="final-access-btn">
+                            🎯 ACCESS ACTUAL CLASSIFIED INTEL (For Real This Time We Promise)
+                        </a>
+                        
+                        <div class="final-note">
+                            <p>P.S. - Everything you just filled out was completely meaningless.</p>
+                            <p>P.P.S. - But you suspected that, didn't you?</p>
+                            <p>P.P.P.S. - And yet you still completed it. That's the real test.</p>
+                            <p>P.P.P.P.S. - Welcome to Operation Birthday Blitz. You're going to fit right in.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const messages = [
+            "ACCESS GRANTED",
+            "WAIT NO",
+            "SYSTEM BREACH DETECTED",
+            "UNAUTHORIZED ACCESS",
+            "HQ IS WATCHING",
+            "NATE MUST NOT KNOW",
+            "PATRICK FORGOT PANTS",
+            "MARLENE IS SUS",
+            "TALLULAH KNOWS EVERYTHING",
+            "UPSIDE DOWN TEXT DECODED",
+            "NICKELBACK BANNED",
+            "CAKE UNDER SURVEILLANCE",
+            "GENEVA CONVENTION VOID",
+            "MORALE TOO HIGH",
+            "INTELLIGENCE TOO LOW",
+            "DISTRACTION KISS AUTHORIZED",
+            "OPERATIVE COMPROMISED",
+            "DECOY ACTIVATED",
+            "PUNISHMENT PROTOCOLS ENGAGED",
+            "YOU WEREN'T SUPPOSED TO CLICK THAT",
+            "TOO LATE NOW",
+            "CONSEQUENCES INCOMING",
+            "THIS IS FINE",
+            "EVERYTHING IS FINE",
+            "NOTHING IS FINE",
+            "HQ LAUGHING",
+            "MISSION CHAOS LEVEL: MAXIMUM",
+            "PAINTBALL INCOMING",
+            "BRUISES GUARANTEED",
+            "FUN CONFIRMED",
+            "REGRET PROBABLE"
+        ];
+
+        let chaosInterval;
+        let chaosCount = 0;
+        let currentSection = 1;
+
+        // Slider value updates
+        function setupSliders() {
+            const sliders = document.querySelectorAll('.slider');
+            sliders.forEach(slider => {
+                const valueSpan = document.getElementById(slider.id + 'Value');
+                slider.addEventListener('input', function() {
+                    valueSpan.textContent = this.value;
+                    
+                    // Special dynamic text for certain sliders
+                    if (slider.id === 'expectations') {
+                        const expectText = document.getElementById('expectationText');
+                        if (this.value < 30) expectText.textContent = 'Poorly';
+                        else if (this.value < 70) expectText.textContent = 'Moderately';
+                        else expectText.textContent = 'Excellently';
+                    }
+                });
+            });
+        }
+
+        function updateProgress(section) {
+            const totalSteps = document.getElementById('totalSteps');
+            const currentStepSpan = document.getElementById('currentStep');
+            const progressFill = document.getElementById('progressFill');
+            const progressPercent = document.getElementById('progressPercent');
+            
+            // Absurd step counting
+            const stepMaps = {
+                1: { current: 1, total: 3, percent: 15 },
+                2: { current: 2, total: 7, percent: 35 },
+                3: { current: 3, total: 4, percent: 60 },
+                4: { current: 4, total: 4, percent: 85 },
+                5: { current: 5, total: 5, percent: 99 }
+            };
+            
+            const stepData = stepMaps[section];
+            currentStepSpan.textContent = stepData.current;
+            totalSteps.textContent = stepData.total;
+            progressFill.style.width = stepData.percent + '%';
+            progressPercent.textContent = stepData.percent;
+        }
+
+        function goToSection(sectionNum) {
+            // Hide current section
+            const currentSectionEl = document.getElementById('section' + currentSection);
+            currentSectionEl.classList.add('hidden');
+            
+            currentSection = sectionNum;
+            
+            if (sectionNum <= 4) {
+                // Show next form section
+                const nextSection = document.getElementById('section' + sectionNum);
+                nextSection.classList.remove('hidden');
+                updateProgress(sectionNum);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else if (sectionNum === 5) {
+                // Show calculating screen
+                const calcSection = document.getElementById('section5');
+                calcSection.classList.remove('hidden');
+                updateProgress(5);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                
+                // Fake calculation process
+                const messages = [
+                    "Analyzing responses...",
+                    "Cross-referencing with database...",
+                    "Consulting with HQ...",
+                    "Recalculating...",
+                    "Second-guessing calculations...",
+                    "Triple-checking double-checks...",
+                    "This is taking longer than expected...",
+                    "Almost done... probably...",
+                    "Finalizing assessment..."
+                ];
+                
+                let msgIndex = 0;
+                const calcText = document.getElementById('calcText');
+                
+                const calcInterval = setInterval(() => {
+                    if (msgIndex < messages.length) {
+                        calcText.textContent = messages[msgIndex];
+                        msgIndex++;
+                    } else {
+                        clearInterval(calcInterval);
+                        goToSection(6);
+                    }
+                }, 1500);
+            } else if (sectionNum === 6) {
+                // Show final results
+                const resultSection = document.getElementById('section6');
+                resultSection.classList.remove('hidden');
+                
+                // Calculate absurd score
+                const randomScore = Math.floor(Math.random() * 30) + 35; // Between 35-65
+                document.getElementById('finalScore').textContent = randomScore;
+                
+                // Dynamic assessment based on score
+                const assessmentEl = document.getElementById('assessmentResult');
+                const resultMsgEl = document.getElementById('resultMessage');
+                const profileEl = document.getElementById('profileType');
+                const hqNotesEl = document.getElementById('hqNotes');
+                const timeWastedEl = document.getElementById('timeWasted');
+                
+                if (randomScore < 45) {
+                    assessmentEl.textContent = 'QUESTIONABLY QUALIFIED';
+                    resultMsgEl.textContent = 'You completed the process, but we have concerns. Serious concerns. Mostly about why you completed it.';
+                    profileEl.textContent = 'Demonstrates alarming willingness to follow arbitrary instructions without question.';
+                    hqNotesEl.textContent = 'Operative may be too compliant. Or not compliant enough. We honestly can\'t tell anymore.';
+                    timeWastedEl.textContent = '6-8';
+                } else if (randomScore < 55) {
+                    assessmentEl.textContent = 'ADEQUATELY INADEQUATE';
+                    resultMsgEl.textContent = 'Congratulations! You have successfully completed our unnecessarily complex verification process.';
+                    profileEl.textContent = 'Exceptional tolerance for bureaucratic nonsense and/or Stockholm syndrome.';
+                    hqNotesEl.textContent = 'Operative demonstrates concerning levels of compliance with meaningless tasks. Perfect for birthday operations where logic is optional.';
+                    timeWastedEl.textContent = '5-7';
+                } else {
+                    assessmentEl.textContent = 'SUSPICIOUSLY COMPETENT';
+                    resultMsgEl.textContent = 'You completed this too efficiently. We\'re suspicious. Are you secretly enjoying bureaucratic forms?';
+                    profileEl.textContent = 'Either extremely patient or has completely dissociated from reality. Both are acceptable.';
+                    hqNotesEl.textContent = 'Operative shows concerning enthusiasm for pointless tasks. Monitor for signs of actually being a robot.';
+                    timeWastedEl.textContent = '4-6';
+                }
+                
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        function createChaosText() {
+            const text = document.createElement('div');
+            text.className = 'chaos-text';
+            text.textContent = messages[Math.floor(Math.random() * messages.length)];
+            text.style.left = Math.random() * (window.innerWidth - 200) + 'px';
+            text.style.top = Math.random() * window.innerHeight + 'px';
+            text.style.color = ['#ff0000', '#00ff00', '#ffff00', '#00ffff'][Math.floor(Math.random() * 4)];
+            document.body.appendChild(text);
+
+            setTimeout(() => text.remove(), 3000);
+        }
+
+        function startChaos() {
+            const mainBox = document.getElementById('mainBox');
+            mainBox.classList.add('glitch', 'shake');
+            
+            chaosInterval = setInterval(() => {
+                createChaosText();
+                chaosCount++;
+                
+                if (chaosCount >= 25) {
+                    endChaos();
+                }
+            }, 200);
+        }
+
+        function endChaos() {
+            clearInterval(chaosInterval);
+            const mainBox = document.getElementById('mainBox');
+            mainBox.classList.remove('glitch', 'shake');
+            mainBox.classList.add('hidden');
+            
+            setTimeout(() => {
+                const finalBtn = document.getElementById('finalBtn');
+                finalBtn.style.display = 'block';
+                setupSliders();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }, 500);
+        }
+
+        document.getElementById('yesBtn').addEventListener('click', startChaos);
+        document.getElementById('noBtn').addEventListener('click', startChaos);
+        
+        document.getElementById('finalBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            this.style.display = 'none';
+            document.getElementById('configPage').classList.remove('hidden');
+            setupSliders();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>

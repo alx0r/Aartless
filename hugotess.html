@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShiBaby: Hugo & Tess | Family Care Hub</title>
+    
+    <!-- YAML Metadata -->
+    <!--
+    ---
+    format: "Untitled Format v2.1.0"
+    product: "ShiBaby"
+    family_name: "Davies Family"
+    location: "Wales, UK"
+    children:
+      - name: "Hugo Davies"
+        birth_date: "2022-01-15"
+        age: 3
+        interests: ["insects", "bugs", "nature", "outdoor exploration"]
+      - name: "Tess Davies"
+        birth_date: "2024-01-08"
+        age: 1
+        interests: ["cuddles", "music", "peek-a-boo"]
+    parents:
+      - name: "Beth Davies"
+        role: "Mum"
+        occupation: "Teacher"
+      - name: "James Davies"
+        role: "Dad"
+        occupation: "Lawyer"
+    caregivers:
+      - "Grandma Jean"
+      - "Nanny Sarah"
+    pediatrician: "Dr. Emma Williams, NHS Wales"
+    last_updated: "2025-11-01T14:30:00Z"
+    version: "1.0.0"
+    license: "Family Private"
+    ---
+    -->
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --hugo-primary: #4a7c59;
+            --hugo-light: #e8f5e9;
+            --tess-primary: #d4a574;
+            --tess-light: #fff8f0;
+            --neutral: #f5f5f5;
+            --text: #2c3e50;
+            --text-light: #7f8c8d;
+            --border: #e0e0e0;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: var(--neutral);
+        }
+        
+        .header {
+            background: linear-gradient(135deg, var(--hugo-primary), var(--tess-primary));
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .header p {
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+        
+        .child-nav {
+            background: white;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        .child-nav button {
+            padding: 0.75rem 2rem;
+            border: 2px solid var(--border);
+            background: white;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .child-nav button.hugo {
+            border-color: var(--hugo-primary);
+            color: var(--hugo-primary);
+        }
+        
+        .child-nav button.hugo.active {
+            background: var(--hugo-primary);
+            color: white;
+        }
+        
+        .child-nav button.tess {
+            border-color: var(--tess-primary);
+            color: var(--tess-primary);
+        }
+        
+        .child-nav button.tess.active {
+            background: var(--tess-primary);
+            color: white;
+        }
+        
+        .child-nav button.all {
+            border-color: var(--text);
+            color: var(--text);
+        }
+        
+        .child-nav button.all.active {
+            background: var(--text);
+            color: white;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        
+        .child-profile {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            display: none;
+        }
+        
+        .child-profile.active {
+            display: block;
+        }
+        
+        .child-profile.hugo {
+            border-left: 5px solid var(--hugo-primary);
+        }
+        
+        .child-profile.tess {
+            border-left: 5px solid var(--tess-primary);
+        }
+        
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid var(--border);
+        }
+        
+        .profile-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+        }
+        
+        .profile-avatar.hugo {
+            background: var(--hugo-light);
+        }
+        
+        .profile-avatar.tess {
+            background: var(--tess-light);
+        }
+        
+        .profile-info h2 {
+            font-size: 1.8rem;
+            margin-bottom: 0.25rem;
+        }
+        
+        .profile-info .meta {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+        
+        .section {
+            margin-bottom: 2rem;
+        }
+        
+        .section h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+        }
+        
+        .card {
+            background: var(--neutral);
+            padding: 1.25rem;
+            border-radius: 8px;
+            border-left: 3px solid var(--border);
+        }
+        
+        .card.hugo {
+            border-left-color: var(--hugo-primary);
+        }
+        
+        .card.tess {
+            border-left-color: var(--tess-primary);
+        }
+        
+        .card h4 {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+        }
+        
+        .card p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+        
+        .card .value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-top: 0.5rem;
+        }
+        
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 8px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--border);
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 1.5rem;
+            padding-left: 1.5rem;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -12px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: white;
+            border: 3px solid var(--hugo-primary);
+        }
+        
+        .timeline-item.tess::before {
+            border-color: var(--tess-primary);
+        }
+        
+        .timeline-time {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-bottom: 0.25rem;
+        }
+        
+        .timeline-content {
+            font-size: 0.95rem;
+        }
+        
+        .input-source {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: var(--neutral);
+            border-radius: 15px;
+            font-size: 0.75rem;
+            color: var(--text-light);
+            margin-top: 0.5rem;
+        }
+        
+        .quick-stats {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+        
+        .stat {
+            flex: 1;
+            min-width: 140px;
+            background: var(--neutral);
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-top: 0.25rem;
+        }
+        
+        .tag {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: var(--hugo-light);
+            color: var(--hugo-primary);
+            border-radius: 15px;
+            font-size: 0.85rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .tag.tess {
+            background: var(--tess-light);
+            color: var(--tess-primary);
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 2rem 1rem;
+            color: var(--text-light);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border);
+            margin-top: 3rem;
+        }
+        
+        .update-prompt {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+            text-align: center;
+        }
+        
+        .update-prompt h3 {
+            margin-bottom: 1rem;
+        }
+        
+        .update-prompt code {
+            display: block;
+            background: rgba(0,0,0,0.2);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            text-align: left;
+            overflow-x: auto;
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .child-nav {
+                flex-direction: column;
+            }
+            
+            .child-nav button {
+                width: 100%;
+            }
+            
+            .profile-header {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>👶 ShiBaby Care Hub</h1>
+        <p>Hugo & Tess Davies • Wales, UK • Living Document</p>
+    </header>
+    
+    <nav class="child-nav">
+        <button class="hugo active" onclick="showChild('hugo')">🐛 Hugo (3yo)</button>
+        <button class="tess" onclick="showChild('tess')">🎀 Tess (1yo)</button>
+        <button class="all" onclick="showChild('all')">👨‍👩‍👧‍👦 Both</button>
+    </nav>
+    
+    <div class="container">
+        <!-- HUGO'S PROFILE -->
+        <div id="hugo-profile" class="child-profile hugo active">
+            <div class="profile-header">
+                <div class="profile-avatar hugo">🐛</div>
+                <div class="profile-info">
+                    <h2>Hugo Davies</h2>
+                    <p class="meta">3 years old • Born January 15, 2022 • Bug Explorer Extraordinaire</p>
+                </div>
+            </div>
+            
+            <div class="quick-stats">
+                <div class="stat">
+                    <div class="stat-label">Height</div>
+                    <div class="stat-value">98cm</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-label">Weight</div>
+                    <div class="stat-value">15kg</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-label">Mood Today</div>
+                    <div class="stat-value">😊</div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h3>🌟 About Hugo</h3>
+                <p>Hugo is a curious, charming 3-year-old with an absolute passion for insects and nature. He loves exploring the garden, collecting bugs in his special container, and asking "Why?" about everything. He's developing wonderfully with no health concerns.</p>
+                <div style="margin-top: 1rem;">
+                    <span class="tag">🐛 Bug Enthusiast</span>
+                    <span class="tag">🌳 Nature Lover</span>
+                    <span class="tag">😊 Charming</span>
+                    <span class="tag">🧠 Curious</span>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h3>📅 Today's Activity</h3>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-time">07:30 AM</div>
+                        <div class="timeline-content">Woke up energetic, wanted to check on his caterpillar</div>
+                        <span class="input-source">📱 WhatsApp - Dad</span>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-time">08:00 AM</div>
+                        <div class="timeline-content">Breakfast: Porridge with honey, banana slices • 200ml milk</div>
+                        <span class="input-source">📱 WhatsApp - Mum</span>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-time">09:00 AM</div>
+                        <div class="timeline-content">Dropped at Tiny Explorers Nursery</div>
+                        <span class="input-source">📱 WhatsApp - Mum</span>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-time">12:15 PM</div>
+                        <div class="timeline-content">Nursery: Great outdoor play, found 3 different beetles</div>
+                        <span class="input-source">📧 Nursery Report</span>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-time">03:30 PM</div>
+                        <div class="timeline-content">Picked up by Grandma Jean, visiting park</div>
+                        <span class="input-source">📱 WhatsApp - Grandma</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h3>🍽️ Meals & Nutrition</h3>
+                <div class="grid">
+                    <div class="card hugo">
+                        <h4>Breakfast</h4>
+                        <p>Porridge with honey, banana</p>
+                        <p style="margin-top: 0.5rem; font-size: 0.85rem;">✓ Ate all</p>
+                    </div>
+                    <div class="card hugo">
+                        <h4>Snack (Nursery)</h4>
+                        <p>Apple slices, cheese cubes</p>
+                        <p style="margin-top: 0.5rem; font-size: 0.85rem;">✓ Good appetite</p>
+                    </div>
+                    <div class="card hugo">
+                        <h4>Lunch (Nursery)</h4>
+                        <p>Fish fingers, peas, mashed potato</p>
+                        <p style="margin-top: 0.5rem; font-size: 0.85rem;">✓ Finished meal</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h3>🏫 Nursery Updates</h3>
+                <div class="card hugo">
+                    <h4>Latest Report - October 28, 2025</h4>
+                    <p style="margin-bottom: 1rem;">Hugo is thriving at Tiny Explorers! He shows exceptional curiosity about nature and insects. His social skills are developing beautifully - he loves sharing his bug discoveries with other children.</p>
+                    <p><strong>Development Areas:</strong></p>
+                    <ul style="margin-top: 0.5rem; padding-left: 1.5rem;">
+                        <li>Language: Excellent vocabulary, loves asking questions</li>
+                        <li>Physical: Great coordination, loves outdoor climbing</li>
+                        <li>Social: Friendly, shares well, empathetic with peers</li>
+                    </ul>
+                    <span class="input-source">📄 PDF Report Processed</span>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h3>💉 Medical Records</h3>
+                <div class="grid">
+                    <div class="card hugo">
+                        <h4>Last Checkup</h4>
+                        <p><strong>Date:</strong> October 15, 2025</p>
+                        <p><strong>Dr. Emma Williams</strong></p>
+                        <p style="margin-top: 0.5rem;">Height: 98cm (70th percentile)<br>Weight: 15kg (65th percentile)<br>Status: Excellent health</p>
+                        <span class="input-source">📸 Photo - Medical Card</span>
+                    </div>
+                    <div class="card hugo">
+                        <h4>Vaccinations</h4>
+                        <p>✓ All up to date</p>
+                        <p style="margin-top: 0.5rem; font-size: 0.85rem;">Next: MMR Booster at 4 years</p>
+                        <span class="input-source">📸 Photo - NHS Record</span>
+                    </div>
+                    <div class="card hugo">
+                        <h4>Allergies</h4>
+                        <p class="value" style="font-size: 1.2rem;">None known</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- TESS'S PROFILE -->
+        <div id="tess-profile" class="child-profile tess">
+            <div class="profile-header">
+                <div class="profile-avatar tess">🎀</div>
+                <div class="profile-info">
+                    <h2>Tess Davies</h2>
+                    <p class="meta">1 year old • Born January 8, 2024 • Little Sunshine</p>
+                </div>
+            </div>
+            
+            <div class="quick-stats">
+                <div class="stat">
+                    <div class="stat-label">Height</div>
+                    <div class="stat-value">76cm</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-label">Weight</div>
+                    <div class="stat-value">10kg</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-label">Mood Today</div>
+                    <div class="stat-value">🥰</div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h3>🌟 About Tess</h3>
+                <p>Tess is a happy, healthy one-year-old who lights up every room. She's recently started taking her first steps and loves music, peek-a-boo, and cuddles with her big brother Hugo. Development is progressing beautifully with no concerns.</p>
+                <div style="margin-top: 1rem;">
+                    <span class="tag tess">🎵 Music Lover</span>
+                    <span class="tag tess">👶 First Steps</span>
+                    <span class="tag tess">😊 Happy Baby</span>
+                    <span class="tag tess">💝 Cuddle Bug</span>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h3>📅 Today's Activity</h3>
+                <div class="timeline">
+                    <div class="timeline-item tess">
+                        <div class="timeline-time">06:45 AM</div>
+                        <div class="timeline-content">Woke up babbling, happy mood</div>
+                        <span class="input-source">📱 WhatsApp - Mum</span>
+                    </div>
+                    <div class="timeline-item tess">
+                        <div class="timeline-time">07:15 AM</div>
+                        <div class="timeline-content">Breastfeed session (15 mins)</div>
+                        <span class="input-source">📱 WhatsApp - Mum</span>
+                    </div>
+                    <div class="timeline-item tess">
+                        <div class="timeline-time">08:30 AM</div>
+                        <div class="timeline-content">Breakfast: Baby porridge, mashed berries</div>
+                        <span class="input-source">📱 WhatsApp - Mum</span>
+                    </div>
+                    <div class="timeline-item tess">
+                        <div class="timeline-time">10:00 AM</div>
+                        <div class="timeline-content">Nap (1 hour 20 mins)</div>
+                        <span class="input-source">📱 WhatsApp - Nanny Sarah</span>
+                    </div>
+                    <div class="timeline-item tess">
+                        <div class="timeline-time">11:30 AM</div>
+                        <div class="timeline-content">Playtime: Took 4 steps unassisted! 🎉</div>
+                        <span class="input-source">📱 WhatsApp - Nanny Sarah</span>
+                    </div>
+                    <div class="timeline-item tess">
+                        <div class="timeline-time">12:30 PM</div>
+                        <div class="timeline-content">Lunch: Mashed sweet potato, soft chicken pieces</div>
+                        <span class="input-source">📱 WhatsApp - Nanny Sarah</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h3>🍼 Feeding Schedule</h3>
+                <div class="grid">
+                    <div class="card tess">
+                        <h4>Breastfeeding</h4>
+                        <p>Morning: 7:15 AM (15 min)<br>Evening: Expected 6:30 PM</p>
+                    </div>
+                    <div class="card tess">
+                        <h4>Solid Foods</h4>
+                        <p>Breakfast: 8:30 AM ✓<br>Lunch: 12:30 PM ✓<br>Dinner: 5:30 PM (pending)</p>
+                    </div>
+                    <div class="card tess">
+                        <h4>Water Intake</h4>
+                        <p class="value">120ml</p>
+                        <p style="font-size: 0.85rem; margin-top: 0.25rem;">Throughout day</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h3>😴 Sleep Tracking</h3>
+                <div class="grid">
+                    <div class="card tess">
+                        <h4>Night Sleep</h4>
+                        <p>7:30 PM - 6:45 AM<br><strong>11h 15min</strong></p>
+                        <p style="font-size: 0.85rem; margin-top: 0.5rem;">Woke once at 2:30 AM for feed</p>
+                    </div>
+                    <div class="card tess">
+                        <h4>Morning Nap</h4>
+                        <p>10:00 AM - 11:20 AM<br><strong>1h 20min</strong></p>
+                    </div>
+                    <div class="card tess">
+                        <h4>Afternoon Nap</h4>
+                        <p>Expected: 2:30 PM</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h3>🎯 Developmental Milestones</h3>
+                <div class="card tess">
+                    <h4>Recent Achievements 🎉</h4>
+                    <ul style="padding-left: 1.5rem; margin-top: 0.5rem;">
+                        <li><strong>Walking:</strong> First unassisted steps today! (4 steps)</li>
+                        <li><strong>Language:</strong> Says "Mama", "Dada", "Uh-oh"</li>
+                        <li><strong>Social:</strong> Waves bye-bye, plays peek-a-boo</li>
+                        <li><strong>Motor:</strong> Stacks 2 blocks, picks up small objects</li>
+                    </ul>
+                    <span class="input-source">📱 Multiple Sources</span>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h3>💉 Medical Records</h3>
+                <div class="grid">
+                    <div class="card tess">
+                        <h4>Last Checkup</h4>
+                        <p><strong>Date:</strong> October 8, 2025 (1 year)</p>
+                        <p><strong>Dr. Emma Williams</strong></p>
+                        <p style="margin-top: 0.5rem;">Height: 76cm (75th percentile)<br>Weight: 10kg (70th percentile)<br>Status: Thriving beautifully</p>
+                        <span class="input-source">📸 Photo - Medical Card</span>
+                    </div>
+                    <div class="card tess">
+                        <h4>Vaccinations</h4>
+                        <p>✓ 12-month jabs completed</p>
+                        <p style="margin-top: 0.5rem; font-size: 0.85rem;">Next: 15 months (Hib/MenC booster)</p>
+                        <span class="input-source">📸 Photo - NHS Record</span>
+                    </div>
+                    <div class="card tess">
+                        <h4>Allergies</h4>
+                        <p class="value" style="font-size: 1.2rem;">None known</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- BOTH CHILDREN VIEW -->
+        <div id="both-profile" class="child-profile">
+            <h2 style="margin-bottom: 2rem; text-align: center;">👨‍👩‍👧‍👦 Family Overview</h2>
+            
+            <div class="section">
+                <h3>👥 Family Information</h3>
+                <div class="grid">
+                    <div class="card">
+                        <h4>Parents</h4>
+                        <p><strong>Beth Davies</strong> (Mum)<br>Teacher</p>
+                        <p style="margin-top: 0.5rem;"><strong>James Davies</strong> (Dad)<br>Lawyer</p>
+                    </div>
+                    <div class="card">
+                        <h4>Caregivers</h4>
+                        <p><strong>Grandma Jean</strong><br>Mon & Thu afternoons</p>
+                        <p style="margin-top: 0.5rem;"><strong>Nanny Sarah</strong><br>Tue-Fri mornings</p>
+                    </div>
+                    <div class="card">
+                        <h4>Healthcare</h4>
+                        <p><strong>Dr. Emma Williams</strong><br>NHS Wales Pediatrician</p>
+                        <p style="margin-top: 0.5rem;">Emergency: 999<br>NHS 111: non-emergency</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h3>📍 Quick Reference</h3>
+                <div class="grid">
+                    <div class="card hugo">
+                        <h4>Hugo's Routine</h4>
+                        <p><strong>Nursery:</strong> Mon-Fri 9am-3pm<br><strong>Bedtime:</strong> 7:30 PM<br><strong>Favorites:</strong> Bug books, outdoor play</p>
+                    </div>
+                    <div class="card tess">
+                        <h4>Tess's Routine</h4>
+                        <p><strong>Naps:</strong> 10am, 2:30pm<br><strong>Bedtime:</strong> 7:30 PM<br><strong>Favorites:</strong> Music, peek-a-boo</p>
+                    </div>
+                    <div class="card">
+                        <h4>Emergency Contacts</h4>
+                        <p><strong>Mum Mobile:</strong> 07XXX XXX XXX<br><strong>Dad Mobile:</strong> 07XXX XXX XXX<br><strong>Grandma:</strong> 07XXX XXX XXX</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h3>🔄 Recent Family Updates</h3>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-time">Today, 11:30 AM</div>
+                        <div class="timeline-content"><strong>Tess:</strong> Took 4 unassisted steps! Major milestone 🎉</div>
+                        <span class="input-source">📱 WhatsApp - Nanny Sarah</span>
+                    </div>
+                    <div class="timeline-item hugo">
+                        <div class="timeline-time">Today, 09:15 AM</div>
+                        <div class="timeline-content"><strong>Hugo:</strong> Very excited about nursery nature walk today</div>
+                        <span class="input-source">📱 WhatsApp - Mum</span>
+                    </div>
+                    <div class="timeline-item tess">
+                        <div class="timeline-time">Yesterday, 6:45 PM</div>
+                        <div class="timeline-content"><strong>Tess:</strong> Said "Hugo" for the first time!</div>
+                        <span class="input-source">📱 WhatsApp - Dad</span>
+                    </div>
+                    <div class="timeline-item hugo">
+                        <div class="timeline-time">Oct 28</div>
+                        <div class="timeline-content"><strong>Hugo:</strong> Nursery report - excellent progress in all areas</div>
+                        <span class="input-source">📄 PDF Report</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h3>📸 Memory Wall</h3>
+                <div class="grid">
+                    <div class="card hugo">
+                        <h4>Hugo's Bug Collection</h4>
+                        <p>October 30 - Found a beautiful ladybird in the garden. Named it "Dotty"</p>
+                        <span class="input-source">📸 Photo</span>
+                    </div>
+                    <div class="card tess">
+                        <h4>First Steps Video</h4>
+                        <p>November 1 - Tess walked 4 steps between Nanny Sarah and the sofa!</p>
+                        <span class="input-source">🎥 Video</span>
+                    </div>
+                    <div class="card">
+                        <h4>Sibling Love</h4>
+                        <p>October 29 - Hugo reading his bug book to Tess before bedtime</p>
+                        <span class="input-source">📸 Photo</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- AI UPDATE INSTRUCTIONS -->
+        <div class="update-prompt">
+            <h3>🤖 How to Update This Document</h3>
+            <p>Copy your WhatsApp messages, photos, or documents and paste them with this prompt to any AI:</p>
+            <code>You are the ShiBaby coordinator for Hugo & Tess Davies.
+
+CURRENT DOCUMENT: [paste this entire HTML file]
+
+NEW UPDATES: [paste WhatsApp messages, or describe photos/PDFs]
+
+Please update the relevant sections:
+- Daily activity timelines
+- Feeding logs  
+- Sleep tracking
+- Milestones
+- Medical records
+- Memory wall
+
+Generate the complete updated HTML.</code>
+            <p style="margin-top: 1rem; font-size: 0.9rem;">The AI will read context from messages, extract data from photos (vaccination cards, reports), and update the document intelligently.</p>
+        </div>
+        
+        <div class="section">
+            <h3>🎯 Document Features Demonstrated</h3>
+            <div class="grid">
+                <div class="card hugo">
+                    <h4>Multi-Source Input</h4>
+                    <p>WhatsApp messages, nursery PDFs, medical photos, and manual notes all integrated</p>
+                </div>
+                <div class="card tess">
+                    <h4>Multi-Child Management</h4>
+                    <p>Separate profiles with shared family view. Clean navigation between children</p>
+                </div>
+                <div class="card">
+                    <h4>Visual Organization</h4>
+                    <p>Color-coded by child, timeline views, quick stats, and milestone tracking</p>
+                </div>
+                <div class="card">
+                    <h4>Source Attribution</h4>
+                    <p>Every entry shows where the data came from: WhatsApp, photos, PDFs, reports</p>
+                </div>
+                <div class="card hugo">
+                    <h4>Flexible Structure</h4>
+                    <p>Adapts to each child's age: Hugo shows nursery reports, Tess shows feeding schedules</p>
+                </div>
+                <div class="card tess">
+                    <h4>Privacy Control</h4>
+                    <p>Single HTML file, host anywhere. Share specific views. Your data, your control</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="footer">
+        <p><strong>ShiBaby™</strong> - Built on Untitled Format v2.1.0</p>
+        <p>Single-file living document • AI-powered updates • Privacy-first design</p>
+        <p style="margin-top: 1rem; font-size: 0.8rem;">
+            Last Updated: November 1, 2025, 2:45 PM GMT • Document Version 1.0.0<br>
+            © 2025 Davies Family • Private Family Document
+        </p>
+    </footer>
+    
+    <script>
+        function showChild(child) {
+            // Hide all profiles
+            document.querySelectorAll('.child-profile').forEach(profile => {
+                profile.classList.remove('active');
+            });
+            
+            // Remove active from all buttons
+            document.querySelectorAll('.child-nav button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show selected profile and activate button
+            if (child === 'hugo') {
+                document.getElementById('hugo-profile').classList.add('active');
+                document.querySelector('.child-nav button.hugo').classList.add('active');
+            } else if (child === 'tess') {
+                document.getElementById('tess-profile').classList.add('active');
+                document.querySelector('.child-nav button.tess').classList.add('active');
+            } else if (child === 'all') {
+                document.getElementById('both-profile').classList.add('active');
+                document.querySelector('.child-nav button.all').classList.add('active');
+            }
+        }
+        
+        // Initialize with Hugo's profile
+        showChild('hugo');
+    </script>
+</body>
+</html>

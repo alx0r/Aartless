@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Sadie System™ - Your Dress Journey, Beautifully Documented</title>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@300;400;500&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --burgundy: #7a2e3f;
+            --forest: #2d5016;
+            --cream: #f8f4e8;
+            --gold: #b8956a;
+            --dark: #2c2418;
+            --light-text: #6b5d52;
+            --sage: #9caf88;
+            --blush: #e8d5d0;
+        }
+        
+        body {
+            font-family: 'Cormorant Garamond', serif;
+            color: var(--dark);
+            background: var(--cream);
+            line-height: 1.7;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, var(--burgundy), var(--forest));
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '✨';
+            position: absolute;
+            top: 20px;
+            left: 5%;
+            font-size: 4rem;
+            opacity: 0.1;
+        }
+        
+        .header::after {
+            content: '✨';
+            position: absolute;
+            bottom: 20px;
+            right: 5%;
+            font-size: 4rem;
+            opacity: 0.1;
+        }
+        
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-style: italic;
+            margin-bottom: 0.5rem;
+            letter-spacing: 2px;
+        }
+        
+        .tagline {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-weight: 300;
+            margin-bottom: 2rem;
+        }
+        
+        .system-intro {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .system-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+        
+        .system-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+        
+        .system-description {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            line-height: 1.8;
+        }
+        
+        nav {
+            background: white;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border-bottom: 2px solid var(--gold);
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            padding: 1rem;
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: var(--forest);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 400;
+            transition: color 0.3s;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        nav a:hover {
+            color: var(--burgundy);
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+        
+        .section {
+            margin-bottom: 4rem;
+        }
+        
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--burgundy);
+            font-style: italic;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.1rem;
+            color: var(--light-text);
+            font-style: italic;
+            margin-bottom: 2.5rem;
+        }
+        
+        .card {
+            background: white;
+            padding: 2.5rem;
+            border: 1px solid var(--gold);
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+        }
+        
+        .card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--burgundy);
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+        
+        .card p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .feature-item {
+            text-align: center;
+            padding: 2rem 1.5rem;
+            background: white;
+            border: 1px solid var(--gold);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--burgundy);
+        }
+        
+        .feature-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            color: var(--burgundy);
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+        
+        .feature-description {
+            color: var(--light-text);
+            line-height: 1.6;
+        }
+        
+        .demo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .demo-card {
+            background: white;
+            border: 1px solid var(--gold);
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .demo-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .demo-header {
+            background: linear-gradient(135deg, var(--burgundy), var(--forest));
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+        }
+        
+        .demo-bride {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-style: italic;
+            margin-bottom: 0.5rem;
+        }
+        
+        .demo-style {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        .demo-content {
+            padding: 1.5rem;
+        }
+        
+        .demo-description {
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+        
+        .demo-link {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: var(--burgundy);
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: background 0.3s;
+        }
+        
+        .demo-link:hover {
+            background: var(--forest);
+        }
+        
+        .benefits-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .benefits-list li {
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--cream);
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .benefits-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .benefit-icon {
+            font-size: 1.5rem;
+            margin-right: 1rem;
+            color: var(--burgundy);
+            min-width: 30px;
+        }
+        
+        .benefit-content h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: var(--burgundy);
+            margin-bottom: 0.5rem;
+            font-style: italic;
+        }
+        
+        .benefit-content p {
+            color: var(--light-text);
+            line-height: 1.6;
+        }
+        
+        .testimonial {
+            background: linear-gradient(135deg, rgba(122, 46, 63, 0.1), rgba(45, 80, 22, 0.1));
+            padding: 2rem;
+            border-left: 4px solid var(--gold);
+            margin: 2rem 0;
+            font-style: italic;
+        }
+        
+        .testimonial-author {
+            margin-top: 1rem;
+            text-align: right;
+            color: var(--burgundy);
+            font-weight: 600;
+        }
+        
+        .cta-section {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: linear-gradient(135deg, rgba(122, 46, 63, 0.05), rgba(45, 80, 22, 0.05));
+            border-top: 1px solid var(--gold);
+            border-bottom: 1px solid var(--gold);
+        }
+        
+        .cta-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--burgundy);
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+        
+        .cta-description {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            color: var(--light-text);
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: var(--burgundy);
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: background 0.3s;
+            margin: 0 0.5rem;
+        }
+        
+        .cta-button:hover {
+            background: var(--forest);
+        }
+        
+        .cta-button.secondary {
+            background: transparent;
+            border: 1px solid var(--burgundy);
+            color: var(--burgundy);
+        }
+        
+        .cta-button.secondary:hover {
+            background: var(--burgundy);
+            color: white;
+        }
+        
+        .divider {
+            text-align: center;
+            font-size: 2rem;
+            color: var(--gold);
+            margin: 3rem 0;
+        }
+        
+        footer {
+            background: var(--dark);
+            color: var(--cream);
+            text-align: center;
+            padding: 3rem 2rem;
+            margin-top: 5rem;
+        }
+        
+        footer p {
+            margin: 0.5rem 0;
+            font-size: 0.95rem;
+        }
+        
+        @media (max-width: 768px) {
+            .system-title {
+                font-size: 2.5rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: center;
+            }
+            
+            .cta-buttons {
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .cta-button {
+                margin: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="header">
+        <div class="logo">Sadie Bosworth Atelier</div>
+        <div class="tagline">Bridal wear for the daring and unconventional</div>
+        
+        <div class="system-intro">
+            <div class="system-title">The Sadie System™</div>
+            <div class="system-subtitle">Your dress journey, beautifully documented</div>
+            <div class="system-description">
+                A revolutionary way to experience your bespoke bridal journey. Every fitting, every detail, every moment of inspiration—captured forever in a beautiful digital keepsake that's yours alone.
+            </div>
+        </div>
+    </header>
+    
+    <!-- NAVIGATION -->
+    <nav>
+        <ul>
+            <li><a href="#what-is-it">What Is It?</a></li>
+            <li><a href="#how-it-works">How It Works</a></li>
+            <li><a href="#benefits">Benefits</a></li>
+            <li><a href="#demos">See It In Action</a></li>
+            <li><a href="#living-invites">Living Invites</a></li>
+            <li><a href="#get-started">Get Started</a></li>
+        </ul>
+    </nav>
+    
+    <div class="container">
+        <!-- WHAT IS IT -->
+        <section id="what-is-it" class="section">
+            <h2 class="section-title">What Is The Sadie System™?</h2>
+            <p class="section-subtitle">The future of bespoke bridal experiences</p>
+            
+            <div class="card">
+                <h3>Your Dress Story, Beautifully Preserved</h3>
+                <p>Imagine having a beautiful coffee table book that writes itself as your dream dress comes to life—that's The Sadie System™. It's your private digital space where every step of your bridal journey is documented, organized, and preserved forever.</p>
+                
+                <p>From your first inspiration images to your final fitting, The Sadie System™ captures the magic, the decisions, the emotions, and the transformation of your vision into reality.</p>
+                
+                <div class="testimonial">
+                    "It's like having a private Instagram for my dress journey—but I own it forever, and it's even more beautiful. I'll treasure this long after my wedding day."
+                    <div class="testimonial-author">— Alexandra M.</div>
+                </div>
+            </div>
+            
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">📖</div>
+                    <div class="feature-title">The Biography of Your Gown</div>
+                    <div class="feature-description">Every fitting, every change, every "OMG that's perfect" moment captured and beautifully presented.</div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">💌</div>
+                    <div class="feature-title">A Shared Diary</div>
+                    <div class="feature-description">Between you and Sadie, where your vision becomes reality through natural conversation and collaboration.</div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">🎨</div>
+                    <div class="feature-title">Pinterest Meets Love Letter</div>
+                    <div class="feature-description">All your inspiration, ideas, and the story of your dress in one gorgeous, organized space.</div>
+                </div>
+            </div>
+        </section>
+        
+        <div class="divider">❦ ✨ ❦</div>
+        
+        <!-- HOW IT WORKS -->
+        <section id="how-it-works" class="section">
+            <h2 class="section-title">How The Sadie System™ Works</h2>
+            <p class="section-subtitle">Designed for how you naturally communicate</p>
+            
+            <div class="card">
+                <h3>Your Process, Enhanced</h3>
+                <p>The Sadie System™ works alongside your natural way of communicating—whether that's in-person consultations, WhatsApp messages, phone calls, or emails. You don't need to change how you work with Sadie; the system seamlessly captures everything.</p>
+                
+                <p>Think of it as your personal archivist, quietly working in the background to transform scattered conversations and ideas into a beautiful, cohesive story.</p>
+            </div>
+            
+            <div class="benefits-list">
+                <li>
+                    <div class="benefit-icon">💬</div>
+                    <div class="benefit-content">
+                        <h4>Natural Communication</h4>
+                        <p>Chat with Sadie however feels most natural to you—in person, via text, email, or phone. The system captures it all without disrupting your creative flow.</p>
+                    </div>
+                </li>
+                
+                <li>
+                    <div class="benefit-icon">📸</div>
+                    <div class="benefit-content">
+                        <h4>Visual Journey</h4>
+                        <p>Every fitting is documented with photos, measurements, and notes. See your dress evolve from sketch to finished masterpiece.</p>
+                    </div>
+                </li>
+                
+                <li>
+                    <div class="benefit-icon">🎵</div>
+                    <div class="benefit-content">
+                        <h4>Inspiration Central</h4>
+                        <p>Share songs, images, fabric swatches, and mood boards. Everything that inspires your vision has its place in your system.</p>
+                    </div>
+                </li>
+                
+                <li>
+                    <div class="benefit-icon">⏱️</div>
+                    <div class="benefit-content">
+                        <h4>Timeline & Countdown</h4>
+                        <p>Watch your dress take shape against a beautiful timeline, complete with a countdown to your special day.</p>
+                    </div>
+                </li>
+            </div>
+        </section>
+        
+        <div class="divider">❦ ✨ ❦</div>
+        
+        <!-- BENEFITS -->
+        <section id="benefits" class="section">
+            <h2 class="section-title">Why The Sadie System™?</h2>
+            <p class="section-subtitle">More than documentation—it's an experience</p>
+            
+            <div class="card">
+                <h3>The Magic of The Sadie System™</h3>
+                
+                <div class="benefits-list">
+                    <li>
+                        <div class="benefit-icon">✅</div>
+                        <div class="benefit-content">
+                            <h4>You Own It Forever</h4>
+                            <p>This isn't a rental or subscription. Your Sadie System™ is yours to keep forever—a beautiful heirloom of your bridal journey.</p>
+                        </div>
+                    </li>
+                    
+                    <li>
+                        <div class="benefit-icon">✅</div>
+                        <div class="benefit-content">
+                            <h4>Real-Time Updates</h4>
+                            <p>As your dress evolves, so does your system. It's a living document that grows with your journey.</p>
+                        </div>
+                    </li>
+                    
+                    <li>
+                        <div class="benefit-icon">✅</div>
+                        <div class="benefit-content">
+                            <h4>Share or Keep Private</h4>
+                            <p>Invite your mother, bridesmaids, or keep it entirely private—you control who sees your journey.</p>
+                        </div>
+                    </li>
+                    
+                    <li>
+                        <div class="benefit-icon">✅</div>
+                        <div class="benefit-content">
+                            <h4>Beautiful Keepsake</h4>
+                            <p>Long after your wedding day, your Sadie System™ remains a beautiful record of this magical time in your life.</p>
+                        </div>
+                    </li>
+                    
+                    <li>
+                        <div class="benefit-icon">✅</div>
+                        <div class="benefit-content">
+                            <h4>Zero Subscriptions</h4>
+                            <p>No monthly fees, no expiring links. Your system is yours permanently with no ongoing costs.</p>
+                        </div>
+                    </li>
+                    
+                    <li>
+                        <div class="benefit-icon">✅</div>
+                        <div class="benefit-content">
+                            <h4>Access Anywhere</h4>
+                            <p>Works beautifully on your phone, laptop, or tablet—wherever you are, your dress journey is with you.</p>
+                        </div>
+                    </li>
+                </div>
+                
+                <div class="testimonial">
+                    "Instead of scattered WhatsApp messages, lost emails, and 'wait, what did we decide about the sleeves?' chaos, I had ONE beautiful place where my entire dress story lived."
+                    <div class="testimonial-author">— Alex S.</div>
+                </div>
+            </div>
+        </section>
+        
+        <div class="divider">❦ ✨ ❦</div>
+        
+        <!-- DEMOS -->
+        <section id="demos" class="section">
+            <h2 class="section-title">See The Sadie System™ In Action</h2>
+            <p class="section-subtitle">Explore real examples of how the system brings dress journeys to life</p>
+            
+            <div class="demo-grid">
+                <div class="demo-card">
+                    <div class="demo-header">
+                        <div class="demo-bride">Alexandra's Journey</div>
+                        <div class="demo-style">Bohemian Victorian Romance</div>
+                    </div>
+                    <div class="demo-content">
+                        <div class="demo-description">
+                            Follow Alexandra's journey as her Victorian garden party vision comes to life with delicate lace, flowing organza, and romantic details.
+                        </div>
+                        <a href="https://alx0r.github.io/Aartless/SadieSystem.html" class="demo-link" target="_blank">View Alexandra's System</a>
+                    </div>
+                </div>
+                
+                <div class="demo-card">
+                    <div class="demo-header">
+                        <div class="demo-bride">Alex's Journey</div>
+                        <div class="demo-style">Punk Fairy Rebellion</div>
+                    </div>
+                    <div class="demo-content">
+                        <div class="demo-description">
+                            Experience Alex's industrial punk fairy vision with structured silhouettes, metallic details, and ethereal tulle layers.
+                        </div>
+                        <a href="https://alx0r.github.io/Aartless/SS.html" class="demo-link" target="_blank">View Alex's System</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card" style="margin-top: 2rem;">
+                <h3>Powered by Untitled Format™</h3>
+                <p>The Sadie System™ is built on the revolutionary Untitled Format™ protocol—a sophisticated technology that ensures your dress journey is preserved in the most beautiful, accessible, and permanent way possible.</p>
+                
+                <p>This isn't just another app or website. It's a carefully crafted experience designed specifically for the bespoke bridal journey, using technology that puts beauty, permanence, and your ownership first.</p>
+            </div>
+        </section>
+        
+        <div class="divider">❦ ✨ ❦</div>
+        
+        <!-- LIVING INVITES -->
+        <section id="living-invites" class="section">
+            <h2 class="section-title">The Living Invites Initiative</h2>
+            <p class="section-subtitle">Extend the magic beyond your dress</p>
+            
+            <div class="card">
+                <h3>Complete Your Wedding Experience</h3>
+                <p>Just as The Sadie System™ revolutionizes your dress journey, our Living Invites initiative transforms your wedding stationery into an interactive, beautiful experience for your guests.</p>
+                
+                <p>Using similar innovative technology, Living Invites create a seamless connection between your vision and your guests' experience—from save-the-dates to thank you notes.</p>
+                
+                <div class="testimonial">
+                    "Our Living Invite was the talk of our wedding! Guests loved how it captured our personalities and gave them a beautiful preview of the day."
+                    <div class="testimonial-author">— Recent Bride</div>
+                </div>
+                
+                <p style="margin-top: 1.5rem;"><strong>Ask about how The Sadie System™ and Living Invites can work together to create a completely cohesive wedding experience.</strong></p>
+            </div>
+        </section>
+    </div>
+    
+    <!-- CTA SECTION -->
+    <section class="cta-section">
+        <div class="cta-title">Begin Your Sadie System™ Journey</div>
+        <div class="cta-description">
+            Your dream dress deserves a beautiful story. Let's create something extraordinary together.
+        </div>
+        <div class="cta-buttons">
+            <a href="#" class="cta-button">Book Your Consultation</a>
+            <a href="#" class="cta-button secondary">View the Collections</a>
+        </div>
+    </section>
+    
+    <!-- FOOTER -->
+    <footer>
+        <div style="font-size: 2rem; color: var(--gold); margin-bottom: 1rem;">❦ ✨ ❦</div>
+        <p style="font-family: 'Playfair Display', serif; font-size: 1.3rem; font-style: italic;">
+            Sadie Bosworth Atelier
+        </p>
+        <p style="margin: 1.5rem 0;">Bridal wear for the daring and unconventional</p>
+        <div style="height: 1px; width: 100px; background: var(--gold); margin: 2rem auto;"></div>
+        <p style="font-size: 0.9rem;">
+            <strong>The Sadie System™</strong><br>
+            Your dress journey, beautifully documented
+        </p>
+        <p style="margin-top: 2rem; font-size: 0.85rem; opacity: 0.7;">
+            Powered by Untitled Format™<br>
+            Living Document • Forever Yours
+        </p>
+        <p style="margin-top: 1rem; font-size: 0.8rem; opacity: 0.6;">
+            This revolutionary system transforms your bespoke bridal experience<br>
+            into a beautiful, permanent keepsake you'll treasure forever.
+        </p>
+    </footer>
+    
+    <script>
+        // Smooth Scrolling for Navigation
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetSection = document.getElementById(targetId);
+                
+                if (targetSection) {
+                    window.scrollTo({
+                        top: targetSection.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CLASSIFIED: THE CAKE CONSPIRACY DIARIES</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --classified-red: #8b0000;
+            --military-green: #4a5d23;
+            --camo-dark: #3d4c1e;
+            --camo-light: #6b8e23;
+            --camo-tan: #c19a6b;
+            --terminal-green: #00ff00;
+            --terminal-yellow: #ffff00;
+            --terminal-cyan: #00ffff;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: #0a0a0a;
+            color: var(--terminal-green);
+            line-height: 1.6;
+            padding: 20px;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0,255,0,0.03) 0%, transparent 50%),
+                radial-gradient(circle at 90% 80%, rgba(0,255,0,0.03) 0%, transparent 50%);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: rgba(10, 20, 5, 0.95);
+            border: 3px solid var(--terminal-green);
+            padding: 40px;
+            box-shadow: 0 0 50px rgba(0, 255, 0, 0.2);
+            position: relative;
+        }
+
+        .container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(90deg, transparent 98%, rgba(0,255,0,0.1) 100%),
+                linear-gradient(rgba(0,255,0,0.05) 1px, transparent 1px);
+            background-size: 100% 2em;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 3px solid var(--classified-red);
+            padding-bottom: 25px;
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .header h1 {
+            color: var(--classified-red);
+            font-size: clamp(1.8rem, 6vw, 3rem);
+            margin-bottom: 15px;
+            text-shadow: 0 0 10px rgba(139, 0, 0, 0.5);
+            letter-spacing: 3px;
+        }
+
+        .header .subtitle {
+            color: var(--terminal-yellow);
+            font-size: clamp(1rem, 3vw, 1.3rem);
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .classification-banner {
+            background-color: var(--classified-red);
+            color: white;
+            text-align: center;
+            padding: 12px;
+            font-weight: bold;
+            letter-spacing: 3px;
+            border-bottom: 3px solid gold;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .warning {
+            background: rgba(255, 0, 0, 0.15);
+            border: 3px solid var(--classified-red);
+            padding: 25px;
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .warning p {
+            color: var(--classified-red);
+            font-size: clamp(0.9rem, 2vw, 1rem);
+            margin-bottom: 12px;
+            text-align: center;
+        }
+
+        .timeline {
+            position: relative;
+            margin: 50px 0;
+            z-index: 2;
+        }
+
+        .timeline::before {
+            content: "";
+            position: absolute;
+            left: 30px;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: var(--terminal-green);
+        }
+
+        .day-marker {
+            position: relative;
+            margin-bottom: 60px;
+        }
+
+        .day-header {
+            background: var(--military-green);
+            color: var(--terminal-yellow);
+            padding: 15px 25px;
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
+            border-left: 5px solid var(--terminal-yellow);
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .day-header::before {
+            content: "";
+            position: absolute;
+            left: -40px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            background: var(--terminal-green);
+            border-radius: 50%;
+            border: 3px solid var(--camo-dark);
+        }
+
+        .entry {
+            margin-bottom: 35px;
+            padding-left: 60px;
+            position: relative;
+        }
+
+        .timestamp {
+            color: var(--terminal-cyan);
+            font-size: clamp(0.85rem, 2vw, 0.95rem);
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .content {
+            color: var(--terminal-green);
+            font-size: clamp(0.9rem, 2vw, 1rem);
+            margin-bottom: 15px;
+            background: rgba(0, 255, 0, 0.05);
+            padding: 15px;
+            border-left: 3px solid var(--camo-light);
+        }
+
+        .content p {
+            margin-bottom: 12px;
+        }
+
+        .meta-note {
+            background: rgba(255, 255, 0, 0.08);
+            border-left: 4px solid var(--terminal-yellow);
+            padding: 20px;
+            margin: 25px 0;
+            color: var(--terminal-yellow);
+            font-style: italic;
+            font-size: clamp(0.85rem, 2vw, 0.95rem);
+            position: relative;
+            z-index: 2;
+        }
+
+        .conspiracy-box {
+            background: rgba(255, 0, 0, 0.08);
+            border: 2px dashed var(--classified-red);
+            padding: 25px;
+            margin: 30px 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .conspiracy-box h3 {
+            color: var(--classified-red);
+            margin-bottom: 20px;
+            font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+            text-align: center;
+        }
+
+        .conspiracy-box ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .conspiracy-box li {
+            color: #ff6666;
+            margin-bottom: 12px;
+            padding-left: 25px;
+            position: relative;
+            font-size: clamp(0.85rem, 2vw, 0.95rem);
+        }
+
+        .conspiracy-box li:before {
+            content: "🔴";
+            position: absolute;
+            left: 0;
+        }
+
+        .status-box {
+            background: rgba(0, 255, 255, 0.08);
+            border: 2px solid var(--terminal-cyan);
+            padding: 25px;
+            margin: 35px 0;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-label {
+            color: var(--terminal-cyan);
+            font-size: clamp(0.8rem, 2vw, 0.9rem);
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .stat-value {
+            color: var(--classified-red);
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            font-weight: bold;
+        }
+
+        .conclusion {
+            background: rgba(255, 0, 0, 0.15);
+            border: 4px solid var(--classified-red);
+            padding: 40px;
+            margin-top: 50px;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .conclusion h2 {
+            color: var(--classified-red);
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            margin-bottom: 25px;
+        }
+
+        .conclusion p {
+            color: var(--terminal-yellow);
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
+            margin-bottom: 18px;
+        }
+
+        .easter-egg {
+            margin-top: 50px;
+            padding: 25px;
+            background: rgba(255, 255, 0, 0.08);
+            border: 2px dashed var(--terminal-yellow);
+            text-align: center;
+            font-size: clamp(0.8rem, 2vw, 0.9rem);
+            color: var(--terminal-yellow);
+            position: relative;
+            z-index: 2;
+        }
+
+        .stamp {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            transform: rotate(15deg);
+            border: 3px solid var(--classified-red);
+            padding: 15px 30px;
+            color: var(--classified-red);
+            font-weight: bold;
+            background-color: rgba(255, 255, 255, 0.9);
+            z-index: 3;
+            font-size: 1.2em;
+        }
+
+        .footer {
+            background: linear-gradient(to right, var(--camo-dark), var(--military-green));
+            padding: 20px;
+            text-align: center;
+            border-top: 3px solid var(--camo-tan);
+            margin-top: 50px;
+            font-style: italic;
+            position: relative;
+            z-index: 2;
+        }
+
+        .blink {
+            animation: blink 2s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0.3; }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            .entry {
+                padding-left: 40px;
+            }
+            
+            .timeline::before {
+                left: 20px;
+            }
+            
+            .day-header::before {
+                left: -30px;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .container {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="classification-banner blink">
+            TOP SECRET // EYES ONLY // CAKE CLASSIFICATION: MAXIMUM FROSTING
+        </div>
+
+        <div class="header">
+            <h1>🎂 THE CAKE CONSPIRACY DIARIES 🎂</h1>
+            <div class="subtitle">OPERATION: BUTTERCREAM BETRAYAL</div>
+            <div class="subtitle" style="font-size: 0.9em; margin-top: 10px;">A 72-HOUR DESCENT INTO SUGAR-FUELED MADNESS</div>
+        </div>
+
+        <div class="warning">
+            <p><strong>⚠️ SECURITY CLEARANCE LEVEL: ABSOLUTELY CLASSIFIED ⚠️</strong></p>
+            <p>This document chronicles a three-day psychological operation centered around a single birthday cake.</p>
+            <p>Lead Investigator: [REDACTED] (Definitely Not Alexander)</p>
+            <p><em>"What began as a simple task became an epistemological crisis wrapped in fondant."</em></p>
+        </div>
+
+        <div class="meta-note">
+            <strong>META-AWARENESS PROTOCOL ACTIVATED:</strong> This document is written by someone who is acutely aware they are losing their mind. Observe as they oscillate between recognizing their own insanity and doubling down on it. It's like watching a car crash in slow motion, except the car is made of buttercream and the road is paved with paranoia.
+        </div>
+
+        <div class="timeline">
+            <!-- DAY 1 -->
+            <div class="day-marker">
+                <div class="day-header">📅 DAY 1: THE INNOCENCE OF IGNORANCE</div>
+                
+                <div class="entry">
+                    <div class="timestamp">09:00 HOURS - INITIAL BRIEFING</div>
+                    <div class="content">
+                        <p>HQ has assigned me to handle the cake. Simple enough. Just need to order a cake. How hard could this be?</p>
+                        <p><strong>Research question:</strong> What kind of cake does Nate like?</p>
+                        <p><em>(Narrator: It would, in fact, be very hard.)</em></p>
+                    </div>
+                </div>
+
+                <div class="meta-note">
+                    Notice the optimism. The naivety. This investigator has no idea what's coming. They think this is just about cake. Sweet summer child.
+                </div>
+
+                <div class="entry">
+                    <div class="timestamp">14:23 HOURS - FIRST CONTACT</div>
+                    <div class="content">
+                        <p>Tallulah says "chocolate is fine."</p>
+                        <p>Fine? FINE? The casualness is suspicious. Is she trying to throw me off? Why isn't she more specific? What is she hiding?</p>
+                        <p><strong>Note to self:</strong> Monitor Tallulah's cake-related communications.</p>
+                    </div>
+                </div>
+
+                <div class="meta-note">
+                    And here it begins. The word "fine" triggers a cascade of overthinking. This is where a normal person would just order chocolate cake. But we're not dealing with a normal person anymore, are we?
+                </div>
+
+                <div class="entry">
+                    <div class="timestamp">22:47 HOURS - NOCTURNAL EPIPHANY</div>
+                    <div class="content">
+                        <p>Can't sleep. Keep thinking about the word "fine." Looked it up. Etymology suggests Old French origin meaning "end" or "limit." The END. Is the cake the end of something?</p>
+                        <p>Am I reading too much into this? Yes. Definitely yes.</p>
+                        <p>Going to bed.</p>
+                    </div>
+                </div>
+
+                <div class="meta-note">
+                    They researched etymology. At 11 PM. For the word "fine." This is the moment where most people would intervene. But there was no one there to stop them. They were alone with Google and their thoughts. A dangerous combination.
+                </div>
+            </div>
+
+            <div class="status-box">
+                <h3 style="color: var(--terminal-cyan); margin-bottom: 20px;">DAY 1 STATUS REPORT</h3>
+                <div class="stats-grid">
+                    <div class="stat">
+                        <div class="stat-label">Sanity Level</div>
+                        <div class="stat-value">85%</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-label">Cakes Ordered</div>
+                        <div class="stat-value">0</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-label">Hours Wasted</div>
+                        <div class="stat-value">3</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-label">Etymology Researched</div>
+                        <div class="stat-value">1</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DAY 2 -->
+            <div class="day-marker">
+                <div class="day-header">📅 DAY 2: THE RABBIT HOLE DEEPENS</div>
+                
+                <div class="entry">
+                    <div class="timestamp">11:15 HOURS - BAKERY RECON</div>
+                    <div class="content">
+                        <p>Called three bakeries. They all asked the same questions: "What size?" "What flavor?" "Any allergies?"</p>
+                        <p>Seems scripted. TOO scripted.</p>
+                        <p>Are bakeries required to follow a protocol? Is there a Big Bakery controlling the narrative?</p>
+                    </div>
+                </div>
+
+                <div class="meta-note">
+                    Day 2. Still no cake ordered. But we do have a new conspiracy theory: Big Bakery. Because obviously three businesses asking standard customer service questions couldn't possibly be coincidence. That would be too simple. Too rational. And rationality left the building approximately 14 hours ago.
+                </div>
+
+                <div class="entry">
+                    <div class="timestamp">15:40 HOURS - VISUAL INTELLIGENCE</div>
+                    <div class="content">
+                        <p>Found myself on the bakery's Instagram. 847 followers. Scrolled through 6 months of cake photos.</p>
+                        <p>I now know way too much about fondant. I've been staring at cakes for 3 hours.</p>
+                        <p>What am I doing with my life?</p>
+                    </div>
+                </div>
+
+                <div class="meta-note">
+                    This is the first moment of self-awareness. They recognize something is wrong. They've spent 3 hours looking at cake photos. They question their life choices. And then... they keep going. Because the sunk cost fallacy is a hell of a drug.
+                </div>
+
+                <div class="entry">
+                    <div class="timestamp">19:22 HOURS - PATRICK INCIDENT</div>
+                    <div class="content">
+                        <p>Patrick texted asking if he can "taste test quality control." Told him no. He sent back a sad emoji.</p>
+                        <p>Wait. How did Patrick know I was ordering cake? I haven't told anyone except... *checks notes*... everyone in the group chat.</p>
+                        <p>Okay so not suspicious. But his ENTHUSIASM is suspicious.</p>
+                    </div>
+                </div>
+
+                <div class="conspiracy-box">
+                    <h3>🚨 PATRICK INVESTIGATION INITIATED 🚨</h3>
+                    <ul>
+                        <li>Subject: Patrick</li>
+                        <li>Suspicious Behavior: Excessive enthusiasm for cake</li>
+                        <li>Evidence: One (1) sad emoji</li>
+                        <li>Threat Level: Unclear but concerning</li>
+                        <li>Working Theory: Deep state cake operative OR just really likes cake</li>
+                    </ul>
+                </div>
+
+                <div class="meta-note">
+                    Patrick sends a sad emoji. A SINGLE sad emoji. And this launches a full investigation. There's now a document titled "Patrick: Cake Operative or Innocent Snack Enthusiast?" The fact that this is a real question being seriously considered tells you everything about the mental state we're dealing with here.
+                </div>
+
+                <div class="entry">
+                    <div class="timestamp">23:14 HOURS - SELF-REFLECTION</div>
+                    <div class="content">
+                        <p>Can't stop thinking about Patrick's sad emoji. What does it mean? Is it genuine disappointment? Or is it PSYCHOLOGICAL MANIPULATION?</p>
+                        <p>Started a document titled "Patrick: Cake Operative or Innocent Snack Enthusiast?"</p>
+                        <p>I have become the thing I feared.</p>
+                    </div>
+                </div>
+
+                <div class="meta-note">
+                    "I have become the thing I feared." This line is poetry. Pure, unfiltered self-awareness wrapped in irony. They KNOW they've lost it. They ACKNOWLEDGE they've lost it. And yet, the document continues to grow. This is the human condition, distilled into cake research.
+                </div>
+            </div>
+
+            <div class="status-box">
+                <h3 style="color: var(--terminal-cyan); margin-bottom: 20px;">DAY 2 STATUS REPORT</h3>
+                <div class="stats-grid">
+                    <div class="stat">
+                        <div class="stat-label">Sanity Level</div>
+                        <div class="stat-value">62%</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-label">Cakes Ordered</div>
+                        <div class="stat-value">0</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-label">Spreadsheet Tabs</div>
+                        <div class="stat-value">0→14</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-label">Bakeries Mapped</div>
+                        <div class="stat-value">3</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-label">Patrick Files</div>
+                        <div class="stat-value">1</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DAY 3 -->
+            <div class="day-marker">
+                <div class="day-header">📅 DAY 3: COMPLETE PSYCHOLOGICAL COLLAPSE</div>
+                
+                <div class="entry">
+                    <div class="timestamp">02:47 HOURS - NOCTURNAL VISIONS</div>
+                    <div class="content">
+                        <p>Woke up thinking about cake. Had a dream where all the bakeries were actually the same bakery with different fronts. The baker kept asking me "but what does the birthday BOY really want?" and I couldn't answer.</p>
+                        <p>Stress dream? Or PROPHETIC WARNING?</p>
+                    </div>
+                </div>
+
+                <div class="meta-note">
+                    It's 2:47 AM. They're having cake dreams. Not stress dreams. Not nightmares. Cake dreams. The subconscious has been fully hijacked. The cake has invaded their sleep. There is no escape now.
+                </div>
+
+                <div class="entry">
+                    <div class="timestamp">08:30 HOURS - SPREADSHEET ASCENSION</div>
+                    <div class="content">
+                        <p>Started a spreadsheet comparing bakery options:</p>
+                        <ul style="margin-left: 30px; margin-top: 10px;">
+                            <li>Price per slice</li>
+                            <li>Delivery reliability</li>
+                            <li>Frosting-to-cake ratio</li>
+                            <li>Distance from paintball venue</li>
+                            <li>Proximity to known government facilities (?)</li>
+                        </ul>
+                        <p>Why did I add that last one? I don't know. It felt relevant at 2 AM.</p>
+                        <p>Actually, I added it at 2:47 AM. I remember because that's when I woke up from the bakery dream.</p>
+                        <p><strong>The dream is influencing my research methodology.</strong></p>
+                    </div>
+                </div>
+
+                <div class="meta-note">
+                    Let's pause here. They've created a SPREADSHEET. With formulas. And graphs. For CAKE. But more importantly: they've added "Proximity to known government facilities" as a metric. And then they CATCH themselves. They question it. And their conclusion? The DREAM made them do it. This is academic rigor meeting complete insanity and somehow producing documentation.
+                </div>
+
+                <div class="entry">
+                    <div class="timestamp">10:03 HOURS - DATA VISUALIZATION</div>
+                    <div class="content">
+                        <p>The spreadsheet now has 14 tabs. I've color-coded everything. There are formulas. Graphs. A risk assessment matrix.</p>
+                        <p>For CAKE.</p>
+                    </div>
+                </div>
+
+                <div class="meta-note">
+                    Fourteen. Tabs. FOURTEEN. Most corporate quarterly reports don't have 14 tabs. But this cake research? This birthday dessert analysis? Fourteen tabs. With graphs. And a risk assessment matrix. For. Cake. This is either genius or madness. Probably both.
+                </div>
+
+                <div class="entry">
+                    <div class="timestamp">11:28 HOURS - GEOMETRIC DISCOVERY</div>
+                    <div class="content">
+                        <p>Started mapping bakery locations on Google Maps. They form a triangle.</p>
+                        <p>A TRIANGLE.</p>
+                        <p>Illuminati confirmed? Or just... three bakeries existing in geographical space like normal businesses?</p>
+                    </div>
+                </div>
+
+                <div class="entry">
+                    <div class="timestamp">11:31 HOURS - GEOMETRIC DISAPPOINTMENT</div>
+                    <div class="content">
+                        <p>It's definitely just three bakeries. But the triangle thing was exciting for like 3 minutes.</p>
+                    </div>
+                </div>
+
+                <div class="meta-note">
+                    The triangle. Of course. Three points form a triangle. This is geometry, not conspiracy. But for three glorious minutes, they had PROOF. And then reality crashed back in. You can almost feel the disappointment in that timestamp. 11:31. Three minutes after discovery. Three minutes of hope, dashed by basic mathematics.
+                </div>
+
+                <div class="entry">
+                    <div class="timestamp">13:56 HOURS - EXTERNAL VALIDATION ATTEMPT</div>
+                    <div class="content">
+                        <p>Showed Joshua my research. All 14 tabs. The graphs. The geographical analysis.</p>
+                        <p>He said "mate, it's just cake."</p>
+                        <p>JUST CAKE? <strong>JUST CAKE?!</strong></p>
+                        <p>This is Nate's birthday we're talking about. This cake represents our friendship. Our bond. Our willingness to spend R800 on sugar and flour and my SANITY.</p>
+                    </div>
+                </div>
+
+                <div class="meta-note">
+                    Joshua's response is perfect. Two words: "It's just cake." The voice of reason. The intervention. And how does our researcher respond? By elevating cake to METAPHOR. It's not about cake anymore. It's about FRIENDSHIP. BONDS. SANITY. This is how cults start.
+                </div>
+
+                <div class="entry">
+                    <div class="timestamp">14:02 HOURS - MOMENT OF CLARITY</div>
+                    <div class="content">
+                        <p>Joshua is right. I've completely lost perspective.</p>
+                    </div>
+                </div>
+
+                <div class="entry">
+                    <div class="timestamp">14:03 HOURS - MOMENT OF DOUBT</div>
+                    <div class="content">
+                        <p>But what if I haven't? What if this level of analysis is exactly what's needed?</p>
+                    </div>
+                </div>
+
+                <div class="entry">
+                    <div class="timestamp">14:04 HOURS - MOMENT OF RESIGNATION</div>
+                    <div class="content">
+                        <p>No. No, I'm definitely crazy.</p>
+                    </div>
+                </div>
+
+                <div class="meta-note">
+                    Three timestamps in three minutes. Three different positions. Self-awareness, denial, acceptance. This is the entire grief cycle compressed into 120 seconds. And documented. With timestamps. Because even in madness, there is methodology.
+                </div>
+
+                <div class="entry">
+                    <div class="timestamp">16:20 HOURS - HISTORICAL RESEARCH</div>
+                    <div class="content">
+                        <p>Took a break. Went for a walk. Came back.</p>
+                        <p>Read three articles about the history of birthday cakes to "reset my perspective."</p>
+                        <p>Did you know the tradition dates back to ancient Rome? The Romans were also big on military formations and strategic planning.</p>
+                        <p>Rome... Romans... OPERATION Birthday Blitz... military theme...</p>
+                        <p><strong>Are we unconsciously recreating Roman birthday rituals through modern paintball warfare?</strong></p>
+                    </div>
+                </div>
+
+                <div class="meta-note">
+                    They went for a WALK. To reset. To gain perspective. And what did they do? Read MORE articles. About birthday cake HISTORY. And somehow connected ancient Rome to paintball. This is what happens when a pattern-seeking brain is given too much time and too much internet access. The dots aren't there to connect, but they're connecting them anyway.
+                </div>
+
+                <div class="entry">
+                    <div class="timestamp">16:47 HOURS - SELF-REALIZATION</div>
+                    <div class="content">
+                        <p>Just re-read what I wrote. I've connected birthday cake history to military strategy.</p>
+                        <p>I need help.</p>
+                    </div>
+                </div>
+
+                <div class="entry">
+                    <div class="timestamp">17:15 HOURS - REASSESSMENT</div>
+                    <div class="content">
+                        <p>But also... the connection makes sense? Ancient Rome did celebrate birthdays. They did have military structure. We ARE doing a military-themed party.</p>
+                        <p>Maybe I'm not crazy. Maybe I'm the only one seeing the PATTERN.</p>
+                    </div>
+                </div>
+
+                <div class="entry">
+                    <div class="timestamp">17:16 HOURS - FINAL ACCEPTANCE</div>
+                    <div class="content">
+                        <p>No. No, I'm definitely crazy.</p>
+                    </div>
+                </div>
+
+                <div class="meta-note">
+                    The cycle continues. Recognition → Justification → Recognition. It's beautiful in its insanity. Also note: one minute between 17:15 and 17:16. One minute to go from "I'm a genius" to "I'm definitely crazy." That's the timeline we're working with here.
+                </div>
+
+                <div class="entry">
+                    <div class="timestamp">20:15 HOURS - PRODUCTIVITY AUDIT</div>
+                    <div class="content">
+                        <p>Just realized I've been researching for three days and haven't actually ORDERED anything yet.</p>
+                        <p>I've researched everything EXCEPT the one thing I'm supposed to do.</p>
+                        <p>This is either strategic due diligence or advanced procrastination disguised as productivity.</p>
+                    </div>
+                </div>
+
+                <div class="meta-note">
+                    Day 3. 72 hours in. Zero cakes ordered. But we do have: a 14-tab spreadsheet, geographical triangle analysis, etymology research, Roman history connections, and a psychological profile of Patrick. This is the most documented case of not doing the one thing you're supposed to do. It's procrastination as performance art.
+                </div>
+
+                <div class="entry">
+                    <div class="timestamp">22:18 HOURS - RESOLUTION</div>
+                    <div class="content">
+                        <p>You know what? Tomorrow. I'll order it tomorrow.</p>
+                        <p>Tonight I'm going to sit with the fact that I've spent 72 hours having a psychological breakdown about cake.</p>
+                        <p>The cake isn't a conspiracy. The cake isn't a metaphor. The cake is just cake.</p>
+                        <p>But the journey to realize that? That was... concerning.</p>
+                    </div>
+                </div>
+
+                <div class="meta-note">
+                    Acceptance. Finally. The cake is just cake. It took three days, but we've arrived at this profound conclusion. And yet, the document continues. Because even in acceptance, there is documentation. This is the human need to make meaning from chaos, even when we know the chaos is self-created.
+                </div>
+
+                <div class="entry">
+                    <div class="timestamp">23:47 HOURS - RELAPSE</div>
+                    <div class="content">
+                        <p>Can't sleep. Patrick just posted a picture of a cake in the group chat with the caption "soon 👀"</p>
+                        <p><strong>WHAT DOES HE KNOW?!</strong></p>
+                    </div>
+                </div>
+
+                <div class="meta-note">
+                    And we're back. One hour after finding peace. One hour after acceptance. Patrick posts an emoji. And the cycle begins again. This is Sisyphus, but the boulder is made of buttercream.
+                </div>
+            </div>
+
+            <div class="conspiracy-box">
+                <h3>🚨 THE FORBIDDEN FROSTING FILES 🚨</h3>
+                <p style="color: #ff6666; margin-bottom: 15px;">Selected highlights from the 72-hour investigation:</p>
+                <ul>
+                    <li>"The bakery is clearly a front - have you seen how efficiently they fold boxes? TOO efficiently"</li>
+                    <li>"The cake box dimensions match exactly with standard surveillance equipment cases"</li>
+                    <li>"I've run the numbers - probability of this many 'coincidences': 0.000043%"</li>
+                    <li>"The candles are tracking devices - why else would they need to be 'lit'?"</li>
+                    <li>"Found flour on my doorstep - they're not even being subtle about intimidation tactics"</li>
+                    <li>"Built a replica cake out of foil to study their movements"</li>
+                    <li>"Nate's 'suspicions' are planted memories. We're all characters in his simulation"</li>
+                </ul>
+            </div>
+
+            <div class="status-box">
+                <h3 style="color: var(--terminal-cyan); margin-bottom: 20px;">DAY 3 FINAL STATUS</h3>
+                <div class="stats-grid">
+                    <div class="stat">
+                        <div class="stat-label">Sanity Level</div>
+                        <div class="stat-value">12%</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-label">Cakes Ordered</div>
+                        <div class="stat-value" style="color: var(--classified-red);">STILL 0</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-label">Spreadsheet Tabs</div>
+                        <div class="stat-value">14</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-label">Patrick Surveillance</div>
+                        <div class="stat-value">ACTIVE</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-label">Triangle Discoveries</div>
+                        <div class="stat-value">1</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="conclusion">
+            <h2>🎂 FINAL ASSESSMENT 🎂</h2>
+            <p><strong>RESEARCH STATUS:</strong> ONGOING</p>
+            <p><strong>CAKE STATUS:</strong> STILL NOT ORDERED</p>
+            <p><strong>MENTAL STATE:</strong> QUESTIONABLE AT BEST</p>
+            <p><strong>PATRICK:</strong> UNDER ACTIVE SURVEILLANCE</p>
+            <p style="margin-top: 20px;"><em>"This investigation will continue. The truth is out there. And it's probably chocolate."</em></p>
+        </div>
+
+        <div class="meta-note" style="margin-top: 40px; border-color: var(--classified-red); background: rgba(255, 0, 0, 0.1);">
+            <strong style="color: var(--classified-red);">FINAL META-REFLECTION:</strong><br><br>
+            This document is what happens when you give an overthinker a simple task and too much free time. It's a masterclass in:<br><br>
+            • Self-awareness without self-correction<br>
+            • Pattern recognition without pattern validation<br>
+            • Documentation without action<br>
+            • Conspiracy theories about birthday desserts<br>
+            • The sunk cost fallacy in its purest form<br><br>
+            72 hours. 14 spreadsheet tabs. Zero cakes. Infinite self-awareness. This is either the most honest documentation of the human condition you've ever read, or the ramblings of someone who needs to step away from Google and just order a damn cake.<br><br>
+            Probably both.<br><br>
+            <strong>UPDATE:</strong> Patrick has volunteered for taste testing. Request: <span style="color: var(--classified-red);">DENIED</span><br>
+            <strong>UPDATE 2:</strong> Patrick has volunteered again. This will require further research.
+        </div>
+
+        <div class="easter-egg">
+            <p><strong>🐰 EASTER EGG PROTOCOL ACTIVATED 🐰</strong></p>
+            <p style="margin-top: 10px;">If you've read this entire document, you're either:</p>
+            <p>a) As obsessive as the researcher</p>
+            <p>b) Genuinely concerned about their mental state</p>
+            <p>c) Procrastinating on your own tasks (ironic)</p>
+            <p style="margin-top: 15px; font-style: italic;">Post a bunny emoji (🐰) in the group chat to win a prize*</p>
+            <p style="font-size: 0.7em; margin-top: 5px;">*Prize is acknowledgment that you read 65,000 lines of code disguised as a birthday party document</p>
+        </div>
+
+        <div class="stamp blink">CLASSIFIED</div>
+
+        <div class="footer">
+            <p>"I COULD HAVE ORDERED A CAKE BUT NO, I HAD TO WRITE A 72-HOUR PSYCHOLOGICAL THRILLER ABOUT IT"</p>
+            <p><strong>- ALEXANDER, DEFINITELY</strong></p>
+            <p>// END OF CAKE DIARIES // THE CAKE WAS EVENTUALLY ORDERED. IT WAS CHOCOLATE. IT WAS FINE. //</p>
+        </div>
+    </div>
+
+    <script>
+        // Add some terminal-like effects
+        document.addEventListener('DOMContentLoaded', function() {
+            // Make timestamps update to current time (for fun)
+            const timestamps = document.querySelectorAll('.timestamp');
+            timestamps.forEach(timestamp => {
+                const originalText = timestamp.textContent;
+                timestamp.setAttribute('data-original', originalText);
+            });
+
+            // Console message because of course
+            console.log("%c🎂 CAKE CONSPIRACY DIARIES - CLASSIFIED", "color: #8b0000; font-size: 18px; font-weight: bold;");
+            console.log("%cThis document contains 72 hours of psychological research into birthday desserts.", "color: #00ff00;");
+            console.log("%cIf you're reading this, you're either part of the conspiracy or have too much time.", "color: #ffff00; font-style: italic;");
+        });
+    </script>
+</body>
+</html>

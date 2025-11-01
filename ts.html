@@ -1,0 +1,2696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OPERATION: BIRTHDAY BLITZ - CLASSIFIED</title>
+    <style>
+        :root {
+            --military-green: #4a5d23;
+            --camo-dark: #3d4c1e;
+            --camo-light: #6b8e23;
+            --camo-tan: #c19a6b;
+            --classified-red: #8b0000;
+            --paper: #f5f5dc;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', monospace;
+        }
+        
+        body {
+            background-color: #0a0a0a;
+            color: #00ff00;
+            background-image: 
+                radial-gradient(circle at 25% 25%, var(--camo-dark) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, var(--military-green) 0%, transparent 50%);
+            padding: 20px;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .document-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: rgba(10, 20, 5, 0.95);
+            border: 2px solid var(--camo-light);
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .document-container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(90deg, transparent 98%, rgba(0,255,0,0.1) 100%),
+                linear-gradient(rgba(0,255,0,0.05) 1px, transparent 1px);
+            background-size: 100% 2em;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .header {
+            background: linear-gradient(to right, var(--camo-dark), var(--military-green));
+            padding: 20px;
+            text-align: center;
+            border-bottom: 3px solid var(--camo-tan);
+            position: relative;
+        }
+        
+        .header::after {
+            content: "TOP SECRET";
+            position: absolute;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%) rotate(90deg);
+            color: var(--classified-red);
+            font-weight: bold;
+            font-size: 1.2em;
+            letter-spacing: 3px;
+        }
+        
+        .classification-banner {
+            background-color: var(--classified-red);
+            color: white;
+            text-align: center;
+            padding: 8px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            border-bottom: 2px solid gold;
+        }
+        
+        h1 {
+            color: gold;
+            font-size: 2.2em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            margin-bottom: 10px;
+        }
+        
+        h2 {
+            color: var(--camo-tan);
+            border-bottom: 1px solid var(--camo-light);
+            padding-bottom: 5px;
+            margin: 25px 0 15px 0;
+            font-size: 1.5em;
+        }
+        
+        h3 {
+            color: #90ee90;
+            margin: 15px 0 10px 0;
+        }
+        
+        .content {
+            padding: 25px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .section {
+            margin-bottom: 30px;
+            border-left: 3px solid var(--military-green);
+            padding-left: 15px;
+        }
+        
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 15px 0;
+        }
+        
+        .info-box {
+            background: rgba(20, 30, 10, 0.7);
+            border: 1px solid var(--camo-light);
+            padding: 15px;
+            border-radius: 3px;
+        }
+        
+        .info-box h4 {
+            color: var(--camo-tan);
+            margin-bottom: 10px;
+            border-bottom: 1px dashed var(--camo-light);
+            padding-bottom: 5px;
+        }
+        
+        ul {
+            list-style-type: none;
+            padding-left: 10px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+            position: relative;
+            padding-left: 20px;
+        }
+        
+        li::before {
+            content: "■";
+            color: var(--camo-light);
+            position: absolute;
+            left: 0;
+        }
+        
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            margin: 20px 0;
+        }
+        
+        .timeline-item {
+            display: flex;
+            margin-bottom: 15px;
+        }
+        
+        .timeline-marker {
+            background-color: var(--camo-light);
+            color: black;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        
+        .timeline-content {
+            flex-grow: 1;
+        }
+        
+        .footer {
+            background: linear-gradient(to right, var(--camo-dark), var(--military-green));
+            padding: 15px;
+            text-align: center;
+            border-top: 3px solid var(--camo-tan);
+            margin-top: 30px;
+            font-style: italic;
+        }
+        
+        .stamp {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            transform: rotate(15deg);
+            border: 2px solid red;
+            padding: 10px 20px;
+            color: red;
+            font-weight: bold;
+            background-color: rgba(255, 255, 255, 0.9);
+            z-index: 3;
+        }
+        
+        .radio-button {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            border: 2px solid var(--camo-light);
+            border-radius: 50%;
+            margin-right: 10px;
+            position: relative;
+            top: 4px;
+        }
+        
+        /* Secret Access Styles */
+        .access-panel {
+            background: rgba(0, 20, 0, 0.9);
+            border: 2px solid var(--classified-red);
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+            border-radius: 5px;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
+        }
+        
+        .access-panel h3 {
+            color: var(--classified-red);
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .code-input {
+            background: black;
+            color: #00ff00;
+            border: 1px solid var(--camo-light);
+            padding: 10px;
+            font-size: 1.2em;
+            text-align: center;
+            width: 200px;
+            margin: 10px;
+            letter-spacing: 3px;
+        }
+        
+        .access-button {
+            background: linear-gradient(to bottom, var(--military-green), var(--camo-dark));
+            color: white;
+            border: 1px solid var(--camo-tan);
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+            margin: 10px;
+            transition: all 0.3s;
+        }
+        
+        .access-button:hover {
+            background: linear-gradient(to bottom, var(--camo-light), var(--military-green));
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+        }
+        
+        .secret-section {
+            display: none;
+            background: rgba(10, 30, 10, 0.95);
+            border: 3px double gold;
+            padding: 25px;
+            margin: 30px 0;
+            position: relative;
+        }
+        
+        .secret-section::before {
+            content: "EYES ONLY";
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: gold;
+            color: black;
+            padding: 5px 15px;
+            font-weight: bold;
+            font-size: 0.9em;
+            letter-spacing: 2px;
+        }
+        
+        .secret-content {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border: 1px solid var(--camo-light);
+            margin: 15px 0;
+        }
+        
+        .warning {
+            color: var(--classified-red);
+            font-weight: bold;
+            text-align: center;
+            margin: 15px 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        /* Conspiracy Network Styles */
+        .conspiracy-board {
+            background: rgba(10, 20, 5, 0.95);
+            border: 2px solid var(--camo-light);
+            padding: 20px;
+            margin: 20px 0;
+            position: relative;
+            min-height: 500px;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0,255,0,0.05) 0%, transparent 50%),
+                radial-gradient(circle at 90% 80%, rgba(0,255,0,0.05) 0%, transparent 50%);
+        }
+
+        .network-container {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            border: 1px dashed var(--camo-light);
+            background: rgba(0, 20, 0, 0.3);
+        }
+
+        .connections {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .connection-line {
+            position: absolute;
+            background: var(--camo-light);
+            height: 2px;
+            transform-origin: 0 0;
+            pointer-events: none;
+            opacity: 0.6;
+            transition: all 0.3s ease;
+        }
+
+        .connection-line.romantic {
+            background: #ff69b4;
+            height: 3px;
+            opacity: 0.8;
+        }
+
+        .connection-line.family {
+            background: #ffa500;
+            height: 2px;
+        }
+
+        .connection-line.close-friend {
+            background: #00ff00;
+            height: 2px;
+        }
+
+        .connection-line.operative {
+            background: #add8e6;
+            height: 1px;
+            opacity: 0.4;
+        }
+
+        .node {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .node:hover {
+            transform: translate(-50%, -50%) scale(1.1);
+            z-index: 100;
+        }
+
+        .node-photo {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--military-green);
+            border: 2px solid var(--camo-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            margin: 0 auto;
+            transition: all 0.3s ease;
+        }
+
+        .node:hover .node-photo {
+            border-color: gold;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+        }
+
+        .node-label {
+            text-align: center;
+            color: var(--camo-tan);
+            font-size: 0.7em;
+            margin-top: 5px;
+            font-weight: bold;
+            line-height: 1.2;
+        }
+
+        .node-role {
+            color: var(--camo-light);
+            font-size: 0.6em;
+            font-weight: normal;
+        }
+
+        .node-info {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.9);
+            border: 1px solid var(--camo-light);
+            padding: 10px;
+            border-radius: 5px;
+            color: #00ff00;
+            font-size: 0.7em;
+            width: 150px;
+            text-align: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            z-index: 1000;
+        }
+
+        .node:hover .node-info {
+            opacity: 1;
+        }
+
+        .network-legend {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid var(--camo-light);
+            padding: 15px;
+            border-radius: 5px;
+            color: var(--camo-tan);
+        }
+
+        .network-legend h4 {
+            color: gold;
+            margin-bottom: 10px;
+            border-bottom: 1px solid var(--camo-light);
+            padding-bottom: 5px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+            font-size: 0.8em;
+        }
+
+        .legend-line {
+            width: 30px;
+            height: 2px;
+            margin-right: 10px;
+        }
+
+        .legend-line.romantic {
+            background: #ff69b4;
+            height: 3px;
+        }
+
+        .legend-line.family {
+            background: #ffa500;
+        }
+
+        .legend-line.close-friend {
+            background: #00ff00;
+        }
+
+        .legend-line.operative {
+            background: #add8e6;
+        }
+
+        /* Bulletin Board Styles */
+        .bulletin-board {
+            background: rgba(20, 30, 10, 0.9);
+            border: 15px solid var(--military-green);
+            border-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Crect width='100' height='100' fill='%234a5d23'/%3E%3C/svg%3E") 30 round;
+            padding: 20px;
+            margin: 30px 0;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
+            position: relative;
+        }
+
+        .bulletin-board::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(74, 93, 35, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(107, 142, 35, 0.3) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .bulletin-header {
+            text-align: center;
+            color: gold;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            border-bottom: 2px solid goldenrod;
+            padding-bottom: 10px;
+        }
+
+        .security-level {
+            font-size: 0.8em;
+            color: var(--camo-tan);
+            margin-top: 5px;
+        }
+
+        /* Tab Styles */
+        .tab-container {
+            display: flex;
+            border-bottom: 2px solid var(--military-green);
+            margin-bottom: 20px;
+            background: rgba(74, 93, 35, 0.1);
+            flex-wrap: wrap;
+        }
+
+        .tab-button {
+            background: rgba(74, 93, 35, 0.3);
+            border: none;
+            padding: 10px 15px;
+            color: var(--military-green);
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            cursor: pointer;
+            flex: 1;
+            transition: all 0.3s;
+            border-right: 1px solid var(--military-green);
+            min-width: 120px;
+        }
+
+        .tab-button:last-child {
+            border-right: none;
+        }
+
+        .tab-button:hover {
+            background: rgba(74, 93, 35, 0.5);
+            color: gold;
+        }
+
+        .tab-button.active {
+            background: var(--military-green);
+            color: gold;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Telegraph Styles */
+        .telegraph {
+            background: rgba(245, 245, 220, 0.9);
+            color: #333;
+            border: 1px solid var(--military-green);
+            padding: 15px;
+            margin: 15px 0;
+            position: relative;
+            box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
+            border-left: 5px solid var(--military-green);
+        }
+
+        .telegraph::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(to right, var(--military-green), var(--camo-light), var(--military-green));
+        }
+
+        .telegraph-header {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px dashed var(--military-green);
+            padding-bottom: 5px;
+            margin-bottom: 10px;
+            font-size: 0.9em;
+        }
+
+        .telegraph-sender {
+            font-weight: bold;
+            color: var(--military-green);
+        }
+
+        .telegraph-time {
+            color: #666;
+        }
+
+        .telegraph-content {
+            margin: 10px 0;
+            line-height: 1.5;
+        }
+
+        .telegraph-comment {
+            background: rgba(255, 215, 0, 0.1);
+            border-left: 3px solid goldenrod;
+            padding: 8px 12px;
+            margin-top: 10px;
+            font-style: italic;
+            color: #8B4513;
+            font-size: 0.9em;
+        }
+
+        .intel-update {
+            background: rgba(0, 100, 0, 0.2);
+            border: 1px dashed var(--camo-light);
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 0.9em;
+        }
+
+        .intel-update::before {
+            content: "INTEL UPDATE: ";
+            font-weight: bold;
+            color: var(--camo-light);
+        }
+
+        .priority-high {
+            border-left-color: #ff0000;
+            background: rgba(255, 0, 0, 0.05);
+        }
+
+        .priority-high .telegraph-sender {
+            color: #8b0000;
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(74, 93, 35, 0.2);
+            border: 1px solid var(--military-green);
+        }
+
+        .stat {
+            text-align: center;
+            padding: 10px;
+        }
+
+        .stat-number {
+            display: block;
+            font-size: 1.8em;
+            font-weight: bold;
+            color: gold;
+        }
+
+        .stat-label {
+            font-size: 0.8em;
+            color: var(--military-green);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        @media (prefers-reduced-motion: no-preference) {
+            .blink {
+                animation: blink 2s infinite;
+            }
+
+            @keyframes blink {
+                0%, 50% { opacity: 1; }
+                51%, 100% { opacity: 0.3; }
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .network-container {
+                height: 300px;
+            }
+            
+            .node {
+                width: 60px;
+                height: 60px;
+            }
+            
+            .node-photo {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2em;
+            }
+            
+            .node-label {
+                font-size: 0.6em;
+            }
+            
+            .network-legend {
+                position: relative;
+                top: auto;
+                right: auto;
+                margin-top: 20px;
+            }
+            
+            .tab-button {
+                min-width: 100px;
+                font-size: 0.8em;
+                padding: 8px 10px;
+            }
+            
+            .grid-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-bar {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media print {
+            body {
+                background: white;
+                color: black;
+            }
+            
+            .document-container {
+                box-shadow: none;
+                border: 1px solid #ccc;
+            }
+            
+            .classification-banner {
+                background: white;
+                color: black;
+                border: 2px solid black;
+            }
+            
+            .access-panel, .secret-section {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="document-container">
+        <div class="classification-banner blink">
+            TOP SECRET // FOR OPERATIVE EYES ONLY // NOFORN
+        </div>
+        
+        <div class="header">
+            <h1>OPERATION: BIRTHDAY BLITZ</h1>
+            <p><strong>CLASSIFIED LEVEL: MISSION CRITICAL</strong></p>
+            <p>DOCUMENT ID: BDAY-OP-15NOV | AUTHOR: COMMANDER NATE OLIVIER</p>
+        </div>
+        
+        <div class="content">
+            <div class="section">
+                <h2><span aria-hidden="true">🚨</span> MISSION CRITICAL UPDATE</h2>
+                <div class="info-box" style="background: rgba(255,215,0,0.2); border: 2px solid gold;">
+                    <h4 style="color: gold;">COMMANDER NATE - FINAL ORDERS</h4>
+                    <div class="telegraph" style="background: rgba(255,255,255,0.95); margin: 15px 0;">
+                        <div class="telegraph-header">
+                            <span class="telegraph-sender">COMMANDER NATE</span>
+                            <span class="telegraph-time">MISSION UPDATE</span>
+                        </div>
+                        <div class="telegraph-content">
+                            <strong>Sup guys!</strong><br><br>
+                            So by majority vote, we will be locking in the <strong>12pm slot for the 15th</strong>. I will make the booking quite early tomorrow morning so we don't miss out.<br><br>
+                            We have to do a <strong>50 percent deposit</strong> of the whole group.<br>
+                            I think to make things easier, I will post my bank details on the group and everyone can EFT me the full amount (<strong>R160</strong>) and then I can just settle the deposit and final payment.<br>
+                            If anyone wants extra balls, you can pay for that on the 15th.<br><br>
+                            I will create a new pole shortly for everyone that's definitely joining for 12pm. I know that there are a few +1s not added on the group so please can you drop their name and confirm if they are definitely in. <span aria-hidden="true">🔫🔫🔫</span><br><br>
+                            <strong>I look forward to shooting you all <span aria-hidden="true">🥹</span></strong>
+                        </div>
+                    </div>
+                    <div class="intel-update" style="background: rgba(0,100,0,0.3);">
+                        <strong>COMMAND ANALYSIS:</strong> Mission parameters confirmed! 12pm engagement locked. Financial protocols established. 
+                        All operatives must EFT R160 to Commander Nate. Additional ammunition available on-site. 
+                        The birthday target is excited to be targeted. Perfect psychological conditions for surprise success.
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECRET ACCESS PANEL -->
+            <div class="access-panel">
+                <h3>LEVEL 5 CLEARANCE REQUIRED</h3>
+                <p>Enter Access Code to view supplementary directives.</p>
+                <input type="text" id="accessCode" class="code-input" placeholder="ENTER CODE">
+                <button class="access-button" onclick="checkAccessCode()">AUTHENTICATE</button>
+                <p id="accessMessage" style="color: #ffcc00; margin-top: 10px;">PLEASE ENTER ACCESS CODE</p>
+            </div>
+            
+            <div class="secret-section" id="secretSection">
+                <h2>TOP SECRET: SUPPLEMENTARY DIRECTIVES</h2>
+                <div class="secret-content">
+                    <h4>OPERATION "TARGET ACQUIRED"</h4>
+                    <p>This is the hidden content. Primary directive: Ensure Commander Nate is the most-targeted player. Secondary directive: Do not, under any circumstances, reveal that his girlfriend (Operative Tallulah-Belle) is the primary conspirator.</p>
+                    <p class="warning">This information is EYES ONLY. Do not discuss with the target. He thinks this is just a "casual game."</p>
+                </div>
+                <button class="access-button" onclick="hideSecretSection()">RE-CLASSIFY CONTENT</button>
+            </div>
+
+            <div class="section">
+                <h2><span aria-hidden="true">🎯</span> SITUATION REPORT</h2>
+                <div class="grid-container">
+                    <div class="info-box">
+                        <h4>MISSION PARAMETERS</h4>
+                        <ul>
+                            <li><strong>OBJECTIVE:</strong> Birthday Paintball Engagement</li>
+                            <li><strong>DATE:</strong> 15 November (Saturday)</li>
+                            <li><strong>TIME:</strong> 1200 HOURS (CONFIRMED)</li>
+                            <li><strong>OPERATION CODE:</strong> Birthday Blitz</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="info-box">
+                        <h4>THREAT ASSESSMENT</h4>
+                        <ul>
+                            <li>High probability of paint stains</li>
+                            <li>Moderate to high fun factor</li>
+                            <li>Certain adrenaline spike</li>
+                            <li>Financial commitment: R160/operative</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2><span aria-hidden="true">📡</span> INTELLIGENCE COMMAND CENTER</h2>
+                
+                <div class="bulletin-board">
+                    <div class="bulletin-header">
+                        FIELD COMMUNICATIONS & OPERATIVE UPDATES
+                        <div class="security-level">HALLOWEEN INTEL REVIEW - 31 OCT</div>
+                    </div>
+
+                    <div class="tab-container">
+                        <button class="tab-button active" onclick="openTab(event, 'tab-critical')">CRITICAL INTEL</button>
+                        <button class="tab-button" onclick="openTab(event, 'tab-halloween')">HALLOWEEN INTEL</button>
+                        <button class="tab-button" onclick="openTab(event, 'tab-security')">SECURITY BREACH</button>
+                        <button class="tab-button" onclick="openTab(event, 'tab-spies')">SILENT OPERATIVES</button>
+                        <button class="tab-button" onclick="openTab(event, 'tab-battlefield')">BATTLEFIELD INTEL</button>
+                        <button class="tab-button" onclick="openTab(event, 'tab-crypto')">CRYPTO ANALYSIS</button>
+                    </div>
+
+                    <div id="tab-critical" class="tab-content active">
+                        <div class="telegraph priority-high">
+                            <div class="telegraph-header">
+                                <span class="telegraph-sender">COMMANDER NATE</span>
+                                <span class="telegraph-time">MISSION UPDATE</span>
+                            </div>
+                            <div class="telegraph-content">
+                                <strong>12PM SLOT CONFIRMED</strong><br>
+                                • Booking: Tomorrow morning<br>
+                                • Payment: R160 EFT to Commander Nate<br>
+                                • Deposit: 50% required<br>
+                                • Extra ammo: Available on-site<br>
+                                • +1s: Confirm names in group
+                            </div>
+                            <div class="telegraph-comment">
+                                MISSION STATUS: All systems go! Financial protocols activated. 
+                                Birthday target coordinating his own surprise. Peak operational efficiency achieved.
+                            </div>
+                        </div>
+<div class="telegraph" style="background: rgba(255,20,147,0.1); border-left-color: #FF1493;">
+    <div class="telegraph-header">
+        <span class="telegraph-sender">OPERATIVE TRIGGER</span>
+        <span class="telegraph-time">IMMEDIATE - COMMUNICATIONS BLAST</span>
+    </div>
+    <div class="telegraph-content">
+        <strong>90+ MESSAGES DETECTED - COMMUNICATIONS OVERLOAD</strong><br><br>
+        • New operative identified: "Trigger"<br>
+        • Message count: 90+ in single engagement<br>
+        • Status: Maximum chat velocity achieved<br>
+        • Specialty: Notification warfare<br>
+        • Assessment: Either extreme enthusiasm or accidental pocket-texting
+    </div>
+    <div class="telegraph-comment">
+        🚨 COMMUNICATIONS ALERT: Operative Trigger has achieved legendary status by flooding the channel with 90+ messages. 
+        This represents either: 1) Advanced hype deployment, 2) Weaponized enthusiasm, or 3) Someone who REALLY loves their send button. 
+        Either way, we're impressed and slightly concerned about our notification settings.
+    </div>
+</div>
+                        <div class="intel-update" style="background: rgba(0,255,0,0.2);">
+                            <strong>OPERATIONAL TIMELINE UPDATED:</strong> 15 NOV | 12:00 HOURS | HOSTILE & MUNITION PAINTBALL | R160 BASE PACKAGE
+                        </div>
+                    </div>
+
+                    <div id="tab-halloween" class="tab-content">
+                        <div class="telegraph" style="background: rgba(255,140,0,0.1); border-left-color: #FF8C00;">
+                            <div class="telegraph-header">
+                                <span class="telegraph-sender">OPERATIVE JUSTIN</span>
+                                <span class="telegraph-time">17:46 HOURS</span>
+                            </div>
+                            <div class="telegraph-content">
+                                "Abuse of the aged is a criminal offence, I'll be recording all those hits <span aria-hidden="true">😂</span>"<br>
+                                "Everyone will have to submit their current L&D verification. I think I may be highest (35)"
+                            </div>
+                            <div class="telegraph-comment">
+                                <span aria-hidden="true">🎃</span> ELDER WARFARE PROTOCOL: Operative Justin deploying "aged abuse" legal defense. 
+                                L&D verification system activated. Current high score: 35. Tallulah counter-claims: 44. 
+                                Assessment: Either paintball hits or life disappointments. Both equally painful.
+                            </div>
+                        </div>
+
+                        <div class="telegraph" style="background: rgba(139,0,0,0.1); border-left-color: #8B0000;">
+                            <div class="telegraph-header">
+                                <span class="telegraph-sender">OPERATIVE MATTHEW HENZEN</span>
+                                <span class="telegraph-time">17:26 HOURS</span>
+                            </div>
+                            <div class="telegraph-content">
+                                "Yes @Matthew Henzen +27 685 4000"<br>
+                                "So something came up for us aged folk. For the 15th"<br>
+                                "@Tallulah-Belle <span aria-hidden="true">🍒</span>"
+                            </div>
+                            <div class="telegraph-comment">
+                                <span aria-hidden="true">🎃</span> AGE-BASED TACTICAL RETREAT: Operative Matthew Henzen confirms "aged folk" status. 
+                                Self-identifies as elderly combatant. Additional assessment: Either legitimate scheduling conflict 
+                                or clever excuse to avoid paintball humiliation. Suspect level: MODERATE.
+                            </div>
+                        </div>
+                        <div class="telegraph priority-high" style="background: rgba(255,165,0,0.1); border-left-color: #FF8C00;">
+                            <div class="telegraph-header">
+                                <span class="telegraph-sender">HALLOWEEN SPECIAL REPORT</span>
+                                <span class="telegraph-time">31 OCT - MORNING BRIEF</span>
+                            </div>
+                            <div class="telegraph-content">
+                                <strong>OPERATIVE MATTHEW FINCHAM ENTERS THE CHAT</strong><br>
+                                "What are t&c's?" - begins the great legal inquiry of 2024<br>
+                                Contact: +27 78 318 5222 | Status: Confused but enthusiastic
+                            </div>
+                            <div class="telegraph-comment">
+                                <span aria-hidden="true">🎃</span> INTELLIGENCE ASSESSMENT: New operative demonstrates advanced questioning techniques. 
+                                T&C investigation reveals deep philosophical concerns about operational legality. 
+                                Halloween probability: Someone will dress as a lawyer.
+                            </div>
+                        </div>
+
+                        <div class="telegraph" style="background: rgba(139,0,139,0.1); border-left-color: #8B008B;">
+                            <div class="telegraph-header">
+                                <span class="telegraph-sender">OPERATIVE TALLULAH-BELLE</span>
+                                <span class="telegraph-time">31 OCT - LEGAL LIAISON</span>
+                            </div>
+                            <div class="telegraph-content">
+                                "Unless you work in insurance"<br>
+                                "I cannot believe I read all that"<br>
+                                "Absolute nonsense but read it"<br>
+                                "Because I can't be the only one"
+                            </div>
+                            <div class="telegraph-comment">
+                                <span aria-hidden="true">👻</span> STATUS: Successfully deployed legal decoy document. 
+                                Confirmed: Operative does NOT work in psychological operations (probably). 
+                                Reading comprehension: Surprisingly high for someone dating Nate.
+                            </div>
+                        </div>
+
+                        <div class="telegraph" style="background: rgba(75,0,130,0.1); border-left-color: #4B0082;">
+                            <div class="telegraph-header">
+                                <span class="telegraph-sender">DECOY DOCUMENT ACTIVATED</span>
+                                <span class="telegraph-time">31 OCT - CLASSIFIED</span>
+                            </div>
+                            <div class="telegraph-content">
+                                "https://akor.github.io/Aartless/T0PSECRET.HTML"<br>
+                                "It's all good I chatted with legal. Everything's setup"<br>
+                                "I can actually not believe I read all of that"
+                            </div>
+                            <div class="telegraph-comment">
+                                <span aria-hidden="true">🔮</span> SECURITY STATUS: Top secret decoy page operational. 
+                                Legal department clearance: OBTAINED. 
+                                Operative sanity after reading T&Cs: QUESTIONABLE.
+                            </div>
+                        </div>
+
+                        <div class="telegraph">
+                            <div class="telegraph-header">
+                                <span class="telegraph-sender">OPERATIVE JOSHUA</span>
+                                <span class="telegraph-time">RECENT HOURS</span>
+                            </div>
+                            <div class="telegraph-content">
+                                "why, are you worried? got sue things on them?"<br>
+                                "OK! Is the model you send me <span aria-hidden="true">😊</span>"<br>
+                                "we going skirtless? not asking about other garments either? <span aria-hidden="true">😊</span>"
+                            </div>
+                            <div class="telegraph-comment">
+                                COMMAND NOTE: Operative Joshua engaging in psychological warfare and fashion interrogation. 
+                                Skirtless protocol proposed as alternative to shirtless. 
+                                Garment investigation: ONGOING.
+                            </div>
+                        </div>
+
+                        <div class="telegraph">
+                            <div class="telegraph-header">
+                                <span class="telegraph-sender">COMMANDER NATE</span>
+                                <span class="telegraph-time">RECENT HOURS</span>
+                            </div>
+                            <div class="telegraph-content">
+                                "Only the model you send me <span aria-hidden="true">😊</span>"
+                            </div>
+                            <div class="telegraph-comment">
+                                COMMAND NOTE: Commander confirms receipt of "the model." 
+                                Nature of model: CLASSIFIED. 
+                                Possible IKEA furniture or scale battlefield replica.
+                            </div>
+                        </div>
+
+                        <div class="telegraph">
+                            <div class="telegraph-header">
+                                <span class="telegraph-sender">COMMANDER NATE</span>
+                                <span class="telegraph-time">EARLIER</span>
+                            </div>
+                            <div class="telegraph-content">
+                                "Why does this look like it's gonna give my phone a virus <span aria-hidden="true">😊</span>"
+                            </div>
+                            <div class="telegraph-comment">
+                                COMMAND NOTE: Commander demonstrates unexpected cybersecurity awareness. 
+                                Virus probability: 0%. Fun probability: 100%. 
+                                Assessment: The only thing infected will be his ego after we're done "celebrating" him.
+                            </div>
+                        </div>
+
+                        <div class="intel-update">
+                            LATEST: Garment protocol under discussion. Skirtless combat being considered as tactical alternative. 
+                            Model exchange confirmed between operatives. Additional intel suggests Commander Nate may be building a scale model of the battlefield. 
+                            Or it's just a very detailed cake. Definitely not paid enough for this. 
+                            Water / electricity used for this Intel could power Knysna.
+                        </div>
+
+                        <div class="intel-update" style="background: rgba(255,69,0,0.2); border-color: #FF4500;">
+                            HALLOWEEN STATUS: New operative Matthew Fincham integrated. Legal documents reviewed. 
+                            Suspicion levels: MODERATE. Costume ideas for paintball: Ghost, zombie, or "guy who read too many T&Cs"
+                        </div>
+                    </div>
+
+                    <div id="tab-security" class="tab-content">
+                        <div class="telegraph" style="background: rgba(0,100,0,0.1); border-left-color: #006400;">
+                            <div class="telegraph-header">
+                                <span class="telegraph-sender">MESSAGE DELETION DETECTED</span>
+                                <span class="telegraph-time">18:08 HOURS</span>
+                            </div>
+                            <div class="telegraph-content">
+                                "<span aria-hidden="true">❌</span> This message was deleted" - Commander Nate<br>
+                                Time of deletion: 18:08 hours<br>
+                                Context: Following Tallulah's "44" L&D claim
+                            </div>
+                            <div class="telegraph-comment">
+                                SECURITY ALERT: Commander Nate engaged in message sanitization protocol. 
+                                Deleted message likely contained either: 1) Embarrassing L&D score, 2) Accidental surprise reveal, 
+                                or 3) Compromising photo evidence. Recovery attempt: FAILED. Paranoia level: ELEVATED.
+                            </div>
+                        </div>
+
+                        <div class="telegraph">
+                            <div class="telegraph-header">
+                                <span class="telegraph-sender">PINNED MESSAGE ANALYSIS</span>
+                                <span class="telegraph-time">18:10 HOURS</span>
+                            </div>
+                            <div class="telegraph-content">
+                                "Trey pinned a message"<br>
+                                Content: 3D cartoon redhead man (beard, green shirt) smirking, hand gripping white door knob, opening door suspiciously
+                            </div>
+                            <div class="telegraph-comment">
+                                CRYPTO ANALYSIS: Pinned image represents either: 1) Trey's arrival confirmation, 
+                                2) Metaphor for "opening the door to pain", or 3) Just a weird picture he found funny. 
+                                Psychological impact: CONFUSING BUT MEMORABLE.
+                            </div>
+                        </div>
+                        <div class="telegraph priority-high">
+                            <div class="telegraph-header">
+                                <span class="telegraph-sender">OPERATIVE JUSTIN</span>
+                                <span class="telegraph-time">17:11 HOURS</span>
+                            </div>
+                            <div class="telegraph-content">
+                                "@Nate you are not authorised to open the following document. It's not for your Intel."
+                            </div>
+                            <div class="telegraph-comment">
+                                COMMAND NOTE: Security protocols engaged! Attempting to protect classified decoy document from Commander Nate. 
+                                Psychological warfare assessment: Telling someone not to do something increases their desire to do it by 400%. 
+                                Perfect trap deployment.
+                            </div>
+                        </div>
+
+                        <div class="telegraph">
+                            <div class="telegraph-header">
+                                <span class="telegraph-sender">DECOY DOCUMENT STATUS</span>
+                                <span class="telegraph-time">ACTIVE</span>
+                            </div>
+                            <div class="telegraph-content">
+                                Classified decoy page deployed with self-destruct sequence and punishment protocols. 
+                                No one has realized this is actually top secret with two TTs yet.
+                            </div>
+                            <div class="telegraph-comment">
+                                COMMAND NOTE: Document designed to look suspiciously like virus software. 
+                                Success rate of deterring Commander Nate: 50/50. Additional feature: If opened, displays message 
+                                "We know what you did, Nate. Extra punishment protocols activated."
+                            </div>
+                        </div>
+
+                        <div class="telegraph priority-high">
+                            <div class="telegraph-header">
+                                <span class="telegraph-sender">BULLETIN INTEL - URGENT</span>
+                                <span class="telegraph-time">IMMEDIATE ANALYSIS</span>
+                            </div>
+                            <div class="telegraph-content">
+                                Operatives think stickers, emoji, or text codes work but are futile. 
+                                All such codes must be decoded and analyzed to understand operative intentions.
+                            </div>
+                            <div class="telegraph-comment">
+                                INTELLIGENCE ASSESSMENT: Field operatives attempting primitive encryption methods including upside-down text. 
+                                Security level: NEGLIGIBLE. Entertainment value: MAXIMUM. 
+                                These attempts are adorable but about as secure as a screen door on a submarine.
+                            </div>
+                        </div>
+
+                        <div class="telegraph">
+                            <div class="telegraph-header">
+                                <span class="telegraph-sender">UPSIDE-DOWN INTERCEPT</span>
+                                <span class="telegraph-time">DECODED</span>
+                            </div>
+                            <div class="telegraph-content">
+                                "Sn away llyn Kay? Jo umop apjsdn yeads o? away noA"<br><br>
+                                <strong>Translation:</strong> "You have to type upside down so they don't hear us. Let's do this update upside down"
+                            </div>
+                            <div class="telegraph-comment">
+                                CRYPTO ANALYSIS: ˙ʎʇᴉɹnɔǝs ɹoɟ pƎINƎp 'ʎpǝɯoɔ ɹoɟ pƎΛOɹԀԀ∀ :loɔoʇoɹd uʍop-ǝpᴉsd∩ ˙sǝʌᴉʇɐlǝɹ ʎsou ɹo ǝɔuɐllᴉǝʌɹns oʇ sɹǝɟǝɹ ʎlǝʞᴉl ,,ʎǝɥʇ,, ǝɥ┴ ˙uoᴉʇdʎɹɔuǝ ǝʇɐnbǝpɐuᴉ ɹቔǝɥʇ ʇnoqɐ ǝɹɐʍɐ-ɟlǝs ƃuᴉɯoɔǝq sǝʌᴉʇɐɹǝdO
+                            </div>
+                        </div>
+
+                        <div class="intel-update">
+                            SECURITY STATUS: Decoy operational. Commander Nate's access attempts being monitored. 
+                            Punishment protocols ready for activation. New intel: Operative encryption attempts are futile but highly entertaining. 
+                            Continue monitoring.
+                        </div>
+                    </div>
+
+                    <div id="tab-spies" class="tab-content">
+                        <div class="telegraph" style="background: rgba(0,0,255,0.1); border-left-color: #0000ff;">
+                            <div class="telegraph-header">
+                                <span class="telegraph-sender">INTELLIGENCE ALERT</span>
+                                <span class="telegraph-time">ACTIVE SURVEILLANCE</span>
+                            </div>
+                            <div class="telegraph-content">
+                                <strong>SUSPECTED UNDERCOVER OPERATIVES DETECTED</strong><br>
+                                Multiple agents maintaining radio silence despite clear intelligence requests.
+                            </div>
+                            <div class="telegraph-comment">
+                                <span aria-hidden="true">🕵️</span> <strong>COVERT OBSERVERS:</strong> Intelligence gathering without revealing positions<br>
+                                <span aria-hidden="true">🤫</span> <strong>STEALTH SPECIALISTS:</strong> Masters of operational silence<br>
+                                <span aria-hidden="true">📡</span> <strong>COMMS INTERCEPTION:</strong> Reading but not transmitting<br>
+                                <span aria-hidden="true">🎭</span> <strong>SLEEPER AGENTS:</strong> Waiting for activation signal<br>
+                                <span aria-hidden="true">🍿</span> <strong>POPCORN EATERS:</strong> Enjoying the drama without participating<br>
+                                <span aria-hidden="true">💤</span> <strong>COMATOSE OPERATIVES:</strong> Possibly asleep at their posts
+                            </div>
+                        </div>
+
+                        <div class="telegraph">
+                            <div class="telegraph-header">
+                                <span class="telegraph-sender">OPERATIVE PATRICK</span>
+                                <span class="telegraph-time">PREVIOUS</span>
+                            </div>
+                            <div class="telegraph-content">
+                                "Lol I don't know half the peeps in this group, but I'm always down for a paintball sesh <span aria-hidden="true">😊</span> Sign me up."
+                            </div>
+                            <div class="telegraph-comment">
+                                COMMAND NOTE: Positive example of operative engagement. 
+                                Willingness to engage with unknown allies: COMMENDABLE. 
+                                Additional assessment: This operative either very brave or very naive. Possibly both. Perfect paintball material.
+                            </div>
+                        </div>
+
+                        <div class="intel-update">
+                            ATTENTION SILENT OPERATIVES: Your lack of communication has been noted. 
+                            Report your status immediately or face being designated as "mystery targets" during engagement. 
+                            We have paintballs with your names on them. Literally. We're writing names on them right now.
+                        </div>
+                    </div>
+
+                    <div id="tab-battlefield" class="tab-content">
+                        <div class="telegraph" style="background: rgba(70,130,180,0.1); border-left-color: #4682B4;">
+                            <div class="telegraph-header">
+                                <span class="telegraph-sender">ELDER COMBATANT PROTOCOL</span>
+                                <span class="telegraph-time">17:26 HOURS</span>
+                            </div>
+                            <div class="telegraph-content">
+                                "That's discrimination, not allowed that nowadays" - Justin<br>
+                                "Seeing as though you were in the army, you'll be the biggest target <span aria-hidden="true">😭</span> <span aria-hidden="true">😡</span>" - Nate<br>
+                                "@Alexander write that down!!" - Tallulah
+                            </div>
+                            <div class="telegraph-comment">
+                                BATTLEFIELD ASSESSMENT: Age-based targeting protocols officially banned per international paintball law. 
+                                Army veterans now designated primary targets. Legal team (Alexander) instructed to document discrimination claims. 
+                                Additional note: Former military experience = paintball proficiency probability: 85%.
+                            </div>
+                        </div>
+                        <div class="telegraph priority-high">
+                            <div class="telegraph-header">
+                                <span class="telegraph-sender">BATTLEFIELD CONFIRMATION</span>
+                                <span class="telegraph-time">CONFIRMED</span>
+                            </div>
+                            <div class="telegraph-content">
+                                "Hostile and Munition Paintball - Cape Town"<br>
+                                Coordinates: https://maps.app.goo.gl/esu25Dtjkqr8GHh17f?g_st=ju
+                            </div>
+                            <div class="telegraph-comment">
+                                COMMAND NOTE: Primary engagement zone identified and confirmed. 
+                                Hostile and Munition Paintball facility confirmed as operational headquarters. 
+                                Terrain analysis: Urban combat environment with multiple strategic positions. 
+                                Additional intel: They have snacks. Repeat: THEY HAVE SNACKS.
+                            </div>
+                        </div>
+
+                        <div class="telegraph">
+                            <div class="telegraph-header">
+                                <span class="telegraph-sender">OPERATIVE JOSHUA</span>
+                                <span class="telegraph-time">17:28 HOURS</span>
+                            </div>
+                            <div class="telegraph-content">
+                                "Way too much self preservation for that"
+                            </div>
+                            <div class="telegraph-comment">
+                                COMMAND NOTE: Shirtless combat protocol officially rejected due to self-preservation concerns. 
+                                Standard protective gear mandatory. Additional assessment: Smart move. 
+                                Paintball welts on bare skin would make sitting difficult for a week. And we need him to be able to sit for cake.
+                            </div>
+                        </div>
+
+                        <div class="telegraph">
+                            <div class="telegraph-header">
+                                <span class="telegraph-sender">OPERATIVE TALLULAH-BELLE</span>
+                                <span class="telegraph-time">16:47 HOURS</span>
+                            </div>
+                            <div class="telegraph-content">
+                                "The updates here have me dead"
+                            </div>
+                            <div class="telegraph-comment">
+                                COMMAND NOTE: Operative recovered from amusement overload with standard issue panado/white powder. 
+                                Mission humor levels: OPTIMAL. Medical assessment: Laughter-induced injuries heal faster than paintball bruises. Mostly.
+                            </div>
+                        </div>
+
+                        <div class="intel-update">
+                            BATTLEFIELD STATUS: Location confirmed. Protective gear protocols established. 
+                            All operatives advised to study terrain and prepare for urban combat scenarios. 
+                            Additional recommendation: Practice your "I'm definitely not planning a birthday surprise" face in the mirror.
+                        </div>
+                    </div>
+
+                    <div id="tab-crypto" class="tab-content">
+                     <div class="telegraph" style="background: rgba(128,0,128,0.1); border-left-color: #800080;">
+    <div class="telegraph-header">
+        <span class="telegraph-sender">L&D VERIFICATION SYSTEM</span>
+        <span class="telegraph-time">17:46 HOURS</span>
+    </div>
+    <div class="telegraph-content">
+        <strong>ENCRYPTED SCORE SUBMISSION:</strong><br>
+        "I think I may be highest (35)" - Justin<br>
+        "Pretty sure mine was 44" - Tallulah<br>
+        [MESSAGE DELETED] - Nate
+    </div>
+    <div class="telegraph-comment">
+        <strong>CRYPTO ASSESSMENT:</strong> L&D (Loss & Damage) verification represents primitive scoring encryption. 
+        Scores likely reference either: 1) Previous paintball performance, 2) Life failure metrics, or 3) Random numbers to establish dominance. 
+        Message deletion suggests Nate's score was either embarrassingly low or catastrophically high. 
+        Verification protocol: SUSPENDED DUE TO TAMPERING.
+    </div>
+</div>
+   <div class="telegraph" style="background: rgba(139,0,0,0.1); border-left-color: #8b0000;">
+                            <div class="telegraph-header">
+                                <span class="telegraph-sender">CODE BREAKER UNIT</span>
+                                <span class="telegraph-time">IMMEDIATE ANALYSIS</span>
+                            </div>
+                            <div class="telegraph-content">
+                                <strong>ENCRYPTED MESSAGE INTERCEPTED:</strong><br>
+                                "Sn away llyn Kay? Jo umop apjsdn yeads o? away noA"<br><br>
+                                
+                                <strong>DECRYPTED TRANSLATION:</strong><br>
+                                "You have to type upside down so they don't hear us. Let's do this update upside down"
+                            </div>
+                            <div class="telegraph-comment">
+                                <strong>CRYPTO ASSESSMENT:</strong> Operatives attempting primitive upside-down text encryption. 
+                                Security level: NEGLIGIBLE. While adorable in its simplicity, this method offers approximately 
+                                the same security as whispering secrets in a library full of librarians with super-hearing. 
+                                All field agents should be aware: The "They" referenced likely refers to surveillance entities 
+                                or possibly nosy relatives. Upside-down protocol: APPROVED for amusement value, DENIED for actual security.
+                            </div>
+                        </div>
+
+                        <div class="telegraph">
+                            <div class="telegraph-header">
+                                <span class="telegraph-sender">BULLETIN INTEL - URGENT</span>
+                                <span class="telegraph-time">FIELD OPERATIVES ALERT</span>
+                            </div>
+                            <div class="telegraph-content">
+                                Operatives have been observed using stickers, emojis, or text codes (including upside-down text) 
+                                under the mistaken belief these methods provide secure communication. 
+                            </div>
+                            <div class="telegraph-comment">
+                                <strong>INTELLIGENCE ASSESSMENT:</strong> These attempts are futile and should be interpreted as part of their 
+                                amateur covert strategies. All such codes must be immediately decoded and analyzed to understand operative intentions. 
+                                Current success rate of these "encryption" methods: 0%. Entertainment value: 100%.
+                            </div>
+                        </div>
+
+                        <div class="telegraph">
+                            <div class="telegraph-header">
+                                <span class="telegraph-sender">UPSIDE-DOWN UPDATE</span>
+                                <span class="telegraph-time">OPERATIVE COMMUNICATION</span>
+                            </div>
+                            <div class="telegraph-content">
+                                ˙pǝpoɔǝp ʇsnɯ puɐ elʇnɟ ǝɹɐ sǝpoɔ ǝsǝɥʇ 'sn ɹɐǝɥ ʇ,uop ʎǝɥʇ os ʇxǝʇ uʍop-ǝpᴉsdn ǝsn sǝʌᴉʇɐɹǝdO
+                            </div>
+                            <div class="telegraph-comment">
+                                <strong>TRANSLATION:</strong> "Operatives use upside-down text so they don't hear us, but these codes are futile and must be decoded."<br>
+                                <strong>ANALYSIS:</strong> The operatives are becoming self-aware about their own inadequate encryption methods. 
+                                This represents either advanced meta-humor or concerning levels of delusion about communication security.
+                            </div>
+                        </div>
+
+                        <div class="intel-update">
+                            CRYPTO STATUS: All upside-down communications now being automatically decoded and analyzed. 
+                            Recommendation: Continue monitoring for entertainment value. Security risk: LOW. Comedy value: HIGH.
+                        </div>
+                    </div>
+
+                    <div class="stats-bar">
+                        <div class="stat">
+                            <span class="stat-number">12pm</span>
+                            <span class="stat-label">CONFIRMED</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">R160</span>
+                            <span class="stat-label">FUNDING</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">9+</span>
+                            <span class="stat-label">OPERATIVES</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">💯</span>
+                            <span class="stat-label">READY</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2><span aria-hidden="true">📋</span> OPERATION PARAMETERS</h2>
+                
+                <h3>ENGAGEMENT WINDOW - CONFIRMED</h3>
+                <p><span class="radio-button" role="radio" aria-checked="true" style="background: var(--camo-light);"></span> <strong>1200 HOURS [HIGH NOON ASSAULT] - MISSION CONFIRMED</strong></p>
+                <p><span class="radio-button" role="radio" aria-checked="false"></span> 0900 HOURS [DAWN RAID] - Rejected</p>
+                <p><span class="radio-button" role="radio" aria-checked="false"></span> 1600 HOURS [AFTERNOON STRIKE] - Rejected</p>
+                
+                <h3>MUNITIONS ALLOCATION - UPDATED</h3>
+                <div class="grid-container">
+                    <div class="info-box">
+                        <h4>BASE PACKAGE: R160 / OPERATIVE</h4>
+                        <ul>
+                            <li>90 minute deployment window</li>
+                            <li>Standard issue: 100 paintball rounds</li>
+                            <li>Additional: Bruises and bragging rights included</li>
+                            <li><strong>Payment: EFT to Commander Nate</strong></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="info-box">
+                        <h4>SUPPLEMENTARY AMMO</h4>
+                        <ul>
+                            <li>R70: 100 additional rounds (because missing is fun too)</li>
+                            <li>R120: 200 additional rounds (for the overachievers)</li>
+                            <li>R160: 300 additional rounds [ELITE PACKAGE] (for when you really don't like someone)</li>
+                            <li><strong>Payable on-site</strong></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- OPERATIVE DOSSIER SECTION -->
+            <div class="section">
+                <h2><span aria-hidden="true">🗂️</span> OPERATIVE DOSSIER – DAY 2-3 STATUS</h2>
+                
+                <!-- Original Operatives -->
+                <div class="grid-container">
+                    <div class="info-box">
+                        <h4><span aria-hidden="true">🕶️</span> OPERATIVE ALEXANDER</h4>
+                        <ul>
+                            <li><strong>Codename:</strong> "Diogenes \ too much time on his hands"</li>
+                            <li><strong>Assignment:</strong> Hype squad / team DJ / unnecessary strategist /definitely does not work in espionage (actually is probably the least sus of all) </li>
+                            <li><strong>Morning Brief:</strong> "Bro I've got a plan" (he does not have a plan)</li>
+                            <li><strong>Estimated K/D ratio:</strong> 0.7, verbally 10/10</li>
+                        </ul>
+                    </div>
+
+                    <div class="info-box">
+                        <h4><span aria-hidden="true">🎯</span> COMMANDER NATE</h4>
+                        <ul>
+                            <li><strong>Codename:</strong> "The Birthday General/Target"</li>
+                            <li><strong>Assignment:</strong> Birthday target / moral center / soon-to-be-paint magnet</li>
+                            <li><strong>Morning Brief:</strong> "We're just chilling today, right?"</li>
+                            <li><strong>Intel:</strong> Still thinks this is casual paintball. Dating Tallulah-Belle. Double blind operation.</li>
+                            <li><strong>Relationship Status:</strong> Completely unaware girlfriend is co-conspirator</li>
+                        </ul>
+                    </div>
+
+                    <div class="info-box">
+                        <h4><span aria-hidden="true">💣</span> OPERATIVE PATRICK</h4>
+                        <ul>
+                            <li><strong>Codename:</strong> "Collateral Damage"</li>
+                            <li><strong>Assignment:</strong> Volunteer test dummy</li>
+                            <li><strong>Morning Brief:</strong> "I brought my own smoke grenades."</li>
+                            <li><strong>HQ Notes:</strong> No one told him this isn't airsoft. Let him learn the hard way.</li>
+                        </ul>
+                    </div>
+
+                    <div class="info-box">
+                        <h4><span aria-hidden="true">🧃</span> OPERATIVE LIAM</h4>
+                        <ul>
+                            <li><strong>Codename:</strong> "Logistics Guy"</li>
+                            <li><strong>Assignment:</strong> Transport, snacks, vibes</li>
+                            <li><strong>Morning Brief:</strong> "We're running on coffee and confidence."</li>
+                            <li><strong>Status:</strong> Already late but brings good snacks so we forgive him</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- NEW OPERATIVES -->
+                <div class="grid-container">
+                    <div class="info-box">
+                        <h4><span aria-hidden="true">🎭</span> OPERATIVE JOSHUA</h4>
+                        <ul>
+                            <li><strong>Codename:</strong> "Psychological Warfare"</li>
+                            <li><strong>Assignment:</strong> Mind games & tactical banter</li>
+                            <li><strong>Morning Brief:</strong> "You won't like me after this" *sinister smile*</li>
+                            <li><strong>Intel:</strong> Has already declared post-paintball friendship suspension. Takes no prisoners.</li>
+                        </ul>
+                    </div>
+
+                    <div class="info-box" style="background: rgba(255,0,0,0.1); border: 2px solid #ff0000;">
+                        <h4 style="color: #ff0000;"><span aria-hidden="true">💑</span> OPERATIVE TALLULAH-BELLE</h4>
+                        <ul>
+                            <li><strong>Codename:</strong> "Actually Reads T&Cs"</li>
+                            <li><strong>Assignment:</strong> Undercover operations / Birthday surprise coordination</li>
+                            <li><strong>Morning Brief:</strong> "I know all his weaknesses <span aria-hidden="true">😊</span>"</li>
+                            <li><strong>Status:</strong> Medically cleared after panado/powder treatment. Laughter-induced injuries healed.</li>
+                            <li><strong>CRITICAL INTEL:</strong> ROMANTICALLY INVOLVED WITH COMMANDER NATE</li>
+                            <li><strong>Security Clearance:</strong> TRUSTED WITH SECRETS BUT NOT WITH CAKE KNIFE</li>
+                        </ul>
+                    </div>
+
+                    <div class="info-box">
+                        <h4><span aria-hidden="true">👨‍👦</span> OPERATIVE TREY</h4>
+                        <ul>
+                            <li><strong>Codename:</strong> "The Older Brother"</li>
+                            <li><strong>Assignment:</strong> Mates' older bro / relationship double-agent</li>
+                            <li><strong>Morning Brief:</strong> "I'm just here to keep an eye on things"</li>
+                            <li><strong>Intel:</strong> Couple coordination with Marlene. May have actual adult responsibilities.</li>
+                        </ul>
+                    </div>
+
+                    <div class="info-box" style="background: rgba(0,0,255,0.1); border: 1px solid #0000ff;">
+                        <h4><span aria-hidden="true">🕵️</span> OPERATIVE MARLENE</h4>
+                        <ul>
+                            <li><strong>Codename:</strong> "The Enigma"</li>
+                            <li><strong>Assignment:</strong> UNKNOWN - SUSPECTED SPY</li>
+                            <li><strong>Morning Brief:</strong> *Radio silence*</li>
+                            <li><strong>HQ Notes:</strong> High probability of undercover activity. Couple coordination with Trey. 
+                                Could be: <span aria-hidden="true">🎭</span> Deep cover operative, <span aria-hidden="true">🤫</span> Intelligence gathering, or <span aria-hidden="true">🍿</span> Just along for the ride.</li>
+                            <li><strong>Clearance:</strong> PENDING VERIFICATION</li>
+                        </ul>
+                    </div>
+                    <div class="info-box" style="background: rgba(255,140,0,0.1); border: 1px solid #FF8C00;">
+                        <h4><span aria-hidden="true">🎖️</span> OPERATIVE JUSTIN</h4>
+                        <ul>
+                            <li><strong>Codename:</strong> "The Aged Combatant"</li>
+                            <li><strong>Assignment:</strong> Elder warfare specialist / Legal protection protocols</li>
+                            <li><strong>Morning Brief:</strong> "Abuse of the aged is a criminal offence"</li>
+                            <li><strong>Intel:</strong> Former army, claims L&D score of 35, recording all hits for legal evidence</li>
+                            <li><strong>Specialty:</strong> Age-based discrimination lawsuits and strategic complaining</li>
+                        </ul>
+                    </div>
+
+<div class="info-box" style="background: rgba(148,0,211,0.1); border: 2px solid #9400D3;">
+    <h4 style="color: #9400D3;">💥 OPERATIVE TRIGGER</h4>
+    <ul>
+        <li><strong>Codename:</strong> "The Notification Tsunami"</li>
+        <li><strong>Assignment:</strong> Communications overload / Maximum engagement</li>
+        <li><strong>Morning Brief:</strong> *90+ message notification blast*</li>
+        <li><strong>Intel:</strong> Single-handedly increased group activity by 400%. Message velocity: MAXIMUM</li>
+        <li><strong>Specialty:</strong> Overwhelming chat presence and send button mastery</li>
+        <li><strong>Weapon:</strong> The notification system</li>
+        <li><strong>Status:</strong> Either extremely enthusiastic or has sticky keyboard keys</li>
+    </ul>
+</div>
+
+                    <div class="info-box" style="background: rgba(139,69,19,0.1); border: 1px solid #8B4513;">
+                        <h4><span aria-hidden="true">📞</span> OPERATIVE MATTHEW HENZEN</h4>
+                        <ul>
+                            <li><strong>Codename:</strong> "The WhatsApp Phantom"</li>
+                            <li><strong>Assignment:</strong> Communications evasion / Aged folk representative</li>
+                            <li><strong>Contact Protocol:</strong> Email only (doesn't reply to WhatsApp)</li>
+                            <li><strong>Status:</strong> Confirmed for 15th but identifies as "aged folk" with scheduling concerns</li>
+                            <li><strong>Specialty:</strong> Digital disappearance and senior citizen discounts</li>
+                        </ul>
+                    </div>
+<div class="info-box" style="background: linear-gradient(135deg, rgba(0,0,0,0.8), rgba(128,0,128,0.3)); border: 2px solid #FFD700; position: relative; overflow: hidden;">
+    <div style="position: absolute; top: 0; right: 0; background: #FFD700; color: black; padding: 2px 8px; font-size: 0.7em; font-weight: bold;">VIP</div>
+    <h4 style="color: #FFD700; text-shadow: 0 0 10px rgba(255,215,0,0.5);">🎤 OPERATIVE JOHN</h4>
+    <ul>
+        <li><strong>Codename:</strong> "iJohn" / "The Rhythmic Assassin"</li>
+        <li><strong>Assignment:</strong> Celebrity intimidation / Musical warfare</li>
+        <li><strong>Relation:</strong> Alexander's brother (the cooler one)</li>
+        <li><strong>Physical Stats:</strong> 6ft+, eight-pack abs, full tattoo coverage</li>
+        <li><strong>Status:</strong> Famous rapper bringing star power to the operation</li>
+        <li><strong>Specialty:</strong> Intimidating presence, rhythmic battle chants</li>
+        <li><strong>Weapon:</strong> Mic drop followed by paintball barrage</li>
+        <li><strong>Threat Level:</strong> Enemy morale destruction via sheer coolness</li>
+    </ul>
+</div>
+                </div>
+
+                <!-- CRITICAL RELATIONSHIP INTEL -->
+                <div class="intel-update" style="background: rgba(255,0,0,0.2); border-color: #ff0000;">
+                    <span aria-hidden="true">💥</span> CRITICAL RELATIONSHIP INTEL: Operative Tallulah-Belle confirmed to be dating Commander Nate. 
+                    This creates both strategic advantage (inside knowledge) and operational risk (potential emotional compromise). 
+                    All operatives maintain cover - she cannot reveal surprise to boyfriend!
+                </div>
+
+                <!-- SPY WARNING -->
+                <div class="intel-update" style="background: rgba(0,0,255,0.1); border-color: #0000ff;">
+                    <span aria-hidden="true">🔍</span> SPY ALERT: Operative Marlene under surveillance. All communications to be monitored. 
+                    Approach with caution until loyalty confirmed. Trey instructed to provide regular updates on suspicious activity.
+                </div>
+
+                <!-- RELATIONSHIP PROTOCOLS -->
+                <div class="info-box" style="background: rgba(255,105,180,0.1); border: 1px solid #ff69b4; margin-top: 15px;">
+                    <h4 style="color: #ff69b4;"><span aria-hidden="true">💖</span> RELATIONSHIP-BASED OPERATIONAL PROTOCOLS</h4>
+                    <ul>
+                        <li><strong>Tallulah-Belle:</strong> Authorized to use romantic leverage for tactical advantage</li>
+                        <li><strong>All Operatives:</strong> Forbidden from mentioning surprise during couple interactions</li>
+                        <li><strong>Emergency Protocol:</strong> If Nate suspects, deploy "distraction kiss" maneuver</li>
+                        <li><strong>Post-Mission:</strong> Romantic forgiveness protocols activated if he gets too many paintball bruises</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Add this new section after the Operative Dossier section -->
+            <div class="section">
+                <h2><span aria-hidden="true">🔗</span> RELATIONSHIP NETWORK MAP</h2>
+                
+                <div class="conspiracy-board">
+                    <div class="network-container">
+                        <!-- Connection Lines will be drawn here by JavaScript -->
+                        <div class="connections" id="connections"></div>
+                        
+                        <!-- Operative Nodes -->
+                        <div class="node" id="node-nate" data-connections="tallulah,alexander,joshua,patrick,liam">
+                            <div class="node-photo"><span aria-hidden="true">🎯</span></div>
+                            <div class="node-label">NATE<br><span class="node-role">Birthday Target</span></div>
+                            <div class="node-info">
+                                <strong>Central Node</strong><br>
+                                Dating: Tallulah<br>
+                                Friends: All<br>
+                                Status: Unaware
+                            </div>
+                        </div>
+
+                        <div class="node" id="node-tallulah" data-connections="nate,trey,marlene" style="top: 30%; left: 70%;">
+                            <div class="node-photo"><span aria-hidden="true">💑</span></div>
+                            <div class="node-label">TALLULAH<br><span class="node-role">Double Agent</span></div>
+                            <div class="node-info">
+                                <strong>Romantic Link</strong><br>
+                                Dating: Nate<br>
+                                Sibling: Trey<br>
+                                Friend: Marlene
+                            </div>
+                        </div>
+
+                    <div class="node" id="node-alexander" data-connections="nate,joshua,john" style="top: 60%; left: 20%;">
+    <div class="node-photo">🕶️</div>
+    <div class="node-label">ALEXANDER<br><span class="node-role">Hype Man</span></div>
+    <div class="node-info">
+        <strong>Social Catalyst</strong><br>
+        Close: Nate, Joshua<br>
+        Brother: John (iJohn)<br>
+        Role: Morale Officer
+    </div>
+</div>
+                        <div class="node" id="node-joshua" data-connections="nate,alexander,patrick" style="top: 40%; left: 40%;">
+                            <div class="node-photo"><span aria-hidden="true">🎭</span></div>
+                            <div class="node-label">JOSHUA<br><span class="node-role">Psych Ops</span></div>
+                            <div class="node-info">
+                                <strong>Psychological Warfare</strong><br>
+                                Friends: Nate, Alex, Pat<br>
+                                Specialty: Banter
+                            </div>
+                        </div>
+
+                        <div class="node" id="node-patrick" data-connections="nate,joshua,liam" style="top: 70%; left: 50%;">
+                            <div class="node-photo"><span aria-hidden="true">💣</span></div>
+                            <div class="node-label">PATRICK<br><span class="node-role">Wild Card</span></div>
+                            <div class="node-info">
+                                <strong>Chaos Agent</strong><br>
+                                Friends: Everyone<br>
+                                Known For: Smoke Grenades
+                            </div>
+                        </div>
+<div class="node" id="node-john" data-connections="alexander,nate" style="top: 30%; left: 10%;">
+    <div class="node-photo" style="background: linear-gradient(45deg, #FFD700, #9400D3); border: 3px solid gold; box-shadow: 0 0 15px gold;">🎤</div>
+    <div class="node-label" style="color: gold; text-shadow: 0 0 5px rgba(255,215,0,0.7);">JOHN<br><span class="node-role">Celebrity Operative</span></div>
+    <div class="node-info" style="background: rgba(0,0,0,0.95); border: 2px solid gold;">
+        <strong>VIP OPERATIVE</strong><br>
+        Brother: Alexander<br>
+        Connection: Direct to Nate<br>
+        Status: Famous rapper<br>
+        Specialty: Intimidation
+    </div>
+</div>
+                        <div class="node" id="node-liam" data-connections="nate,patrick" style="top: 20%; left: 30%;">
+                            <div class="node-photo"><span aria-hidden="true">🧃</span></div>
+                            <div class="node-label">LIAM<br><span class="node-role">Logistics</span></div>
+                            <div class="node-info">
+                                <strong>Support Role</strong><br>
+                                Close: Nate, Patrick<br>
+                                Specialty: Snacks & Transport
+                            </div>
+                        </div>
+
+                        <div class="node" id="node-trey" data-connections="tallulah,marlene" style="top: 10%; left: 60%;">
+                            <div class="node-photo"><span aria-hidden="true">👨‍👦</span></div>
+                            <div class="node-label">TREY<br><span class="node-role">Older Brother</span></div>
+                            <div class="node-info">
+                                <strong>Family Link</strong><br>
+                                Sibling: Tallulah<br>
+                                Partner: Marlene<br>
+                                Role: Watchful Eye
+                            </div>
+                        </div>
+                        <div class="node" id="node-justin" data-connections="nate" style="top: 80%; left: 70%;">
+                            <div class="node-photo"><span aria-hidden="true">🎖️</span></div>
+                            <div class="node-label">JUSTIN<br><span class="node-role">Elder Warrior</span></div>
+                            <div class="node-info">
+                                <strong>Legal Protection</strong><br>
+                                Military: Army Veteran<br>
+                                Status: Recording evidence<br>
+                                Specialty: Age discrimination
+                            </div>
+                        </div>
+
+                        <div class="node" id="node-matt-henzen" data-connections="tallulah" style="top: 90%; left: 40%;">
+                            <div class="node-photo"><span aria-hidden="true">📞</span></div>
+                            <div class="node-label">MATT HENZEN<br><span class="node-role">WhatsApp Phantom</span></div>
+                            <div class="node-info">
+                                <strong>Communications</strong><br>
+                                Contact: Email only<br>
+                                Status: Aged folk<br>
+                                Specialty: Digital evasion
+                            </div>
+                        </div>
+
+                        <div class="node" id="node-marlene" data-connections="tallulah,trey" style="top: 50%; left: 80%;">
+                            <div class="node-photo"><span aria-hidden="true">🕵️</span></div>
+                            <div class="node-label">MARLENE<br><span class="node-role">The Enigma</span></div>
+                            <div class="node-info">
+                                <strong>Mystery Node</strong><br>
+                                Partner: Trey<br>
+                                Friend: Tallulah<br>
+                                Status: Under Surveillance
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Legend -->
+                    <div class="network-legend">
+                        <h4>CONNECTION TYPES:</h4>
+                        <div class="legend-item">
+                            <span class="legend-line romantic"></span>
+                            Romantic Relationship
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-line family"></span>
+                            Family Connection
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-line close-friend"></span>
+                            Close Friendship
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-line operative"></span>
+                            Operative Link
+                        </div>
+                    </div>
+
+                    <div class="intel-update">
+                        NETWORK ANALYSIS: Centralized around Commander Nate. Romantic link with Tallulah creates strategic advantage. 
+                        Family connection between Tallulah-Trey adds complexity. Marlene remains intelligence gap. All paths lead to paintball.
+                    </div>
+                </div>
+            </div>
+
+            <!-- TACTICAL AUDIO BRIEFING -->
+            <div class="section">
+                <h2><span aria-hidden="true">🎧</span> TACTICAL AUDIO BRIEFING</h2>
+                <div class="info-box">
+                    <h4>OFFICIAL SOUNDTRACK: OPERATION BIRTHDAY BLITZ</h4>
+                    <p>Issued by HQ to maintain peak hype levels, suppress hesitation, and enhance general stupidity.</p>
+                    <p><strong>Protocol:</strong> Blast at unsafe volume. Bonus points for synchronized head nods.</p>
+                    <p><strong>Command Order:</strong> "No skipping songs — HQ is monitoring compliance. Also no Nickelback."</p>
+                    <div class="intel-update">
+                        SOUNDTRACK STATUS: Curated specifically to get operatives in the right mindset for "celebrating" the commander with extreme prejudice (and love).
+                    </div>
+                </div>
+            </div>
+
+            <!-- STRATEGIC MAP BRIEFING -->
+            <div class="section">
+                <h2><span aria-hidden="true">🧭</span> STRATEGIC MAP BRIEFING</h2>
+                <div class="info-box">
+                    <p>Recon reports terrain includes mud, barrels, and one suspiciously birthday-sized cake box. Possible ambush zone.</p>
+                    <p>HQ recommends sunscreen, hydration, and emotional readiness for chaos.</p>
+                    <p>Morale: dangerously high. Intelligence: critically low. Perfect conditions for fun.</p>
+                </div>
+            </div>
+
+            <!-- PRE-MISSION RADIO TRAFFIC -->
+            <div class="section">
+                <h2><span aria-hidden="true">📻</span> TWO WEEKS OUT: PRE-MISSION CHATTER</h2>
+                
+                <div class="info-box" style="background: rgba(30,30,30,0.8); border: 1px solid #444;">
+                    <h4>OPERATIONAL PLANNING PHASE - 14 DAYS TO DEPLOYMENT</h4>
+                    
+                    <div class="intel-update" style="background: rgba(255,255,255,0.1);">
+                        [TWO WEEKS OUT] HQ: "All units begin operational planning. RSVP status required for battlefield coordination."
+                    </div>
+                    
+                    <div class="intel-update">
+                        [TWO WEEKS OUT] Patrick: "Calendar marked! Got the date wrong twice but we're locked in now. Pants situation: TBD."
+                    </div>
+                    
+                    <div class="intel-update">
+                        [TWO WEEKS OUT] Joshua: "Two weeks to mentally prepare for the psychological warfare. My paintball gun is already judging me."
+                    </div>
+                    
+                    <div class="intel-update" style="background: rgba(255,0,0,0.1);">
+                        [TWO WEEKS OUT] Nate: "Why does the group chat keep saying 'Operation Birthday Blitz'? Should I be concerned? <span aria-hidden="true">😅</span>"
+                    </div>
+                    
+                    <div class="intel-update">
+                        [TWO WEEKS OUT] HQ: "Negative, Commander. Just enthusiastic planning terminology. Definitely not a coordinated surprise operation."
+                    </div>
+                    
+                    <div class="intel-update">
+                        [TWO WEEKS OUT] Tallulah-Belle: "Don't worry babe, it's just a fun code name! *adjusts invisible halo* I'm your innocent girlfriend, remember? Would I lie to you? <span aria-hidden="true">😇</span>"
+                    </div>
+                    
+                    <div class="intel-update">
+                        [TWO WEEKS OUT] Liam: "Two weeks to remember where I put my old paintball gear. This should be interesting."
+                    </div>
+                    
+                    <div class="intel-update" style="background: rgba(0,0,255,0.1);">
+                        [TWO WEEKS OUT] Marlene: *Maintains radio silence* <span aria-hidden="true">🕵️‍♀️</span>
+                    </div>
+                    
+                    <div class="intel-update">
+                        [TWO WEEKS OUT] Trey: "Marlene says she's 'observing the operational dynamics.' I think that means she's in."
+                    </div>
+
+                    <div class="intel-update" style="background: rgba(255,165,0,0.1);">
+                        [TWO WEEKS OUT] Matt: "Wait, I'm new here. Are we actually doing military ops or is this just really enthusiastic paintball?"
+                    </div>
+
+                    <div class="intel-update">
+                        [TWO WEEKS OUT] HQ: "Welcome Operative Matt! It's... both. Mostly the second one. Just follow the person who looks like they know what they're doing."
+                    </div>
+
+                    <div class="intel-update">
+                        [TWO WEEKS OUT] Joshua: "@Matt it's tactical paintball. The only difference is we use words like 'tactical' a lot more."
+                    </div>
+
+                    <div class="intel-update">
+                        [TWO WEEKS OUT] Alexander: "I've developed a 37-point strategic plan involving flanking maneuvers and psychological operations. Step one: actually hit someone. Working on that part."
+                    </div>
+
+                    <div class="intel-update">
+                        [TWO WEEKS OUT] Trey: "Marlene just raised one eyebrow. I think that's spy-speak for 'I'll bring snacks'."
+                    </div>
+
+                    <div class="intel-update">
+                        [TWO WEEKS OUT] Matt: "Okay cool. Do I need to bring anything besides my complete confusion and willingness to shoot friends?"
+                    </div>
+
+                    <div class="intel-update">
+                        [TWO WEEKS OUT] Patrick: "@Matt that's the spirit! Also maybe pants. Unlike me apparently."
+                    </div>
+
+                    <div class="intel-update">
+                        [TWO WEEKS OUT] Alexander: "My strategic analysis indicates Nate's primary weakness is his trusting nature. Also his girlfriend is actively plotting against him. That might be related."
+                    </div>
+
+                    <div class="intel-update">
+                        [TWO WEEKS OUT] Tallulah-Belle: "Nate just asked if we're planning to 'actually blitz' him. I told him 'of course not, darling' while mentally mapping optimal ambush positions. Relationship goals! <span aria-hidden="true">💕</span>"
+                    </div>
+
+                    <div class="intel-update">
+                        [TWO WEEKS OUT] HQ: "Reminder: This document is getting so long we might need to split it into volumes. Operative attention spans are limited."
+                    </div>
+
+                    <div class="intel-update">
+                        [TWO WEEKS OUT] Alexander: "I've calculated that if we all shoot at Nate simultaneously, the probability of him suspecting it's intentional approaches 100%. I call it the 'obvious but effective' strategy."
+                    </div>
+
+                    <div class="intel-update">
+                        [TWO WEEKS OUT] Tallulah-Belle: "As both girlfriend and co-conspirator, I can confirm Nate's suspiciousness is directly proportional to how much I smile. Currently at 'suspiciously cheerful' levels. Send help. Or more concealer for the nervous sweating."
+                    </div>
+
+                    <div class="intel-update">
+                        [TWO WEEKS OUT] Matt: "So just to confirm - we're definitely shooting the birthday boy more than anyone else, right?"
+                    </div>
+
+                    <div class="intel-update">
+                        [TWO WEEKS OUT] HQ: "@Matt Correct. We call it 'celebratory targeting'. It's a tradition. Like cake, but with more welts."
+                    </div>
+
+                    <div class="intel-update">
+                        [TWO WEEKS OUT] Alexander: "I've nicknamed my paintball gun 'The Birthday Present'. Nate's going to love unwrapping it. Repeatedly. All over his body."
+                    </div>
+                    
+                    <div class="intel-update" style="background: rgba(0,100,0,0.2);">
+                        [TWO WEEKS OUT] HQ: "All operatives maintain casual demeanor. Remember: This is 'just paintball' until D-Day. Even though we have a 20-page classified document about it."
+                    </div>
+                </div>
+                
+                <div class="telegraph-comment">
+                    OPERATIONAL STATUS: Two-week countdown initiated. Commander Nate's suspicion levels: MODERATE. 
+                    Double Agent Tallulah-Belle successfully deploying "innocent girlfriend" protocols with alarming effectiveness. 
+                    Strategic Analyst Alexander has identified the "shoot Nate a lot" strategy as optimal. 
+                    Spy Marlene's allegiance remains unknown but eyebrow communication suggests possible snack provision.
+                    New Operative Matt: Confused but enthusiastic. Pants situation for Patrick: STILL CRITICAL.
+                </div>
+            </div>
+
+     
+<!-- PRE-MISSION RADIO TRAFFIC -->
+<div class="section">
+    <h2><span aria-hidden="true">📻</span> FRIDAY NIGHT PRE-GAME CHATTER</h2>
+    
+    <div class="bulletin-board" style="background: rgba(30, 10, 30, 0.9); border-color: #8B008B;">
+        <div class="bulletin-header" style="color: #ff69b4;">
+            <span aria-hidden="true">🍸</span> AFTER-HOURS COMMS - COUNTDOWN: 3 WEEKS OUT
+            <div style="font-size: 0.85em; font-style: italic; color: #d8bfd8; margin-top: 5px;">
+                (Intercepted from various states of sobriety and consciousness)
+            </div>
+        </div>
+
+        <div class="telegraph" style="background: rgba(75,0,130,0.3); border-left-color: #9370DB;">
+            <div class="telegraph-header" style="color: #d8bfd8;">
+                <span class="telegraph-sender">ALEX</span>
+                <span class="telegraph-time">22:17 - BAR #3 OF THE NIGHT</span>
+            </div>
+            <div class="telegraph-content" style="color: white;">
+                "Three weeks until we unleash chaos! But more importantly: do you think they'll make Shrek sexy in the dark live action remake? Like, I'm talking REALLY sexy. With abs. Green abs. <span aria-hidden="true">🤔💚</span>"
+            </div>
+            <div class="telegraph-comment" style="color: #d8bfd8;">
+                <span aria-hidden="true">🍹</span> STATUS: Two drinks past tactical coherence. Priorities shifted from military planning to theoretical ogre attractiveness. HQ notes: This is the strategist we chose. This is on us.
+            </div>
+        </div>
+
+        <div class="telegraph" style="background: rgba(255,20,147,0.2); border-left-color: #FF1493;">
+            <div class="telegraph-header" style="color: #ffb6c1;">
+                <span class="telegraph-sender">TALLULAH</span>
+                <span class="telegraph-time">22:23 - COUCH, MAINTAINING COVER</span>
+            </div>
+            <div class="telegraph-content" style="color: white;">
+                "Nate just walked past while I was on this chat. Had to pretend I was texting my mom. He saw the words 'operation' and 'paintball' but I convinced him it was autocorrect from 'shopping' and 'football.' He bought it. THE RABBIT HAS <span aria-hidden="true">🐰👉🕳️</span> AND THE HOLE IS LINED WITH MY LIES."
+            </div>
+            <div class="telegraph-comment" style="color: #ffb6c1;">
+                <span aria-hidden="true">💅</span> STATUS: Living a double life. Dating the target. Convincing him autocorrect is that broken. This is either love or a psychological thriller. Possibly both. Relationship counseling budget: Increasing.
+            </div>
+        </div>
+
+        <div class="telegraph" style="background: rgba(255,69,0,0.2); border-left-color: #FF4500;">
+            <div class="telegraph-header" style="color: #FFA07A;">
+                <span class="telegraph-sender">PATRICK</span>
+                <span class="telegraph-time">22:31 - HOME, SURROUNDED BY GEAR</span>
+            </div>
+            <div class="telegraph-content" style="color: white;">
+                "UPDATE: Bought 'tactical pants' online. They arrived. They're cargo shorts. I'm 60% sure this is wrong but 100% committed to wearing them anyway. Also bought what I THOUGHT was a paintball mask but it's for welding??? YouTube is very confusing. Send help. Or don't. We'll see what happens."
+            </div>
+            <div class="telegraph-comment" style="color: #FFA07A;">
+                <span aria-hidden="true">🍺</span> STATUS: Equipment confusion reaching critical levels. Owns welding mask, cargo shorts, and unshakeable confidence. The trifecta of disaster. HQ prediction: 40% chance he shows up ready to weld, 60% chance he forgets pants entirely. Field medic on standby.
+            </div>
+        </div>
+
+        <div class="telegraph" style="background: rgba(138,43,226,0.2); border-left-color: #8A2BE2;">
+            <div class="telegraph-header" style="color: #DDA0DD;">
+                <span class="telegraph-sender">JOSHUA</span>
+                <span class="telegraph-time">22:45 - MENTALLY PREPARING</span>
+            </div>
+            <div class="telegraph-content" style="color: white;">
+                "Spent the last hour writing down potential trash talk. Current favorites: 'This is for your birthday but against your wellbeing' and 'Happy birthday to the GROUND.' I have 47 more. I'm workshopping them. This is my art. My battlefield poetry. My dad jokes with violence."
+            </div>
+            <div class="telegraph-comment" style="color: #DDA0DD;">
+                <span aria-hidden="true">🎨</span> STATUS: Has prepared more one-liners than actual strategy. Psychological warfare taken seriously. Physical warfare: TBD. Priorities: Artistically correct. 47 variations of birthday roasts documented. This operative treats banter like a doctoral thesis.
+            </div>
+        </div>
+
+        <div class="telegraph" style="background: rgba(255,215,0,0.15); border-left-color: #FFD700;">
+            <div class="telegraph-header" style="color: #FFEB3B;">
+                <span class="telegraph-sender">NATE</span>
+                <span class="telegraph-time">22:52 - LIVING ROOM, INCREASINGLY PARANOID</span>
+            </div>
+            <div class="telegraph-content" style="color: white;">
+                "Okay SERIOUSLY why does everyone keep asking if I'm 'ready for my birthday' in that TONE? That specific tone. You know the tone. It's weeks away! What are you people planning?! Tallulah just smiled at me in a way that felt... criminal? Also why is there a welding mask in Patrick's Instagram story??"
+            </div>
+            <div class="telegraph-comment" style="color: #FFEB3B;">
+                <span aria-hidden="true">🤔</span> STATUS: Suspicion levels: ELEVATED. Pattern recognition: ACTIVE. Trust in girlfriend: WAVERING. Observational skills: Too good for comfort. HQ assessment: He knows something is happening but has no idea WHAT. Perfect psychological conditions. Also correctly identified Tallulah's "criminal smile." Impressive.
+            </div>
+        </div>
+
+        <div class="telegraph" style="background: rgba(46,139,87,0.2); border-left-color: #2E8B57;">
+            <div class="telegraph-header" style="color: #90EE90;">
+                <span class="telegraph-sender">LIAM</span>
+                <span class="telegraph-time">23:07 - CAR MAINTENANCE SCHEDULED</span>
+            </div>
+            <div class="telegraph-content" style="color: white;">
+                "Car maintenance booked for 2 weeks out. Oil change, tire rotation, emotional preparation for transporting chaos incarnate. Also making a Spotify playlist called 'Driving to Paintball Violence.' Current vibe: Anxious logistics coordinator meets getaway driver. Snack list started: 47 items deep."
+            </div>
+            <div class="telegraph-comment" style="color: #90EE90;">
+                <span aria-hidden="true">🚗</span> STATUS: The only adult in this operation. Has contingency plans. Color-coded spreadsheets (probably). Snack procurement: EXCESSIVE. HQ notes: If this mission succeeds, it's 80% due to Liam's planning and 20% pure chaos energy. Spotify playlist: Reviewed and approved.
+            </div>
+        </div>
+
+        <div class="telegraph" style="background: rgba(70,130,180,0.2); border-left-color: #4682B4;">
+            <div class="telegraph-header" style="color: #87CEEB;">
+                <span class="telegraph-sender">TREY</span>
+                <span class="telegraph-time">23:15 - OBSERVING MARLENE</span>
+            </div>
+            <div class="telegraph-content" style="color: white;">
+                "Marlene's been practicing her 'I have no idea what's happening' face in the mirror for 20 minutes. I asked what she was doing. She said 'research.' I'm both impressed and concerned. She's gotten TOO good at looking innocent. I think I'm dating a spy. An actual spy. Should I be worried?"
+            </div>
+            <div class="telegraph-comment" style="color: #87CEEB;">
+                <span aria-hidden="true">👀</span> STATUS: Bearing witness to potential espionage training in real-time. Partner's acting skills: SUSPICIOUS. Mirror practice: METHODICAL. Trey's role: Supportive but paranoid. HQ assessment: Either she's extremely committed to the bit or we accidentally recruited an actual intelligence operative. Both possibilities are concerning.
+            </div>
+        </div>
+
+        <div class="telegraph" style="background: rgba(128,128,128,0.3); border-left-color: #696969;">
+            <div class="telegraph-header" style="color: #C0C0C0;">
+                <span class="telegraph-sender">MARLENE</span>
+                <span class="telegraph-time">23:22 - CLASSIFIED LOCATION</span>
+            </div>
+            <div class="telegraph-content" style="color: white;">
+                "Comprehensive analysis complete: Paintball velocity averages 300 fps. Nate's documented reaction time: 0.487 seconds. Optimal targeting window: 0.3 seconds post-awareness. Probability of successful birthday ambush: 94.7%. Also researched Domino's arm physics because Patrick asked. Regret levels: Immeasurable. The math checks out but at what cost to my sanity?"
+            </div>
+            <div class="telegraph-comment" style="color: #C0C0C0;">
+                <span aria-hidden="true">🕶️</span> STATUS: Conducted full ballistic analysis while everyone else debated Shrek's potential hotness. Calculated success probability to decimal points. Researched Domino (the Marvel character)'s muscular mechanics for unknown reasons (Patrick's fault). This is either dedication or descent into madness. Possibly both. HQ notes: We don't deserve her.
+            </div>
+        </div>
+
+        <div class="telegraph" style="background: rgba(255,0,255,0.2); border-left-color: #FF00FF;">
+            <div class="telegraph-header" style="color: #FF69B4;">
+                <span class="telegraph-sender">TRIGGER</span>
+                <span class="telegraph-time">23:28 - NOTIFICATION WARFARE ACTIVE</span>
+            </div>
+            <div class="telegraph-content" style="color: white;">
+                *Sends 43 messages in 6 minutes*
+                "GUYS"
+                "GUYS LISTEN"
+                "THIS IS IMPORTANT"
+                "WHAT IF"
+                "WHAT IF WE"
+                "OKAY HEAR ME OUT"
+                "WHAT IF WE ALL"
+                "COORDINATE"
+                "OUR SHOTS"
+                "AT THE SAME TIME"
+                "LIKE A FIRING SQUAD"
+                "BUT BIRTHDAY THEMED"
+                "THOUGHTS???"
+                *Continues for 30+ more messages*
+            </div>
+            <div class="telegraph-comment" style="color: #FF69B4;">
+                <span aria-hidden="true">🚨</span> STATUS: NOTIFICATION TSUNAMI IN PROGRESS. Messages per minute: 7.2. Enthusiasm: WEAPONIZED. Group chat: UNDER SIEGE. Content: Actually a good idea buried under 43 messages. HQ Assessment: Either extreme ADHD, broken keyboard, or has discovered the secret to military communication (SPAM). Phones across the city vibrating simultaneously. Seismic activity detected.
+            </div>
+        </div>
+
+        <div class="telegraph" style="background: rgba(0,100,0,0.2); border-left-color: #228B22;">
+            <div class="telegraph-header" style="color: #90EE90;">
+                <span class="telegraph-sender">MATT HENZEN</span>
+                <span class="telegraph-time">23:45 - EMAIL ONLY (AS USUAL)</span>
+            </div>
+            <div class="telegraph-content" style="color: white;">
+                *Sent via email, subject line: "RE: RE: RE: Birthday Operations Inquiry"*
+                "Hello all. Received 147 WhatsApp notifications which I will not be checking. Email confirms attendance for 15th. Please note: As aged folk, I require: adequate parking, clear instructions, and emotional support. Will someone explain what Trigger is talking about? I only saw the email summary. It was overwhelming. Regards, Matt."
+            </div>
+            <div class="telegraph-comment" style="color: #90EE90;">
+                <span aria-hidden="true">📧</span> STATUS: WhatsApp Phantom strikes again. Received 147 notifications. Checked exactly ZERO. Email chain: 47 deep. "Aged folk" status: Self-declared. Parking requirements: Reasonable. Trigger's message count: Incomprehensible. HQ notes: Matt exists in a parallel communication dimension where WhatsApp is myth and email is law.
+            </div>
+        </div>
+
+        <div class="telegraph" style="background: rgba(139,0,0,0.2); border-left-color: #8B0000;">
+            <div class="telegraph-header" style="color: #CD5C5C;">
+                <span class="telegraph-sender">JUSTIN</span>
+                <span class="telegraph-time">23:52 - LEGAL PREPARATION MODE</span>
+            </div>
+            <div class="telegraph-content" style="color: white;">
+                "Reminder to all operatives: Abuse of the aged is a criminal offense. I will be recording ALL hits for evidence. Former army, L&D score of 35, prepared to pursue legal action if necessary. Also can someone explain why Alexander is talking about Shrek? I've been reading the chat for 10 minutes and I'm more confused than when I started."
+            </div>
+            <div class="telegraph-comment" style="color: #CD5C5C;">
+                <span aria-hidden="true">🎖️</span> STATUS: Legal disclaimers locked and loaded. Recording equipment: READY. Age discrimination lawsuit: Pre-drafted. Army credentials: Mentioned (as required by law). L&D score: Suspiciously specific. Shrek confusion: Valid and understandable. HQ notes: Justin treats paintball like a deposition. We respect and fear this energy equally.
+            </div>
+        </div>
+
+        <div class="telegraph" style="background: rgba(75,0,130,0.3); border-left-color: #9370DB;">
+            <div class="telegraph-header" style="color: #d8bfd8;">
+                <span class="telegraph-sender">ALEX</span>
+                <span class="telegraph-time">00:03 - BAR #4, PHILOSOPHICAL</span>
+            </div>
+            <div class="telegraph-content" style="color: white;">
+                "Okay but LISTEN. If Shrek is about accepting yourself, and we're shooting Nate for his birthday, are WE the ones who need to accept ourselves? Are we the Shrek? Is Nate the Farquaad? This has layers. Like an onion. Or a really elaborate birthday ambush. I'm too drunk for this level of symbolism."
+            </div>
+            <div class="telegraph-comment" style="color: #d8bfd8;">
+                <span aria-hidden="true">🍺</span> STATUS: Philosophy major energy activated. Four bars deep. Connecting Shrek metaphors to military operations. Symbolism: DETECTED. Coherence: QUESTIONABLE. HQ assessment: This is why we don't let Alexander plan after 10 PM. Also he's not wrong about the layers thing. Damn it.
+            </div>
+        </div>
+
+        <div class="info-box" style="background: rgba(148,0,211,0.1); border: 2px solid #9400D3; margin-top: 20px; padding: 20px;">
+            <h4 style="color: #DA70D6; margin-bottom: 15px;"><span aria-hidden="true">🎭</span> FRIDAY NIGHT OPERATIONAL ANALYSIS</h4>
+            <p style="color: #E6E6FA; font-size: 0.95em; line-height: 1.7; margin-bottom: 12px;">
+                <strong style="color: #DA70D6;">COUNTDOWN STATUS:</strong> 21 days until Operation Birthday Blitz. The operative team has reached peak Friday night energy, which is to say: absolutely unhinged.
+            </p>
+            <p style="color: #E6E6FA; font-size: 0.95em; line-height: 1.7; margin-bottom: 12px;">
+                <strong style="color: #FF69B4;">CURRENT THREATS TO OPERATIONAL SECURITY:</strong>
+            </p>
+            <ul style="color: #E6E6FA; font-size: 0.9em; line-height: 1.6; margin-left: 20px; margin-bottom: 12px;">
+                <li>Nate's increasing paranoia (justified)</li>
+                <li>Tallulah's "criminal smile" being too obvious</li>
+                <li>Patrick's welding mask situation</li>
+                <li>Alexander's Shrek discourse derailing tactical discussions</li>
+                <li>Trigger's 90+ message bombardment revealing our activity levels</li>
+                <li>Marlene being TOO competent (suspicious)</li>
+                <li>The group's collective inability to act casual</li>
+            </ul>
+            <p style="color: #E6E6FA; font-size: 0.95em; line-height: 1.7; margin-bottom: 12px;">
+                <strong style="color: #87CEEB;">PREPARATIONS PROGRESS:</strong>
+            </p>
+            <ul style="color: #E6E6FA; font-size: 0.9em; line-height: 1.6; margin-left: 20px; margin-bottom: 12px;">
+                <li><strong>Tactical Planning:</strong> Alexander (drunk philosophy) vs Marlene (actual ballistics) - Gap: SIGNIFICANT</li>
+                <li><strong>Equipment Status:</strong> Patrick owns welding mask. This is concerning.</li>
+                <li><strong>Psychological Ops:</strong> Joshua has 47 birthday roasts prepared. This is concerning in a different way.</li>
+                <li><strong>Logistics:</strong> Liam is the only adult. Snack list: 47 items. Car maintenance: Scheduled. Bless this man.</li>
+                <li><strong>Communications:</strong> Trigger discovered the send button. We're all suffering. 147 notifications and counting.</li>
+                <li><strong>Intelligence Gathering:</strong> Marlene calculated success probability to 94.7%. Also researched Domino's muscles. We don't know why.</li>
+                <li><strong>Cover Maintenance:</strong> Tallulah practicing lies in real-time. Relationship integrity: DECLINING</li>
+                <li><strong>Legal Protection:</strong> Justin ready to sue everyone. Recording equipment on standby.</li>
+                <li><strong>Digital Evasion:</strong> Matt read exactly zero WhatsApp messages. Email fortress: IMPENETRABLE</li>
+            </ul>
+            <p style="color: #E6E6FA; font-size: 0.95em; line-height: 1.7; margin-bottom: 12px;">
+                <strong style="color: #FFB6C1;">HQ ASSESSMENT:</strong> This Friday night snapshot reveals a team operating at peak chaotic efficiency. We have: one drunk philosopher, one double-agent girlfriend, one welding enthusiast, one trash-talk poet, one suspicious birthday boy, one responsible adult, one possible spy, one notification terrorist, one email-only phantom, and one litigious veteran.
+            </p>
+            <p style="color: #E6E6FA; font-size: 0.95em; line-height: 1.7; font-style: italic;">
+                Confidence in mission success: Somehow still high. Either we're brilliant or collectively delusional. Possibly both. The Shrek metaphor still makes no sense but we're too deep to question it now.
+            </p>
+        </div>
+
+        <div class="stats-grid" style="margin-top: 25px; display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px;">
+            <div class="stat-card" style="background: rgba(148,0,211,0.15); border: 2px solid #9400D3; padding: 20px; text-align: center;">
+                <div class="stat-number" style="color: #DA70D6; font-size: 2.5em; font-weight: bold;">21</div>
+                <div class="stat-label" style="color: #E6E6FA; font-size: 0.9em; text-transform: uppercase; letter-spacing: 1px;">DAYS OUT</div>
+            </div>
+            <div class="stat-card" style="background: rgba(255,20,147,0.15); border: 2px solid #FF1493; padding: 20px; text-align: center;">
+                <div class="stat-number" style="color: #FFB6C1; font-size: 2.5em; font-weight: bold;">53%</div>
+                <div class="stat-label" style="color: #E6E6FA; font-size: 0.9em; text-transform: uppercase; letter-spacing: 1px;">SECRECY</div>
+                <div style="color: #FFB6C1; font-size: 0.75em; margin-top: 5px;">(Declining)</div>
+            </div>
+            <div class="stat-card" style="background: rgba(138,43,226,0.15); border: 2px solid #8A2BE2; padding: 20px; text-align: center;">
+                <div class="stat-number" style="color: #DDA0DD; font-size: 2.5em; font-weight: bold;">6/10</div>
+                <div class="stat-label" style="color: #E6E6FA; font-size: 0.9em; text-transform: uppercase; letter-spacing: 1px;">PREPARED</div>
+                <div style="color: #DDA0DD; font-size: 0.75em; margin-top: 5px;">(Generous)</div>
+            </div>
+            <div class="stat-card" style="background: rgba(255,69,0,0.15); border: 2px solid #FF4500; padding: 20px; text-align: center;">
+                <div class="stat-number" style="color: #FFA07A; font-size: 2.5em; font-weight: bold;">💯</div>
+                <div class="stat-label" style="color: #E6E6FA; font-size: 0.9em; text-transform: uppercase; letter-spacing: 1px;">HYPE</div>
+                <div style="color: #FFA07A; font-size: 0.75em; margin-top: 5px;">(Unhinged)</div>
+            </div>
+            <div class="stat-card" style="background: rgba(255,0,255,0.15); border: 2px solid #FF00FF; padding: 20px; text-align: center;">
+                <div class="stat-number" style="color: #FF69B4; font-size: 2.5em; font-weight: bold;">147</div>
+                <div class="stat-label" style="color: #E6E6FA; font-size: 0.9em; text-transform: uppercase; letter-spacing: 1px;">NOTIFICATIONS</div>
+                <div style="color: #FF69B4; font-size: 0.75em; margin-top: 5px;">(Trigger)</div>
+            </div>
+            <div class="stat-card" style="background: rgba(0,128,0,0.15); border: 2px solid #228B22; padding: 20px; text-align: center;">
+                <div class="stat-number" style="color: #90EE90; font-size: 2.5em; font-weight: bold;">47</div>
+                <div class="stat-label" style="color: #E6E6FA; font-size: 0.9em; text-transform: uppercase; letter-spacing: 1px;">ROASTS</div>
+                <div style="color: #90EE90; font-size: 0.75em; margin-top: 5px;">(Joshua)</div>
+            </div>
+        </div>
+
+        <div style="margin-top: 25px; padding: 20px; background: rgba(0,0,0,0.4); border: 1px dashed #666; border-radius: 5px;">
+            <p style="color: #888; font-size: 0.85em; text-align: center; font-style: italic; line-height: 1.6;">
+                <strong style="color: #AAA;">OPERATIONAL NOTE:</strong> This document has now documented a Friday night group chat session in military briefing format. We've reached peak absurdity. The cake conspiracy continues. Patrick still doesn't have proper pants. Alexander connected Shrek to our operation. Marlene is definitely a spy. Nate knows something is up but not WHAT. Trigger broke everyone's notification settings. Matt exists in an email-only dimension. Justin is ready to litigate. And somehow, SOMEHOW, we still think this surprise will work.
+            </p>
+            <p style="color: #888; font-size: 0.85em; text-align: center; font-style: italic; margin-top: 10px;">
+                It probably will. That's the terrifying part.
+            </p>
+        </div>
+    </div>
+</div>
+```
+
+
+                    <div class="intel-update" style="background: rgba(148,0,211,0.4); border-color: #9400D3; color: white;">
+                        COUNTDOWN STATUS: 3 weeks until Operation Birthday Blitz. Suspicion levels: Moderate. 
+                        Preparation levels: Varied. Confidence in surprise success: Surprisingly high for how chaotic we are.
+                    </div>
+
+                    <!-- Countdown Stats Bar -->
+                    <div class="stats-bar" style="background: rgba(75,0,130,0.4); border-color: #4B0082;">
+                        <div class="stat">
+                            <span class="stat-number">21</span>
+                            <span class="stat-label">DAYS OUT</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">65%</span>
+                            <span class="stat-label">SECRECY</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">7/10</span>
+                            <span class="stat-label">PREPARED</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">💯</span>
+                            <span class="stat-label">HYPE</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2><span aria-hidden="true">☕</span> HQ MORNING BRIEF</h2>
+                <div class="info-box">
+                    <p><strong>Objective:</strong> ```
+FINAL (not GASLIGHTING) BRIEF
+
+OPERATIVES: Our mission is to make Nate doubt reality so thoroughly that when we show up with paintball gear on November 15th, he'll think it's a spontaneous decision we made that morning. Make him believe we're too disorganized, too forgetful, and too incompetent to plan anything. The ultimate gaslight: convincing him the elaborate surprise he suspects is happening is just a figment of his imagination.
+
+Remember: It's not lying if we make him believe he's crazy for thinking we'd do something nice for him.
+.</p>
+                    <p><strong>Rules of Engagement:</strong> No mercy, no spoilers, no early apologies. Birthday rules override Geneva Convention.</p>
+                    <p><strong>Supply List:</strong> Goggles, water, snacks, sarcasm, birthday spirit, alibi for excessive force.</p>
+                    <p><strong>Command Note:</strong> "Let's make it a day he'll remember and slightly resent. In a loving way."</p>
+                </div>
+            </div>
+
+            <!-- CULINARY SUPPORT -->
+            <div class="section">
+                <h2><span aria-hidden="true">🍰</span> CULINARY SUPPORT – PHASE 2 what is cake?</h2>
+                <div class="info-box">
+                    <ul>
+                        <li>Cake under disguised paradox </li>
+                        <li>OPERATION: CAKE CONSPIRACY
+
+THE BAKED TRUTH THEY DON'T WANT YOU TO KNOW
+
+THE FORBIDDEN FROSTING FILES
+
+1. "I've connected the dots they told me not to connect - the cake is a government psyop to test our loyalty through buttercream"
+2. "The bakery is clearly a front for something - have you seen how efficiently they fold boxes? TOO efficiently"
+3. "Patrick's constant 'taste testing' requests? Classic deep state asset behavior - they always go for the sugar first"
+4. "The cake's ingredients are suspiciously normal - that's what THEY want you to think while they swap in the mind-control frosting"
+5. "I've been tracking flour purchases across the group - the patterns don't lie, people. We're being set up for the ultimate baked betrayal"
+6. "Tallulah's 'girlfriend' cover is too perfect - have you ever seen her and a professional spy in the same room? EXACTLY"
+7. "The cake box dimensions match exactly with standard surveillance equipment cases - WAKE UP SHEEPLE"
+8. "They told me I was paranoid, but then I found the hidden messages in the sprinkles - it's all there in edible ink!"
+9. "The cake's shelf life is suspiciously short - clearly designed to force rapid consumption before we can analyze it properly"
+10. "I've run the numbers - the probability of this many 'coincidences' happening around one dessert is 0.000043%. THE MATH DOESN'T LIE"
+11. "The candles are clearly tracking devices - why else would they need to be 'lit'? To activate the transmission, obviously"
+12. "They're using classical conditioning - every time we deny the cake, they give us a little dopamine hit. I'M ON TO YOU, PAVLOV"
+13. "The recipe has been in plain sight the whole time - page 47 of the Joy of Cooking. THEY'RE LAUGHING AT US"
+14. "I tried to warn them about the filling, but 'conspiracy theorist' is what they call people who ask too many questions about custard"
+15. "The cake layers are a metaphor for the layers of deception - and I'm pretty sure the middle one is red velvet. THE COLOR OF LIES"
+16. "They keep saying 'it's just cake' - the oldest trick in the book. NEXT THEY'LL SAY THE FLAT EARTH IS 'JURASSIC PARK'"
+17. "I found flour on my doorstep this morning - they're not even being subtle about the intimidation tactics anymore"
+18. "The birthday song is clearly a auditory trigger - have you ever really listened to the lyrics? SUSPICIOUSLY REPETITIVE"
+19. "They think I'm crazy, but I've built a replica cake out of foil to study their movements. THE TRUTH IS RISING"
+20. "The final proof: Nate's 'suspicions' are clearly planted memories. Wake up, people - WE'RE ALL CHARACTERS IN HIS SIMULATION"
+
+EVIDENCE BOARD CONNECTIONS
+
+WHAT THEY DON'T WANT YOU TO KNOW
+
+· The real cake was inside us all along
+· The cake is a lie, but the lie is also cake
+· We've been baking ourselves this whole time
+· The government is made of ganache
+
+STAY VIGILANT, STAY SWEET
+
+THE TRUTH IS OUT THERE (AND IT'S PROBABLY CHOCOLATE)
+
+CLASSIFIED RESEARCH LOG: OPERATION CAKE CONSPIRACY
+Lead Investigator: [REDACTED] (Definitely Not Alexander)
+Research Period: 3 Days of Descent
+
+---
+
+**DAY 1 - INITIAL ASSIGNMENT**
+*09:00 HOURS*
+
+HQ has assigned me to handle the cake. Simple enough. Just need to order a cake. How hard could this be?
+
+Research question: What kind of cake does Nate like?
+
+*14:23 HOURS*
+
+Tallulah says "chocolate is fine." 
+
+Fine? FINE? The casualness is suspicious. Is she trying to throw me off? Why isn't she more specific? What is she hiding?
+
+Note to self: Monitor Tallulah's cake-related communications.
+
+*22:47 HOURS*
+
+Can't sleep. Keep thinking about the word "fine." Looked it up. Etymology suggests Old French origin meaning "end" or "limit." The END. Is the cake the end of something? Am I reading too much into this?
+
+Yes. Definitely yes. Going to bed.
+
+---
+
+**DAY 2 - THE RABBIT HOLE OPENS**
+*11:15 HOURS*
+
+Called three bakeries. They all asked the same questions: "What size?" "What flavor?" "Any allergies?"
+
+Seems scripted. TOO scripted. Are bakeries required to follow a protocol? Is there a Big Bakery controlling the narrative?
+
+*15:40 HOURS*
+
+Found myself on the bakery's Instagram. 847 followers. Scrolled through 6 months of cake photos. I now know way too much about fondant.
+
+I've been staring at cakes for 3 hours.
+
+What am I doing with my life?
+
+*19:22 HOURS*
+
+Patrick texted asking if he can "taste test quality control." Told him no. He sent back a sad emoji.
+
+Wait. How did Patrick know I was ordering cake? I haven't told anyone except... *checks notes*... everyone in the group chat.
+
+Okay so not suspicious. But his ENTHUSIASM is suspicious.
+
+*23:14 HOURS*
+
+Can't stop thinking about Patrick's sad emoji. What does it mean? Is it genuine disappointment? Or is it PSYCHOLOGICAL MANIPULATION?
+
+Started a document titled "Patrick: Cake Operative or Innocent Snack Enthusiast?"
+
+I have become the thing I feared.
+
+---
+
+**DAY 3 - COMPLETE PSYCHOLOGICAL COLLAPSE**
+*02:47 HOURS*
+
+Woke up thinking about cake. Had a dream where all the bakeries were actually the same bakery with different fronts. The baker kept asking me "but what does the birthday BOY really want?" and I couldn't answer.
+
+Stress dream? Or PROPHETIC WARNING?
+
+*08:30 HOURS*
+
+Started a spreadsheet comparing bakery options:
+- Price per slice
+- Delivery reliability 
+- Frosting-to-cake ratio
+- Distance from paintball venue
+- Proximity to known government facilities (?)
+
+Why did I add that last one? I don't know. It felt relevant at 2 AM.
+
+Actually, I added it at 2:47 AM. I remember because that's when I woke up from the bakery dream.
+
+The dream is influencing my research methodology.
+
+*10:03 HOURS*
+
+The spreadsheet now has 14 tabs. I've color-coded everything. There are formulas. Graphs. A risk assessment matrix.
+
+For CAKE.
+
+*11:28 HOURS*
+
+Started mapping bakery locations on Google Maps. They form a triangle.
+
+A TRIANGLE.
+
+Illuminati confirmed? Or just... three bakeries existing in geographical space like normal businesses?
+
+*11:31 HOURS*
+
+It's definitely just three bakeries. But the triangle thing was exciting for like 3 minutes.
+
+*13:56 HOURS*
+
+Showed Joshua my research. All 14 tabs. The graphs. The geographical analysis.
+
+He said "mate, it's just cake."
+
+JUST CAKE? **JUST CAKE?!**
+
+This is Nate's birthday we're talking about. This cake represents our friendship. Our bond. Our willingness to spend R800 on sugar and flour and my SANITY.
+
+*14:02 HOURS*
+
+Joshua is right. I've completely lost perspective.
+
+*14:03 HOURS*
+
+But what if I haven't? What if this level of analysis is exactly what's needed?
+
+*14:04 HOURS*
+
+No. This is madness. I can hear myself. This is what madness sounds like.
+
+*16:20 HOURS*
+
+Took a break. Went for a walk. Came back. Read three articles about the history of birthday cakes to "reset my perspective."
+
+Did you know the tradition dates back to ancient Rome? The Romans were also big on military formations and strategic planning.
+
+Rome... Romans... OPERATION Birthday Blitz... military theme...
+
+Are we unconsciously recreating Roman birthday rituals through modern paintball warfare?
+
+*16:47 HOURS*
+
+Just re-read what I wrote. I've connected birthday cake history to military strategy.
+
+I need help.
+
+*17:15 HOURS*
+
+But also... the connection makes sense? Ancient Rome did celebrate birthdays. They did have military structure. We ARE doing a military-themed party.
+
+Maybe I'm not crazy. Maybe I'm the only one seeing the PATTERN.
+
+*17:16 HOURS*
+
+No. No, I'm definitely crazy.
+
+*18:10 HOURS*
+
+Patrick texted again: "How's the cake research going? 🤔"
+
+HOW DOES HE KNOW I'M RESEARCHING?
+
+I mean... I told the group chat. But still. His TONE. The thinking emoji. What does it mean?
+
+*18:45 HOURS*
+
+Made a pros and cons list for confronting Patrick about his cake obsession:
+
+Pros: Get answers, understand his motivation, restore my sanity
+Cons: He'll think I've lost it (accurate), might actually just really like cake (probable), will definitely screenshot this conversation and share it
+
+*19:33 HOURS*
+
+Noticed every bakery website uses the same template. Same "About Us" section. Same stock photos of smiling bakers.
+
+Coincidence? Probably.
+
+But WHAT IF it's not?
+
+*19:35 HOURS*
+
+It's definitely a coincidence. They probably all use the same website builder.
+
+*19:36 HOURS*
+
+Unless the website builder is IN ON IT.
+
+*20:15 HOURS*
+
+Just realized I've been researching for three days and haven't actually ORDERED anything yet.
+
+I've researched everything EXCEPT the one thing I'm supposed to do.
+
+This is either strategic due diligence or advanced procrastination disguised as productivity.
+
+*21:05 HOURS*
+
+Looking back at my notes:
+- 14-tab spreadsheet
+- Geographical bakery analysis
+- Etymology research on the word "fine"
+- Ancient Roman birthday rituals
+- Patrick psychological profile (incomplete)
+- Dreams logged and analyzed
+
+For one cake.
+
+*22:18 HOURS*
+
+You know what? Tomorrow. I'll order it tomorrow.
+
+Tonight I'm going to sit with the fact that I've spent 72 hours having a psychological breakdown about cake.
+
+The cake isn't a conspiracy. The cake isn't a metaphor.
+
+The cake is just cake.
+
+But the journey to realize that? That was... concerning.
+
+*23:47 HOURS*
+
+Can't sleep. Patrick just posted a picture of a cake in the group chat with the caption "soon 👀"
+
+WHAT DOES HE KNOW?!
+
+---
+
+**RESEARCH STATUS: ONGOING**
+**CAKE STATUS: STILL NOT ORDERED**
+**MENTAL STATE: QUESTIONABLE**
+**PATRICK: UNDER SURVEILLANCE**
+
+*This investigation will continue. The truth is out there. And it's probably chocolate.*
+
+Patrick has volunteered for taste testing.
+Request: **DENIED**
+
+
+This will require further research</li>
+                        <li>Patrick has volunteered, again. </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- INTEL BRIEF -->
+            <div class="section">
+                <h2><span aria-hidden="true">🕵️</span> INTEL BRIEF – MORALE STATUS</h2>
+                <div class="intel-update">
+                    HQ reports squad laughter levels exceeding safety limits. Deploy additional seriousness immediately.
+                </div>
+                <div class="intel-update">
+                    I may potentially be in the wrong NATE Birthday group 
+                </div>
+                <div class="intel-update">
+                    I have no idea what I'm doing. Only 65000 lines of code isn't too bad? Or do we need more.... (<span aria-hidden="true">😏😏😏</span>) (ok seriously who let Alexander in the chat) (ok but if anyone actually read all this they can post a bunny emoji in the group chat to win a prize) 
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2><span aria-hidden="true">📞</span> COMMAND & CONTROL</h2>
+                
+                <div class="grid-container">
+                    <div class="info-box">
+                        <h4>COMMAND STRUCTURE</h4>
+                        <ul>
+                            <li><strong>Mission Command:</strong> Nate Olivier (unknowingly)</li>
+                            <li><strong>Communications:</strong> Direct Message / Poll / Carrier Pigeon</li>
+                            <li><strong>Final Orders:</strong> Upon booking confirmation (or when we get hungry)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="stamp blink">APPROVED</div>
+        </div>
+        
+        <div class="footer">
+            <p>"WE FEW, WE HAPPY FEW, WE BAND OF PAINTBALLERS"</p>
+            <p><strong>- ADAPTED FROM HENRY V, BIRTHDAY EDITION</strong></p>
+            <p>// END TRANSMISSION //</p>
+        </div>
+    </div>
+
+    <script>
+        // Secret access code functionality
+        const CORRECT_CODE = "BDAYGUEST";
+        
+        function checkAccessCode() {
+            const inputCode = document.getElementById('accessCode').value.toUpperCase();
+            const messageElement = document.getElementById('accessMessage');
+            const secretSection = document.getElementById('secretSection');
+            
+            if (inputCode === CORRECT_CODE) {
+                messageElement.textContent = "ACCESS GRANTED. PROCEED WITH CAUTION.";
+                messageElement.style.color = "#00ff00";
+                secretSection.style.display = 'block';
+                secretSection.scrollIntoView({ behavior: 'smooth' });
+            } else if (inputCode === "NATE" || inputCode === "BIRTHDAYBOY") {
+                messageElement.textContent = "ACCESS DENIED. CLASSIFIED CONTENT NOT FOR BIRTHDAY COMMANDER. NICE TRY THOUGH.";
+                messageElement.style.color = "#ff0000";
+                secretSection.style.display = 'none';
+            } else if (inputCode === "") {
+                messageElement.textContent = "PLEASE ENTER ACCESS CODE";
+                messageElement.style.color = "#ffcc00";
+            } else {
+                messageElement.textContent = "INVALID CODE. ACCESS DENIED. TRY 'BDAYGUEST' (BUT DON'T TELL NATE)";
+                messageElement.style.color = "#ff0000";
+                secretSection.style.display = 'none';
+            }
+        }
+        
+        function hideSecretSection() {
+            document.getElementById('secretSection').style.display = 'none';
+            document.getElementById('accessCode').value = '';
+            document.getElementById('accessMessage').textContent = 'CONTENT RE-CLASSIFIED. YOUR CLEARANCE HAS BEEN REVOKED.';
+            document.getElementById('accessMessage').style.color = '#ffcc00';
+        }
+        
+        // Tab functionality
+        function openTab(event, tabName) {
+            const tabContents = document.getElementsByClassName('tab-content');
+            for (let i = 0; i < tabContents.length; i++) {
+                tabContents[i].classList.remove('active');
+            }
+            
+            const tabButtons = document.getElementsByClassName('tab-button');
+            for (let i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].classList.remove('active');
+            }
+            
+            document.getElementById(tabName).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+        
+        // Enter key for access code
+        document.getElementById('accessCode').addEventListener('keyup', function(event) {
+            if (event.key === 'Enter') {
+                checkAccessCode();
+            }
+        });
+
+        // Network Connection System
+        function drawConnections() {
+            const connectionsContainer = document.getElementById('connections');
+            if (!connectionsContainer) return;
+            
+            connectionsContainer.innerHTML = '';
+            const nodes = document.querySelectorAll('.node');
+            const nodePositions = {};
+            
+            nodes.forEach(node => {
+                const rect = node.getBoundingClientRect();
+                const containerRect = document.querySelector('.network-container').getBoundingClientRect();
+                
+                nodePositions[node.id] = {
+                    x: rect.left + rect.width/2 - containerRect.left,
+                    y: rect.top + rect.height/2 - containerRect.top,
+                    connections: node.dataset.connections ? node.dataset.connections.split(',') : []
+                };
+            });
+            
+            Object.keys(nodePositions).forEach(nodeId => {
+                const node = nodePositions[nodeId];
+                node.connections.forEach(targetId => {
+                    const targetNode = nodePositions[`node-${targetId}`];
+                    if (targetNode) {
+                        drawConnectionLine(node, targetNode, determineConnectionType(nodeId, targetId));
+                    }
+                });
+            });
+        }
+
+        function determineConnectionType(node1, node2) {
+            const romanticPairs = ['nate-tallulah', 'tallulah-nate'];
+            const familyPairs = ['tallulah-trey', 'trey-tallulah'];
+            const closeFriendPairs = ['nate-alexander', 'alexander-nate', 'nate-joshua', 'joshua-nate'];
+            
+            const pair = `${node1.replace('node-', '')}-${node2.replace('node-', '')}`;
+            
+            if (romanticPairs.includes(pair)) return 'romantic';
+            if (familyPairs.includes(pair)) return 'family';
+            if (closeFriendPairs.includes(pair)) return 'close-friend';
+            return 'operative';
+        }
+
+        function drawConnectionLine(start, end, type) {
+            const connectionsContainer = document.getElementById('connections');
+            const line = document.createElement('div');
+            line.className = `connection-line ${type}`;
+            
+            const length = Math.sqrt(Math.pow(end.x - start.x, 2) + Math.pow(end.y - start.y, 2));
+            const angle = Math.atan2(end.y - start.y, end.x - start.x) * 180 / Math.PI;
+            
+            line.style.width = `${length}px`;
+            line.style.left = `${start.x}px`;
+            line.style.top = `${start.y}px`;
+            line.style.transform = `rotate(${angle}deg)`;
+            
+            connectionsContainer.appendChild(line);
+        }
+
+        // Make nodes draggable
+        function makeNodesDraggable() {
+            const nodes = document.querySelectorAll('.node');
+            let activeNode = null;
+            let offsetX, offsetY;
+            
+            nodes.forEach(node => {
+                node.addEventListener('mousedown', startDrag);
+                node.addEventListener('touchstart', startDrag);
+            });
+            
+            function startDrag(e) {
+                e.preventDefault();
+                activeNode = this;
+                
+                const rect = activeNode.getBoundingClientRect();
+                const containerRect = document.querySelector('.network-container').getBoundingClientRect();
+                
+                if (e.type === 'mousedown') {
+                    offsetX = e.clientX - rect.left;
+                    offsetY = e.clientY - rect.top;
+                    document.addEventListener('mousemove', drag);
+                    document.addEventListener('mouseup', stopDrag);
+                } else {
+                    offsetX = e.touches[0].clientX - rect.left;
+                    offsetY = e.touches[0].clientY - rect.top;
+                    document.addEventListener('touchmove', drag);
+                    document.addEventListener('touchend', stopDrag);
+                }
+            }
+            
+            function drag(e) {
+                if (!activeNode) return;
+                
+                const containerRect = document.querySelector('.network-container').getBoundingClientRect();
+                let clientX, clientY;
+                
+                if (e.type === 'mousemove') {
+                    clientX = e.clientX;
+                    clientY = e.clientY;
+                } else {
+                    clientX = e.touches[0].clientX;
+                    clientY = e.touches[0].clientY;
+                }
+                
+                const x = clientX - offsetX - containerRect.left;
+                const y = clientY - offsetY - containerRect.top;
+                
+                const maxX = containerRect.width - activeNode.offsetWidth;
+                const maxY = containerRect.height - activeNode.offsetHeight;
+                
+                activeNode.style.left = `${Math.max(0, Math.min(x, maxX))}px`;
+                activeNode.style.top = `${Math.max(0, Math.min(y, maxY))}px`;
+                activeNode.style.transform = 'translate(0, 0)';
+                
+                setTimeout(drawConnections, 10);
+            }
+            
+            function stopDrag() {
+                activeNode = null;
+                document.removeEventListener('mousemove', drag);
+                document.removeEventListener('mouseup', stopDrag);
+                document.removeEventListener('touchmove', drag);
+                document.removeEventListener('touchend', stopDrag);
+            }
+        }
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            drawConnections();
+            makeNodesDraggable();
+            window.addEventListener('resize', drawConnections);
+        });
+
+        // Console fun
+        console.log("%c🎯 OPERATION BIRTHDAY BLITZ - CLASSIFIED", "color: gold; font-size: 16px; font-weight: bold;");
+        console.log("%cAccess granted to authorized personnel only", "color: #00ff00;");
+        console.log("%cRemember: 'Hurt' means 'Celebrate' in operative vernacular", "color: #ff9900; font-style: italic;");
+    </script>
+</body>
+</html>

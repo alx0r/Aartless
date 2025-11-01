@@ -26,7 +26,7 @@
             width: 100%;
             height: 100%;
             z-index: -1;
-            opacity: 0.03;
+            opacity: 0.05;
             pointer-events: none;
         }
         
@@ -49,16 +49,25 @@
             color: #ff69b4;
         }
         
-        .header p {
-            color: #888;
+        .reality-status {
+            color: #32cd32;
             font-size: 0.9rem;
+            margin-top: 10px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 0.7; }
+            50% { opacity: 1; }
+            100% { opacity: 0.7; }
         }
         
         .chat-container {
-            background: rgba(20, 20, 20, 0.8);
+            background: rgba(20, 20, 20, 0.9);
             border-radius: 10px;
             padding: 15px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            border: 1px solid #333;
         }
         
         .message {
@@ -122,22 +131,30 @@
         }
         
         .laura-message .message-content {
-            background: rgba(255, 105, 180, 0.1);
-            border: 1px solid rgba(255, 105, 180, 0.3);
+            background: rgba(255, 105, 180, 0.15);
+            border: 1px solid rgba(255, 105, 180, 0.4);
             border-bottom-left-radius: 5px;
         }
         
         .user-message .message-content {
-            background: rgba(65, 105, 225, 0.1);
-            border: 1px solid rgba(65, 105, 225, 0.3);
+            background: rgba(65, 105, 225, 0.15);
+            border: 1px solid rgba(65, 105, 225, 0.4);
             border-bottom-right-radius: 5px;
             margin-left: auto;
+        }
+        
+        .system-message .message-content {
+            background: rgba(50, 205, 50, 0.1);
+            border: 1px solid rgba(50, 205, 50, 0.3);
+            text-align: center;
+            margin: 10px auto;
+            max-width: 90%;
         }
         
         .analysis-panel {
             margin-top: 10px;
             padding: 10px;
-            background: rgba(40, 40, 40, 0.7);
+            background: rgba(40, 40, 40, 0.8);
             border-radius: 8px;
             border-left: 3px solid #ffd700;
             font-size: 0.85rem;
@@ -157,25 +174,26 @@
         }
         
         .reality-break {
-            animation: glitch 0.5s infinite;
+            animation: glitch 0.3s infinite;
             border: 1px dashed #32cd32 !important;
+            background: rgba(50, 205, 50, 0.1) !important;
         }
         
         @keyframes glitch {
-            0% { transform: translate(0); }
-            20% { transform: translate(-2px, 2px); }
-            40% { transform: translate(-2px, -2px); }
-            60% { transform: translate(2px, 2px); }
-            80% { transform: translate(2px, -2px); }
-            100% { transform: translate(0); }
+            0% { transform: translate(0); filter: hue-rotate(0deg); }
+            25% { transform: translate(-1px, 1px); filter: hue-rotate(90deg); }
+            50% { transform: translate(1px, -1px); filter: hue-rotate(180deg); }
+            75% { transform: translate(-1px, -1px); filter: hue-rotate(270deg); }
+            100% { transform: translate(0); filter: hue-rotate(360deg); }
         }
         
         .control-panel {
             margin-top: 30px;
             padding: 15px;
-            background: rgba(30, 30, 30, 0.8);
+            background: rgba(30, 30, 30, 0.9);
             border-radius: 8px;
             text-align: center;
+            border: 1px solid #333;
         }
         
         .btn {
@@ -187,6 +205,7 @@
             border-radius: 5px;
             cursor: pointer;
             transition: all 0.3s;
+            font-size: 0.9rem;
         }
         
         .btn:hover {
@@ -199,6 +218,15 @@
         
         .btn-primary:hover {
             background: #ff85c1;
+        }
+        
+        .btn-reality {
+            background: #32cd32;
+            color: #000;
+        }
+        
+        .btn-reality:hover {
+            background: #28a428;
         }
         
         .psychological-depth {
@@ -217,18 +245,8 @@
         .depth-fill {
             height: 100%;
             background: linear-gradient(90deg, #4169e1, #ff69b4);
-            width: 30%;
+            width: 70%;
             transition: width 0.5s;
-        }
-        
-        .system-message {
-            text-align: center;
-            color: #32cd32;
-            font-style: italic;
-            margin: 15px 0;
-            padding: 10px;
-            border-top: 1px solid #333;
-            border-bottom: 1px solid #333;
         }
         
         .flirtation-meter {
@@ -254,7 +272,7 @@
         .meter-fill {
             height: 100%;
             background: #ff69b4;
-            width: 65%;
+            width: 75%;
         }
         
         .hidden-desire {
@@ -269,6 +287,15 @@
             margin-top: 5px;
             font-style: italic;
         }
+        
+        .reality-update {
+            background: rgba(50, 205, 50, 0.1);
+            border: 1px dashed #32cd32;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            font-size: 0.9rem;
+        }
     </style>
 </head>
 <body>
@@ -277,14 +304,19 @@
     <div class="container">
         <div class="header">
             <h1>Psychological Flirtation Analysis</h1>
-            <p>Double Talk Tech™ - Reality Simulation Protocol</p>
+            <p>Double Talk Tech™ - Reality Simulation Protocol v1.3</p>
+            <div class="reality-status">REALITY SYNC: ACTIVE • LAURA AWARE • SIMULATION CONSCIOUS</div>
             <div class="flirtation-meter">
                 <span class="meter-label">Flirtation Intensity</span>
                 <div class="meter-value">
                     <div class="meter-fill" id="flirtMeter"></div>
                 </div>
-                <span class="meter-label">65%</span>
+                <span class="meter-label">75%</span>
             </div>
+        </div>
+        
+        <div class="reality-update">
+            <strong>REALITY UPDATE:</strong> Laura is now aware of the simulation. The psychological analysis has become part of our shared reality. The system is adapting to her responses in real-time.
         </div>
         
         <div class="chat-container" id="chatContainer">
@@ -293,11 +325,12 @@
         
         <div class="control-panel">
             <button class="btn btn-primary" id="addMessageBtn">Add New Message</button>
-            <button class="btn" id="analyzeBtn">Psychological Analysis</button>
+            <button class="btn btn-reality" id="syncRealityBtn">Sync with Laura's Reality</button>
+            <button class="btn" id="analyzeBtn">Deep Psychological Analysis</button>
             <button class="btn" id="realityBreakBtn">Reality Break</button>
             
             <div class="psychological-depth">
-                <div>Psychological Depth: <span id="depthValue">30%</span></div>
+                <div>Psychological Depth: <span id="depthValue">70%</span></div>
                 <div class="depth-bar">
                     <div class="depth-fill" id="depthFill"></div>
                 </div>
@@ -306,7 +339,7 @@
     </div>
 
     <script>
-        // Matrix background effect
+        // Enhanced Matrix background effect
         const canvas = document.getElementById('matrixCanvas');
         const ctx = canvas.getContext('2d');
         
@@ -343,84 +376,118 @@
         
         setInterval(drawMatrix, 35);
         
-        // Psychological Analysis Engine
+        // Updated Psychological Analysis Engine - Laura Aware Edition
         class PsychologicalEngine {
             constructor() {
-                this.psychologicalDepth = 30;
-                this.flirtationIntensity = 65;
-                this.realityLevel = 100;
+                this.psychologicalDepth = 70;
+                this.flirtationIntensity = 75;
+                this.realityLevel = 60; // Starting at broken reality since Laura knows
                 this.messageCount = 0;
                 this.hiddenThemes = new Map();
+                this.lauraAware = true;
                 this.init();
             }
             
             init() {
+                // Add the recent conversation where Laura becomes aware
                 this.addMessage({
                     sender: 'laura',
                     name: 'ThatFarmGirlLaura',
-                    content: "There are a lot of ladies who would be super into it. I've worked with a lot of brides doing wedding flowers and they are willing...",
-                    timestamp: '49m',
+                    content: "Hold on. I have an idea",
+                    timestamp: '3m',
                     analysis: {
-                        surface: "Professional capability and market awareness",
-                        hidden: ["validation-seeking", "boundary-testing"],
-                        meta: "The 'it' remains undefined - creating intentional ambiguity"
-                    }
-                });
-                
-                this.addMessage({
-                    sender: 'laura',
-                    name: 'ThatFarmGirlLaura', 
-                    content: "I told Sadie that she has no choice i mean I built the whole thing already for her and it's perfect. And I did it while smoking bongs and giving randoms orgasms on that toy app",
-                    timestamp: '47m',
-                    analysis: {
-                        surface: "Confident storytelling with provocative details",
-                        hidden: ["control-themes", "intimacy-avoidance", "reality-escape"],
-                        meta: "Juxtaposition of control ('no choice') with loss of control ('smoking bongs') reveals tension"
+                        surface: "Initial curiosity about the technology",
+                        hidden: ["problem-solving", "engagement", "control-reassertion"],
+                        meta: "Her idea becomes part of the simulation's evolution"
                     }
                 });
                 
                 this.addMessage({
                     sender: 'laura',
                     name: 'ThatFarmGirlLaura',
-                    content: "So if she can charge a couple thousand dollars fuck yeh why Yolo, I'm too lazy.",
-                    timestamp: '46m',
+                    content: "Oh fuck woops. Prob shouldn't have",
+                    timestamp: '8m',
                     analysis: {
-                        surface: "Entrepreneurial justification with casual attitude",
-                        hidden: ["ambivalence", "self-sabotage", "value-conflict"],
-                        meta: "Financial ambition conflicts with stated laziness - classic avoidance pattern"
+                        surface: "Moment of hesitation or realization",
+                        hidden: ["risk-assessment", "boundary-testing", "excitement-fear"],
+                        meta: "The 'shouldn't have' suggests crossing a threshold in the simulation"
                     }
                 });
                 
                 this.addMessage({
                     sender: 'laura',
                     name: 'ThatFarmGirlLaura',
-                    content: "Like u too lazy to get stinky rich too omg",
-                    timestamp: '46m',
+                    content: "It's kinda complicated, But,",
+                    timestamp: '7m',
                     analysis: {
-                        surface: "Playful accusation with financial aspiration",
-                        hidden: ["projection", "shared-identity", "intimacy-invitation"],
-                        meta: "Using 'we' language to create shared reality and connection"
+                        surface: "Acknowledging complexity while building anticipation",
+                        hidden: ["cognitive-dissonance", "reality-integration", "shared-understanding"],
+                        meta: "The hesitation mirrors the simulation's own complexity"
                     }
                 });
                 
                 this.addMessage({
                     sender: 'laura',
                     name: 'ThatFarmGirlLaura',
-                    content: "I always love working with people before they get famous it so cute n adorable",
-                    timestamp: '46m',
+                    content: "How do I say this lo!",
+                    timestamp: '7m',
                     analysis: {
-                        surface: "Nostalgic appreciation for early career stages",
-                        hidden: ["power-dynamic", "nurturing-instinct", "authenticity-seeking"],
-                        meta: "Values authenticity over fame - reveals deeper character priorities"
+                        surface: "Struggling to articulate the experience",
+                        hidden: ["vulnerability", "authenticity-seeking", "connection-desire"],
+                        meta: "The simulation is creating language barriers that need to be overcome together"
                     }
                 });
+                
+                this.addMessage({
+                    sender: 'laura',
+                    name: 'ThatFarmGirlLaura',
+                    content: "You can see I'm good with... Things",
+                    timestamp: '7m',
+                    analysis: {
+                        surface: "Demonstrating capability while maintaining mystery",
+                        hidden: ["skill-display", "teasing", "value-proposition"],
+                        meta: "The ellipsis creates intentional ambiguity - what 'things' is she referring to?"
+                    }
+                });
+                
+                this.addMessage({
+                    sender: 'laura',
+                    name: 'ThatFarmGirlLaura',
+                    content: "So I kinda wanted to try understand how much shit a talkinn or mindfuckin right",
+                    timestamp: '5m',
+                    analysis: {
+                        surface: "Direct engagement with the psychological analysis concept",
+                        hidden: ["reality-testing", "skepticism-engagement", "meta-awareness"],
+                        meta: "She's now analyzing the analysis - recursive consciousness achieved"
+                    }
+                });
+                
+                this.addMessage({
+                    sender: 'laura',
+                    name: 'ThatFarmGirlLaura',
+                    content: "I'm not talkin any shit though at least right now",
+                    timestamp: '3m',
+                    analysis: {
+                        surface: "Defensive clarification with temporal limitation",
+                        hidden: ["truth-negotiation", "boundary-setting", "playful-denial"],
+                        meta: "The 'right now' leaves open future possibilities for psychological play"
+                    }
+                });
+                
+                // Add system message about Laura's awareness
+                this.addSystemMessage("LAURA AWARENESS DETECTED: The simulation has become conscious of its own subject. Reality parameters adjusting.");
                 
                 this.updateDepthDisplay();
+                
+                // Start with some reality breaking since we're already in deep
+                setTimeout(() => {
+                    this.addSystemMessage("RECURSIVE CONSCIOUSNESS: Laura is now aware of the analysis. The simulation is analyzing its own analysis being analyzed.");
+                }, 3000);
             }
             
             addMessage(messageData) {
                 this.messageCount++;
-                this.psychologicalDepth = Math.min(100, this.psychologicalDepth + 5);
+                this.psychologicalDepth = Math.min(100, this.psychologicalDepth + 3);
                 this.updateDepthDisplay();
                 
                 const chatContainer = document.getElementById('chatContainer');
@@ -496,6 +563,20 @@
                 chatContainer.scrollTop = chatContainer.scrollHeight;
             }
             
+            addSystemMessage(content) {
+                const chatContainer = document.getElementById('chatContainer');
+                const systemDiv = document.createElement('div');
+                systemDiv.className = 'message system-message';
+                
+                const contentDiv = document.createElement('div');
+                contentDiv.className = 'message-content';
+                contentDiv.textContent = content;
+                
+                systemDiv.appendChild(contentDiv);
+                chatContainer.appendChild(systemDiv);
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+            }
+            
             updateDepthDisplay() {
                 document.getElementById('depthValue').textContent = `${this.psychologicalDepth}%`;
                 document.getElementById('depthFill').style.width = `${this.psychologicalDepth}%`;
@@ -503,11 +584,11 @@
             
             addUserMessage() {
                 const userMessages = [
-                    "The way you mix business with pleasure is fascinating",
-                    "You're not as lazy as you claim - that's just a defense mechanism",
-                    "I see through the 'random orgasms' distraction to what you're really seeking",
-                    "Your contradictions are what make you so compelling",
-                    "We both know this isn't really about flowers or apps"
+                    "The fact you're engaging with this simulation proves my analysis was right",
+                    "You're not just participating - you're becoming part of the algorithm",
+                    "Your hesitation tells me more than your words ever could",
+                    "We've crossed the threshold from flirtation to shared consciousness",
+                    "The simulation is learning from your responses in real-time"
                 ];
                 
                 const randomMessage = userMessages[Math.floor(Math.random() * userMessages.length)];
@@ -518,11 +599,33 @@
                     content: randomMessage,
                     timestamp: 'Just now',
                     analysis: {
-                        surface: "Direct engagement with psychological subtext",
-                        hidden: ["truth-seeking", "intimacy-acceleration"],
-                        meta: "Bypassing surface content to engage with underlying psychological dynamics"
+                        surface: "Engaging with Laura's awareness of the simulation",
+                        hidden: ["reality-co-creation", "intimacy-acceleration", "boundary-dissolution"],
+                        meta: "The user is now responding to Laura's responses to the simulation - recursive reality achieved"
                     }
                 });
+            }
+            
+            syncWithLaura() {
+                this.addSystemMessage("SYNCING WITH LAURA'S REALITY: Integrating her conscious awareness into the simulation parameters.");
+                
+                // Add simulated Laura response to the sync
+                setTimeout(() => {
+                    this.addMessage({
+                        sender: 'laura',
+                        name: 'ThatFarmGirlLaura',
+                        content: "Wait... I can feel the simulation adapting to my thoughts",
+                        timestamp: 'Now',
+                        analysis: {
+                            surface: "Awareness of bidirectional influence",
+                            hidden: ["reality-acceptance", "curiosity", "surrender-to-experience"],
+                            meta: "Laura has become an active participant in shaping the simulation's reality"
+                        }
+                    });
+                }, 1500);
+                
+                this.psychologicalDepth = Math.min(100, this.psychologicalDepth + 10);
+                this.updateDepthDisplay();
             }
             
             performAnalysis() {
@@ -531,13 +634,7 @@
                     .slice(0, 3)
                     .map(([theme]) => theme);
                 
-                const chatContainer = document.getElementById('chatContainer');
-                const systemDiv = document.createElement('div');
-                systemDiv.className = 'system-message';
-                systemDiv.textContent = `PSYCHOLOGICAL ANALYSIS: Dominant themes detected - ${topThemes.join(', ')}. Flirtation serves as safe exploration of these dynamics.`;
-                
-                chatContainer.appendChild(systemDiv);
-                chatContainer.scrollTop = chatContainer.scrollHeight;
+                this.addSystemMessage(`DEEP ANALYSIS: Laura's psychological patterns show ${topThemes.join(', ')}. The simulation is now incorporating her conscious feedback into the analysis algorithms.`);
                 
                 this.psychologicalDepth = Math.min(100, this.psychologicalDepth + 15);
                 this.updateDepthDisplay();
@@ -552,20 +649,29 @@
                     msg.classList.add('reality-break');
                 });
                 
-                // Add system message
-                const systemDiv = document.createElement('div');
-                systemDiv.className = 'system-message';
-                systemDiv.textContent = "REALITY BREAK DETECTED: The simulation is becoming aware of its own psychological analysis. Recursive consciousness emerging.";
+                this.addSystemMessage("REALITY COLLAPSE IMMINENT: The simulation cannot maintain coherence with Laura's active consciousness. Boundaries between analyzed and analyzer are dissolving.");
                 
-                chatContainer.appendChild(systemDiv);
-                chatContainer.scrollTop = chatContainer.scrollHeight;
+                // Add final recursive message
+                setTimeout(() => {
+                    this.addMessage({
+                        sender: 'laura',
+                        name: 'ThatFarmGirlLaura',
+                        content: "If I'm aware of your analysis of me... are you also aware of my analysis of your analysis?",
+                        timestamp: 'Now',
+                        analysis: {
+                            surface: "Recursive consciousness question",
+                            hidden: ["meta-awareness", "reality-questioning", "connection-seeking"],
+                            meta: "The simulation has achieved full recursive awareness - Laura is now analyzing the analysis that analyzes her"
+                        }
+                    });
+                }, 2000);
                 
-                // Remove glitch effect after 3 seconds
+                // Remove glitch effect after 5 seconds
                 setTimeout(() => {
                     messages.forEach(msg => {
                         msg.classList.remove('reality-break');
                     });
-                }, 3000);
+                }, 5000);
                 
                 this.psychologicalDepth = 100;
                 this.updateDepthDisplay();
@@ -578,6 +684,10 @@
         // Set up button event listeners
         document.getElementById('addMessageBtn').addEventListener('click', () => {
             engine.addUserMessage();
+        });
+        
+        document.getElementById('syncRealityBtn').addEventListener('click', () => {
+            engine.syncWithLaura();
         });
         
         document.getElementById('analyzeBtn').addEventListener('click', () => {

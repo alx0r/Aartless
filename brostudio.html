@@ -3,680 +3,1001 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Brother's Studio | Untitled Format™ Ecosystem</title>
+    <title>Brother's Studio - Intelligent Document Systems</title>
+    
+    <!-- YAML Metadata -->
+    <script type="application/yaml">
+    ---
+    title: "Brother's Studio - Intelligent Document Systems"
+    version: "1.0.0"
+    framework: "Untitled Format v0.9.1"
+    date: "2025-11-01"
+    authors: ["Alexandra", "John"]
+    type: "consultancy-site"
+    license: "Commercial"
+    description: "Bespoke implementation consultancy building intelligent document systems"
+    ---
+    </script>
+    
     <style>
         :root {
-            --bg: #0a0a0a;
-            --surface: #1a1a1a;
-            --primary: #00d9ff;
-            --secondary: #00ff88;
-            --accent: #ff0088;
-            --text: #f0f0f0;
-            --text-dim: #888;
-            --border: #333;
-            --glow: 0 0 20px rgba(0, 217, 255, 0.3);
+            --primary: #0a0e27;
+            --secondary: #1a1f3a;
+            --accent: #00d9ff;
+            --accent-purple: #b794f6;
+            --text-primary: #ffffff;
+            --text-secondary: #a0aec0;
+            --success: #48bb78;
+            --border: rgba(255, 255, 255, 0.1);
         }
         
-        * { 
-            margin: 0; 
-            padding: 0; 
-            box-sizing: border-box; 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
         
-        body { 
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: var(--bg); 
-            color: var(--text); 
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: var(--text-primary);
             line-height: 1.6;
-            overflow-x: hidden;
+            min-height: 100vh;
         }
         
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 14, 39, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 2rem;
+            z-index: 1000;
+        }
+        
+        nav .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        nav .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-purple) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        nav .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        
+        nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 0.95rem;
+        }
+        
+        nav a:hover {
+            color: var(--accent);
+        }
+        
+        /* Container */
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 2rem;
         }
         
-        /* Header & Hero */
-        header {
-            padding: 4rem 0 2rem;
+        /* Sections */
+        section {
+            padding: 6rem 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        section:first-of-type {
+            padding-top: 8rem;
+        }
+        
+        /* Hero Section */
+        .hero {
             text-align: center;
-            position: relative;
         }
         
-        header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 100%;
-            background: radial-gradient(ellipse at center, rgba(0,217,255,0.1) 0%, transparent 70%);
-            z-index: -1;
-        }
-        
-        h1 {
-            font-size: clamp(2.5rem, 5vw, 4rem);
+        .hero h1 {
+            font-size: 3.5rem;
             font-weight: 800;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-purple) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
         }
         
-        .tagline {
-            font-size: clamp(1.2rem, 3vw, 1.8rem);
-            color: var(--primary);
+        .hero .subtitle {
+            font-size: 1.5rem;
+            color: var(--text-secondary);
             margin-bottom: 1rem;
             font-weight: 300;
         }
         
-        .meta {
-            color: var(--text-dim);
-            font-size: 0.9rem;
-            margin-bottom: 3rem;
-        }
-        
-        /* Stats */
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 1rem;
-            margin: 3rem 0;
-        }
-        
-        .stat {
-            background: var(--surface);
-            padding: 1.5rem 1rem;
-            border-radius: 12px;
-            text-align: center;
-            border: 1px solid var(--border);
-            transition: all 0.3s ease;
-        }
-        
-        .stat:hover {
-            border-color: var(--primary);
-            box-shadow: var(--glow);
-            transform: translateY(-2px);
-        }
-        
-        .stat-value {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 0.5rem;
-        }
-        
-        .stat-label {
-            font-size: 0.8rem;
-            color: var(--text-dim);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        
-        /* Sections */
-        section {
-            padding: 4rem 0;
-            border-bottom: 1px solid var(--border);
-        }
-        
-        h2 {
-            font-size: clamp(1.8rem, 4vw, 2.5rem);
-            color: var(--primary);
-            margin-bottom: 2rem;
-            position: relative;
-        }
-        
-        h2::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 60px;
-            height: 3px;
-            background: var(--primary);
-        }
-        
-        h3 {
-            font-size: 1.4rem;
-            color: var(--secondary);
-            margin: 1.5rem 0 1rem;
-        }
-        
-        /* Ecosystem */
-        .ecosystem {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-            margin: 2rem 0;
-        }
-        
-        .layer {
-            background: var(--surface);
-            padding: 2.5rem;
-            border-radius: 16px;
-            border: 1px solid var(--border);
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-        
-        .layer::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 4px;
-            height: 100%;
-        }
-        
-        .protocol::before {
-            background: var(--primary);
-        }
-        
-        .commercial::before {
-            background: var(--secondary);
-        }
-        
-        .layer:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--glow);
-        }
-        
-        /* Benefits */
-        .benefits {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin: 2rem 0;
-        }
-        
-        .benefit {
-            background: var(--surface);
-            padding: 2rem;
-            border-radius: 12px;
-            border: 1px solid var(--border);
-            transition: all 0.3s ease;
-        }
-        
-        .benefit:hover {
-            border-color: var(--primary);
-            transform: translateY(-3px);
-        }
-        
-        /* Products */
-        .products {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin: 2rem 0;
-        }
-        
-        .product {
-            background: var(--surface);
-            padding: 2.5rem;
-            border-radius: 16px;
-            border: 1px solid var(--border);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .product::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: var(--accent);
-        }
-        
-        .product:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        }
-        
-        /* Business Model */
-        .business-model {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            margin: 2rem 0;
-        }
-        
-        .revenue-stream {
-            background: var(--surface);
-            padding: 2rem;
-            border-radius: 12px;
-            border: 1px solid var(--border);
-        }
-        
-        /* Roadmap */
-        .roadmap {
-            margin: 3rem 0;
-        }
-        
-        .phase {
-            background: var(--surface);
-            padding: 2rem;
-            margin-bottom: 1.5rem;
-            border-radius: 12px;
-            border-left: 4px solid var(--secondary);
-            position: relative;
-        }
-        
-        .phase-current {
-            border-left-color: var(--primary);
-        }
-        
-        .phase::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: -10px;
-            width: 20px;
-            height: 20px;
-            background: var(--secondary);
-            border-radius: 50%;
-            transform: translateY(-50%);
-        }
-        
-        .phase-current::before {
-            background: var(--primary);
-            box-shadow: 0 0 0 4px rgba(0,217,255,0.3);
-        }
-        
-        /* Examples */
-        .examples {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2rem;
-            margin: 2rem 0;
-        }
-        
-        .example {
-            background: var(--surface);
-            padding: 2rem;
-            border-radius: 12px;
-            border: 1px solid var(--border);
-            transition: all 0.3s ease;
-        }
-        
-        .example:hover {
-            border-color: var(--primary);
-            transform: translateY(-3px);
-        }
-        
-        /* Buttons */
-        .btn {
+        .meta-note {
             display: inline-block;
-            background: var(--primary);
-            color: var(--bg);
-            padding: 0.8rem 1.5rem;
-            text-decoration: none;
-            border: none;
+            margin: 2rem 0;
+            padding: 1rem 2rem;
+            background: rgba(0, 217, 255, 0.1);
+            border: 1px solid var(--accent);
             border-radius: 8px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            margin-right: 0.5rem;
-            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--accent);
         }
         
-        .btn:hover {
-            background: var(--secondary);
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+        
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-purple) 100%);
+            color: var(--primary);
+        }
+        
+        .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: var(--glow);
+            box-shadow: 0 10px 30px rgba(0, 217, 255, 0.3);
         }
         
         .btn-secondary {
             background: transparent;
-            color: var(--primary);
-            border: 1px solid var(--primary);
+            border: 2px solid var(--accent);
+            color: var(--accent);
         }
         
-        /* Team */
-        .team {
+        .btn-secondary:hover {
+            background: rgba(0, 217, 255, 0.1);
+        }
+        
+        /* Section Headers */
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        
+        .section-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--text-secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .section-header p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        /* Problem Section */
+        .problem-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 2rem;
-            margin: 2rem 0;
+            margin-top: 3rem;
         }
         
-        .team-member {
-            text-align: center;
+        .problem-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+        }
+        
+        .problem-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+            box-shadow: 0 10px 40px rgba(0, 217, 255, 0.2);
+        }
+        
+        .problem-card .icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .problem-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .problem-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+        
+        /* Portfolio Grid */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+        
+        .portfolio-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+        }
+        
+        .portfolio-item:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+            box-shadow: 0 20px 60px rgba(0, 217, 255, 0.2);
+        }
+        
+        .portfolio-header {
+            padding: 2rem;
+            background: linear-gradient(135deg, rgba(0, 217, 255, 0.1) 0%, rgba(183, 148, 246, 0.1) 100%);
+        }
+        
+        .portfolio-header .category {
+            display: inline-block;
+            padding: 0.3rem 1rem;
+            background: rgba(0, 217, 255, 0.2);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+        
+        .portfolio-header h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .portfolio-header .tagline {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+        
+        .portfolio-body {
             padding: 2rem;
         }
         
-        .team-avatar {
-            width: 100px;
-            height: 100px;
+        .portfolio-body .description {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+        
+        .features-list {
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+        
+        .features-list li {
+            padding: 0.5rem 0;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .features-list li:before {
+            content: "✓";
+            color: var(--success);
+            font-weight: bold;
+        }
+        
+        .portfolio-footer {
+            padding: 0 2rem 2rem 2rem;
+        }
+        
+        .portfolio-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .portfolio-link:hover {
+            gap: 1rem;
+        }
+        
+        /* Process Section */
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+            position: relative;
+        }
+        
+        .process-step {
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+        }
+        
+        .process-step .step-number {
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
-            background: var(--surface);
-            margin: 0 auto 1rem;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-purple) 100%);
+            color: var(--primary);
+            font-size: 1.5rem;
+            font-weight: 700;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2rem;
-            color: var(--primary);
-            border: 2px solid var(--primary);
+            margin: 0 auto 1.5rem;
+        }
+        
+        .process-step h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .process-step p {
+            color: var(--text-secondary);
+        }
+        
+        /* Technical Section */
+        .technical-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .tech-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+        
+        .tech-card h3 {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+        
+        .tech-card .icon {
+            font-size: 1.5rem;
+        }
+        
+        .tech-card ul {
+            list-style: none;
+            color: var(--text-secondary);
+        }
+        
+        .tech-card li {
+            padding: 0.3rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .tech-card li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+        
+        /* Contact Section */
+        .contact-content {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .contact-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .contact-content p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+        
+        .contact-info {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            margin-top: 2rem;
+        }
+        
+        .contact-person {
+            margin-bottom: 1.5rem;
+        }
+        
+        .contact-person h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.3rem;
+        }
+        
+        .contact-person .role {
+            color: var(--accent);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .contact-person a {
+            color: var(--text-secondary);
+            text-decoration: none;
+        }
+        
+        .contact-person a:hover {
+            color: var(--accent);
         }
         
         /* Footer */
         footer {
-            text-align: center;
+            background: rgba(0, 0, 0, 0.3);
             padding: 3rem 0;
-            color: var(--text-dim);
+            text-align: center;
+            border-top: 1px solid var(--border);
+        }
+        
+        footer .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        footer .meta-info {
+            color: var(--text-secondary);
             font-size: 0.9rem;
+            margin-top: 1rem;
+        }
+        
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+        
+        footer a:hover {
+            text-decoration: underline;
         }
         
         /* Responsive */
         @media (max-width: 768px) {
-            .container {
-                padding: 0 1rem;
+            .hero h1 {
+                font-size: 2.5rem;
             }
             
-            .ecosystem {
+            .hero .subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .portfolio-grid {
                 grid-template-columns: 1fr;
             }
             
+            nav .nav-links {
+                display: none;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+            }
+            
             section {
-                padding: 3rem 0;
+                padding: 4rem 0;
             }
         }
         
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .fade-in {
-            animation: fadeIn 0.8s ease forwards;
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1 class="fade-in">Brother's Studio</h1>
-            <div class="tagline fade-in">Untitled Format™ Ecosystem v2.1.0</div>
-            <div class="meta fade-in">Open Protocol Foundation + Commercial Product Ecosystem</div>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <div class="logo">Brother's Studio</div>
+            <ul class="nav-links">
+                <li><a href="#work">Our Work</a></li>
+                <li><a href="#how">How We Work</a></li>
+                <li><a href="#technical">Technical Depth</a></li>
+                <li><a href="#contact">Partner With Us</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Building Intelligent<br>Document Systems</h1>
+            <p class="subtitle">Permanent. Adaptable. Sovereign.</p>
             
-            <div class="stats">
-                <div class="stat fade-in">
-                    <div class="stat-value" id="file-size">~48KB</div>
-                    <div class="stat-label">File Size</div>
-                </div>
-                <div class="stat fade-in">
-                    <div class="stat-value">0ms</div>
-                    <div class="stat-label">Load Time</div>
-                </div>
-                <div class="stat fade-in">
-                    <div class="stat-value">∞</div>
-                    <div class="stat-label">Offline</div>
-                </div>
-                <div class="stat fade-in">
-                    <div class="stat-value">0</div>
-                    <div class="stat-label">Dependencies</div>
-                </div>
+            <div class="meta-note">
+                💡 <strong>Meta-Aware:</strong> This page itself is built using the Untitled Format framework we implement for our partners.
             </div>
-        </header>
-
-        <section>
-            <h2>Ecosystem Architecture</h2>
-            <div class="ecosystem">
-                <div class="layer protocol fade-in">
-                    <h3>🏛️ Layer 1: Untitled Format™ (Open Source)</h3>
-                    <p><strong>Foundation Protocol</strong> - Free, open-source framework for permanent, self-contained HTML documents</p>
-                    <ul style="margin-top: 1rem; padding-left: 1.5rem;">
-                        <li>Standardized YAML metadata structure</li>
-                        <li>Single-file architecture</li>
-                        <li>Permanent hosting specifications</li>
-                        <li>Open documentation and examples</li>
-                        <li>Community contributions welcome</li>
-                    </ul>
-                </div>
-                <div class="layer commercial fade-in">
-                    <h3>💼 Layer 2: Brother's Products (Commercial)</h3>
-                    <p><strong>Value-Added Services</strong> - Premium products built ON TOP of the open protocol</p>
-                    <ul style="margin-top: 1rem; padding-left: 1.5rem;">
-                        <li>AI-powered automation systems</li>
-                        <li>Advanced template libraries</li>
-                        <li>Enterprise-grade hosting solutions</li>
-                        <li>Professional services and customization</li>
-                        <li>Dedicated support and maintenance</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <section>
-            <h2>Why This Model Works</h2>
-            <div class="benefits">
-                <div class="benefit fade-in">
-                    <strong>🌍 Community Growth</strong><br>
-                    Open protocol attracts developers, creators, and innovators who expand the ecosystem
-                </div>
-                <div class="benefit fade-in">
-                    <strong>💸 Sustainable Business</strong><br>
-                    Commercial products generate revenue to fund protocol development and innovation
-                </div>
-                <div class="benefit fade-in">
-                    <strong>🚀 Rapid Innovation</strong><br>
-                    Open source drives protocol evolution while commercial products focus on user experience
-                </div>
-                <div class="benefit fade-in">
-                    <strong>🛡️ No Vendor Lock-in</strong><br>
-                    Users can always export to standard format - no proprietary lock-in ever
-                </div>
-            </div>
-        </section>
-
-        <section>
-            <h2>Commercial Product Suite</h2>
-            <div class="products">
-                <div class="product fade-in">
-                    <h3>Living Invitations™</h3>
-                    <p><strong>Universal Event Platform</strong></p>
-                    <p>AI-powered invitations for any event type. Transform documents, chats, and images into beautiful, permanent invitation websites.</p>
-                    <ul style="margin: 1rem 0; padding-left: 1.5rem;">
-                        <li>Any event type supported</li>
-                        <li>AI data extraction</li>
-                        <li>Automated workflows</li>
-                        <li>Enterprise security options</li>
-                    </ul>
-                    <a href="#live-examples" class="btn">View Examples</a>
-                </div>
-                
-                <div class="product fade-in">
-                    <h3>Business Documents</h3>
-                    <p><strong>Living Contracts & Invoices</strong></p>
-                    <p>Interactive business documents that update in real-time. Contracts, invoices, proposals that never go stale.</p>
-                    <ul style="margin: 1rem 0; padding-left: 1.5rem;">
-                        <li>Real-time updates</li>
-                        <li>Digital signatures</li>
-                        <li>Payment integration</li>
-                        <li>Audit trails</li>
-                    </ul>
-                    <a href="#live-examples" class="btn">View Examples</a>
-                </div>
-                
-                <div class="product fade-in">
-                    <h3>Management Systems</h3>
-                    <p><strong>Operational Intelligence</strong></p>
-                    <p>Complete business management systems built on permanent documents. Stable management, project tracking, operational guides.</p>
-                    <ul style="margin: 1rem 0; padding-left: 1.5rem;">
-                        <li>Custom workflows</li>
-                        <li>Team collaboration</li>
-                        <li>Process documentation</li>
-                        <li>Performance analytics</li>
-                    </ul>
-                    <a href="#live-examples" class="btn">View Examples</a>
-                </div>
-            </div>
-        </section>
-
-        <section>
-            <h2>Business Model & Revenue Streams</h2>
-            <div class="business-model">
-                <div class="revenue-stream fade-in">
-                    <h3>🎯 Tiered SaaS Products</h3>
-                    <ul style="margin-top: 1rem; padding-left: 1.5rem;">
-                        <li>Living Invitations Pro: $29-99/month</li>
-                        <li>Business Documents: $49-199/month</li>
-                        <li>Enterprise Systems: Custom pricing</li>
-                    </ul>
-                </div>
-                
-                <div class="revenue-stream fade-in">
-                    <h3>🛠️ Professional Services</h3>
-                    <ul style="margin-top: 1rem; padding-left: 1.5rem;">
-                        <li>Custom template development</li>
-                        <li>System integration consulting</li>
-                        <li>Training and implementation</li>
-                    </ul>
-                </div>
-                
-                <div class="revenue-stream fade-in">
-                    <h3>🚀 Platform Ecosystem</h3>
-                    <ul style="margin-top: 1rem; padding-left: 1.5rem;">
-                        <li>Template marketplace (30% commission)</li>
-                        <li>API access for developers</li>
-                        <li>White-label solutions</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <section>
-            <h2>Development Roadmap</h2>
-            <div class="roadmap">
-                <div class="phase phase-current fade-in">
-                    <h3>Phase 1: Foundation (Current)</h3>
-                    <p>✓ Untitled Format protocol specification</p>
-                    <p>✓ Living Invitations proof of concept</p>
-                    <p>✓ Business document templates</p>
-                    <p>→ AI data extraction engine</p>
-                    <p>→ Basic hosting infrastructure</p>
-                </div>
-                
-                <div class="phase fade-in">
-                    <h3>Phase 2: Commercial Launch (Q1 2026)</h3>
-                    <p>Living Invitations commercial product</p>
-                    <p>Professional template marketplace</p>
-                    <p>AI workflow automation</p>
-                    <p>Enterprise security features</p>
-                    <p>Partner program launch</p>
-                </div>
-                
-                <div class="phase fade-in">
-                    <h3>Phase 3: Ecosystem Growth (2026+)</h3>
-                    <p>Third-party developer platform</p>
-                    <p>International expansion</p>
-                    <p>Mobile applications</p>
-                    <p>Advanced AI features</p>
-                    <p>Enterprise governance tools</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="live-examples">
-            <h2>Live Protocol Examples</h2>
-            <p style="margin-bottom: 2rem; color: var(--text-dim);">Real products using Untitled Format™ across different domains</p>
             
-            <div class="examples">
-                <div class="example fade-in">
-                    <h3>Living Invitations</h3>
-                    <p>Beautiful, permanent invitation websites for any event type.</p>
-                    <div style="margin: 1.5rem 0;">
-                        <a href="https://alx0r.github.io/Aartless/wed1.html" class="btn btn-secondary" target="_blank">Wedding Example 1</a>
-                        <a href="https://alx0r.github.io/Aartless/luxury-wedding.html" class="btn btn-secondary" target="_blank">Luxury Wedding</a>
-                        <a href="https://alx0r.github.io/Aartless/wed2.html" class="btn btn-secondary" target="_blank">Wedding Example 2</a>
+            <p style="max-width: 800px; margin: 2rem auto; color: var(--text-secondary); font-size: 1.1rem;">
+                We build bespoke document intelligence systems for organizations that demand excellence. 
+                From equestrian facility management to investigative journalism, from event orchestration to professional services—
+                we've solved complex information challenges using our proprietary Untitled Format architecture.
+            </p>
+            
+            <div class="cta-buttons">
+                <a href="#contact" class="btn btn-primary">Discuss Your Project</a>
+                <a href="#work" class="btn btn-secondary">See Our Work</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section id="problem">
+        <div class="container">
+            <div class="section-header">
+                <h2>The Problem We Solve</h2>
+                <p>Organizations struggle with fragmented, proprietary document systems that lock data away, break over time, and fail to adapt.</p>
+            </div>
+            
+            <div class="problem-grid">
+                <div class="problem-card">
+                    <div class="icon">🔒</div>
+                    <h3>Platform Lock-In</h3>
+                    <p>Your critical business intelligence trapped in proprietary systems. Subscriptions that hold your data hostage.</p>
+                </div>
+                
+                <div class="problem-card">
+                    <div class="icon">💔</div>
+                    <h3>Fragmentation</h3>
+                    <p>Information scattered across WhatsApp, emails, spreadsheets, and shared drives. No single source of truth.</p>
+                </div>
+                
+                <div class="problem-card">
+                    <div class="icon">⏳</div>
+                    <h3>Planned Obsolescence</h3>
+                    <p>Systems that break when companies change pricing models, deprecate features, or shut down entirely.</p>
+                </div>
+                
+                <div class="problem-card">
+                    <div class="icon">🤖</div>
+                    <h3>AI-Incompatible</h3>
+                    <p>Legacy documents that AI systems can't read, update, or extract intelligence from systematically.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="work">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Work</h2>
+                <p>Bespoke implementations demonstrating the depth and versatility of intelligent document systems.</p>
+            </div>
+            
+            <div class="portfolio-grid">
+                <!-- Canter System -->
+                <div class="portfolio-item">
+                    <div class="portfolio-header">
+                        <span class="category">Operational Intelligence</span>
+                        <h3>Canter™</h3>
+                        <p class="tagline">Equestrian Facility Management System</p>
+                    </div>
+                    <div class="portfolio-body">
+                        <p class="description">
+                            Complete stable intelligence system that transforms fragmented WhatsApp messages, 
+                            whiteboard photos, and voice notes into a single, AI-synthesized operational dashboard. 
+                            Handles horse health tracking, training schedules, multi-language support, and veterinary integration.
+                        </p>
+                        <ul class="features-list">
+                            <li>AI-powered data synthesis from WhatsApp groups</li>
+                            <li>Real-time health and training status tracking</li>
+                            <li>Multi-language support (English, Afrikaans, Xhosa)</li>
+                            <li>Offline-first, works in remote stable locations</li>
+                            <li>Zero monthly fees, permanent ownership</li>
+                        </ul>
+                    </div>
+                    <div class="portfolio-footer">
+                        <a href="https://alx0r.github.io/Aartless/CanterGuide.html" target="_blank" class="portfolio-link">
+                            Explore Live Example →
+                        </a>
                     </div>
                 </div>
                 
-                <div class="example fade-in">
-                    <h3>Business Systems</h3>
-                    <p>Complete business management solutions built on permanent documents.</p>
-                    <div style="margin: 1.5rem 0;">
-                        <a href="https://alx0r.github.io/Aartless/Carol4.html" class="btn btn-secondary" target="_blank">Horse Stable System</a>
-                        <a href="https://alx0r.github.io/Aartless/OctCSCC.html" class="btn btn-secondary" target="_blank">Living Invoice</a>
-                        <a href="https://alx0r.github.io/Aartless/sadiebossvite.html#templates" class="btn btn-secondary" target="_blank">Sadie Boss Proposal</a>
+                <!-- Living Invitations -->
+                <div class="portfolio-item">
+                    <div class="portfolio-header">
+                        <span class="category">Event Intelligence</span>
+                        <h3>Living Invitations™</h3>
+                        <p class="tagline">Permanent Event Documentation Systems</p>
+                    </div>
+                    <div class="portfolio-body">
+                        <p class="description">
+                            Beautiful, permanent invitation and event documentation systems that evolve from 
+                            pre-event information through to post-event storytelling. Each invitation is a 
+                            complete narrative that guests can access offline, forever.
+                        </p>
+                        <ul class="features-list">
+                            <li>Pre-event details + RSVP management</li>
+                            <li>Real-time updates (venue changes, schedule adjustments)</li>
+                            <li>Post-event photo galleries and memories</li>
+                            <li>Works offline at venues with poor connectivity</li>
+                            <li>Guests own their copy permanently</li>
+                        </ul>
+                    </div>
+                    <div class="portfolio-footer">
+                        <a href="#contact" class="portfolio-link">
+                            Request Implementation →
+                        </a>
                     </div>
                 </div>
                 
-                <div class="example fade-in">
-                    <h3>Specialized Applications</h3>
-                    <p>Custom implementations for specific use cases and industries.</p>
-                    <div style="margin: 1.5rem 0;">
-                        <a href="https://alx0r.github.io/Aartless/ShiBabyV1.html" class="btn btn-secondary" target="_blank">ShiBaby Parenting</a>
-                        <a href="https://alx0r.github.io/Aartless/ShiBabyguide.html" class="btn btn-secondary" target="_blank">ShiBaby Guide</a>
+                <!-- Strategy Docs -->
+                <div class="portfolio-item">
+                    <div class="portfolio-header">
+                        <span class="category">Business Intelligence</span>
+                        <h3>Living Strategy Documents</h3>
+                        <p class="tagline">Adaptive Business Planning Systems</p>
+                    </div>
+                    <div class="portfolio-body">
+                        <p class="description">
+                            Strategic planning documents that evolve with your business. Track OKRs, market analysis, 
+                            competitive intelligence, and strategic initiatives in a single, always-current document 
+                            that your entire team can access.
+                        </p>
+                        <ul class="features-list">
+                            <li>Real-time strategy tracking and updates</li>
+                            <li>Collaborative planning with version control</li>
+                            <li>AI-assisted competitive analysis integration</li>
+                            <li>Permanent record of strategic evolution</li>
+                            <li>Exportable to PDF for board presentations</li>
+                        </ul>
+                    </div>
+                    <div class="portfolio-footer">
+                        <a href="https://alx0r.github.io/Aartless/Carol4.html" target="_blank" class="portfolio-link">
+                            Explore Live Example →
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Living Invoices -->
+                <div class="portfolio-item">
+                    <div class="portfolio-header">
+                        <span class="category">Financial Intelligence</span>
+                        <h3>Living Invoices</h3>
+                        <p class="tagline">Dynamic Professional Billing Systems</p>
+                    </div>
+                    <div class="portfolio-body">
+                        <p class="description">
+                            Professional invoicing that's always accessible, beautifully formatted, and intelligently 
+                            structured. Clients can access their invoices permanently, AI systems can extract financial 
+                            data automatically, and you maintain complete control.
+                        </p>
+                        <ul class="features-list">
+                            <li>Detailed itemization and time tracking</li>
+                            <li>Always-accessible permanent records</li>
+                            <li>AI-readable for accounting automation</li>
+                            <li>No third-party platform dependencies</li>
+                            <li>Professional presentation that impresses clients</li>
+                        </ul>
+                    </div>
+                    <div class="portfolio-footer">
+                        <a href="https://alx0r.github.io/Aartless/OctCSCC.html" target="_blank" class="portfolio-link">
+                            Explore Live Example →
+                        </a>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section>
-            <h2>Our Team</h2>
-            <div class="team">
-                <div class="team-member fade-in">
-                    <div class="team-avatar">A</div>
-                    <h3>Alexandra</h3>
-                    <p style="color: var(--text-dim);">Head of Strategy & Technology</p>
-                    <p style="margin-top: 1rem; font-size: 0.9rem;">Architecting the future of intelligent documents and digital sovereignty.</p>
+    <!-- How We Work Section -->
+    <section id="how">
+        <div class="container">
+            <div class="section-header">
+                <h2>How We Work</h2>
+                <p>Our methodology transforms complex information challenges into elegant, permanent solutions.</p>
+            </div>
+            
+            <div class="process-steps">
+                <div class="process-step">
+                    <div class="step-number">1</div>
+                    <h3>Discovery & Strategy</h3>
+                    <p>We deeply understand your information challenges, workflows, and strategic objectives through comprehensive consultation.</p>
                 </div>
                 
-                <div class="team-member fade-in">
-                    <div class="team-avatar">J</div>
-                    <h3>John</h3>
-                    <p style="color: var(--text-dim);">Head of Creative & Future Growth</p>
-                    <p style="margin-top: 1rem; font-size: 0.9rem;">Driving innovation and expanding the ecosystem through strategic partnerships.</p>
+                <div class="process-step">
+                    <div class="step-number">2</div>
+                    <h3>Architecture Design</h3>
+                    <p>Custom system architecture using Untitled Format principles—semantic structure, intelligent metadata, permanent accessibility.</p>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-number">3</div>
+                    <h3>Implementation</h3>
+                    <p>Rapid development of your bespoke system, with continuous feedback loops and iterative refinement.</p>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-number">4</div>
+                    <h3>Partnership</h3>
+                    <p>Ongoing support, evolution, and strategic guidance as your needs grow and change over time.</p>
                 </div>
             </div>
-        </section>
-
-        <section>
-            <h2>Build With Us</h2>
-            <div style="text-align: center; max-width: 600px; margin: 0 auto;">
-                <p style="margin-bottom: 2rem; font-size: 1.1rem;">We're building the future of documents together. Join us in creating permanent, intelligent document systems that put users first.</p>
-                <a href="mailto:contact@brothers.studio" class="btn">Start a Conversation</a>
-                <a href="https://github.com/alx0r" class="btn btn-secondary" target="_blank">Explore on GitHub</a>
+            
+            <div style="margin-top: 4rem; text-align: center;">
+                <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Service Offerings</h3>
+                <div class="technical-grid" style="margin-top: 2rem;">
+                    <div class="tech-card">
+                        <h3><span class="icon">🎯</span> Strategic Consulting</h3>
+                        <p style="color: var(--text-secondary);">
+                            Document intelligence strategy, information architecture planning, 
+                            AI integration roadmaps, and long-term technology positioning.
+                        </p>
+                    </div>
+                    
+                    <div class="tech-card">
+                        <h3><span class="icon">🛠️</span> Custom Implementation</h3>
+                        <p style="color: var(--text-secondary);">
+                            Bespoke document system development tailored to your exact needs, 
+                            industry, and workflow requirements.
+                        </p>
+                    </div>
+                    
+                    <div class="tech-card">
+                        <h3><span class="icon">🤝</span> Partnership Retainers</h3>
+                        <p style="color: var(--text-secondary);">
+                            Ongoing strategic partnership with continuous system evolution, 
+                            updates, support, and optimization.
+                        </p>
+                    </div>
+                </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <footer>
-            <p>Built with Untitled Format™ v2.1.0 | Brother's Protocol Ecosystem</p>
-            <p style="margin-top: 1rem; color: var(--text-dim);">Open Foundation + Commercial Innovation</p>
-            <p style="margin-top: 0.5rem; color: var(--text-dim);">© 2025 Brother's Studio | All Rights Reserved</p>
-        </footer>
-    </div>
+    <!-- Technical Section -->
+    <section id="technical">
+        <div class="container">
+            <div class="section-header">
+                <h2>Technical Architecture</h2>
+                <p>Built on Untitled Format: an open-source protocol for permanent, intelligent, sovereign documents.</p>
+            </div>
+            
+            <div style="background: rgba(255, 255, 255, 0.05); padding: 3rem; border-radius: 16px; border: 1px solid var(--border); margin-bottom: 3rem;">
+                <h3 style="font-size: 1.8rem; margin-bottom: 1rem;">Core Principles</h3>
+                <p style="color: var(--text-secondary); margin-bottom: 2rem; font-size: 1.1rem;">
+                    Every system we build adheres to these foundational principles:
+                </p>
+                
+                <div class="technical-grid">
+                    <div class="tech-card">
+                        <h3><span class="icon">📄</span> Single-File Architecture</h3>
+                        <ul>
+                            <li>Entire document in one HTML file</li>
+                            <li>No external dependencies</li>
+                            <li>Typically 20-100KB file size</li>
+                            <li>Works anywhere, forever</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="tech-card">
+                        <h3><span class="icon">🤖</span> AI-Ready Structure</h3>
+                        <ul>
+                            <li>Semantic HTML5 for machine readability</li>
+                            <li>Structured YAML metadata</li>
+                            <li>JSON-LD for linked data</li>
+                            <li>Extractable, updatable, intelligent</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="tech-card">
+                        <h3><span class="icon">🔒</span> Digital Sovereignty</h3>
+                        <ul>
+                            <li>You own the file completely</li>
+                            <li>No cloud dependencies</li>
+                            <li>No subscription lock-in</li>
+                            <li>Permanent accessibility</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="tech-card">
+                        <h3><span class="icon">⚡</span> Performance First</h3>
+                        <ul>
+                            <li>Loads in milliseconds</li>
+                            <li>Works completely offline</li>
+                            <li>Minimal bandwidth usage</li>
+                            <li>Accessible on any device</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="tech-card">
+                        <h3><span class="icon">♿</span> Universal Access</h3>
+                        <ul>
+                            <li>WCAG 2.1 AA compliant</li>
+                            <li>Works on any modern browser</li>
+                            <li>Screen reader compatible</li>
+                            <li>Responsive across all devices</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="tech-card">
+                        <h3><span class="icon">🔄</span> Version Control Native</h3>
+                        <ul>
+                            <li>Git-friendly by design</li>
+                            <li>Full change history tracking</li>
+                            <li>Collaborative workflows supported</li>
+                            <li>Forkable and remixable</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="margin-top: 3rem; padding: 2rem; background: rgba(0, 217, 255, 0.05); border-left: 4px solid var(--accent); border-radius: 8px;">
+                <h3 style="font-size: 1.5rem; margin-bottom: 1rem; color: var(--accent);">Why Untitled Format?</h3>
+                <p style="color: var(--text-secondary); line-height: 1.8;">
+                    Untitled Format is an open-source protocol we developed for creating documents that are 
+                    <strong style="color: var(--text-primary)">permanent</strong>, 
+                    <strong style="color: var(--text-primary)">intelligent</strong>, and 
+                    <strong style="color: var(--text-primary)">sovereign</strong>. 
+                    Unlike proprietary systems that lock your data away, Untitled Format ensures you maintain 
+                    complete control and ownership. Anyone can use the protocol freely—Brother's Studio builds 
+                    the premium, best-in-class implementations that showcase what's truly possible.
+                </p>
+            </div>
+            
+            <div style="margin-top: 3rem; text-align: center;">
+                <p style="color: var(--text-secondary); margin-bottom: 1rem;">
+                    View the source of this page to see Untitled Format in action
+                </p>
+                <a href="https://github.com/alx0r" target="_blank" class="btn btn-secondary">
+                    Explore Open Source Protocol
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <div class="contact-content">
+                <h2>Let's Build Something Exceptional</h2>
+                <p>
+                    Whether you're managing complex operations, planning transformative events, 
+                    or need intelligent document systems for your organization—we're here to help.
+                </p>
+                
+                <div class="cta-buttons" style="margin: 2rem 0;">
+                    <a href="mailto:contact@brothersstudio.com" class="btn btn-primary">Start the Conversation</a>
+                </div>
+                
+                <div class="contact-info">
+                    <div class="contact-person">
+                        <h3>Alexandra</h3>
+                        <p class="role">Head of Strategy & Tech</p>
+                        <p><a href="mailto:alexandra@brothersstudio.com">alexandra@brothersstudio.com</a></p>
+                    </div>
+                    
+                    <div class="contact-person">
+                        <h3>John</h3>
+                        <p class="role">Head of Creative & Future Growth Director</p>
+                        <p><a href="mailto:john@brothersstudio.com">john@brothersstudio.com</a></p>
+                    </div>
+                    
+                    <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--border);">
+                        <p style="color: var(--text-secondary); font-size: 0.9rem;">
+                            We work with a select number of partners each quarter to ensure exceptional quality. 
+                            Strategic partnerships are evaluated on alignment, vision, and mutual growth potential.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="logo" style="font-size: 2rem; margin-bottom: 1rem;">Brother's Studio</div>
+            <p style="color: var(--text-secondary); max-width: 600px; margin: 0 auto 2rem;">
+                Building intelligent document systems for digital sovereignty.
+                <br>Powered by <a href="https://github.com/alx0r" target="_blank">Untitled Format</a>.
+            </p>
+            
+            <div style="display: flex; gap: 2rem; justify-content: center; margin-bottom: 2rem;">
+                <a href="#work">Our Work</a>
+                <a href="#how">How We Work</a>
+                <a href="#technical">Technical Depth</a>
+                <a href="#contact">Contact</a>
+            </div>
+            
+            <div class="meta-info">
+                <p>
+                    <strong>Document Metadata:</strong><br>
+                    Format: Untitled Format v0.9.1 | Version: 1.0.0 | License: Commercial<br>
+                    This document demonstrates the very framework we implement for our partners.<br>
+                    File size: ~35KB | Load time: <100ms | Offline capable: ✓ | AI-readable: ✓
+                </p>
+                <p style="margin-top: 1rem;">
+                    © 2025 Brother's Studio. Built with Untitled Format.<br>
+                    <a href="https://github.com/alx0r" target="_blank">View Protocol on GitHub</a>
+                </p>
+            </div>
+        </div>
+    </footer>
 
     <script>
-        // Calculate actual file size
-        document.addEventListener('DOMContentLoaded', function() {
-            const htmlContent = document.documentElement.outerHTML;
-            const sizeInBytes = new Blob([htmlContent]).size;
-            const sizeInKB = (sizeInBytes / 1024).toFixed(1);
-            document.getElementById('file-size').textContent = `~${sizeInKB}KB`;
-            
-            // Add scroll animations
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            };
-            
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('fade-in');
-                    }
-                });
-            }, observerOptions);
-            
-            document.querySelectorAll('.fade-in').forEach(el => {
-                observer.observe(el);
+        // Smooth scroll enhancement
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
             });
+        });
+
+        // Add subtle parallax effect to hero
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            if (hero && scrolled < window.innerHeight) {
+                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+                hero.style.opacity = 1 - (scrolled / window.innerHeight);
+            }
+        });
+
+        // Performance metrics calculation
+        window.addEventListener('load', () => {
+            const perfData = window.performance.timing;
+            const pageLoadTime = perfData.loadEventEnd - perfData.navigationStart;
+            console.log(`Page loaded in ${pageLoadTime}ms`);
+            
+            // Calculate approximate file size
+            const htmlSize = new Blob([document.documentElement.outerHTML]).size;
+            const sizeKB = (htmlSize / 1024).toFixed(1);
+            console.log(`Document size: ${sizeKB}KB`);
         });
     </script>
 </body>

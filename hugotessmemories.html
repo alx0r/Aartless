@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hugo & Tess Davies - Family Updates</title>
+    
+    <!-- YAML Metadata -->
+    <!--
+    ---
+    format: "Untitled Format v2.1.0"
+    product: "ShiBaby - Family Share Edition"
+    family_name: "Davies Family"
+    location: "Wales, UK"
+    version: "family-share-1.0.0"
+    privacy_level: "family-friendly"
+    children:
+      - name: "Hugo"
+        age: 3
+        personality: ["curious", "nature-lover", "charming"]
+      - name: "Tess"
+        age: 1
+        personality: ["happy", "musical", "adventurous"]
+    last_updated: "2025-11-01"
+    license: "Family Private"
+    ---
+    -->
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --hugo-primary: #4a7c59;
+            --hugo-light: #e8f5e9;
+            --tess-primary: #d4a574;
+            --tess-light: #fff8f0;
+            --family: #6b5b95;
+            --neutral: #f5f5f5;
+            --text: #2c3e50;
+            --text-light: #7f8c8d;
+            --border: #e0e0e0;
+            --success: #27ae60;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: var(--neutral);
+        }
+        
+        .header {
+            background: linear-gradient(135deg, var(--hugo-primary), var(--tess-primary));
+            color: white;
+            padding: 2.5rem 1rem;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .header p {
+            opacity: 0.95;
+            font-size: 1.1rem;
+        }
+        
+        .header .tagline {
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            opacity: 0.85;
+        }
+        
+        .child-nav {
+            background: white;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        .child-nav button {
+            padding: 0.75rem 2rem;
+            border: 2px solid var(--border);
+            background: white;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .child-nav button.hugo {
+            border-color: var(--hugo-primary);
+            color: var(--hugo-primary);
+        }
+        
+        .child-nav button.hugo.active {
+            background: var(--hugo-primary);
+            color: white;
+        }
+        
+        .child-nav button.tess {
+            border-color: var(--tess-primary);
+            color: var(--tess-primary);
+        }
+        
+        .child-nav button.tess.active {
+            background: var(--tess-primary);
+            color: white;
+        }
+        
+        .child-nav button.family {
+            border-color: var(--family);
+            color: var(--family);
+        }
+        
+        .child-nav button.family.active {
+            background: var(--family);
+            color: white;
+        }
+        
+        .child-nav button.nanny {
+            border-color: #e67e22;
+            color: #e67e22;
+        }
+        
+        .child-nav button.nanny.active {
+            background: #e67e22;
+            color: white;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        
+        .child-profile {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            display: none;
+        }
+        
+        .child-profile.active {
+            display: block;
+        }
+        
+        .child-profile.hugo {
+            border-left: 5px solid var(--hugo-primary);
+        }
+        
+        .child-profile.tess {
+            border-left: 5px solid var(--tess-primary);
+        }
+        
+        .child-profile.family {
+            border-left: 5px solid var(--family);
+        }
+        
+        .child-profile.nanny {
+            border-left: 5px solid #e67e22;
+        }
+        
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid var(--border);
+        }
+        
+        .profile-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+        }
+        
+        .profile-avatar.hugo {
+            background: var(--hugo-light);
+        }
+        
+        .profile-avatar.tess {
+            background: var(--tess-light);
+        }
+        
+        .profile-info h2 {
+            font-size: 2rem;
+            margin-bottom: 0.25rem;
+        }
+        
+        .profile-info .meta {
+            color: var(--text-light);
+            font-size: 1rem;
+        }
+        
+        .section {
+            margin-bottom: 2rem;
+        }
+        
+        .section h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+        }
+        
+        .card {
+            background: var(--neutral);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 3px solid var(--border);
+        }
+        
+        .card.hugo {
+            border-left-color: var(--hugo-primary);
+        }
+        
+        .card.tess {
+            border-left-color: var(--tess-primary);
+        }
+        
+        .card h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
+            color: var(--text);
+        }
+        
+        .card p {
+            font-size: 0.95rem;
+            color: var(--text-light);
+        }
+        
+        .card .value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-top: 0.5rem;
+        }
+        
+        .milestone {
+            background: white;
+            border-left: 4px solid gold;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        .milestone h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+        }
+        
+        .milestone-date {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-bottom: 0.75rem;
+        }
+        
+        .milestone-description {
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+        
+        .tag {
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            background: var(--hugo-light);
+            color: var(--hugo-primary);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .tag.tess {
+            background: var(--tess-light);
+            color: var(--tess-primary);
+        }
+        
+        .quick-stats {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+        
+        .stat {
+            flex: 1;
+            min-width: 150px;
+            background: var(--neutral);
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-top: 0.5rem;
+        }
+        
+        .photo-link {
+            display: block;
+            background: linear-gradient(135deg, #e056fd, #f9a825);
+            color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 1rem;
+            transition: transform 0.2s;
+        }
+        
+        .photo-link:hover {
+            transform: translateY(-2px);
+        }
+        
+        .photo-link.facebook {
+            background: linear-gradient(135deg, #1877f2, #42a5f5);
+        }
+        
+        .checklist {
+            background: white;
+            border-radius: 8px;
+            padding: 0;
+            overflow: hidden;
+        }
+        
+        .checklist-item {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .checklist-item:last-child {
+            border-bottom: none;
+        }
+        
+        .checklist-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        
+        .checklist-label {
+            flex: 1;
+            font-size: 1rem;
+        }
+        
+        .checklist-time {
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 2rem 1rem;
+            color: var(--text-light);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border);
+            margin-top: 3rem;
+        }
+        
+        .banner {
+            background: linear-gradient(135deg, var(--family), #8b7da8);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .banner h3 {
+            margin-bottom: 0.5rem;
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .child-nav {
+                flex-wrap: wrap;
+            }
+            
+            .child-nav button {
+                flex: 1 1 calc(50% - 0.5rem);
+            }
+            
+            .profile-header {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>👶 Hugo & Tess</h1>
+        <p>The Davies Adventures • Wales</p>
+        <p class="tagline">Growing, exploring, and making memories every day</p>
+    </header>
+    
+    <nav class="child-nav">
+        <button class="hugo active" onclick="showView('hugo')">🐛 Hugo (3)</button>
+        <button class="tess" onclick="showView('tess')">🎀 Tess (1)</button>
+        <button class="family" onclick="showView('family')">👨‍👩‍👧‍👦 Family</button>
+        <button class="nanny" onclick="showView('nanny')">📋 Nanny Notes</button>
+    </nav>
+    
+    <div class="container">
+        <!-- HUGO'S VIEW -->
+        <div id="hugo-view" class="child-profile hugo active">
+            <div class="profile-header">
+                <div class="profile-avatar hugo">🐛</div>
+                <div class="profile-info">
+                    <h2>Hugo Davies</h2>
+                    <p class="meta">3 years old • Bug Explorer • Nature Enthusiast</p>
+                </div>
+            </div>
+            
+            <div class="quick-stats">
+                <div class="stat">
+                    <div class="stat-label">Age</div>
+                    <div class="stat-value">3 years</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-label">Mood</div>
+                    <div class="stat-value">😊</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-label">Growing</div>
+                    <div class="stat-value">📈</div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h3>🌟 All About Hugo</h3>
+                <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 1rem;">
+                    Hugo is a curious, charming 3-year-old with an absolute passion for insects and nature. He loves exploring the garden, collecting bugs in his special container, and asking "Why?" about absolutely everything. His favorite things include ladybirds, caterpillars, and going on nature walks.
+                </p>
+                <div>
+                    <span class="tag">🐛 Bug Enthusiast</span>
+                    <span class="tag">🌳 Nature Explorer</span>
+                    <span class="tag">😊 Charming</span>
+                    <span class="tag">🧠 Curious Mind</span>
+                    <span class="tag">📚 Loves Stories</span>
+                    <span class="tag">🏃 Active</span>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h3>🏆 Recent Milestones</h3>
+                
+                <div class="milestone">
+                    <h4>🎯 Found His First Caterpillar!</h4>
+                    <div class="milestone-date">October 30, 2025</div>
+                    <p class="milestone-description">Hugo was absolutely thrilled to discover a caterpillar in the garden. He named it "Dotty" and has been checking on it every day. He's learning all about the butterfly life cycle!</p>
+                </div>
+                
+                <div class="milestone">
+                    <h4>⭐ Nursery Star Student</h4>
+                    <div class="milestone-date">October 28, 2025</div>
+                    <p class="milestone-description">His nursery teacher says Hugo is excelling in all areas! He's showing exceptional curiosity and loves sharing his bug discoveries with other children. His vocabulary is growing beautifully.</p>
+                </div>
+                
+                <div class="milestone">
+                    <h4>🎨 First Nature Drawing</h4>
+                    <div class="milestone-date">October 20, 2025</div>
+                    <p class="milestone-description">Drew his first recognizable picture - a ladybird with spots! He was so proud and explained all the details to everyone.</p>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h3>❤️ Hugo's Favorites</h3>
+                <div class="grid">
+                    <div class="card hugo">
+                        <h4>🍎 Favorite Foods</h4>
+                        <p>Porridge with honey, bananas, fish fingers, apple slices, and cheese cubes</p>
+                    </div>
+                    <div class="card hugo">
+                        <h4>📚 Favorite Books</h4>
+                        <p>"The Very Hungry Caterpillar", bug encyclopedias, nature picture books</p>
+                    </div>
+                    <div class="card hugo">
+                        <h4>🎮 Favorite Activities</h4>
+                        <p>Bug hunting, garden exploring, playing with his insect magnifying glass, outdoor climbing</p>
+                    </div>
+                    <div class="card hugo">
+                        <h4>👥 Best Friend</h4>
+                        <p>His little sister Tess! He loves reading to her and showing her bugs (gently!)</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h3>📸 Photo Albums</h3>
+                <a href="#" class="photo-link facebook">📱 View Hugo's Instagram Highlights</a>
+                <a href="#" class="photo-link">🖼️ Family Facebook Album - Hugo's Adventures</a>
+            </div>
+        </div>
+        
+        <!-- TESS'S VIEW -->
+        <div id="tess-view" class="child-profile tess">
+            <div class="profile-header">
+                <div class="profile-avatar tess">🎀</div>
+                <div class="profile-info">
+                    <h2>Tess Davies</h2>
+                    <p class="meta">1 year old • Little Sunshine • Music Lover</p>
+                </div>
+            </div>
+            
+            <div class="quick-stats">
+                <div class="stat">
+                    <div class="stat-label">Age</div>
+                    <div class="stat-value">1 year</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-label">Mood</div>
+                    <div class="stat-value">🥰</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-label">Growing</div>
+                    <div class="stat-value">🚀</div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h3>🌟 All About Tess</h3>
+                <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 1rem;">
+                    Tess is a happy, healthy one-year-old who lights up every room with her smile. She's recently started taking her first steps and loves music, peek-a-boo, and cuddles with her big brother Hugo. She's developing beautifully and brings joy to everyone around her.
+                </p>
+                <div>
+                    <span class="tag tess">🎵 Music Lover</span>
+                    <span class="tag tess">👶 Walking Now!</span>
+                    <span class="tag tess">😊 Happy Baby</span>
+                    <span class="tag tess">💝 Cuddle Bug</span>
+                    <span class="tag tess">🎭 Peek-a-boo Pro</span>
+                    <span class="tag tess">👋 Wave Expert</span>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h3>🏆 Recent Milestones</h3>
+                
+                <div class="milestone">
+                    <h4>🎉 First Unassisted Steps!</h4>
+                    <div class="milestone-date">November 1, 2025 - TODAY!</div>
+                    <p class="milestone-description">HUGE MILESTONE! Tess took 4 unassisted steps today! She walked from the sofa toward Nanny Sarah with the biggest proud smile on her face. We're all so excited!</p>
+                </div>
+                
+                <div class="milestone">
+                    <h4>💬 Said "Hugo"!</h4>
+                    <div class="milestone-date">October 31, 2025</div>
+                    <p class="milestone-description">Tess said her brother's name for the first time! Hugo was absolutely delighted and gave her the biggest hug. Her vocabulary now includes: Mama, Dada, Hugo, and Uh-oh!</p>
+                </div>
+                
+                <div class="milestone">
+                    <h4>🎂 First Birthday Party</h4>
+                    <div class="milestone-date">January 8, 2025</div>
+                    <p class="milestone-description">Celebrated her first birthday surrounded by family! She loved the music, tried cake for the first time (was a fan!), and stayed happy the whole day.</p>
+                </div>
+                
+                <div class="milestone">
+                    <h4>👋 Waving Bye-Bye</h4>
+                    <div class="milestone-date">October 15, 2025</div>
+                    <p class="milestone-description">Now waves bye-bye to everyone! She's got the cutest little wave and uses it constantly.</p>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h3>❤️ Tess's Favorites</h3>
+                <div class="grid">
+                    <div class="card tess">
+                        <h4>🍎 Favorite Foods</h4>
+                        <p>Mashed sweet potato, soft chicken, berries, baby porridge, and banana</p>
+                    </div>
+                    <div class="card tess">
+                        <h4>🎵 Favorite Music</h4>
+                        <p>Any music with a beat! Loves dancing, bouncing, and clapping along</p>
+                    </div>
+                    <div class="card tess">
+                        <h4>🎮 Favorite Activities</h4>
+                        <p>Peek-a-boo, stacking blocks, following Hugo around, music time</p>
+                    </div>
+                    <div class="card tess">
+                        <h4>👥 Best Friend</h4>
+                        <p>Big brother Hugo! She lights up whenever he enters the room</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h3>💬 Words She Says</h3>
+                <div class="grid">
+                    <div class="card tess">
+                        <div class="value">4</div>
+                        <h4>Words So Far</h4>
+                        <p>Mama • Dada • Hugo • Uh-oh</p>
+                    </div>
+                    <div class="card tess">
+                        <div class="value">∞</div>
+                        <h4>Babbling</h4>
+                        <p>Constant happy chatter all day long!</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h3>📸 Photo Albums</h3>
+                <a href="#" class="photo-link facebook">📱 View Tess's Instagram Highlights</a>
+                <a href="#" class="photo-link">🖼️ Family Facebook Album - Tess's First Year</a>
+            </div>
+        </div>
+        
+        <!-- FAMILY VIEW -->
+        <div id="family-view" class="child-profile family">
+            <h2 style="text-align: center; margin-bottom: 2rem;">👨‍👩‍👧‍👦 The Davies Family</h2>
+            
+            <div class="banner">
+                <h3>🎉 Latest Family News</h3>
+                <p>Tess took her first steps today! Hugo is being the most supportive big brother. What a wonderful day for our family! 💕</p>
+            </div>
+            
+            <div class="section">
+                <h3>🌟 Recent Family Highlights</h3>
+                
+                <div class="milestone">
+                    <h4>🎉 Tess's First Steps - Hugo Cheered!</h4>
+                    <div class="milestone-date">November 1, 2025</div>
+                    <p class="milestone-description">Amazing sibling moment! When Tess took her first steps, Hugo was watching and started clapping and cheering "Go Tess go!" It was the sweetest thing. They're such a beautiful team.</p>
+                </div>
+                
+                <div class="milestone">
+                    <h4>📚 Bedtime Story Routine</h4>
+                    <div class="milestone-date">October 29, 2025</div>
+                    <p class="milestone-description">Hugo has started "reading" his bug books to Tess before bed. He points at pictures and makes up stories. Tess sits quietly and listens to her big brother. Melts our hearts every night!</p>
+                </div>
+                
+                <div class="milestone">
+                    <h4>🐛 Bug Education Session</h4>
+                    <div class="milestone-date">October 25, 2025</div>
+                    <p class="milestone-description">Hugo showed Tess his caterpillar collection (very gently!) and explained all about butterflies. Tess was fascinated and tried to say "bug" (came out as "buh").</p>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h3>📅 Upcoming Events</h3>
+                <div class="grid">
+                    <div class="card">
+                        <h4>🎄 Christmas Plans</h4>
+                        <p><strong>December 25, 2025</strong><br>Family Christmas at home! Hugo is excited to show Tess how to open presents.</p>
+                    </div>
+                    <div class="card hugo">
+                        <h4>🎂 Hugo's 4th Birthday</h4>
+                        <p><strong>January 15, 2026</strong><br>Bug-themed party in the works! Hugo wants a caterpillar cake.</p>
+                    </div>
+                    <div class="card tess">
+                        <h4>👶 Tess: 18-Month Milestone</h4>
+                        <p><strong>July 2026</strong><br>Can't wait to see how much she's grown and learned!</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h3>📊 Growing Together</h3>
+                <div class="grid">
+                    <div class="card hugo">
+                        <h4>Hugo's Development</h4>
+                        <p><strong>Physical:</strong> Excellent coordination<br>
+                        <strong>Language:</strong> Advanced vocabulary<br>
+                        <strong>Social:</strong> Empathetic & sharing<br>
+                        <strong>Interest:</strong> Nature & insects</p>
+                    </div>
+                    <div class="card tess">
+                        <h4>Tess's Development</h4>
+                        <p><strong>Physical:</strong> Walking now!<br>
+                        <strong>Language:</strong> 4 words + babbling<br>
+                        <strong>Social:</strong> Loves family interaction<br>
+                        <strong>Interest:</strong> Music & movement</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h3>💝 Sibling Bond</h3>
+                <p style="font-size: 1.1rem; line-height: 1.8; padding: 1.5rem; background: white; border-radius: 8px;">
+                    Hugo and Tess have the most beautiful relationship. Hugo is incredibly gentle and patient with his little sister. He loves showing her things, reading to her, and making her laugh. Tess absolutely adores Hugo - her whole face lights up when he comes into the room. They're going to be best friends for life. ❤️
+                </p>
+            </div>
+            
+            <div class="section">
+                <h3>📸 Family Photo Albums</h3>
+                <a href="#" class="photo-link facebook">📱 Instagram: @DaviesFamilyAdventures</a>
+                <a href="#" class="photo-link">🖼️ Facebook: Davies Family Album 2025</a>
+                <a href="#" class="photo-link" style="background: linear-gradient(135deg, #667eea, #764ba2);">🎥 YouTube: Special Moments Collection</a>
+            </div>
+        </div>
+        
+        <!-- NANNY CHECKLIST VIEW -->
+        <div id="nanny-view" class="child-profile nanny">
+            <h2 style="text-align: center; margin-bottom: 2rem;">📋 Daily Nanny Checklist</h2>
+            
+            <div class="banner" style="background: linear-gradient(135deg, #e67e22, #e74c3c);">
+                <h3>👋 Welcome!</h3>
+                <p>Quick reference guide for daily care routines. Check items off as you go!</p>
+            </div>
+            
+            <div class="section">
+                <h3>🐛 Hugo's Routine (Age 3)</h3>
+                
+                <div class="checklist">
+                    <div class="checklist-item">
+                        <input type="checkbox" id="hugo1">
+                        <label for="hugo1" class="checklist-label"><strong>Morning:</strong> Wake up between 7:00-7:30 AM</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="hugo2">
+                        <label for="hugo2" class="checklist-label"><strong>Breakfast:</strong> Porridge/cereal + fruit + milk (8:00 AM)</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="hugo3">
+                        <label for="hugo3" class="checklist-label"><strong>Nursery Drop-off:</strong> Tiny Explorers Nursery by 9:00 AM (Mon-Fri)</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="hugo4">
+                        <label for="hugo4" class="checklist-label"><strong>Morning Snack:</strong> Apple slices or cheese cubes (10:30 AM - at nursery)</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="hugo5">
+                        <label for="hugo5" class="checklist-label"><strong>Lunch:</strong> At nursery (12:00 PM)</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="hugo6">
+                        <label for="hugo6" class="checklist-label"><strong>Nursery Pick-up:</strong> 3:00 PM</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="hugo7">
+                        <label for="hugo7" class="checklist-label"><strong>Afternoon Activity:</strong> Garden bug hunt or park visit (weather permitting)</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="hugo8">
+                        <label for="hugo8" class="checklist-label"><strong>Afternoon Snack:</strong> Fruit + water (4:00 PM)</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="hugo9">
+                        <label for="hugo9" class="checklist-label"><strong>Dinner:</strong> Main meal around 5:30 PM (Parents usually handle)</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="hugo10">
+                        <label for="hugo10" class="checklist-label"><strong>Bath Time:</strong> 6:30 PM</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="hugo11">
+                        <label for="hugo11" class="checklist-label"><strong>Bedtime:</strong> Story + bed by 7:30 PM</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h3>🎀 Tess's Routine (Age 1)</h3>
+                
+                <div class="checklist">
+                    <div class="checklist-item">
+                        <input type="checkbox" id="tess1">
+                        <label for="tess1" class="checklist-label"><strong>Morning Wake:</strong> 6:45-7:00 AM (usually happy babbling)</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="tess2">
+                        <label for="tess2" class="checklist-label"><strong>Morning Feed:</strong> Breastfeed with Mum or bottle (7:15 AM)</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="tess3">
+                        <label for="tess3" class="checklist-label"><strong>Breakfast:</strong> Baby porridge + mashed fruit (8:30 AM)</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="tess4">
+                        <label for="tess4" class="checklist-label"><strong>Morning Play:</strong> Peek-a-boo, music time, stacking blocks</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="tess5">
+                        <label for="tess5" class="checklist-label"><strong>Morning Nap:</strong> Around 10:00 AM (usually 1-1.5 hours)</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="tess6">
+                        <label for="tess6" class="checklist-label"><strong>Lunch:</strong> Soft foods - mashed veg, soft chicken/fish (12:30 PM)</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="tess7">
+                        <label for="tess7" class="checklist-label"><strong>Water:</strong> Offer water throughout the day (sippy cup)</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="tess8">
+                        <label for="tess8" class="checklist-label"><strong>Afternoon Nap:</strong> Around 2:30 PM (usually 1-2 hours)</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="tess9">
+                        <label for="tess9" class="checklist-label"><strong>Afternoon Snack:</strong> Soft fruit or crackers (4:30 PM)</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="tess10">
+                        <label for="tess10" class="checklist-label"><strong>Dinner:</strong> Soft meal around 5:30 PM</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="tess11">
+                        <label for="tess11" class="checklist-label"><strong>Evening Feed:</strong> Breastfeed with Mum (6:30 PM)</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="tess12">
+                        <label for="tess12" class="checklist-label"><strong>Bath Time:</strong> 6:45 PM (can coordinate with Hugo)</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="tess13">
+                        <label for="tess13" class="checklist-label"><strong>Bedtime:</strong> 7:30 PM (cuddles + lullaby)</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h3>⚠️ Important Notes</h3>
+                <div class="grid">
+                    <div class="card hugo">
+                        <h4>🐛 Hugo's Preferences</h4>
+                        <p><strong>Loves:</strong> Talking about bugs, outdoor time, his magnifying glass<br>
+                        <strong>Routine:</strong> Very consistent - sticks to schedule<br>
+                        <strong>Personality:</strong> Curious, asks lots of questions<br>
+                        <strong>Note:</strong> Always wants to check on his caterpillar!</p>
+                    </div>
+                    <div class="card tess">
+                        <h4>🎀 Tess's Preferences</h4>
+                        <p><strong>Loves:</strong> Music, being held, following Hugo<br>
+                        <strong>Sleep:</strong> Needs dark room, white noise<br>
+                        <strong>Personality:</strong> Happy baby, rarely fussy<br>
+                        <strong>Note:</strong> Just started walking - watch closely!</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h3>📱 Communication Tips</h3>
+                <div class="card" style="background: white;">
+                    <h4>Update Parents via WhatsApp</h4>
+                    <p style="margin-bottom: 1rem;">Quick updates parents love to receive:</p>
+                    <ul style="padding-left: 1.5rem; line-height: 2;">
+                        <li>✓ Nap times (start/end)</li>
+                        <li>✓ Meals eaten (how much/what)</li>
+                        <li>✓ Funny moments or milestones</li>
+                        <li>✓ Any concerns or questions</li>
+                        <li>✓ Photos of activities (parents love these!)</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h3>🚨 Emergency Information</h3>
+                <div class="grid">
+                    <div class="card" style="border-left-color: #e74c3c;">
+                        <h4>Emergency Contacts</h4>
+                        <p><strong>Emergency:</strong> 999<br>
+                        <strong>NHS 111:</strong> Non-emergency<br>
+                        <strong>Parents:</strong> In WhatsApp group</p>
+                    </div>
+                    <div class="card" style="border-left-color: #e74c3c;">
+                        <h4>Allergies & Medical</h4>
+                        <p><strong>Hugo:</strong> No known allergies<br>
+                        <strong>Tess:</strong> No known allergies<br>
+                        <strong>Both:</strong> Healthy, no medications</p>
+                    </div>
+                    <div class="card" style="border-left-color: #e74c3c;">
+                        <h4>Addresses</h4>
+                        <p><strong>Home:</strong> [Parents have this]<br>
+                        <strong>Nursery:</strong> Tiny Explorers<br>
+                        <strong>Doctor:</strong> Local NHS surgery</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h3>💡 Helpful Tips</h3>
+                <div class="checklist">
+                    <div class="checklist-item">
+                        <span style="font-size: 1.5rem; margin-right: 1rem;">🐛</span>
+                        <div class="checklist-label">Hugo loves teaching - let him explain things to you!</div>
+                    </div>
+                    <div class="checklist-item">
+                        <span style="font-size: 1.5rem; margin-right: 1rem;">🎵</span>
+                        <div class="checklist-label">Tess calms down instantly with music or singing</div>
+                    </div>
+                    <div class="checklist-item">
+                        <span style="font-size: 1.5rem; margin-right: 1rem;">👫</span>
+                        <div class="checklist-label">They play beautifully together - Hugo is very gentle</div>
+                    </div>
+                    <div class="checklist-item">
+                        <span style="font-size: 1.5rem; margin-right: 1rem;">🌳</span>
+                        <div class="checklist-label">Outdoor time is essential for Hugo's happiness</div>
+                    </div>
+                    <div class="checklist-item">
+                        <span style="font-size: 1.5rem; margin-right: 1rem;">💤</span>
+                        <div class="checklist-label">Tess needs her naps or gets overtired quickly</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="footer">
+        <p><strong>ShiBaby™ Family Share Edition</strong></p>
+        <p>Built on Untitled Format v2.1.0 • Living Family Document</p>
+        <p style="margin-top: 1rem;">
+            Last Updated: November 1, 2025<br>
+            Hugo (3 years) • Tess (1 year) • Growing & Thriving in Wales 🏴󐁧󐁢󐁷󐁬󐁳󐁿
+        </p>
+        <p style="margin-top: 1rem; font-size: 0.8rem; opacity: 0.7;">
+            This document updates automatically as new milestones happen!<br>
+            Share this link with family • Bookmark for easy access
+        </p>
+    </footer>
+    
+    <script>
+        function showView(view) {
+            // Hide all views
+            document.querySelectorAll('.child-profile').forEach(profile => {
+                profile.classList.remove('active');
+            });
+            
+            // Remove active from all buttons
+            document.querySelectorAll('.child-nav button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show selected view and activate button
+            if (view === 'hugo') {
+                document.getElementById('hugo-view').classList.add('active');
+                document.querySelector('.child-nav button.hugo').classList.add('active');
+            } else if (view === 'tess') {
+                document.getElementById('tess-view').classList.add('active');
+                document.querySelector('.child-nav button.tess').classList.add('active');
+            } else if (view === 'family') {
+                document.getElementById('family-view').classList.add('active');
+                document.querySelector('.child-nav button.family').classList.add('active');
+            } else if (view === 'nanny') {
+                document.getElementById('nanny-view').classList.add('active');
+                document.querySelector('.child-nav button.nanny').classList.add('active');
+            }
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        // Save checklist state to localStorage
+        document.querySelectorAll('.checklist input[type="checkbox"]').forEach(checkbox => {
+            // Load saved state
+            const saved = localStorage.getItem(checkbox.id);
+            if (saved === 'true') {
+                checkbox.checked = true;
+            }
+            
+            // Save on change
+            checkbox.addEventListener('change', function() {
+                localStorage.setItem(this.id, this.checked);
+            });
+        });
+        
+        // Initialize with Hugo's view
+        showView('hugo');
+    </script>
+</body>
+</html>

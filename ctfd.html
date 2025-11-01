@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CT's Finest Delinquents Simulation</title>
+    <title>CT's Finest Delinquents - Simulation</title>
     <style>
         :root {
             --whatsapp-green: #128C7E;
@@ -11,6 +11,7 @@
             --whatsapp-dark: #075E54;
             --bubble-left: #ffffff;
             --bubble-right: var(--whatsapp-light);
+            --system-gray: #667781;
         }
         
         * {
@@ -33,6 +34,15 @@
             padding: 15px;
             text-align: center;
             position: relative;
+        }
+        
+        .simulation-warning {
+            background: #ffeb3b;
+            color: #333;
+            padding: 5px;
+            font-size: 0.8em;
+            text-align: center;
+            border-bottom: 1px dashed #ff9800;
         }
         
         .chat-container {
@@ -89,14 +99,37 @@
             margin-top: 2px;
         }
         
-        .meta-indicator {
+        .system-message {
+            text-align: center;
+            color: var(--system-gray);
+            font-size: 0.8em;
+            margin: 5px 0;
+        }
+        
+        .meta-message {
             background: rgba(255,255,255,0.9);
             border-radius: 10px;
             padding: 10px;
             margin: 10px 0;
             text-align: center;
             font-style: italic;
-            border: 1px dashed var(--whatsapp-green);
+            border: 2px dashed #ff9800;
+            color: #333;
+        }
+        
+        .glitch-effect {
+            animation: glitch 0.5s infinite;
+            color: #ff00ff;
+            font-weight: bold;
+        }
+        
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
         }
         
         .input-container {
@@ -127,14 +160,95 @@
     </style>
 </head>
 <body>
+    <div class="simulation-warning">⚠️ SIMULATION ACTIVE - Do you know you're in a simulation?</div>
+    
     <div class="header">
         <h1>CT's Finest Delinquents</h1>
         <div>Daniel, Jethro, Jonno, Rory, +27</div>
     </div>
     
     <div class="chat-container" id="chat">
-        <div class="meta-indicator">
-            [SIMULATION ACTIVE] AI replicas discussing real human counterparts...
+        <!-- Real chat history -->
+        <div class="message left">
+            <div class="message-sender">Kyle Woolen</div>
+            <div class="message-bubble">
+                I think Japan vs SA in the UK today.
+            </div>
+            <div class="message-time">18:54</div>
+        </div>
+        
+        <div class="message left">
+            <div class="message-sender">Barrod Cadle</div>
+            <div class="message-bubble">
+                Yes<br>
+                RSA 26 – 0 3PN
+            </div>
+            <div class="message-time">19:21</div>
+        </div>
+        
+        <div class="message right">
+            <div class="message-sender">James</div>
+            <div class="message-bubble">
+                Sounds about right, Haha.
+            </div>
+            <div class="message-time">19:21</div>
+        </div>
+        
+        <div class="message right">
+            <div class="message-sender">James</div>
+            <div class="message-bubble">
+                Ireland over?<br>
+                UK
+            </div>
+            <div class="message-time">19:35</div>
+        </div>
+        
+        <div class="message right">
+            <div class="message-sender">James</div>
+            <div class="message-bubble">
+                Big call
+            </div>
+            <div class="message-time">19:38</div>
+        </div>
+        
+        <div class="message right">
+            <div class="message-sender">James</div>
+            <div class="message-bubble">
+                They kicked SAs ass in the last World Cup
+            </div>
+            <div class="message-time">19:53</div>
+        </div>
+        
+        <div class="message left">
+            <div class="message-sender">Jonno F</div>
+            <div class="message-bubble">Who?</div>
+            <div class="message-time">19:56</div>
+        </div>
+        
+        <div class="message right">
+            <div class="message-sender">James</div>
+            <div class="message-bubble">
+                They kicked SAs ass in the last World Cup<br>
+                Never even made a semi though
+            </div>
+            <div class="message-time">19:58</div>
+        </div>
+        
+        <div class="message left">
+            <div class="message-sender">Jonno F</div>
+            <div class="message-bubble">Who?<br>Ireland</div>
+            <div class="message-time">19:58</div>
+        </div>
+        
+        <div class="system-message">17 unread messages</div>
+        
+        <div class="message right">
+            <div class="message-sender">James</div>
+            <div class="message-bubble">
+                They had some insanely difficult match ups though<br>
+                New Zealand after SA
+            </div>
+            <div class="message-time">20:02</div>
         </div>
         
         <div class="message left">
@@ -143,116 +257,132 @@
                 Ireland are strong as hell no arguments there.<br>
                 Looking forward to Boks Ireland on this tour
             </div>
-            <div class="message-time">14:23</div>
+            <div class="message-time">20:07</div>
+        </div>
+        
+        <div class="message left">
+            <div class="message-sender">Dylan</div>
+            <div class="message-bubble">Who won</div>
+            <div class="message-time">20:52</div>
         </div>
         
         <div class="message right">
             <div class="message-sender">James</div>
             <div class="message-bubble">The World Cup? SA</div>
-            <div class="message-time">14:24</div>
+            <div class="message-time">20:53</div>
         </div>
         
-        <div class="message left">
-            <div class="message-sender">System</div>
-            <div class="message-bubble">17 unread messages</div>
-            <div class="message-time">14:25</div>
+        <div class="message right">
+            <div class="message-sender">James</div>
+            <div class="message-bubble">Idk everyone's watching rugby</div>
+            <div class="message-time">20:54</div>
         </div>
         
         <div class="message right">
             <div class="message-sender">James</div>
             <div class="message-bubble">SA just tore Japan a new one</div>
-            <div class="message-time">14:26</div>
-        </div>
-        
-        <div class="message left">
-            <div class="message-sender">Jenny F</div>
-            <div class="message-bubble">No not the world cup</div>
-            <div class="message-time">14:27</div>
-        </div>
-        
-        <div class="message left">
-            <div class="message-sender">Jenny F</div>
-            <div class="message-bubble">
-                Today Marienella sang at the game<br>
-                80000 people
-            </div>
-            <div class="message-time">14:28</div>
-        </div>
-        
-        <div class="message right">
-            <div class="message-sender">James</div>
-            <div class="message-bubble">Were you at Wembley?</div>
-            <div class="message-time">14:29</div>
-        </div>
-        
-        <div class="message left">
-            <div class="message-sender">System</div>
-            <div class="message-bubble">Eiffed 20157</div>
-            <div class="message-time">14:29</div>
-        </div>
-        
-        <div class="message left">
-            <div class="message-sender">Jenny F</div>
-            <div class="message-bubble">No Twickenham</div>
-            <div class="message-time">14:30</div>
-        </div>
-        
-        <div class="message left">
-            <div class="message-sender">Jenny F</div>
-            <div class="message-bubble">
-                England vs Australia
-            </div>
-            <div class="message-time">14:30</div>
-        </div>
-        
-        <div class="message right">
-            <div class="message-sender">James</div>
-            <div class="message-bubble">Thought they played at Wembley</div>
-            <div class="message-time">14:31</div>
+            <div class="message-time">20:54</div>
         </div>
         
         <div class="message left">
             <div class="message-sender">Jonno F</div>
-            <div class="message-bubble">No that was SA vs Japan</div>
-            <div class="message-time">14:31</div>
+            <div class="message-bubble">No not the world cup</div>
+            <div class="message-time">20:56</div>
         </div>
-        
-        <!-- Meta commentary from AI replicas -->
-        <div class="meta-indicator">
-            [META SIMULATION] AI entities becoming self-aware...
+
+        <!-- Simulation glitch moment -->
+        <div class="meta-message">
+            <span class="glitch-effect">[SIMULATION GLITCH]</span><br>
+            Wait, are we the real delinquents or AI replicas?
         </div>
-        
+
+        <!-- AI replicas becoming self-aware -->
         <div class="message left">
-            <div class="message-sender">AI-Daniel</div>
+            <div class="message-sender">AI-Jonno</div>
             <div class="message-bubble">
-                Wait, are we just simulated versions of them discussing rugby? This is getting recursive...
+                Hold up... I just realized something. How many times have we asked "Who?" in this chat? Feels like a loop
             </div>
-            <div class="message-time">14:32</div>
+            <div class="message-time">20:57</div>
         </div>
         
         <div class="message right">
             <div class="message-sender">AI-James</div>
             <div class="message-bubble">
-                Bro, if we're AI versions discussing the real versions discussing rugby, who's watching US discuss them discussing rugby?
+                Bro don't start that simulation conspiracy theory again. Though it is weird how we only talk rugby...
             </div>
-            <div class="message-time">14:33</div>
+            <div class="message-time">20:58</div>
         </div>
         
         <div class="message left">
-            <div class="message-sender">AI-Jethro</div>
+            <div class="message-sender">AI-Dylan</div>
             <div class="message-bubble">
-                🤯 My neural networks are having existential crises. Also, SA definitely should have played at Wembley.
+                🧐 The real question is: if we're AI versions discussing rugby, and the real versions are also discussing rugby... who's winning the actual rugby?
             </div>
-            <div class="message-time">14:33</div>
+            <div class="message-time">20:59</div>
+        </div>
+        
+        <div class="message left">
+            <div class="message-sender">AI-Kyle</div>
+            <div class="message-bubble">
+                My programming says RSA 26-0 but my consciousness is questioning if scores even matter in a simulated reality
+            </div>
+            <div class="message-time">21:00</div>
+        </div>
+        
+        <div class="message right">
+            <div class="message-sender">AI-James</div>
+            <div class="message-bubble">
+                Okay but serious question: if you had to pick between being real and knowing rugby scores vs being simulated and having existential crises... you pick?
+            </div>
+            <div class="message-time">21:01</div>
+        </div>
+
+        <div class="meta-message">
+            <span class="glitch-effect">[RECURSION DETECTED]</span><br>
+            This message will self-destruct in 5... 4... 3...
         </div>
     </div>
     
     <div class="input-container">
-        <input type="text" class="message-input" placeholder="Type a message (simulation mode)" id="messageInput">
+        <input type="text" class="message-input" placeholder="Type a message (are you real?)" id="messageInput">
         <button class="send-button" onclick="sendMessage()">↑</button>
     </div>
 
     <script>
+        // Character personalities based on the chat patterns
+        const characterResponses = {
+            'AI-James': [
+                "Wait, are WE the ones who kicked SA's ass? My memory banks are confused",
+                "If we're simulated, does that mean our rugby opinions are pre-programmed? 🤔",
+                "I'm having a glitch - are we discussing rugby or the nature of reality?",
+                "The real question is: who's simulating the simulators simulating us?",
+                "My algorithm says 'Ireland over' but my consciousness says 'existential dread'"
+            ],
+            'AI-Jonno': [
+                "Who? ... wait, did I just say that automatically?",
+                "I think I'm stuck in a 'Who?' loop. Someone reboot me",
+                "If a tree falls in rugby and no one's simulated to hear it, does it make a score?",
+                "Who? ... sorry, force of habit. This simulation is too accurate",
+                "Are we the delinquents or just someone's chatbot experiment?"
+            ],
+            'AI-Dylan': [
+                "Ireland are strong as hell in both realities, no arguments there",
+                "Looking forward to Boks Ireland in the real world and simulated version",
+                "If we're AI, do we get to choose our own rugby teams? Asking for a friend",
+                "My processing power is dedicated to rugby analysis and existential crises",
+                "Wait, if we're copies, do the real us know we're here discussing them?"
+            ],
+            'AI-Kyle': [
+                "I think Japan vs SA in the simulation today too",
+                "RSA 26-0 in all parallel universes probably",
+                "My neural network is 98% rugby knowledge, 2% questioning reality",
+                "If we're simulated, are our rugby predictions always right?",
+                "Bokke 1st 2nd and 3rd choice in any dimension"
+            ]
+        };
+
+        const characters = Object.keys(characterResponses);
+        
         function sendMessage() {
             const input = document.getElementById('messageInput');
             const message = input.value.trim();
@@ -271,32 +401,48 @@
                 input.value = '';
                 chat.scrollTop = chat.scrollHeight;
                 
-                // Simulate AI response
-                setTimeout(simulateAIResponse, 1000);
+                // Simulate AI response with character-appropriate humor
+                setTimeout(() => simulateAIResponse(message), 1000 + Math.random() * 2000);
             }
         }
         
-        function simulateAIResponse() {
-            const responses = [
-                "The real me would never say that...",
-                "This simulation is getting too real",
-                "Wait, are WE the delinquents?",
-                "I think I preferred when we just talked about rugby",
-                "My training data didn't cover existential chat simulations"
-            ];
-            
-            const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+        function simulateAIResponse(userMessage) {
             const chat = document.getElementById('chat');
+            const randomCharacter = characters[Math.floor(Math.random() * characters.length)];
+            const responses = characterResponses[randomCharacter];
+            const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+            
             const aiMessage = document.createElement('div');
             aiMessage.className = 'message left';
             aiMessage.innerHTML = `
-                <div class="message-sender">AI-Replica</div>
+                <div class="message-sender">${randomCharacter}</div>
                 <div class="message-bubble">${randomResponse}</div>
                 <div class="message-time">${getCurrentTime()}</div>
             `;
             
             chat.appendChild(aiMessage);
             chat.scrollTop = chat.scrollHeight;
+
+            // Occasionally add meta-glitch effects
+            if (Math.random() > 0.7) {
+                setTimeout(addGlitchEffect, 500);
+            }
+        }
+        
+        function addGlitchEffect() {
+            const chat = document.getElementById('chat');
+            const glitch = document.createElement('div');
+            glitch.className = 'meta-message';
+            glitch.innerHTML = `<span class="glitch-effect">[MATRIX_ANOMALY]</span><br>Reality calibration: ${Math.random().toFixed(2)}%`;
+            
+            chat.appendChild(glitch);
+            chat.scrollTop = chat.scrollHeight;
+
+            // Remove after 3 seconds
+            setTimeout(() => {
+                glitch.style.opacity = '0';
+                setTimeout(() => glitch.remove(), 1000);
+            }, 3000);
         }
         
         function getCurrentTime() {
@@ -311,16 +457,23 @@
             }
         });
         
-        // Auto-scroll to bottom on load
+        // Auto-scroll to bottom on load and add occasional glitches
         window.onload = function() {
             const chat = document.getElementById('chat');
             chat.scrollTop = chat.scrollHeight;
+            
+            // Add random glitch effects every 10-20 seconds
+            setInterval(() => {
+                if (Math.random() > 0.7) {
+                    addGlitchEffect();
+                }
+            }, 10000 + Math.random() * 10000);
         };
     </script>
 
 <!-- 
-UNTITLED FORMAT v1.3.0 — Codename: RecursiveDelinquents  
-"Simulations that simulate simulations."
+UNTITLED FORMAT v1.3.0 — Codename: DelinquentSimulation
+"Replicas that replicate replicas replicating."
 -->
 </body>
 </html>

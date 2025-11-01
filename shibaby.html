@@ -1,0 +1,977 @@
+#ShiBaby™ Baby Care Coordination System
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShiBaby™ - Baby Care Coordination System</title>
+    <style>
+        :root {
+            --primary: #fff5f7;
+            --secondary: #fce8ec;
+            --accent: #f8bbd9;
+            --highlight: #ec407a;
+            --light: #880e4f;
+            --dark: #fafafa;
+            --success: #81c784;
+            --warning: #ffb74d;
+            --transition: all 0.3s ease;
+            --shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --radius: 12px;
+            --font-heading: 'Inter', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --font-mono: 'Fira Code', monospace;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-body);
+            line-height: 1.6;
+            color: var(--light);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            padding: 2rem 0;
+            position: relative;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .logo {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 1.8rem;
+            color: var(--light);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo span {
+            color: var(--highlight);
+            margin-left: 5px;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            color: var(--highlight);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--highlight);
+            transition: var(--transition);
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 6rem 0;
+            text-align: center;
+            position: relative;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="%23f8bbd9" opacity="0.2"/></svg>') repeat;
+        }
+        
+        .hero h1 {
+            font-family: var(--font-heading);
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(90deg, var(--light) 0%, var(--highlight) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            opacity: 0.9;
+        }
+        
+        .protocol-badge {
+            display: inline-block;
+            background: var(--accent);
+            color: var(--light);
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        /* Tabs */
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .tab {
+            padding: 12px 24px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            font-weight: 500;
+        }
+        
+        .tab.active {
+            background: var(--highlight);
+            color: white;
+        }
+        
+        .tab:hover:not(.active) {
+            background: rgba(255, 255, 255, 0.7);
+        }
+        
+        /* Tab Content */
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Section Styles */
+        .section {
+            padding: 4rem 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-title h2 {
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--highlight);
+            border-radius: 2px;
+        }
+        
+        .section-title p {
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.8;
+        }
+        
+        /* Cards */
+        .card {
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: var(--radius);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+            background: rgba(255, 255, 255, 0.9);
+        }
+        
+        .card h3 {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--highlight);
+        }
+        
+        /* Code Blocks */
+        .code-block {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            overflow-x: auto;
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            border-left: 4px solid var(--highlight);
+            color: var(--light);
+        }
+        
+        .copy-btn {
+            background: var(--accent);
+            color: var(--light);
+            border: none;
+            padding: 8px 16px;
+            border-radius: var(--radius);
+            cursor: pointer;
+            font-family: var(--font-body);
+            font-size: 0.8rem;
+            margin-top: 10px;
+            transition: var(--transition);
+        }
+        
+        .copy-btn:hover {
+            background: var(--highlight);
+            color: white;
+        }
+        
+        /* Architecture Grid */
+        .architecture-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .layer {
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: var(--radius);
+            padding: 2rem;
+            text-align: center;
+            transition: var(--transition);
+            border-top: 4px solid var(--highlight);
+        }
+        
+        .layer:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+        }
+        
+        .layer h3 {
+            font-family: var(--font-heading);
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .layer-number {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: var(--highlight);
+            color: white;
+            border-radius: 50%;
+            line-height: 40px;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        
+        /* Steps */
+        .steps {
+            counter-reset: step-counter;
+        }
+        
+        .step {
+            display: flex;
+            margin-bottom: 3rem;
+            align-items: flex-start;
+        }
+        
+        .step-number {
+            flex-shrink: 0;
+            width: 50px;
+            height: 50px;
+            background: var(--highlight);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 1.5rem;
+            font-size: 1.2rem;
+        }
+        
+        .step-content {
+            flex: 1;
+        }
+        
+        .step-content h3 {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: var(--radius);
+            overflow: hidden;
+        }
+        
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        
+        th {
+            background: var(--accent);
+            font-weight: 600;
+        }
+        
+        tr:last-child td {
+            border-bottom: none;
+        }
+        
+        /* Buttons */
+        .btn {
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            display: inline-block;
+            border: none;
+            cursor: pointer;
+            font-family: var(--font-body);
+        }
+        
+        .btn-primary {
+            background: var(--highlight);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(236, 64, 122, 0.3);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: var(--light);
+            border: 2px solid var(--light);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--light);
+            color: white;
+        }
+        
+        /* Footer */
+        footer {
+            padding: 3rem 0;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.9);
+            margin-top: 4rem;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .footer-links a {
+            color: var(--light);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-links a:hover {
+            color: var(--highlight);
+        }
+        
+        .copyright {
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+        
+        /* Example Cards */
+        .example-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .example-card {
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: var(--radius);
+            padding: 2rem;
+            transition: var(--transition);
+            border-top: 4px solid var(--highlight);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .example-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+        }
+        
+        .example-card h3 {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--highlight);
+        }
+        
+        .example-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .example-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: auto;
+        }
+        
+        .example-tag {
+            background: var(--accent);
+            color: var(--light);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+        
+        /* Feature List */
+        .feature-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .feature {
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            text-align: center;
+            transition: var(--transition);
+        }
+        
+        .feature:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+        }
+        
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--highlight);
+        }
+        
+        /* Team Avatars */
+        .team-avatars {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        /* Baby Stats */
+        .baby-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .stat {
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--highlight);
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .step {
+                flex-direction: column;
+            }
+            
+            .step-number {
+                margin-right: 0;
+                margin-bottom: 1rem;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">ShiBaby<span>™</span></a>
+                <ul class="nav-links">
+                    <li><a href="#overview">Overview</a></li>
+                    <li><a href="#workflow">Workflow</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#quickstart">Quick Start</a></li>
+                    <li><a href="#team">Team Setup</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="protocol-badge">Baby Care System v1.0</div>
+            <h1>ShiBaby™ Baby Care Coordination</h1>
+            <p>The Intelligent System for Modern Parenting</p>
+            <p>One living document that coordinates feeding, sleeping, milestones, and medical care for your baby—updated automatically from family messages.</p>
+        </div>
+    </section>
+
+    <section class="section" id="overview">
+        <div class="container">
+            <div class="section-title">
+                <h2>What is ShiBaby™?</h2>
+                <p>A living document that turns family chaos into coordinated baby care</p>
+            </div>
+            
+            <div class="tabs">
+                <div class="tab active" data-tab="concept">Core Concept</div>
+                <div class="tab" data-tab="problem">The Problem</div>
+                <div class="tab" data-tab="solution">The Solution</div>
+            </div>
+            
+            <div class="tab-content active" id="concept">
+                <div class="card">
+                    <h3>👶 One Baby, One Document</h3>
+                    <p>ShiBaby™ creates a single source of truth for your baby's care: feeding schedules, sleep patterns, medical records, and developmental milestones—all in one beautiful, always-updated document.</p>
+                    
+                    <div class="code-block">
+                        <code>
+// Your baby's entire care plan in one file
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;!-- YAML Baby Metadata --&gt;
+  &lt;title&gt;Baby Emma's Care Plan&lt;/title&gt;
+  &lt;style&gt;/* All baby-friendly styles */&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;!-- All baby care content --&gt;
+  &lt;script&gt;/* All functionality */&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+                        </code>
+                    </div>
+                    
+                    <p>Each ShiBaby document contains:</p>
+                    <ul>
+                        <li>Feeding schedules and amounts</li>
+                        <li>Sleep patterns and nap tracking</li>
+                        <li>Diaper change logs</li>
+                        <li>Medical records and vaccination schedules</li>
+                        <li>Developmental milestones</li>
+                        <li>Emergency contact information</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="problem">
+                <div class="card">
+                    <h3>💔 Why Baby Care Coordination Is Hard</h3>
+                    <p>Modern parenting involves multiple caregivers, scattered information, and constant updates.</p>
+                    
+                    <div class="architecture-grid">
+                        <div class="layer">
+                            <div class="layer-number">1</div>
+                            <h3>Scattered Information</h3>
+                            <p>Notes on phones, paper charts, texts, and verbal updates get lost</p>
+                        </div>
+                        <div class="layer">
+                            <div class="layer-number">2</div>
+                            <h3>Multiple Caregivers</h3>
+                            <p>Parents, grandparents, nannies all need the same information</p>
+                        </div>
+                        <div class="layer">
+                            <div class="layer-number">3</div>
+                            <h3>Sleep Deprivation</h3>
+                            <p>Exhausted parents can't remember who fed the baby last</p>
+                        </div>
+                        <div class="layer">
+                            <div class="layer-number">4</div>
+                            <h3>Medical Coordination</h3>
+                            <p>Doctor visits, medications, and growth tracking across different platforms</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="solution">
+                <div class="card">
+                    <h3>🚀 The ShiBaby™ Solution</h3>
+                    <p>We fix baby care coordination with a system designed for tired parents and busy families.</p>
+                    
+                    <div class="steps">
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h3>Single Source of Truth</h3>
+                                <p>One document that everyone can access, update, and trust.</p>
+                                <div class="code-block">
+                                    <code>
+// Document structure
+baby-care-plan.html
+├── YAML Baby Profile
+├── Real-time Feeding Tracker  
+├── Sleep Schedule & Logs
+├── Medical Records Section
+├── Milestone Timeline
+└── Family Communication Hub
+                                    </code>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h3>AI-Powered Updates</h3>
+                                <p>Natural family messages automatically update the document.</p>
+                                <div class="code-block">
+                                    <code>
+&lt;!-- YAML Baby Metadata --&gt;
+&lt;!--
+---
+baby_name: "Emma Johnson"
+birth_date: "2025-04-15"
+parents: ["Sarah Johnson", "Michael Johnson"]
+caregivers: ["Grandma Mary", "Nanny Lisa"]
+pediatrician: "Dr. Wilson"
+last_updated: "2025-10-30 14:30"
+---
+--&gt;
+                                    </code>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h3>Works Anywhere</h3>
+                                <p>Offline functionality means it works during emergencies or internet outages.</p>
+                                <div class="code-block">
+                                    <code>
+// Service Worker for offline access
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js');
+}
+
+// Local storage for offline data
+localStorage.setItem('babyData', JSON.stringify(data));
+                                    </code>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="workflow">
+        <div class="container">
+            <div class="section-title">
+                <h2>How ShiBaby™ Works</h2>
+                <p>From family messages to organized baby care</p>
+            </div>
+            
+            <div class="card">
+                <h3>🔄 The Family Workflow</h3>
+                <p>ShiBaby™ turns chaotic family communication into structured baby care information.</p>
+                
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h3>Family Posts Updates</h3>
+                            <p>Everyone posts baby updates to your family WhatsApp/Telegram group.</p>
+                            <div class="code-block">
+                                <code>
+// Example family messages:
+"Emma just finished 4oz of formula at 2:15pm"
+"She's been napping for 2 hours now"
+"Temperature is 98.6, all normal"
+"Just changed a wet diaper"
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h3>AI Processes Messages</h3>
+                            <p>The system reads messages and updates the document automatically.</p>
+                            <div class="code-block">
+                                <code>
+// AI Prompt for ShiBaby
+Hello AI. You are the ShiBaby™ care coordinator.
+
+Here is the CURRENT HTML for Emma's care document:
+```html
+[PASTE CURRENT BABY CARE HTML HERE]
+```
+
+Here are the NEW family messages from the last few hours:
+[PASTE ALL NEW FAMILY MESSAGES HERE]
+
+Update the feeding log, sleep tracker, diaper log, and any medical notes.
+Keep the document organized and easy to read.
+</code>
+<button class="copy-btn">Copy AI Prompt</button>
+</div>
+</div>
+</div>
+
+// Updated document sections
+&lt;section id="feeding"&gt;
+&lt;h3&gt;Feeding Log&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;2:15 PM - 4oz formula (bottle)&lt;/li&gt;
+&lt;li&gt;10:30 AM - 5oz breast milk&lt;/li&gt;
+&lt;li&gt;7:00 AM - 4oz formula&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/section&gt;
+</code>
+</div>
+</div>
+</div>
+
+&lt;section id="daily-log"&gt;
+&lt;h2&gt;Today's Log&lt;/h2&gt;
+&lt;!-- Auto-generated from family messages --&gt;
+&lt;/section&gt;
+
+&lt;section id="feeding"&gt;
+&lt;h2&gt;Feeding Schedule&lt;/h2&gt;
+&lt;!-- Breastfeeding, bottles, solids --&gt;
+&lt;/section&gt;
+
+&lt;section id="sleep"&gt;
+&lt;h2&gt;Sleep Patterns&lt;/h2&gt;
+&lt;!-- Nap times, overnight sleep --&gt;
+&lt;/section&gt;
+
+&lt;section id="medical"&gt;
+&lt;h2&gt;Health & Medical&lt;/h2&gt;
+&lt;!-- Medications, temperatures, doctor notes --&gt;
+&lt;/section&gt;
+
+&lt;section id="milestones"&gt;
+&lt;h2&gt;Development&lt;/h2&gt;
+&lt;!-- Firsts and developmental progress --&gt;
+&lt;/section&gt;
+</code>
+<button class="copy-btn">Copy Section Structure</button>
+</div>
+</div>
+</div>
+</section>
+
+// Download the template
+wgethttps://shibaby.com/template.html
+
+// Or ask AI to create one
+"Create a ShiBaby HTML document for a 3-month-old named Alex.
+Include feeding tracker,sleep monitor, and medical sections."
+</code>
+<button class="copy-btn">Copy Commands</button>
+</div>
+</div>
+</div>
+
+&lt;!-- YAML Baby Profile --&gt;
+&lt;!--
+
+---
+
+baby_name: "Your Baby's Name"
+birth_date:"2025-01-15"
+birth_weight:"7.5 lbs"
+parents:["Parent One", "Parent Two"]
+caregivers:["Grandparent", "Nanny"]
+pediatrician:"Dr. Name"
+allergies:"None known"
+special_notes:"Prefers left side during feeding"
+
+---
+
+--&gt;
+</code>
+<button class="copy-btn">Copy YAML Template</button>
+</div>
+</div>
+</div>
+
+// Family group rules:
+
+1. Everyone posts baby updates here
+2. Include time and details
+3. No off-topic chatting
+4. Photos welcome!
+
+// Example message format:
+"2:30pm- Alex took 4oz formula, burped well"
+</code>
+<button class="copy-btn">Copy Guidelines</button>
+</div>
+</div>
+</div>
+
+// Open your document
+open baby-care-plan.html
+
+// Or host it online
+//Upload to GitHub Pages, Netlify, or any web server
+
+// Share the link with your care team
+</code>
+<button class="copy-btn">Copy Instructions</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+// Handover checklist:
+
+· Last feeding: time, amount, type
+· Current sleep status: awake/asleep/duration
+· Last diaper change: time, type
+· Any medications given recently
+· Current mood/temperature notes
+  </code>
+  </div>
+  </div>
+  </div>
+  
+
+// Example handover update:
+"3:45pm- Emma just woke from 2hr nap, changed wet diaper,
+offered 2oz water,playing happily now. Handing over to Grandma."
+</code>
+</div>
+</div>
+</div>
+
+// Receipt confirmation:
+"4:00pm- Grandma here! I've got Emma, all caught up on her status.
+We're going for a walk in the stroller now."
+</code>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+</body>
+</html>
+```
+

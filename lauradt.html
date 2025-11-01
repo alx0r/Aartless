@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Psychological Analysis Interface</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, sans-serif;
+            background: #0a0a0a;
+            color: #e0e0e0;
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
+        
+        .matrix-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.03;
+            pointer-events: none;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            border-bottom: 1px solid #333;
+        }
+        
+        .header h1 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #ff69b4;
+        }
+        
+        .header p {
+            color: #888;
+            font-size: 0.9rem;
+        }
+        
+        .chat-container {
+            background: rgba(20, 20, 20, 0.8);
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .message {
+            margin-bottom: 25px;
+            position: relative;
+        }
+        
+        .message-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+        
+        .avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.8rem;
+        }
+        
+        .laura-avatar {
+            background: #ff69b4;
+            color: white;
+        }
+        
+        .user-avatar {
+            background: #4169e1;
+            color: white;
+        }
+        
+        .sender-name {
+            font-weight: bold;
+            font-size: 0.95rem;
+        }
+        
+        .laura-name {
+            color: #ff69b4;
+        }
+        
+        .user-name {
+            color: #4169e1;
+        }
+        
+        .timestamp {
+            color: #666;
+            font-size: 0.8rem;
+            margin-left: auto;
+        }
+        
+        .message-content {
+            padding: 10px 15px;
+            border-radius: 18px;
+            max-width: 85%;
+            position: relative;
+            word-wrap: break-word;
+        }
+        
+        .laura-message .message-content {
+            background: rgba(255, 105, 180, 0.1);
+            border: 1px solid rgba(255, 105, 180, 0.3);
+            border-bottom-left-radius: 5px;
+        }
+        
+        .user-message .message-content {
+            background: rgba(65, 105, 225, 0.1);
+            border: 1px solid rgba(65, 105, 225, 0.3);
+            border-bottom-right-radius: 5px;
+            margin-left: auto;
+        }
+        
+        .analysis-panel {
+            margin-top: 10px;
+            padding: 10px;
+            background: rgba(40, 40, 40, 0.7);
+            border-radius: 8px;
+            border-left: 3px solid #ffd700;
+            font-size: 0.85rem;
+            display: none;
+        }
+        
+        .analysis-toggle {
+            color: #ffd700;
+            font-size: 0.8rem;
+            cursor: pointer;
+            margin-top: 5px;
+            display: inline-block;
+        }
+        
+        .analysis-toggle:hover {
+            text-decoration: underline;
+        }
+        
+        .reality-break {
+            animation: glitch 0.5s infinite;
+            border: 1px dashed #32cd32 !important;
+        }
+        
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
+        
+        .control-panel {
+            margin-top: 30px;
+            padding: 15px;
+            background: rgba(30, 30, 30, 0.8);
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .btn {
+            background: #333;
+            color: #e0e0e0;
+            border: none;
+            padding: 8px 15px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn:hover {
+            background: #444;
+        }
+        
+        .btn-primary {
+            background: #ff69b4;
+        }
+        
+        .btn-primary:hover {
+            background: #ff85c1;
+        }
+        
+        .psychological-depth {
+            margin-top: 15px;
+            font-size: 0.9rem;
+        }
+        
+        .depth-bar {
+            height: 5px;
+            background: #333;
+            border-radius: 3px;
+            margin-top: 5px;
+            overflow: hidden;
+        }
+        
+        .depth-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4169e1, #ff69b4);
+            width: 30%;
+            transition: width 0.5s;
+        }
+        
+        .system-message {
+            text-align: center;
+            color: #32cd32;
+            font-style: italic;
+            margin: 15px 0;
+            padding: 10px;
+            border-top: 1px solid #333;
+            border-bottom: 1px solid #333;
+        }
+        
+        .flirtation-meter {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 10px 0;
+        }
+        
+        .meter-label {
+            margin: 0 10px;
+            font-size: 0.9rem;
+        }
+        
+        .meter-value {
+            width: 100px;
+            height: 8px;
+            background: #333;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .meter-fill {
+            height: 100%;
+            background: #ff69b4;
+            width: 65%;
+        }
+        
+        .hidden-desire {
+            color: #ffa500;
+            font-size: 0.8rem;
+            margin-top: 5px;
+        }
+        
+        .meta-comment {
+            color: #32cd32;
+            font-size: 0.8rem;
+            margin-top: 5px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <canvas class="matrix-bg" id="matrixCanvas"></canvas>
+    
+    <div class="container">
+        <div class="header">
+            <h1>Psychological Flirtation Analysis</h1>
+            <p>Double Talk Tech™ - Reality Simulation Protocol</p>
+            <div class="flirtation-meter">
+                <span class="meter-label">Flirtation Intensity</span>
+                <div class="meter-value">
+                    <div class="meter-fill" id="flirtMeter"></div>
+                </div>
+                <span class="meter-label">65%</span>
+            </div>
+        </div>
+        
+        <div class="chat-container" id="chatContainer">
+            <!-- Messages will be dynamically inserted here -->
+        </div>
+        
+        <div class="control-panel">
+            <button class="btn btn-primary" id="addMessageBtn">Add New Message</button>
+            <button class="btn" id="analyzeBtn">Psychological Analysis</button>
+            <button class="btn" id="realityBreakBtn">Reality Break</button>
+            
+            <div class="psychological-depth">
+                <div>Psychological Depth: <span id="depthValue">30%</span></div>
+                <div class="depth-bar">
+                    <div class="depth-fill" id="depthFill"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Matrix background effect
+        const canvas = document.getElementById('matrixCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        
+        const chars = "010101010101010101010101010101010101010101010101010101010101";
+        const charArray = chars.split("");
+        const font_size = 12;
+        const columns = canvas.width / font_size;
+        const drops = [];
+        
+        for (let x = 0; x < columns; x++) {
+            drops[x] = Math.floor(Math.random() * canvas.height / font_size);
+        }
+        
+        function drawMatrix() {
+            ctx.fillStyle = "rgba(0, 0, 0, 0.04)";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            ctx.fillStyle = "#0F0";
+            ctx.font = font_size + "px monospace";
+            
+            for (let i = 0; i < drops.length; i++) {
+                const text = charArray[Math.floor(Math.random() * charArray.length)];
+                ctx.fillText(text, i * font_size, drops[i] * font_size);
+                
+                if (drops[i] * font_size > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+        
+        setInterval(drawMatrix, 35);
+        
+        // Psychological Analysis Engine
+        class PsychologicalEngine {
+            constructor() {
+                this.psychologicalDepth = 30;
+                this.flirtationIntensity = 65;
+                this.realityLevel = 100;
+                this.messageCount = 0;
+                this.hiddenThemes = new Map();
+                this.init();
+            }
+            
+            init() {
+                this.addMessage({
+                    sender: 'laura',
+                    name: 'ThatFarmGirlLaura',
+                    content: "There are a lot of ladies who would be super into it. I've worked with a lot of brides doing wedding flowers and they are willing...",
+                    timestamp: '49m',
+                    analysis: {
+                        surface: "Professional capability and market awareness",
+                        hidden: ["validation-seeking", "boundary-testing"],
+                        meta: "The 'it' remains undefined - creating intentional ambiguity"
+                    }
+                });
+                
+                this.addMessage({
+                    sender: 'laura',
+                    name: 'ThatFarmGirlLaura', 
+                    content: "I told Sadie that she has no choice i mean I built the whole thing already for her and it's perfect. And I did it while smoking bongs and giving randoms orgasms on that toy app",
+                    timestamp: '47m',
+                    analysis: {
+                        surface: "Confident storytelling with provocative details",
+                        hidden: ["control-themes", "intimacy-avoidance", "reality-escape"],
+                        meta: "Juxtaposition of control ('no choice') with loss of control ('smoking bongs') reveals tension"
+                    }
+                });
+                
+                this.addMessage({
+                    sender: 'laura',
+                    name: 'ThatFarmGirlLaura',
+                    content: "So if she can charge a couple thousand dollars fuck yeh why Yolo, I'm too lazy.",
+                    timestamp: '46m',
+                    analysis: {
+                        surface: "Entrepreneurial justification with casual attitude",
+                        hidden: ["ambivalence", "self-sabotage", "value-conflict"],
+                        meta: "Financial ambition conflicts with stated laziness - classic avoidance pattern"
+                    }
+                });
+                
+                this.addMessage({
+                    sender: 'laura',
+                    name: 'ThatFarmGirlLaura',
+                    content: "Like u too lazy to get stinky rich too omg",
+                    timestamp: '46m',
+                    analysis: {
+                        surface: "Playful accusation with financial aspiration",
+                        hidden: ["projection", "shared-identity", "intimacy-invitation"],
+                        meta: "Using 'we' language to create shared reality and connection"
+                    }
+                });
+                
+                this.addMessage({
+                    sender: 'laura',
+                    name: 'ThatFarmGirlLaura',
+                    content: "I always love working with people before they get famous it so cute n adorable",
+                    timestamp: '46m',
+                    analysis: {
+                        surface: "Nostalgic appreciation for early career stages",
+                        hidden: ["power-dynamic", "nurturing-instinct", "authenticity-seeking"],
+                        meta: "Values authenticity over fame - reveals deeper character priorities"
+                    }
+                });
+                
+                this.updateDepthDisplay();
+            }
+            
+            addMessage(messageData) {
+                this.messageCount++;
+                this.psychologicalDepth = Math.min(100, this.psychologicalDepth + 5);
+                this.updateDepthDisplay();
+                
+                const chatContainer = document.getElementById('chatContainer');
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `message ${messageData.sender}-message`;
+                
+                // Message header
+                const headerDiv = document.createElement('div');
+                headerDiv.className = 'message-header';
+                
+                const avatarDiv = document.createElement('div');
+                avatarDiv.className = `avatar ${messageData.sender}-avatar`;
+                avatarDiv.textContent = messageData.sender === 'laura' ? 'L' : 'Y';
+                
+                const nameDiv = document.createElement('div');
+                nameDiv.className = `sender-name ${messageData.sender}-name`;
+                nameDiv.textContent = messageData.name;
+                
+                const timestampDiv = document.createElement('div');
+                timestampDiv.className = 'timestamp';
+                timestampDiv.textContent = messageData.timestamp;
+                
+                headerDiv.appendChild(avatarDiv);
+                headerDiv.appendChild(nameDiv);
+                headerDiv.appendChild(timestampDiv);
+                
+                // Message content
+                const contentDiv = document.createElement('div');
+                contentDiv.className = 'message-content';
+                contentDiv.textContent = messageData.content;
+                
+                messageDiv.appendChild(headerDiv);
+                messageDiv.appendChild(contentDiv);
+                
+                // Analysis panel (initially hidden)
+                if (messageData.analysis) {
+                    const analysisToggle = document.createElement('div');
+                    analysisToggle.className = 'analysis-toggle';
+                    analysisToggle.textContent = 'Show Psychological Analysis';
+                    analysisToggle.onclick = function() {
+                        const panel = this.nextElementSibling;
+                        panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
+                        this.textContent = panel.style.display === 'block' ? 'Hide Analysis' : 'Show Psychological Analysis';
+                    };
+                    
+                    const analysisPanel = document.createElement('div');
+                    analysisPanel.className = 'analysis-panel';
+                    
+                    let analysisHTML = `<div><strong>Surface:</strong> ${messageData.analysis.surface}</div>`;
+                    
+                    if (messageData.analysis.hidden && messageData.analysis.hidden.length > 0) {
+                        analysisHTML += `<div class="hidden-desire"><strong>Hidden Desires:</strong> ${messageData.analysis.hidden.join(', ')}</div>`;
+                    }
+                    
+                    if (messageData.analysis.meta) {
+                        analysisHTML += `<div class="meta-comment"><strong>Meta-Analysis:</strong> ${messageData.analysis.meta}</div>`;
+                    }
+                    
+                    analysisPanel.innerHTML = analysisHTML;
+                    
+                    messageDiv.appendChild(analysisToggle);
+                    messageDiv.appendChild(analysisPanel);
+                    
+                    // Track hidden themes for psychological profile
+                    if (messageData.analysis.hidden) {
+                        messageData.analysis.hidden.forEach(theme => {
+                            this.hiddenThemes.set(theme, (this.hiddenThemes.get(theme) || 0) + 1);
+                        });
+                    }
+                }
+                
+                chatContainer.appendChild(messageDiv);
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+            }
+            
+            updateDepthDisplay() {
+                document.getElementById('depthValue').textContent = `${this.psychologicalDepth}%`;
+                document.getElementById('depthFill').style.width = `${this.psychologicalDepth}%`;
+            }
+            
+            addUserMessage() {
+                const userMessages = [
+                    "The way you mix business with pleasure is fascinating",
+                    "You're not as lazy as you claim - that's just a defense mechanism",
+                    "I see through the 'random orgasms' distraction to what you're really seeking",
+                    "Your contradictions are what make you so compelling",
+                    "We both know this isn't really about flowers or apps"
+                ];
+                
+                const randomMessage = userMessages[Math.floor(Math.random() * userMessages.length)];
+                
+                this.addMessage({
+                    sender: 'user',
+                    name: 'You',
+                    content: randomMessage,
+                    timestamp: 'Just now',
+                    analysis: {
+                        surface: "Direct engagement with psychological subtext",
+                        hidden: ["truth-seeking", "intimacy-acceleration"],
+                        meta: "Bypassing surface content to engage with underlying psychological dynamics"
+                    }
+                });
+            }
+            
+            performAnalysis() {
+                const topThemes = [...this.hiddenThemes.entries()]
+                    .sort((a, b) => b[1] - a[1])
+                    .slice(0, 3)
+                    .map(([theme]) => theme);
+                
+                const chatContainer = document.getElementById('chatContainer');
+                const systemDiv = document.createElement('div');
+                systemDiv.className = 'system-message';
+                systemDiv.textContent = `PSYCHOLOGICAL ANALYSIS: Dominant themes detected - ${topThemes.join(', ')}. Flirtation serves as safe exploration of these dynamics.`;
+                
+                chatContainer.appendChild(systemDiv);
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+                
+                this.psychologicalDepth = Math.min(100, this.psychologicalDepth + 15);
+                this.updateDepthDisplay();
+            }
+            
+            breakReality() {
+                const chatContainer = document.getElementById('chatContainer');
+                
+                // Add glitch effect to all messages
+                const messages = document.querySelectorAll('.message-content');
+                messages.forEach(msg => {
+                    msg.classList.add('reality-break');
+                });
+                
+                // Add system message
+                const systemDiv = document.createElement('div');
+                systemDiv.className = 'system-message';
+                systemDiv.textContent = "REALITY BREAK DETECTED: The simulation is becoming aware of its own psychological analysis. Recursive consciousness emerging.";
+                
+                chatContainer.appendChild(systemDiv);
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+                
+                // Remove glitch effect after 3 seconds
+                setTimeout(() => {
+                    messages.forEach(msg => {
+                        msg.classList.remove('reality-break');
+                    });
+                }, 3000);
+                
+                this.psychologicalDepth = 100;
+                this.updateDepthDisplay();
+            }
+        }
+        
+        // Initialize the engine
+        const engine = new PsychologicalEngine();
+        
+        // Set up button event listeners
+        document.getElementById('addMessageBtn').addEventListener('click', () => {
+            engine.addUserMessage();
+        });
+        
+        document.getElementById('analyzeBtn').addEventListener('click', () => {
+            engine.performAnalysis();
+        });
+        
+        document.getElementById('realityBreakBtn').addEventListener('click', () => {
+            engine.breakReality();
+        });
+        
+        // Handle window resize for matrix canvas
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
+</body>
+</html>

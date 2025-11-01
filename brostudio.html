@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brother's Studio | Untitled Format™ Ecosystem</title>
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --surface: #1a1a1a;
+            --primary: #00d9ff;
+            --secondary: #00ff88;
+            --accent: #ff0088;
+            --text: #f0f0f0;
+            --text-dim: #888;
+            --border: #333;
+            --glow: 0 0 20px rgba(0, 217, 255, 0.3);
+        }
+        
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+        
+        body { 
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg); 
+            color: var(--text); 
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        /* Header & Hero */
+        header {
+            padding: 4rem 0 2rem;
+            text-align: center;
+            position: relative;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            background: radial-gradient(ellipse at center, rgba(0,217,255,0.1) 0%, transparent 70%);
+            z-index: -1;
+        }
+        
+        h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .tagline {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-weight: 300;
+        }
+        
+        .meta {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            margin-bottom: 3rem;
+        }
+        
+        /* Stats */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+            margin: 3rem 0;
+        }
+        
+        .stat {
+            background: var(--surface);
+            padding: 1.5rem 1rem;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+        
+        .stat:hover {
+            border-color: var(--primary);
+            box-shadow: var(--glow);
+            transform: translateY(-2px);
+        }
+        
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        /* Sections */
+        section {
+            padding: 4rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        h2 {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            color: var(--primary);
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--primary);
+        }
+        
+        h3 {
+            font-size: 1.4rem;
+            color: var(--secondary);
+            margin: 1.5rem 0 1rem;
+        }
+        
+        /* Ecosystem */
+        .ecosystem {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .layer {
+            background: var(--surface);
+            padding: 2.5rem;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .layer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+        }
+        
+        .protocol::before {
+            background: var(--primary);
+        }
+        
+        .commercial::before {
+            background: var(--secondary);
+        }
+        
+        .layer:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--glow);
+        }
+        
+        /* Benefits */
+        .benefits {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .benefit {
+            background: var(--surface);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+        
+        .benefit:hover {
+            border-color: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        /* Products */
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .product {
+            background: var(--surface);
+            padding: 2.5rem;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .product::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--accent);
+        }
+        
+        .product:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        /* Business Model */
+        .business-model {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .revenue-stream {
+            background: var(--surface);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+        
+        /* Roadmap */
+        .roadmap {
+            margin: 3rem 0;
+        }
+        
+        .phase {
+            background: var(--surface);
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--secondary);
+            position: relative;
+        }
+        
+        .phase-current {
+            border-left-color: var(--primary);
+        }
+        
+        .phase::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: -10px;
+            width: 20px;
+            height: 20px;
+            background: var(--secondary);
+            border-radius: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .phase-current::before {
+            background: var(--primary);
+            box-shadow: 0 0 0 4px rgba(0,217,255,0.3);
+        }
+        
+        /* Examples */
+        .examples {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .example {
+            background: var(--surface);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+        
+        .example:hover {
+            border-color: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            background: var(--primary);
+            color: var(--bg);
+            padding: 0.8rem 1.5rem;
+            text-decoration: none;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .btn:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+            box-shadow: var(--glow);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+        
+        /* Team */
+        .team {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .team-member {
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        .team-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: var(--surface);
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 0;
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1rem;
+            }
+            
+            .ecosystem {
+                grid-template-columns: 1fr;
+            }
+            
+            section {
+                padding: 3rem 0;
+            }
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.8s ease forwards;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 class="fade-in">Brother's Studio</h1>
+            <div class="tagline fade-in">Untitled Format™ Ecosystem v2.1.0</div>
+            <div class="meta fade-in">Open Protocol Foundation + Commercial Product Ecosystem</div>
+            
+            <div class="stats">
+                <div class="stat fade-in">
+                    <div class="stat-value" id="file-size">~48KB</div>
+                    <div class="stat-label">File Size</div>
+                </div>
+                <div class="stat fade-in">
+                    <div class="stat-value">0ms</div>
+                    <div class="stat-label">Load Time</div>
+                </div>
+                <div class="stat fade-in">
+                    <div class="stat-value">∞</div>
+                    <div class="stat-label">Offline</div>
+                </div>
+                <div class="stat fade-in">
+                    <div class="stat-value">0</div>
+                    <div class="stat-label">Dependencies</div>
+                </div>
+            </div>
+        </header>
+
+        <section>
+            <h2>Ecosystem Architecture</h2>
+            <div class="ecosystem">
+                <div class="layer protocol fade-in">
+                    <h3>🏛️ Layer 1: Untitled Format™ (Open Source)</h3>
+                    <p><strong>Foundation Protocol</strong> - Free, open-source framework for permanent, self-contained HTML documents</p>
+                    <ul style="margin-top: 1rem; padding-left: 1.5rem;">
+                        <li>Standardized YAML metadata structure</li>
+                        <li>Single-file architecture</li>
+                        <li>Permanent hosting specifications</li>
+                        <li>Open documentation and examples</li>
+                        <li>Community contributions welcome</li>
+                    </ul>
+                </div>
+                <div class="layer commercial fade-in">
+                    <h3>💼 Layer 2: Brother's Products (Commercial)</h3>
+                    <p><strong>Value-Added Services</strong> - Premium products built ON TOP of the open protocol</p>
+                    <ul style="margin-top: 1rem; padding-left: 1.5rem;">
+                        <li>AI-powered automation systems</li>
+                        <li>Advanced template libraries</li>
+                        <li>Enterprise-grade hosting solutions</li>
+                        <li>Professional services and customization</li>
+                        <li>Dedicated support and maintenance</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Why This Model Works</h2>
+            <div class="benefits">
+                <div class="benefit fade-in">
+                    <strong>🌍 Community Growth</strong><br>
+                    Open protocol attracts developers, creators, and innovators who expand the ecosystem
+                </div>
+                <div class="benefit fade-in">
+                    <strong>💸 Sustainable Business</strong><br>
+                    Commercial products generate revenue to fund protocol development and innovation
+                </div>
+                <div class="benefit fade-in">
+                    <strong>🚀 Rapid Innovation</strong><br>
+                    Open source drives protocol evolution while commercial products focus on user experience
+                </div>
+                <div class="benefit fade-in">
+                    <strong>🛡️ No Vendor Lock-in</strong><br>
+                    Users can always export to standard format - no proprietary lock-in ever
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Commercial Product Suite</h2>
+            <div class="products">
+                <div class="product fade-in">
+                    <h3>Living Invitations™</h3>
+                    <p><strong>Universal Event Platform</strong></p>
+                    <p>AI-powered invitations for any event type. Transform documents, chats, and images into beautiful, permanent invitation websites.</p>
+                    <ul style="margin: 1rem 0; padding-left: 1.5rem;">
+                        <li>Any event type supported</li>
+                        <li>AI data extraction</li>
+                        <li>Automated workflows</li>
+                        <li>Enterprise security options</li>
+                    </ul>
+                    <a href="#live-examples" class="btn">View Examples</a>
+                </div>
+                
+                <div class="product fade-in">
+                    <h3>Business Documents</h3>
+                    <p><strong>Living Contracts & Invoices</strong></p>
+                    <p>Interactive business documents that update in real-time. Contracts, invoices, proposals that never go stale.</p>
+                    <ul style="margin: 1rem 0; padding-left: 1.5rem;">
+                        <li>Real-time updates</li>
+                        <li>Digital signatures</li>
+                        <li>Payment integration</li>
+                        <li>Audit trails</li>
+                    </ul>
+                    <a href="#live-examples" class="btn">View Examples</a>
+                </div>
+                
+                <div class="product fade-in">
+                    <h3>Management Systems</h3>
+                    <p><strong>Operational Intelligence</strong></p>
+                    <p>Complete business management systems built on permanent documents. Stable management, project tracking, operational guides.</p>
+                    <ul style="margin: 1rem 0; padding-left: 1.5rem;">
+                        <li>Custom workflows</li>
+                        <li>Team collaboration</li>
+                        <li>Process documentation</li>
+                        <li>Performance analytics</li>
+                    </ul>
+                    <a href="#live-examples" class="btn">View Examples</a>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Business Model & Revenue Streams</h2>
+            <div class="business-model">
+                <div class="revenue-stream fade-in">
+                    <h3>🎯 Tiered SaaS Products</h3>
+                    <ul style="margin-top: 1rem; padding-left: 1.5rem;">
+                        <li>Living Invitations Pro: $29-99/month</li>
+                        <li>Business Documents: $49-199/month</li>
+                        <li>Enterprise Systems: Custom pricing</li>
+                    </ul>
+                </div>
+                
+                <div class="revenue-stream fade-in">
+                    <h3>🛠️ Professional Services</h3>
+                    <ul style="margin-top: 1rem; padding-left: 1.5rem;">
+                        <li>Custom template development</li>
+                        <li>System integration consulting</li>
+                        <li>Training and implementation</li>
+                    </ul>
+                </div>
+                
+                <div class="revenue-stream fade-in">
+                    <h3>🚀 Platform Ecosystem</h3>
+                    <ul style="margin-top: 1rem; padding-left: 1.5rem;">
+                        <li>Template marketplace (30% commission)</li>
+                        <li>API access for developers</li>
+                        <li>White-label solutions</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Development Roadmap</h2>
+            <div class="roadmap">
+                <div class="phase phase-current fade-in">
+                    <h3>Phase 1: Foundation (Current)</h3>
+                    <p>✓ Untitled Format protocol specification</p>
+                    <p>✓ Living Invitations proof of concept</p>
+                    <p>✓ Business document templates</p>
+                    <p>→ AI data extraction engine</p>
+                    <p>→ Basic hosting infrastructure</p>
+                </div>
+                
+                <div class="phase fade-in">
+                    <h3>Phase 2: Commercial Launch (Q1 2026)</h3>
+                    <p>Living Invitations commercial product</p>
+                    <p>Professional template marketplace</p>
+                    <p>AI workflow automation</p>
+                    <p>Enterprise security features</p>
+                    <p>Partner program launch</p>
+                </div>
+                
+                <div class="phase fade-in">
+                    <h3>Phase 3: Ecosystem Growth (2026+)</h3>
+                    <p>Third-party developer platform</p>
+                    <p>International expansion</p>
+                    <p>Mobile applications</p>
+                    <p>Advanced AI features</p>
+                    <p>Enterprise governance tools</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="live-examples">
+            <h2>Live Protocol Examples</h2>
+            <p style="margin-bottom: 2rem; color: var(--text-dim);">Real products using Untitled Format™ across different domains</p>
+            
+            <div class="examples">
+                <div class="example fade-in">
+                    <h3>Living Invitations</h3>
+                    <p>Beautiful, permanent invitation websites for any event type.</p>
+                    <div style="margin: 1.5rem 0;">
+                        <a href="https://alx0r.github.io/Aartless/wed1.html" class="btn btn-secondary" target="_blank">Wedding Example 1</a>
+                        <a href="https://alx0r.github.io/Aartless/luxury-wedding.html" class="btn btn-secondary" target="_blank">Luxury Wedding</a>
+                        <a href="https://alx0r.github.io/Aartless/wed2.html" class="btn btn-secondary" target="_blank">Wedding Example 2</a>
+                    </div>
+                </div>
+                
+                <div class="example fade-in">
+                    <h3>Business Systems</h3>
+                    <p>Complete business management solutions built on permanent documents.</p>
+                    <div style="margin: 1.5rem 0;">
+                        <a href="https://alx0r.github.io/Aartless/Carol4.html" class="btn btn-secondary" target="_blank">Horse Stable System</a>
+                        <a href="https://alx0r.github.io/Aartless/OctCSCC.html" class="btn btn-secondary" target="_blank">Living Invoice</a>
+                        <a href="https://alx0r.github.io/Aartless/sadiebossvite.html#templates" class="btn btn-secondary" target="_blank">Sadie Boss Proposal</a>
+                    </div>
+                </div>
+                
+                <div class="example fade-in">
+                    <h3>Specialized Applications</h3>
+                    <p>Custom implementations for specific use cases and industries.</p>
+                    <div style="margin: 1.5rem 0;">
+                        <a href="https://alx0r.github.io/Aartless/ShiBabyV1.html" class="btn btn-secondary" target="_blank">ShiBaby Parenting</a>
+                        <a href="https://alx0r.github.io/Aartless/ShiBabyguide.html" class="btn btn-secondary" target="_blank">ShiBaby Guide</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Our Team</h2>
+            <div class="team">
+                <div class="team-member fade-in">
+                    <div class="team-avatar">A</div>
+                    <h3>Alexandra</h3>
+                    <p style="color: var(--text-dim);">Head of Strategy & Technology</p>
+                    <p style="margin-top: 1rem; font-size: 0.9rem;">Architecting the future of intelligent documents and digital sovereignty.</p>
+                </div>
+                
+                <div class="team-member fade-in">
+                    <div class="team-avatar">J</div>
+                    <h3>John</h3>
+                    <p style="color: var(--text-dim);">Head of Creative & Future Growth</p>
+                    <p style="margin-top: 1rem; font-size: 0.9rem;">Driving innovation and expanding the ecosystem through strategic partnerships.</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Build With Us</h2>
+            <div style="text-align: center; max-width: 600px; margin: 0 auto;">
+                <p style="margin-bottom: 2rem; font-size: 1.1rem;">We're building the future of documents together. Join us in creating permanent, intelligent document systems that put users first.</p>
+                <a href="mailto:contact@brothers.studio" class="btn">Start a Conversation</a>
+                <a href="https://github.com/alx0r" class="btn btn-secondary" target="_blank">Explore on GitHub</a>
+            </div>
+        </section>
+
+        <footer>
+            <p>Built with Untitled Format™ v2.1.0 | Brother's Protocol Ecosystem</p>
+            <p style="margin-top: 1rem; color: var(--text-dim);">Open Foundation + Commercial Innovation</p>
+            <p style="margin-top: 0.5rem; color: var(--text-dim);">© 2025 Brother's Studio | All Rights Reserved</p>
+        </footer>
+    </div>
+
+    <script>
+        // Calculate actual file size
+        document.addEventListener('DOMContentLoaded', function() {
+            const htmlContent = document.documentElement.outerHTML;
+            const sizeInBytes = new Blob([htmlContent]).size;
+            const sizeInKB = (sizeInBytes / 1024).toFixed(1);
+            document.getElementById('file-size').textContent = `~${sizeInKB}KB`;
+            
+            // Add scroll animations
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('fade-in');
+                    }
+                });
+            }, observerOptions);
+            
+            document.querySelectorAll('.fade-in').forEach(el => {
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>

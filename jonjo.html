@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jonjo Soccer Station™ - Bafana Bafana U-15 Management System</title>
+    
+    <!-- YAML Frontmatter Metadata -->
+    <!--
+    title: "Jonjo Soccer Station™ - Bafana Bafana U-15 Team Management"
+    coach: "Coach Thabo Mabena"
+    assistant_coach: "Coach Zanele Dlamini" 
+    team: "Bafana Bafana Junior - Under 15"
+    season: "2024/2025"
+    untitled_format: "2.0.0"
+    document_type: "Team Management System"
+    license: "Private - Team Use Only"
+    version: "1.0.0"
+    created: "2025-11-01"
+    updated: "2025-11-01"
+    tags: ["soccer", "youth", "management", "coaching", "u15"]
+    ai_context_tags: ["sports_analytics", "team_management", "tactical_analysis"]
+    -->
+    
+    <style>
+        :root {
+            --primary: #007A3D;
+            --secondary: #FFB81C;
+            --accent: #E03C31;
+            --dark: #1a1a1a;
+            --light: #f5f5f5;
+            --text: #333;
+            --border: #ddd;
+            --success: #28a745;
+            --warning: #ffc107;
+            --danger: #dc3545;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: var(--light);
+            font-size: 14px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 15px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, #005a2d 100%);
+            color: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .team-badge {
+            font-size: 2.5em;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+        }
+        
+        h1 {
+            font-size: 1.8em;
+            margin-bottom: 5px;
+        }
+        
+        .subtitle {
+            font-size: 1em;
+            opacity: 0.9;
+        }
+        
+        .quick-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+            gap: 10px;
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            border-radius: 6px;
+            font-size: 0.9em;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: var(--secondary);
+        }
+        
+        .stat-label {
+            font-size: 0.8em;
+            opacity: 0.9;
+        }
+        
+        nav {
+            background: white;
+            padding: 12px;
+            margin-bottom: 20px;
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 5px;
+            z-index: 100;
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: var(--primary);
+            padding: 6px 12px;
+            border-radius: 4px;
+            transition: all 0.3s;
+            font-weight: 500;
+            font-size: 0.9em;
+            border: 1px solid transparent;
+        }
+        
+        nav a:hover, nav a.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        section {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+        }
+        
+        h2 {
+            color: var(--primary);
+            border-bottom: 2px solid var(--secondary);
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+        }
+        
+        h3 {
+            color: var(--primary);
+            margin: 15px 0 10px 0;
+            font-size: 1.1em;
+        }
+        
+        .urgent-updates {
+            background: linear-gradient(135deg, var(--accent) 0%, #c02a21 100%);
+            color: white;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            font-size: 0.9em;
+        }
+        
+        .update-item {
+            background: rgba(255,255,255,0.1);
+            padding: 10px;
+            margin: 8px 0;
+            border-radius: 4px;
+            border-left: 3px solid var(--secondary);
+        }
+        
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+        }
+        
+        .card {
+            background: var(--light);
+            padding: 15px;
+            border-radius: 6px;
+            border-left: 3px solid var(--primary);
+            font-size: 0.9em;
+        }
+        
+        .player-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 12px;
+            transition: all 0.2s;
+            font-size: 0.85em;
+        }
+        
+        .player-card:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            border-color: var(--primary);
+        }
+        
+        .player-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+        
+        .player-number {
+            background: var(--primary);
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1em;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        
+        .player-info h4 {
+            margin: 0;
+            color: var(--primary);
+            font-size: 1em;
+        }
+        
+        .player-position {
+            color: #666;
+            font-size: 0.8em;
+        }
+        
+        .player-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px solid var(--border);
+        }
+        
+        .mini-stat {
+            text-align: center;
+        }
+        
+        .mini-stat-value {
+            font-weight: bold;
+            color: var(--primary);
+            font-size: 1em;
+        }
+        
+        .mini-stat-label {
+            font-size: 0.75em;
+            color: #666;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 0.75em;
+            font-weight: 500;
+            margin: 3px 3px 3px 0;
+        }
+        
+        .status-available { background: #d4edda; color: #155724; }
+        .status-injured { background: #f8d7da; color: #721c24; }
+        .status-suspended { background: #fff3cd; color: #856404; }
+        .status-modified { background: #cce7ff; color: #004085; }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 0.85em;
+        }
+        
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        th {
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+            font-size: 0.9em;
+        }
+        
+        tr:hover {
+            background: var(--light);
+        }
+        
+        .match-card {
+            background: linear-gradient(135deg, var(--primary) 0%, #005a2d 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 12px 0;
+            font-size: 0.9em;
+        }
+        
+        .match-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .match-teams {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            gap: 15px;
+            font-size: 1.1em;
+            font-weight: bold;
+            flex-wrap: wrap;
+        }
+        
+        .match-score {
+            font-size: 1.5em;
+            color: var(--secondary);
+            font-weight: bold;
+        }
+        
+        .formation-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin: 12px 0;
+            font-size: 0.85em;
+        }
+        
+        .position-group {
+            background: rgba(255,255,255,0.1);
+            padding: 12px;
+            border-radius: 6px;
+        }
+        
+        .position-group h5 {
+            margin: 0 0 8px 0;
+            color: var(--secondary);
+            font-size: 0.9em;
+        }
+        
+        .contact-button {
+            display: inline-block;
+            background: var(--success);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 0.8em;
+            transition: all 0.3s;
+            margin-top: 5px;
+        }
+        
+        .contact-button:hover {
+            background: #218838;
+            transform: scale(1.03);
+        }
+        
+        .weather-widget {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 15px;
+            border-radius: 6px;
+            text-align: center;
+            font-size: 0.9em;
+        }
+        
+        .weather-icon {
+            font-size: 2em;
+            margin: 8px 0;
+        }
+        
+        .drill-card {
+            background: var(--light);
+            padding: 12px;
+            border-radius: 6px;
+            margin: 8px 0;
+            border-left: 3px solid var(--secondary);
+            font-size: 0.85em;
+        }
+        
+        .progress-bar {
+            background: #e0e0e0;
+            border-radius: 8px;
+            height: 16px;
+            overflow: hidden;
+            margin: 8px 0;
+        }
+        
+        .progress-fill {
+            background: linear-gradient(90deg, var(--primary) 0%, var(--success) 100%);
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.75em;
+            font-weight: bold;
+        }
+        
+        .notes-area {
+            background: #fffbea;
+            border: 1px solid var(--secondary);
+            padding: 15px;
+            border-radius: 6px;
+            margin: 15px 0;
+            font-size: 0.9em;
+        }
+        
+        .ai-prompt {
+            background: #f0f8ff;
+            border: 1px dashed #4facfe;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+            font-family: monospace;
+            font-size: 0.8em;
+            color: #0066cc;
+        }
+        
+        .tactical-board {
+            background: #2d5016;
+            color: white;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 15px 0;
+            font-family: monospace;
+            font-size: 0.9em;
+            line-height: 1.4;
+        }
+        
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 20px;
+            margin-top: 30px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 0.9em;
+        }
+        
+        .meta-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 12px;
+            margin-top: 15px;
+            font-size: 0.8em;
+            opacity: 0.8;
+        }
+        
+        .skill-meter {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 5px 0;
+            font-size: 0.8em;
+        }
+        
+        .skill-dots {
+            display: flex;
+            gap: 2px;
+        }
+        
+        .skill-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #ddd;
+        }
+        
+        .skill-dot.filled {
+            background: var(--primary);
+        }
+        
+        .skill-dot.half {
+            background: linear-gradient(90deg, var(--primary) 50%, #ddd 50%);
+        }
+        
+        @media (max-width: 768px) {
+            .container { padding: 10px; }
+            h1 { font-size: 1.5em; }
+            .header-content { flex-direction: column; text-align: center; }
+            .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+            nav ul { flex-direction: column; }
+            .match-teams { flex-direction: column; font-size: 1em; }
+            .formation-grid { grid-template-columns: 1fr; }
+            section { padding: 15px; }
+        }
+        
+        @media print {
+            nav, .contact-button, .urgent-updates { display: none; }
+            section { page-break-inside: avoid; box-shadow: none; border: 1px solid #ddd; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <div>
+                    <div class="team-badge">⚽🇿🇦</div>
+                    <h1>Jonjo Soccer Station™</h1>
+                    <p class="subtitle">Bafana Bafana Junior - Under 15 Team</p>
+                    <p class="subtitle">Season 2024/2025 | Coach Thabo Mabena</p>
+                </div>
+                <div class="quick-stats">
+                    <div class="stat-item">
+                        <div class="stat-value">12</div>
+                        <div class="stat-label">Played</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">8</div>
+                        <div class="stat-label">Wins</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">2</div>
+                        <div class="stat-label">Draws</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">2</div>
+                        <div class="stat-label">Losses</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">3rd</div>
+                        <div class="stat-label">Position</div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <nav>
+            <ul>
+                <li><a href="#dashboard" class="active">📊 Dashboard</a></li>
+                <li><a href="#squad">👥 Squad</a></li>
+                <li><a href="#calendar">📅 Calendar</a></li>
+                <li><a href="#matches">🏆 Matches</a></li>
+                <li><a href="#training">🏃 Training</a></li>
+                <li><a href="#statistics">📈 Statistics</a></li>
+                <li><a href="#analysis">🔍 Analysis</a></li>
+                <li><a href="#communication">💬 Updates</a></li>
+                <li><a href="#resources">🛠️ Resources</a></li>
+            </ul>
+        </nav>
+
+        <!-- URGENT UPDATES -->
+        <div class="urgent-updates">
+            <h3>🚨 Urgent Updates & Reminders</h3>
+            <div class="update-item">
+                <strong>Next Match:</strong> Tomorrow (Nov 2) vs Orlando Pirates Youth - 15:00 at Rand Stadium. Players arrive by 14:00.
+            </div>
+            <div class="update-item">
+                <strong>Injury Update:</strong> Sipho Ndlovu (ankle) - Expected back Nov 10. Thandi Mokoena (hamstring) - Training modified.
+            </div>
+            <div class="update-item">
+                <strong>Equipment:</strong> New training bibs arrived. Players bring water bottles to Sunday training.
+            </div>
+        </div>
+
+        <!-- EXECUTIVE DASHBOARD -->
+        <section id="dashboard">
+            <h2>📊 Executive Dashboard</h2>
+            
+            <div class="grid-2">
+                <div class="card">
+                    <h3>This Week's Schedule</h3>
+                    <p><strong>Sat, Nov 2:</strong> Match vs Orlando Pirates Youth (15:00)</p>
+                    <p><strong>Sun, Nov 3:</strong> Training - Tactical Work (09:00)</p>
+                    <p><strong>Tue, Nov 5:</strong> Training - Fitness (16:00)</p>
+                    <p><strong>Thu, Nov 7:</strong> Training - Set Pieces (16:00)</p>
+                </div>
+                
+                <div class="weather-widget">
+                    <h3>Match Day Weather</h3>
+                    <div class="weather-icon">⛅</div>
+                    <p><strong>Saturday:</strong> 24°C, Partly Cloudy</p>
+                    <p>Wind: 12 km/h | Humidity: 45%</p>
+                    <p style="font-size: 0.8em; margin-top: 8px;">Ideal conditions for match play</p>
+                </div>
+            </div>
+
+            <h3>Team Health Status</h3>
+            <div class="grid-3">
+                <div class="card">
+                    <strong>Available:</strong> 20 players
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 87%;">87%</div>
+                    </div>
+                </div>
+                <div class="card">
+                    <strong>Injured:</strong> 2 players
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 9%; background: var(--danger);">9%</div>
+                    </div>
+                </div>
+                <div class="card">
+                    <strong>Modified:</strong> 1 player
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 4%; background: var(--warning);">4%</div>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Recent Performance Trend</h3>
+            <p><strong>Last 5 Matches:</strong> W-W-D-W-L (3.2 goals/game average)</p>
+            <div class="progress-bar" style="height: 20px;">
+                <div class="progress-fill" style="width: 70%;">70% Win Rate (Last 10 Games)</div>
+            </div>
+
+            <!-- AI PROMPT FOR UPDATES -->
+            <div class="ai-prompt">
+                <!-- [AI_PROMPT: DASHBOARD_UPDATE | TYPE=STATUS_SNAPSHOT] -->
+                To update: Send "STATUS [player_name] [status]" or "RESULT [opponent] [score]"
+            </div>
+        </section>
+
+        <!-- SQUAD OVERVIEW -->
+        <section id="squad">
+            <h2>👥 Squad Overview - 23 Players</h2>
+            
+            <!-- Goalkeepers -->
+            <h3>⚡ Goalkeepers (2)</h3>
+            <div class="grid-3">
+                <!-- Player cards would continue here with all 23 players -->
+                <!-- Simplified for this example -->
+                <div class="player-card">
+                    <div class="player-header">
+                        <div class="player-number">1</div>
+                        <div class="player-info">
+                            <h4>Lungelo Mthembu</h4>
+                            <p class="player-position">Goalkeeper</p>
+                        </div>
+                    </div>
+                    <span class="status-badge status-available">Available</span>
+                    <div class="player-stats">
+                        <div class="mini-stat">
+                            <div class="mini-stat-value">7</div>
+                            <div class="mini-stat-label">Apps</div>
+                        </div>
+                        <div class="mini-stat">
+                            <div class="mini-stat-value">4</div>
+                            <div class="mini-stat-label">Clean</div>
+                        </div>
+                        <div class="mini-stat">
+                            <div class="mini-stat-value">85%</div>
+                            <div class="mini-stat-label">Attend</div>
+                        </div>
+                    </div>
+                    <div class="skill-meter">
+                        <span>Shot Stopping:</span>
+                        <div class="skill-dots">
+                            <div class="skill-dot filled"></div><div class="skill-dot filled"></div><div class="skill-dot filled"></div><div class="skill-dot filled"></div><div class="skill-dot"></div>
+                        </div>
+                    </div>
+                    <a href="https://wa.me/27834567890" class="contact-button">💬 Contact Parent</a>
+                </div>
+                <!-- More players... -->
+            </div>
+
+            <!-- Defenders, Midfielders, Forwards sections continue... -->
+        </section>
+
+        <!-- MATCH CENTER -->
+        <section id="matches">
+            <h2>🏆 Match Center</h2>
+            
+            <h3>🔥 Next Match - Tomorrow!</h3>
+            <div class="match-card">
+                <div class="match-header">
+                    <div>
+                        <h4 style="margin:0; color: var(--secondary);">YOUTH LEAGUE - MATCHDAY 13</h4>
+                        <p style="margin:5px 0;">Saturday, November 2, 2025 | 15:00</p>
+                    </div>
+                    <div style="text-align: right;">
+                        <p style="margin:0;"><strong>Rand Stadium</strong></p>
+                        <p style="margin:5px 0;">Weather: ⛅ 24°C</p>
+                    </div>
+                </div>
+                <div class="match-teams">
+                    <div style="text-align:center;">
+                        <div style="font-size:1.5em; margin-bottom:8px;">🇿🇦</div>
+                        <div>BAFANA U-15</div>
+                        <div style="font-size:0.8em; opacity:0.9;">(Home)</div>
+                    </div>
+                    <div class="match-score">VS</div>
+                    <div style="text-align:center;">
+                        <div style="font-size:1.5em; margin-bottom:8px;">🏴‍☠️</div>
+                        <div>PIRATES YOUTH</div>
+                        <div style="font-size:0.8em; opacity:0.9;">(3rd Place)</div>
+                    </div>
+                </div>
+                
+                <h4 style="margin-top:15px; color:var(--secondary);">Tactical Setup - 4-3-3 Formation</h4>
+                <div class="tactical-board">
+                    ╔═══════════════════════════════╗<br>
+                    ║         9 - Mofokeng         ║<br>
+                    ║                               ║<br>
+                    ║ 11 - Mabaso   10 - Dube   7 - Sono ║<br>
+                    ║                               ║<br>
+                    ║     8 - Khoza    6 - Tau      ║<br>
+                    ║                               ║<br>
+                    ║ 3 - Moroka  5 - Zulu  12 - Nkosi  2 - Molefe ║<br>
+                    ║                               ║<br>
+                    ║         1 - Mthembu          ║<br>
+                    ╚═══════════════════════════════╝
+                </div>
+                
+                <h5 style="color:var(--secondary); margin-top:15px;">Match Strategy:</h5>
+                <p style="margin:3px 0;">• HIGH PRESS: Force errors in their defensive third</p>
+                <p style="margin:3px 0;">• WING PLAY: Exploit pace with Sono & Mabaso</p>
+                <p style="margin:3px 0;">• MARKING: Zulu tracks their #10 (playmaker)</p>
+                <p style="margin:3px 0;">• SET PIECES: Dube corners, Khoza free kicks</p>
+            </div>
+
+            <!-- Recent Results Table -->
+            <h3>📊 Recent Results</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Opponent</th>
+                        <th>Result</th>
+                        <th>Scorers</th>
+                        <th>Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Oct 26</td>
+                        <td>Chiefs Youth</td>
+                        <td>L 1-2</td>
+                        <td>Mofokeng</td>
+                        <td>Poor finishing</td>
+                    </tr>
+                    <tr>
+                        <td>Oct 19</td>
+                        <td>Sundowns Youth</td>
+                        <td>W 3-0</td>
+                        <td>Mofokeng(2), Dube</td>
+                        <td>Excellent defense</td>
+                    </tr>
+                    <!-- More results... -->
+                </tbody>
+            </table>
+        </section>
+
+        <!-- TRAINING HUB -->
+        <section id="training">
+            <h2>🏃 Training Hub</h2>
+            
+            <div class="grid-2">
+                <div class="card">
+                    <h3>This Week's Sessions</h3>
+                    <div class="drill-card">
+                        <strong>Sun - Tactical:</strong> Pressing triggers & transition
+                    </div>
+                    <div class="drill-card">
+                        <strong>Tue - Fitness:</strong> HIIT with ball work
+                    </div>
+                    <div class="drill-card">
+                        <strong>Thu - Technical:</strong> Set piece variations
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>Attendance Tracking</h3>
+                    <p><strong>Last Session:</strong> 21/23 (91%)</p>
+                    <p><strong>Season Average:</strong> 88% attendance</p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 88%;">88%</div>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Drill Library</h3>
+            <div class="grid-3">
+                <div class="drill-card">
+                    <strong>Rondo 4v2</strong><br>
+                    <em>Focus:</em> Quick passing<br>
+                    <em>Duration:</em> 15 mins<br>
+                    <em>Setup:</em> 10x10m square
+                </div>
+                <div class="drill-card">
+                    <strong>Transition Game</strong><br>
+                    <em>Focus:</em> Pressing triggers<br>
+                    <em>Duration:</em> 20 mins<br>
+                    <em>Setup:</em> Half pitch
+                </div>
+                <div class="drill-card">
+                    <strong>Finishing Circuit</strong><br>
+                    <em>Focus:</em> Various shots<br>
+                    <em>Duration:</em> 25 mins<br>
+                    <em>Setup:</em> Penalty area
+                </div>
+            </div>
+        </section>
+
+        <!-- ADVANCED STATISTICS -->
+        <section id="statistics">
+            <h2>📈 Advanced Statistics</h2>
+            
+            <h3>Player Performance Metrics</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Player</th>
+                        <th>Goals</th>
+                        <th>Assists</th>
+                        <th>Pass%</th>
+                        <th>Tackles</th>
+                        <th>Distance</th>
+                        <th>Rating</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Mofokeng</td>
+                        <td>11</td>
+                        <td>3</td>
+                        <td>78%</td>
+                        <td>12</td>
+                        <td>9.2km</td>
+                        <td>8.7</td>
+                    </tr>
+                    <tr>
+                        <td>Dube</td>
+                        <td>6</td>
+                        <td>8</td>
+                        <td>85%</td>
+                        <td>18</td>
+                        <td>10.1km</td>
+                        <td>8.4</td>
+                    </tr>
+                    <!-- More players... -->
+                </tbody>
+            </table>
+
+            <h3>Team Performance Trends</h3>
+            <div class="grid-2">
+                <div class="card">
+                    <strong>Goals Scored/Conceded</strong><br>
+                    Last 5: 16 scored, 6 conceded<br>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 73%; background: var(--success);">73% Ratio</div>
+                    </div>
+                </div>
+                <div class="card">
+                    <strong>Possession & Passing</strong><br>
+                    Avg: 58% possession, 82% pass accuracy<br>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 82%;">82% Accuracy</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TACTICAL ANALYSIS -->
+        <section id="analysis">
+            <h2>🔍 Tactical Analysis</h2>
+            
+            <h3>Opposition Scout: Orlando Pirates Youth</h3>
+            <div class="grid-3">
+                <div class="card">
+                    <strong>Formation</strong><br>
+                    4-2-3-1<br>
+                    <em>Key:</em> Strong midfield trio
+                </div>
+                <div class="card">
+                    <strong>Strengths</strong><br>
+                    • Quick transitions<br>
+                    • Set piece variety<br>
+                    • High press
+                </div>
+                <div class="card">
+                    <strong>Weaknesses</strong><br>
+                    • Vulnerable on counter<br>
+                    • Left side defense<br>
+                    • Fitness drops 70+
+                </div>
+            </div>
+
+            <h3>Key Matchups</h3>
+            <div class="notes-area">
+                <strong>Zulu vs Their #10:</strong> Must track movement in pockets<br>
+                <strong>Our Wings vs Fullbacks:</strong> Pace advantage clear<br>
+                <strong>Midfield Battle:</strong> Khoza must control tempo
+            </div>
+
+            <h3>Season Development Focus</h3>
+            <div class="grid-4">
+                <div class="card">
+                    <strong>Pressing</strong><br>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 75%;">75%</div>
+                    </div>
+                </div>
+                <div class="card">
+                    <strong>Build-up</strong><br>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 68%;">68%</div>
+                    </div>
+                </div>
+                <div class="card">
+                    <strong>Finishing</strong><br>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 82%;">82%</div>
+                    </div>
+                </div>
+                <div class="card">
+                    <strong>Set Pieces</strong><br>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 60%;">60%</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- COMMUNICATION & UPDATES -->
+        <section id="communication">
+            <h2>💬 Communication Log</h2>
+            
+            <div class="card">
+                <h3>Recent Announcements</h3>
+                <div class="update-item">
+                    <strong>Oct 30:</strong> Team meeting moved to 17:00 tomorrow
+                </div>
+                <div class="update-item">
+                    <strong>Oct 28:</strong> New kit arrival - collect after training
+                </div>
+                <div class="update-item">
+                    <strong>Oct 25:</strong> Sports science testing next Tuesday
+                </div>
+            </div>
+
+            <h3>Parent Communication Status</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Player</th>
+                        <th>Last Contact</th>
+                        <th>Status</th>
+                        <th>Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Mofokeng</td>
+                        <td>Oct 29</td>
+                        <td><span class="status-badge status-available">Confirmed</span></td>
+                        <td>Transport sorted</td>
+                    </tr>
+                    <tr>
+                        <td>Ndlovu</td>
+                        <td>Oct 28</td>
+                        <td><span class="status-badge status-injured">Injured</span></td>
+                        <td>Physio update pending</td>
+                    </tr>
+                    <!-- More players... -->
+                </tbody>
+            </table>
+
+            <!-- AI UPDATE PROMPT -->
+            <div class="ai-prompt">
+                <!-- [AI_PROMPT: COMMUNICATION_UPDATE | TYPE=BATCH_PROCESSING] -->
+                Update via: "ANNOUNCE [message]" or "CONTACT [player] [status]"
+            </div>
+        </section>
+
+        <!-- RESOURCES -->
+        <section id="resources">
+            <h2>🛠️ Coaching Resources</h2>
+            
+            <div class="grid-2">
+                <div class="card">
+                    <h3>Emergency Protocols</h3>
+                    <p><strong>Medical Emergency:</strong> Call 112, then parents</p>
+                    <p><strong>Weather Cancel:</strong> WhatsApp group update</p>
+                    <p><strong>Transport Issue:</strong> Use backup drivers list</p>
+                </div>
+                
+                <div class="card">
+                    <h3>Equipment Inventory</h3>
+                    <p><strong>Balls:</strong> 15 training, 4 match</p>
+                    <p><strong>Bibs:</strong> 12 yellow, 12 blue</p>
+                    <p><strong>Cones:</strong> 40 available</p>
+                    <p><strong>First Aid:</strong> Fully stocked</p>
+                </div>
+            </div>
+
+            <h3>Season Objectives Tracking</h3>
+            <div class="notes-area">
+                <strong>Technical:</strong> Improve weak foot proficiency ✓ 70%<br>
+                <strong>Tactical:</strong> Implement pressing system ✓ 85%<br>
+                <strong>Physical:</strong> Increase endurance capacity ✓ 65%<br>
+                <strong>Mental:</strong> Develop game management ⚠ 50%<br>
+            </div>
+
+            <h3>Coach Development Notes</h3>
+            <div class="ai-prompt">
+                <!-- [AI_PROMPT: SELF_REFLECTION | TYPE=COACHING_EFFECTIVENESS] -->
+                Areas for improvement: Substitution timing, set piece variety
+            </div>
+        </section>
+
+        <footer>
+            <p><strong>Jonjo Soccer Station™</strong> - Bafana Bafana U-15 Management System</p>
+            <p>Built on Brotherly Protocol™ v2.0.0 | Forever Format Architecture</p>
+            
+            <div class="meta-info">
+                <div>Document Size: ~45KB</div>
+                <div>Last Updated: 2025-11-01</div>
+                <div>Players: 23</div>
+                <div>Matches: 12</div>
+                <div>Version: 1.0.0</div>
+                <div>Format: Untitled Format™</div>
+            </div>
+            
+            <p style="margin-top: 15px; font-size: 0.8em; opacity: 0.7;">
+                Offline-capable • AI-updatable • Forever-owned<br>
+                Update via WhatsApp: Send session notes, player updates, match results
+            </p>
+        </footer>
+    </div>
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SportsOrganization",
+        "name": "Bafana Bafana Junior - Under 15",
+        "coach": {
+            "@type": "Person",
+            "name": "Thabo Mabena"
+        },
+        "sport": "Soccer",
+        "athlete": {
+            "@type": "Person",
+            "name": "23 players"
+        },
+        "description": "Youth soccer team management system"
+    }
+    </script>
+</body>
+</html>

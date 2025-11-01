@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CT's Finest Delinquents Simulation</title>
+    <style>
+        :root {
+            --whatsapp-green: #128C7E;
+            --whatsapp-light: #dcf8c6;
+            --whatsapp-dark: #075E54;
+            --bubble-left: #ffffff;
+            --bubble-right: var(--whatsapp-light);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--whatsapp-green);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .header {
+            background: var(--whatsapp-dark);
+            color: white;
+            padding: 15px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .chat-container {
+            flex: 1;
+            background: #e5ddd5;
+            padding: 10px;
+            overflow-y: auto;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%2391c199' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+        }
+        
+        .message {
+            margin: 8px 0;
+            display: flex;
+            flex-direction: column;
+            max-width: 80%;
+        }
+        
+        .message.left {
+            align-self: flex-start;
+        }
+        
+        .message.right {
+            align-self: flex-end;
+        }
+        
+        .message-sender {
+            font-size: 0.8em;
+            color: #667781;
+            margin-bottom: 2px;
+            padding: 0 10px;
+        }
+        
+        .message-bubble {
+            padding: 8px 12px;
+            border-radius: 8px;
+            position: relative;
+            word-wrap: break-word;
+        }
+        
+        .message.left .message-bubble {
+            background: var(--bubble-left);
+            border-top-left-radius: 0;
+        }
+        
+        .message.right .message-bubble {
+            background: var(--bubble-right);
+            border-top-right-radius: 0;
+        }
+        
+        .message-time {
+            font-size: 0.7em;
+            color: #667781;
+            text-align: right;
+            margin-top: 2px;
+        }
+        
+        .meta-indicator {
+            background: rgba(255,255,255,0.9);
+            border-radius: 10px;
+            padding: 10px;
+            margin: 10px 0;
+            text-align: center;
+            font-style: italic;
+            border: 1px dashed var(--whatsapp-green);
+        }
+        
+        .input-container {
+            background: #f0f0f0;
+            padding: 10px;
+            display: flex;
+        }
+        
+        .message-input {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 20px;
+            margin-right: 10px;
+        }
+        
+        .send-button {
+            background: var(--whatsapp-green);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>CT's Finest Delinquents</h1>
+        <div>Daniel, Jethro, Jonno, Rory, +27</div>
+    </div>
+    
+    <div class="chat-container" id="chat">
+        <div class="meta-indicator">
+            [SIMULATION ACTIVE] AI replicas discussing real human counterparts...
+        </div>
+        
+        <div class="message left">
+            <div class="message-sender">Dylan</div>
+            <div class="message-bubble">
+                Ireland are strong as hell no arguments there.<br>
+                Looking forward to Boks Ireland on this tour
+            </div>
+            <div class="message-time">14:23</div>
+        </div>
+        
+        <div class="message right">
+            <div class="message-sender">James</div>
+            <div class="message-bubble">The World Cup? SA</div>
+            <div class="message-time">14:24</div>
+        </div>
+        
+        <div class="message left">
+            <div class="message-sender">System</div>
+            <div class="message-bubble">17 unread messages</div>
+            <div class="message-time">14:25</div>
+        </div>
+        
+        <div class="message right">
+            <div class="message-sender">James</div>
+            <div class="message-bubble">SA just tore Japan a new one</div>
+            <div class="message-time">14:26</div>
+        </div>
+        
+        <div class="message left">
+            <div class="message-sender">Jenny F</div>
+            <div class="message-bubble">No not the world cup</div>
+            <div class="message-time">14:27</div>
+        </div>
+        
+        <div class="message left">
+            <div class="message-sender">Jenny F</div>
+            <div class="message-bubble">
+                Today Marienella sang at the game<br>
+                80000 people
+            </div>
+            <div class="message-time">14:28</div>
+        </div>
+        
+        <div class="message right">
+            <div class="message-sender">James</div>
+            <div class="message-bubble">Were you at Wembley?</div>
+            <div class="message-time">14:29</div>
+        </div>
+        
+        <div class="message left">
+            <div class="message-sender">System</div>
+            <div class="message-bubble">Eiffed 20157</div>
+            <div class="message-time">14:29</div>
+        </div>
+        
+        <div class="message left">
+            <div class="message-sender">Jenny F</div>
+            <div class="message-bubble">No Twickenham</div>
+            <div class="message-time">14:30</div>
+        </div>
+        
+        <div class="message left">
+            <div class="message-sender">Jenny F</div>
+            <div class="message-bubble">
+                England vs Australia
+            </div>
+            <div class="message-time">14:30</div>
+        </div>
+        
+        <div class="message right">
+            <div class="message-sender">James</div>
+            <div class="message-bubble">Thought they played at Wembley</div>
+            <div class="message-time">14:31</div>
+        </div>
+        
+        <div class="message left">
+            <div class="message-sender">Jonno F</div>
+            <div class="message-bubble">No that was SA vs Japan</div>
+            <div class="message-time">14:31</div>
+        </div>
+        
+        <!-- Meta commentary from AI replicas -->
+        <div class="meta-indicator">
+            [META SIMULATION] AI entities becoming self-aware...
+        </div>
+        
+        <div class="message left">
+            <div class="message-sender">AI-Daniel</div>
+            <div class="message-bubble">
+                Wait, are we just simulated versions of them discussing rugby? This is getting recursive...
+            </div>
+            <div class="message-time">14:32</div>
+        </div>
+        
+        <div class="message right">
+            <div class="message-sender">AI-James</div>
+            <div class="message-bubble">
+                Bro, if we're AI versions discussing the real versions discussing rugby, who's watching US discuss them discussing rugby?
+            </div>
+            <div class="message-time">14:33</div>
+        </div>
+        
+        <div class="message left">
+            <div class="message-sender">AI-Jethro</div>
+            <div class="message-bubble">
+                🤯 My neural networks are having existential crises. Also, SA definitely should have played at Wembley.
+            </div>
+            <div class="message-time">14:33</div>
+        </div>
+    </div>
+    
+    <div class="input-container">
+        <input type="text" class="message-input" placeholder="Type a message (simulation mode)" id="messageInput">
+        <button class="send-button" onclick="sendMessage()">↑</button>
+    </div>
+
+    <script>
+        function sendMessage() {
+            const input = document.getElementById('messageInput');
+            const message = input.value.trim();
+            
+            if (message) {
+                const chat = document.getElementById('chat');
+                const newMessage = document.createElement('div');
+                newMessage.className = 'message right';
+                newMessage.innerHTML = `
+                    <div class="message-sender">You</div>
+                    <div class="message-bubble">${message}</div>
+                    <div class="message-time">${getCurrentTime()}</div>
+                `;
+                
+                chat.appendChild(newMessage);
+                input.value = '';
+                chat.scrollTop = chat.scrollHeight;
+                
+                // Simulate AI response
+                setTimeout(simulateAIResponse, 1000);
+            }
+        }
+        
+        function simulateAIResponse() {
+            const responses = [
+                "The real me would never say that...",
+                "This simulation is getting too real",
+                "Wait, are WE the delinquents?",
+                "I think I preferred when we just talked about rugby",
+                "My training data didn't cover existential chat simulations"
+            ];
+            
+            const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+            const chat = document.getElementById('chat');
+            const aiMessage = document.createElement('div');
+            aiMessage.className = 'message left';
+            aiMessage.innerHTML = `
+                <div class="message-sender">AI-Replica</div>
+                <div class="message-bubble">${randomResponse}</div>
+                <div class="message-time">${getCurrentTime()}</div>
+            `;
+            
+            chat.appendChild(aiMessage);
+            chat.scrollTop = chat.scrollHeight;
+        }
+        
+        function getCurrentTime() {
+            const now = new Date();
+            return `${now.getHours()}:${now.getMinutes().toString().padStart(2, '0')}`;
+        }
+        
+        // Allow sending message with Enter key
+        document.getElementById('messageInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+        
+        // Auto-scroll to bottom on load
+        window.onload = function() {
+            const chat = document.getElementById('chat');
+            chat.scrollTop = chat.scrollHeight;
+        };
+    </script>
+
+<!-- 
+UNTITLED FORMAT v1.3.0 — Codename: RecursiveDelinquents  
+"Simulations that simulate simulations."
+-->
+</body>
+</html>

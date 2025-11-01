@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brother's Studio | Document Infrastructure for Digital Sovereignty</title>
+    <style>
+        /* CSS Reset and Variables */
+        :root {
+            --primary: #0a0a0a;
+            --secondary: #1a1a1a;
+            --accent: #00d9ff;
+            --accent-dark: #0088aa;
+            --text: #f0f0f0;
+            --text-secondary: #a0a0a0;
+            --success: #00ff88;
+            --border: #333;
+            --radius: 8px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: var(--primary);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4 {
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            background: linear-gradient(135deg, var(--accent) 0%, var(--success) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1.5rem;
+        }
+
+        h2 {
+            font-size: clamp(1.8rem, 3vw, 2.5rem);
+            margin-bottom: 1.5rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            color: var(--text-secondary);
+        }
+
+        a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        a:hover {
+            color: var(--accent-dark);
+        }
+
+        /* Layout */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        section {
+            padding: 5rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        /* Header */
+        header {
+            padding: 2rem 0;
+            position: sticky;
+            top: 0;
+            background-color: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo::before {
+            content: "⟁";
+            color: var(--accent);
+            font-size: 1.8rem;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 50%, rgba(0, 217, 255, 0.1) 0%, transparent 50%);
+            z-index: -1;
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 2rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            background: var(--secondary);
+            padding: 1rem 1.5rem;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        /* Code Blocks */
+        .code-block {
+            background: var(--secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            overflow-x: auto;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+            position: relative;
+        }
+
+        .code-block::before {
+            content: "Untitled Format Example";
+            position: absolute;
+            top: -10px;
+            left: 1rem;
+            background: var(--primary);
+            padding: 0 0.5rem;
+            font-size: 0.7rem;
+            color: var(--accent);
+        }
+
+        /* Cards */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .card {
+            background: var(--secondary);
+            border-radius: var(--radius);
+            padding: 2rem;
+            border: 1px solid var(--border);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+            box-shadow: 0 10px 30px rgba(0, 217, 255, 0.1);
+        }
+
+        .card-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Examples Section */
+        .example {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            margin-bottom: 4rem;
+        }
+
+        .example:nth-child(even) .example-content {
+            order: 2;
+        }
+
+        .example-image {
+            border-radius: var(--radius);
+            overflow: hidden;
+            border: 1px solid var(--border);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .example-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .example-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .tag {
+            background: rgba(0, 217, 255, 0.1);
+            color: var(--accent);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+
+        /* CTA Section */
+        .cta {
+            text-align: center;
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 4rem 2rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            border-radius: var(--radius);
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: var(--primary);
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--accent);
+            border: 1px solid var(--accent);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(0, 217, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        footer {
+            padding: 3rem 0;
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .example {
+                grid-template-columns: 1fr;
+            }
+            
+            .example:nth-child(even) .example-content {
+                order: initial;
+            }
+            
+            .hero-stats {
+                justify-content: center;
+            }
+            
+            nav ul {
+                gap: 1rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        .delay-1 { animation-delay: 0.2s; opacity: 0; }
+        .delay-2 { animation-delay: 0.4s; opacity: 0; }
+        .delay-3 { animation-delay: 0.6s; opacity: 0; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">Brother's Studio</div>
+            <nav>
+                <ul>
+                    <li><a href="#philosophy">Philosophy</a></li>
+                    <li><a href="#examples">Examples</a></li>
+                    <li><a href="#architecture">Architecture</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content fade-in">
+                <h1>What you're reading is built with the protocol it describes</h1>
+                <p>This page is a living demonstration of Untitled Format — a single HTML file that works offline, loads instantly, and belongs entirely to you. No dependencies, no tracking, no platform lock-in.</p>
+                
+                <div class="hero-stats">
+                    <div class="stat fade-in delay-1">
+                        <div class="stat-value" id="file-size">~45KB</div>
+                        <div class="stat-label">File Size</div>
+                    </div>
+                    <div class="stat fade-in delay-2">
+                        <div class="stat-value">&lt;0.2s</div>
+                        <div class="stat-label">Load Time</div>
+                    </div>
+                    <div class="stat fade-in delay-3">
+                        <div class="stat-value">0</div>
+                        <div class="stat-label">Dependencies</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="philosophy">
+        <div class="container">
+            <h2 class="fade-in">Digital Sovereignty Through Document Architecture</h2>
+            <p class="fade-in delay-1">Current document systems are broken. PDFs are static tombs. Google Docs require constant internet. Word files get corrupted. We're building infrastructure for documents that live, adapt, and belong to their creators.</p>
+            
+            <div class="card-grid">
+                <div class="card fade-in">
+                    <div class="card-icon">🔒</div>
+                    <h3 class="card-title">Sovereignty</h3>
+                    <p>Your documents should belong to you, not a platform. No subscriptions, no lock-in, no one can take them away.</p>
+                </div>
+                <div class="card fade-in delay-1">
+                    <div class="card-icon">⚡</div>
+                    <h3 class="card-title">Performance</h3>
+                    <p>Tiny file sizes, instant loading, works completely offline. Perfect for mobile and low-connectivity areas.</p>
+                </div>
+                <div class="card fade-in delay-2">
+                    <div class="card-icon">🔍</div>
+                    <h3 class="card-title">AI-Ready</h3>
+                    <p>Structured for machines to read and update. AI can automatically extract information and generate insights.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="examples">
+        <div class="container">
+            <h2 class="fade-in">Examples in the Wild</h2>
+            <p class="fade-in delay-1">Real implementations solving real problems with Untitled Format architecture.</p>
+            
+            <div class="example fade-in">
+                <div class="example-content">
+                    <h3>ShiBaby™</h3>
+                    <p>A comprehensive parenting organization system that helps new parents track everything from feeding schedules to developmental milestones, all while maintaining complete privacy.</p>
+                    <div class="example-tags">
+                        <span class="tag">Parenting</span>
+                        <span class="tag">Organization</span>
+                        <span class="tag">Privacy-First</span>
+                    </div>
+                    <a href="https://alx0r.github.io/Aartless/ShiBabyV1.html" class="btn btn-secondary" style="margin-top: 1rem;">View Live Example</a>
+                </div>
+                <div class="example-image">
+                    <!-- In a real implementation, you would have an actual screenshot -->
+                    <div style="background: var(--secondary); height: 300px; display: flex; align-items: center; justify-content: center; color: var(--text-secondary);">
+                        ShiBaby Example Visualization
+                    </div>
+                </div>
+            </div>
+            
+            <div class="example fade-in delay-1">
+                <div class="example-content">
+                    <h3>Canter™ Stable Management</h3>
+                    <p>A complete equine business management system handling everything from horse records to financial tracking, all in a single file that works offline at the stables.</p>
+                    <div class="example-tags">
+                        <span class="tag">Business Management</span>
+                        <span class="tag">Agriculture</span>
+                        <span class="tag">Offline-First</span>
+                    </div>
+                    <a href="https://alx0r.github.io/Aartless/Carol4.html" class="btn btn-secondary" style="margin-top: 1rem;">View Live Example</a>
+                </div>
+                <div class="example-image">
+                    <div style="background: var(--secondary); height: 300px; display: flex; align-items: center; justify-content: center; color: var(--text-secondary);">
+                        Canter Example Visualization
+                    </div>
+                </div>
+            </div>
+            
+            <div class="example fade-in delay-2">
+                <div class="example-content">
+                    <h3>Live Invoices & Strategy</h3>
+                    <p>Professional documents that update in real-time. Change a detail once and it updates everywhere. No more version confusion or re-sending documents.</p>
+                    <div class="example-tags">
+                        <span class="tag">Business</span>
+                        <span class="tag">Real-time Updates</span>
+                        <span class="tag">Professional Services</span>
+                    </div>
+                    <a href="https://alx0r.github.io/Aartless/OctCSCC.html" class="btn btn-secondary" style="margin-top: 1rem;">View Invoice Example</a>
+                </div>
+                <div class="example-image">
+                    <div style="background: var(--secondary); height: 300px; display; align-items: center; justify-content: center; color: var(--text-secondary);">
+                        Invoice Example Visualization
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="architecture">
+        <div class="container">
+            <h2 class="fade-in">The Architecture of Permanence</h2>
+            <p class="fade-in delay-1">Untitled Format is built on semantic HTML, embedded metadata, and zero dependencies. Here's how it works:</p>
+            
+            <div class="code-block fade-in">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Document Title&lt;/title&gt;
+    &lt;script type="application/yaml"&gt;
+    ---
+    document:
+      title: "Document Title"
+      version: "1.0.0"
+      created: "2023-11-05"
+      framework: "Untitled Format v0.9.1"
+    data:
+      # Your structured data goes here
+      items:
+        - name: "Example Item"
+          value: 42
+    ---
+    &lt;/script&gt;
+    &lt;style&gt;
+    /* All CSS embedded here */
+    :root { --primary: #0a0a0a; }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;!-- Semantic HTML structure --&gt;
+    &lt;main&gt;
+        &lt;h1&gt;Document Title&lt;/h1&gt;
+        &lt;div data-bind="items"&gt;&lt;/div&gt;
+    &lt;/main&gt;
+    
+    &lt;script&gt;
+    // All JavaScript embedded here
+    document.addEventListener('DOMContentLoaded', function() {
+        // Parse YAML metadata
+        const yamlScript = document.querySelector('script[type="application/yaml"]');
+        // ... data binding logic
+    });
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+            </div>
+            
+            <div class="card-grid">
+                <div class="card fade-in">
+                    <h3 class="card-title">Single File Containment</h3>
+                    <p>Content, design, functionality, and data all live in one portable HTML file. No broken links, no missing assets.</p>
+                </div>
+                <div class="card fade-in delay-1">
+                    <h3 class="card-title">Semantic Foundation</h3>
+                    <p>Built on standard HTML that works everywhere. Accessible, future-proof, and machine-readable.</p>
+                </div>
+                <div class="card fade-in delay-2">
+                    <h3 class="card-title">Structured Metadata</h3>
+                    <p>Embedded YAML provides machine-readable context while remaining human-editable.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="methodology">
+        <div class="container">
+            <h2 class="fade-in">Our Methodology</h2>
+            <p class="fade-in delay-1">We approach each project through a lens of digital sovereignty and practical utility.</p>
+            
+            <div class="card-grid">
+                <div class="card fade-in">
+                    <div class="card-icon">1</div>
+                    <h3 class="card-title">Discovery</h3>
+                    <p>We analyze your document ecosystem, identifying pain points and opportunities for intelligent document architecture.</p>
+                </div>
+                <div class="card fade-in delay-1">
+                    <div class="card-icon">2</div>
+                    <h3 class="card-title">Architecture</h3>
+                    <p>We design a document structure that balances human usability with machine-readability and future adaptability.</p>
+                </div>
+                <div class="card fade-in delay-2">
+                    <div class="card-icon">3</div>
+                    <h3 class="card-title">Implementation</h3>
+                    <p>We build using Untitled Format protocols, creating living documents that solve your specific problems.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="container">
+            <div class="cta fade-in">
+                <h2>Build With Us</h2>
+                <p>Brother's Studio offers consultancy services for custom implementations of Untitled Format architecture.</p>
+                <p>We help organizations build intelligent, sovereign document systems tailored to their specific needs.</p>
+                
+                <div class="cta-buttons">
+                    <a href="mailto:contact@brothers.studio" class="btn btn-primary">Contact Us</a>
+                    <a href="#" class="btn btn-secondary" id="view-source">View Page Source</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="https://alx0r.github.io/Aartless/brotherlyWP.html">Technical White Paper</a>
+                <a href="https://github.com/alx0r">GitHub</a>
+                <a href="mailto:contact@brothers.studio">Contact</a>
+            </div>
+            <p>Built with Untitled Format v0.9.1 • Brother's Studio © 2023</p>
+            <p>This entire page is a single HTML file with no external dependencies.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Simple animations and interactions
+        document.addEventListener('DOMContentLoaded', function() {
+            // Calculate actual file size
+            const htmlContent = document.documentElement.outerHTML;
+            const sizeInBytes = new Blob([htmlContent]).size;
+            const sizeInKB = (sizeInBytes / 1024).toFixed(1);
+            document.getElementById('file-size').textContent = `~${sizeInKB}KB`;
+            
+            // View source button
+            document.getElementById('view-source').addEventListener('click', function(e) {
+                e.preventDefault();
+                const source = document.documentElement.outerHTML;
+                const blob = new Blob([source], {type: 'text/html'});
+                const url = URL.createObjectURL(blob);
+                window.open(url, '_blank');
+            });
+            
+            // Simple scroll animations
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('fade-in');
+                    }
+                });
+            }, observerOptions);
+            
+            document.querySelectorAll('section h2, section p, .card, .example').forEach(el => {
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>

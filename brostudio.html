@@ -21,16 +21,18 @@
     
     <style>
         :root {
-            --deep-navy: #0d1b2a;
-            --rich-blue: #1b263b;
-            --ocean: #415a77;
-            --steel: #778da9;
-            --ice: #e0e1dd;
-            --accent-cyan: #00d4ff;
-            --accent-mint: #7fffd4;
+            --deep-navy: #0a1628;
+            --rich-blue: #162447;
+            --ocean: #1f4068;
+            --steel: #1b1b2f;
+            --accent-cyan: #00fff5;
+            --accent-purple: #b47aea;
             --accent-coral: #ff6b9d;
-            --text-bright: #ffffff;
-            --text-muted: #b0bec5;
+            --accent-gold: #ffd93d;
+            --text-bright: #f8f9fa;
+            --text-muted: #a8b2d1;
+            --gradient-primary: linear-gradient(135deg, #00fff5 0%, #b47aea 100%);
+            --gradient-secondary: linear-gradient(135deg, #1f4068 0%, #162447 100%);
         }
         
         * {
@@ -41,7 +43,11 @@
         
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-            background: linear-gradient(135deg, var(--deep-navy) 0%, var(--rich-blue) 100%);
+            background: var(--steel);
+            background-image: 
+                radial-gradient(at 20% 30%, rgba(0, 255, 245, 0.05) 0px, transparent 50%),
+                radial-gradient(at 80% 70%, rgba(180, 122, 234, 0.05) 0px, transparent 50%),
+                radial-gradient(at 50% 50%, rgba(31, 64, 104, 0.1) 0px, transparent 50%);
             color: var(--text-bright);
             line-height: 1.7;
             min-height: 100vh;
@@ -116,7 +122,10 @@
             font-size: 3.5rem;
             font-weight: 800;
             margin-bottom: 1.5rem;
-            color: var(--accent-cyan);
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             line-height: 1.2;
         }
         
@@ -129,7 +138,10 @@
         
         .hero .tagline {
             font-size: 1.1rem;
-            color: var(--accent-mint);
+            background: linear-gradient(135deg, var(--accent-purple) 0%, var(--accent-gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             margin-bottom: 2rem;
             font-weight: 500;
         }
@@ -178,13 +190,28 @@
             background: rgba(255, 255, 255, 0.03);
             padding: 2rem;
             border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(0, 255, 245, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .value-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--gradient-primary);
         }
         
         .value-card h3 {
             font-size: 1.3rem;
             margin-bottom: 1rem;
-            color: var(--accent-mint);
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         
         .value-card p {
@@ -516,49 +543,95 @@
             </div>
             
             <div class="workflow">
-                <h3>From Your Data to Your System in 4 Steps</h3>
+                <h3>How People Actually Use This (Zero Technical Knowledge Required)</h3>
                 <div class="workflow-steps">
                     <div class="workflow-step">
-                        <div class="icon">📸</div>
-                        <h4>1. Send Anything</h4>
-                        <p>WhatsApp messages, photos of whiteboards, spreadsheets, voice notes, PDFs, email threads—we work with what you have.</p>
+                        <div class="icon">💬</div>
+                        <h4>1. Collect Information Naturally</h4>
+                        <p>Your team already communicates via WhatsApp, email, photos, voice notes, spreadsheets, handwritten notes. Keep doing exactly that. No change to your workflow.</p>
                     </div>
                     
                     <div class="workflow-step">
-                        <div class="icon">🏗️</div>
-                        <h4>2. We Structure It</h4>
-                        <p>Our team transforms your raw data into an intelligent document system with semantic structure and smart metadata.</p>
+                        <div class="icon">🧠</div>
+                        <h4>2. We Build The Intelligence</h4>
+                        <p>Send us your data in whatever format it exists. We structure it into a living document system optimized for your specific purpose. One-time setup.</p>
                     </div>
                     
                     <div class="workflow-step">
-                        <div class="icon">📄</div>
-                        <h4>3. You Get One File</h4>
-                        <p>A single HTML file (20-100KB) that contains everything. Works offline. No dependencies. Open it anywhere, forever.</p>
+                        <div class="icon">📱</div>
+                        <h4>3. You Get A Living Document</h4>
+                        <p>One simple file (20-100KB) that works on any device, offline, forever. Your entire team can access it. No apps to install. No technical knowledge needed.</p>
                     </div>
                     
                     <div class="workflow-step">
-                        <div class="icon">🔄</div>
-                        <h4>4. Update Anytime</h4>
-                        <p>Send updates via WhatsApp or email. We process them. You get the updated file. Simple. Private. Fast.</p>
+                        <div class="icon">✨</div>
+                        <h4>4. Update It Yourself, Anytime</h4>
+                        <p>The document evolves with you. Send updates via WhatsApp, email, or photo—we process it quickly (usually same day). Or you can update it yourself if you choose. Minimal time investment.</p>
                     </div>
                 </div>
             </div>
             
             <div class="philosophy">
-                <h3>Our Consultancy Model</h3>
+                <h3>🎯 Built For Non-Technical Teams</h3>
                 <p>
-                    We build <strong>bespoke implementations</strong>, not products. Each project is a custom engagement where we 
-                    deeply understand your information challenges and build a permanent solution tailored to your exact needs.
+                    <strong>Most people don't code. Most teams don't have IT departments. That's exactly who this is for.</strong>
                 </p>
                 <p>
-                    <strong>You're not buying software.</strong> You're not renting a service. You're commissioning an architectural 
-                    system that becomes yours to own, modify, and control forever.
+                    You're running a busy operation—a stable, a cafe, a retreat center, an art studio. Information comes at you from everywhere: 
+                    WhatsApp groups, email threads, photos of whiteboards, scribbled notes, verbal updates, last-minute changes.
                 </p>
                 <p>
-                    <strong>The architecture belongs to you.</strong> Built on Brotherly Protocol™ (our adaptation of the open-source 
-                    Untitled Format we founded), your system can accept any data input—chat groups, whiteboard photos, notes, 
-                    official documents—and structure it efficiently with minimal oversight and maximum ethics.
+                    <strong>We take all of that chaos and turn it into one intelligent, always-current document.</strong> Your team opens a simple 
+                    web page. Everything they need is there. Updated automatically. Works offline. No training required. No subscriptions. 
+                    No "contact IT support."
                 </p>
+                <p>
+                    <strong>You don't keep sending us things forever.</strong> After we build your system, it's yours. You can update it yourself 
+                    by editing the file (it's just HTML), or send us updates when convenient. Most clients send us batch updates weekly or monthly—
+                    takes 5 minutes. We process it same day. Done.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use Cases Section -->
+    <section style="background: rgba(0, 0, 0, 0.2); padding: 5rem 0;">
+        <div class="container">
+            <div class="section-header">
+                <h2>Perfect For Any Complex Operation</h2>
+                <p>If information comes at you from multiple sources and changes constantly, this system is for you.</p>
+            </div>
+            
+            <div class="value-grid">
+                <div class="value-card">
+                    <h3>🎨 Artists & Creatives</h3>
+                    <p>Portfolio websites that showcase your work, exhibition history, and contact info. Update with new pieces anytime. No Squarespace fees. You own it forever.</p>
+                </div>
+                
+                <div class="value-card">
+                    <h3>☕ Cafes & Small Venues</h3>
+                    <p>Event calendars, menu updates, special announcements. Staff updates via WhatsApp. Customers see current info instantly. Works offline when wifi is spotty.</p>
+                </div>
+                
+                <div class="value-card">
+                    <h3>🏢 Small Businesses</h3>
+                    <p>Operations manuals, client lists, process documentation. Information scattered across emails and chats becomes one organized system everyone can access.</p>
+                </div>
+                
+                <div class="value-card">
+                    <h3>🧘 Retreat Centers</h3>
+                    <p>Pre-arrival info, live schedules, course materials, last-minute changes. Attendees bookmark one page. Everything they need, updated in real-time.</p>
+                </div>
+                
+                <div class="value-card">
+                    <h3>🏇 Operational Facilities</h3>
+                    <p>Stables, farms, workshops. Daily operations, schedules, health tracking. Team sends WhatsApp updates. System structures it automatically.</p>
+                </div>
+                
+                <div class="value-card">
+                    <h3>💼 Professional Services</h3>
+                    <p>Consultants, freelancers, agencies. Client proposals, invoices, project documentation. Professional presentation without expensive tools.</p>
+                </div>
             </div>
         </div>
     </section>
@@ -572,6 +645,21 @@
             </div>
             
             <div class="portfolio-grid">
+                <!-- Valley Retreat -->
+                <div class="portfolio-item">
+                    <div class="portfolio-header">
+                        <span class="category">Event Intelligence</span>
+                        <h3>Living Retreat System</h3>
+                        <p class="tagline">Smart Retreat & Course Management</p>
+                    </div>
+                    <div class="portfolio-body">
+                        <p>Complete retreat intelligence system with pre-arrival information, live schedules, course materials, last-minute changes, and post-retreat resources. Updates in real-time. Works offline at remote locations.</p>
+                    </div>
+                    <div class="portfolio-links">
+                        <a href="https://alx0r.github.io/Aartless/valley.html" target="_blank" class="portfolio-link">View System</a>
+                    </div>
+                </div>
+                
                 <!-- ShiBaby -->
                 <div class="portfolio-item">
                     <div class="portfolio-header">

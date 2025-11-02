@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Le Pepé™ - Royal Feline Care Coordination</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400&display=swap');
+        
+        :root {
+            --noir: #1a1a1a;
+            --blanc: #f8f8f8;
+            --or: #d4af37;
+            --rouge: #e30613;
+            --gris: #666;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Lato', sans-serif;
+            background: var(--blanc);
+            color: var(--noir);
+            line-height: 1.6;
+        }
+        
+        .french-stripe {
+            height: 8px;
+            background: linear-gradient(to right, #002395 33%, white 33%, white 66%, #ED2939 66%);
+        }
+        
+        header {
+            background: var(--noir);
+            color: var(--blanc);
+            padding: 2rem;
+            text-align: center;
+            border-bottom: 4px solid var(--or);
+        }
+        
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            letter-spacing: 2px;
+        }
+        
+        .subtitle {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--or);
+            font-weight: 300;
+        }
+        
+        .tagline {
+            font-style: italic;
+            margin-top: 1rem;
+            color: #ccc;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, var(--noir) 0%, #333 100%);
+            color: var(--blanc);
+            padding: 3rem 2rem;
+            text-align: center;
+            margin: 2rem 0;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+        
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .stat-box {
+            background: rgba(255,255,255,0.1);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--or);
+        }
+        
+        .stat-box h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--or);
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-box p {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .section {
+            margin: 3rem 0;
+            padding: 2rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--or);
+            color: var(--noir);
+        }
+        
+        .activity-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .activity-card {
+            background: var(--blanc);
+            border: 2px solid var(--noir);
+            padding: 1.5rem;
+            border-radius: 4px;
+            transition: transform 0.2s;
+        }
+        
+        .activity-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .activity-card h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--rouge);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+        
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+            margin-top: 1.5rem;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--or);
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 1.5rem;
+            padding-left: 1.5rem;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2.5rem;
+            top: 0.3rem;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--or);
+            border: 2px solid var(--noir);
+        }
+        
+        .timeline-time {
+            font-weight: bold;
+            color: var(--rouge);
+        }
+        
+        .warning-box {
+            background: #fff3cd;
+            border: 2px solid var(--or);
+            padding: 1.5rem;
+            border-radius: 4px;
+            margin: 1.5rem 0;
+        }
+        
+        .warning-box h3 {
+            color: var(--rouge);
+            margin-bottom: 0.5rem;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .care-team {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .team-member {
+            text-align: center;
+            padding: 1.5rem;
+            background: var(--noir);
+            color: var(--blanc);
+            border-radius: 8px;
+        }
+        
+        .team-member h3 {
+            color: var(--or);
+            margin-bottom: 0.5rem;
+        }
+        
+        .man-u-badge {
+            display: inline-block;
+            background: var(--rouge);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin: 0.5rem 0;
+        }
+        
+        footer {
+            background: var(--noir);
+            color: var(--blanc);
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            font-size: 0.9rem;
+        }
+        
+        .fancy-quote {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.2rem;
+            color: var(--gris);
+            padding: 1.5rem;
+            border-left: 4px solid var(--or);
+            margin: 1.5rem 0;
+            background: rgba(212, 175, 55, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="french-stripe"></div>
+    
+    <header>
+        <h1>Le Pepé™</h1>
+        <div class="subtitle">Royal Feline Care Coordination System</div>
+        <p class="tagline">"Because Some Farm Cats Live Better Than Most Humans"</p>
+    </header>
+
+    <div class="container">
+        <div class="hero-section">
+            <h2 style="color: var(--or); border: none; text-align: center;">Today's Royal Status</h2>
+            <div class="hero-stats">
+                <div class="stat-box">
+                    <h3>😺</h3>
+                    <p>Current Mood</p>
+                    <p style="color: var(--or); font-size: 1rem; margin-top: 0.5rem;">Majestically Aloof</p>
+                </div>
+                <div class="stat-box">
+                    <h3>4.5h</h3>
+                    <p>Today's Nap Time</p>
+                    <p style="font-size: 0.8rem; margin-top: 0.5rem;">Sunbeam rotation complete</p>
+                </div>
+                <div class="stat-box">
+                    <h3>3</h3>
+                    <p>Countries Lived In</p>
+                    <p style="font-size: 0.8rem; margin-top: 0.5rem;">SA → France → SA</p>
+                </div>
+                <div class="stat-box">
+                    <h3>∞</h3>
+                    <p>Levels of Spoiled</p>
+                    <p style="font-size: 0.8rem; margin-top: 0.5rem;">Immeasurable</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="warning-box">
+            <h3>⚠️ Urgent Parental Advisory</h3>
+            <p><strong>Remember:</strong> Le Pepé is NOT just a farm cat. He is a distinguished international traveler who has graced the streets of Paris, survived the trauma of air travel, and now rules Golden's Bay with an iron paw. Treat accordingly.</p>
+        </div>
+
+        <div class="section">
+            <h2>📋 Le Routine Quotidienne</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <span class="timeline-time">06:00</span> - Wake parents for breakfast service (mandatory)
+                </div>
+                <div class="timeline-item">
+                    <span class="timeline-time">07:30</span> - Morning patrol of kingdom (Golden's Bay territory)
+                </div>
+                <div class="timeline-item">
+                    <span class="timeline-time">09:00</span> - First nap (preferred location: Johnny's pillow)
+                </div>
+                <div class="timeline-item">
+                    <span class="timeline-time">12:00</span> - Lunch demands (must include premium treats)
+                </div>
+                <div class="timeline-item">
+                    <span class="timeline-time">14:00</span> - Second nap (sunbeam location optimal)
+                </div>
+                <div class="timeline-item">
+                    <span class="timeline-time">17:00</span> - Watch Man United with Johnny (critical bonding time)
+                </div>
+                <div class="timeline-item">
+                    <span class="timeline-time">19:00</span> - Dinner service (served by Fiona preferably)
+                </div>
+                <div class="timeline-item">
+                    <span class="timeline-time">22:00</span> - Late night zoomies (farm cat instincts)
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🎯 Royal Activities & Preferences</h2>
+            <div class="activity-grid">
+                <div class="activity-card">
+                    <h3>⚽ Sports Allegiance</h3>
+                    <p>Devout Manchester United supporter</p>
+                    <div class="man-u-badge">GGMU</div>
+                    <p style="margin-top: 1rem; font-size: 0.9rem;">Watches matches with Johnny, meows at opposition goals</p>
+                </div>
+                <div class="activity-card">
+                    <h3>🗼 Cultural Heritage</h3>
+                    <p>Formerly of Nice, Paris & environs</p>
+                    <p style="margin-top: 1rem; font-size: 0.9rem;">Prefers French conversation, tolerates English</p>
+                </div>
+                <div class="activity-card">
+                    <h3>🏞️ Outdoor Pursuits</h3>
+                    <p>Golden's Bay exploration</p>
+                    <p style="margin-top: 1rem; font-size: 0.9rem;">Despite farm cat origins, now requires supervised outdoor time</p>
+                </div>
+                <div class="activity-card">
+                    <h3>😴 Napping Excellence</h3>
+                    <p>Professional level sleeper</p>
+                    <p style="margin-top: 1rem; font-size: 0.9rem;">16-20 hours daily, rotating premium locations</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>👥 The Royal Care Team</h2>
+            <div class="care-team">
+                <div class="team-member">
+                    <h3>Johnny</h3>
+                    <p>Papa Extraordinaire</p>
+                    <p style="font-size: 0.8rem; margin-top: 0.5rem;">French-speaking football coach, primary defender of Le Pepé's honor</p>
+                </div>
+                <div class="team-member">
+                    <h3>Fiona</h3>
+                    <p>Maman Dévouée</p>
+                    <p style="font-size: 0.8rem; margin-top: 0.5rem;">Chief meal coordinator, cuddle specialist, medical administrator</p>
+                </div>
+                <div class="team-member">
+                    <h3>You</h3>
+                    <p>The Skeptic</p>
+                    <p style="font-size: 0.8rem; margin-top: 0.5rem;">"It's just a farm cat" - clearly doesn't understand royalty</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🛂 Immigration & Travel History</h2>
+            <div class="fancy-quote">
+                "Le Pepé's journey from South African farm cat to French sophisticate and back again is a tale of resilience, bureaucratic nightmares, and inexplicable devotion."
+            </div>
+            <ul style="margin-top: 1rem; line-height: 2;">
+                <li><strong>Origin:</strong> Cape Town farm (humble beginnings)</li>
+                <li><strong>Chapter Two:</strong> Relocation to France (life-changing upgrade)</li>
+                <li><strong>Paris Interlude:</strong> Brief sojourn in the City of Light (formative)</li>
+                <li><strong>The Great Return:</strong> Epic air travel back to South Africa (traumatic for all involved)</li>
+                <li><strong>Current Residence:</strong> Golden's Bay (ruling with velvet paw)</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>📊 Wellness Metrics</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem;">
+                <div style="padding: 1rem; background: var(--blanc); border: 1px solid var(--gris);">
+                    <strong>Spoiled Level:</strong><br>
+                    <div style="background: var(--or); height: 20px; width: 100%; margin-top: 0.5rem; border-radius: 10px;"></div>
+                    <small>100% - Maximum capacity reached</small>
+                </div>
+                <div style="padding: 1rem; background: var(--blanc); border: 1px solid var(--gris);">
+                    <strong>Parental Obsession:</strong><br>
+                    <div style="background: var(--rouge); height: 20px; width: 100%; margin-top: 0.5rem; border-radius: 10px;"></div>
+                    <small>110% - Off the charts</small>
+                </div>
+                <div style="padding: 1rem; background: var(--blanc); border: 1px solid var(--gris);">
+                    <strong>Farm Cat Authenticity:</strong><br>
+                    <div style="background: #ccc; height: 20px; width: 15%; margin-top: 0.5rem; border-radius: 10px;"></div>
+                    <small>15% - Barely recognizable</small>
+                </div>
+                <div style="padding: 1rem; background: var(--blanc); border: 1px solid var(--gris);">
+                    <strong>International Prestige:</strong><br>
+                    <div style="background: var(--or); height: 20px; width: 95%; margin-top: 0.5rem; border-radius: 10px;"></div>
+                    <small>95% - Basically royalty</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="warning-box">
+            <h3>🚨 Emergency Contact Protocol</h3>
+            <p><strong>In case of Le Pepé emergency:</strong></p>
+            <ul style="margin-top: 0.5rem; margin-left: 1.5rem;">
+                <li>Johnny (Primary) - Will drop everything, including coaching duties</li>
+                <li>Fiona (Secondary) - Probably already knows before you tell her</li>
+                <li>Veterinarian - On speed dial, naturally</li>
+                <li>You (Last Resort) - "Just don't call him a farm cat to his face"</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>📝 Recent Activity Log</h2>
+            <div style="font-family: monospace; background: var(--noir); color: #0f0; padding: 1.5rem; border-radius: 4px; font-size: 0.9rem;">
+                <div>[2025-11-02 14:30] Le Pepé observed judging Man United's performance</div>
+                <div>[2025-11-02 12:15] Meal consumption: 100% (as expected)</div>
+                <div>[2025-11-02 09:45] Demanded outdoor patrol, granted immediately</div>
+                <div>[2025-11-02 07:00] Successful parent wake-up operation</div>
+                <div>[2025-11-01 22:30] Midnight zoomies - farm cat instincts activated</div>
+                <div>[2025-11-01 18:00] Johnny defended Le Pepé's honor in group chat (again)</div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <div class="french-stripe" style="margin-bottom: 1rem;"></div>
+        <p><strong>Le Pepé™ Royal Care Coordination System</strong></p>
+        <p style="margin-top: 0.5rem; font-size: 0.8rem;">Powered by Untitled Format™ Technology</p>
+        <p style="margin-top: 0.5rem; font-style: italic;">"Because treating a farm cat like royalty requires systematic documentation"</p>
+        <p style="margin-top: 1rem; font-size: 0.7rem;">🇫🇷 Made with inexplicable devotion in Golden's Bay, Cape Town 🇿🇦</p>
+        <div class="man-u-badge" style="margin-top: 1rem;">Glory Glory Le Pepé</div>
+    </footer>
+
+    <div class="french-stripe"></div>
+</body>
+</html>

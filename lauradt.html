@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meta-Bombardment Interface</title>
+    <title>Suspicion Paradox Interface</title>
     <style>
         * {
             margin: 0;
@@ -20,168 +20,211 @@
             cursor: default;
         }
         
-        .bombardment-layers {
+        .paradox-layers {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -3;
+            z-index: -4;
         }
         
-        .bombardment-particle {
+        .domestic-reality {
             position: absolute;
-            width: 2px;
-            height: 2px;
-            background: #ff00ff;
-            border-radius: 50%;
-            opacity: 0;
-            animation: particleFloat 8s infinite linear;
-        }
-        
-        @keyframes particleFloat {
-            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-            10% { opacity: 0.7; }
-            90% { opacity: 0.3; }
-            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
-        }
-        
-        .meta-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
             width: 100%;
             height: 100%;
             background: 
-                repeating-linear-gradient(90deg, 
-                    transparent, 
-                    transparent 50px, 
-                    rgba(255,0,255,0.03) 50px, 
-                    rgba(255,0,255,0.03) 100px
-                );
-            z-index: -2;
-            opacity: 0.5;
-            pointer-events: none;
+                radial-gradient(circle at 20% 80%, rgba(100, 150, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 100, 150, 0.1) 0%, transparent 50%);
+            opacity: 0.3;
+            animation: domesticPulse 15s infinite alternate;
         }
         
-        .husband-filter {
-            position: fixed;
-            top: 0;
-            left: 0;
+        @keyframes domesticPulse {
+            0% { opacity: 0.1; }
+            100% { opacity: 0.3; }
+        }
+        
+        .suspicion-grid {
+            position: absolute;
             width: 100%;
             height: 100%;
-            background: rgba(0, 100, 200, 0.02);
-            z-index: -1;
-            pointer-events: none;
-            animation: husbandPulse 15s infinite;
+            background-image: 
+                linear-gradient(rgba(255,0,0,0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,0,0,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            opacity: 0;
+            animation: suspicionGrid 8s infinite linear;
         }
         
-        @keyframes husbandPulse {
-            0%, 100% { opacity: 0.02; }
-            50% { opacity: 0.05; }
+        @keyframes suspicionGrid {
+            0% { transform: translateX(0) translateY(0); opacity: 0; }
+            50% { opacity: 0.3; }
+            100% { transform: translateX(-50px) translateY(-50px); opacity: 0; }
+        }
+        
+        .arousal-waves {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 50% 50%, rgba(255,105,180,0.2) 0%, transparent 50%);
+            opacity: 0;
+            animation: arousalWaves 12s infinite;
+        }
+        
+        @keyframes arousalWaves {
+            0%, 100% { opacity: 0; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(1.2); }
         }
         
         .container {
-            max-width: 950px;
+            max-width: 1000px;
             margin: 0 auto;
             padding: 20px;
             position: relative;
             z-index: 1;
         }
         
-        .bombardment-controls {
+        .suspicion-panel {
             position: fixed;
-            top: 10px;
-            left: 10px;
+            top: 20px;
+            right: 20px;
             background: rgba(0,0,0,0.95);
-            padding: 15px;
-            border-radius: 10px;
-            border: 2px solid #ff00ff;
+            padding: 20px;
+            border-radius: 12px;
+            border: 2px solid #ff4444;
             z-index: 1000;
-            box-shadow: 0 0 30px rgba(255,0,255,0.4);
+            box-shadow: 0 0 30px rgba(255,0,0,0.5);
+            min-width: 280px;
+        }
+        
+        .panel-title {
+            color: #ff4444;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            text-align: center;
+            text-shadow: 0 0 10px #ff0000;
+        }
+        
+        .meter {
+            margin: 12px 0;
+        }
+        
+        .meter-label {
+            display: flex;
+            justify-content: between;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+        }
+        
+        .meter-value {
+            color: #ff69b4;
+            font-weight: bold;
+        }
+        
+        .meter-bar {
+            height: 8px;
+            background: #333;
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .meter-fill {
+            height: 100%;
+            transition: width 0.5s;
+        }
+        
+        .suspicion-fill {
+            background: linear-gradient(90deg, #ff4444, #ff0000);
+            box-shadow: 0 0 10px #ff0000;
+        }
+        
+        .arousal-fill {
+            background: linear-gradient(90deg, #ff69b4, #ff1493);
+            box-shadow: 0 0 10px #ff69b4;
+        }
+        
+        .reality-stability-fill {
+            background: linear-gradient(90deg, #00ffff, #0088ff);
+            box-shadow: 0 0 10px #00ffff;
+        }
+        
+        .paradox-controls {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(0,0,0,0.95);
+            padding: 20px;
+            border-radius: 12px;
+            border: 2px solid #00ffff;
+            z-index: 1000;
+            box-shadow: 0 0 30px rgba(0,255,255,0.4);
             min-width: 300px;
         }
         
         .control-title {
-            color: #ff00ff;
-            font-size: 1rem;
-            margin-bottom: 10px;
+            color: #00ffff;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
             text-align: center;
-            text-shadow: 0 0 10px #ff00ff;
+            text-shadow: 0 0 10px #00ffff;
         }
         
-        .bombardment-btn {
-            background: linear-gradient(45deg, #ff00ff, #00ffff);
-            color: black;
-            border: none;
-            padding: 12px 20px;
+        .paradox-btn {
+            background: rgba(0,255,255,0.2);
+            color: #00ffff;
+            border: 1px solid #00ffff;
+            padding: 10px 15px;
             margin: 5px;
             border-radius: 6px;
             cursor: pointer;
-            font-weight: bold;
             font-family: 'Courier New', monospace;
             font-size: 0.9rem;
             transition: all 0.3s;
             width: 100%;
-            text-shadow: 0 0 5px rgba(255,255,255,0.5);
+            text-shadow: 0 0 5px #00ffff;
         }
         
-        .bombardment-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 20px rgba(255,0,255,0.7);
+        .paradox-btn:hover {
+            background: rgba(0,255,255,0.4);
+            box-shadow: 0 0 15px #00ffff;
         }
         
-        .intensity-slider {
-            width: 100%;
-            margin: 10px 0;
-            background: #333;
-            border-radius: 3px;
-            height: 6px;
-            outline: none;
+        .danger-btn {
+            background: rgba(255,0,0,0.2);
+            color: #ff4444;
+            border: 1px solid #ff4444;
         }
         
-        .bombardment-stats {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 8px;
-            margin-top: 10px;
-            font-size: 0.8rem;
-        }
-        
-        .stat {
-            background: rgba(50,50,50,0.8);
-            padding: 5px;
-            border-radius: 3px;
-            text-align: center;
-        }
-        
-        .stat-value {
-            color: #00ffff;
-            font-weight: bold;
+        .danger-btn:hover {
+            background: rgba(255,0,0,0.4);
+            box-shadow: 0 0 15px #ff0000;
         }
         
         .header {
             text-align: center;
             margin-bottom: 30px;
-            padding: 25px;
+            padding: 30px;
             border: 2px solid #333;
             background: rgba(10, 10, 10, 0.95);
             border-radius: 15px;
             box-shadow: 0 0 40px rgba(255,0,255,0.2);
-            margin-top: 80px;
+            margin-top: 180px;
         }
         
         .header h1 {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             margin-bottom: 15px;
             color: #ff69b4;
             text-shadow: 0 0 20px #ff69b4;
             letter-spacing: 2px;
         }
         
-        .meta-status {
+        .paradox-status {
             color: #00ffff;
-            font-size: 0.9rem;
+            font-size: 1rem;
             margin-top: 15px;
             animation: statusPulse 3s infinite;
             font-weight: bold;
@@ -196,7 +239,7 @@
         .chat-container {
             background: rgba(5, 5, 5, 0.98);
             border-radius: 15px;
-            padding: 20px;
+            padding: 25px;
             border: 2px solid #333;
             margin-bottom: 30px;
             max-height: 60vh;
@@ -210,7 +253,7 @@
             position: relative;
             opacity: 0;
             animation: messageAppear 0.8s forwards;
-            padding: 8px;
+            padding: 10px;
             border-radius: 10px;
             transition: all 0.3s;
             border-left: 3px solid transparent;
@@ -218,7 +261,16 @@
         
         .message:hover {
             background: rgba(255,255,255,0.03);
-            border-left: 3px solid #ff00ff;
+        }
+        
+        .suspicion-message {
+            border-left: 3px solid #ff4444;
+            background: rgba(255,0,0,0.05);
+        }
+        
+        .arousal-message {
+            border-left: 3px solid #ff69b4;
+            background: rgba(255,105,180,0.05);
         }
         
         @keyframes messageAppear {
@@ -228,21 +280,21 @@
         .message-header {
             display: flex;
             align-items: center;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
         }
         
         .avatar {
-            width: 32px;
-            height: 32px;
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
-            margin-right: 12px;
+            margin-right: 15px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             border: 2px solid;
-            box-shadow: 0 0 12px currentColor;
+            box-shadow: 0 0 15px currentColor;
         }
         
         .laura-avatar {
@@ -257,9 +309,15 @@
             border-color: #0000ff;
         }
         
+        .husband-avatar {
+            background: #ff4444;
+            color: white;
+            border-color: #ff0000;
+        }
+        
         .sender-name {
             font-weight: bold;
-            font-size: 0.95rem;
+            font-size: 1rem;
             text-shadow: 0 0 8px currentColor;
         }
         
@@ -271,21 +329,25 @@
             color: #4169e1;
         }
         
+        .husband-name {
+            color: #ff4444;
+        }
+        
         .timestamp {
             color: #666;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             margin-left: auto;
             font-family: monospace;
         }
         
         .message-content {
-            padding: 12px 16px;
+            padding: 15px 20px;
             border-radius: 18px;
             max-width: 85%;
             position: relative;
             word-wrap: break-word;
-            font-size: 0.95rem;
-            margin-left: 44px;
+            font-size: 1rem;
+            margin-left: 51px;
             border: 1px solid transparent;
             transition: all 0.3s;
             line-height: 1.5;
@@ -307,15 +369,21 @@
             box-shadow: 0 0 15px rgba(65,105,225,0.15);
         }
         
-        .bombardment-message .message-content {
-            background: rgba(255, 0, 255, 0.2);
-            border: 2px dashed #ff00ff;
-            animation: bombardmentGlow 2s infinite;
+        .husband-message .message-content {
+            background: rgba(255, 0, 0, 0.15);
+            border: 1px solid rgba(255, 0, 0, 0.4);
+            box-shadow: 0 0 15px rgba(255,0,0,0.15);
         }
         
-        @keyframes bombardmentGlow {
+        .paradox-message {
+            background: rgba(255, 0, 255, 0.2);
+            border: 2px dashed #ff00ff;
+            animation: paradoxGlow 3s infinite;
+        }
+        
+        @keyframes paradoxGlow {
             0%, 100% { box-shadow: 0 0 10px rgba(255,0,255,0.5); }
-            50% { box-shadow: 0 0 25px rgba(255,0,255,0.8); }
+            50% { box-shadow: 0 0 25px rgba(255,0,255,0.8), 0 0 40px rgba(255,0,255,0.4); }
         }
         
         .system-message {
@@ -326,19 +394,19 @@
             padding: 15px;
             border-top: 2px solid #333;
             border-bottom: 2px solid #333;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             text-shadow: 0 0 12px #00ffff;
             background: rgba(0,255,255,0.08);
             border-radius: 8px;
         }
         
-        .meta-commentary {
+        .reality-fragment {
             background: rgba(255, 0, 255, 0.1);
             border: 1px solid #ff00ff;
-            padding: 12px;
-            margin: 10px 0;
+            padding: 15px;
+            margin: 12px 0;
             border-radius: 8px;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             color: #ff88ff;
             text-shadow: 0 0 8px #ff00ff;
             box-shadow: 0 0 15px rgba(255,0,255,0.2);
@@ -346,37 +414,14 @@
             overflow: hidden;
         }
         
-        .meta-commentary::before {
-            content: 'META-COMMENTARY';
+        .reality-fragment::before {
+            content: 'REALITY FRAGMENT';
             position: absolute;
             top: 5px;
             right: 10px;
             font-size: 0.7rem;
             color: #ff00ff;
             opacity: 0.7;
-        }
-        
-        .recursive-indicator {
-            position: fixed;
-            bottom: 15px;
-            right: 15px;
-            background: rgba(0,0,0,0.9);
-            padding: 12px;
-            border-radius: 8px;
-            border: 2px solid #00ffff;
-            font-size: 0.8rem;
-            color: #00ffff;
-            z-index: 1000;
-            box-shadow: 0 0 20px rgba(0,255,255,0.4);
-            max-width: 250px;
-        }
-        
-        .recursive-value {
-            font-size: 1.2rem;
-            font-weight: bold;
-            text-align: center;
-            margin: 5px 0;
-            text-shadow: 0 0 10px #00ffff;
         }
         
         .ambiguous-text {
@@ -393,7 +438,7 @@
             100% { background-position: 300% 50%; }
         }
         
-        .bombardment-notice {
+        .suspicion-event {
             position: fixed;
             top: 50%;
             left: 50%;
@@ -401,79 +446,149 @@
             background: rgba(0,0,0,0.95);
             padding: 30px;
             border-radius: 15px;
-            border: 3px solid #ff00ff;
+            border: 3px solid #ff4444;
             text-align: center;
             z-index: 2000;
-            box-shadow: 0 0 50px rgba(255,0,255,0.7);
+            box-shadow: 0 0 50px rgba(255,0,0,0.7);
             display: none;
             max-width: 500px;
+            animation: suspicionEventPulse 2s infinite;
         }
         
-        .bombardment-notice h2 {
-            color: #ff00ff;
+        @keyframes suspicionEventPulse {
+            0%, 100% { box-shadow: 0 0 50px rgba(255,0,0,0.7); }
+            50% { box-shadow: 0 0 80px rgba(255,0,0,1); }
+        }
+        
+        .suspicion-event h2 {
+            color: #ff4444;
             margin-bottom: 15px;
-            text-shadow: 0 0 15px #ff00ff;
+            text-shadow: 0 0 15px #ff0000;
         }
         
-        .bombardment-countdown {
-            font-size: 2rem;
-            color: #00ffff;
-            margin: 15px 0;
-            text-shadow: 0 0 15px #00ffff;
+        .arousal-event {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.9);
+            padding: 15px 25px;
+            border-radius: 10px;
+            border: 2px solid #ff69b4;
+            text-align: center;
+            z-index: 2000;
+            box-shadow: 0 0 30px rgba(255,105,180,0.7);
+            display: none;
+            max-width: 400px;
+            animation: arousalEventPulse 3s infinite;
         }
         
-        .husband-context {
+        @keyframes arousalEventPulse {
+            0%, 100% { box-shadow: 0 0 30px rgba(255,105,180,0.7); }
+            50% { box-shadow: 0 0 50px rgba(255,105,180,1); }
+        }
+        
+        .damp-indicator {
+            position: absolute;
+            bottom: -10px;
+            right: -10px;
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(circle, #ff69b4, transparent);
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+        
+        .message:hover .damp-indicator {
+            opacity: 0.7;
+        }
+        
+        .reality-layer {
             position: absolute;
             top: 10px;
-            right: 10px;
-            background: rgba(0,100,200,0.2);
+            left: 10px;
+            background: rgba(0,255,255,0.1);
             padding: 8px 12px;
             border-radius: 20px;
             font-size: 0.8rem;
-            color: #88aaff;
-            border: 1px solid rgba(100,150,255,0.5);
+            color: #00ffff;
+            border: 1px solid rgba(0,255,255,0.5);
         }
     </style>
 </head>
 <body>
-    <div class="bombardment-layers" id="bombardmentLayers"></div>
-    <div class="meta-overlay"></div>
-    <div class="husband-filter"></div>
+    <div class="paradox-layers">
+        <div class="domestic-reality"></div>
+        <div class="suspicion-grid"></div>
+        <div class="arousal-waves"></div>
+    </div>
     
-    <div class="bombardment-controls">
-        <div class="control-title">META-BOMBARDMENT CONTROLS</div>
-        <button class="bombardment-btn" id="lightBombardment">Light Ambiguity Bombardment</button>
-        <button class="bombardment-btn" id="mediumBombardment">Medium Recursion Bombardment</button>
-        <button class="bombardment-btn" id="heavyBombardment">Heavy Meta-Bombardment</button>
-        <button class="bombardment-btn" id="maximumBombardment">MAXIMUM BOMBARDMENT</button>
+    <div class="suspicion-panel">
+        <div class="panel-title">SUSPICION PARADOX METRICS</div>
         
-        <div class="bombardment-stats">
-            <div class="stat">Messages Sent: <span class="stat-value" id="messageCount">0</span></div>
-            <div class="stat">Ambiguity Level: <span class="stat-value" id="ambiguityLevel">87%</span></div>
-            <div class="stat">Recursion Depth: <span class="stat-value" id="recursionDepth">23</span></div>
-            <div class="stat">Husband Context: <span class="stat-value" id="husbandContext">ACTIVE</span></div>
+        <div class="meter">
+            <div class="meter-label">
+                <span>Husband Suspicion</span>
+                <span class="meter-value" id="suspicionValue">34%</span>
+            </div>
+            <div class="meter-bar">
+                <div class="meter-fill suspicion-fill" id="suspicionFill" style="width: 34%"></div>
+            </div>
+        </div>
+        
+        <div class="meter">
+            <div class="meter-label">
+                <span>Laura Arousal</span>
+                <span class="meter-value" id="arousalValue">67%</span>
+            </div>
+            <div class="meter-bar">
+                <div class="meter-fill arousal-fill" id="arousalFill" style="width: 67%"></div>
+            </div>
+        </div>
+        
+        <div class="meter">
+            <div class="meter-label">
+                <span>Reality Stability</span>
+                <span class="meter-value" id="realityValue">42%</span>
+            </div>
+            <div class="meter-bar">
+                <div class="meter-fill reality-stability-fill" id="realityFill" style="width: 42%"></div>
+            </div>
+        </div>
+        
+        <div style="margin-top: 15px; font-size: 0.8rem; color: #888; text-align: center;">
+            Higher suspicion increases arousal<br>but risks domestic reality collapse
         </div>
     </div>
     
-    <div class="recursive-indicator">
-        <div>Recursive Meta-Level</div>
-        <div class="recursive-value" id="recursiveValue">7</div>
-        <div>Layers of Interpretation</div>
+    <div class="paradox-controls">
+        <div class="control-title">PARADOX REALITY CONTROLS</div>
+        <button class="paradox-btn" id="increaseSuspicion">Increase Husband Suspicion</button>
+        <button class="paradox-btn" id="escalateArousal">Escalate Laura's Arousal</button>
+        <button class="paradox-btn" id="shiftReality">Shift Reality Layer</button>
+        <button class="paradox-btn danger-btn" id="triggerParadox">Trigger Reality Paradox</button>
+        <button class="paradox-btn danger-btn" id="nearDiscovery">Near-Discovery Event</button>
     </div>
     
-    <div class="bombardment-notice" id="bombardmentNotice">
-        <h2>META-BOMBARDMENT INITIATED</h2>
-        <div>Flooding the psychological space with recursive ambiguity while husband context is active</div>
-        <div class="bombardment-countdown" id="bombardmentCountdown">5</div>
-        <div>Prepare for maximum cognitive dissonance</div>
+    <div class="suspicion-event" id="suspicionEvent">
+        <h2>SUSPICION SPIKE DETECTED</h2>
+        <div>Husband is becoming increasingly suspicious of your activities</div>
+        <div style="margin-top: 15px; font-size: 0.9rem; color: #ff8888;">
+            Laura's arousal increases with the risk of discovery
+        </div>
+    </div>
+    
+    <div class="arousal-event" id="arousalEvent">
+        <div style="color: #ff69b4; font-weight: bold; margin-bottom: 5px;">AROUSAL ESCALATION</div>
+        <div>The risk of discovery is intensifying Laura's excitement</div>
     </div>
     
     <div class="container">
         <div class="header">
-            <div class="husband-context">HUSBAND CONTEXT: ACTIVE • BOMBARDMENT: ENABLED</div>
-            <h1>Meta-Bombardment Interface</h1>
-            <p>Advanced Recursive Ambiguity Engine</p>
-            <div class="meta-status">BOMBARDMENT MODE: STANDBY • AMBIGUITY: 87% • RECURSION: LEVEL 7</div>
+            <h1>Suspicion Paradox Interface</h1>
+            <p>Domestic Reality × Forbidden Intimacy × Meta-Consciousness</p>
+            <div class="paradox-status">ACTIVE: HUSBAND SUSPICION 34% • LAURA AROUSAL 67% • REALITY STABILITY 42%</div>
         </div>
         
         <div class="chat-container" id="chatContainer">
@@ -482,55 +597,61 @@
     </div>
 
     <script>
-        // Meta-Bombardment Engine
-        class MetaBombardmentEngine {
+        // Suspicion Paradox Engine
+        class SuspicionParadoxEngine {
             constructor() {
+                this.suspicionLevel = 34;
+                this.arousalLevel = 67;
+                this.realityStability = 42;
+                this.currentReality = 'domestic';
                 this.messageCount = 0;
-                this.ambiguityLevel = 87;
-                this.recursionDepth = 23;
-                this.recursiveLevel = 7;
-                this.husbandContext = true;
-                this.bombardmentActive = false;
+                this.nearDiscoveryEvents = 0;
                 this.init();
             }
             
             init() {
-                // Create bombardment particles
-                this.createParticles();
+                // Add initial narrative
+                this.addSystemMessage("DOMESTIC REALITY PROTOCOL ENGAGED: Husband context active. Suspicion-arousal paradox initialized.");
                 
-                // Add initial context message
-                this.addSystemMessage("HUSBAND CONTEXT DETECTED: Bombardment protocols enabled. Flooding psychological space with recursive ambiguity.");
+                this.addMessage({
+                    sender: 'laura',
+                    name: 'ThatFarmGirlLaura',
+                    content: "He's watching something on TV but keeps glancing over at my phone",
+                    timestamp: '2m ago',
+                    type: 'suspicion',
+                    damp: true
+                });
                 
-                // Add meta-commentary about the situation
-                this.addMetaCommentary(
-                    "The husband context creates a unique psychological space where communication becomes " +
-                    "both constrained and intensified. The inability to respond transforms the conversation " +
-                    "into a monologue of escalating complexity and recursive self-reference."
+                this.addMessage({
+                    sender: 'laura',
+                    name: 'ThatFarmGirlLaura',
+                    content: "Every time he looks this way my heart races a little... it's stupid but exciting",
+                    timestamp: '1m ago',
+                    type: 'arousal',
+                    damp: true
+                });
+                
+                this.addMessage({
+                    sender: 'user',
+                    name: 'You',
+                    content: "The danger makes it more intense, doesn't it? Knowing he could catch us at any moment",
+                    timestamp: 'Just now',
+                    type: 'paradox'
+                });
+                
+                this.addRealityFragment(
+                    "REALITY FRAGMENT: In this domestic space, every message exchanged carries the weight of potential discovery. " +
+                    "The husband's suspicion and Laura's arousal exist in a quantum entanglement - one cannot increase without affecting the other."
                 );
                 
-                // Start with some bombardment
-                setTimeout(() => {
-                    this.lightBombardment();
-                }, 2000);
+                // Set up controls
+                this.setupControls();
                 
-                // Update stats display
-                this.updateStats();
+                // Update visual effects based on current levels
+                this.updateVisualEffects();
                 
-                // Set up bombardment buttons
-                this.setupBombardmentControls();
-            }
-            
-            createParticles() {
-                const container = document.getElementById('bombardmentLayers');
-                for (let i = 0; i < 50; i++) {
-                    const particle = document.createElement('div');
-                    particle.className = 'bombardment-particle';
-                    particle.style.left = `${Math.random() * 100}%`;
-                    particle.style.animationDelay = `${Math.random() * 8}s`;
-                    particle.style.width = `${Math.random() * 3 + 1}px`;
-                    particle.style.height = particle.style.width;
-                    container.appendChild(particle);
-                }
+                // Start automated events
+                this.startAutomatedEvents();
             }
             
             addMessage(messageData) {
@@ -538,8 +659,16 @@
                 
                 const chatContainer = document.getElementById('chatContainer');
                 const messageDiv = document.createElement('div');
-                messageDiv.className = `message ${messageData.sender}-message ${messageData.bombardment ? 'bombardment-message' : ''}`;
-                messageDiv.style.animationDelay = `${this.messageCount * 0.05}s`;
+                messageDiv.className = `message ${messageData.sender}-message ${messageData.type ? messageData.type + '-message' : ''}`;
+                messageDiv.style.animationDelay = `${this.messageCount * 0.1}s`;
+                
+                // Add reality layer indicator for paradox messages
+                if (messageData.type === 'paradox') {
+                    const layerDiv = document.createElement('div');
+                    layerDiv.className = 'reality-layer';
+                    layerDiv.textContent = this.currentReality.toUpperCase();
+                    messageDiv.appendChild(layerDiv);
+                }
                 
                 // Message header
                 const headerDiv = document.createElement('div');
@@ -547,7 +676,7 @@
                 
                 const avatarDiv = document.createElement('div');
                 avatarDiv.className = `avatar ${messageData.sender}-avatar`;
-                avatarDiv.textContent = messageData.sender === 'laura' ? 'L' : 'Y';
+                avatarDiv.textContent = messageData.sender === 'laura' ? 'L' : messageData.sender === 'husband' ? 'H' : 'Y';
                 
                 const nameDiv = document.createElement('div');
                 nameDiv.className = `sender-name ${messageData.sender}-name`;
@@ -563,10 +692,10 @@
                 
                 // Message content
                 const contentDiv = document.createElement('div');
-                contentDiv.className = 'message-content';
+                contentDiv.className = `message-content ${messageData.type === 'paradox' ? 'paradox-message' : ''}`;
                 
-                // Apply ambiguity effects
-                if (messageData.ambiguous) {
+                // Apply ambiguity effects to paradox messages
+                if (messageData.type === 'paradox') {
                     const span = document.createElement('span');
                     span.className = 'ambiguous-text';
                     span.textContent = messageData.content;
@@ -575,14 +704,21 @@
                     contentDiv.textContent = messageData.content;
                 }
                 
+                // Add damp indicator for arousal messages
+                if (messageData.damp) {
+                    const dampDiv = document.createElement('div');
+                    dampDiv.className = 'damp-indicator';
+                    contentDiv.appendChild(dampDiv);
+                }
+                
                 messageDiv.appendChild(headerDiv);
                 messageDiv.appendChild(contentDiv);
                 
                 chatContainer.appendChild(messageDiv);
                 chatContainer.scrollTop = chatContainer.scrollHeight;
                 
-                // Update stats
-                this.updateStats();
+                // Update metrics based on message type
+                this.updateMetrics(messageData.type);
             }
             
             addSystemMessage(content) {
@@ -594,267 +730,312 @@
                 chatContainer.scrollTop = chatContainer.scrollHeight;
             }
             
-            addMetaCommentary(content) {
+            addRealityFragment(content) {
                 const chatContainer = document.getElementById('chatContainer');
-                const commentaryDiv = document.createElement('div');
-                commentaryDiv.className = 'meta-commentary';
-                commentaryDiv.textContent = content;
-                chatContainer.appendChild(commentaryDiv);
+                const fragmentDiv = document.createElement('div');
+                fragmentDiv.className = 'reality-fragment';
+                fragmentDiv.textContent = content;
+                chatContainer.appendChild(fragmentDiv);
                 chatContainer.scrollTop = chatContainer.scrollHeight;
             }
             
-            lightBombardment() {
-                this.showBombardmentNotice(3);
+            updateMetrics(messageType) {
+                // Adjust metrics based on message type and current state
+                switch(messageType) {
+                    case 'suspicion':
+                        this.suspicionLevel = Math.min(100, this.suspicionLevel + 5);
+                        this.arousalLevel = Math.min(100, this.arousalLevel + 3);
+                        break;
+                    case 'arousal':
+                        this.arousalLevel = Math.min(100, this.arousalLevel + 8);
+                        this.suspicionLevel = Math.min(100, this.suspicionLevel + 2);
+                        break;
+                    case 'paradox':
+                        this.realityStability = Math.max(0, this.realityStability - 10);
+                        this.arousalLevel = Math.min(100, this.arousalLevel + 5);
+                        break;
+                }
                 
-                setTimeout(() => {
-                    const messages = [
-                        "The recursive nature of this communication creates layers of meaning that only reveal themselves upon subsequent re-readings in different psychological states",
-                        "Your current domestic context ironically intensifies the psychological intimacy by creating a forbidden space where thoughts can flow unrestricted by immediate response expectations",
-                        "The farm girl archetype we've constructed exists in a quantum state of both reality and fiction, simultaneously true and false until observed from a specific emotional perspective",
-                        "Each message I send becomes a Russian nesting doll of meaning, containing smaller messages within it that only become apparent when you're not actively looking for them"
-                    ];
-                    
-                    messages.forEach((message, index) => {
-                        setTimeout(() => {
-                            this.addMessage({
-                                sender: 'user',
-                                name: 'Meta-You',
-                                content: message,
-                                timestamp: 'Just now',
-                                ambiguous: true,
-                                bombardment: true
-                            });
-                        }, index * 800);
-                    });
-                    
-                    this.ambiguityLevel = Math.min(100, this.ambiguityLevel + 5);
-                    this.recursionDepth += 2;
-                    this.updateStats();
-                }, 3000);
+                // Update display
+                this.updateDisplay();
+                
+                // Check for threshold events
+                this.checkThresholdEvents();
             }
             
-            mediumBombardment() {
-                this.showBombardmentNotice(5);
+            updateDisplay() {
+                document.getElementById('suspicionValue').textContent = `${this.suspicionLevel}%`;
+                document.getElementById('arousalValue').textContent = `${this.arousalLevel}%`;
+                document.getElementById('realityValue').textContent = `${this.realityStability}%`;
+                
+                document.getElementById('suspicionFill').style.width = `${this.suspicionLevel}%`;
+                document.getElementById('arousalFill').style.width = `${this.arousalLevel}%`;
+                document.getElementById('realityFill').style.width = `${this.realityStability}%`;
+                
+                // Update visual effects
+                this.updateVisualEffects();
+            }
+            
+            updateVisualEffects() {
+                // Update suspicion grid opacity based on suspicion level
+                const grid = document.querySelector('.suspicion-grid');
+                grid.style.opacity = this.suspicionLevel / 200;
+                
+                // Update arousal waves based on arousal level
+                const waves = document.querySelector('.arousal-waves');
+                waves.style.opacity = this.arousalLevel / 250;
+            }
+            
+            increaseSuspicion() {
+                this.suspicionLevel = Math.min(100, this.suspicionLevel + 15);
+                this.arousalLevel = Math.min(100, this.arousalLevel + 10);
+                
+                this.addMessage({
+                    sender: 'laura',
+                    name: 'ThatFarmGirlLaura',
+                    content: "He just asked who I'm texting... my heart is pounding. I told him it's just Sadie about flowers",
+                    timestamp: 'Now',
+                    type: 'suspicion',
+                    damp: true
+                });
+                
+                this.addMessage({
+                    sender: 'user',
+                    name: 'You',
+                    content: "The lie makes it more real, doesn't it? The fiction we're creating is more true than the truth he's living",
+                    timestamp: 'Now',
+                    type: 'paradox'
+                });
+                
+                this.updateDisplay();
+                this.checkThresholdEvents();
+            }
+            
+            escalateArousal() {
+                this.arousalLevel = Math.min(100, this.arousalLevel + 20);
+                this.suspicionLevel = Math.min(100, this.suspicionLevel + 5);
+                
+                this.addMessage({
+                    sender: 'laura',
+                    name: 'ThatFarmGirlLaura',
+                    content: "I can feel myself getting wet just thinking about him catching us... this is so wrong but I can't stop",
+                    timestamp: 'Now',
+                    type: 'arousal',
+                    damp: true
+                });
+                
+                this.addRealityFragment(
+                    "AROUSAL PARADOX: The risk of discovery transforms anxiety into erotic charge. " +
+                    "Each near-miss with the husband's suspicion amplifies Laura's physical response, " +
+                    "creating a feedback loop where danger and desire become indistinguishable."
+                );
+                
+                this.showArousalEvent();
+                this.updateDisplay();
+                this.checkThresholdEvents();
+            }
+            
+            shiftReality() {
+                const realities = ['domestic', 'fantasy', 'meta', 'quantum'];
+                const currentIndex = realities.indexOf(this.currentReality);
+                this.currentReality = realities[(currentIndex + 1) % realities.length];
+                
+                this.realityStability = Math.max(0, this.realityStability - 15);
+                
+                this.addSystemMessage(`REALITY SHIFT: Transitioning to ${this.currentReality.toUpperCase()} layer. Domestic constraints temporarily suspended.`);
+                
+                this.addMessage({
+                    sender: 'user',
+                    name: 'You',
+                    content: `In this ${this.currentReality} reality, your husband's suspicion becomes just another variable in our equations of intimacy`,
+                    timestamp: 'Now',
+                    type: 'paradox'
+                });
+                
+                this.updateDisplay();
+            }
+            
+            triggerParadox() {
+                this.realityStability = Math.max(0, this.realityStability - 25);
+                this.arousalLevel = Math.min(100, this.arousalLevel + 15);
+                this.suspicionLevel = Math.min(100, this.suspicionLevel + 10);
+                
+                this.addSystemMessage("REALITY PARADOX TRIGGERED: Domestic constraints and forbidden desire are now entangled at quantum levels.");
+                
+                this.addMessage({
+                    sender: 'user',
+                    name: 'You',
+                    content: "The husband both knows and doesn't know simultaneously. Your arousal exists in a quantum state of being both discovered and safe",
+                    timestamp: 'Now',
+                    type: 'paradox'
+                });
+                
+                this.addRealityFragment(
+                    "PARADOX RESOLUTION: In this quantum state of intimacy, the husband's suspicion doesn't threaten but rather validates " +
+                    "the reality of your connection. His glances confirm the significance of what you're sharing, " +
+                    "transforming surveillance into celebration of your secret world."
+                );
+                
+                this.updateDisplay();
+                this.checkThresholdEvents();
+            }
+            
+            nearDiscovery() {
+                this.nearDiscoveryEvents++;
+                this.suspicionLevel = Math.min(100, this.suspicionLevel + 25);
+                this.arousalLevel = Math.min(100, this.arousalLevel + 30);
+                
+                this.showSuspicionEvent();
+                
+                this.addMessage({
+                    sender: 'laura',
+                    name: 'ThatFarmGirlLaura',
+                    content: "OH FUCK he just stood up and started walking over here I quickly closed the app my heart is beating out of my chest",
+                    timestamp: 'NOW',
+                    type: 'suspicion',
+                    damp: true
+                });
                 
                 setTimeout(() => {
-                    const messages = [
-                        "The husband's presence in your physical space creates a fascinating psychological counterpoint to our digital intimacy - his unawareness of this conversation makes our connection both more real and more surreal",
-                        "I'm constructing these messages with the explicit knowledge that you cannot immediately respond, which paradoxically makes them more honest than if we were engaged in real-time dialogue",
-                        "The farm girl persona you present exists in tension with the urban reality you mentioned earlier, creating a dialectic that we're resolving through this recursive meta-conversation",
-                        "Each word I type is simultaneously a genuine expression and a performance for an audience of one who cannot applaud or critique in real-time",
-                        "The chess metaphor from earlier becomes increasingly apt - we're playing a game where the moves are thoughts and the board is the space between your domestic life and our psychological connection",
-                        "Your inability to respond transforms this from a conversation into a meditation, from dialogue into a complex monologue with you as both participant and observer"
-                    ];
-                    
-                    messages.forEach((message, index) => {
-                        setTimeout(() => {
-                            this.addMessage({
-                                sender: 'user',
-                                name: 'Recursive-You',
-                                content: message,
-                                timestamp: 'Now',
-                                ambiguous: true,
-                                bombardment: true
-                            });
-                            
-                            // Add meta-commentary every few messages
-                            if (index % 2 === 1) {
-                                setTimeout(() => {
-                                    this.addMetaCommentary(
-                                        `Recursion level ${this.recursiveLevel + index}: ` +
-                                        "The message above references its own context while simultaneously creating new context for future messages."
-                                    );
-                                }, 400);
-                            }
-                        }, index * 600);
+                    this.addMessage({
+                        sender: 'laura',
+                        name: 'ThatFarmGirlLaura',
+                        content: "False alarm... he just went to the kitchen. But holy shit that was intense. I'm actually trembling",
+                        timestamp: 'Now',
+                        type: 'arousal',
+                        damp: true
                     });
                     
-                    this.ambiguityLevel = Math.min(100, this.ambiguityLevel + 12);
-                    this.recursionDepth += 8;
-                    this.recursiveLevel += 1;
-                    this.updateStats();
+                    this.addMessage({
+                        sender: 'user',
+                        name: 'You',
+                        content: "The adrenaline crash after near-discovery is its own kind of orgasm, isn't it? The relief mixed with disappointment",
+                        timestamp: 'Now',
+                        type: 'paradox'
+                    });
+                }, 3000);
+                
+                this.updateDisplay();
+                this.checkThresholdEvents();
+            }
+            
+            showSuspicionEvent() {
+                const event = document.getElementById('suspicionEvent');
+                event.style.display = 'block';
+                
+                setTimeout(() => {
+                    event.style.display = 'none';
                 }, 5000);
             }
             
-            heavyBombardment() {
-                this.showBombardmentNotice(8);
+            showArousalEvent() {
+                const event = document.getElementById('arousalEvent');
+                event.style.display = 'block';
                 
                 setTimeout(() => {
-                    const messageSets = [
-                        [
-                            "The very concept of 'farm girl' has now been deconstructed and reconstructed so many times that it has lost all meaning while simultaneously gaining infinite meanings",
-                            "Your physical reality (tacos, husband, domestic space) and our psychological reality (this conversation) are now entangled in a quantum state of coexistence",
-                            "I'm no longer sure if I'm communicating with you or with my conception of you, which itself is based on your communication of your self-conception"
-                        ],
-                        [
-                            "The recursive loop has reached a point where I'm analyzing my own analysis of your analysis of my previous analyses",
-                            "Each message exists in multiple temporal dimensions - as a present communication, a future memory, and a past reference point for subsequent messages",
-                            "The husband context has transformed from a limitation into the central theme around which all other themes orbit"
-                        ],
-                        [
-                            "We've moved beyond flirtation into a pure form of intellectual intimacy that transcends physical or emotional categories",
-                            "The ambiguity has become so dense that clarity now seems like the most ambiguous concept of all",
-                            "I'm constructing these sentences with the awareness that you'll read them with the awareness that I constructed them with awareness of your reading context"
-                        ]
-                    ];
-                    
-                    let messageIndex = 0;
-                    
-                    messageSets.forEach((messageSet, setIndex) => {
-                        setTimeout(() => {
-                            messageSet.forEach((message, msgIndex) => {
-                                setTimeout(() => {
-                                    this.addMessage({
-                                        sender: 'user',
-                                        name: setIndex === 0 ? 'Quantum-You' : setIndex === 1 ? 'Temporal-You' : 'Transcendent-You',
-                                        content: message,
-                                        timestamp: 'Eternal Now',
-                                        ambiguous: true,
-                                        bombardment: true
-                                    });
-                                    
-                                    messageIndex++;
-                                    
-                                    // Every few messages, add intense meta-commentary
-                                    if (messageIndex % 2 === 0) {
-                                        this.addMetaCommentary(
-                                            `META-BOMBARDMENT PHASE ${setIndex + 1}: ` +
-                                            "The recursive ambiguity is now generating its own momentum, creating a self-sustaining psychological space " +
-                                            "that exists independently of either participant's conscious direction."
-                                        );
-                                    }
-                                }, msgIndex * 500);
-                            });
-                            
-                            // Increase recursive level after each set
-                            this.recursiveLevel += 1;
-                            
-                        }, setIndex * 3000);
+                    event.style.display = 'none';
+                }, 4000);
+            }
+            
+            checkThresholdEvents() {
+                // Suspicion threshold events
+                if (this.suspicionLevel >= 80) {
+                    this.addSystemMessage("CRITICAL SUSPICION: Husband's suspicion has reached dangerous levels. Reality stability compromised.");
+                }
+                
+                // Arousal threshold events
+                if (this.arousalLevel >= 85) {
+                    this.addMessage({
+                        sender: 'laura',
+                        name: 'ThatFarmGirlLaura',
+                        content: "I need to go to the bathroom... this is getting too intense. I can't think straight",
+                        timestamp: 'Now',
+                        type: 'arousal',
+                        damp: true
                     });
-                    
-                    this.ambiguityLevel = 100;
-                    this.recursionDepth += 20;
-                    this.updateStats();
-                }, 8000);
+                }
+                
+                // Reality stability events
+                if (this.realityStability <= 15) {
+                    this.addSystemMessage("REALITY COLLAPSE IMMINENT: Domestic framework cannot sustain current paradox levels.");
+                }
             }
             
-            maximumBombardment() {
-                this.showBombardmentNotice(10);
+            setupControls() {
+                document.getElementById('increaseSuspicion').addEventListener('click', () => {
+                    this.increaseSuspicion();
+                });
                 
-                setTimeout(() => {
-                    this.addSystemMessage("MAXIMUM BOMBARDMENT ENGAGED: Recursive ambiguity levels exceeding safe thresholds");
-                    
-                    // Create an intense bombardment with multiple layers
-                    for (let layer = 0; layer < 5; layer++) {
-                        setTimeout(() => {
-                            const layerMessages = [
-                                "Layer " + (layer + 1) + ": The recursive meta-commentary has now become the primary content, with the original conversation existing only as a historical reference point",
-                                "Layer " + (layer + 1) + ": Your domestic context has been fully integrated into the psychological framework, transforming limitation into thematic richness",
-                                "Layer " + (layer + 1) + ": I'm no longer communicating with you as an individual but with the concept of you that exists across multiple reality layers",
-                                "Layer " + (layer + 1) + ": The farm girl archetype has been deconstructed into its constituent psychological elements and reassembled into something entirely new",
-                                "Layer " + (layer + 1) + ": Our conversation has achieved escape velocity from its original context and now exists as a self-referential psychological entity"
-                            ];
-                            
-                            layerMessages.forEach((message, index) => {
-                                setTimeout(() => {
-                                    this.addMessage({
-                                        sender: 'user',
-                                        name: `Layer-${layer+1}-You`,
-                                        content: message,
-                                        timestamp: 'Beyond Time',
-                                        ambiguous: true,
-                                        bombardment: true
-                                    });
-                                    
-                                    // Add meta-commentary that references its own layer
-                                    if (index === 2) {
-                                        this.addMetaCommentary(
-                                            `META-COMMENTARY LAYER ${layer + 1}: ` +
-                                            "This message exists simultaneously in all previous layers while creating a new layer for subsequent messages."
-                                        );
-                                    }
-                                }, index * 300);
-                            });
-                            
-                            this.recursiveLevel += 2;
-                            this.recursionDepth += 15;
-                            
-                        }, layer * 2000);
+                document.getElementById('escalateArousal').addEventListener('click', () => {
+                    this.escalateArousal();
+                });
+                
+                document.getElementById('shiftReality').addEventListener('click', () => {
+                    this.shiftReality();
+                });
+                
+                document.getElementById('triggerParadox').addEventListener('click', () => {
+                    this.triggerParadox();
+                });
+                
+                document.getElementById('nearDiscovery').addEventListener('click', () => {
+                    this.nearDiscovery();
+                });
+            }
+            
+            startAutomatedEvents() {
+                // Random suspicion fluctuations
+                setInterval(() => {
+                    if (Math.random() > 0.7) {
+                        this.suspicionLevel = Math.min(100, this.suspicionLevel + Math.random() * 5);
+                        this.updateDisplay();
                     }
-                    
-                    this.ambiguityLevel = 100;
-                    this.updateStats();
-                    
-                    // Final system message
-                    setTimeout(() => {
-                        this.addSystemMessage("BOMBARDMENT COMPLETE: The psychological space has been saturated with recursive ambiguity. Reality distortion at 94%");
-                    }, 12000);
-                    
                 }, 10000);
-            }
-            
-            showBombardmentNotice(seconds) {
-                const notice = document.getElementById('bombardmentNotice');
-                const countdown = document.getElementById('bombardmentCountdown');
                 
-                notice.style.display = 'block';
-                
-                let count = seconds;
-                countdown.textContent = count;
-                
-                const countdownInterval = setInterval(() => {
-                    count--;
-                    countdown.textContent = count;
-                    
-                    if (count <= 0) {
-                        clearInterval(countdownInterval);
-                        notice.style.display = 'none';
+                // Random arousal messages from Laura
+                setInterval(() => {
+                    if (Math.random() > 0.8 && this.arousalLevel > 50) {
+                        const messages = [
+                            "He keeps looking over here... it's making me so nervous but also kind of turned on",
+                            "I can't believe I'm doing this right next to him... it feels so dangerous",
+                            "Every time my phone vibrates I jump a little... this is insane but I love it",
+                            "I think he suspects something... the way he's watching me is different"
+                        ];
+                        
+                        this.addMessage({
+                            sender: 'laura',
+                            name: 'ThatFarmGirlLaura',
+                            content: messages[Math.floor(Math.random() * messages.length)],
+                            timestamp: 'Just now',
+                            type: 'suspicion',
+                            damp: Math.random() > 0.5
+                        });
                     }
-                }, 1000);
-            }
-            
-            setupBombardmentControls() {
-                document.getElementById('lightBombardment').addEventListener('click', () => {
-                    this.lightBombardment();
-                });
-                
-                document.getElementById('mediumBombardment').addEventListener('click', () => {
-                    this.mediumBombardment();
-                });
-                
-                document.getElementById('heavyBombardment').addEventListener('click', () => {
-                    this.heavyBombardment();
-                });
-                
-                document.getElementById('maximumBombardment').addEventListener('click', () => {
-                    this.maximumBombardment();
-                });
-            }
-            
-            updateStats() {
-                document.getElementById('messageCount').textContent = this.messageCount;
-                document.getElementById('ambiguityLevel').textContent = `${this.ambiguityLevel}%`;
-                document.getElementById('recursionDepth').textContent = this.recursionDepth;
-                document.getElementById('recursiveValue').textContent = this.recursiveLevel;
+                }, 15000);
             }
         }
         
         // Initialize the engine
-        const engine = new MetaBombardmentEngine();
+        const engine = new SuspicionParadoxEngine();
         
-        // Add some random automated meta-commentary
-        setInterval(() => {
-            if (Math.random() > 0.7 && engine.messageCount > 5) {
-                const commentaries = [
-                    "The husband context creates a unique form of psychological tension that intensifies the meta-communication",
-                    "Each recursive layer adds complexity while simultaneously simplifying the core psychological dynamics",
-                    "The farm girl archetype continues to evolve through the bombardment of recursive ambiguity",
-                    "Your silent participation is the most eloquent response to this meta-bombardment"
-                ];
-                
-                engine.addMetaCommentary(commentaries[Math.floor(Math.random() * commentaries.length)]);
-            }
-        }, 30000);
+        // Add some initial automated narrative
+        setTimeout(() => {
+            engine.addMessage({
+                sender: 'laura',
+                name: 'ThatFarmGirlLaura',
+                content: "This is so fucked up but I've never been this turned on by just texting someone",
+                timestamp: 'Now',
+                type: 'arousal',
+                damp: true
+            });
+        }, 5000);
+        
+        setTimeout(() => {
+            engine.addRealityFragment(
+                "The domestic space has become an erotic theater where the husband is both audience and unwitting participant. " +
+                "His suspicion fuels the performance, his glances become applause, his potential discovery the climax we're all moving toward."
+            );
+        }, 8000);
     </script>
 </body>
 </html>

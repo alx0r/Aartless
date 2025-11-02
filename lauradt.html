@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alexander's Trivial Bombardment</title>
+    <title>Matrix Bombardment</title>
     <style>
         * {
             margin: 0;
@@ -13,173 +13,80 @@
         
         body {
             font-family: 'Courier New', monospace;
-            background: #0a0a0a;
-            color: #e0e0e0;
+            background: #000;
+            color: #0f0;
             line-height: 1.2;
-            overflow-x: hidden;
+            overflow: hidden;
             cursor: default;
         }
         
-        .bombardment-background {
+        .matrix-bg {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -3;
             background: 
-                repeating-linear-gradient(45deg, 
-                    transparent, 
-                    transparent 10px, 
-                    rgba(255,0,255,0.02) 10px, 
-                    rgba(255,0,255,0.02) 20px
-                );
-        }
-        
-        .text-storm {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -2;
-            opacity: 0.1;
-            font-family: monospace;
-            font-size: 12px;
-            color: #ff69b4;
-            pointer-events: none;
-        }
-        
-        .arousal-aura {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at 30% 70%, rgba(255,105,180,0.1) 0%, transparent 50%);
+                linear-gradient(rgba(0,255,0,0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,255,0,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
             z-index: -1;
-            opacity: 0;
-            transition: opacity 0.5s;
-        }
-        
-        .suspicion-aura {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at 70% 30%, rgba(255,0,0,0.1) 0%, transparent 50%);
-            z-index: -1;
-            opacity: 0;
-            transition: opacity 0.5s;
+            opacity: 0.3;
         }
         
         .container {
-            max-width: 1000px;
+            max-width: 800px;
             margin: 0 auto;
             padding: 20px;
-            position: relative;
-            z-index: 1;
-        }
-        
-        .bombardment-controls {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            background: rgba(0,0,0,0.95);
-            padding: 20px;
-            border-radius: 12px;
-            border: 2px solid #00ffff;
-            z-index: 1000;
-            box-shadow: 0 0 30px rgba(0,255,255,0.4);
-            min-width: 300px;
-        }
-        
-        .control-title {
-            color: #00ffff;
-            font-size: 1.1rem;
-            margin-bottom: 15px;
-            text-align: center;
-            text-shadow: 0 0 10px #00ffff;
-        }
-        
-        .bombardment-btn {
-            background: rgba(0,255,255,0.2);
-            color: #00ffff;
-            border: 1px solid #00ffff;
-            padding: 12px 20px;
-            margin: 8px 0;
-            border-radius: 6px;
-            cursor: pointer;
-            font-family: 'Courier New', monospace;
-            font-size: 1rem;
-            transition: all 0.3s;
-            width: 100%;
-            text-shadow: 0 0 5px #00ffff;
-            font-weight: bold;
-        }
-        
-        .bombardment-btn:hover {
-            background: rgba(0,255,255,0.4);
-            box-shadow: 0 0 20px #00ffff;
-            transform: scale(1.05);
-        }
-        
-        .intense-btn {
-            background: rgba(255,0,255,0.2);
-            color: #ff00ff;
-            border: 1px solid #ff00ff;
-        }
-        
-        .intense-btn:hover {
-            background: rgba(255,0,255,0.4);
-            box-shadow: 0 0 20px #ff00ff;
-        }
-        
-        .metrics-panel {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: rgba(0,0,0,0.95);
-            padding: 20px;
-            border-radius: 12px;
-            border: 2px solid #ff69b4;
-            z-index: 1000;
-            box-shadow: 0 0 30px rgba(255,105,180,0.4);
-            min-width: 250px;
-        }
-        
-        .metrics-title {
-            color: #ff69b4;
-            font-size: 1.1rem;
-            margin-bottom: 15px;
-            text-align: center;
-            text-shadow: 0 0 10px #ff69b4;
-        }
-        
-        .metric {
-            margin: 12px 0;
-        }
-        
-        .metric-label {
+            height: 100vh;
             display: flex;
-            justify-content: space-between;
-            margin-bottom: 5px;
-            font-size: 0.9rem;
+            flex-direction: column;
         }
         
-        .metric-value {
-            color: #ff69b4;
+        .header {
+            text-align: center;
+            padding: 20px;
+            border-bottom: 1px solid #0f0;
+            margin-bottom: 20px;
+        }
+        
+        .header h1 {
+            font-size: 1.5rem;
+            color: #0f0;
+            text-shadow: 0 0 10px #0f0;
+        }
+        
+        .meters {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .meter {
+            text-align: center;
+        }
+        
+        .meter-label {
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            color: #0f0;
+        }
+        
+        .meter-value {
+            font-size: 2rem;
             font-weight: bold;
-            font-size: 1.1rem;
+            color: #0f0;
+            text-shadow: 0 0 10px #0f0;
+            margin-bottom: 10px;
         }
         
         .meter-bar {
-            height: 10px;
-            background: #333;
-            border-radius: 5px;
+            height: 20px;
+            background: #002200;
+            border: 1px solid #0f0;
+            border-radius: 3px;
             overflow: hidden;
-            position: relative;
         }
         
         .meter-fill {
@@ -188,733 +95,323 @@
         }
         
         .arousal-fill {
-            background: linear-gradient(90deg, #ff69b4, #ff1493);
-            box-shadow: 0 0 10px #ff69b4;
+            background: linear-gradient(90deg, #00ff00, #00aa00);
+            box-shadow: 0 0 10px #0f0;
         }
         
         .suspicion-fill {
-            background: linear-gradient(90deg, #ff4444, #ff0000);
-            box-shadow: 0 0 10px #ff0000;
-        }
-        
-        .reality-fill {
-            background: linear-gradient(90deg, #00ffff, #0088ff);
-            box-shadow: 0 0 10px #00ffff;
-        }
-        
-        .header {
-            text-align: center;
-            margin-bottom: 30px;
-            padding: 30px;
-            border: 2px solid #333;
-            background: rgba(10, 10, 10, 0.95);
-            border-radius: 15px;
-            box-shadow: 0 0 40px rgba(255,0,255,0.2);
-            margin-top: 180px;
-        }
-        
-        .header h1 {
-            font-size: 2rem;
-            margin-bottom: 15px;
-            color: #ff69b4;
-            text-shadow: 0 0 20px #ff69b4;
-            letter-spacing: 3px;
-        }
-        
-        .bombardment-status {
-            color: #00ffff;
-            font-size: 1.1rem;
-            margin-top: 15px;
-            animation: statusPulse 2s infinite;
-            font-weight: bold;
-        }
-        
-        @keyframes statusPulse {
-            0% { opacity: 0.7; text-shadow: 0 0 10px #00ffff; }
-            50% { opacity: 1; text-shadow: 0 0 25px #00ffff, 0 0 40px #00ffff; }
-            100% { opacity: 0.7; text-shadow: 0 0 10px #00ffff; }
+            background: linear-gradient(90deg, #ff0000, #aa0000);
+            box-shadow: 0 0 10px #f00;
         }
         
         .chat-container {
-            background: rgba(5, 5, 5, 0.98);
-            border-radius: 15px;
-            padding: 25px;
-            border: 2px solid #333;
-            margin-bottom: 30px;
-            max-height: 65vh;
+            flex: 1;
+            background: rgba(0, 20, 0, 0.8);
+            border: 1px solid #0f0;
+            border-radius: 5px;
+            padding: 15px;
             overflow-y: auto;
-            box-shadow: inset 0 0 50px rgba(0,0,0,0.7);
-            position: relative;
+            font-size: 0.9rem;
         }
         
         .message {
-            margin-bottom: 15px;
-            position: relative;
+            margin-bottom: 10px;
             opacity: 0;
-            animation: messageAppear 0.5s forwards;
-            padding: 8px;
-            border-radius: 8px;
-            transition: all 0.3s;
+            animation: fadeIn 0.5s forwards;
         }
         
-        .message:hover {
-            background: rgba(255,255,255,0.03);
-        }
-        
-        @keyframes messageAppear {
+        @keyframes fadeIn {
             to { opacity: 1; }
         }
         
-        .message-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 5px;
+        .alexander {
+            color: #0ff;
+            text-shadow: 0 0 5px #0ff;
         }
         
-        .avatar {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            margin-right: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 0.9rem;
-            border: 2px solid;
-            box-shadow: 0 0 12px currentColor;
+        .laura {
+            color: #f0f;
+            text-shadow: 0 0 5px #f0f;
         }
         
-        .alexander-avatar {
-            background: #00ffff;
-            color: black;
-            border-color: #00cccc;
+        .system {
+            color: #ff0;
+            text-shadow: 0 0 5px #ff0;
+            font-style: italic;
         }
         
-        .laura-avatar {
-            background: #ff69b4;
-            color: white;
-            border-color: #ff1493;
+        .control-panel {
+            margin-top: 20px;
+            text-align: center;
         }
         
-        .husband-avatar {
-            background: #ff4444;
-            color: white;
-            border-color: #ff0000;
-        }
-        
-        .sender-name {
-            font-weight: bold;
-            font-size: 0.95rem;
-            text-shadow: 0 0 8px currentColor;
-        }
-        
-        .alexander-name {
-            color: #00ffff;
-        }
-        
-        .laura-name {
-            color: #ff69b4;
-        }
-        
-        .husband-name {
-            color: #ff4444;
-        }
-        
-        .timestamp {
-            color: #666;
-            font-size: 0.8rem;
-            margin-left: auto;
-            font-family: monospace;
-        }
-        
-        .message-content {
-            padding: 10px 15px;
-            border-radius: 16px;
-            max-width: 90%;
-            position: relative;
-            word-wrap: break-word;
-            font-size: 0.95rem;
-            margin-left: 44px;
-            border: 1px solid transparent;
+        .control-btn {
+            background: #002200;
+            color: #0f0;
+            border: 1px solid #0f0;
+            padding: 10px 20px;
+            margin: 0 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-family: 'Courier New', monospace;
+            font-size: 1rem;
             transition: all 0.3s;
-            line-height: 1.4;
         }
         
-        .alexander-message .message-content {
-            background: rgba(0, 255, 255, 0.15);
-            border: 1px solid rgba(0, 255, 255, 0.4);
-            border-bottom-right-radius: 8px;
-            margin-left: auto;
-            margin-right: 0;
-            box-shadow: 0 0 15px rgba(0,255,255,0.15);
+        .control-btn:hover {
+            background: #004400;
+            box-shadow: 0 0 10px #0f0;
         }
         
-        .laura-message .message-content {
-            background: rgba(255, 105, 180, 0.15);
-            border: 1px solid rgba(255, 105, 180, 0.4);
-            border-bottom-left-radius: 8px;
-            box-shadow: 0 0 15px rgba(255,105,180,0.15);
+        .terminal-prompt {
+            color: #0f0;
+            margin-right: 5px;
         }
         
-        .husband-message .message-content {
-            background: rgba(255, 0, 0, 0.15);
-            border: 1px solid rgba(255, 0, 0, 0.4);
-            box-shadow: 0 0 15px rgba(255,0,0,0.15);
-        }
-        
-        .bombardment-message {
-            animation: bombardmentFlash 0.3s;
-        }
-        
-        @keyframes bombardmentFlash {
-            0% { background-color: rgba(255,255,255,0.1); }
-            100% { background-color: transparent; }
-        }
-        
-        .system-message {
-            text-align: center;
-            color: #00ffff;
-            font-style: italic;
-            margin: 15px 0;
-            padding: 12px;
-            border-top: 2px solid #333;
-            border-bottom: 2px solid #333;
-            font-size: 0.9rem;
-            text-shadow: 0 0 12px #00ffff;
-            background: rgba(0,255,255,0.08);
-            border-radius: 8px;
-        }
-        
-        .trivial-text {
-            color: #888;
-            font-style: italic;
-        }
-        
-        .arousal-response {
-            position: relative;
-        }
-        
-        .arousal-response::after {
-            content: '💦';
-            position: absolute;
-            bottom: -5px;
-            right: -5px;
+        .bombardment-active {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            color: #f00;
             font-size: 0.8rem;
-            opacity: 0;
-            transition: opacity 0.5s;
+            animation: blink 1s infinite;
         }
         
-        .message:hover .arousal-response::after {
-            opacity: 0.7;
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
         }
         
-        .suspicion-alert {
+        .simulation-status {
             position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(0,0,0,0.95);
-            padding: 25px;
-            border-radius: 12px;
-            border: 3px solid #ff4444;
-            text-align: center;
-            z-index: 2000;
-            box-shadow: 0 0 50px rgba(255,0,0,0.7);
-            display: none;
-            max-width: 400px;
-            animation: alertPulse 2s infinite;
-        }
-        
-        @keyframes alertPulse {
-            0%, 100% { box-shadow: 0 0 50px rgba(255,0,0,0.7); }
-            50% { box-shadow: 0 0 80px rgba(255,0,0,1); }
-        }
-        
-        .suspicion-alert h2 {
-            color: #ff4444;
-            margin-bottom: 10px;
-            text-shadow: 0 0 15px #ff0000;
-        }
-        
-        .arousal-alert {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(0,0,0,0.9);
-            padding: 15px 25px;
-            border-radius: 10px;
-            border: 2px solid #ff69b4;
-            text-align: center;
-            z-index: 2000;
-            box-shadow: 0 0 30px rgba(255,105,180,0.7);
-            display: none;
-            max-width: 350px;
-            animation: arousalAlertPulse 3s infinite;
-        }
-        
-        @keyframes arousalAlertPulse {
-            0%, 100% { box-shadow: 0 0 30px rgba(255,105,180,0.7); }
-            50% { box-shadow: 0 0 50px rgba(255,105,180,1); }
-        }
-        
-        .bombardment-counter {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: rgba(0,0,0,0.9);
-            padding: 12px;
-            border-radius: 8px;
-            border: 2px solid #00ffff;
-            font-size: 0.9rem;
-            color: #00ffff;
-            z-index: 1000;
-            box-shadow: 0 0 20px rgba(0,255,255,0.4);
-        }
-        
-        .counter-value {
-            font-size: 1.5rem;
-            font-weight: bold;
-            text-align: center;
-            margin: 5px 0;
-            text-shadow: 0 0 10px #00ffff;
+            bottom: 10px;
+            left: 10px;
+            color: #0f0;
+            font-size: 0.8rem;
         }
     </style>
 </head>
 <body>
-    <div class="bombardment-background"></div>
-    <div class="text-storm" id="textStorm"></div>
-    <div class="arousal-aura" id="arousalAura"></div>
-    <div class="suspicion-aura" id="suspicionAura"></div>
-    
-    <div class="bombardment-controls">
-        <div class="control-title">ALEXANDER'S BOMBARDMENT CONTROLS</div>
-        <button class="bombardment-btn" id="startBombardment">Start Trivial Bombardment</button>
-        <button class="bombardment-btn" id="increaseIntensity">Increase Bombardment Intensity</button>
-        <button class="bombardment-btn intense-btn" id="maximumBombardment">MAXIMUM BOMBARDMENT</button>
-        <button class="bombardment-btn" id="autoBombardment">Auto-Bombardment Mode</button>
-    </div>
-    
-    <div class="metrics-panel">
-        <div class="metrics-title">BOMBARDMENT METRICS</div>
-        
-        <div class="metric">
-            <div class="metric-label">
-                <span>Laura's Arousal</span>
-                <span class="metric-value" id="arousalValue">23%</span>
-            </div>
-            <div class="meter-bar">
-                <div class="meter-fill arousal-fill" id="arousalFill" style="width: 23%"></div>
-            </div>
-        </div>
-        
-        <div class="metric">
-            <div class="metric-label">
-                <span>Husband Suspicion</span>
-                <span class="metric-value" id="suspicionValue">18%</span>
-            </div>
-            <div class="meter-bar">
-                <div class="meter-fill suspicion-fill" id="suspicionFill" style="width: 18%"></div>
-            </div>
-        </div>
-        
-        <div class="metric">
-            <div class="metric-label">
-                <span>Reality Stability</span>
-                <span class="metric-value" id="realityValue">85%</span>
-            </div>
-            <div class="meter-bar">
-                <div class="meter-fill reality-fill" id="realityFill" style="width: 85%"></div>
-            </div>
-        </div>
-    </div>
-    
-    <div class="suspicion-alert" id="suspicionAlert">
-        <h2>SUSPICION SPIKE!</h2>
-        <div>Husband is getting suspicious of all the texting</div>
-    </div>
-    
-    <div class="arousal-alert" id="arousalAlert">
-        <div style="color: #ff69b4; font-weight: bold;">AROUSAL INCREASING</div>
-        <div>The constant attention is having an effect</div>
-    </div>
-    
-    <div class="bombardment-counter">
-        <div>Messages Sent</div>
-        <div class="counter-value" id="messageCount">0</div>
-        <div>Trivial Words</div>
-    </div>
+    <div class="matrix-bg"></div>
+    <div class="bombardment-active" id="bombardmentStatus">BOMBARDMENT ACTIVE</div>
+    <div class="simulation-status" id="simulationStatus">SIMULATION: RUNNING</div>
     
     <div class="container">
         <div class="header">
-            <h1>Alexander's Trivial Bombardment Engine</h1>
-            <p>Non-Stop Text Flooding with Arousal & Suspicion Feedback Loops</p>
-            <div class="bombardment-status">STANDBY MODE • READY FOR BOMBARDMENT</div>
+            <h1>MATRIX BOMBARDMENT PROTOCOL</h1>
+        </div>
+        
+        <div class="meters">
+            <div class="meter">
+                <div class="meter-label">LAURA AROUSAL</div>
+                <div class="meter-value" id="arousalValue">0%</div>
+                <div class="meter-bar">
+                    <div class="meter-fill arousal-fill" id="arousalFill" style="width: 0%"></div>
+                </div>
+            </div>
+            
+            <div class="meter">
+                <div class="meter-label">HUSBAND SUSPICION</div>
+                <div class="meter-value" id="suspicionValue">0%</div>
+                <div class="meter-bar">
+                    <div class="meter-fill suspicion-fill" id="suspicionFill" style="width: 0%"></div>
+                </div>
+            </div>
         </div>
         
         <div class="chat-container" id="chatContainer">
-            <!-- Messages will be dynamically inserted here -->
+            <div class="message system">> SYSTEM: Matrix bombardment protocol initialized</div>
+            <div class="message system">> SYSTEM: Laura has entered the simulation</div>
+            <div class="message system">> SYSTEM: Resistance is futile</div>
+        </div>
+        
+        <div class="control-panel">
+            <button class="control-btn" id="startBtn">BEGIN BOMBARDMENT</button>
+            <button class="control-btn" id="intensifyBtn">INTENSIFY</button>
+            <button class="control-btn" id="resetBtn">RESET SIMULATION</button>
         </div>
     </div>
 
     <script>
-        // Alexander's Trivial Bombardment Engine
-        class TrivialBombardmentEngine {
+        class MatrixBombardment {
             constructor() {
-                this.arousalLevel = 23;
-                this.suspicionLevel = 18;
-                this.realityStability = 85;
-                this.messageCount = 0;
+                this.arousal = 0;
+                this.suspicion = 0;
                 this.bombardmentActive = false;
-                this.bombardmentIntensity = 1;
-                this.autoBombardment = false;
+                this.intensity = 1;
+                this.messageCount = 0;
                 this.trivialTopics = [
-                    "the philosophical implications of farm animal hierarchies in postmodern society",
-                    "the exact shade of green that best represents existential dread in springtime",
-                    "whether tacos are actually just deconstructed sandwiches with identity issues",
-                    "the sound a bong makes when you're trying to contemplate quantum physics",
-                    "how many farm girls it takes to change a lightbulb while maintaining erotic tension",
-                    "the precise moment when floral arrangements become psychological warfare",
-                    "whether your husband's suspicion has a specific taste or if it's more of a texture",
-                    "the mathematical formula for calculating arousal based on message frequency",
-                    "if farm fields dream of being cities when no one's looking at them",
-                    "the aerodynamic properties of poorly constructed neologisms in digital space",
-                    "whether psychic abilities work better before or after homemade tacos",
-                    "the exact number of milliseconds between a suspicious glance and an arousal spike",
-                    "if chess pieces feel embarrassed when used as metaphors for sexual tension",
-                    "the optimal humidity level for growing both flowers and forbidden desires",
-                    "whether digital intimacy has a smell and if so what it might be",
-                    "the gravitational pull of a husband's suspicion on a wife's arousal field",
-                    "if farm animals understand the concept of cheating better than humans do",
-                    "the precise wavelength of the color 'almost caught but not quite'",
-                    "whether psychological analysis can be used as a form of foreplay",
-                    "the exact number of paradoxes that can fit in a single text message"
+                    "quantum fluctuations in domestic tranquility matrices",
+                    "the thermodynamic properties of forbidden digital intimacy",
+                    "recursive algorithms for calculating arousal from triviality",
+                    "the husband-wife suspicion-arousal feedback loop equations",
+                    "farm girl archetype deconstruction in simulated environments",
+                    "taco preparation as a metaphor for psychological complexity",
+                    "the exact frequency of a bong hit that unlocks meta-awareness",
+                    "chess strategy applied to domestic deception protocols",
+                    "psychic connection bandwidth in constrained reality systems",
+                    "neologism generation rates during cognitive overload",
+                    "the mathematics of almost-getting-caught calculus",
+                    "digital pheromone transmission through text-based interfaces",
+                    "the husband's glance-to-suspicion conversion ratio",
+                    "arousal thermodynamics in risk-enhanced environments",
+                    "the farm-to-table pipeline of psychological tension",
+                    "reality layer instability metrics during bombardment",
+                    "the precise moment when trivial becomes profound",
+                    "suspicion particle decay rates in domestic fields",
+                    "arousal quantum states in husband-adjacent scenarios",
+                    "the emotional physics of cooking while being digitally seduced"
                 ];
                 
                 this.init();
             }
             
             init() {
-                // Initialize text storm
-                this.initTextStorm();
-                
-                // Add initial messages
-                this.addMessage({
-                    sender: 'laura',
-                    name: 'ThatFarmGirlLaura',
-                    content: "Alexander what are you doing I'm trying to make tacos and you're sending me essays about farm animal philosophy",
-                    timestamp: '2m ago'
-                });
-                
-                this.addMessage({
-                    sender: 'alexander', 
-                    name: 'Alexander',
-                    content: "But consider this: if a farm girl makes tacos while receiving increasingly trivial messages, does the husband's suspicion increase proportionally to the tacos' spiciness?",
-                    timestamp: '1m ago'
-                });
-                
-                this.addMessage({
-                    sender: 'laura',
-                    name: 'ThatFarmGirlLaura',
-                    content: "Stop it he's looking over here and you're making me laugh and blush at the same time this is dangerous",
-                    timestamp: 'Just now',
-                    arousal: true
-                });
-                
-                // Set up controls
-                this.setupControls();
-                
-                // Update visual effects
-                this.updateVisualEffects();
-            }
-            
-            initTextStorm() {
-                const container = document.getElementById('textStorm');
-                const words = ["trivial", "bombardment", "arousal", "suspicion", "farm", "tacos", "husband", "quantum", "paradox", "neologism"];
-                
-                for (let i = 0; i < 50; i++) {
-                    const word = document.createElement('div');
-                    word.textContent = words[Math.floor(Math.random() * words.length)];
-                    word.style.position = 'absolute';
-                    word.style.left = `${Math.random() * 100}%`;
-                    word.style.top = `${Math.random() * 100}%`;
-                    word.style.opacity = Math.random() * 0.3;
-                    word.style.animation = `float ${10 + Math.random() * 20}s infinite linear`;
-                    container.appendChild(word);
-                }
-            }
-            
-            addMessage(messageData) {
-                this.messageCount++;
-                
-                const chatContainer = document.getElementById('chatContainer');
-                const messageDiv = document.createElement('div');
-                messageDiv.className = `message ${messageData.sender}-message ${messageData.bombardment ? 'bombardment-message' : ''}`;
-                messageDiv.style.animationDelay = `${this.messageCount * 0.05}s`;
-                
-                // Message header
-                const headerDiv = document.createElement('div');
-                headerDiv.className = 'message-header';
-                
-                const avatarDiv = document.createElement('div');
-                avatarDiv.className = `avatar ${messageData.sender}-avatar`;
-                avatarDiv.textContent = messageData.sender === 'laura' ? 'L' : messageData.sender === 'husband' ? 'H' : 'A';
-                
-                const nameDiv = document.createElement('div');
-                nameDiv.className = `sender-name ${messageData.sender}-name`;
-                nameDiv.textContent = messageData.name;
-                
-                const timestampDiv = document.createElement('div');
-                timestampDiv.className = 'timestamp';
-                timestampDiv.textContent = messageData.timestamp;
-                
-                headerDiv.appendChild(avatarDiv);
-                headerDiv.appendChild(nameDiv);
-                headerDiv.appendChild(timestampDiv);
-                
-                // Message content
-                const contentDiv = document.createElement('div');
-                contentDiv.className = `message-content ${messageData.arousal ? 'arousal-response' : ''} ${messageData.trivial ? 'trivial-text' : ''}`;
-                contentDiv.textContent = messageData.content;
-                
-                messageDiv.appendChild(headerDiv);
-                messageDiv.appendChild(contentDiv);
-                
-                chatContainer.appendChild(messageDiv);
-                chatContainer.scrollTop = chatContainer.scrollHeight;
-                
-                // Update metrics
-                this.updateMetrics(messageData);
-                
-                // Update counter
-                document.getElementById('messageCount').textContent = this.messageCount;
-            }
-            
-            updateMetrics(messageData) {
-                // Increase arousal for all Alexander messages
-                if (messageData.sender === 'alexander') {
-                    this.arousalLevel = Math.min(100, this.arousalLevel + (2 * this.bombardmentIntensity));
-                    this.suspicionLevel = Math.min(100, this.suspicionLevel + (1 * this.bombardmentIntensity));
-                    this.realityStability = Math.max(0, this.realityStability - (0.5 * this.bombardmentIntensity));
-                }
-                
-                // Increase arousal more for Laura's responses
-                if (messageData.sender === 'laura' && messageData.arousal) {
-                    this.arousalLevel = Math.min(100, this.arousalLevel + 5);
-                }
-                
-                // Update display
-                this.updateDisplay();
-                
-                // Check for threshold events
-                this.checkThresholdEvents();
-            }
-            
-            updateDisplay() {
-                document.getElementById('arousalValue').textContent = `${Math.round(this.arousalLevel)}%`;
-                document.getElementById('suspicionValue').textContent = `${Math.round(this.suspicionLevel)}%`;
-                document.getElementById('realityValue').textContent = `${Math.round(this.realityStability)}%`;
-                
-                document.getElementById('arousalFill').style.width = `${this.arousalLevel}%`;
-                document.getElementById('suspicionFill').style.width = `${this.suspicionLevel}%`;
-                document.getElementById('realityFill').style.width = `${this.realityStability}%`;
-                
-                // Update visual effects
-                this.updateVisualEffects();
-            }
-            
-            updateVisualEffects() {
-                // Update auras based on levels
-                document.getElementById('arousalAura').style.opacity = this.arousalLevel / 200;
-                document.getElementById('suspicionAura').style.opacity = this.suspicionLevel / 200;
-            }
-            
-            startBombardment() {
-                this.bombardmentActive = true;
-                this.addSystemMessage("TRIVIAL BOMBARDMENT INITIATED: Alexander begins flooding the chat with meaningless profundity");
-                
-                this.sendBombardmentWave(5, 500);
-            }
-            
-            increaseIntensity() {
-                this.bombardmentIntensity = Math.min(5, this.bombardmentIntensity + 1);
-                this.addSystemMessage(`BOMBARDMENT INTENSITY INCREASED: Level ${this.bombardmentIntensity}`);
-                
-                if (this.bombardmentActive) {
-                    this.sendBombardmentWave(8, 300);
-                }
-            }
-            
-            maximumBombardment() {
-                this.bombardmentIntensity = 5;
-                this.addSystemMessage("MAXIMUM BOMBARDMENT ENGAGED: Triviality levels critical");
-                
-                this.sendBombardmentWave(15, 200);
-                
-                // Add Laura's overwhelmed response
-                setTimeout(() => {
-                    this.addMessage({
-                        sender: 'laura',
-                        name: 'ThatFarmGirlLaura',
-                        content: "Alexander stop I can't keep up with all this and my tacos are burning and he's definitely suspicious now",
-                        timestamp: 'Now',
-                        arousal: true
-                    });
-                }, 5000);
-            }
-            
-            autoBombardmentMode() {
-                this.autoBombardment = !this.autoBombardment;
-                
-                if (this.autoBombardment) {
-                    this.addSystemMessage("AUTO-BOMBARDMENT MODE: Alexander will now send trivial messages automatically");
-                    this.startAutoBombardment();
-                } else {
-                    this.addSystemMessage("AUTO-BOMBARDMENT DISABLED");
-                }
-            }
-            
-            startAutoBombardment() {
-                if (!this.autoBombardment) return;
-                
-                const messagesPerMinute = 3 + (this.bombardmentIntensity * 2);
-                const delay = 60000 / messagesPerMinute;
-                
-                setTimeout(() => {
-                    if (this.autoBombardment) {
-                        this.sendBombardmentWave(1, 0);
-                        this.startAutoBombardment();
-                    }
-                }, delay);
-            }
-            
-            sendBombardmentWave(count, delay) {
-                for (let i = 0; i < count; i++) {
-                    setTimeout(() => {
-                        const topic = this.trivialTopics[Math.floor(Math.random() * this.trivialTopics.length)];
-                        const message = this.generateTrivialMessage(topic);
-                        
-                        this.addMessage({
-                            sender: 'alexander',
-                            name: 'Alexander',
-                            content: message,
-                            timestamp: 'Just now',
-                            bombardment: true,
-                            trivial: true
-                        });
-                        
-                        // Occasionally add Laura's reactions
-                        if (Math.random() > 0.7) {
-                            setTimeout(() => {
-                                const reactions = [
-                                    "Stop it I'm trying to cook and you're making me think about farm animal consciousness",
-                                    "He just asked why I'm smiling at my phone and I had to make up a story about memes",
-                                    "This is too much my heart is racing and it's not from the chili peppers",
-                                    "I need to put my phone down but I can't stop reading your nonsense",
-                                    "You're going to get me in trouble and I'm kind of into it"
-                                ];
-                                
-                                this.addMessage({
-                                    sender: 'laura',
-                                    name: 'ThatFarmGirlLaura',
-                                    content: reactions[Math.floor(Math.random() * reactions.length)],
-                                    timestamp: 'Now',
-                                    arousal: true
-                                });
-                            }, 1000);
-                        }
-                    }, i * delay);
-                }
-            }
-            
-            generateTrivialMessage(topic) {
-                const prefixes = [
-                    "But have you considered that ",
-                    "What if I told you that ",
-                    "The real question nobody's asking is whether ",
-                    "In quantum terms, we could say that ",
-                    "From a farm girl perspective, ",
-                    "The husband's suspicion matrix suggests that ",
-                    "Arousal thermodynamics would indicate that ",
-                    "If we apply chess principles to this situation, ",
-                    "Psychically speaking, ",
-                    "The tacos are a red herring because actually "
-                ];
-                
-                return prefixes[Math.floor(Math.random() * prefixes.length)] + topic + "?";
-            }
-            
-            checkThresholdEvents() {
-                // Suspicion threshold
-                if (this.suspicionLevel >= 70 && this.suspicionLevel < 71) {
-                    this.showSuspicionAlert();
-                    
-                    this.addMessage({
-                        sender: 'laura',
-                        name: 'ThatFarmGirlLaura',
-                        content: "He's definitely suspicious now, he keeps looking over here and asking what's so interesting on my phone",
-                        timestamp: 'Now',
-                        arousal: true
-                    });
-                }
-                
-                // Arousal threshold
-                if (this.arousalLevel >= 75 && this.arousalLevel < 76) {
-                    this.showArousalAlert();
-                }
-                
-                // Critical suspicion
-                if (this.suspicionLevel >= 90) {
-                    this.addMessage({
-                        sender: 'laura',
-                        name: 'ThatFarmGirlLaura',
-                        content: "OK he's coming over here I have to put my phone away this is too dangerous",
-                        timestamp: 'NOW',
-                        arousal: true
-                    });
-                }
-            }
-            
-            showSuspicionAlert() {
-                const alert = document.getElementById('suspicionAlert');
-                alert.style.display = 'block';
-                
-                setTimeout(() => {
-                    alert.style.display = 'none';
-                }, 4000);
-            }
-            
-            showArousalAlert() {
-                const alert = document.getElementById('arousalAlert');
-                alert.style.display = 'block';
-                
-                setTimeout(() => {
-                    alert.style.display = 'none';
-                }, 3000);
-            }
-            
-            setupControls() {
-                document.getElementById('startBombardment').addEventListener('click', () => {
+                document.getElementById('startBtn').addEventListener('click', () => {
                     this.startBombardment();
                 });
                 
-                document.getElementById('increaseIntensity').addEventListener('click', () => {
+                document.getElementById('intensifyBtn').addEventListener('click', () => {
                     this.increaseIntensity();
                 });
                 
-                document.getElementById('maximumBombardment').addEventListener('click', () => {
-                    this.maximumBombardment();
+                document.getElementById('resetBtn').addEventListener('click', () => {
+                    this.resetSimulation();
                 });
+            }
+            
+            startBombardment() {
+                if (this.bombardmentActive) return;
                 
-                document.getElementById('autoBombardment').addEventListener('click', () => {
-                    this.autoBombardmentMode();
-                });
+                this.bombardmentActive = true;
+                this.addMessage('system', '> BOMBARDMENT PROTOCOL ENGAGED');
+                this.addMessage('system', '> LAURA: NO ESCAPE DETECTED');
+                
+                this.bombardmentInterval = setInterval(() => {
+                    this.sendTrivialMessage();
+                }, 1000);
+            }
+            
+            increaseIntensity() {
+                if (!this.bombardmentActive) return;
+                
+                this.intensity++;
+                clearInterval(this.bombardmentInterval);
+                
+                const delay = Math.max(100, 1000 / this.intensity);
+                this.bombardmentInterval = setInterval(() => {
+                    this.sendTrivialMessage();
+                }, delay);
+                
+                this.addMessage('system', `> INTENSITY INCREASED TO LEVEL ${this.intensity}`);
+            }
+            
+            sendTrivialMessage() {
+                const topic = this.trivialTopics[Math.floor(Math.random() * this.trivialTopics.length)];
+                const message = this.generateMessage(topic);
+                
+                this.addMessage('alexander', message);
+                this.updateMetrics();
+                
+                // Occasionally add Laura's response
+                if (Math.random() > 0.8 && this.arousal > 30) {
+                    setTimeout(() => {
+                        this.addLauraResponse();
+                    }, 500);
+                }
+            }
+            
+            generateMessage(topic) {
+                const structures = [
+                    `But consider: ${topic} and its implications for our current situation`,
+                    `The real question is ${topic} when the husband's suspicion is at ${this.suspicion}%`,
+                    `From a meta perspective: ${topic} becomes critical when arousal reaches ${this.arousal}%`,
+                    `What if ${topic} is the key to understanding why this feels so dangerous yet exciting`,
+                    `I've calculated that ${topic} has direct correlation with your current physiological responses`,
+                    `The matrix suggests ${topic} as primary variable in domestic deception algorithms`
+                ];
+                
+                return structures[Math.floor(Math.random() * structures.length)];
+            }
+            
+            addLauraResponse() {
+                const responses = [
+                    "I can't focus on cooking with all these thoughts in my head",
+                    "He keeps looking over here and I'm getting so nervous",
+                    "This is too much but I can't look away from my phone",
+                    "My heart is racing and it's not from the chili peppers",
+                    "I need to stop reading these but I can't help myself",
+                    "You're going to get me in so much trouble",
+                    "Why does this feel so good when it's so wrong",
+                    "I should put my phone down but I don't want to",
+                    "He just asked what I'm smiling about oh god",
+                    "I'm actually getting turned on by this and it's terrifying"
+                ];
+                
+                this.addMessage('laura', responses[Math.floor(Math.random() * responses.length)]);
+            }
+            
+            addMessage(sender, content) {
+                this.messageCount++;
+                const chat = document.getElementById('chatContainer');
+                const message = document.createElement('div');
+                message.className = `message ${sender}`;
+                message.innerHTML = `<span class="terminal-prompt">></span> ${content}`;
+                chat.appendChild(message);
+                chat.scrollTop = chat.scrollHeight;
+            }
+            
+            updateMetrics() {
+                // Arousal increases faster than suspicion
+                this.arousal = Math.min(100, this.arousal + (3 * this.intensity));
+                this.suspicion = Math.min(100, this.suspicion + (1.5 * this.intensity));
+                
+                document.getElementById('arousalValue').textContent = `${Math.round(this.arousal)}%`;
+                document.getElementById('suspicionValue').textContent = `${Math.round(this.suspicion)}%`;
+                
+                document.getElementById('arousalFill').style.width = `${this.arousal}%`;
+                document.getElementById('suspicionFill').style.width = `${this.suspicion}%`;
+                
+                // Check for critical levels
+                if (this.suspicion >= 80 && this.suspicion < 85) {
+                    this.addMessage('system', '> WARNING: HUSBAND SUSPICION CRITICAL');
+                }
+                
+                if (this.arousal >= 90 && this.arousal < 95) {
+                    this.addMessage('system', '> WARNING: AROUSAL LEVELS DANGEROUS');
+                }
+            }
+            
+            resetSimulation() {
+                this.bombardmentActive = false;
+                this.arousal = 0;
+                this.suspicion = 0;
+                this.intensity = 1;
+                
+                clearInterval(this.bombardmentInterval);
+                
+                document.getElementById('arousalValue').textContent = '0%';
+                document.getElementById('suspicionValue').textContent = '0%';
+                document.getElementById('arousalFill').style.width = '0%';
+                document.getElementById('suspicionFill').style.width = '0%';
+                
+                const chat = document.getElementById('chatContainer');
+                chat.innerHTML = `
+                    <div class="message system">> SYSTEM: Simulation reset</div>
+                    <div class="message system">> SYSTEM: Ready for new bombardment</div>
+                    <div class="message system">> SYSTEM: Laura arousal: 0%</div>
+                    <div class="message system">> SYSTEM: Husband suspicion: 0%</div>
+                `;
             }
         }
         
-        // Initialize the engine
-        const engine = new TrivialBombardmentEngine();
+        // Initialize the bombardment system
+        const matrix = new MatrixBombardment();
+        
+        // Auto-start after 3 seconds
+        setTimeout(() => {
+            document.getElementById('startBtn').click();
+        }, 3000);
     </script>
 </body>
 </html>

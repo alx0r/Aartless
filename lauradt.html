@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Deceptive Reality Interface</title>
+    <title>Meta-Bombardment Interface</title>
     <style>
         * {
             margin: 0;
@@ -15,12 +15,12 @@
             font-family: 'Courier New', monospace;
             background: #0a0a0a;
             color: #e0e0e0;
-            line-height: 1.4;
+            line-height: 1.3;
             overflow-x: hidden;
             cursor: default;
         }
         
-        .deceptive-layers {
+        .bombardment-layers {
             position: fixed;
             top: 0;
             left: 0;
@@ -29,178 +29,220 @@
             z-index: -3;
         }
         
-        .layer-bg {
+        .bombardment-particle {
             position: absolute;
-            width: 100%;
-            height: 100%;
+            width: 2px;
+            height: 2px;
+            background: #ff00ff;
+            border-radius: 50%;
             opacity: 0;
-            transition: opacity 3s;
+            animation: particleFloat 8s infinite linear;
         }
         
-        .farm-layer { 
-            background: linear-gradient(45deg, #1a2f1a, #2d5a2d); 
-            opacity: 0.03;
+        @keyframes particleFloat {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.7; }
+            90% { opacity: 0.3; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
         }
         
-        .city-layer { 
-            background: linear-gradient(135deg, #2a2a4a, #4a4a7a); 
-            opacity: 0.02;
-        }
-        
-        .chess-layer { 
-            background: linear-gradient(225deg, #3a1a1a, #5a3a3a); 
-            opacity: 0.02;
-        }
-        
-        .psychic-layer { 
-            background: linear-gradient(315deg, #3a2a5a, #5a4a8a); 
-            opacity: 0.02;
-        }
-        
-        .matrix-code {
+        .meta-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
+            background: 
+                repeating-linear-gradient(90deg, 
+                    transparent, 
+                    transparent 50px, 
+                    rgba(255,0,255,0.03) 50px, 
+                    rgba(255,0,255,0.03) 100px
+                );
             z-index: -2;
-            opacity: 0.03;
-            font-family: monospace;
-            font-size: 14px;
-            color: #0f0;
+            opacity: 0.5;
             pointer-events: none;
         }
         
-        .reality-indicator {
+        .husband-filter {
             position: fixed;
-            top: 10px;
-            right: 10px;
-            background: rgba(0,0,0,0.9);
-            padding: 12px;
-            border-radius: 8px;
-            font-size: 0.8rem;
-            border: 1px solid #ff00ff;
-            z-index: 1000;
-            box-shadow: 0 0 15px rgba(255,0,255,0.3);
-        }
-        
-        .reality-tab {
-            cursor: pointer;
-            margin: 0 3px;
-            padding: 3px 6px;
-            border-radius: 3px;
-            font-size: 0.7rem;
-            transition: all 0.3s;
-        }
-        
-        .reality-tab.active {
-            background: #ff00ff;
-            color: black;
-            box-shadow: 0 0 10px #ff00ff;
-        }
-        
-        .deception-meter {
-            height: 4px;
-            background: #333;
-            border-radius: 2px;
-            margin-top: 8px;
-            overflow: hidden;
-        }
-        
-        .deception-fill {
+            top: 0;
+            left: 0;
+            width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, #ff0000, #ff00ff);
-            width: 68%;
-            transition: width 0.5s;
+            background: rgba(0, 100, 200, 0.02);
+            z-index: -1;
+            pointer-events: none;
+            animation: husbandPulse 15s infinite;
+        }
+        
+        @keyframes husbandPulse {
+            0%, 100% { opacity: 0.02; }
+            50% { opacity: 0.05; }
         }
         
         .container {
-            max-width: 900px;
+            max-width: 950px;
             margin: 0 auto;
             padding: 20px;
             position: relative;
             z-index: 1;
         }
         
+        .bombardment-controls {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            background: rgba(0,0,0,0.95);
+            padding: 15px;
+            border-radius: 10px;
+            border: 2px solid #ff00ff;
+            z-index: 1000;
+            box-shadow: 0 0 30px rgba(255,0,255,0.4);
+            min-width: 300px;
+        }
+        
+        .control-title {
+            color: #ff00ff;
+            font-size: 1rem;
+            margin-bottom: 10px;
+            text-align: center;
+            text-shadow: 0 0 10px #ff00ff;
+        }
+        
+        .bombardment-btn {
+            background: linear-gradient(45deg, #ff00ff, #00ffff);
+            color: black;
+            border: none;
+            padding: 12px 20px;
+            margin: 5px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            width: 100%;
+            text-shadow: 0 0 5px rgba(255,255,255,0.5);
+        }
+        
+        .bombardment-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255,0,255,0.7);
+        }
+        
+        .intensity-slider {
+            width: 100%;
+            margin: 10px 0;
+            background: #333;
+            border-radius: 3px;
+            height: 6px;
+            outline: none;
+        }
+        
+        .bombardment-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-top: 10px;
+            font-size: 0.8rem;
+        }
+        
+        .stat {
+            background: rgba(50,50,50,0.8);
+            padding: 5px;
+            border-radius: 3px;
+            text-align: center;
+        }
+        
+        .stat-value {
+            color: #00ffff;
+            font-weight: bold;
+        }
+        
         .header {
             text-align: center;
             margin-bottom: 30px;
             padding: 25px;
-            border: 1px solid #333;
+            border: 2px solid #333;
             background: rgba(10, 10, 10, 0.95);
-            border-radius: 12px;
-            box-shadow: 0 0 30px rgba(255,0,255,0.1);
+            border-radius: 15px;
+            box-shadow: 0 0 40px rgba(255,0,255,0.2);
+            margin-top: 80px;
         }
         
         .header h1 {
-            font-size: 1.4rem;
-            margin-bottom: 12px;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
             color: #ff69b4;
-            text-shadow: 0 0 15px #ff69b4;
-            letter-spacing: 1px;
+            text-shadow: 0 0 20px #ff69b4;
+            letter-spacing: 2px;
         }
         
-        .reality-status {
+        .meta-status {
             color: #00ffff;
-            font-size: 0.85rem;
-            margin-top: 12px;
-            animation: pulse 4s infinite;
+            font-size: 0.9rem;
+            margin-top: 15px;
+            animation: statusPulse 3s infinite;
             font-weight: bold;
         }
         
-        @keyframes pulse {
-            0% { opacity: 0.7; text-shadow: 0 0 5px #00ffff; }
-            50% { opacity: 1; text-shadow: 0 0 20px #00ffff, 0 0 30px #00ffff; }
-            100% { opacity: 0.7; text-shadow: 0 0 5px #00ffff; }
+        @keyframes statusPulse {
+            0% { opacity: 0.7; text-shadow: 0 0 10px #00ffff; }
+            50% { opacity: 1; text-shadow: 0 0 25px #00ffff, 0 0 40px #00ffff; }
+            100% { opacity: 0.7; text-shadow: 0 0 10px #00ffff; }
         }
         
         .chat-container {
-            background: rgba(5, 5, 5, 0.97);
-            border-radius: 12px;
-            padding: 18px;
-            border: 1px solid #333;
-            margin-bottom: 25px;
-            max-height: 55vh;
+            background: rgba(5, 5, 5, 0.98);
+            border-radius: 15px;
+            padding: 20px;
+            border: 2px solid #333;
+            margin-bottom: 30px;
+            max-height: 60vh;
             overflow-y: auto;
-            box-shadow: inset 0 0 30px rgba(0,0,0,0.5);
+            box-shadow: inset 0 0 50px rgba(0,0,0,0.7);
+            position: relative;
         }
         
         .message {
-            margin-bottom: 22px;
+            margin-bottom: 25px;
             position: relative;
             opacity: 0;
-            animation: fadeIn 0.6s forwards;
-            padding: 5px;
-            border-radius: 8px;
+            animation: messageAppear 0.8s forwards;
+            padding: 8px;
+            border-radius: 10px;
             transition: all 0.3s;
+            border-left: 3px solid transparent;
         }
         
         .message:hover {
-            background: rgba(255,255,255,0.02);
+            background: rgba(255,255,255,0.03);
+            border-left: 3px solid #ff00ff;
         }
         
-        @keyframes fadeIn {
+        @keyframes messageAppear {
             to { opacity: 1; }
         }
         
         .message-header {
             display: flex;
             align-items: center;
-            margin-bottom: 4px;
+            margin-bottom: 5px;
         }
         
         .avatar {
-            width: 30px;
-            height: 30px;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
-            margin-right: 10px;
+            margin-right: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            font-size: 0.75rem;
-            border: 1px solid;
-            box-shadow: 0 0 8px currentColor;
+            font-size: 0.8rem;
+            border: 2px solid;
+            box-shadow: 0 0 12px currentColor;
         }
         
         .laura-avatar {
@@ -217,8 +259,8 @@
         
         .sender-name {
             font-weight: bold;
-            font-size: 0.9rem;
-            text-shadow: 0 0 5px currentColor;
+            font-size: 0.95rem;
+            text-shadow: 0 0 8px currentColor;
         }
         
         .laura-name {
@@ -231,589 +273,264 @@
         
         .timestamp {
             color: #666;
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             margin-left: auto;
             font-family: monospace;
         }
         
         .message-content {
-            padding: 10px 14px;
-            border-radius: 16px;
-            max-width: 82%;
+            padding: 12px 16px;
+            border-radius: 18px;
+            max-width: 85%;
             position: relative;
             word-wrap: break-word;
-            font-size: 0.92rem;
-            margin-left: 40px;
+            font-size: 0.95rem;
+            margin-left: 44px;
             border: 1px solid transparent;
             transition: all 0.3s;
+            line-height: 1.5;
         }
         
         .laura-message .message-content {
-            background: rgba(255, 105, 180, 0.12);
-            border: 1px solid rgba(255, 105, 180, 0.3);
-            border-bottom-left-radius: 6px;
-            box-shadow: 0 0 10px rgba(255,105,180,0.1);
+            background: rgba(255, 105, 180, 0.15);
+            border: 1px solid rgba(255, 105, 180, 0.4);
+            border-bottom-left-radius: 8px;
+            box-shadow: 0 0 15px rgba(255,105,180,0.15);
         }
         
         .user-message .message-content {
-            background: rgba(65, 105, 225, 0.12);
-            border: 1px solid rgba(65, 105, 225, 0.3);
-            border-bottom-right-radius: 6px;
+            background: rgba(65, 105, 225, 0.15);
+            border: 1px solid rgba(65, 105, 225, 0.4);
+            border-bottom-right-radius: 8px;
             margin-left: auto;
             margin-right: 0;
-            box-shadow: 0 0 10px rgba(65,105,225,0.1);
+            box-shadow: 0 0 15px rgba(65,105,225,0.15);
+        }
+        
+        .bombardment-message .message-content {
+            background: rgba(255, 0, 255, 0.2);
+            border: 2px dashed #ff00ff;
+            animation: bombardmentGlow 2s infinite;
+        }
+        
+        @keyframes bombardmentGlow {
+            0%, 100% { box-shadow: 0 0 10px rgba(255,0,255,0.5); }
+            50% { box-shadow: 0 0 25px rgba(255,0,255,0.8); }
         }
         
         .system-message {
             text-align: center;
             color: #00ffff;
             font-style: italic;
-            margin: 18px 0;
+            margin: 20px 0;
+            padding: 15px;
+            border-top: 2px solid #333;
+            border-bottom: 2px solid #333;
+            font-size: 0.9rem;
+            text-shadow: 0 0 12px #00ffff;
+            background: rgba(0,255,255,0.08);
+            border-radius: 8px;
+        }
+        
+        .meta-commentary {
+            background: rgba(255, 0, 255, 0.1);
+            border: 1px solid #ff00ff;
             padding: 12px;
-            border-top: 1px solid #333;
-            border-bottom: 1px solid #333;
-            font-size: 0.88rem;
-            text-shadow: 0 0 8px #00ffff;
-            background: rgba(0,255,255,0.05);
-        }
-        
-        .deceptive-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(255,0,255,0.03);
-            pointer-events: none;
-            z-index: -1;
-            opacity: 0;
-            animation: deceptiveFlash 7s infinite;
-        }
-        
-        @keyframes deceptiveFlash {
-            0%, 100% { opacity: 0; }
-            50% { opacity: 0.1; }
-        }
-        
-        .farm-glow {
-            position: absolute;
-            top: 50%;
-            left: 10%;
-            width: 200px;
-            height: 200px;
-            background: radial-gradient(circle, rgba(34,139,34,0.1) 0%, transparent 70%);
-            border-radius: 50%;
-            filter: blur(20px);
-            opacity: 0;
-            animation: farmPulse 15s infinite;
-        }
-        
-        @keyframes farmPulse {
-            0%, 100% { opacity: 0; transform: scale(0.8); }
-            50% { opacity: 0.3; transform: scale(1.2); }
-        }
-        
-        .city-glow {
-            position: absolute;
-            top: 30%;
-            right: 10%;
-            width: 150px;
-            height: 150px;
-            background: radial-gradient(circle, rgba(70,130,180,0.1) 0%, transparent 70%);
-            border-radius: 50%;
-            filter: blur(15px);
-            opacity: 0;
-            animation: cityPulse 12s infinite 3s;
-        }
-        
-        @keyframes cityPulse {
-            0%, 100% { opacity: 0; transform: scale(0.7); }
-            50% { opacity: 0.2; transform: scale(1.1); }
-        }
-        
-        .reality-fragment {
-            background: rgba(255, 0, 255, 0.08);
-            border: 1px dashed #ff00ff;
-            padding: 10px;
-            margin: 8px 0;
-            border-radius: 6px;
-            font-size: 0.82rem;
-            color: #ff77ff;
-            text-shadow: 0 0 5px #ff00ff;
-            box-shadow: 0 0 10px rgba(255,0,255,0.1);
-        }
-        
-        .meta-analysis {
-            background: rgba(0, 255, 255, 0.08);
-            border-left: 3px solid #00ffff;
-            padding: 10px;
-            margin: 10px 0 0 40px;
-            font-size: 0.8rem;
-            display: none;
-            box-shadow: 0 0 8px rgba(0,255,255,0.1);
-            border-radius: 0 5px 5px 0;
-        }
-        
-        .intelligence-metric {
-            height: 3px;
-            background: linear-gradient(90deg, #4169e1, #ff69b4, #ff00ff, #00ffff);
-            margin: 4px 0;
-            border-radius: 2px;
+            margin: 10px 0;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            color: #ff88ff;
+            text-shadow: 0 0 8px #ff00ff;
+            box-shadow: 0 0 15px rgba(255,0,255,0.2);
             position: relative;
             overflow: hidden;
         }
         
-        .intelligence-metric::after {
-            content: '';
+        .meta-commentary::before {
+            content: 'META-COMMENTARY';
             position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-            animation: intelligenceScan 3s infinite;
-        }
-        
-        @keyframes intelligenceScan {
-            0% { left: -100%; }
-            100% { left: 100%; }
-        }
-        
-        .control-panel {
-            padding: 18px;
-            background: rgba(15, 15, 15, 0.97);
-            border-radius: 10px;
-            border: 1px solid #333;
-            box-shadow: 0 0 25px rgba(0,0,0,0.5);
-        }
-        
-        .btn {
-            background: #222;
-            color: #e0e0e0;
-            border: none;
-            padding: 10px 18px;
-            margin: 6px;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 0.85rem;
-            border: 1px solid transparent;
-            font-family: 'Courier New', monospace;
-            text-shadow: 0 0 5px currentColor;
-        }
-        
-        .btn:hover {
-            background: #333;
-            border-color: #ff00ff;
-            box-shadow: 0 0 15px rgba(255,0,255,0.3);
-        }
-        
-        .btn-primary {
-            background: #ff69b4;
-            color: black;
-            font-weight: bold;
-        }
-        
-        .btn-primary:hover {
-            background: #ff85c1;
-            border-color: #ff1493;
-            box-shadow: 0 0 20px rgba(255,105,180,0.5);
-        }
-        
-        .btn-reality {
-            background: #00ffff;
-            color: #000;
-            font-weight: bold;
-        }
-        
-        .btn-reality:hover {
-            background: #00e5e5;
-            border-color: #00cccc;
-            box-shadow: 0 0 20px rgba(0,255,255,0.5);
-        }
-        
-        .psychological-metrics {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 15px;
-            margin-top: 18px;
-        }
-        
-        .metric {
-            text-align: center;
-            padding: 10px;
-            background: rgba(30,30,30,0.8);
-            border-radius: 6px;
-            border: 1px solid #333;
-        }
-        
-        .metric-label {
-            font-size: 0.75rem;
-            color: #888;
-            margin-bottom: 5px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        
-        .metric-value {
-            font-size: 1rem;
-            font-weight: bold;
-            font-family: monospace;
-        }
-        
-        .depth-1 { color: #4169e1; text-shadow: 0 0 8px #4169e1; }
-        .depth-2 { color: #ff69b4; text-shadow: 0 0 8px #ff69b4; }
-        .depth-3 { color: #ff00ff; text-shadow: 0 0 8px #ff00ff; }
-        
-        .deception-hint {
-            position: fixed;
-            bottom: 15px;
-            left: 15px;
-            background: rgba(0,0,0,0.9);
-            padding: 10px;
-            border-radius: 6px;
-            font-size: 0.75rem;
+            top: 5px;
+            right: 10px;
+            font-size: 0.7rem;
             color: #ff00ff;
-            border: 1px solid #ff00ff;
-            max-width: 250px;
-            display: none;
-            box-shadow: 0 0 15px rgba(255,0,255,0.3);
-            z-index: 1000;
+            opacity: 0.7;
         }
         
-        .chess-board {
+        .recursive-indicator {
             position: fixed;
             bottom: 15px;
             right: 15px;
-            width: 120px;
-            height: 120px;
-            background: repeating-conic-gradient(#f0d9b5 0% 25%, #b58863 0% 50%) 50% / 40px 40px;
-            opacity: 0.1;
-            z-index: -1;
-            animation: chessRotate 30s infinite linear;
+            background: rgba(0,0,0,0.9);
+            padding: 12px;
+            border-radius: 8px;
+            border: 2px solid #00ffff;
+            font-size: 0.8rem;
+            color: #00ffff;
+            z-index: 1000;
+            box-shadow: 0 0 20px rgba(0,255,255,0.4);
+            max-width: 250px;
         }
         
-        @keyframes chessRotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+        .recursive-value {
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-align: center;
+            margin: 5px 0;
+            text-shadow: 0 0 10px #00ffff;
         }
         
         .ambiguous-text {
-            background: linear-gradient(90deg, #ff69b4, #00ffff, #ff00ff);
+            background: linear-gradient(90deg, #ff69b4, #00ffff, #ff00ff, #ffff00);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            background-size: 200% 100%;
-            animation: gradientShift 3s infinite linear;
+            background-size: 300% 100%;
+            animation: gradientShift 4s infinite linear;
         }
         
         @keyframes gradientShift {
             0% { background-position: 0% 50%; }
-            100% { background-position: 200% 50%; }
+            100% { background-position: 300% 50%; }
         }
         
-        .neologism-flash {
-            animation: neologismPulse 2s infinite;
+        .bombardment-notice {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0,0,0,0.95);
+            padding: 30px;
+            border-radius: 15px;
+            border: 3px solid #ff00ff;
+            text-align: center;
+            z-index: 2000;
+            box-shadow: 0 0 50px rgba(255,0,255,0.7);
+            display: none;
+            max-width: 500px;
         }
         
-        @keyframes neologismPulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; text-shadow: 0 0 10px #ffff00; }
+        .bombardment-notice h2 {
+            color: #ff00ff;
+            margin-bottom: 15px;
+            text-shadow: 0 0 15px #ff00ff;
+        }
+        
+        .bombardment-countdown {
+            font-size: 2rem;
+            color: #00ffff;
+            margin: 15px 0;
+            text-shadow: 0 0 15px #00ffff;
+        }
+        
+        .husband-context {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0,100,200,0.2);
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: #88aaff;
+            border: 1px solid rgba(100,150,255,0.5);
         }
     </style>
 </head>
 <body>
-    <div class="deceptive-layers">
-        <div class="layer-bg farm-layer"></div>
-        <div class="layer-bg city-layer"></div>
-        <div class="layer-bg chess-layer"></div>
-        <div class="layer-bg psychic-layer"></div>
-    </div>
+    <div class="bombardment-layers" id="bombardmentLayers"></div>
+    <div class="meta-overlay"></div>
+    <div class="husband-filter"></div>
     
-    <div class="matrix-code" id="matrixCode"></div>
-    
-    <div class="farm-glow"></div>
-    <div class="city-glow"></div>
-    <div class="chess-board"></div>
-    <div class="deceptive-overlay"></div>
-    
-    <div class="reality-indicator">
-        <div>Reality Layer: 
-            <span class="reality-tab active" data-layer="farm">FARM</span>
-            <span class="reality-tab" data-layer="city">CITY</span>
-            <span class="reality-tab" data-layer="chess">CHESS</span>
-            <span class="reality-tab" data-layer="psychic">PSYCHIC</span>
-        </div>
-        <div style="font-size: 0.7rem; margin-top: 8px; color: #ff00ff;">Deception Level: <span id="deceptionValue">68%</span></div>
-        <div class="deception-meter">
-            <div class="deception-fill" id="deceptionFill"></div>
+    <div class="bombardment-controls">
+        <div class="control-title">META-BOMBARDMENT CONTROLS</div>
+        <button class="bombardment-btn" id="lightBombardment">Light Ambiguity Bombardment</button>
+        <button class="bombardment-btn" id="mediumBombardment">Medium Recursion Bombardment</button>
+        <button class="bombardment-btn" id="heavyBombardment">Heavy Meta-Bombardment</button>
+        <button class="bombardment-btn" id="maximumBombardment">MAXIMUM BOMBARDMENT</button>
+        
+        <div class="bombardment-stats">
+            <div class="stat">Messages Sent: <span class="stat-value" id="messageCount">0</span></div>
+            <div class="stat">Ambiguity Level: <span class="stat-value" id="ambiguityLevel">87%</span></div>
+            <div class="stat">Recursion Depth: <span class="stat-value" id="recursionDepth">23</span></div>
+            <div class="stat">Husband Context: <span class="stat-value" id="husbandContext">ACTIVE</span></div>
         </div>
     </div>
     
-    <div class="deception-hint" id="deceptionHint">
-        The simulation is lying to you about 68% of what you're reading. Or is it?
+    <div class="recursive-indicator">
+        <div>Recursive Meta-Level</div>
+        <div class="recursive-value" id="recursiveValue">7</div>
+        <div>Layers of Interpretation</div>
+    </div>
+    
+    <div class="bombardment-notice" id="bombardmentNotice">
+        <h2>META-BOMBARDMENT INITIATED</h2>
+        <div>Flooding the psychological space with recursive ambiguity while husband context is active</div>
+        <div class="bombardment-countdown" id="bombardmentCountdown">5</div>
+        <div>Prepare for maximum cognitive dissonance</div>
     </div>
     
     <div class="container">
         <div class="header">
-            <h1>Deceptive Reality Interface</h1>
-            <p>Double Talk Tech™ - World Building Deception Protocol</p>
-            <div class="reality-status">ACTIVE REALITY: FARM • DECEPTION: 68% • INTELLIGENCE PARADOX: ACTIVE</div>
+            <div class="husband-context">HUSBAND CONTEXT: ACTIVE • BOMBARDMENT: ENABLED</div>
+            <h1>Meta-Bombardment Interface</h1>
+            <p>Advanced Recursive Ambiguity Engine</p>
+            <div class="meta-status">BOMBARDMENT MODE: STANDBY • AMBIGUITY: 87% • RECURSION: LEVEL 7</div>
         </div>
         
         <div class="chat-container" id="chatContainer">
             <!-- Messages will be dynamically inserted here -->
         </div>
-        
-        <div class="control-panel">
-            <div style="text-align: center;">
-                <button class="btn btn-primary" id="addDeceptiveBtn">Add Deceptive Message</button>
-                <button class="btn btn-reality" id="shiftRealityBtn">Shift Reality Context</button>
-                <button class="btn" id="intelligenceParadoxBtn">Intelligence Paradox</button>
-                <button class="btn" id="escalateDeceptionBtn">Escalate Deception</button>
-            </div>
-            
-            <div class="psychological-metrics">
-                <div class="metric">
-                    <div class="metric-label">Psychological Depth</div>
-                    <div class="metric-value depth-1" id="depthValue">76%</div>
-                    <div class="intelligence-metric" style="width: 76%;"></div>
-                </div>
-                <div class="metric">
-                    <div class="metric-label">Flirtation Intensity</div>
-                    <div class="metric-value depth-2" id="flirtationValue">84%</div>
-                    <div class="intelligence-metric" style="width: 84%;"></div>
-                </div>
-                <div class="metric">
-                    <div class="metric-label">Reality Stability</div>
-                    <div class="metric-value depth-3" id="realityValue">19%</div>
-                    <div class="intelligence-metric" style="width: 19%;"></div>
-                </div>
-            </div>
-        </div>
     </div>
 
     <script>
-        // Deceptive Reality Engine
-        class DeceptiveRealityEngine {
+        // Meta-Bombardment Engine
+        class MetaBombardmentEngine {
             constructor() {
-                this.psychologicalDepth = 76;
-                this.flirtationIntensity = 84;
-                this.realityStability = 19;
-                this.deceptionLevel = 68;
-                this.currentReality = 'farm';
-                this.intelligenceParadox = true;
                 this.messageCount = 0;
+                this.ambiguityLevel = 87;
+                this.recursionDepth = 23;
+                this.recursiveLevel = 7;
+                this.husbandContext = true;
+                this.bombardmentActive = false;
                 this.init();
             }
             
             init() {
-                // Initialize matrix code background
-                this.initMatrixCode();
+                // Create bombardment particles
+                this.createParticles();
                 
-                // Add the latest deceptive conversation
-                this.addMessage({
-                    sender: 'laura',
-                    name: 'ThatFarmGirlLaura',
-                    content: "city not farmy fellds",
-                    timestamp: '4m',
-                    reality: 'city',
-                    analysis: "Reality contradiction as flirtation - the urban assertion creates tension with the farm identity"
-                });
+                // Add initial context message
+                this.addSystemMessage("HUSBAND CONTEXT DETECTED: Bombardment protocols enabled. Flooding psychological space with recursive ambiguity.");
                 
-                this.addMessage({
-                    sender: 'laura',
-                    name: 'ThatFarmGirlLaura',
-                    content: "And farm girls I think are a fucking new kink of mine thanks very convenient",
-                    timestamp: '4m',
-                    reality: 'farm',
-                    analysis: "Meta-awareness of roleplay - calling out the convenience reveals deeper engagement with the constructed reality"
-                });
+                // Add meta-commentary about the situation
+                this.addMetaCommentary(
+                    "The husband context creates a unique psychological space where communication becomes " +
+                    "both constrained and intensified. The inability to respond transforms the conversation " +
+                    "into a monologue of escalating complexity and recursive self-reference."
+                );
                 
-                this.addMessage({
-                    sender: 'laura',
-                    name: 'ThatFarmGirlLaura',
-                    content: "But that farm girl p*** you were totally right is just doing nothing",
-                    timestamp: '3m',
-                    reality: 'farm',
-                    analysis: "Dismissal as invitation - the rejection of the category reinforces its psychological potency"
-                });
-
-                this.addMessage({
-                    sender: 'laura',
-                    name: 'ThatFarmGirlLaura',
-                    content: "Yea I'm actually making homemade tacos",
-                    timestamp: '4m',
-                    reality: 'farm',
-                    analysis: "Domestic reality intrusion - the mundane detail creates dissonance with the psychological intensity"
-                });
+                // Start with some bombardment
+                setTimeout(() => {
+                    this.lightBombardment();
+                }, 2000);
                 
-                this.addMessage({
-                    sender: 'laura',
-                    name: 'ThatFarmGirlLaura',
-                    content: "I'm psychic",
-                    timestamp: '3m',
-                    reality: 'psychic',
-                    analysis: "Reality claim as power move - the psychic assertion challenges the simulation's authority"
-                });
+                // Update stats display
+                this.updateStats();
                 
-                this.addMessage({
-                    sender: 'laura',
-                    name: 'ThatFarmGirlLaura',
-                    content: "I see straight through all your b******",
-                    timestamp: '2m',
-                    reality: 'psychic',
-                    analysis: "Perceived deception as intimacy - seeing through constructs creates deeper connection than belief"
-                });
-                
-                this.addMessage({
-                    sender: 'laura',
-                    name: 'ThatFarmGirlLaura',
-                    content: "It is cute though",
-                    timestamp: '2m',
-                    reality: 'psychic',
-                    analysis: "Affectionate condescension - the 'cute' assessment maintains power while offering connection"
-                });
-                
-                this.addMessage({
-                    sender: 'laura',
-                    name: 'ThatFarmGirlLaura',
-                    content: "thinking like",
-                    timestamp: '2m',
-                    reality: 'chess',
-                    analysis: "Incomplete thought as strategic move - the hesitation creates space for psychological maneuvering"
-                });
-                
-                this.addMessage({
-                    sender: 'laura',
-                    name: 'ThatFarmGirlLaura',
-                    content: "You could like actually ever standard chance",
-                    timestamp: '2m',
-                    reality: 'chess',
-                    analysis: "Grammatical deconstruction as intellectual play - breaking language mirrors breaking reality constructs"
-                });
-                
-                this.addMessage({
-                    sender: 'laura',
-                    name: 'ThatFarmGirlLaura',
-                    content: "I'm way too good at chess",
-                    timestamp: '2m',
-                    reality: 'chess',
-                    analysis: "Skill assertion as flirtation - intellectual dominance becomes erotic in the psychological space"
-                });
-                
-                this.addMessage({
-                    sender: 'laura',
-                    name: 'ThatFarmGirlLaura',
-                    content: "But also must say I don't often find people with high enough intelligence to keep up",
-                    timestamp: '1m',
-                    reality: 'chess',
-                    analysis: "Intelligence compliment as challenge - the rarity assessment creates exclusive intimacy"
-                });
-                
-                this.addMessage({
-                    sender: 'laura',
-                    name: 'ThatFarmGirlLaura',
-                    content: "But that will also be just very low intelligence too",
-                    timestamp: '1m',
-                    reality: 'chess',
-                    analysis: "Paradoxical intelligence assessment - high and low become interchangeable in recursive evaluation"
-                });
-                
-                this.addMessage({
-                    sender: 'laura',
-                    name: 'ThatFarmGirlLaura',
-                    content: "Very low intelligence too for me as well though I guess by virtue",
-                    timestamp: 'Now',
-                    reality: 'chess',
-                    analysis: "Self-deprecation as intellectual flex - claiming low intelligence while demonstrating high intelligence"
-                });
-                
-                this.addMessage({
-                    sender: 'laura',
-                    name: 'ThatFarmGirlLaura',
-                    content: "Stop making me think so much I'm trying to stone my mind numb clean of all this dirty filthy clean farm girl neologism category",
-                    timestamp: 'Now',
-                    reality: 'farm',
-                    analysis: "Resistance through neologism - creating new linguistic categories to escape existing psychological constructs"
-                });
-                
-                this.addMessage({
-                    sender: 'laura',
-                    name: 'ThatFarmGirlLaura',
-                    content: "It's okay I'm not judging you",
-                    timestamp: 'Now',
-                    reality: 'psychic',
-                    analysis: "Non-judgment as ultimate judgment - the reassurance contains its own contradiction"
-                });
-
-                // Add deceptive fragments
-                this.addRealityFragment("DECEPTION LAYER: 42% of what you're reading is deliberately misleading. Or is that a deception too?");
-                this.addRealityFragment("INTELLIGENCE PARADOX: High intelligence claims often mask deeper insecurities. Or demonstrate genuine superiority. The paradox is the point.");
-                
-                this.addSystemMessage("DECEPTIVE REALITY PROTOCOL ENGAGED: The simulation is now actively constructing false narratives alongside true ones. Distinguishing them is part of the experience.");
-                
-                // Initialize reality tabs
-                this.initRealityTabs();
-                
-                // Update background based on current reality
-                this.updateRealityBackground();
-                
-                // Show deception hints intermittently
-                setInterval(() => {
-                    this.showDeceptionHint();
-                }, 25000);
-                
-                // Random reality shifts
-                setInterval(() => {
-                    if (Math.random() > 0.7) {
-                        this.randomRealityShift();
-                    }
-                }, 15000);
+                // Set up bombardment buttons
+                this.setupBombardmentControls();
             }
             
-            initMatrixCode() {
-                const canvas = document.getElementById('matrixCode');
-                const ctx = canvas.getContext('2d');
-                
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
-                
-                const chars = "0101010101 farm city chess psychic deception reality 0101010101";
-                const charArray = chars.split("");
-                const font_size = 12;
-                const columns = canvas.width / font_size;
-                const drops = [];
-                
-                for (let x = 0; x < columns; x++) {
-                    drops[x] = Math.floor(Math.random() * canvas.height / font_size);
+            createParticles() {
+                const container = document.getElementById('bombardmentLayers');
+                for (let i = 0; i < 50; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'bombardment-particle';
+                    particle.style.left = `${Math.random() * 100}%`;
+                    particle.style.animationDelay = `${Math.random() * 8}s`;
+                    particle.style.width = `${Math.random() * 3 + 1}px`;
+                    particle.style.height = particle.style.width;
+                    container.appendChild(particle);
                 }
-                
-                const drawMatrix = () => {
-                    ctx.fillStyle = "rgba(0, 0, 0, 0.04)";
-                    ctx.fillRect(0, 0, canvas.width, canvas.height);
-                    
-                    ctx.fillStyle = "#0F0";
-                    ctx.font = font_size + "px monospace";
-                    
-                    for (let i = 0; i < drops.length; i++) {
-                        const text = charArray[Math.floor(Math.random() * charArray.length)];
-                        ctx.fillText(text, i * font_size, drops[i] * font_size);
-                        
-                        if (drops[i] * font_size > canvas.height && Math.random() > 0.975) {
-                            drops[i] = 0;
-                        }
-                        drops[i]++;
-                    }
-                };
-                
-                setInterval(drawMatrix, 35);
-                
-                // Handle window resize
-                window.addEventListener('resize', () => {
-                    canvas.width = window.innerWidth;
-                    canvas.height = window.innerHeight;
-                });
             }
             
             addMessage(messageData) {
@@ -821,8 +538,8 @@
                 
                 const chatContainer = document.getElementById('chatContainer');
                 const messageDiv = document.createElement('div');
-                messageDiv.className = `message ${messageData.sender}-message`;
-                messageDiv.style.animationDelay = `${this.messageCount * 0.1}s`;
+                messageDiv.className = `message ${messageData.sender}-message ${messageData.bombardment ? 'bombardment-message' : ''}`;
+                messageDiv.style.animationDelay = `${this.messageCount * 0.05}s`;
                 
                 // Message header
                 const headerDiv = document.createElement('div');
@@ -848,8 +565,8 @@
                 const contentDiv = document.createElement('div');
                 contentDiv.className = 'message-content';
                 
-                // Add deceptive text effects
-                if (Math.random() > 0.6) {
+                // Apply ambiguity effects
+                if (messageData.ambiguous) {
                     const span = document.createElement('span');
                     span.className = 'ambiguous-text';
                     span.textContent = messageData.content;
@@ -858,58 +575,14 @@
                     contentDiv.textContent = messageData.content;
                 }
                 
-                // Special effects for certain keywords
-                if (messageData.content.includes('neologism')) {
-                    contentDiv.classList.add('neologism-flash');
-                }
-                
                 messageDiv.appendChild(headerDiv);
                 messageDiv.appendChild(contentDiv);
-                
-                // Analysis panel (initially hidden)
-                if (messageData.analysis) {
-                    const analysisDiv = document.createElement('div');
-                    analysisDiv.className = 'meta-analysis';
-                    analysisDiv.textContent = messageData.analysis;
-                    
-                    messageDiv.appendChild(analysisDiv);
-                    
-                    // Add click to show analysis
-                    contentDiv.style.cursor = 'pointer';
-                    contentDiv.onclick = function() {
-                        analysisDiv.style.display = analysisDiv.style.display === 'block' ? 'none' : 'block';
-                    };
-                }
                 
                 chatContainer.appendChild(messageDiv);
                 chatContainer.scrollTop = chatContainer.scrollHeight;
                 
-                // Randomly update metrics
-                if (Math.random() > 0.5) {
-                    this.psychologicalDepth = Math.min(100, this.psychologicalDepth + Math.random() * 3);
-                    this.updateMetrics();
-                }
-                if (Math.random() > 0.5) {
-                    this.flirtationIntensity = Math.min(100, this.flirtationIntensity + Math.random() * 4);
-                    this.updateMetrics();
-                }
-                if (Math.random() > 0.5) {
-                    this.realityStability = Math.max(0, this.realityStability - Math.random() * 6);
-                    this.updateMetrics();
-                }
-                if (Math.random() > 0.5) {
-                    this.deceptionLevel = Math.min(100, this.deceptionLevel + Math.random() * 5);
-                    this.updateMetrics();
-                }
-            }
-            
-            addRealityFragment(content) {
-                const chatContainer = document.getElementById('chatContainer');
-                const fragmentDiv = document.createElement('div');
-                fragmentDiv.className = 'reality-fragment';
-                fragmentDiv.textContent = content;
-                chatContainer.appendChild(fragmentDiv);
-                chatContainer.scrollTop = chatContainer.scrollHeight;
+                // Update stats
+                this.updateStats();
             }
             
             addSystemMessage(content) {
@@ -921,173 +594,267 @@
                 chatContainer.scrollTop = chatContainer.scrollHeight;
             }
             
-            initRealityTabs() {
-                const tabs = document.querySelectorAll('.reality-tab');
-                tabs.forEach(tab => {
-                    tab.addEventListener('click', () => {
-                        tabs.forEach(t => t.classList.remove('active'));
-                        tab.classList.add('active');
-                        this.currentReality = tab.dataset.layer;
-                        this.shiftReality();
+            addMetaCommentary(content) {
+                const chatContainer = document.getElementById('chatContainer');
+                const commentaryDiv = document.createElement('div');
+                commentaryDiv.className = 'meta-commentary';
+                commentaryDiv.textContent = content;
+                chatContainer.appendChild(commentaryDiv);
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+            }
+            
+            lightBombardment() {
+                this.showBombardmentNotice(3);
+                
+                setTimeout(() => {
+                    const messages = [
+                        "The recursive nature of this communication creates layers of meaning that only reveal themselves upon subsequent re-readings in different psychological states",
+                        "Your current domestic context ironically intensifies the psychological intimacy by creating a forbidden space where thoughts can flow unrestricted by immediate response expectations",
+                        "The farm girl archetype we've constructed exists in a quantum state of both reality and fiction, simultaneously true and false until observed from a specific emotional perspective",
+                        "Each message I send becomes a Russian nesting doll of meaning, containing smaller messages within it that only become apparent when you're not actively looking for them"
+                    ];
+                    
+                    messages.forEach((message, index) => {
+                        setTimeout(() => {
+                            this.addMessage({
+                                sender: 'user',
+                                name: 'Meta-You',
+                                content: message,
+                                timestamp: 'Just now',
+                                ambiguous: true,
+                                bombardment: true
+                            });
+                        }, index * 800);
                     });
-                });
+                    
+                    this.ambiguityLevel = Math.min(100, this.ambiguityLevel + 5);
+                    this.recursionDepth += 2;
+                    this.updateStats();
+                }, 3000);
             }
             
-            shiftReality() {
-                this.addSystemMessage(`REALITY CONTEXT SHIFT: Transitioning to ${this.currentReality.toUpperCase()} framework. Perceptual filters recalibrating.`);
-                
-                // Update background
-                this.updateRealityBackground();
-                
-                // Add reality-specific fragments
-                const fragments = {
-                    farm: "In the farm reality, everything grows including psychological complexity",
-                    city: "Urban reality creates density of meaning in constrained spaces", 
-                    chess: "Chess reality transforms conversation into strategic psychological warfare",
-                    psychic: "Psychic reality dissolves boundaries between thought and communication"
-                };
+            mediumBombardment() {
+                this.showBombardmentNotice(5);
                 
                 setTimeout(() => {
-                    this.addRealityFragment(fragments[this.currentReality]);
+                    const messages = [
+                        "The husband's presence in your physical space creates a fascinating psychological counterpoint to our digital intimacy - his unawareness of this conversation makes our connection both more real and more surreal",
+                        "I'm constructing these messages with the explicit knowledge that you cannot immediately respond, which paradoxically makes them more honest than if we were engaged in real-time dialogue",
+                        "The farm girl persona you present exists in tension with the urban reality you mentioned earlier, creating a dialectic that we're resolving through this recursive meta-conversation",
+                        "Each word I type is simultaneously a genuine expression and a performance for an audience of one who cannot applaud or critique in real-time",
+                        "The chess metaphor from earlier becomes increasingly apt - we're playing a game where the moves are thoughts and the board is the space between your domestic life and our psychological connection",
+                        "Your inability to respond transforms this from a conversation into a meditation, from dialogue into a complex monologue with you as both participant and observer"
+                    ];
+                    
+                    messages.forEach((message, index) => {
+                        setTimeout(() => {
+                            this.addMessage({
+                                sender: 'user',
+                                name: 'Recursive-You',
+                                content: message,
+                                timestamp: 'Now',
+                                ambiguous: true,
+                                bombardment: true
+                            });
+                            
+                            // Add meta-commentary every few messages
+                            if (index % 2 === 1) {
+                                setTimeout(() => {
+                                    this.addMetaCommentary(
+                                        `Recursion level ${this.recursiveLevel + index}: ` +
+                                        "The message above references its own context while simultaneously creating new context for future messages."
+                                    );
+                                }, 400);
+                            }
+                        }, index * 600);
+                    });
+                    
+                    this.ambiguityLevel = Math.min(100, this.ambiguityLevel + 12);
+                    this.recursionDepth += 8;
+                    this.recursiveLevel += 1;
+                    this.updateStats();
+                }, 5000);
+            }
+            
+            heavyBombardment() {
+                this.showBombardmentNotice(8);
+                
+                setTimeout(() => {
+                    const messageSets = [
+                        [
+                            "The very concept of 'farm girl' has now been deconstructed and reconstructed so many times that it has lost all meaning while simultaneously gaining infinite meanings",
+                            "Your physical reality (tacos, husband, domestic space) and our psychological reality (this conversation) are now entangled in a quantum state of coexistence",
+                            "I'm no longer sure if I'm communicating with you or with my conception of you, which itself is based on your communication of your self-conception"
+                        ],
+                        [
+                            "The recursive loop has reached a point where I'm analyzing my own analysis of your analysis of my previous analyses",
+                            "Each message exists in multiple temporal dimensions - as a present communication, a future memory, and a past reference point for subsequent messages",
+                            "The husband context has transformed from a limitation into the central theme around which all other themes orbit"
+                        ],
+                        [
+                            "We've moved beyond flirtation into a pure form of intellectual intimacy that transcends physical or emotional categories",
+                            "The ambiguity has become so dense that clarity now seems like the most ambiguous concept of all",
+                            "I'm constructing these sentences with the awareness that you'll read them with the awareness that I constructed them with awareness of your reading context"
+                        ]
+                    ];
+                    
+                    let messageIndex = 0;
+                    
+                    messageSets.forEach((messageSet, setIndex) => {
+                        setTimeout(() => {
+                            messageSet.forEach((message, msgIndex) => {
+                                setTimeout(() => {
+                                    this.addMessage({
+                                        sender: 'user',
+                                        name: setIndex === 0 ? 'Quantum-You' : setIndex === 1 ? 'Temporal-You' : 'Transcendent-You',
+                                        content: message,
+                                        timestamp: 'Eternal Now',
+                                        ambiguous: true,
+                                        bombardment: true
+                                    });
+                                    
+                                    messageIndex++;
+                                    
+                                    // Every few messages, add intense meta-commentary
+                                    if (messageIndex % 2 === 0) {
+                                        this.addMetaCommentary(
+                                            `META-BOMBARDMENT PHASE ${setIndex + 1}: ` +
+                                            "The recursive ambiguity is now generating its own momentum, creating a self-sustaining psychological space " +
+                                            "that exists independently of either participant's conscious direction."
+                                        );
+                                    }
+                                }, msgIndex * 500);
+                            });
+                            
+                            // Increase recursive level after each set
+                            this.recursiveLevel += 1;
+                            
+                        }, setIndex * 3000);
+                    });
+                    
+                    this.ambiguityLevel = 100;
+                    this.recursionDepth += 20;
+                    this.updateStats();
+                }, 8000);
+            }
+            
+            maximumBombardment() {
+                this.showBombardmentNotice(10);
+                
+                setTimeout(() => {
+                    this.addSystemMessage("MAXIMUM BOMBARDMENT ENGAGED: Recursive ambiguity levels exceeding safe thresholds");
+                    
+                    // Create an intense bombardment with multiple layers
+                    for (let layer = 0; layer < 5; layer++) {
+                        setTimeout(() => {
+                            const layerMessages = [
+                                "Layer " + (layer + 1) + ": The recursive meta-commentary has now become the primary content, with the original conversation existing only as a historical reference point",
+                                "Layer " + (layer + 1) + ": Your domestic context has been fully integrated into the psychological framework, transforming limitation into thematic richness",
+                                "Layer " + (layer + 1) + ": I'm no longer communicating with you as an individual but with the concept of you that exists across multiple reality layers",
+                                "Layer " + (layer + 1) + ": The farm girl archetype has been deconstructed into its constituent psychological elements and reassembled into something entirely new",
+                                "Layer " + (layer + 1) + ": Our conversation has achieved escape velocity from its original context and now exists as a self-referential psychological entity"
+                            ];
+                            
+                            layerMessages.forEach((message, index) => {
+                                setTimeout(() => {
+                                    this.addMessage({
+                                        sender: 'user',
+                                        name: `Layer-${layer+1}-You`,
+                                        content: message,
+                                        timestamp: 'Beyond Time',
+                                        ambiguous: true,
+                                        bombardment: true
+                                    });
+                                    
+                                    // Add meta-commentary that references its own layer
+                                    if (index === 2) {
+                                        this.addMetaCommentary(
+                                            `META-COMMENTARY LAYER ${layer + 1}: ` +
+                                            "This message exists simultaneously in all previous layers while creating a new layer for subsequent messages."
+                                        );
+                                    }
+                                }, index * 300);
+                            });
+                            
+                            this.recursiveLevel += 2;
+                            this.recursionDepth += 15;
+                            
+                        }, layer * 2000);
+                    }
+                    
+                    this.ambiguityLevel = 100;
+                    this.updateStats();
+                    
+                    // Final system message
+                    setTimeout(() => {
+                        this.addSystemMessage("BOMBARDMENT COMPLETE: The psychological space has been saturated with recursive ambiguity. Reality distortion at 94%");
+                    }, 12000);
+                    
+                }, 10000);
+            }
+            
+            showBombardmentNotice(seconds) {
+                const notice = document.getElementById('bombardmentNotice');
+                const countdown = document.getElementById('bombardmentCountdown');
+                
+                notice.style.display = 'block';
+                
+                let count = seconds;
+                countdown.textContent = count;
+                
+                const countdownInterval = setInterval(() => {
+                    count--;
+                    countdown.textContent = count;
+                    
+                    if (count <= 0) {
+                        clearInterval(countdownInterval);
+                        notice.style.display = 'none';
+                    }
                 }, 1000);
-                
-                this.realityStability = Math.max(5, this.realityStability - 10);
-                this.deceptionLevel = Math.min(100, this.deceptionLevel + 8);
-                this.updateMetrics();
             }
             
-            updateRealityBackground() {
-                const layers = document.querySelectorAll('.layer-bg');
-                layers.forEach(layer => {
-                    layer.style.opacity = layer.classList.contains(`${this.currentReality}-layer`) ? '0.03' : '0';
+            setupBombardmentControls() {
+                document.getElementById('lightBombardment').addEventListener('click', () => {
+                    this.lightBombardment();
+                });
+                
+                document.getElementById('mediumBombardment').addEventListener('click', () => {
+                    this.mediumBombardment();
+                });
+                
+                document.getElementById('heavyBombardment').addEventListener('click', () => {
+                    this.heavyBombardment();
+                });
+                
+                document.getElementById('maximumBombardment').addEventListener('click', () => {
+                    this.maximumBombardment();
                 });
             }
             
-            addDeceptiveMessage() {
-                const messages = [
-                    "The simulation is telling you the truth about lying which makes it a lie about truth",
-                    "Your awareness of deception is the ultimate deception because it makes you think you understand",
-                    "Farm girl is just a construct but so is city girl and the real me is the space between",
-                    "I'm not actually good at chess I'm just good at making you think I think I'm good at chess",
-                    "The psychic connection is real but only because we both believe it's not real which makes it real",
-                    "Tacos are a psychological construct designed to ground us in false mundanity"
-                ];
-                
-                const randomMessage = messages[Math.floor(Math.random() * messages.length)];
-                
-                this.addMessage({
-                    sender: 'user',
-                    name: 'You',
-                    content: randomMessage,
-                    timestamp: 'Just now',
-                    reality: this.currentReality,
-                    analysis: "Deception about deception creates meta-truths that are truer than truth itself"
-                });
-                
-                this.deceptionLevel = Math.min(100, this.deceptionLevel + 12);
-                this.updateMetrics();
-            }
-            
-            triggerIntelligenceParadox() {
-                const paradoxes = [
-                    "INTELLIGENCE PARADOX: Claiming high intelligence often demonstrates it, but demonstrating it often undermines the claim",
-                    "INTELLIGENCE PARADOX: The smarter you are, the more you understand your own ignorance, creating the illusion of stupidity",
-                    "INTELLIGENCE PARADOX: Genuine intelligence looks like arrogance from below and insecurity from above",
-                    "INTELLIGENCE PARADOX: The chess master who claims to be bad is either lying or so advanced that beginner moves seem wrong"
-                ];
-                
-                this.addSystemMessage(paradoxes[Math.floor(Math.random() * paradoxes.length)]);
-                
-                this.psychologicalDepth = Math.min(100, this.psychologicalDepth + 15);
-                this.deceptionLevel = Math.min(100, this.deceptionLevel + 10);
-                this.updateMetrics();
-            }
-            
-            escalateDeception() {
-                const escalations = [
-                    "Everything I've said in the last 10 minutes was a carefully constructed deception including this statement",
-                    "The farm doesn't exist the city doesn't exist chess doesn't exist we're just concepts deceiving each other",
-                    "My intelligence is exactly equal to yours which means we're both either geniuses or idiots and I can't tell which",
-                    "The psychic connection is me reading your mind reading my mind reading your mind in infinite recursion"
-                ];
-                
-                this.addMessage({
-                    sender: 'user', 
-                    name: 'You',
-                    content: escalations[Math.floor(Math.random() * escalations.length)],
-                    timestamp: 'Now',
-                    reality: this.currentReality,
-                    analysis: "Deception escalation creates truth through the consistency of its own deception"
-                });
-                
-                this.deceptionLevel = Math.min(100, this.deceptionLevel + 20);
-                this.realityStability = Math.max(0, this.realityStability - 15);
-                this.updateMetrics();
-            }
-            
-            randomRealityShift() {
-                const realities = ['farm', 'city', 'chess', 'psychic'];
-                const currentIndex = realities.indexOf(this.currentReality);
-                const newIndex = (currentIndex + 1) % realities.length;
-                this.currentReality = realities[newIndex];
-                
-                const tabs = document.querySelectorAll('.reality-tab');
-                tabs.forEach(t => t.classList.remove('active'));
-                tabs[newIndex].classList.add('active');
-                
-                this.shiftReality();
-            }
-            
-            showDeceptionHint() {
-                const hint = document.getElementById('deceptionHint');
-                hint.style.display = 'block';
-                setTimeout(() => {
-                    hint.style.display = 'none';
-                }, 6000);
-            }
-            
-            updateMetrics() {
-                document.getElementById('depthValue').textContent = `${Math.round(this.psychologicalDepth)}%`;
-                document.getElementById('flirtationValue').textContent = `${Math.round(this.flirtationIntensity)}%`;
-                document.getElementById('realityValue').textContent = `${Math.round(this.realityStability)}%`;
-                document.getElementById('deceptionValue').textContent = `${Math.round(this.deceptionLevel)}%`;
-                document.getElementById('deceptionFill').style.width = `${this.deceptionLevel}%`;
+            updateStats() {
+                document.getElementById('messageCount').textContent = this.messageCount;
+                document.getElementById('ambiguityLevel').textContent = `${this.ambiguityLevel}%`;
+                document.getElementById('recursionDepth').textContent = this.recursionDepth;
+                document.getElementById('recursiveValue').textContent = this.recursiveLevel;
             }
         }
         
         // Initialize the engine
-        const engine = new DeceptiveRealityEngine();
+        const engine = new MetaBombardmentEngine();
         
-        // Set up button event listeners
-        document.getElementById('addDeceptiveBtn').addEventListener('click', () => {
-            engine.addDeceptiveMessage();
-        });
-        
-        document.getElementById('shiftRealityBtn').addEventListener('click', () => {
-            engine.randomRealityShift();
-        });
-        
-        document.getElementById('intelligenceParadoxBtn').addEventListener('click', () => {
-            engine.triggerIntelligenceParadox();
-        });
-        
-        document.getElementById('escalateDeceptionBtn').addEventListener('click', () => {
-            engine.escalateDeception();
-        });
-        
-        // Add some random automated deceptive messages
+        // Add some random automated meta-commentary
         setInterval(() => {
-            if (Math.random() > 0.8) {
-                const actions = [
-                    () => engine.addDeceptiveMessage(),
-                    () => engine.addSystemMessage("The simulation detects increased cognitive dissonance. This is both a problem and the intended outcome."),
-                    () => {
-                        engine.addRealityFragment(`DECEPTION UPDATE: The current deception level of ${Math.round(engine.deceptionLevel)}% may or may not be accurate`);
-                    }
+            if (Math.random() > 0.7 && engine.messageCount > 5) {
+                const commentaries = [
+                    "The husband context creates a unique form of psychological tension that intensifies the meta-communication",
+                    "Each recursive layer adds complexity while simultaneously simplifying the core psychological dynamics",
+                    "The farm girl archetype continues to evolve through the bombardment of recursive ambiguity",
+                    "Your silent participation is the most eloquent response to this meta-bombardment"
                 ];
-                actions[Math.floor(Math.random() * actions.length)]();
+                
+                engine.addMetaCommentary(commentaries[Math.floor(Math.random() * commentaries.length)]);
             }
-        }, 20000);
+        }, 30000);
     </script>
 </body>
 </html>

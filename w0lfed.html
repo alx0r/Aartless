@@ -35,6 +35,8 @@
             --newspaper-yellow: #f5f5dc;
             --newspaper-brown: #8b4513;
             --gold: #ffd700;
+            --vapor-pink: #ff00ff;
+            --vapor-cyan: #00ffff;
         }
         
         * {
@@ -63,9 +65,11 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle at 20% 50%, rgba(0, 128, 255, 0.05) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 20%, rgba(188, 19, 254, 0.05) 0%, transparent 50%),
-                        radial-gradient(circle at 40% 80%, rgba(0, 255, 65, 0.05) 0%, transparent 50%);
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(0, 128, 255, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(188, 19, 254, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(0, 255, 65, 0.05) 0%, transparent 50%),
+                linear-gradient(45deg, transparent 48%, rgba(255, 0, 255, 0.03) 50%, transparent 52%);
             pointer-events: none;
             z-index: -1;
         }
@@ -87,13 +91,21 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: repeating-linear-gradient(
-                0deg,
-                transparent,
-                transparent 2px,
-                rgba(0, 255, 65, 0.03) 2px,
-                rgba(0, 255, 65, 0.03) 4px
-            );
+            background: 
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(0, 255, 65, 0.03) 2px,
+                    rgba(0, 255, 65, 0.03) 4px
+                ),
+                repeating-linear-gradient(
+                    90deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(255, 0, 255, 0.02) 2px,
+                    rgba(255, 0, 255, 0.02) 4px
+                );
             pointer-events: none;
             z-index: -1;
         }
@@ -132,6 +144,26 @@
             color: var(--matrix-green);
             text-shadow: 0 0 10px var(--matrix-green);
             position: relative;
+            animation: glitch 5s infinite;
+        }
+        
+        @keyframes glitch {
+            0%, 100% {
+                transform: translate(0);
+                text-shadow: 0 0 10px var(--matrix-green);
+            }
+            97% {
+                transform: translate(0);
+                text-shadow: 0 0 10px var(--matrix-green);
+            }
+            98% {
+                transform: translate(-2px, 1px);
+                text-shadow: 2px 0 0 var(--vapor-pink), -2px 0 0 var(--vapor-cyan);
+            }
+            99% {
+                transform: translate(2px, -1px);
+                text-shadow: -2px 0 0 var(--vapor-pink), 2px 0 0 var(--vapor-cyan);
+            }
         }
         
         .newspaper-title::after {
@@ -306,6 +338,19 @@
             padding: 15px;
             background: rgba(0, 0, 0, 0.7);
             transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .media-item::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 48%, rgba(255, 215, 0, 0.05) 50%, transparent 52%);
+            z-index: -1;
         }
         
         .media-item:hover {
@@ -343,6 +388,18 @@
             border: 1px solid var(--gold);
             padding: 25px;
             background: rgba(0, 0, 0, 0.7);
+            position: relative;
+        }
+        
+        .diogenes-section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 48%, rgba(255, 215, 0, 0.03) 50%, transparent 52%);
+            z-index: -1;
         }
         
         .diogenes-image {
@@ -403,6 +460,24 @@
             border: 1px solid var(--matrix-green);
             font-size: 0.8rem;
             color: var(--matrix-green);
+            animation: glitch-badge 10s infinite;
+        }
+        
+        @keyframes glitch-badge {
+            0%, 100% {
+                transform: translate(0);
+            }
+            97% {
+                transform: translate(0);
+            }
+            98% {
+                transform: translate(-1px, 0);
+                border-color: var(--vapor-pink);
+            }
+            99% {
+                transform: translate(1px, 0);
+                border-color: var(--vapor-cyan);
+            }
         }
         
         /* Matrix-style terminal effect */
@@ -431,6 +506,24 @@
             margin: 25px 0;
             font-style: italic;
             color: var(--text-secondary);
+        }
+        
+        /* Vaporwave scan lines */
+        .scan-lines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                to bottom,
+                transparent 50%,
+                rgba(0, 0, 0, 0.1) 50%
+            );
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.3;
         }
         
         /* Responsive adjustments */
@@ -476,9 +569,27 @@
             right: 5%;
             transform: rotate(15deg);
         }
+        
+        /* Vaporwave sun */
+        .vapor-sun {
+            position: fixed;
+            top: 10%;
+            right: 5%;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255,0,255,0.1) 0%, transparent 70%);
+            box-shadow: 0 0 100px rgba(255,0,255,0.1);
+            z-index: -1;
+            opacity: 0.3;
+        }
     </style>
 </head>
 <body>
+    <!-- Vaporwave Effects -->
+    <div class="scan-lines"></div>
+    <div class="vapor-sun"></div>
+    
     <div class="newspaper-container">
         <!-- Wolf motif decorative elements -->
         <div class="wolf-motif wolf-1">🐺</div>
@@ -532,12 +643,12 @@
                 </div>
                 
                 <div class="sidebar-section">
-                    <h3 class="sidebar-title">W0LFED PROJECTS</h3>
+                    <h3 class="sidebar-title">W0LFED INVESTIGATIONS</h3>
                     <ul>
-                        <li>Untitled Format Development</li>
-                        <li>Digital Resistance Research</li>
-                        <li>Open Source Intelligence Tools</li>
-                        <li>Decentralized Publishing Platform</li>
+                        <li><a href="https://alx0r.github.io/Aartless/digitale.html" class="footer-link">The Closing Net: OSINT Report</a></li>
+                        <li><a href="https://alx0r.github.io/Aartless/heist.html" class="footer-link">2025 Louvre Heist Analysis</a></li>
+                        <li><a href="https://alx0r.github.io/Aartless/call.html" class="footer-link">Digital Resistance Call to Arms</a></li>
+                        <li><a href="https://alx0r.github.io/Aartless/browse.html" class="footer-link">Browse Safely Guide</a></li>
                     </ul>
                 </div>
                 
@@ -566,6 +677,8 @@
                 <div class="cynic-quote">
                     "It is the privilege of the gods to want nothing, and of godlike men to want little." - Diogenes
                 </div>
+                
+                <p><a href="https://youtu.be/bMpgsD5o8bs?si=eCt_-oodQk-1mjP6b" class="footer-link" target="_blank">Watch the Diogenes & Alexander analysis</a></p>
             </div>
         </section>
         
@@ -575,41 +688,41 @@
             <div class="article-grid">
                 <article class="article-card">
                     <span class="article-category">CRISIS ANALYSIS</span>
-                    <h3 class="article-title">Sudan: The Information War Behind the Humanitarian Crisis</h3>
-                    <p class="article-excerpt">Examining how narrative control shapes international response to conflicts, with Sudan as a case study in media manipulation and digital witness testimony.</p>
+                    <h3 class="article-title">The Closing Net: Digital Privacy Under Siege</h3>
+                    <p class="article-excerpt">Analysis of state control mechanisms and the battle for the future of the Internet. Our generation is running out of time to save the free Internet.</p>
                     <div class="article-meta">
-                        <span>FIELD REPORT</span>
-                        <span>READ TIME: 12 MIN</span>
+                        <span><a href="https://alx0r.github.io/Aartless/digitale.html" class="footer-link">READ REPORT</a></span>
+                        <span>OSINT BRIEF</span>
                     </div>
                 </article>
                 
                 <article class="article-card">
-                    <span class="article-category">DIGITAL TOOLS</span>
-                    <h3 class="article-title">Untitled Format v1.3: Documents That Think and Evolve</h3>
-                    <p class="article-excerpt">The next iteration of the living document format adds dynamic entity graphs, ethical provenance hashing, and enhanced AI co-creation capabilities.</p>
+                    <span class="article-category">INVESTIGATION</span>
+                    <h3 class="article-title">2025 Louvre Heist: OSINT Analysis</h3>
+                    <p class="article-excerpt">Forensic analysis of the Apollo Gallery compromise at the Louvre Museum. Stolen artifacts, security failures, and postcolonial context.</p>
                     <div class="article-meta">
-                        <span>TECH BRIEF</span>
-                        <span>READ TIME: 6 MIN</span>
+                        <span><a href="https://alx0r.github.io/Aartless/heist.html" class="footer-link">READ REPORT</a></span>
+                        <span>INVESTIGATION</span>
                     </div>
                 </article>
                 
                 <article class="article-card">
-                    <span class="article-category">MEDIA CRITIQUE</span>
-                    <h3 class="article-title">Deconstructing the Propaganda Pipeline: From Manufactured Consent to Digital Resistance</h3>
-                    <p class="article-excerpt">How legacy media narratives are constructed, disseminated, and maintained—and practical methods for detecting and countering disinformation campaigns.</p>
+                    <span class="article-category">HUMAN RIGHTS</span>
+                    <h3 class="article-title">Sudan: Human Rights Violations</h3>
+                    <p class="article-excerpt">Comprehensive analysis of historical genocide, corporate accountability, and the ongoing humanitarian crisis in Sudan across two decades.</p>
                     <div class="article-meta">
-                        <span>ANALYSIS</span>
-                        <span>READ TIME: 15 MIN</span>
-                    </div>
-                </article>
-                
-                <article class="article-card">
-                    <span class="article-category">CULTURAL INTELLIGENCE</span>
-                    <h3 class="article-title">Memetic Warfare: How Ideas Spread in the Digital Ecosystem</h3>
-                    <p class="article-excerpt">Tracking the evolution of counter-narratives and resistance memes across platforms, and their impact on shaping collective consciousness.</p>
-                    <div class="article-meta">
+                        <span><a href="https://alx0r.github.io/Aartless/sudHRI.html" class="footer-link">READ REPORT</a></span>
                         <span>RESEARCH</span>
-                        <span>READ TIME: 10 MIN</span>
+                    </div>
+                </article>
+                
+                <article class="article-card">
+                    <span class="article-category">DIGITAL RESISTANCE</span>
+                    <h3 class="article-title">Call to Arms: Digital Resistance Manual</h3>
+                    <p class="article-excerpt">Your mission: Identify disinformation, audit power, hold systems accountable. Methods for media literacy and citizen research.</p>
+                    <div class="article-meta">
+                        <span><a href="https://alx0r.github.io/Aartless/call.html" class="footer-link">READ MANUAL</a></span>
+                        <span>GUIDE</span>
                     </div>
                 </article>
             </div>
@@ -622,9 +735,9 @@
             <div class="media-grid">
                 <div class="media-item">
                     <span class="media-type">VIDEO</span>
-                    <h3 class="media-title">Change Language</h3>
-                    <p class="media-description">Essential viewing on how linguistic framing shapes perception and controls discourse.</p>
-                    <a href="https://youtu.be/h87XCrEjT5w?si=a1tUkEdnO5XZAjoY" class="footer-link" target="_blank">WATCH NOW</a>
+                    <h3 class="media-title">Diogenes & Alexander</h3>
+                    <p class="media-description">Pewdeepie analysis of Diogenes' famous encounter with Alexander the Great and its modern implications.</p>
+                    <a href="https://youtu.be/bMpgsD5o8bs?si=eCt_-oodQk-1mjP6b" class="footer-link" target="_blank">WATCH NOW</a>
                 </div>
                 
                 <div class="media-item">
@@ -642,10 +755,10 @@
                 </div>
                 
                 <div class="media-item">
-                    <span class="media-type">STORY</span>
-                    <h3 class="media-title">Diogenes & Alexandra</h3>
-                    <p class="media-description">The timeless tale of philosophical resistance against power and conformity.</p>
-                    <a href="https://vm.tiktok.com/ZGdagABBC/" class="footer-link" target="_blank">EXPLORE STORY</a>
+                    <span class="media-type">GUIDE</span>
+                    <h3 class="media-title">Browse Safely</h3>
+                    <p class="media-description">Essential tools and techniques for maintaining privacy and security while navigating the digital landscape.</p>
+                    <a href="https://alx0r.github.io/Aartless/browse.html" class="footer-link" target="_blank">READ GUIDE</a>
                 </div>
             </div>
         </section>

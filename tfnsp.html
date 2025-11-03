@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Two Freaks Notice | Smart Pod</title>
+    
+    <!-- UNTITLED FORMAT METADATA -->
+    <!--
+    title: "Two Freaks Notice - Smart Pod Hub"
+    hosts: "Andie Reeves & Sitaara Stodel"
+    document_type: "Smart Podcast Hub"
+    format_version: "Untitled Format v1.2.0 (Brotherly Protocol)"
+    production: "Puppetmaster Productions"
+    location: "Cape Town, South Africa"
+    license: "CC BY-NC-SA 4.0"
+    created: "2025-11-03"
+    updated: "2025-11-03"
+    tags: ["podcast", "comedy", "culture", "cape-town", "authentic", "anti-corporate"]
+    update_frequency: "Weekly (Mondays) + Dynamic Updates"
+    spotify_rating: "4.9/5 (118 reviews)"
+    -->
+    
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "PodcastSeries",
+      "name": "Two Freaks Notice",
+      "description": "A weekly podcast by Andie Reeves and Sitaara Stodel, two freaks from Cape Town, South Africa.",
+      "creator": [
+        {"@type": "Person", "name": "Andie Reeves"},
+        {"@type": "Person", "name": "Sitaara Stodel"}
+      ],
+      "genre": ["Comedy", "Culture", "Documentary"],
+      "inLanguage": "en-ZA"
+    }
+    </script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --purple: #8b7ba8;
+            --orange: #e8a368;
+            --dark-bg: #1a1a1a;
+            --card-bg: #2a2a2a;
+            --text: #f0f0f0;
+            --accent: #00ff88;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--dark-bg) 0%, #2d1b3d 100%);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Header */
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(90deg, var(--purple) 0%, var(--orange) 100%);
+            border-bottom: 4px solid var(--accent);
+            margin-bottom: 30px;
+        }
+        
+        .logo-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .logo-box {
+            background: var(--dark-bg);
+            padding: 20px;
+            border-radius: 12px;
+            font-size: 2em;
+            font-weight: bold;
+            color: var(--orange);
+            border: 3px solid var(--purple);
+        }
+        
+        h1 {
+            font-size: 2.5em;
+            margin: 10px 0;
+            text-shadow: 3px 3px 0 rgba(0,0,0,0.3);
+        }
+        
+        .subtitle {
+            font-size: 1.1em;
+            opacity: 0.9;
+            font-style: italic;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: var(--accent);
+        }
+        
+        .stat-label {
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+        
+        /* Smart Pod Notice */
+        .smart-pod-notice {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 15px;
+            border: 3px dashed var(--accent);
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(0,255,136,0.1);
+        }
+        
+        .smart-pod-notice h2 {
+            color: var(--accent);
+            margin-bottom: 15px;
+            font-size: 1.8em;
+        }
+        
+        .smart-pod-notice ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .smart-pod-notice li {
+            padding: 8px 0 8px 30px;
+            position: relative;
+        }
+        
+        .smart-pod-notice li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+        }
+        
+        /* Latest Episode */
+        .latest-episode {
+            background: linear-gradient(135deg, var(--purple) 0%, var(--orange) 100%);
+            padding: 40px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+        }
+        
+        .episode-badge {
+            display: inline-block;
+            background: var(--accent);
+            color: var(--dark-bg);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            font-size: 0.9em;
+        }
+        
+        .latest-episode h2 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        
+        .episode-meta {
+            display: flex;
+            gap: 20px;
+            margin: 15px 0;
+            flex-wrap: wrap;
+            font-size: 0.95em;
+        }
+        
+        .chapters {
+            background: rgba(0,0,0,0.3);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        
+        .chapter {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .chapter:last-child {
+            border-bottom: none;
+        }
+        
+        .chapter-time {
+            color: var(--accent);
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: var(--accent);
+            color: var(--dark-bg);
+            padding: 15px 40px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: transform 0.2s;
+        }
+        
+        .cta-button:hover {
+            transform: scale(1.05);
+        }
+        
+        /* Episode Grid */
+        .episode-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .episode-card {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 4px solid var(--purple);
+            transition: all 0.3s;
+        }
+        
+        .episode-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border-left-color: var(--accent);
+        }
+        
+        .episode-card h3 {
+            color: var(--orange);
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+        
+        .episode-date {
+            color: var(--accent);
+            font-size: 0.85em;
+            margin-bottom: 10px;
+        }
+        
+        .episode-duration {
+            opacity: 0.7;
+            font-size: 0.9em;
+        }
+        
+        /* Host Sections */
+        .hosts-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .host-card {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            border: 3px solid var(--purple);
+        }
+        
+        .host-card.andie {
+            border-color: var(--orange);
+        }
+        
+        .host-card.sitaara {
+            border-color: var(--purple);
+        }
+        
+        .host-name {
+            font-size: 2em;
+            margin-bottom: 10px;
+            color: var(--accent);
+        }
+        
+        .host-role {
+            font-style: italic;
+            opacity: 0.8;
+            margin-bottom: 15px;
+        }
+        
+        .host-projects {
+            text-align: left;
+            margin-top: 20px;
+        }
+        
+        .project-link {
+            display: block;
+            color: var(--accent);
+            text-decoration: none;
+            padding: 10px;
+            margin: 5px 0;
+            background: rgba(0,255,136,0.1);
+            border-radius: 8px;
+            transition: background 0.3s;
+        }
+        
+        .project-link:hover {
+            background: rgba(0,255,136,0.2);
+        }
+        
+        /* Section Headers */
+        section {
+            margin: 50px 0;
+        }
+        
+        section h2 {
+            font-size: 2em;
+            margin-bottom: 25px;
+            color: var(--orange);
+            border-bottom: 3px solid var(--purple);
+            padding-bottom: 10px;
+        }
+        
+        /* Links */
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        
+        .social-link {
+            background: var(--card-bg);
+            padding: 15px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            color: var(--text);
+            border: 2px solid var(--purple);
+            transition: all 0.3s;
+        }
+        
+        .social-link:hover {
+            background: var(--purple);
+            transform: scale(1.05);
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 60px;
+            border-top: 3px solid var(--purple);
+            opacity: 0.8;
+        }
+        
+        .format-info {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-size: 0.9em;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8em;
+            }
+            
+            .stats {
+                gap: 15px;
+            }
+            
+            .latest-episode {
+                padding: 25px;
+            }
+            
+            .episode-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo-section">
+            <div class="logo-box">TWO FREAKS NOTICE</div>
+        </div>
+        <h1>Two Freaks Notice</h1>
+        <p class="subtitle">A weekly podcast by Andie Reeves and Sitaara Stodel</p>
+        <p class="subtitle">Cape Town, South Africa 🇿🇦</p>
+        
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-number">464</div>
+                <div class="stat-label">Posts</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">1,292</div>
+                <div class="stat-label">Followers</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">4.9★</div>
+                <div class="stat-label">Spotify Rating</div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Smart Pod Explanation -->
+        <section id="what-is-this">
+            <div class="smart-pod-notice">
+                <h2>🚀 Welcome to the Smart Pod</h2>
+                <p style="margin-bottom: 20px;">This isn't just another podcast page. This is a <strong>living, breathing hub</strong> for Two Freaks Notice—and it represents the future of how podcasts can connect with their audiences.</p>
+                
+                <h3 style="color: var(--orange); margin: 20px 0 10px 0;">Why Smart Pod? Why This Matters:</h3>
+                <ul>
+                    <li><strong>Weekly episodes live on Spotify</strong> — but this page lives between episodes</li>
+                    <li><strong>Andie can update her section</strong> (Craft Club news, pop-ups) independently</li>
+                    <li><strong>Sitaara can update hers</strong> (art projects, comedy gigs) separately</li>
+                    <li><strong>One file, offline-capable</strong> — no corporate platforms, no subscriptions</li>
+                    <li><strong>Customizable like MySpace</strong> — but modern, fast, and yours forever</li>
+                    <li><strong>Anti-corporate, authentic</strong> — because you own your content, not Meta or Spotify</li>
+                </ul>
+                
+                <p style="margin-top: 20px; font-style: italic; color: var(--accent);">This is what podcasting looks like when you take back control. Welcome to the future. Welcome to Two Freaks Notice.</p>
+            </div>
+        </section>
+
+        <!-- Latest Episode Hero -->
+        <section id="latest-episode">
+            <div class="latest-episode">
+                <span class="episode-badge">🔥 LATEST EPISODE</span>
+                <h2>Mistakes: Oopsie Daisy!</h2>
+                <div class="episode-meta">
+                    <span>📅 Tuesday, 28 October 2025</span>
+                    <span>⏱️ 52min</span>
+                    <span>✅ Finished</span>
+                </div>
+                <p>This week the girls are chatting about mistakes and how they help you grow, teach you how to clean rust of the bottom of your pool and call it quits on your relationship if your partner intentionally breaks something expensive of yours (hopefully! That isn't acceptable behaviour and you're literally better than that).</p>
+                <p style="margin-top: 15px;">Tune in or make more mistakes.</p>
+                
+                <div class="chapters">
+                    <h3 style="margin-bottom: 15px;">Chapters (auto-generated)</h3>
+                    <div class="chapter">
+                        <span class="chapter-time">0:00</span>
+                        <span>From Perpetual Stew to Housing Crisis</span>
+                    </div>
+                    <div class="chapter">
+                        <span class="chapter-time">4:10</span>
+                        <span>Bookbinding, Zines, and Competitive Birding</span>
+                    </div>
+                    <div class="chapter">
+                        <span class="chapter-time">10:02</span>
+                        <span>Inventing Words and Halloween Party Fun</span>
+                    </div>
+                    <div class="chapter">
+                        <span class="chapter-time">18:13</span>
+                        <span>From Chess Pawns to Vision Board Reveals</span>
+                    </div>
+                </div>
+                
+                <a href="#" class="cta-button">▶️ Listen on Spotify</a>
+            </div>
+        </section>
+
+        <!-- Coming Next Week -->
+        <section id="next-week">
+            <h2>📢 Coming Next Week</h2>
+            <div class="episode-card">
+                <h3>TBA - Updates Coming Soon!</h3>
+                <p>Check back here for sneak peeks, topics we're exploring, and what's on our freaky minds this week. This section updates between episodes—that's the Smart Pod difference.</p>
+            </div>
+        </section>
+
+        <!-- Recent Episodes Backlog -->
+        <section id="episode-backlog">
+            <h2>📚 Episode Backlog</h2>
+            <div class="episode-grid">
+                <div class="episode-card">
+                    <h3>Objects: Shoe horn users stand up!</h3>
+                    <p class="episode-date">21 Oct • 1h 2min • Finished</p>
+                    <p>This week the girls are noticing those things all around your house and they're called objects (pets NOT included guys, come on those are living creatures).</p>
+                </div>
+                
+                <div class="episode-card">
+                    <h3>Making Friends: Would you be friends with someone with a meat closet?</h3>
+                    <p class="episode-date">14 Oct • 53min • Finished</p>
+                    <p>This week the girls are talking about friends and how to make them and then also how to break up with them when you've ha enough. Have you heard of the word...</p>
+                </div>
+                
+                <div class="episode-card">
+                    <h3>Am I the asshole? A tale of stealing, blocking, and friendship breakups</h3>
+                    <p class="episode-date">07 Oct • 1h 6min • Finished</p>
+                    <p>This week, the girls are listening to what the freaks have done and are weighing in about whether or not you're the ass(arse)hole. They're even including some of th...</p>
+                </div>
+                
+                <div class="episode-card">
+                    <h3>More episodes available on Spotify...</h3>
+                    <p class="episode-date">Browse the full archive</p>
+                    <a href="#" class="project-link" style="margin-top: 10px;">View All Episodes →</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Meet the Hosts -->
+        <section id="meet-the-hosts">
+            <h2>👯‍♀️ Meet The Freaks</h2>
+            <div class="hosts-section">
+                <div class="host-card andie">
+                    <div class="host-name">Andie Reeves</div>
+                    <p class="host-role">@andiereeyes</p>
+                    <p>Craft Club organizer, creative force, and one half of the freaky duo. If you love the type of podcast that makes you feel like you're hanging out with your two funny best friends except they don't let you speak—this is Andie.</p>
+                    
+                    <div class="host-projects">
+                        <h4 style="color: var(--orange); margin-bottom: 10px;">Andie's Projects:</h4>
+                        <a href="#" class="project-link">🎨 Craft Club Cape Town</a>
+                        <a href="#" class="project-link">📍 Upcoming Events & Pop-Ups</a>
+                        <a href="#" class="project-link">🛍️ Merchandise & Art</a>
+                    </div>
+                </div>
+                
+                <div class="host-card sitaara">
+                    <div class="host-name">Sitaara Stodel</div>
+                    <p class="host-role">@evenmynamewastaken</p>
+                    <p>Artist, comedian, just completed her degree. From broad and relatable topics like holidays and restaurants to the more niche and potentially alienating side of things, like Kloof Street or an in-depth analysis of season 7 of Love Island UK.</p>
+                    
+                    <div class="host-projects">
+                        <h4 style="color: var(--purple); margin-bottom: 10px;">Sitaara's Projects:</h4>
+                        <a href="#" class="project-link">🎭 Comedy Shows & Gigs</a>
+                        <a href="#" class="project-link">🖼️ Art Exhibitions & Pop-Ups</a>
+                        <a href="#" class="project-link">✨ Latest Creations</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About the Podcast -->
+        <section id="about">
+            <h2>💬 About Two Freaks Notice</h2>
+            <div class="episode-card">
+                <p>A weekly podcast by Andie Reeves and Sitaara Stodel, two freaks from Cape Town, South Africa. If you love the type of podcast that makes you feel like you're hanging out with your two funny best friends except they don't let you speak then this is the show for you.</p>
+                
+                <p style="margin-top: 15px;">Tune in every Monday as we each bring in something we're freaking out about that week. From broad and relatable topics like holidays and restaurants to the more niche and potentially alienating side of things, like Kloof Street or an in-depth analysis of season 7 of Love Island UK.</p>
+                
+                <p style="margin-top: 15px;"><strong>Production:</strong> Puppetmaster Productions</p>
+                <p><strong>Categories:</strong> Comedy • Culture • Documentary</p>
+            </div>
+        </section>
+
+        <!-- Social Links -->
+        <section id="connect">
+            <h2>🔗 Connect With Us</h2>
+            <div class="social-links">
+                <a href="https://open.spotify.com/show/twofreaksnotice" class="social-link">🎧 Spotify</a>
+                <a href="https://instagram.com/twofreaksnotice" class="social-link">📸 Instagram</a>
+                <a href="https://tiktok.com/@twofreaksnotice" class="social-link">🎵 TikTok</a>
+                <a href="https://www.yaga.co.za/twofreaksnotice" class="social-link">🌐 Website</a>
+            </div>
+        </section>
+
+        <!-- Format Information -->
+        <section id="about-smart-pod">
+            <h2>🧠 About This Smart Pod</h2>
+            <div class="format-info">
+                <p><strong>Built with Untitled Format v1.2.0 (Brotherly Protocol)</strong></p>
+                <p style="margin-top: 10px;">This is a living document—a single HTML file that works offline, updates dynamically, and represents the future of podcast content management. No corporate platforms, no subscriptions, just authentic connection between creators and listeners.</p>
+                
+                <p style="margin-top: 15px;"><strong>Key Features:</strong></p>
+                <ul style="list-style: none; padding-left: 0; margin-top: 10px;">
+                    <li>✓ Works completely offline</li>
+                    <li>✓ Single file contains everything</li>
+                    <li>✓ Individually updatable host sections</li>
+                    <li>✓ Weekly episode integration</li>
+                    <li>✓ Between-episode content updates</li>
+                    <li>✓ MySpace-level customization, modern execution</li>
+                    <li>✓ You own it, forever</li>
+                </ul>
+                
+                <p style="margin-top: 15px; font-style: italic;">This is what authentic digital presence looks like. This is the Smart Pod revolution.</p>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p><strong>Two Freaks Notice</strong> • Puppetmaster Productions</p>
+        <p style="margin-top: 10px;">A weekly podcast from Cape Town, South Africa</p>
+        <p style="margin-top: 20px; font-size: 0.85em;">© 2025 Two Freaks Notice • Built with Untitled Format • License: CC BY-NC-SA 4.0</p>
+        <p style="margin-top: 10px; font-size: 0.85em; color: var(--accent);">Last Updated: Monday, November 03, 2025</p>
+    </footer>
+
+    <!-- AI-Readable Metadata for Future Updates -->
+    <!-- [PROMPT: UPDATE_SECTION | SECTION=latest-episode | FREQUENCY=weekly] -->
+    <!-- [PROMPT: UPDATE_SECTION | SECTION=next-week | FREQUENCY=dynamic] -->
+    <!-- [PROMPT: UPDATE_SECTION | SECTION=andie-projects | OWNER=andie | INDEPENDENT=true] -->
+    <!-- [PROMPT: UPDATE_SECTION | SECTION=sitaara-projects | OWNER=sitaara | INDEPENDENT=true] -->
+</body>
+</html>

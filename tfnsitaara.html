@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sitaara's Creative Universe | Smart Pod</title>
+    
+    <!-- UNTITLED FORMAT METADATA -->
+    <!--
+    title: "Sitaara's Creative Universe - Personal Smart Pod"
+    creator: "Sitaara Stodel"
+    handle: "@evenmynamewastaken"
+    document_type: "Personal Creator Hub"
+    format_version: "Untitled Format v1.2.0 (Brotherly Protocol)"
+    parent_project: "Two Freaks Notice"
+    location: "Cape Town, South Africa"
+    focus: "Art, Comedy, Degree Showcase, Exhibitions"
+    license: "CC BY-NC-SA 4.0"
+    created: "2025-11-03"
+    updated: "2025-11-03"
+    tags: ["art", "comedy", "degree", "exhibition", "cape-town", "creative"]
+    update_frequency: "As needed - independent from main podcast"
+    aesthetic: "Modern art gallery meets comedy club"
+    -->
+    
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Sitaara Stodel",
+      "alternateName": "@evenmynamewastaken",
+      "description": "Artist, comedian, degree graduate, and co-host of Two Freaks Notice podcast",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Cape Town",
+        "addressCountry": "ZA"
+      },
+      "knowsAbout": ["Art", "Comedy", "Degree Projects", "Exhibition Curation"]
+    }
+    </script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;500;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --gallery-white: #f8f9fa;
+            --deep-purple: #3a0ca3;
+            --electric-blue: #4361ee;
+            --accent-pink: #f72585;
+            --dark-charcoal: #212529;
+            --light-gray: #e9ecef;
+            --gold: #ffd166;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--gallery-white);
+            color: var(--dark-charcoal);
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Minimalist Gallery Header */
+        header {
+            padding: 60px 20px;
+            background: linear-gradient(135deg, var(--deep-purple) 0%, var(--electric-blue) 100%);
+            color: white;
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(255,255,255,0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255,255,255,0.1) 0%, transparent 50%);
+        }
+        
+        .gallery-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5em;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 0 rgba(0,0,0,0.2);
+        }
+        
+        .subtitle {
+            font-size: 1.3em;
+            opacity: 0.9;
+            font-weight: 300;
+            margin-bottom: 20px;
+        }
+        
+        .artist-bio {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            padding: 25px;
+            border-radius: 15px;
+            max-width: 700px;
+            margin: 0 auto;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        /* Exhibition Banner */
+        .exhibition-banner {
+            background: var(--dark-charcoal);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+            border-left: 5px solid var(--accent-pink);
+        }
+        
+        .exhibition-banner h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2em;
+            margin-bottom: 15px;
+        }
+        
+        /* Card System - Gallery Style */
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+            border: 1px solid var(--light-gray);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+        }
+        
+        .card h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2em;
+            color: var(--deep-purple);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--light-gray);
+        }
+        
+        /* Current Projects Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 25px;
+        }
+        
+        .project-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            border: 1px solid var(--light-gray);
+        }
+        
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .project-image {
+            height: 180px;
+            background: linear-gradient(135deg, var(--electric-blue) 0%, var(--accent-pink) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3em;
+        }
+        
+        .project-content {
+            padding: 20px;
+        }
+        
+        .project-title {
+            font-weight: 700;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            color: var(--dark-charcoal);
+        }
+        
+        .project-status {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+        
+        .status-in-progress {
+            background: rgba(255, 209, 102, 0.2);
+            color: #b38f00;
+        }
+        
+        .status-exhibiting {
+            background: rgba(67, 97, 238, 0.2);
+            color: var(--electric-blue);
+        }
+        
+        .status-completed {
+            background: rgba(247, 37, 133, 0.2);
+            color: var(--accent-pink);
+        }
+        
+        /* Comedy Shows */
+        .show-schedule {
+            background: var(--light-gray);
+            padding: 25px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        
+        .show-item {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--electric-blue);
+        }
+        
+        .show-date {
+            font-weight: 700;
+            color: var(--deep-purple);
+            margin-bottom: 8px;
+        }
+        
+        .show-venue {
+            color: var(--accent-pink);
+            font-weight: 600;
+        }
+        
+        /* Degree Showcase */
+        .degree-highlight {
+            background: linear-gradient(135deg, var(--deep-purple) 0%, var(--electric-blue) 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 15px;
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        .degree-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+        
+        /* Connect Section */
+        .connect-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .connect-button {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            text-align: center;
+            text-decoration: none;
+            color: var(--dark-charcoal);
+            font-weight: 600;
+            transition: all 0.3s;
+            border: 2px solid var(--light-gray);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .connect-button:hover {
+            border-color: var(--electric-blue);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .connect-icon {
+            font-size: 2em;
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 60px;
+            background: var(--dark-charcoal);
+            color: white;
+            border-radius: 10px;
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: var(--gold);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 10px 25px;
+            border: 2px solid var(--gold);
+            border-radius: 25px;
+            transition: all 0.3s;
+        }
+        
+        .back-link:hover {
+            background: var(--gold);
+            color: var(--dark-charcoal);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .gallery-title {
+                font-size: 2.5em;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .connect-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        /* Gallery Dots (Decorative) */
+        .gallery-dot {
+            position: fixed;
+            width: 6px;
+            height: 6px;
+            background: var(--electric-blue);
+            border-radius: 50%;
+            opacity: 0.3;
+            z-index: -1;
+        }
+        
+        .dot-1 { top: 100px; left: 50px; }
+        .dot-2 { top: 300px; right: 80px; }
+        .dot-3 { bottom: 200px; left: 100px; }
+        .dot-4 { bottom: 100px; right: 50px; }
+    </style>
+</head>
+<body>
+    <!-- Decorative gallery dots -->
+    <div class="gallery-dot dot-1"></div>
+    <div class="gallery-dot dot-2"></div>
+    <div class="gallery-dot dot-3"></div>
+    <div class="gallery-dot dot-4"></div>
+
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <h1 class="gallery-title">Sitaara's Creative Universe</h1>
+            <p class="subtitle">Artist • Comedian • Fresh Graduate • Professional Freak</p>
+            <div class="artist-bio">
+                <p><strong>Hey, I'm Sitaara</strong> — one half of <em>Two Freaks Notice</em>, freshly graduated artist, and comedy enthusiast. This is my digital studio space where I share my art, upcoming shows, degree work, and whatever creative chaos I'm currently immersed in.</p>
+            </div>
+        </header>
+
+        <!-- Current Exhibition Banner -->
+        <div class="exhibition-banner">
+            <h2>🎓 Degree Showcase: Now Complete!</h2>
+            <p>After years of work, my degree is officially done. This section features highlights from my final projects and what's next in my creative journey.</p>
+        </div>
+
+        <!-- Current Projects -->
+        <section id="current-projects">
+            <div class="card">
+                <h2>🖼️ Current Creative Projects</h2>
+                <p style="margin-bottom: 20px;">A glimpse into what I'm working on right now—from gallery pieces to comedy material and everything in between.</p>
+                
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <div class="project-image">🎨</div>
+                        <div class="project-content">
+                            <div class="project-title">"Cape Town Chaos" Series</div>
+                            <p>Mixed media exploration of urban life in the Mother City</p>
+                            <span class="project-status status-in-progress">In Progress</span>
+                        </div>
+                    </div>
+                    
+                    <div class="project-card">
+                        <div class="project-image">🎭</div>
+                        <div class="project-content">
+                            <div class="project-title">Stand-up Material Development</div>
+                            <p>New comedy bits about graduate life and Cape Town quirks</p>
+                            <span class="project-status status-in-progress">In Progress</span>
+                        </div>
+                    </div>
+                    
+                    <div class="project-card">
+                        <div class="project-image">📚</div>
+                        <div class="project-content">
+                            <div class="project-title">Degree Project Archive</div>
+                            <p>Digital documentation of my final year work</p>
+                            <span class="project-status status-completed">Completed</span>
+                        </div>
+                    </div>
+                    
+                    <div class="project-card">
+                        <div class="project-image">🖋️</div>
+                        <div class="project-content">
+                            <div class="project-title">Zine Collaboration</div>
+                            <p>Working with local artists on a limited edition zine</p>
+                            <span class="project-status status-in-progress">In Progress</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Comedy Shows -->
+        <section id="comedy-shows">
+            <div class="card">
+                <h2>🎤 Comedy & Performance Schedule</h2>
+                <p style="margin-bottom: 20px;">Where you can catch me performing stand-up, hosting events, or causing general comedic chaos around Cape Town.</p>
+                
+                <div class="show-schedule">
+                    <div class="show-item">
+                        <div class="show-date">🗓️ Friday, Nov 15 • 8:00 PM</div>
+                        <h3>Open Mic Night Feature</h3>
+                        <p class="show-venue">📍 The Comedy Underground, CBD</p>
+                        <p>20-minute set featuring new material about graduate life and Cape Town observations</p>
+                    </div>
+                    
+                    <div class="show-item">
+                        <div class="show-date">🗓️ Saturday, Nov 23 • 7:30 PM</div>
+                        <h3>Fresh Graduate Showcase</h3>
+                        <p class="show-venue">📍 Alexander Bar Theatre</p>
+                        <p>Special set about the absurdities of finally finishing my degree</p>
+                    </div>
+                    
+                    <div class="show-item">
+                        <div class="show-date">🗓️ December TBA</div>
+                        <h3>Holiday Roast Special</h3>
+                        <p class="show-venue">📍 Venue to be announced</p>
+                        <p>Festive comedy with a twist - details coming soon!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Degree Showcase -->
+        <section id="degree-showcase">
+            <div class="card">
+                <h2>🎓 Degree Project Highlights</h2>
+                <p style="margin-bottom: 20px;">After years of hard work, I've officially completed my degree. Here are some highlights from my final projects and what this milestone means for my creative practice.</p>
+                
+                <div class="degree-highlight">
+                    <div class="degree-title">Degree Complete! 🎉</div>
+                    <p>After an intense final year, I'm officially a graduate. My work explored the intersection of digital and physical art forms, with a focus on Cape Town's unique cultural landscape.</p>
+                    <p style="margin-top: 15px; font-style: italic;">What's next? More art, more comedy, and definitely more freaking out about things on the podcast.</p>
+                </div>
+                
+                <div class="projects-grid" style="margin-top: 30px;">
+                    <div class="project-card">
+                        <div class="project-image">📱</div>
+                        <div class="project-content">
+                            <div class="project-title">Digital Identity Series</div>
+                            <p>Exploration of online personas versus real-life identities</p>
+                            <span class="project-status status-completed">Degree Project</span>
+                        </div>
+                    </div>
+                    
+                    <div class="project-card">
+                        <div class="project-image">🏙️</div>
+                        <div class="project-content">
+                            <div class="project-title">Urban Landscape Studies</div>
+                            <p>Cape Town architecture through mixed media</p>
+                            <span class="project-status status-completed">Degree Project</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Art Exhibitions -->
+        <section id="exhibitions">
+            <div class="card">
+                <h2>🖼️ Art Exhibitions & Pop-Ups</h2>
+                <p style="margin-bottom: 20px;">Where to see my work in physical spaces around Cape Town. From gallery shows to pop-up exhibitions.</p>
+                
+                <div class="show-schedule">
+                    <div class="show-item">
+                        <div class="show-date">🗓️ November 10-30</div>
+                        <h3>Emerging Artists Showcase</h3>
+                        <p class="show-venue">📍 The Cape Town Art Collective</p>
+                        <p>Featuring two pieces from my "Digital Identity" series</p>
+                    </div>
+                    
+                    <div class="show-item">
+                        <div class="show-date">🗓️ December 5-15</div>
+                        <h3>Graduate Exhibition</h3>
+                        <p class="show-venue">📍 University Gallery Space</p>
+                        <p>Final degree show featuring work from my graduating class</p>
+                    </div>
+                    
+                    <div class="show-item">
+                        <div class="show-date">🗓️ January 2026</div>
+                        <h3>Solo Exhibition (Planning Phase)</h3>
+                        <p class="show-venue">📍 Location TBA</p>
+                        <p>First solo show in the works - more details coming soon!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Connect -->
+        <section id="connect">
+            <div class="card">
+                <h2>🔗 Connect & Collaborate</h2>
+                <div class="connect-grid">
+                    <a href="https://instagram.com/evenmynamewastaken" class="connect-button">
+                        <span class="connect-icon">📸</span>
+                        <span>Instagram</span>
+                    </a>
+                    
+                    <a href="https://tiktok.com/@evenmynamewastaken" class="connect-button">
+                        <span class="connect-icon">🎵</span>
+                        <span>TikTok</span>
+                    </a>
+                    
+                    <a href="#" class="connect-button">
+                        <span class="connect-icon">🖼️</span>
+                        <span>Portfolio</span>
+                    </a>
+                    
+                    <a href="#" class="connect-button">
+                        <span class="connect-icon">📧</span>
+                        <span>Email</span>
+                    </a>
+                    
+                    <a href="#" class="connect-button">
+                        <span class="connect-icon">🎙️</span>
+                        <span>Book Comedy</span>
+                    </a>
+                    
+                    <a href="#" class="connect-button">
+                        <span class="connect-icon">🤝</span>
+                        <span>Collaborate</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Back to Main Podcast -->
+        <footer>
+            <p style="font-family: 'Playfair Display', serif; font-size: 1.5em; margin-bottom: 10px;">Thanks for visiting my creative space! ✨</p>
+            <p>This is my personal Smart Pod—updated on my schedule, styled to reflect my aesthetic.</p>
+            <p style="margin-top: 10px;"><em>Own your digital presence. Create your own rules.</em></p>
+            
+            <a href="#" class="back-link">← Back to Two Freaks Notice</a>
+            
+            <p style="margin-top: 30px; font-size: 0.85em; opacity: 0.7;">Built with Untitled Format • Brotherly Protocol v1.2.0</p>
+            <p style="font-size: 0.85em; opacity: 0.7;">Last updated: Nov 3, 2025</p>
+        </footer>
+    </div>
+
+    <!-- AI Update Markers -->
+    <!-- [PROMPT: UPDATE_SECTION | SECTION=current-projects | OWNER=sitaara | INDEPENDENT=true] -->
+    <!-- [PROMPT: UPDATE_SECTION | SECTION=comedy-shows | OWNER=sitaara | FREQUENCY=as-needed] -->
+    <!-- [PROMPT: UPDATE_SECTION | SECTION=exhibitions | OWNER=sitaara | DYNAMIC=true] -->
+</body>
+</html>

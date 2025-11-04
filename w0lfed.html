@@ -479,6 +479,192 @@
                 border-color: var(--vapor-cyan);
             }
         }
+/* Poetry Section Styles */
+.poetry-section {
+    margin: 60px 0;
+    border: 1px solid var(--neon-purple);
+    padding: 30px;
+    background: rgba(0, 0, 0, 0.7);
+    position: relative;
+    overflow: hidden;
+}
+
+.poetry-section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        linear-gradient(45deg, transparent 48%, rgba(188, 19, 254, 0.03) 50%, transparent 52%),
+        radial-gradient(circle at 30% 70%, rgba(255, 107, 53, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 70% 30%, rgba(0, 255, 65, 0.05) 0%, transparent 50%);
+    z-index: -1;
+    animation: subtle-shift 20s ease-in-out infinite;
+}
+
+@keyframes subtle-shift {
+    0%, 100% { opacity: 0.7; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.02); }
+}
+
+.poetry-title {
+    font-size: 1.8rem;
+    color: var(--neon-purple);
+    margin-bottom: 25px;
+    text-align: center;
+    border-bottom: 1px solid var(--neon-purple);
+    padding-bottom: 10px;
+    text-shadow: 0 0 5px var(--neon-purple);
+    font-family: 'Times New Roman', serif;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    position: relative;
+}
+
+.poetry-title::after {
+    content: "▲";
+    position: absolute;
+    right: 20px;
+    color: var(--matrix-green);
+    animation: pulse 2s infinite;
+}
+
+.poem {
+    font-family: 'Georgia', serif;
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: var(--text-primary);
+    position: relative;
+}
+
+.poem-line {
+    margin-bottom: 8px;
+    transition: all 0.3s ease;
+    position: relative;
+    padding-left: 10px;
+}
+
+.poem-line::before {
+    content: ">";
+    position: absolute;
+    left: -15px;
+    color: var(--text-muted);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.poem-line:hover {
+    color: var(--matrix-green);
+    transform: translateX(5px);
+}
+
+.poem-line:hover::before {
+    opacity: 1;
+}
+
+.poem-stanza {
+    margin-bottom: 20px;
+    padding: 15px;
+    border-left: 2px solid transparent;
+    transition: all 0.4s ease;
+    position: relative;
+}
+
+.poem-stanza:nth-child(odd) {
+    border-left-color: rgba(0, 255, 65, 0.3);
+}
+
+.poem-stanza:nth-child(even) {
+    border-left-color: rgba(188, 19, 254, 0.3);
+}
+
+.poem-stanza:hover {
+    background: rgba(0, 0, 0, 0.3);
+    border-left-width: 4px;
+    transform: translateX(5px);
+}
+
+.poem-break {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--gold);
+    margin: 25px 0;
+    position: relative;
+    padding: 10px;
+}
+
+.poem-break::before,
+.poem-break::after {
+    content: "✦";
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--gold);
+    opacity: 0.5;
+}
+
+.poem-break::before {
+    left: 30%;
+}
+
+.poem-break::after {
+    right: 30%;
+}
+
+.poem-signature {
+    text-align: right;
+    font-style: italic;
+    color: var(--text-muted);
+    margin-top: 30px;
+    border-top: 1px solid var(--border);
+    padding-top: 15px;
+    font-family: 'Courier New', monospace;
+    position: relative;
+}
+
+.poem-signature::before {
+    content: "//";
+    position: absolute;
+    left: 0;
+    color: var(--matrix-green);
+}
+
+/* Glitch effect for specific emotional lines */
+.poem-line:nth-child(3n):hover {
+    animation: text-glitch 0.3s linear;
+}
+
+@keyframes text-glitch {
+    0% { transform: translate(0); }
+    20% { transform: translate(-2px, 2px); color: var(--vapor-pink); }
+    40% { transform: translate(-2px, -2px); color: var(--vapor-cyan); }
+    60% { transform: translate(2px, 2px); color: var(--matrix-green); }
+    80% { transform: translate(2px, -2px); color: var(--neon-purple); }
+    100% { transform: translate(0); }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .poetry-section {
+        padding: 20px;
+    }
+    
+    .poem {
+        font-size: 1rem;
+    }
+    
+    .poem-break::before {
+        left: 20%;
+    }
+    
+    .poem-break::after {
+        right: 20%;
+    }
+}
+
         
         /* Matrix-style terminal effect */
         .terminal-text {
@@ -879,7 +1065,84 @@
                 "The foundation of every state is the education of its youth." - Diogenes
             </div>
         </section>
-        
+        <!-- Add this section right after the Media Literacy section -->
+<section class="poetry-section">
+    <div class="poetry-container">
+        <h2 class="poetry-title">Digital Canticles</h2>
+        <div class="poem">
+            <div class="poem-line">Sometimes in life you never know what you'll get</div>
+            <div class="poem-line">It could be something magical</div>
+            <div class="poem-line">It could be something you forget</div>
+            
+            <div class="poem-stanza">
+                <div class="poem-line">Sometimes in life you may do things you'll regret</div>
+                <div class="poem-line">You may find moments dull or boring</div>
+                <div class="poem-line">You may find surprises you did not expect</div>
+            </div>
+            
+            <div class="poem-stanza">
+                <div class="poem-line">Sometimes in life it might feel like you are caught in a net</div>
+                <div class="poem-line">You may find untangling some knots easy</div>
+                <div class="poem-line">Or they may become an unforeseen beset</div>
+            </div>
+            
+            <div class="poem-stanza">
+                <div class="poem-line">Sometimes in life you may adopt a pet</div>
+                <div class="poem-line">They could become your best friend,</div>
+                <div class="poem-line">To only say goodbye forever at a vet.</div>
+            </div>
+            
+            <div class="poem-stanza">
+                <div class="poem-line">Sometimes in life you just never know what you'll get</div>
+                <div class="poem-line">It could be a Dutch bicycle,</div>
+                <div class="poem-line">It could be neverending debt.</div>
+            </div>
+            
+            <div class="poem-stanza">
+                <div class="poem-line">It could be sunlight in your garden.</div>
+                <div class="poem-line">It could be storms and rain and getting wet</div>
+            </div>
+            
+            <div class="poem-break">But</div>
+            
+            <div class="poem-stanza">
+                <div class="poem-line">Even when it's hard</div>
+                <div class="poem-line">Even if it makes you tired</div>
+                <div class="poem-line">Even if it makes you sweat</div>
+            </div>
+            
+            <div class="poem-stanza">
+                <div class="poem-line">Or those stories ending with regret</div>
+                <div class="poem-line">Or those sad days at the vet</div>
+                <div class="poem-line">Or soggy clouds keep making you wet</div>
+            </div>
+            
+            <div class="poem-stanza">
+                <div class="poem-line">Even you're stuck and can't untangle your net</div>
+                <div class="poem-line">Or when something safe turns to threat</div>
+            </div>
+            
+            <div class="poem-stanza">
+                <div class="poem-line">Especially when things don't go how you expect</div>
+                <div class="poem-line">When simple days are burdened by debt</div>
+            </div>
+            
+            <div class="poem-stanza">
+                <div class="poem-line">Just never forget</div>
+                <div class="poem-line">You will always have your bike</div>
+                <div class="poem-line">A friend</div>
+                <div class="poem-line">A pet</div>
+            </div>
+            
+            <div class="poem-stanza">
+                <div class="poem-line">And the most beautiful part is</div>
+                <div class="poem-line">Sometimes in life you never know what you'll get.</div>
+            </div>
+            
+            <div class="poem-signature">— w0lfed</div>
+        </div>
+    </div>
+</section>
         <footer class="footer">
             <div class="footer-links">
                 <a href="https://alx0r.github.io/Aartless/brostudio.html" class="footer-link">CONTACT</a>

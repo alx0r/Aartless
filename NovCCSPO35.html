@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice - Carol Crous Digital Strategy Services</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+            padding: 40px 20px;
+        }
+        
+        .invoice-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 60px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 50px;
+            padding-bottom: 30px;
+            border-bottom: 3px solid #2c3e50;
+        }
+        
+        .company-info h1 {
+            font-size: 2em;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        
+        .company-info p {
+            color: #7f8c8d;
+            font-size: 0.95em;
+        }
+        
+        .invoice-details {
+            text-align: right;
+        }
+        
+        .invoice-number {
+            font-size: 1.8em;
+            color: #2c3e50;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .invoice-date {
+            color: #7f8c8d;
+            font-size: 0.95em;
+        }
+        
+        .billing-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+        
+        .bill-to, .payment-info {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 8px;
+        }
+        
+        .bill-to h3, .payment-info h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .bill-to p, .payment-info p {
+            margin: 5px 0;
+            color: #555;
+        }
+        
+        .services-table {
+            width: 100%;
+            margin-bottom: 30px;
+            border-collapse: collapse;
+        }
+        
+        .services-table thead {
+            background: #2c3e50;
+            color: white;
+        }
+        
+        .services-table th {
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9em;
+            letter-spacing: 0.5px;
+        }
+        
+        .services-table td {
+            padding: 15px;
+            border-bottom: 1px solid #ecf0f1;
+        }
+        
+        .services-table tbody tr:hover {
+            background: #f8f9fa;
+        }
+        
+        .service-description {
+            color: #555;
+            font-size: 0.95em;
+        }
+        
+        .service-detail {
+            color: #7f8c8d;
+            font-size: 0.85em;
+            margin-top: 5px;
+        }
+        
+        .totals {
+            margin-left: auto;
+            width: 300px;
+            margin-top: 20px;
+        }
+        
+        .totals-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #ecf0f1;
+        }
+        
+        .totals-row.subtotal {
+            font-weight: 600;
+        }
+        
+        .totals-row.total {
+            background: #2c3e50;
+            color: white;
+            padding: 15px 20px;
+            margin-top: 10px;
+            font-size: 1.3em;
+            font-weight: bold;
+            border-radius: 5px;
+        }
+        
+        .payment-details {
+            background: #ebf5fb;
+            border-left: 5px solid #3498db;
+            padding: 25px;
+            margin: 40px 0;
+            border-radius: 5px;
+        }
+        
+        .payment-details h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        .bank-details {
+            margin-top: 15px;
+            color: #333;
+        }
+        
+        .notes {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 2px solid #ecf0f1;
+        }
+        
+        .notes h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        .notes p {
+            color: #666;
+            line-height: 1.8;
+        }
+        
+        .footer {
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 2px solid #ecf0f1;
+            text-align: center;
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            background: #27ae60;
+            color: white;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        
+        .status-badge.pending {
+            background: #f39c12;
+        }
+        
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            
+            .invoice-container {
+                box-shadow: none;
+                padding: 40px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .invoice-container {
+                padding: 30px 20px;
+            }
+            
+            .header {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .invoice-details {
+                text-align: left;
+            }
+            
+            .billing-info {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .totals {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="invoice-container">
+        <div class="header">
+            <div class="company-info">
+                <h1>Alexander [Last Name]</h1>
+                <p>Digital Strategy & Content Development</p>
+                <p>Email: [Your Email]</p>
+                <p>Phone: [Your Phone]</p>
+            </div>
+            <div class="invoice-details">
+                <div class="invoice-number">INVOICE #002-11-2025</div>
+                <div class="invoice-date">Date: November 4, 2025</div>
+                <div class="invoice-date">Due: Upon Receipt</div>
+                <span class="status-badge pending">PENDING PAYMENT</span>
+            </div>
+        </div>
+
+        <div class="billing-info">
+            <div class="bill-to">
+                <h3>Bill To</h3>
+                <p><strong>Carol Crous</strong></p>
+                <p>International Educational Consultant</p>
+                <p>Location: Turkey</p>
+                <p>Email: [Carol's Email]</p>
+            </div>
+            
+            <div class="payment-info">
+                <h3>Payment Period</h3>
+                <p><strong>Service Month:</strong> November 2025</p>
+                <p><strong>Retainer:</strong> Monthly</p>
+                <p><strong>Contract Start:</strong> August 2025</p>
+                <p><strong>Payment Terms:</strong> Flexible (Beginning, Middle, or End of Month)</p>
+                <p style="margin-top: 10px; color: #e67e22;"><strong>Note:</strong> October work carried over into November</p>
+            </div>
+        </div>
+
+        <table class="services-table">
+            <thead>
+                <tr>
+                    <th>Service Description</th>
+                    <th style="text-align: center;">Hours</th>
+                    <th style="text-align: right;">Amount (ZAR)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <div class="service-description"><strong>Bi-Weekly Strategy Meetings</strong></div>
+                        <div class="service-detail">Two comprehensive strategy sessions (1 hour each) including preparation, meeting time, and follow-up documentation</div>
+                    </td>
+                    <td style="text-align: center;">2.0</td>
+                    <td style="text-align: right;">Included</td>
+                </tr>
+                
+                <tr>
+                    <td>
+                        <div class="service-description"><strong>Website Development Guidance</strong></div>
+                        <div class="service-detail">Ongoing support for Wix website build including structure review, content feedback, UX guidance, and SEO optimization recommendations</div>
+                    </td>
+                    <td style="text-align: center;">1.5</td>
+                    <td style="text-align: right;">Included</td>
+                </tr>
+                
+                <tr>
+                    <td>
+                        <div class="service-description"><strong>LinkedIn Profile Optimization</strong></div>
+                        <div class="service-detail">Complete profile audit, headline and about section rewrite, experience optimization, and skills strategy implementation</div>
+                    </td>
+                    <td style="text-align: center;">1.0</td>
+                    <td style="text-align: right;">Included</td>
+                </tr>
+                
+                <tr>
+                    <td>
+                        <div class="service-description"><strong>LinkedIn Content Strategy & Management</strong></div>
+                        <div class="service-detail">Content planning, post drafting support, connection building strategy, and engagement tactics for professional network growth</div>
+                    </td>
+                    <td style="text-align: center;">1.5</td>
+                    <td style="text-align: right;">Included</td>
+                </tr>
+                
+                <tr>
+                    <td>
+                        <div class="service-description"><strong>Content Messaging Framework Development</strong></div>
+                        <div class="service-detail">Creation of core content pillars, messaging strategy across platforms, and brand voice guidelines for international education consulting</div>
+                    </td>
+                    <td style="text-align: center;">1.0</td>
+                    <td style="text-align: right;">Included</td>
+                </tr>
+                
+                <tr>
+                    <td>
+                        <div class="service-description"><strong>Platform Monitoring & Intelligence</strong></div>
+                        <div class="service-detail">Ongoing analysis of TikTok infrastructure changes, social media platform migrations, and strategic recommendations for video content launch timing</div>
+                    </td>
+                    <td style="text-align: center;">1.0</td>
+                    <td style="text-align: right;">Included</td>
+                </tr>
+                
+                <tr>
+                    <td>
+                        <div class="service-description"><strong>Video Content Strategy Development</strong></div>
+                        <div class="service-detail">Video content strategy development, platform selection research, and content calendar preparation for launch</div>
+                    </td>
+                    <td style="text-align: center;">1.5</td>
+                    <td style="text-align: right;">Included</td>
+                </tr>
+                
+                <tr>
+                    <td>
+                        <div class="service-description"><strong>Reconnection & Alignment Session</strong></div>
+                        <div class="service-detail">Strategic realignment meeting to review progress, address any delays, and establish priorities for November work and beyond</div>
+                    </td>
+                    <td style="text-align: center;">1.0</td>
+                    <td style="text-align: right;">Included</td>
+                </tr>
+                
+                <tr>
+                    <td>
+                        <div class="service-description"><strong>Bespoke Document Intelligence Setup</strong></div>
+                        <div class="service-detail">Introduction and implementation of custom document organization system to streamline workflows, improve information management, and enhance project efficiency</div>
+                    </td>
+                    <td style="text-align: center;">1.0</td>
+                    <td style="text-align: right;">Included</td>
+                </tr>
+                
+                <tr>
+                    <td>
+                        <div class="service-description"><strong>Ongoing Support & Communication</strong></div>
+                        <div class="service-detail">WhatsApp support, email correspondence, quick consultations, Trello board management, and ad-hoc strategic guidance throughout the month</div>
+                    </td>
+                    <td style="text-align: center;">1.5</td>
+                    <td style="text-align: right;">Included</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="totals">
+            <div class="totals-row subtotal">
+                <span>Subtotal:</span>
+                <span>R 5,000.00</span>
+            </div>
+            <div class="totals-row">
+                <span>Tax (VAT):</span>
+                <span>R 0.00</span>
+            </div>
+            <div class="totals-row total">
+                <span>TOTAL DUE:</span>
+                <span>R 5,000.00</span>
+            </div>
+        </div>
+
+        <div class="payment-details">
+            <h3>Payment Information</h3>
+            <div class="bank-details">
+                <p><strong>Please use the banking details previously provided for September payment.</strong></p>
+                <p style="margin-top: 15px;"><strong>Reference:</strong> CAROL-NOV2025</p>
+            </div>
+            
+            <p style="margin-top: 20px;"><strong>Note:</strong> Please send proof of payment via WhatsApp or email once processed. No rush on timing - pay whenever works best for your cash flow during the month.</p>
+        </div>
+
+        <div class="notes">
+            <h3>Service Notes</h3>
+            <p><strong>Monthly Retainer Structure:</strong> This invoice covers November 2025 services under our monthly retainer agreement of R5,000. The retainer includes approximately 13 hours of strategic work, meetings, and ongoing support as detailed above.</p>
+            
+            <p style="margin-top: 15px;"><strong>October Carryover:</strong> Due to scheduling and workload on both sides, October work naturally extended into November. No separate charge for October - this invoice covers the continued work and November deliverables. September was paid as scheduled, and we're maintaining our regular monthly retainer moving forward.</p>
+            
+            <p style="margin-top: 15px;"><strong>Year-End Focus:</strong> With the holiday season approaching in November and December, we're maximizing our working time this month to ensure strong momentum and key deliverables before year-end. The increased hour allocation reflects our commitment to getting important projects completed and launched.</p>
+            
+            <p style="margin-top: 15px;"><strong>Flexible Payment Timing:</strong> You're welcome to process payment at the beginning, middle, or end of the month - whatever timing works best for your financial planning. This invoice serves as documentation of services provided/to be provided during November.</p>
+            
+            <p style="margin-top: 15px;"><strong>New Services Added:</strong> This month includes two new strategic elements: a reconnection session to realign priorities, and the introduction of Bespoke Document Intelligence to help streamline your workflow and information management.</p>
+            
+            <p style="margin-top: 15px;"><strong>Questions?</strong> If you have any questions about this invoice or the services provided, please don't hesitate to reach out via WhatsApp, email, or during our meetings.</p>
+        </div>
+
+        <div class="footer">
+            <p><strong>Thank you for your business!</strong></p>
+            <p style="margin-top: 10px;">This invoice represents professional services rendered/to be rendered for the period specified above.</p>
+            <p style="margin-top: 10px;">Invoice generated: November 4, 2025 | Payment Due: Upon Receipt (Flexible Timing)</p>
+        </div>
+    </div>
+</body>
+</html>

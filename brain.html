@@ -41,12 +41,18 @@
             box-sizing: border-box;
         }
         
+        html {
+            scroll-behavior: smooth;
+        }
+        
         body {
             background: var(--cyber-darker);
             color: var(--text-primary);
             font-family: 'Inter', sans-serif;
             line-height: 1.6;
             overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -webkit-overflow-scrolling: touch;
         }
         
         .neural-grid {
@@ -89,53 +95,13 @@
             background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: pulse 2s ease-in-out infinite;
+            animation: pulse 3s ease-in-out infinite;
             position: relative;
-        }
-        
-        .glitch::before,
-        .glitch::after {
-            content: "Neural Capture";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-        
-        .glitch::before {
-            animation: glitch-1 0.5s infinite linear alternate-reverse;
-            color: var(--cyber-blue);
-            z-index: -1;
-        }
-        
-        .glitch::after {
-            animation: glitch-2 0.5s infinite linear alternate-reverse;
-            color: var(--cyber-purple);
-            z-index: -2;
         }
         
         @keyframes pulse {
             0%, 100% { opacity: 1; }
-            50% { opacity: 0.8; }
-        }
-        
-        @keyframes glitch-1 {
-            0% { transform: translate(0); }
-            20% { transform: translate(-2px, 2px); }
-            40% { transform: translate(-2px, -2px); }
-            60% { transform: translate(2px, 2px); }
-            80% { transform: translate(2px, -2px); }
-            100% { transform: translate(0); }
-        }
-        
-        @keyframes glitch-2 {
-            0% { transform: translate(0); }
-            20% { transform: translate(2px, -2px); }
-            40% { transform: translate(2px, 2px); }
-            60% { transform: translate(-2px, -2px); }
-            80% { transform: translate(-2px, 2px); }
-            100% { transform: translate(0); }
+            50% { opacity: 0.9; }
         }
         
         .subtitle {
@@ -181,22 +147,7 @@
             border-radius: 8px;
             backdrop-filter: blur(10px);
             position: relative;
-        }
-        
-        section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--cyber-blue), transparent);
-            animation: data-flow 3s infinite;
-        }
-        
-        @keyframes data-flow {
-            0% { left: -100%; }
-            100% { left: 100%; }
+            transform: translateZ(0);
         }
         
         h2 {
@@ -250,6 +201,7 @@
         .comparison-matrix {
             overflow-x: auto;
             margin: 2rem 0;
+            -webkit-overflow-scrolling: touch;
         }
         
         table {
@@ -473,6 +425,7 @@
             font-size: 0.85rem;
         }
         
+        /* Mobile optimizations */
         @media (max-width: 768px) {
             .glitch {
                 font-size: 2rem;
@@ -483,7 +436,9 @@
             }
             
             section {
-                padding: 1rem;
+                padding: 1.5rem;
+                margin: 2rem 0;
+                backdrop-filter: none; /* Remove blur on mobile for performance */
             }
             
             .status-bar {
@@ -493,6 +448,36 @@
             
             .theory-grid, .registry-grid, .methodology-grid {
                 grid-template-columns: 1fr;
+            }
+            
+            .neural-grid {
+                background-size: 80px 80px; /* Larger grid for mobile performance */
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            h3 {
+                font-size: 1.2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .glitch {
+                font-size: 1.5rem;
+            }
+            
+            section {
+                padding: 1rem;
+            }
+            
+            .status-bar {
+                padding: 1rem;
+            }
+            
+            .terminal-content {
+                padding: 1rem;
             }
         }
     </style>
@@ -513,7 +498,7 @@
             </div>
             
             <a href="https://alx0r.github.io/Aartless/w0lfed.html" class="w0lfed-link">
-                📡 MORE RESEARCH ON THE WEEKLY W0LFED™
+                📡 CONTINUE TO W0LFED™ WEEKLY RESEARCH
             </a>
         </header>
 
@@ -912,7 +897,7 @@
             <p style="margin-top: 0.5rem; font-size: 0.75rem;">Last Updated: November 6, 2025 | Version 1.0</p>
             
             <a href="https://alx0r.github.io/Aartless/w0lfed.html" class="w0lfed-link" style="margin-top: 2rem;">
-                📡 CONTINUE READING ON THE WEEKLY W0LFED™ 
+                📡 CONTINUE TO W0LFED™ WEEKLY RESEARCH
             </a>
         </footer>
     </div>

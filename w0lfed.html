@@ -518,6 +518,57 @@
     50% { transform: translate(1px, -1px); }
     75% { transform: translate(-1px, -1px); }
 }
+
+.glitch-warning {
+    color: var(--blood-red);
+    position: relative;
+    display: inline-block;
+    animation: subtle-glitch 8s infinite;
+    text-shadow: 0 0 8px var(--blood-red);
+}
+
+.glitch-warning::before,
+.glitch-warning::after {
+    content: "WARNING: Information contained herein may disrupt established narratives";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.glitch-warning::before {
+    animation: glitch-1 8s infinite;
+    color: var(--vapor-pink);
+    z-index: -1;
+}
+
+.glitch-warning::after {
+    animation: glitch-2 8s infinite;
+    color: var(--vapor-cyan);
+    z-index: -2;
+}
+
+@keyframes subtle-glitch {
+    0%, 95%, 100% { transform: translate(0); }
+    96% { transform: translate(-1px, 1px); }
+    97% { transform: translate(1px, -1px); }
+    98% { transform: translate(-1px, -1px); }
+}
+
+@keyframes glitch-1 {
+    0%, 95%, 100% { opacity: 0; transform: translate(0); }
+    96% { opacity: 0.3; transform: translate(2px, -1px); }
+    97% { opacity: 0.2; transform: translate(-1px, 2px); }
+    98% { opacity: 0.4; transform: translate(1px, 1px); }
+}
+
+@keyframes glitch-2 {
+    0%, 95%, 100% { opacity: 0; transform: translate(0); }
+    96% { opacity: 0.2; transform: translate(-2px, 1px); }
+    97% { opacity: 0.3; transform: translate(1px, -2px); }
+    98% { opacity: 0.1; transform: translate(-1px, -1px); }
+}
 /* Poetry Section Styles */
 .poetry-section {
     margin: 60px 0;
@@ -898,7 +949,7 @@
             </div>
         </div>
         
-        <section id="exec-summary" class="terminal-text">
+   <section id="exec-summary" class="terminal-text">
     <p>SYSTEM BOOT: W0LFED_DISPATCH_v1.0</p>
     <p>INITIALIZING DIGITAL RESISTANCE PROTOCOLS...</p>
     <p>THIS WEEK: 
@@ -909,7 +960,7 @@
         <span style="color: var(--vapor-cyan);">The Sora Paradox</span> | 
         <span style="color: var(--vapor-pink);">new emojis!?!</span>
     </p>
-    <p>WARNING: Information contained herein may disrupt established narratives</p>
+    <p class="glitch-warning">WARNING: Information contained herein may disrupt established narratives</p>
     <p>NEW INVESTIGATIONS: 
         <span style="color: var(--blood-red);">Syria war crimes forensics</span> | 
         <span style="color: var(--gold);">Tax infrastructure colonialism</span> | 

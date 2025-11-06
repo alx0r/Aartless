@@ -1306,5 +1306,71 @@
       "license": "https://creativecommons.org/licenses/by-nc-sa/4.0/"
     }
     </script>
+<!-- Add this right before your closing </body> tag -->
+<audio id="bgMusic" loop>
+    <source src="https://files.freemusicarchive.org/storage-freemusicarchive-org/music/no_curator/Tristan_Lohengrin/Welcome/The_Sky_Of_Our_Own_Tristan_Lohengrin.mp3" type="audio/mpeg">
+</audio>
+<!-- Alternative: Use multiple sources for better compatibility -->
+<audio id="bgMusic" loop>
+    <!-- Primary source -->
+    <source src="https://files.freemusicarchive.org/storage-freemusicarchive-org/music/no_curator/Tristan_Lohengrin/Welcome/The_Sky_Of_Our_Own_Tristan_Lohengrin.mp3" type="audio/mpeg">
+    
+    <!-- Backup source 1 - Cyberpunk synthwave -->
+    <source src="https://files.freemusicarchive.org/storage-freemusicarchive-org/music/ccCommunity/Chad_Crouch/Arps/Chad_Crouch_-_Algorithms.mp3" type="audio/mpeg">
+    
+    <!-- Backup source 2 - 8-bit style -->
+    <source src="https://files.freemusicarchive.org/storage-freemusicarchive-org/music/no_curator/M%C3%A9tis_Nation_of_Ontario_Community/Kitchen_R%26B__Riddims_Anishinaabe_Edits/Kitchen_RB_Riddims_Anishinaabe_Edits_-_11_-_Anishinaabe_8-bit_Edit.mp3" type="audio/mpeg">
+</audio>
+<button id="musicToggle" style="
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 10000;
+    background: var(--matrix-green);
+    color: black;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Courier New', monospace;
+    font-size: 0.8rem;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+">
+    ♫ Toggle Music
+</button>
+
+<script>
+    const audio = document.getElementById('bgMusic');
+    const toggle = document.getElementById('musicToggle');
+    let musicStarted = false;
+
+    // Toggle music on click
+    toggle.addEventListener('click', function() {
+        if (!musicStarted) {
+            audio.play().catch(e => console.log('Audio play failed:', e));
+            musicStarted = true;
+            toggle.textContent = '♫ Music On';
+            toggle.style.opacity = '1';
+        } else {
+            if (audio.paused) {
+                audio.play();
+                toggle.textContent = '♫ Music On';
+            } else {
+                audio.pause();
+                toggle.textContent = '♫ Music Off';
+            }
+        }
+    });
+
+    // Auto-start on first user interaction (required by browsers)
+    document.addEventListener('click', function startMusicOnce() {
+        if (!musicStarted) {
+            audio.volume = 0.3; // Set volume low
+            document.removeEventListener('click', startMusicOnce);
+        }
+    }, { once: true });
+</script>
+
 </body>
 </html>

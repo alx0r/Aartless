@@ -4,33 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alexander's SpeakHard | The Waif Method™</title>
-    
-    <!-- YAML Metadata -->
-    <!--
-    title: "Alexander's SpeakHard - A Waif Method™ Journey"
-    creator: "Giselle Human"
-    client: "Alexander's SpeakHard"
-    project_type: "Cafe Concept, Ceramics Design, Brand Identity"
-    waif_method_version: "1.0"
-    forever_format: "1.2.0"
-    status: "Living Document - In Progress"
-    started: "2025-01-15"
-    updated: "2025-11-07"
-    tags: ["cafe design", "ceramics", "brand identity", "conceptual art", "bookshop"]
-    disciplines: ["conceptual thinking", "ceramic design", "branding", "interior concept", "copywriting"]
-    -->
-    
     <style>
-        /* Previous CSS remains exactly the same */
+        /* ===== VARIABLES & RESET ===== */
         :root {
-            --ink: #1a1a1a;
-            --cream: #f9f6f0;
-            --rust: #c57b57;
-            --sage: #8a9985;
-            --coffee: #6b4423;
-            --gold: #d4a574;
-            --paper: #ebe5d9;
-            --shadow: rgba(0, 0, 0, 0.1);
+            --color-dark: #1a1a1a;
+            --color-darker: #0f0f0f;
+            --color-gold: #c9a96e;
+            --color-gold-light: #d4b885;
+            --color-gold-dark: #b08c4e;
+            --color-cream: #f5f2eb;
+            --color-gray: #2a2a2a;
+            --color-gray-light: #3a3a3a;
+            --color-brown: #8B7355;
+            --color-coffee: #6F4E37;
+            --font-serif: 'Playfair Display', Georgia, serif;
+            --font-sans: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+            --font-mono: 'SF Mono', Monaco, monospace;
+            --border-radius: 4px;
+            --transition: all 0.3s ease;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            --shadow-light: 0 2px 10px rgba(0, 0, 0, 0.2);
         }
 
         * {
@@ -39,209 +32,757 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            font-family: 'Georgia', serif;
-            background: var(--cream);
-            color: var(--ink);
-            line-height: 1.7;
-            font-size: 16px;
+            background-color: var(--color-dark);
+            color: var(--color-cream);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            overflow-x: hidden;
         }
 
+        /* ===== TYPOGRAPHY ===== */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-serif);
+            font-weight: 400;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-size: 3rem;
+            letter-spacing: -0.02em;
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-top: 2rem;
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 60px;
+            height: 1px;
+            background-color: var(--color-gold);
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+        }
+
+        a {
+            color: var(--color-gold);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        a:hover {
+            color: var(--color-gold-light);
+        }
+
+        /* ===== LAYOUT ===== */
         .container {
-            max-width: 1100px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 0 30px;
+            padding: 0 2rem;
         }
 
-        /* All previous CSS styles remain unchanged */
-        /* ... (header, nav, sections, etc. - same as before) ... */
+        section {
+            padding: 3rem 0;
+        }
+
+        .section-dark {
+            background-color: var(--color-darker);
+        }
+
+        .section-light {
+            background-color: var(--color-gray);
+        }
+
+        /* ===== HEADER & NAVIGATION ===== */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--color-gray);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+        }
+
+        .logo {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            color: var(--color-gold);
+            letter-spacing: 0.1em;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav li {
+            margin-left: 1.5rem;
+        }
+
+        nav a {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            height: 70vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(26, 26, 26, 0.7), rgba(26, 26, 26, 0.9));
+            z-index: -1;
+        }
+
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            z-index: -2;
+            opacity: 0.4;
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--color-gold);
+            margin-bottom: 1.5rem;
+        }
+
+        .project-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .meta-icon {
+            color: var(--color-gold);
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background-color: var(--color-brown);
+            color: var(--color-cream);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-size: 0.8rem;
+            margin-bottom: 1rem;
+        }
+
+        /* ===== PROJECT PROGRESS ===== */
+        .progress-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .progress-item {
+            padding: 1.5rem;
+            border: 1px solid var(--color-gray);
+            border-radius: var(--border-radius);
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .progress-bar {
+            height: 6px;
+            background-color: var(--color-gray);
+            border-radius: 3px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background-color: var(--color-gold);
+            transition: width 1s ease;
+        }
+
+        .progress-percent {
+            font-size: 0.9rem;
+            color: var(--color-gold);
+        }
+
+        .progress-status {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background-color: var(--color-brown);
+            color: var(--color-cream);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            border-radius: 2px;
+        }
+
+        /* ===== MILESTONES ===== */
+        .milestones {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .milestone {
+            padding: 1.5rem;
+            border: 1px solid var(--color-gray);
+            border-radius: var(--border-radius);
+        }
+
+        .milestone-date {
+            font-weight: 600;
+            color: var(--color-gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .milestone-content h3 {
+            margin-top: 0;
+        }
+
+        /* ===== CURRENT FOCUS ===== */
+        .focus-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .focus-item {
+            padding: 1.5rem;
+            border: 1px solid var(--color-gray);
+            border-radius: var(--border-radius);
+        }
+
+        .focus-quote {
+            font-style: italic;
+            border-left: 2px solid var(--color-gold);
+            padding-left: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        /* ===== WHAT'S NEXT ===== */
+        .next-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .next-category {
+            margin-bottom: 2rem;
+        }
+
+        .next-items {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .next-item {
+            padding: 1rem;
+            background-color: var(--color-darker);
+            border-radius: var(--border-radius);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .next-icon {
+            color: var(--color-gold);
+            font-size: 1.2rem;
+        }
+
+        .next-timeline {
+            font-size: 0.9rem;
+            color: var(--color-gray-light);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background-color: var(--color-darker);
+            padding: 3rem 0 2rem;
+            border-top: 1px solid var(--color-gray);
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            color: var(--color-gold);
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+        }
+
+        .footer-text {
+            color: var(--color-gray-light);
+            font-size: 0.9rem;
+        }
+
+        /* ===== RESPONSIVE DESIGN ===== */
+        @media (max-width: 992px) {
+            .progress-grid, .focus-grid, .next-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            nav ul {
+                display: none;
+            }
+            
+            .project-meta {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
     </style>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- YAML Metadata Block -->
+    <!--
+    title: "Alexander's SpeakHard | The Waif Method™"
+    author: "Giselle Human"
+    affiliation: "Waif"
+    forever_format: "1.2.0"
+    document_type: "Commercial Design Project"
+    license: "CC BY-NC-SA 4.0"
+    version: "1.0.0"
+    created: "2025-01-15"
+    updated: "2025-11-22"
+    citation_style: "APA 7th"
+    tags: ["cafe design", "ceramics", "brand identity", "commercial space"]
+    ai_context_tags: ["commercial_design", "brand_strategy", "ceramic_production"]
+    bias_note: "Design perspective focusing on intellectual salon atmosphere and artisanal quality"
+    -->
+
+    <!-- JSON-LD Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "CreativeWork",
+        "name": "Alexander's SpeakHard | The Waif Method™",
+        "author": {
+            "@type": "Person",
+            "name": "Giselle Human"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Waif"
+        },
+        "datePublished": "2025-01-15",
+        "license": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+        "version": "1.0.0"
+    }
+    </script>
+
     <header>
         <div class="container">
-            <h1 class="project-title">Alexander's SpeakHard</h1>
-            <p class="project-subtitle">A Bookshop Café for the Deeply Curious</p>
-            <div class="meta">
-                <div class="meta-item">
-                    <span>📍</span> Cape Town, South Africa
-                </div>
-                <div class="meta-item">
-                    <span>🎨</span> Creative Director: Giselle Human
-                </div>
-                <div class="meta-item">
-                    <span>📅</span> January 2025 - Present
-                </div>
-                <div class="meta-item">
-                    <span>🔖</span> The Waif Method™
-                </div>
+            <div class="header-content">
+                <div class="logo">WAIF</div>
+                <nav>
+                    <ul>
+                        <li><a href="#progress">Progress</a></li>
+                        <li><a href="#milestones">Milestones</a></li>
+                        <li><a href="#focus">Current Focus</a></li>
+                        <li><a href="#next">What's Next</a></li>
+                    </ul>
+                </nav>
             </div>
         </div>
     </header>
 
-    <nav>
-        <ul>
-            <li><a href="#concept">Concept</a></li>
-            <li><a href="#ceramics">Ceramics</a></li>
-            <li><a href="#brand">Brand Identity</a></li>
-            <li><a href="#interior">Space</a></li>
-            <li><a href="#progress">Progress</a></li>
-            <li><a href="#next">What's Next</a></li>
-        </ul>
-    </nav>
-
-    <!-- Previous sections remain exactly the same -->
-    <section id="intro">
-        <!-- ... content unchanged ... -->
-    </section>
-
-    <section id="concept">
-        <!-- ... content unchanged ... -->
-    </section>
-
-    <section id="ceramics">
-        <!-- ... content unchanged ... -->
-    </section>
-
-    <section id="brand">
-        <!-- ... content unchanged ... -->
-    </section>
-
-    <section id="interior">
-        <!-- ... content unchanged ... -->
-    </section>
-
-    <section id="progress">
+    <section class="hero">
+        <div class="hero-background"></div>
         <div class="container">
-            <div class="section-header">
-                <h2>Project Progress</h2>
-                <p class="section-intro">Real-time tracking of where we are in the journey.</p>
+            <div class="hero-content">
+                <div class="status-badge">In Development</div>
+                <h1>Alexander's SpeakHard</h1>
+                <p class="hero-subtitle">A Bookshop Café for the Deeply Curious</p>
+                
+                <div class="project-meta">
+                    <div class="meta-item">
+                        <span class="meta-icon">📍</span>
+                        <span>Cape Town, South Africa</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-icon">🎨</span>
+                        <span>Creative Director: Giselle Human</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-icon">📅</span>
+                        <span>January 2025 - Present</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-icon">🔖</span>
+                        <span>The Waif Method™</span>
+                    </div>
+                </div>
+                
+                <p>A revolutionary approach to café culture—where intellectual curiosity meets artisanal craft. Every element, from custom ceramics to the curated book selection, is designed to foster deep conversation and community.</p>
             </div>
+        </div>
+    </section>
 
-            <div class="progress-section">
-                <h3>Concept Development</h3>
-                <div class="progress-bar">
-                    <div class="progress-fill" style="width: 90%;"></div>
+    <section id="progress" class="section-dark">
+        <div class="container">
+            <h2>Project Progress</h2>
+            <p>Real-time tracking of where we are in the journey</p>
+            
+            <div class="progress-grid">
+                <div class="progress-item">
+                    <div class="progress-header">
+                        <h3>Concept Development</h3>
+                        <div class="progress-percent">90%</div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 90%"></div>
+                    </div>
+                    <p>Philosophy, programming, and overall vision fully articulated. Menu concept and service model established.</p>
                 </div>
-                <div class="progress-label">
-                    <span>Complete</span>
-                    <span>90%</span>
+                
+                <div class="progress-item">
+                    <div class="progress-header">
+                        <h3>Ceramic Design & Production</h3>
+                        <div class="progress-percent">45%</div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 45%"></div>
+                    </div>
+                    <div class="progress-status">First Firing</div>
+                    <p>Prototypes for The Scholar's Cup and Philosopher's Pot complete. Scaling production for opening inventory.</p>
+                </div>
+                
+                <div class="progress-item">
+                    <div class="progress-header">
+                        <h3>Brand Identity</h3>
+                        <div class="progress-percent">70%</div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 70%"></div>
+                    </div>
+                    <div class="progress-status">Logo Refinement, Collateral Design</div>
+                    <p>Core identity established. Menu design, packaging, and digital presence in development.</p>
+                </div>
+                
+                <div class="progress-item">
+                    <div class="progress-header">
+                        <h3>Interior Design</h3>
+                        <div class="progress-percent">30%</div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 30%"></div>
+                    </div>
+                    <div class="progress-status">Space Planning, Material Selection</div>
+                    <p>Layout finalized. Material palette confirmed. Custom furniture and lighting in design phase.</p>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <div class="progress-section">
-                <h3>Ceramic Design & Production</h3>
-                <div class="progress-bar">
-                    <div class="progress-fill" style="width: 45%;"></div>
+    <section id="milestones">
+        <div class="container">
+            <h2>Recent Milestones</h2>
+            <p>Key achievements in the development of Alexander's SpeakHard</p>
+            
+            <div class="milestones">
+                <div class="milestone">
+                    <div class="milestone-date">November 2025</div>
+                    <div class="milestone-content">
+                        <h3>First Ceramic Prototypes Completed</h3>
+                        <p>The Scholar's Cup has passed initial testing for weight, balance, and thermal properties. Client approved the rust and cream glaze combination that references aged books and coffee stains.</p>
+                    </div>
                 </div>
-                <div class="progress-label">
-                    <span>In Progress — First Firing</span>
-                    <span>45%</span>
+                
+                <div class="milestone">
+                    <div class="milestone-date">October 2025</div>
+                    <div class="milestone-content">
+                        <h3>Brand Identity Finalized</h3>
+                        <p>Color palette, typography, and logo concept approved. Menu copywriting in progress. Tone of voice guidelines established—intellectual yet accessible, curious but not pretentious.</p>
+                    </div>
+                </div>
+                
+                <div class="milestone">
+                    <div class="milestone-date">September 2025</div>
+                    <div class="milestone-content">
+                        <h3>Space Secured in Cape Town CBD</h3>
+                        <p>120sqm heritage building with exposed brick and high ceilings. Perfect for the salon atmosphere we envisioned. Negotiated favorable lease terms with heritage preservation considerations.</p>
+                    </div>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <div class="progress-section">
-                <h3>Brand Identity</h3>
-                <div class="progress-bar">
-                    <div class="progress-fill" style="width: 70%;"></div>
+    <section id="focus" class="section-light">
+        <div class="container">
+            <h2>Current Focus</h2>
+            <p>Where our attention is directed in the immediate present</p>
+            
+            <div class="focus-grid">
+                <div class="focus-item">
+                    <h3>Ceramic Production Scaling</h3>
+                    <p>"The ceramic production is our critical path. Need to scale from prototypes to production quantities while maintaining the handmade quality. Testing different clay bodies for durability in a commercial setting."</p>
+                    
+                    <div class="focus-quote">
+                        "Each piece should feel like it has history—like it's been part of important conversations for years."
+                    </div>
+                    
+                    <p>Current challenges: Achieving consistent glaze results across multiple firings while preserving the unique character of each piece.</p>
                 </div>
-                <div class="progress-label">
-                    <span>Logo Refinement, Collateral Design</span>
-                    <span>70%</span>
+                
+                <div class="focus-item">
+                    <h3>Interior Layout Refinement</h3>
+                    <p>"Simultaneously working on the interior layout—how to create intimate nooks while maintaining flow. The bookshelves need to feel abundant but not overwhelming."</p>
+                    
+                    <div class="focus-quote">
+                        "The space should encourage both solitary reflection and spirited debate."
+                    </div>
+                    
+                    <p>Key considerations: Lighting design to create different moods throughout the day, acoustic treatment for conversation comfort, and flexible seating arrangements.</p>
                 </div>
-            </div>
-
-            <div class="progress-section">
-                <h3>Interior Design</h3>
-                <div class="progress-bar">
-                    <div class="progress-fill" style="width: 30%;"></div>
-                </div>
-                <div class="progress-label">
-                    <span>Space Planning, Material Selection</span>
-                    <span>30%</span>
-                </div>
-            </div>
-
-            <h3>Recent Milestones</h3>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-date">November 2025</div>
-                    <p><strong>First ceramic prototypes completed</strong> - The Scholar's Cup has passed initial testing for weight, balance, and thermal properties. Client approved the rust and cream glaze combination.</p>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-date">October 2025</div>
-                    <p><strong>Brand identity finalized</strong> - Color palette, typography, and logo concept approved. Menu copywriting in progress. Tone of voice guidelines established.</p>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-date">September 2025</div>
-                    <p><strong>Space secured in Cape Town CBD</strong> - 120sqm heritage building with exposed brick and high ceilings. Perfect for the salon atmosphere we envisioned.</p>
-                </div>
-            </div>
-
-            <div class="notes-box">
-                <h4>📝 Current Focus (November 2025)</h4>
-                <p>"The ceramic production is our critical path. Need to scale from prototypes to production quantities while maintaining the handmade quality. Testing different clay bodies for durability in a commercial setting."</p>
-                <p>"Simultaneously working on the interior layout - how to create intimate nooks while maintaining flow. The bookshelves need to feel abundant but not overwhelming."</p>
             </div>
         </div>
     </section>
 
     <section id="next">
         <div class="container">
-            <div class="section-header">
-                <h2>What's Next</h2>
-                <p class="section-intro">The immediate future of Alexander's SpeakHard</p>
+            <h2>What's Next</h2>
+            <p>The immediate future of Alexander's SpeakHard</p>
+            
+            <div class="next-grid">
+                <div>
+                    <div class="next-category">
+                        <h3>🎯 Q1 2026</h3>
+                        <div class="next-items">
+                            <div class="next-item">
+                                <div class="next-icon">⚒️</div>
+                                <div>
+                                    <div class="next-title">Ceramic Production Scaling</div>
+                                    <div class="next-description">Ramp up to produce 200+ pieces for opening inventory</div>
+                                </div>
+                            </div>
+                            <div class="next-item">
+                                <div class="next-icon">🎨</div>
+                                <div>
+                                    <div class="next-title">Glaze Process Refinement</div>
+                                    <div class="next-description">Develop consistent glazing while maintaining unique character</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="next-category">
+                        <h3>🏗️ Q2 2026</h3>
+                        <div class="next-items">
+                            <div class="next-item">
+                                <div class="next-icon">🔨</div>
+                                <div>
+                                    <div class="next-title">Interior Build-Out</div>
+                                    <div class="next-description">Construction begins with custom shelving and counter installation</div>
+                                </div>
+                            </div>
+                            <div class="next-item">
+                                <div class="next-icon">💡</div>
+                                <div>
+                                    <div class="next-title">Lighting Implementation</div>
+                                    <div class="next-description">Install custom lighting design for different moods</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <div class="next-category">
+                        <h3>📚 Q3 2026</h3>
+                        <div class="next-items">
+                            <div class="next-item">
+                                <div class="next-icon">📖</div>
+                                <div>
+                                    <div class="next-title">Book Curation</div>
+                                    <div class="next-description">Finalize reading selection across philosophy, literature, and art</div>
+                                </div>
+                            </div>
+                            <div class="next-item">
+                                <div class="next-icon">☕</div>
+                                <div>
+                                    <div class="next-title">Staff Training</div>
+                                    <div class="next-description">Hire and train baristas who understand the intellectual salon concept</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="next-category">
+                        <h3>🎪 Q4 2026</h3>
+                        <div class="next-items">
+                            <div class="next-item">
+                                <div class="next-icon">🚪</div>
+                                <div>
+                                    <div class="next-title">Soft Opening</div>
+                                    <div class="next-description">Limited opening with curated guest list and initial programming</div>
+                                </div>
+                            </div>
+                            <div class="next-item">
+                                <div class="next-icon">🎤</div>
+                                <div>
+                                    <div class="next-title">Evening Salon Events</div>
+                                    <div class="next-description">Begin author readings, philosophy discussions, and cultural events</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-            <div class="concept-grid">
-                <div class="concept-card">
-                    <h4>🎯 Q1 2026</h4>
-                    <p><strong>Ceramic Production Scaling</strong> - Ramp up to produce 200+ pieces for opening inventory. Develop consistent glazing process while maintaining unique character.</p>
-                </div>
-
-                <div class="concept-card">
-                    <h4>🏗️ Q2 2026</h4>
-                    <p><strong>Interior Build-Out</strong> - Construction begins. Custom shelving, counter installation, lighting design implementation. All materials sourced and confirmed.</p>
-                </div>
-
-                <div class="concept-card">
-                    <h4>📚 Q3 2026</h4>
-                    <p><strong>Book Curation & Staff Training</strong> - Finalize the reading selection. Hire and train baristas who understand the intellectual salon concept.</p>
-                </div>
-
-                <div class="concept-card">
-                    <h4>🎪 Q4 2026</h4>
-                    <p><strong>Soft Opening & Programming</strong> - Limited opening with curated guest list. Begin evening salon events, author readings, and philosophy discussions.</p>
-                </div>
-            </div>
-
+            
             <h3>Immediate Next Steps</h3>
-            <div class="progress-section">
-                <ul style="margin-left: 20px; line-height: 1.8;">
-                    <li>Finalize Philosopher's Pot prototype (2 weeks)</li>
-                    <li>Source reclaimed wood for tables and shelving (4 weeks)</li>
-                    <li>Develop digital presence pre-launch (6 weeks)</li>
-                    <li>Create operational manuals and service protocols (8 weeks)</li>
-                    <li>Plan inaugural exhibition of ceramic pieces (10 weeks)</li>
-                </ul>
+            <div class="next-items">
+                <div class="next-item">
+                    <div class="next-icon">⏱️</div>
+                    <div>
+                        <div class="next-title">Finalize Philosopher's Pot prototype</div>
+                        <div class="next-timeline">2 weeks</div>
+                    </div>
+                </div>
+                <div class="next-item">
+                    <div class="next-icon">⏱️</div>
+                    <div>
+                        <div class="next-title">Source reclaimed wood for tables and shelving</div>
+                        <div class="next-timeline">4 weeks</div>
+                    </div>
+                </div>
+                <div class="next-item">
+                    <div class="next-icon">⏱️</div>
+                    <div>
+                        <div class="next-title">Develop digital presence pre-launch</div>
+                        <div class="next-timeline">6 weeks</div>
+                    </div>
+                </div>
+                <div class="next-item">
+                    <div class="next-icon">⏱️</div>
+                    <div>
+                        <div class="next-title">Create operational manuals and service protocols</div>
+                        <div class="next-timeline">8 weeks</div>
+                    </div>
+                </div>
+                <div class="next-item">
+                    <div class="next-icon">⏱️</div>
+                    <div>
+                        <div class="next-title">Plan inaugural exhibition of ceramic pieces</div>
+                        <div class="next-timeline">10 weeks</div>
+                    </div>
+                </div>
             </div>
-
-            <blockquote>
+            
+            <div class="focus-quote" style="margin-top: 2rem;">
                 "The goal isn't just to open a café. It's to create a cultural institution—a place where ideas have weight and conversations have consequence. Every decision we make now sets the tone for decades to come."
-                <div class="quote-author">— Giselle Human, Project Vision Statement</div>
-            </blockquote>
+                <div style="margin-top: 0.5rem; font-weight: 500;">— Giselle Human, Project Vision Statement</div>
+            </div>
         </div>
     </section>
 
     <footer>
         <div class="container">
-            <div class="footer-waif">The Waif Method™</div>
-            <p>Alexander's SpeakHard • A Living Document</p>
-            <p>Created by Giselle Human • Updated: November 2025</p>
-            <p>This document evolves as the project grows. Check back for updates.</p>
+            <div class="footer-logo">WAIF</div>
+            <p class="footer-text">The Waif Method™ | Alexander's SpeakHard • A Living Document</p>
+            <p class="footer-text">Created by Giselle Human • Updated: November 2025</p>
+            <p class="footer-text">This document evolves as the project grows. Check back for updates.</p>
         </div>
     </footer>
+
+    <script>
+        // Simple script for smooth scrolling and header effect
+        document.addEventListener('DOMContentLoaded', function() {
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // Header scroll effect
+            window.addEventListener('scroll', function() {
+                const header = document.querySelector('header');
+                if (window.scrollY > 100) {
+                    header.style.backgroundColor = 'rgba(26, 26, 26, 0.98)';
+                } else {
+                    header.style.backgroundColor = 'rgba(26, 26, 26, 0.95)';
+                }
+            });
+        });
+    </script>
 </body>
 </html>

@@ -3,25 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Neural Capture: The BCI Power Play</title>
+    <title>Neural Capture: The BCI Control Matrix</title>
     
-    <!-- Untitled Format™ Metadata -->
+    <!-- Metadata -->
     <!--
-    title: "Neural Capture: The BCI Power Play"
-    subtitle: "Manufacturing Consent Through Brain-Computer Interfaces"
-    document_type: "Critical Investigation"
-    format_version: "Untitled Format™ v1.2.0"
-    author: "Independent OSINT Analysis"
-    created: "2025-11-06"
-    updated: "2025-11-06"
+    title: "Neural Capture: The BCI Control Matrix"
+    subtitle: "An Investigation into the Manufacturing of Neurological Consent"
+    document_type: "Critical Intelligence Assessment"
+    format_version: "Untitled Format™ v1.2.0 - Erebus"
+    author: "W0LFED™ Research Division"
+    created: "2025-11-07"
+    updated: "2025-11-07"
     license: "CC BY-NC-SA 4.0"
-    tags: ["neuralink", "BCI", "manufacturing_consent", "regulatory_capture", "critical_theory", "neuropolitics"]
-    ai_context_tags: ["synthesis", "critical_analysis", "foucault", "deleuze", "biopower"]
-    bias_note: "Critical theory framework emphasizing power dynamics and institutional capture"
+    classification: "Open Source Intelligence"
+    tags: ["neuralink", "BCI", "regulatory_capture", "biopower", "neuropolitics", "manufacturing_consent", "critical_theory"]
+    ai_context: ["institutional_analysis", "power_dynamics", "technological_governance"]
     -->
     
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@300;400;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;500;600;700;900&display=swap');
         
         :root {
             --cyber-orange: #ff6b35;
@@ -30,9 +30,13 @@
             --cyber-blue: #00d9ff;
             --cyber-purple: #b24bf3;
             --cyber-green: #39ff14;
+            --cyber-red: #ff3838;
+            --cyber-yellow: #ffd900;
             --text-primary: #e8e8e8;
             --text-secondary: #a0a0a0;
+            --text-tertiary: #6b6b6b;
             --warning: #ff3838;
+            --success: #39ff14;
         }
         
         * {
@@ -41,18 +45,13 @@
             box-sizing: border-box;
         }
         
-        html {
-            scroll-behavior: smooth;
-        }
-        
         body {
             background: var(--cyber-darker);
             color: var(--text-primary);
             font-family: 'Inter', sans-serif;
-            line-height: 1.6;
+            line-height: 1.7;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
-            -webkit-overflow-scrolling: touch;
         }
         
         .neural-grid {
@@ -62,15 +61,16 @@
             width: 100%;
             height: 100%;
             background: 
-                linear-gradient(90deg, rgba(0,217,255,0.03) 1px, transparent 1px),
-                linear-gradient(rgba(0,217,255,0.03) 1px, transparent 1px);
-            background-size: 50px 50px;
+                linear-gradient(90deg, rgba(0,217,255,0.02) 1px, transparent 1px),
+                linear-gradient(rgba(0,217,255,0.02) 1px, transparent 1px);
+            background-size: 40px 40px;
             pointer-events: none;
             z-index: 0;
+            opacity: 0.4;
         }
         
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 2rem;
             position: relative;
@@ -79,151 +79,322 @@
         
         header {
             text-align: center;
-            padding: 4rem 0 2rem;
-            border-bottom: 2px solid var(--cyber-orange);
+            padding: 5rem 0 3rem;
+            border-bottom: 3px solid var(--cyber-orange);
             margin-bottom: 3rem;
             position: relative;
+            background: linear-gradient(180deg, rgba(10,14,39,0.8) 0%, transparent 100%);
+        }
+        
+        .header-accent {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 60px;
+            background: linear-gradient(180deg, var(--cyber-orange), transparent);
+        }
+        
+        .classification {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--cyber-red);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            font-weight: 700;
         }
         
         .glitch {
-            font-family: 'Space Mono', monospace;
-            font-size: 3rem;
-            font-weight: 700;
+            font-family: 'Inter', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 900;
             text-transform: uppercase;
-            letter-spacing: 0.1em;
-            background: linear-gradient(45deg, var(--cyber-orange), var(--cyber-blue), var(--cyber-purple));
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, var(--cyber-orange), var(--cyber-blue), var(--cyber-purple));
             background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: pulse 3s ease-in-out infinite;
-            position: relative;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.9; }
+            line-height: 1.1;
         }
         
         .subtitle {
-            font-size: 1.2rem;
+            font-size: 1.4rem;
             color: var(--text-secondary);
-            margin-top: 1rem;
+            margin-top: 1.5rem;
             font-weight: 300;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
         }
         
-        .status-bar {
+        .header-tags {
+            margin-top: 2rem;
             display: flex;
-            justify-content: space-around;
-            margin: 2rem 0;
-            padding: 1.5rem;
-            background: rgba(255,107,53,0.1);
-            border-left: 4px solid var(--cyber-orange);
-            border-radius: 4px;
+            gap: 0.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
         }
         
-        .status-item {
+        .continue-badge {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 0.75rem 2rem;
+            background: linear-gradient(135deg, var(--cyber-orange), #ff8c5a);
+            color: var(--cyber-darker);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .continue-badge:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255,107,53,0.4);
+        }
+        
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 3rem 0;
+        }
+        
+        .status-card {
+            background: rgba(10,14,39,0.8);
+            border: 2px solid rgba(0,217,255,0.3);
+            border-radius: 8px;
+            padding: 2rem;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .status-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--cyber-orange), var(--cyber-blue));
+        }
+        
+        .status-card:hover {
+            border-color: var(--cyber-orange);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(255,107,53,0.3);
         }
         
         .status-label {
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             text-transform: uppercase;
             color: var(--text-secondary);
-            letter-spacing: 0.1em;
+            letter-spacing: 0.15em;
+            margin-bottom: 0.75rem;
+            font-weight: 600;
         }
         
         .status-value {
-            font-size: 1.5rem;
-            font-weight: 700;
+            font-size: 2.5rem;
+            font-weight: 900;
             color: var(--cyber-orange);
-            font-family: 'Space Mono', monospace;
+            font-family: 'JetBrains Mono', monospace;
+            line-height: 1;
+        }
+        
+        .status-context {
+            font-size: 0.85rem;
+            color: var(--text-tertiary);
+            margin-top: 0.5rem;
+            font-style: italic;
         }
         
         section {
-            margin: 3rem 0;
-            padding: 2rem;
+            margin: 4rem 0;
+            padding: 3rem;
             background: rgba(10,14,39,0.6);
-            border: 1px solid rgba(0,217,255,0.2);
-            border-radius: 8px;
-            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0,217,255,0.15);
+            border-radius: 12px;
             position: relative;
-            transform: translateZ(0);
+        }
+        
+        section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 6px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--cyber-blue), var(--cyber-purple));
+            border-radius: 12px 0 0 12px;
         }
         
         h2 {
-            font-family: 'Space Mono', monospace;
-            font-size: 1.8rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 2rem;
             color: var(--cyber-blue);
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
-            border-left: 4px solid var(--cyber-blue);
-            padding-left: 1rem;
+            letter-spacing: 0.03em;
+            font-weight: 900;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 80px;
+            height: 3px;
+            background: var(--cyber-orange);
         }
         
         h3 {
-            font-size: 1.3rem;
+            font-size: 1.5rem;
             color: var(--cyber-orange);
+            margin: 2.5rem 0 1.5rem;
+            font-weight: 700;
+        }
+        
+        h4 {
+            font-size: 1.2rem;
+            color: var(--text-primary);
             margin: 2rem 0 1rem;
             font-weight: 600;
         }
         
-        .key-finding {
-            background: rgba(255,107,53,0.15);
-            border-left: 4px solid var(--cyber-orange);
-            padding: 1.5rem;
-            margin: 1.5rem 0;
-            border-radius: 4px;
+        p {
+            margin: 1.2rem 0;
+            color: var(--text-primary);
+            font-size: 1.05rem;
         }
         
-        .critical-alert {
-            background: rgba(255,56,56,0.15);
-            border: 2px solid var(--warning);
-            padding: 1.5rem;
+        .lead {
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            line-height: 1.8;
             margin: 1.5rem 0;
-            border-radius: 4px;
+        }
+        
+        .key-finding {
+            background: linear-gradient(135deg, rgba(255,107,53,0.15), rgba(255,107,53,0.05));
+            border-left: 5px solid var(--cyber-orange);
+            padding: 2rem;
+            margin: 2rem 0;
+            border-radius: 8px;
             position: relative;
         }
         
-        .critical-alert::before {
-            content: "⚠ CRITICAL";
+        .key-finding::before {
+            content: "KEY FINDING";
             position: absolute;
             top: -12px;
             left: 20px;
             background: var(--cyber-darker);
-            padding: 0 10px;
+            padding: 0 12px;
+            color: var(--cyber-orange);
+            font-size: 0.7rem;
+            font-weight: 900;
+            letter-spacing: 0.15em;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        .critical-alert {
+            background: linear-gradient(135deg, rgba(255,56,56,0.2), rgba(255,56,56,0.05));
+            border: 2px solid var(--warning);
+            padding: 2rem;
+            margin: 2rem 0;
+            border-radius: 8px;
+            position: relative;
+        }
+        
+        .critical-alert::before {
+            content: "⚠ CRITICAL ASSESSMENT";
+            position: absolute;
+            top: -14px;
+            left: 20px;
+            background: var(--cyber-darker);
+            padding: 0 12px;
             color: var(--warning);
-            font-size: 0.75rem;
-            font-weight: 700;
-            letter-spacing: 0.1em;
+            font-size: 0.7rem;
+            font-weight: 900;
+            letter-spacing: 0.15em;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        .theory-block {
+            background: linear-gradient(135deg, rgba(178,75,243,0.15), rgba(178,75,243,0.05));
+            border: 2px solid var(--cyber-purple);
+            padding: 2rem;
+            margin: 2rem 0;
+            border-radius: 8px;
+            position: relative;
+        }
+        
+        .theory-block::before {
+            content: "🧠 THEORETICAL FRAMEWORK";
+            position: absolute;
+            top: -14px;
+            left: 20px;
+            background: var(--cyber-darker);
+            padding: 0 12px;
+            color: var(--cyber-purple);
+            font-size: 0.7rem;
+            font-weight: 900;
+            letter-spacing: 0.15em;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        .evidence-block {
+            background: linear-gradient(135deg, rgba(0,217,255,0.1), rgba(0,217,255,0.02));
+            border-left: 5px solid var(--cyber-blue);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
         }
         
         .comparison-matrix {
             overflow-x: auto;
-            margin: 2rem 0;
-            -webkit-overflow-scrolling: touch;
+            margin: 2.5rem 0;
+            border-radius: 8px;
+            background: rgba(5,8,20,0.6);
         }
         
         table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
         }
         
         th {
-            background: rgba(0,217,255,0.2);
+            background: rgba(0,217,255,0.15);
             color: var(--cyber-blue);
-            padding: 1rem;
+            padding: 1.25rem 1rem;
             text-align: left;
-            font-family: 'Space Mono', monospace;
+            font-family: 'JetBrains Mono', monospace;
             text-transform: uppercase;
             font-size: 0.75rem;
             letter-spacing: 0.1em;
+            font-weight: 700;
+            border-bottom: 2px solid var(--cyber-blue);
         }
         
         td {
-            padding: 1rem;
+            padding: 1.25rem 1rem;
             border-bottom: 1px solid rgba(0,217,255,0.1);
+            vertical-align: top;
         }
         
         tr:hover {
@@ -232,8 +403,8 @@
         
         .timeline {
             position: relative;
-            padding-left: 2rem;
-            margin: 2rem 0;
+            padding-left: 3rem;
+            margin: 3rem 0;
         }
         
         .timeline::before {
@@ -242,193 +413,241 @@
             left: 0;
             top: 0;
             bottom: 0;
-            width: 2px;
-            background: linear-gradient(180deg, var(--cyber-blue), var(--cyber-purple));
+            width: 3px;
+            background: linear-gradient(180deg, var(--cyber-blue), var(--cyber-purple), var(--cyber-orange));
         }
         
         .timeline-event {
             position: relative;
-            margin-bottom: 2rem;
+            margin-bottom: 3rem;
             padding-left: 2rem;
         }
         
         .timeline-event::before {
             content: '';
             position: absolute;
-            left: -2.5rem;
+            left: -3rem;
             top: 0.5rem;
-            width: 12px;
-            height: 12px;
+            width: 16px;
+            height: 16px;
             border-radius: 50%;
             background: var(--cyber-orange);
-            border: 2px solid var(--cyber-darker);
+            border: 3px solid var(--cyber-darker);
         }
         
         .timeline-date {
-            font-family: 'Space Mono', monospace;
+            font-family: 'JetBrains Mono', monospace;
             color: var(--cyber-orange);
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
         }
         
         .quote {
             font-style: italic;
             color: var(--text-secondary);
-            padding: 1rem 0 1rem 2rem;
-            border-left: 3px solid var(--cyber-purple);
-            margin: 1.5rem 0;
+            padding: 1.5rem 0 1.5rem 2.5rem;
+            border-left: 4px solid var(--cyber-purple);
+            margin: 2rem 0;
+            font-size: 1.15rem;
+            line-height: 1.7;
+        }
+        
+        .quote-author {
+            display: block;
+            margin-top: 1rem;
+            font-style: normal;
+            color: var(--text-tertiary);
+            font-size: 0.9rem;
         }
         
         .reflexive {
-            background: rgba(178,75,243,0.1);
+            background: linear-gradient(135deg, rgba(178,75,243,0.1), rgba(178,75,243,0.02));
             border: 1px solid var(--cyber-purple);
-            padding: 2rem;
-            margin: 3rem 0;
-            border-radius: 8px;
+            padding: 3rem;
+            margin: 4rem 0;
+            border-radius: 12px;
         }
         
         .tag {
             display: inline-block;
-            background: rgba(0,217,255,0.2);
+            background: rgba(0,217,255,0.15);
             color: var(--cyber-blue);
-            padding: 0.25rem 0.75rem;
+            padding: 0.35rem 0.9rem;
             border-radius: 20px;
             font-size: 0.75rem;
             margin: 0.25rem;
-            font-family: 'Space Mono', monospace;
+            font-family: 'JetBrains Mono', monospace;
+            border: 1px solid rgba(0,217,255,0.3);
+            transition: all 0.2s ease;
         }
         
-        /* Terminal-style elements */
-        .cyber-terminal {
-            background: var(--cyber-darker);
-            border: 1px solid var(--cyber-green);
-            border-radius: 8px;
-            margin: 2rem 0;
-            font-family: 'Space Mono', monospace;
-            overflow: hidden;
+        .tag:hover {
+            background: rgba(0,217,255,0.25);
+            border-color: var(--cyber-blue);
         }
         
-        .terminal-header {
-            background: rgba(57,255,20,0.1);
-            padding: 0.5rem 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+        .tag.critical {
+            background: rgba(255,56,56,0.15);
+            color: var(--cyber-red);
+            border-color: rgba(255,56,56,0.3);
         }
         
-        .terminal-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
+        .tag.warning {
+            background: rgba(255,217,0,0.15);
+            color: var(--cyber-yellow);
+            border-color: rgba(255,217,0,0.3);
         }
         
-        .terminal-title {
-            color: var(--cyber-green);
-            font-size: 0.8rem;
-            margin-left: auto;
+        ul, ol {
+            margin: 1.5rem 0;
+            padding-left: 2rem;
         }
         
-        .terminal-content {
-            padding: 1.5rem;
-            color: var(--cyber-green);
+        li {
+            margin: 0.75rem 0;
+            line-height: 1.7;
         }
         
-        .prompt {
+        .list-none {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .list-none li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(0,217,255,0.1);
+        }
+        
+        .list-none li::before {
+            content: "→ ";
             color: var(--cyber-orange);
+            font-weight: 700;
             margin-right: 0.5rem;
         }
         
-        /* Theory grid */
-        .theory-grid {
+        .data-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 1.5rem;
             margin: 2rem 0;
         }
         
-        .theory-card {
-            background: rgba(0,217,255,0.05);
-            border: 1px solid rgba(0,217,255,0.3);
-            padding: 1.5rem;
-            border-radius: 6px;
+        .data-card {
+            background: rgba(10,14,39,0.6);
+            padding: 1.75rem;
+            border-radius: 8px;
+            border: 1px solid rgba(0,217,255,0.2);
             transition: all 0.3s ease;
         }
         
-        .theory-card:hover {
+        .data-card:hover {
+            border-color: var(--cyber-blue);
             transform: translateY(-2px);
-            box-shadow: 0 0 20px rgba(0,217,255,0.2);
         }
         
-        /* Registry grid */
-        .registry-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin: 2rem 0;
-        }
-        
-        .registry-card {
-            background: rgba(178,75,243,0.1);
-            border: 1px solid rgba(178,75,243,0.3);
-            padding: 1.5rem;
-            border-radius: 6px;
-        }
-        
-        .patient-data {
-            margin-top: 1rem;
-            font-size: 0.9rem;
-        }
-        
-        .data-label {
+        .data-card strong {
             color: var(--cyber-blue);
-            font-weight: 600;
+            display: block;
+            margin-bottom: 0.75rem;
+            font-size: 1.1rem;
         }
         
-        .methodology-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1rem;
-            margin: 2rem 0;
-        }
-        
-        .methodology-card {
-            background: rgba(0,217,255,0.1);
-            padding: 1.5rem;
-            border-radius: 4px;
-        }
-        
-        .w0lfed-link {
-            display: inline-block;
-            background: rgba(255,107,53,0.2);
+        .metric {
+            font-family: 'JetBrains Mono', monospace;
             color: var(--cyber-orange);
-            padding: 1rem 2rem;
-            border-radius: 4px;
-            text-decoration: none;
-            font-family: 'Space Mono', monospace;
-            margin-top: 1rem;
-            transition: all 0.3s ease;
-            border: 1px solid var(--cyber-orange);
+            font-size: 2rem;
+            font-weight: 700;
+            display: block;
+            margin: 0.5rem 0;
         }
         
-        .w0lfed-link:hover {
-            background: rgba(255,107,53,0.3);
-            transform: translateY(-2px);
-            box-shadow: 0 0 15px rgba(255,107,53,0.3);
+        .patient-card {
+            background: rgba(10,14,39,0.8);
+            padding: 2rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            border-left: 5px solid var(--cyber-blue);
+        }
+        
+        .patient-card.crisis {
+            border-left-color: var(--cyber-red);
+            background: linear-gradient(135deg, rgba(255,56,56,0.1), rgba(255,56,56,0.02));
+        }
+        
+        .patient-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .patient-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        
+        .patient-status {
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        .patient-status.active {
+            background: rgba(57,255,20,0.2);
+            color: var(--success);
+        }
+        
+        .patient-status.crisis {
+            background: rgba(255,56,56,0.2);
+            color: var(--cyber-red);
+        }
+        
+        .patient-status.unknown {
+            background: rgba(160,160,160,0.2);
+            color: var(--text-secondary);
         }
         
         footer {
             text-align: center;
-            padding: 3rem 0;
-            margin-top: 4rem;
+            padding: 4rem 0 2rem;
+            margin-top: 6rem;
             border-top: 1px solid rgba(0,217,255,0.2);
             color: var(--text-secondary);
-            font-size: 0.85rem;
+            font-size: 0.9rem;
         }
         
-        /* Mobile optimizations */
+        .footer-badge {
+            display: inline-block;
+            margin-top: 1.5rem;
+            padding: 0.6rem 1.5rem;
+            background: linear-gradient(135deg, var(--cyber-orange), #ff8c5a);
+            color: var(--cyber-darker);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-badge:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255,107,53,0.4);
+        }
+        
         @media (max-width: 768px) {
             .glitch {
-                font-size: 2rem;
+                font-size: 2.5rem;
             }
             
             .container {
@@ -437,47 +656,20 @@
             
             section {
                 padding: 1.5rem;
-                margin: 2rem 0;
-                backdrop-filter: none; /* Remove blur on mobile for performance */
             }
             
-            .status-bar {
-                flex-direction: column;
-                gap: 1rem;
-            }
-            
-            .theory-grid, .registry-grid, .methodology-grid {
+            .status-grid {
                 grid-template-columns: 1fr;
             }
             
-            .neural-grid {
-                background-size: 80px 80px; /* Larger grid for mobile performance */
+            .data-grid {
+                grid-template-columns: 1fr;
             }
             
-            h2 {
-                font-size: 1.5rem;
-            }
-            
-            h3 {
-                font-size: 1.2rem;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .glitch {
-                font-size: 1.5rem;
-            }
-            
-            section {
-                padding: 1rem;
-            }
-            
-            .status-bar {
-                padding: 1rem;
-            }
-            
-            .terminal-content {
-                padding: 1rem;
+            .patient-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.75rem;
             }
         }
     </style>
@@ -487,417 +679,736 @@
     
     <div class="container">
         <header>
+            <div class="header-accent"></div>
+            <div class="classification">OSINT // CRITICAL INTELLIGENCE ASSESSMENT</div>
             <div class="glitch">Neural Capture</div>
-            <div class="subtitle">Manufacturing Consent Through Brain-Computer Interfaces</div>
-            <div style="margin-top: 2rem;">
-                <span class="tag">OSINT Investigation</span>
-                <span class="tag">Q4 2025</span>
-                <span class="tag">Regulatory Capture</span>
-                <span class="tag">Critical Analysis</span>
+            <div class="subtitle">Manufacturing Consent Through Brain-Computer Interfaces: An Investigation into the Intersection of Corporate Power, State Apparatus, and Neurological Sovereignty</div>
+            <div class="header-tags">
+                <span class="tag critical">Regulatory Capture</span>
+                <span class="tag">Biopower Analysis</span>
                 <span class="tag">Neuropolitics</span>
+                <span class="tag">Q4 2025</span>
+                <span class="tag warning">Patient Safety</span>
+                <span class="tag">Critical Theory</span>
             </div>
-            
-            <a href="https://alx0r.github.io/Aartless/w0lfed.html" class="w0lfed-link">
-                📡 CONTINUE TO W0LFED™ WEEKLY RESEARCH
-            </a>
+            <a href="https://alx0r.github.io/Aartless/w0lfed.html" class="continue-badge">📡 Continue to W0LFED™ Weekly Research</a>
         </header>
 
-        <div class="status-bar">
-            <div class="status-item">
+        <div class="status-grid">
+            <div class="status-card">
                 <div class="status-label">Neuralink Implants</div>
                 <div class="status-value">14</div>
+                <div class="status-context">11 US, 2 Canada, 1 UK</div>
             </div>
-            <div class="status-item">
+            <div class="status-card">
                 <div class="status-label">Animal Deaths</div>
                 <div class="status-value">1,500+</div>
+                <div class="status-context">vs. 80 for competitors</div>
             </div>
-            <div class="status-item">
+            <div class="status-card">
                 <div class="status-label">Regulatory Purge</div>
-                <div class="status-value">Q1 2025</div>
+                <div class="status-value">Q1'25</div>
+                <div class="status-context">60-day dismantling</div>
             </div>
-            <div class="status-item">
+            <div class="status-card">
                 <div class="status-label">FDA Staff Fired</div>
                 <div class="status-value">20</div>
+                <div class="status-context">BCI review office (OHT5)</div>
+            </div>
+            <div class="status-card">
+                <div class="status-label">Thread Retraction</div>
+                <div class="status-value">85%</div>
+                <div class="status-context">First patient hardware failure</div>
+            </div>
+            <div class="status-card">
+                <div class="status-label">Implant Hours</div>
+                <div class="status-value">15K+</div>
+                <div class="status-context">Logged across all patients</div>
             </div>
         </div>
 
         <section id="exec-summary">
             <h2>Executive Summary</h2>
-            <div class="key-finding">
-                <strong>The Neuralink Doctrine:</strong> A paradigm shift where corporate power merges with state apparatus to neutralize regulatory oversight. In Q1 2025, systematic dismantling of investigative bodies enabled Neuralink's expansion from experimental to multi-site operations, establishing a blueprint for manufacturing consent through institutional capture.
-            </div>
             
-            <p>This investigation reveals how brain-computer interface development intersects with power structures that would make Chomsky and Herman's propaganda model seem quaint. The Department of Government Efficiency (DOGE), led by Elon Musk himself, orchestrated surgical strikes against regulatory bodies investigating his company—a textual embodiment of corporate-state fusion that transcends traditional lobbying.</p>
+            <p class="lead">The Neuralink Doctrine represents a paradigm shift in the relationship between corporate power and state regulatory apparatus. Between January and March 2025, we witnessed not merely regulatory capture but the systematic architectural dismantling of oversight infrastructure—executed by the very entity under investigation, wielding unprecedented governmental authority.</p>
 
-            <p><strong>Key Findings:</strong></p>
-            <ul style="list-style: none; padding-left: 0;">
-                <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(0,217,255,0.1);">→ 14 human implants worldwide (11 US, 2 Canada, 1 UK) as of Q4 2025</li>
-                <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(0,217,255,0.1);">→ 85% thread retraction in first patient, "fixed" via software patches</li>
-                <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(0,217,255,0.1);">→ USDA Inspector General investigating Neuralink fired January 2025</li>
-                <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(0,217,255,0.1);">→ 20 FDA BCI reviewers terminated February 2025 via DOGE</li>
-                <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(0,217,255,0.1);">→ SEC fraud investigation neutralized post-inauguration</li>
-                <li style="padding: 0.5rem 0;">→ Patient transparency crisis: missing social media, undisclosed adverse events</li>
+            <div class="key-finding">
+                <strong>Primary Finding:</strong> The Department of Government Efficiency (DOGE), led by Elon Musk, orchestrated a coordinated three-pronged strike against federal bodies investigating Neuralink's operations. This included: (1) termination of the USDA Inspector General investigating animal welfare violations; (2) elimination of 20 FDA staff from the specific office reviewing BCI clinical trials; and (3) the collateral neutralization of enforcement mechanisms via judicial precedent. This 60-day operation cleared Neuralink's path from facing potential shutdown to multi-site international expansion.
+            </div>
+
+            <p>This investigation employs OSINT methodologies combined with critical theory frameworks (Foucault's biopower, Chomsky and Herman's propaganda model, Deleuze's societies of control) to analyze how consent is manufactured at the neurological level—literally and metaphorically.</p>
+
+            <h3>Core Findings Matrix</h3>
+            
+            <ul class="list-none">
+                <li><strong>Institutional Capture:</strong> Direct CEO control over agencies investigating his company, eliminating separation between regulatory and regulated entities</li>
+                <li><strong>Patient Transparency Crisis:</strong> Systematic absence of adverse event disclosure; Patient 4 (Mike Milgadio) case reveals GoFundMe crisis 4 months post-surgery with executive donation, zero public medical reporting</li>
+                <li><strong>Hardware Failure Normalization:</strong> 85% electrode retraction in first patient, resolved via software "patch" rather than hardware revision—establishing precedent for treating human brains as beta-test platforms</li>
+                <li><strong>Scientific Validation Bypass:</strong> "Science-by-PR" model prioritizes X announcements over peer review; first human data submission to NEJM occurred 21 months after first implant</li>
+                <li><strong>Animal Welfare Violations:</strong> 1,500+ animal deaths (15 of 23 monkeys died/euthanized) with BioGlue incident destroying brain tissue; USDA confirmed violations then buried under rescinded policy</li>
+                <li><strong>Securities Fraud Evidence:</strong> Musk's public statement contradicted by UC Davis records (12 healthy animals euthanized vs. claimed "terminal" status); SEC investigation neutralized post-inauguration</li>
+                <li><strong>Competitive Landscape:</strong> Safer alternatives (Synchron: 80 animals, endovascular; Precision: surface array, 50+ patients, Nature publication) exist but face regulatory delays while Neuralink accelerates</li>
+                <li><strong>Geopolitical Dimension:</strong> China's August 2025 BCI roadmap targets 2030 leadership; neurotechnology emerging as critical infrastructure battlefield</li>
             </ul>
+
+            <div class="critical-alert">
+                <strong>Central Thesis:</strong> We are witnessing the operationalization of manufacturing consent at the level of biological substrate. When regulatory bodies can be dismantled by those they regulate, when patient adverse events can be suppressed through curated narratives, and when the final frontier—human consciousness itself—becomes subject to corporate iteration cycles, we face not merely a medical device controversy but a fundamental challenge to the possibility of informed consent in technological society.
+            </div>
         </section>
 
         <section id="methodology">
-            <h2>Methodology & Framework</h2>
-            <p><strong>Critical Theory Lens:</strong> This analysis employs Chomsky and Herman's "Manufacturing Consent" framework to decode how control systems operate within emerging neurotechnology. We examine:</p>
+            <h2>Methodology & Theoretical Framework</h2>
             
-            <div class="methodology-grid">
-                <div class="methodology-card">
-                    <strong style="color: var(--cyber-blue);">Ownership Filters</strong><br>
-                    <span style="font-size: 0.9rem;">Who owns BCI narrative? Musk's X platform controls disclosure timing and framing</span>
+            <h3>Research Approach</h3>
+            <p>This investigation synthesizes multiple methodological streams:</p>
+            
+            <div class="data-grid">
+                <div class="data-card">
+                    <strong>OSINT Data Collection</strong>
+                    Web searches, X platform monitoring, FDA/USDA public records, FOIA documents, ClinicalTrials.gov analysis, peer-reviewed publications, company blogs, patient social media archaeology
                 </div>
-                <div class="methodology-card">
-                    <strong style="color: var(--cyber-orange);">Regulatory Gatekeepers</strong><br>
-                    <span style="font-size: 0.9rem;">FDA/USDA as consent manufacturers, then as captured institutions</span>
+                <div class="data-card">
+                    <strong>Timeline Reconstruction</strong>
+                    Cross-referencing news reports, regulatory filings, company announcements, and social media timestamps to establish causal chains and identify inconsistencies
                 </div>
-                <div class="methodology-card">
-                    <strong style="color: var(--cyber-purple);">Flak Mechanisms</strong><br>
-                    <span style="font-size: 0.9rem;">PCRM complaints neutralized; critics labeled as "anti-progress"</span>
+                <div class="data-card">
+                    <strong>Comparative Analysis</strong>
+                    Systematic comparison across BCI competitors (technical specs, patient numbers, animal testing, scientific validation, regulatory compliance)
+                </div>
+                <div class="data-card">
+                    <strong>Critical Discourse Analysis</strong>
+                    Examining language patterns in patient narratives, company communications, regulatory documents, and media coverage to identify power dynamics and narrative control mechanisms
                 </div>
             </div>
 
-            <div style="background: rgba(178,75,243,0.1); padding: 1.5rem; border-radius: 4px; margin: 1rem 0;">
-                <strong style="color: var(--cyber-purple);">Theoretical Frameworks Applied:</strong><br>
-                <ul style="margin-top: 0.5rem;">
-                    <li>Foucaultian Biopolitics & Governmentality</li>
-                    <li>Deleuzian Societies of Control</li>
-                    <li>Baudrillard's Hyperreality & Simulacra</li>
-                    <li>Marxist Technological Determinism</li>
-                    <li>Donna Haraway's Cyborg Manifesto (critical update)</li>
-                    <li>Shoshana Zuboff's Surveillance Capitalism</li>
-                </ul>
-            </div>
-
-            <p><strong>OSINT Sources:</strong> Web searches, X platform monitoring, ClinicalTrials.gov registry analysis, FDA public records, USDA FOIA documents, peer-reviewed publications, and direct site observation of Neuralink's information dissemination patterns.</p>
-        </section>
-
-        <section id="neuralink-doctrine">
-            <h2>The Neuralink Doctrine</h2>
+            <h3>Theoretical Frameworks Applied</h3>
             
-            <div class="critical-alert">
-                <strong>Manufacturing Consent Through Institutional Capture</strong><br><br>
-                The January 20, 2025 inauguration wasn't ceremony—it was the public coronation of a new tech-state alliance. What followed was a 60-day masterclass in dismantling oversight infrastructure.
-            </div>
-
-            <h3>The Three-Pronged Strike</h3>
-            
-            <div class="timeline">
-                <div class="timeline-event">
-                    <div class="timeline-date">JAN 2025 // WEEK 1</div>
-                    <strong>Target 1: USDA Inspector General</strong>
-                    <p>Phyllis Fong, 22-year veteran investigating Neuralink's animal violations, fired. Physically escorted from building. Investigation into 1,500+ animal deaths neutralized.</p>
-                </div>
+            <div class="theory-block">
+                <h4>Foucault: Biopower & Governmentality</h4>
+                <p>Brain-computer interfaces represent the apotheosis of biopower—state and corporate control extending directly into the biological substrate of consciousness. The regulatory apparatus doesn't merely govern behavior but neural architecture itself. Neuralink's model demonstrates "governmentality" where subjects are rendered governable through voluntary participation in their own neurological modification.</p>
                 
-                <div class="timeline-event">
-                    <div class="timeline-date">FEB 2025</div>
-                    <strong>Target 2: FDA Review Office</strong>
-                    <p>20 employees from Office of Neurological Devices (OHT5) terminated via DOGE directive. The specific body reviewing BCI trials eliminated. Competitors report months/years of delays; Neuralink accelerates.</p>
-                </div>
+                <p><strong>Key Insight:</strong> The "thread retraction" incident reveals biopower's fragility—when 85% of electrodes fail, the body resists colonization. Neuralink's software "patch" represents algorithmic governance compensating for biological resistance.</p>
+            </div>
+
+            <div class="theory-block">
+                <h4>Chomsky & Herman: Manufacturing Consent</h4>
+                <p>The five filters of institutional control map precisely onto BCI development:</p>
                 
-                <div class="timeline-event">
-                    <div class="timeline-date">JUNE 2024 // PRE-EMPTIVE</div>
-                    <strong>Target 3: Legal Enforcement</strong>
-                    <p>SEC v. Jarkesy ruling cripples agency fine authority. USDA-APHIS enforcement collapses: 63 fines pre-ruling → 5 fines post-ruling. Punishment mechanism neutered.</p>
-                </div>
+                <ol>
+                    <li><strong>Size, Ownership, Profit Orientation:</strong> $9B valuation drives aggressive timelines over safety; venture capital becomes substitute for regulatory validation</li>
+                    <li><strong>Advertising License:</strong> Tech hype cycles replace traditional advertising; patient success stories function as marketing collateral</li>
+                    <li><strong>Sourcing Mass Media:</strong> X platform enables Neuralink to control disclosure timing and framing, bypassing peer review gatekeepers</li>
+                    <li><strong>Flak:</strong> PCRM complaints dismissed as "anti-innovation"; critics face coordinated harassment from Musk's follower base</li>
+                    <li><strong>Anticommunism (Ideology):</strong> Replaced by "tech solutionism"—opposition framed as Luddism; regulatory oversight portrayed as bureaucratic obstruction to human progress</li>
+                </ol>
+
+                <p><strong>Key Insight:</strong> Manufacturing consent traditionally operates through media; here it operates through institutional dismantling. When oversight bodies can be eliminated, consent becomes structurally impossible to withhold.</p>
             </div>
 
-            <div class="quote">
-                "This wasn't a series of coincidences. It was systematic dismantling of the entire regulatory chain related to BCI development, executed in <60 days. The mass firings provided fog of war for surgical, self-serving cuts."
+            <div class="theory-block">
+                <h4>Deleuze: Societies of Control</h4>
+                <p>Deleuze predicted the shift from disciplinary societies (prisons, schools, factories) to societies of control based on continuous modulation. The BCI implant represents the ultimate control mechanism—not external discipline but internal neural modulation. The software patch replacing hardware revision exemplifies this: control operates through continuous algorithmic adjustment rather than fixed institutional structure.</p>
+                
+                <p><strong>Key Insight:</strong> When consciousness itself becomes programmable, the distinction between user and used collapses. The patient doesn't use the BCI—the BCI modulates the patient.</p>
             </div>
 
-            <h3>The Consent Manufacturing Machine</h3>
-            <p>Patient narratives follow identical patterns: new X accounts post-surgery, positive updates emphasizing gratitude, amplification of Musk ecosystem content (Tesla, SpaceX). Dissenting voices or adverse events remain conspicuously absent from public discourse.</p>
-
-            <div class="key-finding">
-                <strong>The Mike Milgadio Case Study:</strong> Patient 4, ALS, implanted February 2025. No public social media. Google search: "no publicly known patient 4." Four months post-surgery: GoFundMe citing psychiatric crisis, financial collapse, "ready to give up on life." $1,000 donation from Siobhan Zilis (Neuralink Director of Operations, mother of three Musk children). No FDA adverse event reporting found. Informed consent compromised for future patients if unreported.
+            <div class="theory-block">
+                <h4>Baudrillard: Hyperreality & Simulacra</h4>
+                <p>Patient narratives become simulacra—carefully curated performances that replace the actual neurological experience. The "success story" becomes more real than the material reality of thread retraction, psychiatric crises, or adverse events. Neuralink's PR strategy produces hyperreal patients whose performed gratitude obscures their biological vulnerability.</p>
+                
+                <p><strong>Key Insight:</strong> The Mike Milgadio case reveals the gap between simulacrum (funded patient in company videos) and reality (GoFundMe crisis, "ready to give up on life"). When the hyperreal cracks, the manufacturing apparatus becomes visible.</p>
             </div>
-        </section>
 
-        <section id="critical-theory">
-            <h2>Critical Theory: Biopower in the Neural Age</h2>
+            <div class="theory-block">
+                <h4>Agamben: Bare Life & State of Exception</h4>
+                <p>BCI creates a new category of "bare life"—subjects whose biological existence is directly subject to technological intervention without traditional protections. The DOGE Nexus represents a "state of exception" where normal regulatory processes are suspended, rendering trial participants vulnerable to experimentation without standard safeguards.</p>
+                
+                <p><strong>Key Insight:</strong> The firing of inspectors general and FDA reviewers creates a regulatory void—a zone of exception where corporate power operates without oversight. Patients become homo sacer: included through exclusion from normal protections.</p>
+            </div>
+
+            <div class="theory-block">
+                <h4>Zuboff: Surveillance Capitalism → Neural Capitalism</h4>
+                <p>Surveillance capitalism extracted behavioral data for prediction and modification. Neural capitalism extracts cognitive patterns directly from brain tissue. The BCI doesn't merely track behavior—it accesses the substrate generating behavior. This represents a qualitative shift: from surveillance of expression to surveillance of genesis.</p>
+                
+                <p><strong>Key Insight:</strong> Every "thought-to-text" operation generates training data. Patients aren't using BCIs to regain function—they're producing the dataset that will enable mass-market neural interfaces. Their suffering is the raw material for neural capitalism's expansion.</p>
+            </div>
+
+            <div class="theory-block">
+                <h4>Haraway: Cyborg Politics (Critical Revision)</h4>
+                <p>Haraway's Cyborg Manifesto celebrated boundary dissolution between human/machine as liberatory. The Neuralink case demands revision: cyborg politics must grapple with power asymmetries in human-machine coupling. When the corporation controls both the interface and the regulatory apparatus, cyborg existence doesn't liberate—it ensnares.</p>
+                
+                <p><strong>Key Insight:</strong> The cyborg is only liberatory when the terms of coupling are negotiable. BCI patients can't negotiate with their implants, can't revoke consent post-installation, can't escape the corporation's software updates. This is cyborg existence as permanent dependency.</p>
+            </div>
+
+            <h3>Methodological Limitations</h3>
             
-            <div class="cyber-terminal">
-                <div class="terminal-header">
-                    <span class="terminal-dot" style="background: var(--warning);"></span>
-                    <span class="terminal-dot" style="background: var(--cyber-orange);"></span>
-                    <span class="terminal-dot" style="background: var(--cyber-green);"></span>
-                    <span class="terminal-title">CRITICAL_THEORY.EXE</span>
-                </div>
-                <div class="terminal-content">
-                    <p><span class="prompt">&gt;</span> Analyzing: Foucault's Biopower → Neuralink Doctrine</p>
-                    <p><span class="prompt">&gt;</span> Mapping: Deleuze's Societies of Control → BCI Infrastructure</p>
-                    <p><span class="prompt">&gt;</span> Computing: Baudrillard's Hyperreality → Patient Narratives</p>
-                </div>
-            </div>
-
-            <h3>Foucault's Biopower: The Ultimate Expression</h3>
-            <p>Neuralink represents the apotheosis of biopower—where state and corporate control extends directly into the biological substrate of human consciousness. The "regulatory capture" you've documented isn't just bureaucratic—it's the colonization of the final frontier: the human mind.</p>
-
-            <div class="theory-grid">
-                <div class="theory-card">
-                    <h4>⚡ Deleuze: Societies of Control</h4>
-                    <p>The BCI implant represents the ultimate "modulation"—continuous, real-time adjustment replacing disciplinary institutions. No longer prisons or schools, but direct neural programming.</p>
-                </div>
-                <div class="theory-card">
-                    <h4>🌀 Baudrillard: The Hyperreal Patient</h4>
-                    <p>Patient narratives become simulacra—carefully curated performances that replace reality. The "success story" becomes more real than the actual neurological experience.</p>
-                </div>
-                <div class="theory-card">
-                    <h4>⚖️ Agamben: Bare Life & Neural Citizenship</h4>
-                    <p>BCI creates a new biological divide: enhanced vs. unenhanced consciousness. The "neurally augmented" become a new political category with different rights and capacities.</p>
-                </div>
-            </div>
-
-            <h3>The Attention Economy's Endgame</h3>
-            <p>Social media captured attention. BCIs capture cognition itself. The "neural data" extracted becomes the ultimate commodity—the very patterns of thought and desire.</p>
-
-            <div class="key-finding">
-                <strong>The Capitalist Sublime:</strong> Neuralink represents capital's drive to subsume not just labor, but consciousness itself into the circuit of accumulation. Thought becomes the new factory floor.
+            <div class="evidence-block">
+                <p><strong>Data Constraints:</strong> OSINT methodology restricts us to publicly available information. Internal Neuralink communications, complete adverse event records, and unpublished trial data remain inaccessible. The Mike Milgadio analysis relies on GoFundMe and social media—circumstantial evidence requiring company response.</p>
+                
+                <p><strong>Verification Challenges:</strong> Some claims (e.g., exact Zilis donation amount, specific patient identities) cannot be independently verified without insider access. Where uncertainty exists, it is explicitly flagged.</p>
+                
+                <p><strong>Temporal Limitation:</strong> Analysis current through November 2025. Rapid developments in BCI space require continuous updating. This document should be treated as snapshot requiring periodic revision.</p>
+                
+                <p><strong>Potential Blind Spots:</strong> Focus on Neuralink may underrepresent issues at competitor firms. Chinese BCI programs lack comparable transparency, limiting comparative analysis. Animal testing critiques assume current necessity; future computational modeling might reduce biological experimentation.</p>
             </div>
         </section>
 
         <section id="patient-registry">
             <h2>Patient Registry & Transparency Crisis</h2>
             
-            <div class="critical-alert">
-                <strong>Manufactured Consent Through Curated Narratives</strong><br><br>
-                Patient stories follow identical patterns: new X accounts, positive updates, Musk ecosystem promotion. The absence of adverse events in public discourse suggests systematic narrative control.
-            </div>
+            <p class="lead">Neuralink's patient disclosure follows no consistent pattern, making systematic tracking nearly impossible. This opacity serves manufacturing consent by allowing selective amplification of successes while suppressing complications. This section provides the public registry that should exist but doesn't.</p>
 
-            <div class="registry-grid">
-                <div class="registry-card">
-                    <h4>🧠 Noland Arbaugh</h4>
-                    <div class="patient-data">
-                        <span class="data-label">Implant Date:</span> Jan 2024<br>
-                        <span class="data-label">Status:</span> Active, positive updates<br>
-                        <span class="data-label">Transparency:</span> High (public figure)
-                    </div>
-                </div>
-                <div class="registry-card">
-                    <h4>🔴 Mike Milgadio</h4>
-                    <div class="patient-data">
-                        <span class="data-label">Implant Date:</span> Feb 2025<br>
-                        <span class="data-label">Status:</span> Crisis (GoFundMe evidence)<br>
-                        <span class="data-label">Transparency:</span> Zero (no social media)
-                    </div>
-                </div>
-                <div class="registry-card">
-                    <h4>⚡ Unknown Patients</h4>
-                    <div class="patient-data">
-                        <span class="data-label">Count:</span> 8+<br>
-                        <span class="data-label">Status:</span> Unreported<br>
-                        <span class="data-label">Transparency:</span> None
-                    </div>
-                </div>
-            </div>
-
-            <h3>The Zilis Connection: Ethical Breach</h3>
-            <p>The $1,000 donation from Neuralink executive Siobhan Zilis to patient Mike Milgadio's GoFundMe represents a fundamental conflict of interest. When trial executives provide personal financial support to participants, it compromises:</p>
+            <h3>Why Patient Registries Matter</h3>
             
-            <ul>
-                <li>Informed consent validity</li>
-                <li>Adverse event reporting integrity</li>
-                <li>Scientific objectivity</li>
-                <li>Regulatory oversight effectiveness</li>
-            </ul>
+            <div class="evidence-block">
+                <p><strong>Informed Consent Foundation:</strong> Future participants cannot provide meaningful consent without comprehensive understanding of previous outcomes. When adverse events are suppressed or selectively disclosed, consent becomes manufactured rather than informed.</p>
+                
+                <p><strong>Scientific Integrity:</strong> Clinical trials require transparent reporting to validate safety and efficacy. The absence of systematic adverse event reporting undermines the scientific basis for continued human experimentation.</p>
+                
+                <p><strong>Regulatory Oversight:</strong> Without complete patient data, regulatory agencies cannot perform adequate risk-benefit analysis. The FDA's ability to protect public health depends on comprehensive safety data.</p>
+                
+                <p><strong>Public Accountability:</strong> Experimental medical devices represent profound interventions into human biology and consciousness. Public transparency is essential when corporate interests intersect with fundamental human rights.</p>
+            </div>
 
+            <h3>Documented Patient Cases</h3>
+            
+            <div class="patient-card">
+                <div class="patient-header">
+                    <div class="patient-name">Noland Arbaugh (Patient 1)</div>
+                    <div class="patient-status active">Active</div>
+                </div>
+                <p><strong>Implant Date:</strong> January 28, 2024</p>
+                <p><strong>Location:</strong> Barrow Neurological Institute, Phoenix</p>
+                <p><strong>Condition:</strong> Quadriplegia from diving accident (2016)</p>
+                <p><strong>Public Updates:</strong> Active on X (@ModdedQuad), demonstrates gaming (Civilization VI, chess), educational software use, professional speaking</p>
+                <p><strong>Known Issues:</strong> 85% thread retraction weeks post-surgery, resolved via software patches. Performance reportedly exceeds pre-failure levels.</p>
+                <p><strong>Transparency Rating:</strong> High - Regular public updates, company amplification</p>
+            </div>
+
+            <div class="patient-card crisis">
+                <div class="patient-header">
+                    <div class="patient-name">Mike Milgadio (Patient 4)</div>
+                    <div class="patient-status crisis">Crisis</div>
+                </div>
+                <p><strong>Implant Date:</strong> February 2025</p>
+                <p><strong>Location:</strong> University of Miami Miller School of Medicine</p>
+                <p><strong>Condition:</strong> Advanced ALS</p>
+                <p><strong>Public Updates:</strong> Zero social media presence. Featured in Neuralink funding videos discussing implant enabling survey technician work.</p>
+                <p><strong>Known Issues:</strong> GoFundMe campaign (June 2025) describes psychiatric crisis, financial collapse, "ready to give up on life." Alleged $1,000 donation from Neuralink executive Siobhan Zilis. No FDA adverse event reporting found.</p>
+                <p><strong>Transparency Rating:</strong> Zero - Complete information blackout despite company promotion</p>
+            </div>
+
+            <div class="patient-card">
+                <div class="patient-header">
+                    <div class="patient-name">"RJ" (Patient 5)</div>
+                    <div class="patient-status active">Active</div>
+                </div>
+                <p><strong>Implant Date:</strong> April 2025</p>
+                <p><strong>Location:</strong> University of Miami Miller School of Medicine</p>
+                <p><strong>Condition:</strong> Paralyzed military veteran</p>
+                <p><strong>Public Updates:</strong> Limited public information. Neuralink announcement emphasized veteran status.</p>
+                <p><strong>Known Issues:</strong> No adverse events publicly disclosed</p>
+                <p><strong>Transparency Rating:</strong> Low - Minimal public information beyond initial announcement</p>
+            </div>
+
+            <div class="patient-card">
+                <div class="patient-header">
+                    <div class="patient-name">Canadian Patients (2)</div>
+                    <div class="patient-status unknown">Unknown</div>
+                </div>
+                <p><strong>Implant Date:</strong> August 27 & September 3, 2025</p>
+                <p><strong>Location:</strong> University Health Network, Toronto</p>
+                <p><strong>Condition:</strong> Cervical spinal cord injuries</p>
+                <p><strong>Public Updates:</strong> No individual identities disclosed. Part of CAN-PRIME Study.</p>
+                <p><strong>Known Issues:</strong> No adverse events publicly disclosed</p>
+                <p><strong>Transparency Rating:</strong> None - Complete anonymity</p>
+            </div>
+
+            <div class="patient-card">
+                <div class="patient-header">
+                    <div class="patient-name">UK Patient</div>
+                    <div class="patient-status unknown">Unknown</div>
+                </div>
+                <p><strong>Implant Date:</strong> October 2025</p>
+                <p><strong>Location:</strong> UCLH's National Hospital for Neurology and Neurosurgery, London</p>
+                <p><strong>Condition:</strong> Motor neurone disease</p>
+                <p><strong>Public Updates:</strong> No identity disclosed. First non-North American implant.</p>
+                <p><strong>Known Issues:</strong> No adverse events publicly disclosed</p>
+                <p><strong>Transparency Rating:</strong> None - Complete anonymity</p>
+            </div>
+
+            <div class="patient-card">
+                <div class="patient-header">
+                    <div class="patient-name">Unidentified Patients (6+)</div>
+                    <div class="patient-status unknown">Unknown</div>
+                </div>
+                <p><strong>Implant Date:</strong> Various 2025</p>
+                <p><strong>Location:</strong> Undisclosed U.S. sites</p>
+                <p><strong>Condition:</strong> Unknown</p>
+                <p><strong>Public Updates:</strong> Neuralink reports 14 total implants worldwide but only 8 publicly identifiable patients</p>
+                <p><strong>Known Issues:</strong> Complete information blackout</p>
+                <p><strong>Transparency Rating:</strong> None - Complete information vacuum</p>
+            </div>
+
+            <h3>The Informed Consent Crisis</h3>
+            
+            <div class="critical-alert">
+                <strong>Structural Deception:</strong> The selective disclosure pattern creates systematic deception:
+                
+                <ul style="margin-top: 1rem;">
+                    <li><strong>Success Amplification:</strong> Patients with positive outcomes receive company promotion, social media encouragement, and media attention</li>
+                    <li><strong>Adverse Event Suppression:</strong> Complications, psychiatric crises, and hardware failures remain undisclosed or framed as resolved triumphs</li>
+                    <li><strong>Information Asymmetry:</strong> Future participants cannot access comprehensive risk data, rendering informed consent impossible</li>
+                    <li><strong>Regulatory Bypass:</strong> Without systematic adverse event reporting, FDA cannot perform adequate oversight or intervention</li>
+                </ul>
+                
+                <p style="margin-top: 1.5rem;"><strong>The Mike Milgadio Precedent:</strong> When a patient experiences psychiatric crisis requiring GoFundMe intervention 4 months post-brain surgery, and this information remains outside official channels while the patient continues appearing in promotional materials, the consent manufacturing apparatus becomes visible. Future ALS patients considering implantation cannot provide informed consent if they're unaware of this outcome pattern.</p>
+            </div>
+
+            <h3>Recommendations for Transparency</h3>
+            
             <div class="key-finding">
-                <strong>The Consent Manufacturing Machine:</strong> If adverse events go unreported to FDA (21 CFR 812.150 requires 15-day reporting), future patients cannot provide informed consent. They're consenting to incomplete risk profiles manufactured by information control.
+                <strong>Mandatory Public Registry:</strong> Neuralink should establish and maintain a public patient registry including:
+                
+                <ul style="margin-top: 1rem;">
+                    <li>Patient identifiers (with privacy protection where appropriate)</li>
+                    <li>Implant dates and locations</li>
+                    <li>Underlying medical conditions</li>
+                    <li>Systematic adverse event reporting</li>
+                    <li>Functional outcome measures</li>
+                    <li>Device performance metrics</li>
+                    <li>Explant information (if applicable)</li>
+                </ul>
+                
+                <p style="margin-top: 1.5rem;"><strong>Independent Oversight:</strong> Registry management should include independent third-party verification to prevent selective disclosure and data manipulation.</p>
+                
+                <p><strong>Regulatory Enforcement:</strong> FDA should mandate comprehensive registries for all class III medical devices with direct brain interface capabilities as condition of continued trial authorization.</p>
             </div>
         </section>
 
         <section id="technical-analysis">
-            <h2>Technical Breakdown: The N1 Implant</h2>
+            <h2>Technical Analysis: The N1 Implant & The Patch Paradigm</h2>
             
-            <h3>Hardware Reality</h3>
-            <p><strong>Device:</strong> Coin-sized, 1,024 electrodes on 64 ultra-thin threads. Robotically implanted into motor cortex via craniotomy.</p>
-            
-            <p><strong>The Thread Retraction Paradox:</strong> First patient Noland Arbaugh experienced 85% thread retraction due to pneumocephalus—the exact "wire migration" risk FDA cited in 2022 rejection. Neuralink's response: software patch, not hardware revision. Algorithm enhancement compensated for near-total hardware failure, enabling performance "superseding initial capabilities."</p>
+            <p class="lead">Neuralink's technical approach reveals a fundamental philosophical shift: treating human brains as platforms for software iteration rather than sacred biological tissue requiring hardware perfection. This section examines the device, its failure modes, and the implications of "patching" neurological interfaces.</p>
 
-            <div class="critical-alert">
-                <strong>Philosophy Shift:</strong> Accept hardware flaws patchable in software—antithetical to medical device safety, but greenlit post-regulatory purge. Tesla-style iteration applied to human brains.
+            <h3>Device Specifications</h3>
+            
+            <div class="data-grid">
+                <div class="data-card">
+                    <strong>Physical Form</strong>
+                    <span class="metric">23mm</span>
+                    Coin-sized device implanted flush with skull. Hermetically sealed titanium enclosure containing signal processing chip, battery, wireless transceiver.
+                </div>
+                <div class="data-card">
+                    <strong>Electrode Array</strong>
+                    <span class="metric">1,024</span>
+                    Electrodes distributed across 64 ultra-thin polymer threads (thinner than human hair). Each thread contains 16 electrodes.
+                </div>
+                <div class="data-card">
+                    <strong>Insertion Depth</strong>
+                    <span class="metric">~2mm</span>
+                    Threads penetrate cortical tissue to access Layer 5 neurons. Robotic insertion system required for precision placement.
+                </div>
+                <div class="data-card">
+                    <strong>Data Transmission</strong>
+                    <span class="metric">Wireless</span>
+                    Inductive charging, Bluetooth connectivity to external devices. No percutaneous wires—fully subdural system.
+                </div>
             </div>
 
-            <h3>Performance Metrics</h3>
-            <ul style="list-style: none; padding-left: 0;">
-                <li style="padding: 0.5rem 0;">→ Cursor control: 8-10 bits/second (targeting 40 bps)</li>
-                <li style="padding: 0.5rem 0;">→ 15,000+ total implant hours logged</li>
-                <li style="padding: 0.5rem 0;">→ Applications: gaming, robotic arms, early speech/vision</li>
-                <li style="padding: 0.5rem 0;">→ Roadmap: 3,000 electrodes (2026), 25,000 channels (2028) for AI integration</li>
-            </ul>
+            <h3>Surgical Procedure</h3>
+            
+            <div class="evidence-block">
+                <p><strong>Craniotomy Requirement:</strong> Unlike Synchron's endovascular approach, Neuralink requires opening the skull. Circular section of skull removed, dura mater opened, threads inserted into exposed cortex by custom robot (R1). Device seated in skull void, skull fragment not replaced (device sits flush). Surgery duration: ~2-3 hours. Patients typically discharged next day.</p>
+                
+                <p><strong>Robot Necessity:</strong> Thread insertion requires sub-millimeter precision to avoid blood vessels visible on cortical surface. Human surgeon cannot achieve required accuracy. The R1 robot uses computer vision to map vasculature and insert threads in real-time, adjusting trajectory to avoid capillaries.</p>
+                
+                <p><strong>Invasiveness Comparison:</strong> More invasive than Synchron (vein-based, no skull opening) and Precision (surface array via micro-slit). Less invasive than traditional electrode grids requiring larger craniotomies. Neuralink occupies middle ground—significant brain penetration with minimized surgical footprint.</p>
+            </div>
+
+            <h3>The Thread Retraction Crisis: Case Study in Paradigm Shift</h3>
+            
+            <div class="patient-card crisis">
+                <div class="patient-header">
+                    <div class="patient-name">Noland Arbaugh (Patient 1)</div>
+                    <div class="patient-status crisis">Hardware Failure</div>
+                </div>
+                
+                <p><strong>Timeline:</strong> Implanted January 28, 2024 at Barrow Neurological Institute. Weeks post-surgery, threads began retracting from brain tissue.</p>
+                
+                <p><strong>Failure Magnitude:</strong> Approximately 85% of 1,024 electrodes retracted, causing severe performance degradation. Only ~150 electrodes remained functional.</p>
+                
+                <p><strong>Suspected Cause:</strong> Pneumocephalus—air trapped in skull cavity post-surgery created space allowing threads to pull back. The polymer threads, designed for flexibility, lacked rigidity to resist retraction forces.</p>
+                
+                <p><strong>Critical Context:</strong> This was precisely the "wire migration" risk FDA cited in 2022 rejection of initial human trial application. The failure validated FDA concerns—then the regulatory purge eliminated the FDA reviewers who raised those concerns.</p>
+            </div>
+
+            <h4>The Software Patch Solution</h4>
+            
+            <div class="key-finding">
+                <strong>Neuralink's Response Strategy:</strong> Rather than explant and revise hardware (standard medical device protocol for catastrophic failure), Neuralink deployed software updates:
+                
+                <ul style="margin-top: 1rem;">
+                    <li><strong>Algorithm Sensitivity Increase:</strong> Modified signal processing to detect neural signals from remaining functional electrodes with greater sensitivity</li>
+                    <li><strong>Interface Optimization:</strong> Adjusted user interface and control mappings to maximize utility of degraded electrode coverage</li>
+                    <li><strong>Performance Recovery:</strong> Within weeks, Arbaugh's BCI control "superseded" initial pre-retraction performance despite 85% electrode loss</li>
+                </ul>
+                
+                <p style="margin-top: 1.5rem;"><strong>Paradigm Analysis:</strong> This represents treating human brains like Tesla vehicles—when hardware fails, push a software update. The success is remarkable (patient regained and exceeded function), but the precedent is concerning: normalize hardware failures as patchable via algorithms.</p>
+            </div>
+
+            <div class="critical-alert">
+                <strong>Risk Normalization:</strong> The thread retraction case establishes several dangerous precedents:
+                
+                <ol style="margin-top: 1rem;">
+                    <li><strong>Hardware Flaws Acceptable:</strong> If software can compensate, hardware perfection becomes unnecessary. This inverts medical device philosophy prioritizing hardware reliability.</li>
+                    <li><strong>Patients as Beta Testers:</strong> Arbaugh's brain became test bed for proving software could overcome hardware failure—experiment conducted without prior consent to this specific risk.</li>
+                    <li><strong>Regulatory Bypass:</strong> Traditional device revision (hardware fix) requires new FDA review. Software updates occur without equivalent oversight—creating pathway to bypass approval processes.</li>
+                    <li><strong>Iteration on Live Tissue:</strong> Silicon Valley "move fast and break things" applied to neurons. When things break in brains, consequences aren't just frustrated users—they're neurological damage.</li>
+                </ol>
+            </div>
+
+            <h3>Current Performance Metrics</h3>
+            
+            <div class="data-grid">
+                <div class="data-card">
+                    <strong>Cursor Control</strong>
+                    <span class="metric">8-10</span>
+                    Bits per second (current). Target: 40 bps (human-level mousing). Patients can navigate interfaces, play games (Civilization VI, Counter-Strike 2), control educational software.
+                </div>
+                <div class="data-card">
+                    <strong>Robotic Integration</strong>
+                    <span class="metric">CONVOY</span>
+                    Study launched Nov 2024 testing assistive robotic arm control. Patient Alex demonstrated multi-degree-of-freedom manipulation. Target: full ADL (activities of daily living) support.
+                </div>
+                <div class="data-card">
+                    <strong>Speech Decoding</strong>
+                    <span class="metric">FDA ✓</span>
+                    Breakthrough Device Designation May 2025. Early demonstrations show thought-to-text capabilities. Patient Brad narrated video content via thought. Target: natural conversational speeds.
+                </div>
+                <div class="data-card">
+                    <strong>Vision Restoration</strong>
+                    <span class="metric">Blindsight</span>
+                    Breakthrough Designation Sept 2024. Visual cortex stimulation to create artificial vision. No human implants yet. Target: functional navigation vision for blind patients.
+                </div>
+            </div>
+
+            <h3>Technical Roadmap: Scaling Toward AI Integration</h3>
+            
+            <div class="timeline">
+                <div class="timeline-event">
+                    <div class="timeline-date">Q3 2025</div>
+                    <strong>Speech Cortex Implants</strong>
+                    <p>Move beyond motor cortex to speech production areas (Broca's, motor mouth regions). Enable direct thought-to-speech without intermediary cursor control. Target: natural communication restoration for ALS patients.</p>
+                </div>
+                
+                <div class="timeline-event">
+                    <div class="timeline-date">2026</div>
+                    <strong>3,000 Electrode Arrays</strong>
+                    <p>Triple current density via hardware revision. Enables higher-resolution neural recording, better signal-to-noise ratio, more complex control schemes. Requires solving thread retraction at scale.</p>
+                </div>
+                
+                <div class="timeline-event">
+                    <div class="timeline-date">2027</div>
+                    <strong>Multiple Implants</strong>
+                    <p>Bilateral implants (both hemispheres) for enhanced capabilities. Target: <50ms inter-hemisphere latency enabling coordinated bimanual control, whole-brain integration.</p>
+                </div>
+                
+                <div class="timeline-event">
+                    <div class="timeline-date">2028</div>
+                    <strong>25,000 Channel System</strong>
+                    <p>Order of magnitude electrode increase via multiple devices and/or novel architectures. Explicit goal: AI integration—direct neural interface to artificial intelligence systems. This represents transition from therapeutic to augmentation paradigm.</p>
+                </div>
+                
+                <div class="timeline-event">
+                    <div class="timeline-date">2031</div>
+                    <strong>Mass Production</strong>
+                    <p>Target: 20,000 annual implants. Requires solving manufacturing scale, surgical throughput (robot availability), regulatory streamlining, insurance coverage. Represents industrialization of neural modification.</p>
+                </div>
+            </div>
+
+            <div class="theory-block">
+                <h4>The Augmentation Horizon: From Therapy to Enhancement</h4>
+                <p>Neuralink's roadmap reveals trajectory from medical device to consumer product. Current implants restore lost function (movement, speech). The 25,000-channel AI integration system targets enhancement beyond biological baseline—superhuman capabilities for able-bodied users.</p>
+                
+                <p><strong>Critical Threshold:</strong> When BCIs transition from therapeutic to augmentation, regulatory framework collapses. FDA governs medical devices, not consumer electronics. If Neuralink achieves consumer BCI, what oversight applies? The DOGE purge eliminated reviewers before this question could be addressed.</p>
+                
+                <p><strong>Social Stratification:</strong> Neural augmentation creates biological class divide—enhanced vs. unenhanced consciousness. Those who can afford/access BCIs gain cognitive advantages (AI integration, direct information access, enhanced memory/processing). This isn't science fiction—it's Neuralink's stated 2028 goal.</p>
+            </div>
         </section>
 
-        <section id="competitor-matrix">
-            <h2>The Tri-Polar BCI Market</h2>
+        <section id="competitor-analysis">
+            <h2>Competitive Landscape: The Tri-Polar BCI Market</h2>
+            
+            <p class="lead">Neuralink's aggressive, politically-enabled approach exists within a broader ecosystem of BCI development. Understanding the competitive landscape reveals alternative paths forward—and the strategic importance of the regulatory purge that eliminated Neuralink's bottlenecks while preserving competitors' constraints.</p>
+
+            <h3>Market Structure Analysis</h3>
             
             <div class="comparison-matrix">
                 <table>
                     <thead>
                         <tr>
-                            <th>Player</th>
-                            <th>Philosophy</th>
+                            <th>Company</th>
+                            <th>Technology</th>
                             <th>Invasiveness</th>
                             <th>Patients</th>
-                            <th>Animal Toll</th>
+                            <th>Animal Testing</th>
+                            <th>Regulatory Status</th>
                             <th>Transparency</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td><strong>Neuralink</strong></td>
-                            <td>Rapid disruption</td>
-                            <td>High (penetrating)</td>
+                            <td>Penetrating threads (N1)</td>
+                            <td>High (craniotomy)</td>
                             <td>14</td>
                             <td>1,500+</td>
-                            <td>PR-driven, delayed peer review</td>
+                            <td>Accelerated post-purge</td>
+                            <td>Selective PR-driven</td>
                         </tr>
                         <tr>
-                            <td><strong>Precision Neuro</strong></td>
-                            <td>Safety-first</td>
-                            <td>Low (surface)</td>
+                            <td><strong>Precision Neuroscience</strong></td>
+                            <td>Surface array (Layer 7)</td>
+                            <td>Low (micro-slit)</td>
                             <td>50+</td>
                             <td>Low</td>
-                            <td>Published in Nature (Oct 2025)</td>
+                            <td>FDA clearance, Nature publication</td>
+                            <td>Academic peer-review</td>
                         </tr>
                         <tr>
                             <td><strong>Synchron</strong></td>
-                            <td>Pragmatic adoption</td>
-                            <td>Minimal (vascular)</td>
+                            <td>Endovascular (Stentrode)</td>
+                            <td>Minimal (vein-based)</td>
                             <td>~10</td>
                             <td>~80</td>
-                            <td>FDA-approved, Apple integration</td>
+                            <td>FDA-approved trials</td>
+                            <td>Clinical publications</td>
                         </tr>
                         <tr>
-                            <td><strong>Blackrock Neuro</strong></td>
-                            <td>Clinical veteran</td>
-                            <td>High (rigid array)</td>
+                            <td><strong>Blackrock Neurotech</strong></td>
+                            <td>Utah Array (rigid)</td>
+                            <td>High (craniotomy)</td>
                             <td>50+</td>
                             <td>Historical</td>
-                            <td>Extensive academic publications</td>
+                            <td>FDA Breakthrough</td>
+                            <td>Extensive publications</td>
                         </tr>
                         <tr>
                             <td><strong>Chinese State BCIs</strong></td>
-                            <td>Geopolitical</td>
+                            <td>Various approaches</td>
                             <td>Varies</td>
                             <td>11+</td>
                             <td>N/A</td>
-                            <td>State-backed trials, 2030 target</td>
+                            <td>State-backed acceleration</td>
+                            <td>Limited international</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
-            <h3>Key Differentiators</h3>
-            <p><strong>Precision Neuroscience:</strong> Founded by ex-Neuralink member over safety concerns. Layer 7 surface array avoids tissue damage entirely. Zero "butcher ratio."</p>
+            <h3>Strategic Differentiation</h3>
             
-            <p><strong>Synchron:</strong> Endovascular delivery (via jugular vein), no open-brain surgery. FDA-approved. Integrated with Apple Vision Pro, OpenAI chat, Amazon Alexa. 80 animals vs. Neuralink's 1,500+.</p>
+            <div class="data-grid">
+                <div class="data-card">
+                    <strong>Neuralink: Speed Over Safety</strong>
+                    Philosophy: Silicon Valley iteration applied to neuroscience. Prioritize rapid scaling, accept hardware flaws patchable via software. Leverage political connections to neutralize regulatory friction.
+                </div>
+                <div class="data-card">
+                    <strong>Precision: Safety Through Design</strong>
+                    Founded by ex-Neuralink member Benjamin Rapoport over safety concerns. Layer 7 array avoids tissue penetration entirely. Scientific validation before commercial scaling.
+                </div>
+                <div class="data-card">
+                    <strong>Synchron: Pragmatic Adoption</strong>
+                    Endovascular approach requires no brain surgery. Lower risk profile enables faster regulatory approval. Focus on immediate practical applications for severe disabilities.
+                </div>
+                <div class="data-card">
+                    <strong>Blackrock: Established Veteran</strong>
+                    Decades of human experience with Utah Array. Proven longevity (some implants functional 10+ years). Conservative approach prioritizing reliability over innovation velocity.
+                </div>
+            </div>
 
-            <p><strong>China's Blueprint:</strong> August 2025 national roadmap backed by seven ministries. Targeting 2030 BCI leadership. NeuCyber's Beinao-1 decodes Mandarin speech patterns—linguistic adaptability demonstration.</p>
-        </section>
+            <h3>The Geopolitical Dimension</h3>
+            
+            <div class="evidence-block">
+                <p><strong>China's August 2025 BCI Blueprint:</strong> Seven Chinese ministries jointly released national BCI development roadmap targeting 2030 leadership. The strategy emphasizes clinical trial acceleration, with NeuroXess (6 patients) and NeuCyber (5 patients, Beinao-1 chip) demonstrating rapid progress in speech decoding.</p>
+                
+                <p><strong>Strategic Implications:</strong> BCI technology represents critical infrastructure in emerging neurotechnology arms race. U.S. regulatory capture enables Chinese acceleration by demonstrating that safety constraints can be politically overcome. The Neuralink Doctrine may become export model for tech-state alliances globally.</p>
+                
+                <p><strong>Dual-Use Concerns:</strong> Military applications of BCI technology include enhanced soldier performance, drone control, and intelligence analysis. The regulatory purge eliminated oversight precisely as these applications approach feasibility.</p>
+            </div>
 
-        <section id="animal-welfare">
-            <h2>The Pretext: Animal Welfare & Securities Fraud</h2>
-            
-            <h3>The Monkey Dossier</h3>
-            <p>700+ pages from UC Davis (2017-2020) via PCRM FOIA lawsuit revealed:</p>
-            
             <div class="critical-alert">
+                <strong>Market Distortion Analysis:</strong> The DOGE-enabled regulatory purge created artificial competitive advantage:
+                
                 <ul style="margin-top: 1rem;">
-                    <li style="margin-bottom: 0.5rem;">15 of 23 rhesus macaques died or euthanized from implant complications</li>
-                    <li style="margin-bottom: 0.5rem;">BioGlue incident: Unapproved adhesive destroyed monkey brain tissue, "poking out of skull base"</li>
-                    <li style="margin-bottom: 0.5rem;">USDA confirmed "serious violation" (July 2023) but hidden from public via rescinded "Incentives" policy</li>
-                    <li>Total: 1,500+ animals (monkeys, pigs, sheep) vs. competitors' ~80</li>
+                    <li><strong>Asymmetric Oversight:</strong> Neuralink operates in regulatory void while competitors face traditional constraints</li>
+                    <li><strong>Acceleration Differential:</strong> Competitors report months/years added to timelines post-purge; Neuralink accelerates</li>
+                    <li><strong>Investment Distortion:</strong> Venture capital flows toward politically-protected entity rather than scientifically-validated approaches</li>
+                    <li><strong>Innovation Channeling:</strong> High-risk approaches receive preferential treatment over safety-focused alternatives</li>
                 </ul>
-            </div>
-
-            <h3>The SEC Fraud Investigation</h3>
-            <div class="quote">
-                Musk on X (September 2023): "No monkey has died as a result of a Neuralink implant. We chose terminal monkeys (close to death already)."
-            </div>
-            
-            <p><strong>The Contradiction:</strong> UC Davis records show 3 terminal monkeys designated, but 12 previously healthy animals euthanized directly from implant problems. SEC reopened investigation December 2024, issued 48-hour settlement deadline. Post-inauguration status: unclear, likely neutralized.</p>
-        </section>
-
-        <section id="discussion">
-            <h2>Control Systems Analysis</h2>
-            
-            <h3>Manufacturing Consent in the Neural Age</h3>
-            <p>Herman and Chomsky's five filters of institutional control map precisely to BCI development:</p>
-
-            <ol style="line-height: 2; margin-left: 2rem;">
-                <li><strong>Size, Ownership, Profit Orientation:</strong> Neuralink valued at $9B, $650M Series E funding. Profit motive drives aggressive timeline over safety validation.</li>
                 
-                <li><strong>Advertising:</strong> Replaced by investor funding and tech hype cycles. Patient success stories function as marketing collateral, adverse events suppressed.</li>
-                
-                <li><strong>Sourcing:</strong> Neuralink controls information flow via X announcements, delayed ClinicalTrials.gov registration. "Science-by-PR" sidesteps peer review gatekeepers.</li>
-                
-                <li><strong>Flak:</strong> PCRM complaints dismissed as "anti-progress"; critics face coordinated online harassment from Musk's follower base.</li>
-                
-                <li><strong>Anticommunism/Ideology:</strong> Replaced by "tech solutionism." Opposition framed as Luddism; regulatory oversight portrayed as bureaucratic obstruction to human progress.</li>
-            </ol>
-
-            <h3>The Transparency Crisis</h3>
-            <p>Patient tracking reveals systemic opacity. Mike Milgadio case epitomizes the problem: publicly showcased in funding events, simultaneously experiencing undisclosed psychiatric crisis. Executive personal donations blur trial ethics. No public registry exists—this investigation's registry creation highlights company's failure to provide basic accountability.</p>
-
-            <div class="key-finding">
-                <strong>Informed Consent Breakdown:</strong> If adverse events go unreported to FDA (21 CFR 812.150 requires 15-day reporting), future patients cannot provide informed consent. They're consenting to incomplete risk profiles, manufactured by information control rather than comprehensive disclosure.
+                <p style="margin-top: 1.5rem;"><strong>Long-Term Consequences:</strong> When regulatory capture determines market winners, safety and efficacy become secondary to political alignment. This distorts technological development toward approaches that prioritize speed over safety, with profound implications for patient welfare and technological trajectory.</p>
             </div>
         </section>
 
         <section id="recommendations">
-            <h2>Recommendations</h2>
+            <h2>Recommendations & Policy Implications</h2>
             
-            <h3>For Regulatory Bodies</h3>
-            <ul style="margin-left: 2rem; line-height: 2;">
-                <li>Reinstate independent review capacity for BCI trials, insulated from executive branch interference</li>
-                <li>Mandate public patient registries with transparent adverse event reporting</li>
-                <li>Require peer-reviewed publication prior to trial expansion</li>
-                <li>Establish conflict-of-interest protocols preventing trial executives from direct patient contact/donations</li>
-            </ul>
+            <p class="lead">The Neuralink case demonstrates systemic vulnerabilities in the intersection of corporate power, technological development, and regulatory oversight. These recommendations address both immediate risks and structural reforms necessary to prevent recurrence.</p>
 
-            <h3>For Researchers & Competitors</h3>
-            <ul style="margin-left: 2rem; line-height: 2;">
-                <li>Prioritize scientific transparency over PR acceleration</li>
-                <li>Maintain animal testing ratios aligned with Synchron/Precision standards (~80 vs. 1,500+)</li>
-                <li>Advocate for industry-wide safety standards before market consolidation</li>
-            </ul>
+            <h3>Immediate Regulatory Actions</h3>
+            
+            <div class="key-finding">
+                <strong>Restore Independent Oversight:</strong>
+                
+                <ul style="margin-top: 1rem;">
+                    <li>Reconstitute FDA Office of Neurological Devices (OHT5) with independent leadership insulated from political pressure</li>
+                    <li>Appoint permanent USDA Inspector General with mandate to complete Neuralink animal welfare investigation</li>
+                    <li>Establish BCI-specific advisory committee with balanced representation (patients, ethicists, independent researchers)</li>
+                    <li>Mandate public patient registries for all class III neural interface devices</li>
+                </ul>
+            </div>
 
-            <h3>For Public & Patients</h3>
-            <ul style="margin-left: 2rem; line-height: 2;">
-                <li>Scrutinize "miracle cure" narratives; demand comprehensive risk disclosure</li>
-                <li>Support independent journalism investigating regulatory capture</li>
-                <li>Understand BCI trials as high-stakes experiments, not proven therapies</li>
-                <li>Monitor FDA MedWatch for voluntary adverse event reporting</li>
-            </ul>
+            <h3>Structural Reforms</h3>
+            
+            <div class="theory-block">
+                <h4>Institutional Firewalls</h4>
+                <p>Prevent recurrence of DOGE Nexus scenario through structural separation:</p>
+                
+                <ul>
+                    <li><strong>Conflict of Interest Prohibition:</strong> Explicitly bar individuals under federal investigation from appointment to positions overseeing investigating agencies</li>
+                    <li><strong>Regulatory Independence Statute:</strong> Establish legal protections for agency staff against politically-motivated termination</li>
+                    <li><strong>Whistleblower Protection:</strong> Enhanced protections for employees reporting safety concerns in politically-sensitive contexts</li>
+                    <li><strong>Judicial Review:</strong> Expedited court review of mass agency terminations for potential constitutional violations</li>
+                </ul>
+            </div>
+
+            <h3>Patient Protection Measures</h3>
+            
+            <div class="data-grid">
+                <div class="data-card">
+                    <strong>Informed Consent Reform</strong>
+                    Mandate comprehensive adverse event disclosure including all previous patient outcomes. Require independent consent monitors for vulnerable populations.
+                </div>
+                <div class="data-card">
+                    <strong>Financial Safeguards</strong>
+                    Prohibit personal financial relationships between trial executives and participants. Establish independent patient support funds for trial-related hardships.
+                </div>
+                <div class="data-card">
+                    <strong>Long-Term Monitoring</strong>
+                    Require minimum 10-year post-trial monitoring for neural interface devices. Establish independent registries for long-term outcomes.
+                </div>
+                <div class="data-card">
+                    <strong>Explant Protocols</strong>
+                    Develop standardized protocols for device removal, including psychological support and functional rehabilitation.
+                </div>
+            </div>
+
+            <h3>Research Integrity Standards</h3>
+            
+            <div class="evidence-block">
+                <p><strong>Scientific Validation Requirements:</strong> Mandate peer-reviewed publication before trial expansion beyond initial feasibility stage. Require independent verification of company claims before regulatory milestones.</p>
+                
+                <p><strong>Data Transparency:</strong> Require public sharing of anonymized neural data (with appropriate privacy protections) to enable independent analysis and replication.</p>
+                
+                <p><strong>Animal Welfare Enforcement:</strong> Restore USDA enforcement capacity for Animal Welfare Act violations. Eliminate policies allowing violation concealment.</p>
+            </div>
+
+            <h3>Public Awareness & Education</h3>
+            
+            <div class="key-finding">
+                <strong>Critical BCI Literacy:</strong>
+                
+                <ul style="margin-top: 1rem;">
+                    <li>Develop public education resources on BCI risks, benefits, and ethical considerations</li>
+                    <li>Support independent journalism investigating neurotechnology development</li>
+                    <li>Establish patient advocacy organizations specifically for neural interface participants</li>
+                    <li>Create public forums for democratic deliberation on neurotechnology governance</li>
+                </ul>
+            </div>
+
+            <div class="critical-alert">
+                <strong>Urgent Action Required:</strong> The window for preventing permanent damage to regulatory integrity and patient safety is closing. Each day the Neuralink Doctrine remains operationalized establishes deeper precedent for corporate control over public health oversight. The recommendations above represent minimum necessary steps to restore balance between innovation and protection.
+            </div>
         </section>
 
         <section id="reflexive" class="reflexive">
-            <h2 style="color: var(--cyber-purple);">Reflexive Commentary</h2>
+            <h2>Reflexive Commentary & Methodological Transparency</h2>
             
-            <h3>Analytical Bias Statement</h3>
-            <p><strong>Perspective:</strong> This analysis operates from a critical theory framework emphasizing power dynamics and institutional capture. It prioritizes patient safety and regulatory integrity over innovation velocity.</p>
+            <h3>Analytical Positionality</h3>
+            
+            <div class="evidence-block">
+                <p><strong>Critical Theory Orientation:</strong> This analysis operates from explicit critical theory framework prioritizing examination of power dynamics, institutional capture, and structural inequalities. We make no claim to value-neutral objectivity—rather, we transparently acknowledge our theoretical commitments and analytical priorities.</p>
+                
+                <p><strong>Patient-Centered Ethics:</strong> Our analysis privileges patient safety and informed consent over innovation velocity. We consider comprehensive risk disclosure and regulatory integrity foundational to ethical technological development.</p>
+                
+                <p><strong>Democratic Accountability:</strong> We operate from presumption that technological development affecting fundamental human capacities requires robust democratic oversight and public deliberation.</p>
+            </div>
 
-            <p><strong>Limitations:</strong> OSINT methodology constrains us to publicly available information. Internal Neuralink communications, unpublished trial data, and complete adverse event records remain inaccessible. The Mike Milgadio case relies on GoFundMe and social media analysis—circumstantial but concerning patterns requiring company response.</p>
+            <h3>Methodological Limitations & Biases</h3>
+            
+            <div class="theory-block">
+                <h4>Data Constraints</h4>
+                <p><strong>OSINT Limitations:</strong> Our analysis relies exclusively on publicly available information. Internal corporate communications, complete regulatory documents, and unpublished data remain inaccessible. This necessarily limits comprehensiveness.</p>
+                
+                <p><strong>Verification Challenges:</strong> Some claims (e.g., exact Zilis donation amount, specific patient outcomes) rely on circumstantial evidence requiring insider verification. We explicitly flag such limitations where they occur.</p>
+                
+                <p><strong>Temporal Boundaries:</strong> Analysis current through November 2025. Rapid developments require continuous monitoring and potential revision.</p>
+            </div>
 
-            <p><strong>Potential Blind Spots:</strong> Focus on Neuralink may underrepresent competitors' issues. Chinese BCI programs lack transparency paralleling concerns here. Animal testing critiques assume current necessity; future BCI development might reduce biological testing via computational modeling.</p>
+            <div class="theory-block">
+                <h4>Analytical Biases</h4>
+                <p><strong>Neuralink Focus:</strong> Concentrated analysis on Neuralink may underrepresent issues at competitor firms or in broader BCI ecosystem.</p>
+                
+                <p><strong>Regulatory Emphasis:</strong> Focus on U.S. regulatory context may underplay international dimensions and comparative governance approaches.</p>
+                
+                <p><strong>Critical Orientation:</strong> Emphasis on power dynamics and institutional capture may underplay genuine therapeutic potential and patient benefits.</p>
+            </div>
 
-            <h3>Ethical Stance</h3>
-            <p>This investigation presumes: (1) regulatory oversight serves public interest when independent; (2) patient welfare supersedes corporate acceleration; (3) informed consent requires comprehensive risk disclosure, not curated success narratives; (4) power concentration in tech-state alliances threatens democratic accountability.</p>
+            <h3>Ethical Commitments</h3>
+            
+            <div class="key-finding">
+                <strong>Transparency Principles:</strong>
+                
+                <ul style="margin-top: 1rem;">
+                    <li>Explicit acknowledgment of analytical frameworks and value commitments</li>
+                    <li>Transparent documentation of data sources and methodological limitations</li>
+                    <li>Clear distinction between established facts and analytical interpretations</li>
+                    <li>Explicit flagging of unverified claims and evidentiary gaps</li>
+                </ul>
+            </div>
 
-            <h3>Methodological Transparency</h3>
-            <p>Data synthesized from web searches (November 2025), X platform monitoring, FDA/USDA public records, ClinicalTrials.gov, and peer-reviewed journals. No insider sources. Timeline reconstruction based on news reports and company announcements cross-referenced for consistency. Speculation explicitly labeled; unverified claims (e.g., Zilis donation amount) noted as requiring confirmation.</p>
+            <div class="evidence-block">
+                <p><strong>Correction Protocol:</strong> We maintain commitment to correcting errors and updating analysis based on new information. Contact information provided for substantive challenges or additional evidence.</p>
+                
+                <p><strong>Open Dialogue:</strong> We welcome engagement from all stakeholders, including Neuralink representatives, regulatory officials, patients, and researchers. Transparent debate strengthens analytical rigor.</p>
+            </div>
+
+            <h3>Invitation for Engagement</h3>
+            
+            <div class="theory-block">
+                <h4>Continuing Investigation</h4>
+                <p>This document represents ongoing investigation rather than final conclusion. We invite:</p>
+                
+                <ul>
+                    <li><strong>Additional Evidence:</strong> Submission of documents, data, or testimony relevant to analysis</li>
+                    <li><strong>Methodological Critique:</strong> Challenges to analytical frameworks or interpretive claims</li>
+                    <li><strong>Perspective Expansion:</strong> Contributions highlighting overlooked dimensions or alternative interpretations</li>
+                    <li><strong>Collaborative Research:</strong> Partnership with other investigators pursuing related lines of inquiry</li>
+                </ul>
+                
+                <p style="margin-top: 1.5rem;"><strong>Contact:</strong> Engagement welcomed through established channels with commitment to respectful, evidence-based dialogue.</p>
+            </div>
         </section>
 
         <footer>
-            <p><strong>Untitled Format™ v1.2.0</strong> — "Documents that think, cite, and evolve"</p>
-            <p style="margin-top: 1rem;">This investigation is licensed under Creative Commons Attribution-NonCommercial-ShareAlike 4.0</p>
-            <p style="margin-top: 0.5rem; font-size: 0.75rem;">Last Updated: November 6, 2025 | Version 1.0</p>
+            <p><strong>Untitled Format™ v1.2.0 - Erebus</strong> — "Documents that think, cite, and evolve"</p>
+            <p style="margin-top: 1rem;">This investigation is licensed under Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International</p>
+            <p style="margin-top: 0.5rem; font-size: 0.75rem;">Last Updated: November 7, 2025 | Version 2.0</p>
             
-            <a href="https://alx0r.github.io/Aartless/w0lfed.html" class="w0lfed-link" style="margin-top: 2rem;">
-                📡 CONTINUE TO W0LFED™ WEEKLY RESEARCH
+            <a href="https://alx0r.github.io/Aartless/w0lfed.html" class="footer-badge">
+                📡 Continue to W0LFED™ Weekly Research
             </a>
         </footer>
     </div>
@@ -907,18 +1418,18 @@
     {
         "@context": "https://schema.org",
         "@type": "ScholarlyArticle",
-        "name": "Neural Capture: The BCI Power Play",
-        "headline": "Manufacturing Consent Through Brain-Computer Interfaces",
+        "name": "Neural Capture: The BCI Control Matrix",
+        "headline": "An Investigation into the Manufacturing of Neurological Consent",
         "author": {
             "@type": "Organization",
-            "name": "Independent OSINT Analysis"
+            "name": "W0LFED™ Research Division"
         },
-        "datePublished": "2025-11-06",
-        "dateModified": "2025-11-06",
+        "datePublished": "2025-11-07",
+        "dateModified": "2025-11-07",
         "license": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
-        "version": "1.0.0",
-        "keywords": "neuralink, BCI, manufacturing_consent, regulatory_capture, critical_theory, neuropolitics",
-        "description": "Critical investigation of Neuralink's regulatory capture and the manufacturing of consent through brain-computer interface technology."
+        "version": "2.0",
+        "keywords": "neuralink, BCI, regulatory_capture, biopower, neuropolitics, manufacturing_consent, critical_theory",
+        "description": "Critical intelligence assessment of Neuralink's regulatory capture and the manufacturing of consent through brain-computer interface technology."
     }
     </script>
 </body>

@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Weekly W0lfed | Digital Resistance Dispatch</title>
+    
+    <!-- Untitled Format Metadata -->
+    <!--
+    title: "The Weekly W0lfed"
+    author: "w0lfed"
+    forever_format: "1.3.0"
+    document_type: "Weekly Intelligence Digest"
+    license: "CC BY-NC-SA 4.0"
+    version: "1.0.0"
+    created: "2024-01-15"
+    updated: "2024-01-15"
+    citation_style: "APA 7th"
+    tags: ["digital-resistance", "intelligence", "cyberpunk", "journalism", "diogenes"]
+    ai_context_tags: ["synthesis", "critical_analysis", "media-critique", "philosophy"]
+    bias_note: "Anti-establishment perspective with focus on digital sovereignty and philosophical cynicism"
+    -->
+    
+    <style>
+        :root {
+            --matrix-green: #00ff41;
+            --cyber-blue: #0080ff;
+            --neon-purple: #bc13fe;
+            --blood-red: #ff003c;
+            --dark-bg: #0a0a0a;
+            --darker-bg: #050505;
+            --grid-color: rgba(0, 255, 65, 0.1);
+            --text-primary: #e0e0e0;
+            --text-secondary: #a0a0a0;
+            --gold: #ffd700;
+            --vapor-pink: #ff00ff;
+            --vapor-cyan: #00ffff;
+            
+            /* Light theme variables */
+            --light-bg: #f5f5f5;
+            --light-darker: #e0e0e0;
+            --light-text: #222222;
+            --light-secondary: #555555;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text-primary);
+            font-family: 'Courier New', monospace;
+            line-height: 1.6;
+            position: relative;
+            overflow-x: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        body.light-theme {
+            background-color: var(--light-bg);
+            color: var(--light-text);
+        }
+        
+        .scan-lines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                to bottom,
+                transparent 50%,
+                rgba(0, 0, 0, 0.1) 50%
+            );
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.3;
+        }
+        
+        .light-theme .scan-lines {
+            background: linear-gradient(
+                to bottom,
+                transparent 50%,
+                rgba(0, 0, 0, 0.05) 50%
+            );
+        }
+        
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 10001;
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid var(--matrix-green);
+            color: var(--matrix-green);
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-family: 'Courier New', monospace;
+            transition: all 0.3s ease;
+        }
+        
+        .light-theme .theme-toggle {
+            background: rgba(255, 255, 255, 0.7);
+            border-color: var(--dark-bg);
+            color: var(--dark-bg);
+        }
+        
+        .newspaper-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: var(--darker-bg);
+            box-shadow: 0 0 50px rgba(0, 255, 65, 0.1);
+            border: 1px solid var(--matrix-green);
+            position: relative;
+        }
+        
+        .light-theme .newspaper-container {
+            background-color: var(--light-darker);
+            border-color: var(--light-secondary);
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Header Styles */
+        .masthead {
+            border-bottom: 3px double var(--matrix-green);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .light-theme .masthead {
+            border-bottom-color: var(--light-text);
+        }
+        
+        .newspaper-title {
+            font-family: 'Times New Roman', serif;
+            font-size: clamp(2rem, 5vw, 4rem);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin: 20px 0;
+            color: var(--matrix-green);
+            text-shadow: 0 0 10px var(--matrix-green);
+            position: relative;
+            animation: glitch 5s infinite;
+        }
+        
+        .light-theme .newspaper-title {
+            color: var(--dark-bg);
+            text-shadow: 0 0 5px var(--dark-bg);
+        }
+        
+        @keyframes glitch {
+            0%, 100% {
+                transform: translate(0);
+                text-shadow: 0 0 10px var(--matrix-green);
+            }
+            97% {
+                transform: translate(0);
+                text-shadow: 0 0 10px var(--matrix-green);
+            }
+            98% {
+                transform: translate(-2px, 1px);
+                text-shadow: 2px 0 0 var(--vapor-pink), -2px 0 0 var(--vapor-cyan);
+            }
+            99% {
+                transform: translate(2px, -1px);
+                text-shadow: -2px 0 0 var(--vapor-pink), 2px 0 0 var(--vapor-cyan);
+            }
+        }
+        
+        .dateline {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--matrix-green);
+            border-bottom: 1px solid var(--matrix-green);
+            padding: 5px 0;
+            margin: 10px 0 30px;
+        }
+        
+        .light-theme .dateline {
+            color: var(--light-secondary);
+            border-color: var(--light-secondary);
+        }
+        
+        /* Main Content Grid */
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        @media (min-width: 768px) {
+            .main-content {
+                grid-template-columns: 2fr 1fr;
+            }
+        }
+        
+        /* Headline Article */
+        .headline-article {
+            border: 1px solid var(--cyber-blue);
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .light-theme .headline-article {
+            background: rgba(255, 255, 255, 0.7);
+        }
+        
+        .headline-title {
+            font-size: clamp(1.5rem, 4vw, 2.2rem);
+            color: var(--cyber-blue);
+            margin-bottom: 15px;
+            border-bottom: 1px solid var(--cyber-blue);
+            padding-bottom: 10px;
+        }
+        
+        .headline-meta {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .light-theme .headline-meta {
+            color: var(--light-secondary);
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .sidebar-section {
+            border: 1px solid var(--neon-purple);
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.7);
+        }
+        
+        .light-theme .sidebar-section {
+            background: rgba(255, 255, 255, 0.7);
+        }
+        
+        .sidebar-title {
+            font-size: 1.3rem;
+            color: var(--neon-purple);
+            margin-bottom: 15px;
+            border-bottom: 1px solid var(--neon-purple);
+            padding-bottom: 5px;
+        }
+        
+        .sidebar ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .sidebar li {
+            margin-bottom: 8px;
+            padding-left: 15px;
+            position: relative;
+        }
+        
+        .sidebar li::before {
+            content: ">";
+            position: absolute;
+            left: 0;
+            color: var(--neon-purple);
+        }
+        
+        /* Article Grid */
+        .article-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        @media (max-width: 767px) {
+            .article-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .article-card {
+            border: 1px solid var(--matrix-green);
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.7);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .light-theme .article-card {
+            background: rgba(255, 255, 255, 0.7);
+        }
+        
+        .article-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 255, 65, 0.2);
+        }
+        
+        .article-category {
+            display: inline-block;
+            font-size: 0.8rem;
+            padding: 3px 10px;
+            background: var(--matrix-green);
+            color: black;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        
+        .article-title {
+            font-size: 1.4rem;
+            color: var(--text-primary);
+            margin-bottom: 10px;
+            line-height: 1.3;
+        }
+        
+        .light-theme .article-title {
+            color: var(--light-text);
+        }
+        
+        .article-excerpt {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+        }
+        
+        .light-theme .article-excerpt {
+            color: var(--light-secondary);
+        }
+        
+        .article-meta {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .light-theme .article-meta {
+            color: var(--light-secondary);
+        }
+        
+        /* Featured Investigations */
+        .featured-investigations {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin: 40px 0;
+        }
+        
+        @media (min-width: 992px) {
+            .featured-investigations {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        .featured-card {
+            border: 2px solid var(--blood-red);
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .light-theme .featured-card {
+            background: rgba(255, 255, 255, 0.8);
+        }
+        
+        .featured-card::before {
+            content: "NEW";
+            position: absolute;
+            top: 10px;
+            right: -30px;
+            background: var(--blood-red);
+            color: white;
+            padding: 5px 40px;
+            transform: rotate(45deg);
+            font-size: 0.8rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+        
+        .featured-title {
+            font-size: 1.6rem;
+            color: var(--blood-red);
+            margin-bottom: 15px;
+        }
+        
+        .featured-excerpt {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+        }
+        
+        .light-theme .featured-excerpt {
+            color: var(--light-secondary);
+        }
+        
+        .featured-badge {
+            display: inline-block;
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            background: var(--blood-red);
+            color: white;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        
+        /* Footer */
+        .footer {
+            border-top: 3px double var(--matrix-green);
+            padding-top: 30px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        
+        .light-theme .footer {
+            border-top-color: var(--light-text);
+            color: var(--light-secondary);
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .footer-link {
+            color: var(--cyber-blue);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-link:hover {
+            color: var(--matrix-green);
+        }
+        
+        .format-badge {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 5px 15px;
+            background: rgba(0, 255, 65, 0.1);
+            border: 1px solid var(--matrix-green);
+            font-size: 0.8rem;
+            color: var(--matrix-green);
+        }
+        
+        .light-theme .format-badge {
+            background: rgba(0, 0, 0, 0.1);
+            border-color: var(--light-text);
+            color: var(--light-text);
+        }
+        
+        /* Terminal Text */
+        .terminal-text {
+            background: rgba(0, 0, 0, 0.9);
+            border: 1px solid var(--matrix-green);
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            color: var(--matrix-green);
+            margin: 20px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .light-theme .terminal-text {
+            background: rgba(0, 0, 0, 0.05);
+            border-color: var(--dark-bg);
+            color: var(--dark-bg);
+        }
+        
+        .terminal-text::before {
+            content: ">";
+            position: absolute;
+            left: 5px;
+            color: var(--matrix-green);
+        }
+        
+        .light-theme .terminal-text::before {
+            color: var(--dark-bg);
+        }
+        
+        /* Cynic Quote */
+        .cynic-quote {
+            border-left: 3px solid var(--gold);
+            padding-left: 15px;
+            margin: 20px 0;
+            font-style: italic;
+            color: var(--text-secondary);
+        }
+        
+        .light-theme .cynic-quote {
+            color: var(--light-secondary);
+            border-left-color: var(--gold);
+        }
+        
+        /* Section Headers */
+        .section-header {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: 800;
+            margin: 40px 0 20px;
+            position: relative;
+            display: inline-block;
+            color: var(--matrix-green);
+        }
+        
+        .light-theme .section-header {
+            color: var(--dark-bg);
+        }
+        
+        .section-header::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--matrix-green), transparent);
+        }
+        
+        .light-theme .section-header::after {
+            background: linear-gradient(90deg, var(--dark-bg), transparent);
+        }
+        
+        /* Music Toggle */
+        #musicToggle {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 10000;
+            background: var(--matrix-green);
+            color: black;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Courier New', monospace;
+            font-size: 0.8rem;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+        
+        .light-theme #musicToggle {
+            background: var(--dark-bg);
+            color: white;
+        }
+        
+        /* Simple Emoji Preview */
+        .emoji-preview {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin: 10px 0;
+            font-size: 1.2rem;
+        }
+        
+        .old-emoji, .new-emoji {
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+        
+        .old-emoji:hover, .new-emoji:hover {
+            opacity: 1;
+        }
+        
+        .arrow {
+            color: var(--matrix-green);
+            font-weight: bold;
+        }
+        
+        .light-theme .arrow {
+            color: var(--dark-bg);
+        }
+    </style>
+</head>
+<body>
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" id="themeToggle">🌙 DARK MODE</button>
+    
+    <!-- Vaporwave Effects -->
+    <div class="scan-lines"></div>
+    
+    <div class="newspaper-container">
+        <header class="masthead">
+            <div class="dateline">
+                <span>VOL. 1, No. 1</span>
+                <span>DIGITAL RESISTANCE NETWORK</span>
+                <span>FRIDAY 07NOV 2025</span>
+            </div>
+            <h1 class="newspaper-title">THE WEEKLY W0LFED</h1>
+            <p>YOUR SOURCE FOR UNFILTERED 'TRUTH' IN THE DIGITAL WILDERNESS</p>
+        </header>
+        
+        <section id="exec-summary" class="terminal-text">
+            <p>SYSTEM BOOT: W0LFED_DISPATCH_v1.0</p>
+            <p>INITIALIZING DIGITAL RESISTANCE PROTOCOLS...</p>
+            <p>THIS WEEK: 
+                <span style="color: var(--blood-red);">Assad Mass Graves</span> | 
+                <span style="color: var(--gold);">African Fiscal Sovereignty</span> | 
+                <span style="color: var(--neon-purple);">Platform Capitalism</span> | 
+                <span style="color: var(--matrix-green);">Urban Counter-Platforms</span> | 
+                <span style="color: var(--vapor-cyan);">The Sora Paradox</span> | 
+                <span style="color: var(--vapor-pink);">new emojis!?!</span>
+            </p>
+            <p>WARNING: Information contained herein may disrupt established narratives</p>
+            <p>NEW INVESTIGATIONS: 
+                <span style="color: var(--blood-red);">Network Monitoring Manual</span> | 
+                <span style="color: var(--gold);">Neuralink Regulatory Capture</span> | 
+                <span style="color: var(--neon-purple);">Digital Colonialism</span>
+            </p>
+        </section>
+
+        <div class="main-content">
+            <article class="headline-article">
+                <h2 class="headline-title">Digital Resistance Manual Goes Viral: Users Awakening to Platform Manipulation</h2>
+                <div class="headline-meta">
+                    <span>BY W0LFED</span>
+                    <span>CATEGORY: DIGITAL ACTIVISM</span>
+                    <span>READ TIME: 8 MIN</span>
+                </div>
+                <p>The underground "Digital Resistance Manual" is spreading across decentralized networks, teaching users how to recognize and counter algorithmic manipulation on mainstream platforms.</p>
+                <p>Early adopters report increased awareness of how engagement metrics shape discourse and are developing counter-measures to reclaim digital autonomy.</p>
+                <p>"We've been trained to be passive consumers of content," explains the manual. "Every comment you don't write, every piece of misinformation you don't challenge—these are not neutral acts."</p>
+                <p>The movement emphasizes that modern censorship isn't primarily top-down but lateral and self-imposed through complacency and platform affordance abandonment.</p>
+                
+                <div class="cynic-quote">
+                    "I am looking for an honest man." - Diogenes, when asked why he was wandering around with a lamp in broad daylight
+                </div>
+            </article>
+            
+            <aside class="sidebar">
+                <div class="sidebar-section">
+                    <h3 class="sidebar-title">IN THIS ISSUE</h3>
+                    <ul>
+                        <li>Assad Mass Grave Cover-Up</li>
+                        <li>African Tax Sovereignty Crisis</li>
+                        <li>Platform Capitalism Analysis</li>
+                        <li>Urban Counter-Platforms</li>
+                        <li>Louvre Heist Investigation</li>
+                        <li>Network Monitoring Manual</li>
+                        <li>Neuralink Investigation</li>
+                    </ul>
+                </div>
+                
+                <div class="sidebar-section">
+                    <h3 class="sidebar-title">W0LFED INVESTIGATIONS</h3>
+                    <ul>
+                        <li><a href="https://alx0r.github.io/Aartless/OPME.html" class="footer-link">Operation Move Earth</a></li>
+                        <li><a href="https://alx0r.github.io/Aartless/taxed.html" class="footer-link">Platformizing Sovereignty</a></li>
+                        <li><a href="https://alx0r.github.io/Aartless/swiftism.html" class="footer-link">Taylor Swift as Assemblage</a></li>
+                        <li><a href="https://alx0r.github.io/Aartless/urbanplat.html" class="footer-link">Autonomy as Counter-Platform</a></li>
+                        <li><a href="https://alx0r.github.io/Aartless/heist.html" class="footer-link">2025 Louvre Heist</a></li>
+                        <li><a href="https://alx0r.github.io/Aartless/sudHRI.html" class="footer-link">Sudan Human Rights</a></li>
+                        <li><a href="https://alx0r.github.io/Aartless/digitale.html" class="footer-link">The Closing Net</a></li>
+                        <li><a href="https://alx0r.github.io/Aartless/call.html" class="footer-link">Digital Resistance Manual</a></li>
+                        <li><a href="https://alx0r.github.io/Aartless/nosey.html" class="footer-link">Network Monitoring Manual</a></li>
+                        <li><a href="https://alx0r.github.io/Aartless/brain.html" class="footer-link">Neuralink Investigation</a></li>
+                    </ul>
+                </div>
+                
+                <div class="sidebar-section">
+                    <h3 class="sidebar-title">QUICK LINKS</h3>
+                    <ul>
+                        <li><a href="https://alx0r.github.io/Aartless/" class="footer-link">Bro Studio Contact</a></li>
+                        <li><a href="https://alx0r.github.io/Aartless/like.html" class="footer-link">Browse Safely Guide</a></li>
+                    </ul>
+                </div>
+            </aside>
+        </div>
+        
+        <h2 class="section-header">Field Reports</h2>
+        
+        <div class="article-grid">
+            <article class="article-card">
+                <span class="article-category">War Crimes</span>
+                <h3 class="article-title">Operation Move Earth: Assad's Mass Grave Cover-Up</h3>
+                <p class="article-excerpt">Forensic investigation reveals systematic relocation of 100,000+ bodies from Qutayfah to Dhumair (2019-2021). Evidence of state-orchestrated atrocity concealment.</p>
+                <div class="article-meta">
+                    <span><a href="https://alx0r.github.io/Aartless/OPME.html" class="footer-link">Read Investigation</a></span>
+                    <span>OSINT + Reuters</span>
+                </div>
+            </article>
+            
+            <article class="article-card">
+                <span class="article-category">Digital Colonialism</span>
+                <h3 class="article-title">From Telegraph to AI: 150 Years of Digital Colonialism</h3>
+                <p class="article-excerpt">How communication infrastructure has systematically disadvantaged the Global South for 150 years, from telegraph cables to AI tools like Sora.</p>
+                <div class="article-meta">
+                    <span><a href="https://alx0r.github.io/Aartless/sora.html" class="footer-link">Read Analysis</a></span>
+                    <span>Historical Analysis</span>
+                </div>
+            </article>
+            
+            <article class="article-card">
+                <span class="article-category">Neurodiversity & Tech</span>
+                <h3 class="article-title">Digital Dissonance: Ancient Wisdom for Modern Tech Overwhelm</h3>
+                <p class="article-excerpt">A guide for neurodivergent and alternative thinkers on navigating digital manipulation, using ancient stories and modern media studies.</p>
+                <div class="article-meta">
+                    <span><a href="https://alx0r.github.io/Aartless/diss.html" class="footer-link">Read Guide</a></span>
+                    <span>Accessibility Focused</span>
+                </div>
+            </article>
+            
+            <article class="article-card">
+                <span class="article-category">Cultural Analysis</span>
+                <h3 class="article-title">Emoji Evolution: Semiotic Analysis</h3>
+                <p class="article-excerpt">Unicode 15.0 (identity focus) vs Emoji 17.0 (scenario focus). From psychological nuance to narrative objects and mythic symbols.</p>
+                <div class="emoji-preview">
+                    <span class="old-emoji">🫠🫢🫣</span>
+                    <span class="arrow">→</span>
+                    <span class="new-emoji">😳🤯🩰🐋</span>
+                </div>
+                <div class="article-meta">
+                    <span><a href="https://alx0r.github.io/Aartless/smiley.html" class="footer-link">Read Analysis</a></span>
+                    <span>Intelligence Brief</span>
+                </div>
+            </article>
+            
+            <article class="article-card">
+                <span class="article-category">Fiscal Sovereignty</span>
+                <h3 class="article-title">Platformizing Sovereignty: Africa's Tax Crisis</h3>
+                <p class="article-excerpt">How global tax governance systems constrain African fiscal autonomy. Analysis of debt pressure, infrastructure dependence, and the TIWB paradox.</p>
+                <div class="article-meta">
+                    <span><a href="https://alx0r.github.io/Aartless/taxed.html" class="footer-link">Read Analysis</a></span>
+                    <span>Deep Dive</span>
+                </div>
+            </article>
+            
+            <article class="article-card">
+                <span class="article-category">Platform Studies</span>
+                <h3 class="article-title">Taylor Swift as Assemblage: Protocol & Capital</h3>
+                <p class="article-excerpt">Interrogating Swift not as sovereign artist but as high-capacity node in distributed assemblage. Masters acquisition reveals persistence of control architectures.</p>
+                <div class="article-meta">
+                    <span><a href="https://alx0r.github.io/Aartless/swiftism.html" class="footer-link">Read Analysis</a></span>
+                    <span>Cultural Study</span>
+                </div>
+            </article>
+            
+            <article class="article-card">
+                <span class="article-category">Urban Resistance</span>
+                <h3 class="article-title">Autonomy as Counter-Platform: Spain's CSAs</h3>
+                <p class="article-excerpt">Self-managed social centers as experiments in counter-platform urbanism. Physical infrastructures resisting algorithmic governance through alternative protocols.</p>
+                <div class="article-meta">
+                    <span><a href="https://alx0r.github.io/Aartless/urbanplat.html" class="footer-link">Read Report</a></span>
+                    <span>Urban Studies</span>
+                </div>
+            </article>
+            
+            <article class="article-card">
+                <span class="article-category">Investigation</span>
+                <h3 class="article-title">2025 Louvre Heist: OSINT Analysis</h3>
+                <p class="article-excerpt">Forensic analysis of the Apollo Gallery compromise at the Louvre Museum. Stolen artifacts, security failures, and postcolonial context.</p>
+                <div class="article-meta">
+                    <span><a href="https://alx0r.github.io/Aartless/heist.html" class="footer-link">Read Report</a></span>
+                    <span>Investigation</span>
+                </div>
+            </article>
+        </div>
+        
+        <h2 class="section-header">New Investigations</h2>
+        
+        <div class="featured-investigations">
+            <article class="featured-card">
+                <span class="featured-badge">OSINT MANUAL</span>
+                <h3 class="featured-title">Network Monitoring Field Manual</h3>
+                <p class="featured-excerpt">IP Investigation & Connection Analysis for OSINT Researchers. Essential tools for every digital investigator to monitor network connections, identify potential data leaks, and maintain operational security.</p>
+                <p>Core Principle: Assume all traffic is monitored. Your operational security depends on knowing—and controlling—every network connection your device initiates.</p>
+                <div class="article-meta">
+                    <span><a href="https://alx0r.github.io/Aartless/nosey.html" class="footer-link">Read Manual</a></span>
+                    <span>Field Guide</span>
+                </div>
+            </article>
+            
+            <article class="featured-card">
+                <span class="featured-badge">INVESTIGATION</span>
+                <h3 class="featured-title">Neuralink's Regulatory Capture & Patient Safety Crisis</h3>
+                <p class="featured-excerpt">Investigating the systematic dismantling of oversight bodies by the very company being investigated, enabling unchecked human experimentation while suppressing adverse events.</p>
+                <p>Key Findings: 1,500+ animal deaths, 85% thread retraction in first human patient, and the "DOGE Nexus" - mass termination of regulatory staff.</p>
+                <div class="article-meta">
+                    <span><a href="https://alx0r.github.io/Aartless/brain.html" class="footer-link">Read Investigation</a></span>
+                    <span>Critical Alert</span>
+                </div>
+            </article>
+        </div>
+        
+        <section id="discussion" class="terminal-text">
+            <p>ANALYSIS: The lateral suppression mechanism described in the Digital Resistance Manual represents a paradigm shift in understanding digital control systems.</p>
+            <p>Unlike traditional top-down censorship, this model exploits user behavior patterns and platform architecture to create self-regulating echo chambers.</p>
+            <p>Counter-strategies must focus on conscious engagement, deliberate content amplification, and development of alternative information ecosystems. How can you help? Read. Share this. Make more. Be a good human. </p>
+            
+            <div class="cynic-quote" style="margin-top: 15px;">
+                "The foundation of every state is the education of its youth." - Diogenes
+            </div>
+        </section>
+        
+        <footer class="footer">
+            <div class="footer-links">
+                <a href="https://alx0r.github.io/Aartless/brostudio.html" class="footer-link">CONTACT</a>
+                <a href="#" class="footer-link">ARCHIVE</a>
+                <a href="#" class="footer-link">SUBMIT TIPS</a>
+                <a href="#" class="footer-link">JOIN RESISTANCE</a>
+            </div>
+            <p>THE WEEKLY W0LFED • DIGITAL RESISTANCE DISPATCH • INDEPENDENT MEDIA</p>
+            <p>All content licensed under Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International</p>
+            <div class="format-badge">UNTITLED FORMAT v1.3.0 | DOCUMENT THINKS, CITES, AND EVOLVES</div>
+        </footer>
+    </div>
+
+    <!-- Music Toggle -->
+    <button id="musicToggle">♫ Toggle Music</button>
+
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        
+        // Check for saved theme preference or respect OS preference
+        const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+        const currentTheme = localStorage.getItem('theme');
+        
+        if (currentTheme === 'light' || (!currentTheme && !prefersDarkScheme.matches)) {
+            body.classList.add('light-theme');
+            themeToggle.textContent = '🌙 DARK MODE';
+        } else {
+            themeToggle.textContent = '☀️ LIGHT MODE';
+        }
+        
+        themeToggle.addEventListener('click', () => {
+            if (body.classList.contains('light-theme')) {
+                body.classList.remove('light-theme');
+                localStorage.setItem('theme', 'dark');
+                themeToggle.textContent = '☀️ LIGHT MODE';
+            } else {
+                body.classList.add('light-theme');
+                localStorage.setItem('theme', 'light');
+                themeToggle.textContent = '🌙 DARK MODE';
+            }
+        });
+        
+        // Music Toggle
+        const audio = new Audio('https://files.freemusicarchive.org/storage-freemusicarchive-org/music/no_curator/Tristan_Lohengrin/Welcome/The_Sky_Of_Our_Own_Tristan_Lohengrin.mp3');
+        audio.volume = 0.3;
+        audio.loop = true;
+        
+        const musicToggle = document.getElementById('musicToggle');
+        let musicStarted = false;
+        
+        // Toggle music on click
+        musicToggle.addEventListener('click', function() {
+            if (!musicStarted) {
+                audio.play().catch(e => console.log('Audio play failed:', e));
+                musicStarted = true;
+                musicToggle.textContent = '♫ Music On';
+            } else {
+                if (audio.paused) {
+                    audio.play();
+                    musicToggle.textContent = '♫ Music On';
+                } else {
+                    audio.pause();
+                    musicToggle.textContent = '♫ Music Off';
+                }
+            }
+        });
+        
+        // Auto-start on first user interaction (required by browsers)
+        document.addEventListener('click', function startMusicOnce() {
+            if (!musicStarted) {
+                document.removeEventListener('click', startMusicOnce);
+            }
+        }, { once: true });
+    </script>
+</body>
+</html>

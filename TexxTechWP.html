@@ -1,0 +1,1399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TexxxTech™ White Paper | Permanent Digital Infrastructure for Music</title>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --texxx-red: #E63946;
+            --texxx-dark: #1D3557;
+            --texxx-blue: #457B9D;
+            --texxx-light: #F1FAEE;
+            --texxx-accent: #A8DADC;
+            --text-dark: #2B2D42;
+            --text-light: #F8F9FA;
+            --gradient-primary: linear-gradient(135deg, var(--texxx-red) 0%, var(--texxx-dark) 100%);
+            --gradient-secondary: linear-gradient(135deg, var(--texxx-blue) 0%, var(--texxx-accent) 100%);
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--texxx-light);
+            color: var(--text-dark);
+            line-height: 1.7;
+            counter-reset: section;
+        }
+        
+        /* Header */
+        header {
+            background: var(--gradient-primary);
+            color: var(--text-light);
+            padding: 60px 20px;
+            text-align: center;
+        }
+        
+        .header-content {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .document-type {
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+            opacity: 0.9;
+        }
+        
+        .logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 4em;
+            font-weight: 800;
+            margin-bottom: 10px;
+            letter-spacing: -2px;
+        }
+        
+        .tagline {
+            font-size: 1.4em;
+            font-weight: 300;
+            margin-bottom: 30px;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .metadata {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            max-width: 600px;
+            margin: 40px auto 0;
+            text-align: left;
+        }
+        
+        .meta-item {
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            border-radius: 8px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .meta-label {
+            font-size: 0.8em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.7;
+            margin-bottom: 5px;
+        }
+        
+        /* Navigation */
+        .main-nav {
+            background: var(--texxx-dark);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 5px;
+            padding: 0 20px;
+        }
+        
+        .nav-button {
+            background: transparent;
+            color: var(--text-light);
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 10px 20px;
+            text-decoration: none;
+            font-weight: 500;
+            border-radius: 30px;
+            transition: all 0.3s;
+            font-size: 0.9em;
+        }
+        
+        .nav-button:hover, .nav-button.active {
+            background: var(--texxx-red);
+            border-color: var(--texxx-red);
+        }
+        
+        /* Sections */
+        .section {
+            padding: 80px 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.5em;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--texxx-dark);
+            position: relative;
+        }
+        
+        .section-title:before {
+            counter-increment: section;
+            content: counter(section) ".";
+            position: absolute;
+            left: -50px;
+            color: var(--texxx-red);
+            font-weight: 800;
+        }
+        
+        .section-subtitle {
+            font-size: 1.2em;
+            color: var(--texxx-blue);
+            margin-bottom: 40px;
+            max-width: 700px;
+            font-weight: 500;
+        }
+        
+        /* Executive Summary */
+        .executive-summary {
+            background: white;
+        }
+        
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .summary-card {
+            background: var(--texxx-light);
+            padding: 30px;
+            border-radius: 10px;
+            border-left: 5px solid var(--texxx-blue);
+        }
+        
+        .summary-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            color: var(--texxx-dark);
+        }
+        
+        /* Problem Statement */
+        .problem-statement {
+            background: var(--texxx-light);
+        }
+        
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .problem-card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border-top: 5px solid var(--texxx-red);
+        }
+        
+        .problem-icon {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: var(--texxx-red);
+        }
+        
+        .problem-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            color: var(--texxx-dark);
+        }
+        
+        /* Ecosystem Architecture */
+        .ecosystem {
+            background: white;
+        }
+        
+        .architecture-diagram {
+            background: var(--texxx-light);
+            border-radius: 10px;
+            padding: 40px;
+            margin: 50px 0;
+            text-align: center;
+        }
+        
+        .layer-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 50px;
+        }
+        
+        @media (max-width: 768px) {
+            .layer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .layer-card {
+            background: var(--texxx-light);
+            border-radius: 10px;
+            padding: 30px;
+            border-top: 5px solid var(--texxx-blue);
+        }
+        
+        .layer-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .layer-icon {
+            font-size: 2em;
+            margin-right: 15px;
+        }
+        
+        .layer-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5em;
+            color: var(--texxx-dark);
+        }
+        
+        .layer-badge {
+            display: inline-block;
+            background: var(--texxx-blue);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+        
+        .feature-list {
+            list-style-type: none;
+        }
+        
+        .feature-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .feature-list li:before {
+            content: "✓";
+            color: var(--texxx-blue);
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        /* Product Suite */
+        .products {
+            background: var(--texxx-light);
+        }
+        
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .product-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .product-header {
+            background: var(--gradient-secondary);
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+        
+        .product-icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+        
+        .product-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5em;
+            font-weight: 700;
+        }
+        
+        .product-content {
+            padding: 25px;
+        }
+        
+        .product-features {
+            list-style-type: none;
+            margin: 20px 0;
+        }
+        
+        .product-features li {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .product-features li:before {
+            content: "→";
+            color: var(--texxx-blue);
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        /* Business Model */
+        .business-model {
+            background: white;
+        }
+        
+        .revenue-streams {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .revenue-card {
+            background: var(--texxx-light);
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            border-top: 5px solid var(--texxx-red);
+        }
+        
+        .revenue-icon {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: var(--texxx-red);
+        }
+        
+        .revenue-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            color: var(--texxx-dark);
+        }
+        
+        .pricing-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 40px 0;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .pricing-table th {
+            background: var(--texxx-dark);
+            color: white;
+            padding: 20px;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        .pricing-table td {
+            padding: 15px 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .pricing-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        /* Roadmap */
+        .roadmap {
+            background: var(--texxx-light);
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 50px auto 0;
+        }
+        
+        .timeline:before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--texxx-blue);
+            transform: translateX(-50%);
+        }
+        
+        @media (max-width: 768px) {
+            .timeline:before {
+                left: 30px;
+            }
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 50px;
+            display: flex;
+        }
+        
+        @media (max-width: 768px) {
+            .timeline-item {
+                flex-direction: column;
+            }
+        }
+        
+        .timeline-date {
+            flex: 0 0 200px;
+            text-align: right;
+            padding-right: 40px;
+            font-weight: 700;
+            color: var(--texxx-blue);
+        }
+        
+        @media (max-width: 768px) {
+            .timeline-date {
+                text-align: left;
+                padding-left: 60px;
+                padding-right: 0;
+                margin-bottom: 10px;
+            }
+        }
+        
+        .timeline-content {
+            flex: 1;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            position: relative;
+        }
+        
+        .timeline-content:before {
+            content: '';
+            position: absolute;
+            left: -10px;
+            top: 25px;
+            width: 20px;
+            height: 20px;
+            background: var(--texxx-red);
+            border-radius: 50%;
+        }
+        
+        @media (max-width: 768px) {
+            .timeline-content:before {
+                left: 20px;
+                top: -30px;
+            }
+        }
+        
+        .timeline-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.3em;
+            margin-bottom: 10px;
+            color: var(--texxx-dark);
+        }
+        
+        .status-badge {
+            display: inline-block;
+            background: var(--texxx-blue);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+        
+        .status-complete {
+            background: var(--texxx-blue);
+        }
+        
+        .status-current {
+            background: var(--texxx-red);
+        }
+        
+        .status-future {
+            background: var(--texxx-accent);
+            color: var(--text-dark);
+        }
+        
+        /* Live Examples */
+        .examples {
+            background: white;
+        }
+        
+        .example-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .example-tab {
+            background: var(--texxx-light);
+            border: none;
+            padding: 12px 25px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .example-tab.active {
+            background: var(--texxx-red);
+            color: white;
+        }
+        
+        .example-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .example-card {
+            background: var(--texxx-light);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+        }
+        
+        .example-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .example-image {
+            height: 200px;
+            background: var(--gradient-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5em;
+            font-weight: 700;
+        }
+        
+        .example-content {
+            padding: 25px;
+        }
+        
+        .example-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.3em;
+            margin-bottom: 10px;
+            color: var(--texxx-dark);
+        }
+        
+        .example-link {
+            display: inline-block;
+            color: var(--texxx-blue);
+            font-weight: 600;
+            text-decoration: none;
+            margin-top: 15px;
+        }
+        
+        .example-link:after {
+            content: " →";
+        }
+        
+        /* Brother's Protocol */
+        .brothers-protocol {
+            background: var(--texxx-light);
+        }
+        
+        .protocol-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .protocol-card {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border-top: 5px solid var(--texxx-blue);
+        }
+        
+        .protocol-icon {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: var(--texxx-blue);
+        }
+        
+        .protocol-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.4em;
+            margin-bottom: 15px;
+            color: var(--texxx-dark);
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--texxx-dark);
+            color: var(--text-light);
+            padding: 80px 20px;
+            text-align: center;
+        }
+        
+        .footer-content {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .footer-logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.5em;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+        
+        .footer-tagline {
+            opacity: 0.8;
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            font-size: 1.1em;
+        }
+        
+        .protocol-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.1);
+            padding: 10px 20px;
+            border-radius: 30px;
+            margin: 20px 0;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+        }
+        
+        .contact-info {
+            margin: 40px 0;
+        }
+        
+        .contact-link {
+            color: var(--texxx-accent);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .footer-note {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9em;
+            opacity: 0.7;
+        }
+        
+        /* Technical Specifications */
+        .tech-specs {
+            background: white;
+        }
+        
+        .spec-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .spec-card {
+            background: var(--texxx-light);
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .spec-icon {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: var(--texxx-blue);
+        }
+        
+        .spec-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            color: var(--texxx-dark);
+        }
+        
+        .spec-value {
+            font-size: 1.1em;
+            font-weight: 600;
+            color: var(--texxx-red);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <div class="document-type">White Paper</div>
+            <h1 class="logo">TexxxTech™</h1>
+            <p class="tagline">Permanent Digital Infrastructure for the Music Industry</p>
+            
+            <div class="metadata">
+                <div class="meta-item">
+                    <div class="meta-label">Version</div>
+                    <div>1.0.0</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Date</div>
+                    <div>November 2025</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Author</div>
+                    <div>Texx and the City</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Protocol</div>
+                    <div>Brotherly v2.1.0</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <a href="#executive" class="nav-button">Executive Summary</a>
+            <a href="#problem" class="nav-button">The Problem</a>
+            <a href="#ecosystem" class="nav-button">Ecosystem</a>
+            <a href="#products" class="nav-button">Products</a>
+            <a href="#business" class="nav-button">Business Model</a>
+            <a href="#roadmap" class="nav-button">Roadmap</a>
+            <a href="#examples" class="nav-button">Live Examples</a>
+            <a href="#protocol" class="nav-button">Brother's Protocol</a>
+        </div>
+    </nav>
+
+    <!-- Executive Summary -->
+    <section class="section executive-summary" id="executive">
+        <div class="container">
+            <h2 class="section-title">Executive Summary</h2>
+            <p class="section-subtitle">TexxxTech™ represents a fundamental rearchitecture of digital presence for the music industry, built on open protocols and permanent infrastructure.</p>
+            
+            <div class="summary-grid">
+                <div class="summary-card">
+                    <h3 class="summary-title">The Vision</h3>
+                    <p>Create permanent, artist-owned digital artifacts that survive platform changes, algorithm shifts, and technological evolution while maintaining complete creative control.</p>
+                </div>
+                
+                <div class="summary-card">
+                    <h3 class="summary-title">The Technology</h3>
+                    <p>Built on the Brotherly Protocol and Untitled Framework, delivering single-file HTML documents that work offline, load instantly, and update dynamically.</p>
+                </div>
+                
+                <div class="summary-card">
+                    <h3 class="summary-title">The Business Model</h3>
+                    <p>Open-source protocol foundation with commercial services layer. Zero ongoing costs for artists, sustainable revenue through premium services.</p>
+                </div>
+                
+                <div class="summary-card">
+                    <h3 class="summary-title">The Impact</h3>
+                    <p>Democratizing digital presence for artists of all sizes while providing enterprise-grade solutions for festivals, labels, and brands.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Statement -->
+    <section class="section problem-statement" id="problem">
+        <div class="container">
+            <h2 class="section-title">The Digital Crisis in Music</h2>
+            <p class="section-subtitle">Current digital platforms fail artists, festivals, and labels in fundamental ways that limit creative expression and business sustainability.</p>
+            
+            <div class="problem-grid">
+                <div class="problem-card">
+                    <div class="problem-icon">📱</div>
+                    <h3 class="problem-title">Platform Dependency</h3>
+                    <p>Artists are trapped in walled gardens where algorithms control visibility and platform policies dictate creative expression.</p>
+                </div>
+                
+                <div class="problem-card">
+                    <div class="problem-icon">💸</div>
+                    <h3 class="problem-title">Unsustainable Costs</h3>
+                    <p>Monthly subscriptions, platform fees, and developer costs make professional digital presence inaccessible for emerging artists.</p>
+                </div>
+                
+                <div class="problem-card">
+                    <div class="problem-icon">🕒</div>
+                    <h3 class="problem-title">Content Ephemerality</h3>
+                    <p>Important releases, tour announcements, and artistic statements disappear in endless feeds and algorithmic sorting.</p>
+                </div>
+                
+                <div class="problem-card">
+                    <div class="problem-icon">🎨</div>
+                    <h3 class="problem-title">Creative Limitations</h3>
+                    <p>Template-based solutions prevent authentic artistic expression and fail to capture unique brand identities.</p>
+                </div>
+                
+                <div class="problem-card">
+                    <div class="problem-icon">📊</div>
+                    <h3 class="problem-title">Data Scraping</h3>
+                    <p>Platforms mine artist and fan data while providing limited insights back to creators.</p>
+                </div>
+                
+                <div class="problem-card">
+                    <div class="problem-icon">🔒</div>
+                    <h3 class="problem-title">Ownership Erosion</h3>
+                    <p>Artists lose control over their digital presence, audience relationships, and content distribution.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ecosystem Architecture -->
+    <section class="section ecosystem" id="ecosystem">
+        <div class="container">
+            <h2 class="section-title">Dual-Layer Ecosystem Architecture</h2>
+            <p class="section-subtitle">Open protocol foundation with commercial innovation layer creates sustainable ecosystem for all stakeholders.</p>
+            
+            <div class="architecture-diagram">
+                <h3 style="margin-bottom: 30px; color: var(--texxx-dark);">TexxxTech™ Ecosystem Architecture</h3>
+                <div style="background: white; padding: 30px; border-radius: 8px; margin-bottom: 20px;">
+                    <h4 style="color: var(--texxx-red); margin-bottom: 15px;">🎵 Music Industry Applications</h4>
+                    <p>Artist Pages • EP Launches • Festival Guides • Tour Sites • Brand Campaigns</p>
+                </div>
+                
+                <div style="display: flex; justify-content: center; align-items: center; margin: 30px 0;">
+                    <div style="font-size: 2em;">⬇️</div>
+                </div>
+                
+                <div style="background: var(--texxx-blue); color: white; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+                    <h4>💼 Commercial Services Layer</h4>
+                    <p>AI Processing • Professional Templates • Enterprise Features • Support & Maintenance</p>
+                </div>
+                
+                <div style="display: flex; justify-content: center; align-items: center; margin: 30px 0;">
+                    <div style="font-size: 2em;">⬇️</div>
+                </div>
+                
+                <div style="background: var(--texxx-dark); color: white; padding: 20px; border-radius: 8px;">
+                    <h4>🏛️ Protocol Foundation Layer</h4>
+                    <p>Untitled Format • Brotherly Protocol • Open Standards • Community Development</p>
+                </div>
+            </div>
+            
+            <div class="layer-grid">
+                <div class="layer-card">
+                    <div class="layer-header">
+                        <div class="layer-icon">🏛️</div>
+                        <h3 class="layer-title">Layer 1: Protocol Foundation <span class="layer-badge">OPEN SOURCE</span></h3>
+                    </div>
+                    <p>The bedrock of TexxxTech™ - free, open-source protocols that ensure permanence and accessibility.</p>
+                    <ul class="feature-list">
+                        <li>Untitled Format specification</li>
+                        <li>Standardized YAML metadata</li>
+                        <li>Single-file architecture</li>
+                        <li>Permanent hosting specifications</li>
+                        <li>Community-driven development</li>
+                        <li>Universal browser support</li>
+                        <li>Git-friendly versioning</li>
+                    </ul>
+                </div>
+                
+                <div class="layer-card">
+                    <div class="layer-header">
+                        <div class="layer-icon">💼</div>
+                        <h3 class="layer-title">Layer 2: Commercial Services <span class="layer-badge">COMMERCIAL</span></h3>
+                    </div>
+                    <p>Value-added services that make the protocol accessible and powerful for music industry applications.</p>
+                    <ul class="feature-list">
+                        <li>AI-powered content processing</li>
+                        <li>Music industry template library</li>
+                        <li>Enterprise-grade hosting</li>
+                        <li>Professional customization</li>
+                        <li>Dedicated support</li>
+                        <li>Analytics and insights</li>
+                        <li>Workflow automation</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Suite -->
+    <section class="section products" id="products">
+        <div class="container">
+            <h2 class="section-title">Music Industry Product Suite</h2>
+            <p class="section-subtitle">Specialized solutions designed for the unique needs of artists, festivals, and music businesses.</p>
+            
+            <div class="product-grid">
+                <div class="product-card">
+                    <div class="product-header">
+                        <div class="product-icon">🎵</div>
+                        <h3 class="product-title">Artist Pages</h3>
+                    </div>
+                    <div class="product-content">
+                        <p>Comprehensive digital homes for artists with discography, bio, press, and tour information.</p>
+                        <ul class="product-features">
+                            <li>Custom-designed to match artist aesthetic</li>
+                            <li>Integrated music players and video</li>
+                            <li>Tour dates with ticket links</li>
+                            <li>Press kit and media resources</li>
+                            <li>Social media integration</li>
+                            <li>Mobile-optimized experience</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-header">
+                        <div class="product-icon">📀</div>
+                        <h3 class="product-title">EP & Album Launches</h3>
+                    </div>
+                    <div class="product-content">
+                        <p>Immersive release experiences with track-by-track notes, lyrics, and exclusive content.</p>
+                        <ul class="product-features">
+                            <li>Interactive track players</li>
+                            <li>Artist commentary and insights</li>
+                            <li>Lyrics and liner notes</li>
+                            <li>Behind-the-scenes content</li>
+                            <li>Press reviews and reactions</li>
+                            <li>Streaming platform links</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-header">
+                        <div class="product-icon">🎪</div>
+                        <h3 class="product-title">Festival Guides</h3>
+                    </div>
+                    <div class="product-content">
+                        <p>Smart event guides that work offline with live updates, schedules, and survival information.</p>
+                        <ul class="product-features">
+                            <li>Offline functionality</li>
+                            <li>Live schedule updates</li>
+                            <li>Interactive festival maps</li>
+                            <li>Artist lineup with set times</li>
+                            <li>Survival tips and information</li>
+                            <li>Sponsor integration</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-header">
+                        <div class="product-icon">🚐</div>
+                        <h3 class="product-title">Tour Microsites</h3>
+                    </div>
+                    <div class="product-content">
+                        <p>Dedicated tour pages with dates, venues, ticket information, and tour diaries.</p>
+                        <ul class="product-features">
+                            <li>Date and venue listings</li>
+                            <li>Ticket purchase links</li>
+                            <li>Tour diary and updates</li>
+                            <li>City-specific information</li>
+                            <li>Support act details</li>
+                            <li>Photo and video galleries</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-header">
+                        <div class="product-icon">🏷️</div>
+                        <h3 class="product-title">Brand Campaigns</h3>
+                    </div>
+                    <div class="product-content">
+                        <p>Custom brand experiences for sponsors, product launches, and marketing campaigns.</p>
+                        <ul class="product-features">
+                            <li>Brand-aligned design</li>
+                            <li>Product showcases</li>
+                            <li>Campaign storytelling</li>
+                            <li>Interactive elements</li>
+                            <li>Social sharing integration</li>
+                            <li>Analytics and tracking</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-header">
+                        <div class="product-icon">📊</div>
+                        <h3 class="product-title">Label Portals</h3>
+                    </div>
+                    <div class="product-content">
+                        <p>Comprehensive digital presence for record labels with roster, releases, and news.</p>
+                        <ul class="product-features">
+                            <li>Artist roster management</li>
+                            <li>Release calendar</li>
+                            <li>Label news and updates</li>
+                            <li>Press and media resources</li>
+                            <li>Submission guidelines</li>
+                            <li>Contact and team information</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Business Model -->
+    <section class="section business-model" id="business">
+        <div class="container">
+            <h2 class="section-title">Sustainable Business Model</h2>
+            <p class="section-subtitle">Revenue streams that support protocol development while keeping basic services accessible to all artists.</p>
+            
+            <div class="revenue-streams">
+                <div class="revenue-card">
+                    <div class="revenue-icon">🎵</div>
+                    <h3 class="revenue-title">Artist Services</h3>
+                    <p>Basic artist pages and EP launches available at cost or free for emerging artists. Premium customization and features for established artists.</p>
+                    <div class="spec-value">Free - $500</div>
+                </div>
+                
+                <div class="revenue-card">
+                    <div class="revenue-icon">🎪</div>
+                    <h3 class="revenue-title">Festival Solutions</h3>
+                    <p>Smart festival guides and event microsites with tiered pricing based on festival size and requirements.</p>
+                    <div class="spec-value">$1,000 - $5,000</div>
+                </div>
+                
+                <div class="revenue-card">
+                    <div class="revenue-icon">🏢</div>
+                    <h3 class="revenue-title">Enterprise Services</h3>
+                    <p>Label portals, brand campaigns, and custom development projects with dedicated support and advanced features.</p>
+                    <div class="spec-value">$5,000 - $50,000+</div>
+                </div>
+                
+                <div class="revenue-card">
+                    <div class="revenue-icon">🔄</div>
+                    <h3 class="revenue-title">Maintenance & Updates</h3>
+                    <p>Ongoing content updates, technical maintenance, and feature enhancements for existing clients.</p>
+                    <div class="spec-value">$50 - $500/month</div>
+                </div>
+            </div>
+            
+            <h3 style="margin-top: 60px; margin-bottom: 20px; color: var(--texxx-dark);">Pricing Tiers</h3>
+            <table class="pricing-table">
+                <thead>
+                    <tr>
+                        <th>Service Tier</th>
+                        <th>Target Client</th>
+                        <th>Price Range</th>
+                        <th>Features</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Emerging Artist</td>
+                        <td>New artists, small releases</td>
+                        <td>Free - $200</td>
+                        <td>Basic page, social links, music integration</td>
+                    </tr>
+                    <tr>
+                        <td>Professional Artist</td>
+                        <td>Established artists, album releases</td>
+                        <td>$500 - $2,000</td>
+                        <td>Custom design, track notes, press integration</td>
+                    </tr>
+                    <tr>
+                        <td>Festival Guide</td>
+                        <td>Music festivals, events</td>
+                        <td>$1,000 - $5,000</td>
+                        <td>Offline functionality, live updates, maps</td>
+                    </tr>
+                    <tr>
+                        <td>Enterprise</td>
+                        <td>Labels, brands, large artists</td>
+                        <td>$5,000+</td>
+                        <td>Full customization, analytics, dedicated support</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Technical Specifications -->
+    <section class="section tech-specs">
+        <div class="container">
+            <h2 class="section-title">Technical Specifications</h2>
+            <p class="section-subtitle">Built on modern web standards with focus on performance, accessibility, and permanence.</p>
+            
+            <div class="spec-grid">
+                <div class="spec-card">
+                    <div class="spec-icon">⚡</div>
+                    <h3 class="spec-title">Performance</h3>
+                    <p>Average page load time</p>
+                    <div class="spec-value">&lt; 1 second</div>
+                </div>
+                
+                <div class="spec-card">
+                    <div class="spec-icon">📱</div>
+                    <h3 class="spec-title">File Size</h3>
+                    <p>Typical page size</p>
+                    <div class="spec-value">50-100KB</div>
+                </div>
+                
+                <div class="spec-card">
+                    <div class="spec-icon">🔌</div>
+                    <h3 class="spec-title">Dependencies</h3>
+                    <p>External resources</p>
+                    <div class="spec-value">Zero</div>
+                </div>
+                
+                <div class="spec-card">
+                    <div class="spec-icon">🌐</div>
+                    <h3 class="spec-title">Browser Support</h3>
+                    <p>Compatible browsers</p>
+                    <div class="spec-value">All modern + IE11</div>
+                </div>
+                
+                <div class="spec-card">
+                    <div class="spec-icon">📅</div>
+                    <h3 class="spec-title">Content Longevity</h3>
+                    <p>Expected lifespan</p>
+                    <div class="spec-value">10+ years</div>
+                </div>
+                
+                <div class="spec-card">
+                    <div class="spec-icon">♿</div>
+                    <h3 class="spec-title">Accessibility</h3>
+                    <p>WCAG compliance</p>
+                    <div class="spec-value">Level AA</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Development Roadmap -->
+    <section class="section roadmap" id="roadmap">
+        <div class="container">
+            <h2 class="section-title">Development Roadmap</h2>
+            <p class="section-subtitle">Strategic evolution of TexxxTech™ ecosystem with clear milestones and deliverables.</p>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">Q4 2025</div>
+                    <div class="timeline-content">
+                        <h3 class="timeline-title">Protocol Foundation <span class="status-badge status-complete">Complete</span></h3>
+                        <p>Untitled Format specification, Brotherly Protocol v2.1, initial template library, proof-of-concept implementations.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-date">Q1 2026</div>
+                    <div class="timeline-content">
+                        <h3 class="timeline-title">Commercial Launch <span class="status-badge status-current">Current</span></h3>
+                        <p>Artist services platform, festival guide product, basic AI processing, hosting infrastructure, payment systems.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-date">Q2 2026</div>
+                    <div class="timeline-content">
+                        <h3 class="timeline-title">Ecosystem Growth <span class="status-badge status-future">Planned</span></h3>
+                        <p>Partner program launch, template marketplace, advanced AI features, mobile optimizations, analytics platform.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-date">Q3 2026</div>
+                    <div class="timeline-content">
+                        <h3 class="timeline-title">Enterprise Features <span class="status-badge status-future">Planned</span></h3>
+                        <p>Label portal system, brand campaign tools, API access for developers, white-label solutions, international expansion.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-date">2027+</div>
+                    <div class="timeline-content">
+                        <h3 class="timeline-title">Industry Standard <span class="status-badge status-future">Vision</span></h3>
+                        <p>Market leadership in artist digital presence, protocol adoption by major platforms, ecosystem of third-party developers.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Live Examples -->
+    <section class="section examples" id="examples">
+        <div class="container">
+            <h2 class="section-title">Live Examples</h2>
+            <p class="section-subtitle">Real implementations demonstrating TexxxTech™ capabilities across different music industry use cases.</p>
+            
+            <div class="example-tabs">
+                <button class="example-tab active">Artist Pages</button>
+                <button class="example-tab">EP Launches</button>
+                <button class="example-tab">Festival Guides</button>
+                <button class="example-tab">Tour Sites</button>
+            </div>
+            
+            <div class="example-grid">
+                <div class="example-card">
+                    <div class="example-image">Wandile Mbambeni</div>
+                    <div class="example-content">
+                        <h3 class="example-title">You Love Who You Love EP</h3>
+                        <p>Soulful country-blues EP presentation with track-by-track insights and personal artist statements about faith and acceptance.</p>
+                        <a href="https://alx0r.github.io/Aartless/texxex.html" class="example-link" target="_blank">View Example</a>
+                    </div>
+                </div>
+                
+                <div class="example-card">
+                    <div class="example-image">Daisy Arson</div>
+                    <div class="example-content">
+                        <h3 class="example-title">D.O.A Single Launch</h3>
+                        <p>Industrial riot grrrl aesthetic with content warnings, live show information, and detailed duo breakdown featuring Jouska.</p>
+                        <a href="https://alx0r.github.io/Aartless/texxex2.html" class="example-link" target="_blank">View Example</a>
+                    </div>
+                </div>
+                
+                <div class="example-card">
+                    <div class="example-image">Rocking the Daisies</div>
+                    <div class="example-content">
+                        <h3 class="example-title">Smart Festival Guide</h3>
+                        <p>Interactive festival guide with artist lineup, schedule, live updates, survival tips, and offline functionality.</p>
+                        <a href="https://alx0r.github.io/Aartless/texxex3.html" class="example-link" target="_blank">View Example</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Brother's Protocol -->
+    <section class="section brothers-protocol" id="protocol">
+        <div class="container">
+            <h2 class="section-title">Brother's Protocol Ecosystem</h2>
+            <p class="section-subtitle">Open-source foundation with commercial innovation layer creates sustainable ecosystem for all stakeholders.</p>
+            
+            <div class="protocol-grid">
+                <div class="protocol-card">
+                    <div class="protocol-icon">🏗️</div>
+                    <h3 class="protocol-title">Dual-Layer Strategy</h3>
+                    <p>Untitled Format provides the open-source protocol foundation. Brother's products build commercial services on top. This creates a sustainable ecosystem where everyone wins.</p>
+                </div>
+                
+                <div class="protocol-card">
+                    <div class="protocol-icon">🌍</div>
+                    <h3 class="protocol-title">Community Growth</h3>
+                    <p>Open protocol attracts developers, creators, and innovators who expand the ecosystem through contributions, templates, and integrations.</p>
+                </div>
+                
+                <div class="protocol-card">
+                    <div class="protocol-icon">💸</div>
+                    <h3 class="protocol-title">Sustainable Business</h3>
+                    <p>Commercial products generate revenue to fund protocol development and innovation while keeping the core technology accessible to all.</p>
+                </div>
+                
+                <div class="protocol-card">
+                    <div class="protocol-icon">🚀</div>
+                    <h3 class="protocol-title">Rapid Innovation</h3>
+                    <p>Open source drives protocol evolution through community input while commercial products focus on user experience and professional features.</p>
+                </div>
+                
+                <div class="protocol-card">
+                    <div class="protocol-icon">🛡️</div>
+                    <h3 class="protocol-title">No Vendor Lock-in</h3>
+                    <p>Users can always export to standard format - no proprietary lock-in ever. Content remains accessible and portable.</p>
+                </div>
+                
+                <div class="protocol-card">
+                    <div class="protocol-icon">🤝</div>
+                    <h3 class="protocol-title">Partnership Ecosystem</h3>
+                    <p>Third-party developers, agencies, and platforms can build on the open protocol, creating a vibrant ecosystem of solutions.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">TexxxTech™</div>
+            <p class="footer-tagline">Permanent digital infrastructure for the music industry, built on open protocols and sustainable business practices.</p>
+            
+            <div class="protocol-badge">
+                Built with Untitled Format™ v2.1.0 | Brother's Protocol Ecosystem
+            </div>
+            
+            <div class="contact-info">
+                <p>A <strong>Texx and the City</strong> Innovation</p>
+                <p>Contact: <a href="mailto:texxandthecity@gmail.com" class="contact-link">texxandthecity@gmail.com</a></p>
+            </div>
+            
+            <div class="footer-note">
+                <p>Open Foundation + Commercial Innovation</p>
+                <p>© 2025 Brother's Studio | All Rights Reserved</p>
+                <p>Ethically crafted in South Africa • Zero platform dependency • Forever updateable</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple script for smooth scrolling and nav highlighting
+        document.addEventListener('DOMContentLoaded', function() {
+            const navButtons = document.querySelectorAll('.nav-button');
+            const sections = document.querySelectorAll('.section, footer');
+            
+            // Smooth scrolling for navigation links
+            navButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetSection = document.querySelector(targetId);
+                    
+                    window.scrollTo({
+                        top: targetSection.offsetTop - 20,
+                        behavior: 'smooth'
+                    });
+                });
+            });
+            
+            // Update active nav button on scroll
+            window.addEventListener('scroll', function() {
+                let current = '';
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    
+                    if (pageYOffset >= sectionTop - 100) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                
+                navButtons.forEach(button => {
+                    button.classList.remove('active');
+                    if (button.getAttribute('href') === `#${current}`) {
+                        button.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -37,6 +37,12 @@
             --gold: #ffd700;
             --vapor-pink: #ff00ff;
             --vapor-cyan: #00ffff;
+            
+            /* Light theme variables */
+            --light-bg: #f5f5f5;
+            --light-darker: #e0e0e0;
+            --light-text: #222222;
+            --light-secondary: #555555;
         }
         
         * {
@@ -50,28 +56,36 @@
             color: var(--text-primary);
             font-family: 'Courier New', monospace;
             line-height: 1.6;
-            background-image: 
-                linear-gradient(var(--grid-color) 1px, transparent 1px),
-                linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
-            background-size: 20px 20px;
             position: relative;
             overflow-x: hidden;
+            transition: all 0.3s ease;
         }
         
-        body::before {
-            content: "";
+        body.light-theme {
+            background-color: var(--light-bg);
+            color: var(--light-text);
+        }
+        
+        .theme-toggle {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 20% 50%, rgba(0, 128, 255, 0.05) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(188, 19, 254, 0.05) 0%, transparent 50%),
-                radial-gradient(circle at 40% 80%, rgba(0, 255, 65, 0.05) 0%, transparent 50%),
-                linear-gradient(45deg, transparent 48%, rgba(255, 0, 255, 0.03) 50%, transparent 52%);
-            pointer-events: none;
-            z-index: -1;
+            top: 20px;
+            right: 20px;
+            z-index: 10001;
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid var(--matrix-green);
+            color: var(--matrix-green);
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-family: 'Courier New', monospace;
+            transition: all 0.3s ease;
+        }
+        
+        .light-theme .theme-toggle {
+            background: rgba(255, 255, 255, 0.7);
+            border-color: var(--dark-bg);
+            color: var(--dark-bg);
         }
         
         .newspaper-container {
@@ -84,30 +98,10 @@
             position: relative;
         }
         
-        .newspaper-container::after {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                repeating-linear-gradient(
-                    0deg,
-                    transparent,
-                    transparent 2px,
-                    rgba(0, 255, 65, 0.03) 2px,
-                    rgba(0, 255, 65, 0.03) 4px
-                ),
-                repeating-linear-gradient(
-                    90deg,
-                    transparent,
-                    transparent 2px,
-                    rgba(255, 0, 255, 0.02) 2px,
-                    rgba(255, 0, 255, 0.02) 4px
-                );
-            pointer-events: none;
-            z-index: -1;
+        .light-theme .newspaper-container {
+            background-color: var(--light-darker);
+            border-color: var(--light-secondary);
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.1);
         }
         
         /* Header Styles */
@@ -117,6 +111,10 @@
             margin-bottom: 30px;
             text-align: center;
             position: relative;
+        }
+        
+        .light-theme .masthead {
+            border-bottom-color: var(--light-text);
         }
         
         .masthead::before, .masthead::after {
@@ -137,14 +135,19 @@
         
         .newspaper-title {
             font-family: 'Times New Roman', serif;
-            font-size: 4rem;
+            font-size: clamp(2rem, 5vw, 4rem);
             text-transform: uppercase;
-            letter-spacing: 5px;
+            letter-spacing: 3px;
             margin: 20px 0;
             color: var(--matrix-green);
             text-shadow: 0 0 10px var(--matrix-green);
             position: relative;
             animation: glitch 5s infinite;
+        }
+        
+        .light-theme .newspaper-title {
+            color: var(--dark-bg);
+            text-shadow: 0 0 5px var(--dark-bg);
         }
         
         @keyframes glitch {
@@ -188,21 +191,36 @@
             margin: 10px 0 30px;
         }
         
+        .light-theme .dateline {
+            color: var(--light-secondary);
+            border-color: var(--light-secondary);
+        }
+        
         /* Main Content Grid */
         .main-content {
             display: grid;
-            grid-template-columns: 2fr 1fr;
+            grid-template-columns: 1fr;
             gap: 30px;
             margin-bottom: 40px;
+        }
+        
+        @media (min-width: 768px) {
+            .main-content {
+                grid-template-columns: 2fr 1fr;
+            }
         }
         
         /* Headline Article */
         .headline-article {
             border: 1px solid var(--cyber-blue);
-            padding: 25px;
+            padding: 20px;
             background: rgba(0, 0, 0, 0.7);
             position: relative;
             overflow: hidden;
+        }
+        
+        .light-theme .headline-article {
+            background: rgba(255, 255, 255, 0.7);
         }
         
         .headline-article::before {
@@ -220,12 +238,11 @@
         }
         
         .headline-title {
-            font-size: 2.2rem;
+            font-size: clamp(1.5rem, 4vw, 2.2rem);
             color: var(--cyber-blue);
             margin-bottom: 15px;
             border-bottom: 1px solid var(--cyber-blue);
             padding-bottom: 10px;
-            text-shadow: 0 0 5px var(--cyber-blue);
         }
         
         .headline-meta {
@@ -233,7 +250,12 @@
             color: var(--text-secondary);
             margin-bottom: 20px;
             display: flex;
+            flex-wrap: wrap;
             gap: 15px;
+        }
+        
+        .light-theme .headline-meta {
+            color: var(--light-secondary);
         }
         
         /* Sidebar */
@@ -245,8 +267,12 @@
         
         .sidebar-section {
             border: 1px solid var(--neon-purple);
-            padding: 20px;
+            padding: 15px;
             background: rgba(0, 0, 0, 0.7);
+        }
+        
+        .light-theme .sidebar-section {
+            background: rgba(255, 255, 255, 0.7);
         }
         
         .sidebar-title {
@@ -255,39 +281,51 @@
             margin-bottom: 15px;
             border-bottom: 1px solid var(--neon-purple);
             padding-bottom: 5px;
-            text-shadow: 0 0 5px var(--neon-purple);
+        }
+        
+        .sidebar ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .sidebar li {
+            margin-bottom: 8px;
+            padding-left: 15px;
+            position: relative;
+        }
+        
+        .sidebar li::before {
+            content: ">";
+            position: absolute;
+            left: 0;
+            color: var(--neon-purple);
         }
         
         /* Article Grid */
         .article-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 25px;
+            gap: 20px;
             margin-bottom: 40px;
+        }
+        
+        @media (max-width: 767px) {
+            .article-grid {
+                grid-template-columns: 1fr;
+            }
         }
         
         .article-card {
             border: 1px solid var(--matrix-green);
-            padding: 20px;
+            padding: 15px;
             background: rgba(0, 0, 0, 0.7);
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
         }
         
-        .article-card::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 255, 65, 0.1), transparent);
-            transition: left 0.5s ease;
-        }
-        
-        .article-card:hover::before {
-            left: 100%;
+        .light-theme .article-card {
+            background: rgba(255, 255, 255, 0.7);
         }
         
         .article-card:hover {
@@ -312,10 +350,18 @@
             line-height: 1.3;
         }
         
+        .light-theme .article-title {
+            color: var(--light-text);
+        }
+        
         .article-excerpt {
             font-size: 0.95rem;
             color: var(--text-secondary);
             margin-bottom: 15px;
+        }
+        
+        .light-theme .article-excerpt {
+            color: var(--light-secondary);
         }
         
         .article-meta {
@@ -323,6 +369,76 @@
             color: var(--text-secondary);
             display: flex;
             justify-content: space-between;
+        }
+        
+        .light-theme .article-meta {
+            color: var(--light-secondary);
+        }
+        
+        /* Featured Investigations */
+        .featured-investigations {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin: 40px 0;
+        }
+        
+        @media (min-width: 992px) {
+            .featured-investigations {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        .featured-card {
+            border: 2px solid var(--blood-red);
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .light-theme .featured-card {
+            background: rgba(255, 255, 255, 0.8);
+        }
+        
+        .featured-card::before {
+            content: "NEW";
+            position: absolute;
+            top: 10px;
+            right: -30px;
+            background: var(--blood-red);
+            color: white;
+            padding: 5px 40px;
+            transform: rotate(45deg);
+            font-size: 0.8rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+        
+        .featured-title {
+            font-size: 1.6rem;
+            color: var(--blood-red);
+            margin-bottom: 15px;
+        }
+        
+        .featured-excerpt {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+        }
+        
+        .light-theme .featured-excerpt {
+            color: var(--light-secondary);
+        }
+        
+        .featured-badge {
+            display: inline-block;
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            background: var(--blood-red);
+            color: white;
+            margin-bottom: 10px;
+            font-weight: bold;
         }
         
         /* Media Recommendations */
@@ -342,15 +458,8 @@
             overflow: hidden;
         }
         
-        .media-item::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, transparent 48%, rgba(255, 215, 0, 0.05) 50%, transparent 52%);
-            z-index: -1;
+        .light-theme .media-item {
+            background: rgba(255, 255, 255, 0.7);
         }
         
         .media-item:hover {
@@ -380,9 +489,14 @@
             margin-bottom: 10px;
         }
         
+        .light-theme .media-description {
+            color: var(--light-secondary);
+        }
+        
         /* Diogenes Section */
         .diogenes-section {
             display: flex;
+            flex-direction: column;
             gap: 25px;
             margin: 40px 0;
             border: 1px solid var(--gold);
@@ -391,15 +505,14 @@
             position: relative;
         }
         
-        .diogenes-section::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, transparent 48%, rgba(255, 215, 0, 0.03) 50%, transparent 52%);
-            z-index: -1;
+        @media (min-width: 768px) {
+            .diogenes-section {
+                flex-direction: row;
+            }
+        }
+        
+        .light-theme .diogenes-section {
+            background: rgba(255, 255, 255, 0.7);
         }
         
         .diogenes-image {
@@ -424,29 +537,34 @@
             border-bottom: 1px solid var(--gold);
             padding-bottom: 8px;
         }
-/* Simple Emoji Preview Styles */
-.emoji-preview {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 15px;
-    margin: 15px 0;
-    font-size: 1.2rem;
-}
-
-.old-emoji, .new-emoji {
-    opacity: 0.8;
-    transition: opacity 0.3s ease;
-}
-
-.old-emoji:hover, .new-emoji:hover {
-    opacity: 1;
-}
-
-.arrow {
-    color: var(--matrix-green);
-    font-weight: bold;
-}
+        
+        /* Simple Emoji Preview Styles */
+        .emoji-preview {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin: 15px 0;
+            font-size: 1.2rem;
+        }
+        
+        .old-emoji, .new-emoji {
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+        
+        .old-emoji:hover, .new-emoji:hover {
+            opacity: 1;
+        }
+        
+        .arrow {
+            color: var(--matrix-green);
+            font-weight: bold;
+        }
+        
+        .light-theme .arrow {
+            color: var(--dark-bg);
+        }
         
         /* Footer */
         .footer {
@@ -457,9 +575,15 @@
             color: var(--text-secondary);
         }
         
+        .light-theme .footer {
+            border-top-color: var(--light-text);
+            color: var(--light-secondary);
+        }
+        
         .footer-links {
             display: flex;
             justify-content: center;
+            flex-wrap: wrap;
             gap: 20px;
             margin: 20px 0;
         }
@@ -472,7 +596,6 @@
         
         .footer-link:hover {
             color: var(--matrix-green);
-            text-shadow: 0 0 5px var(--matrix-green);
         }
         
         .format-badge {
@@ -484,6 +607,12 @@
             font-size: 0.8rem;
             color: var(--matrix-green);
             animation: glitch-badge 10s infinite;
+        }
+        
+        .light-theme .format-badge {
+            background: rgba(0, 0, 0, 0.1);
+            border-color: var(--light-text);
+            color: var(--light-text);
         }
         
         @keyframes glitch-badge {
@@ -502,261 +631,8 @@
                 border-color: var(--vapor-cyan);
             }
         }
-
-.terminal-text span {
-    transition: all 0.3s ease;
-}
-
-.terminal-text span:hover {
-    animation: text-glitch 0.5s linear;
-    text-shadow: 0 0 5px currentColor;
-}
-
-@keyframes text-glitch {
-    0%, 100% { transform: translate(0); }
-    25% { transform: translate(-1px, 1px); }
-    50% { transform: translate(1px, -1px); }
-    75% { transform: translate(-1px, -1px); }
-}
-
-.glitch-warning {
-    color: var(--blood-red);
-    position: relative;
-    display: inline-block;
-    animation: subtle-glitch 8s infinite;
-    text-shadow: 0 0 8px var(--blood-red);
-}
-
-.glitch-warning::before,
-.glitch-warning::after {
-    content: "WARNING: Information contained herein may disrupt established narratives";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
-
-.glitch-warning::before {
-    animation: glitch-1 8s infinite;
-    color: var(--vapor-pink);
-    z-index: -1;
-}
-
-.glitch-warning::after {
-    animation: glitch-2 8s infinite;
-    color: var(--vapor-cyan);
-    z-index: -2;
-}
-
-@keyframes subtle-glitch {
-    0%, 95%, 100% { transform: translate(0); }
-    96% { transform: translate(-1px, 1px); }
-    97% { transform: translate(1px, -1px); }
-    98% { transform: translate(-1px, -1px); }
-}
-
-@keyframes glitch-1 {
-    0%, 95%, 100% { opacity: 0; transform: translate(0); }
-    96% { opacity: 0.3; transform: translate(2px, -1px); }
-    97% { opacity: 0.2; transform: translate(-1px, 2px); }
-    98% { opacity: 0.4; transform: translate(1px, 1px); }
-}
-
-@keyframes glitch-2 {
-    0%, 95%, 100% { opacity: 0; transform: translate(0); }
-    96% { opacity: 0.2; transform: translate(-2px, 1px); }
-    97% { opacity: 0.3; transform: translate(1px, -2px); }
-    98% { opacity: 0.1; transform: translate(-1px, -1px); }
-}
-/* Poetry Section Styles */
-.poetry-section {
-    margin: 60px 0;
-    border: 1px solid var(--neon-purple);
-    padding: 30px;
-    background: rgba(0, 0, 0, 0.7);
-    position: relative;
-    overflow: hidden;
-}
-
-.poetry-section::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: 
-        linear-gradient(45deg, transparent 48%, rgba(188, 19, 254, 0.03) 50%, transparent 52%),
-        radial-gradient(circle at 30% 70%, rgba(255, 107, 53, 0.05) 0%, transparent 50%),
-        radial-gradient(circle at 70% 30%, rgba(0, 255, 65, 0.05) 0%, transparent 50%);
-    z-index: -1;
-    animation: subtle-shift 20s ease-in-out infinite;
-}
-
-@keyframes subtle-shift {
-    0%, 100% { opacity: 0.7; transform: scale(1); }
-    50% { opacity: 1; transform: scale(1.02); }
-}
-
-.poetry-title {
-    font-size: 1.8rem;
-    color: var(--neon-purple);
-    margin-bottom: 25px;
-    text-align: center;
-    border-bottom: 1px solid var(--neon-purple);
-    padding-bottom: 10px;
-    text-shadow: 0 0 5px var(--neon-purple);
-    font-family: 'Times New Roman', serif;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    position: relative;
-}
-
-.poetry-title::after {
-    content: "▲";
-    position: absolute;
-    right: 20px;
-    color: var(--matrix-green);
-    animation: pulse 2s infinite;
-}
-
-.poem {
-    font-family: 'Georgia', serif;
-    font-size: 1.1rem;
-    line-height: 1.7;
-    color: var(--text-primary);
-    position: relative;
-}
-
-.poem-line {
-    margin-bottom: 8px;
-    transition: all 0.3s ease;
-    position: relative;
-    padding-left: 10px;
-}
-
-.poem-line::before {
-    content: ">";
-    position: absolute;
-    left: -15px;
-    color: var(--text-muted);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.poem-line:hover {
-    color: var(--matrix-green);
-    transform: translateX(5px);
-}
-
-.poem-line:hover::before {
-    opacity: 1;
-}
-
-.poem-stanza {
-    margin-bottom: 20px;
-    padding: 15px;
-    border-left: 2px solid transparent;
-    transition: all 0.4s ease;
-    position: relative;
-}
-
-.poem-stanza:nth-child(odd) {
-    border-left-color: rgba(0, 255, 65, 0.3);
-}
-
-.poem-stanza:nth-child(even) {
-    border-left-color: rgba(188, 19, 254, 0.3);
-}
-
-.poem-stanza:hover {
-    background: rgba(0, 0, 0, 0.3);
-    border-left-width: 4px;
-    transform: translateX(5px);
-}
-
-.poem-break {
-    text-align: center;
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: var(--gold);
-    margin: 25px 0;
-    position: relative;
-    padding: 10px;
-}
-
-.poem-break::before,
-.poem-break::after {
-    content: "✦";
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--gold);
-    opacity: 0.5;
-}
-
-.poem-break::before {
-    left: 30%;
-}
-
-.poem-break::after {
-    right: 30%;
-}
-
-.poem-signature {
-    text-align: right;
-    font-style: italic;
-    color: var(--text-muted);
-    margin-top: 30px;
-    border-top: 1px solid var(--border);
-    padding-top: 15px;
-    font-family: 'Courier New', monospace;
-    position: relative;
-}
-
-.poem-signature::before {
-    content: "//";
-    position: absolute;
-    left: 0;
-    color: var(--matrix-green);
-}
-
-/* Glitch effect for specific emotional lines */
-.poem-line:nth-child(3n):hover {
-    animation: text-glitch 0.3s linear;
-}
-
-@keyframes text-glitch {
-    0% { transform: translate(0); }
-    20% { transform: translate(-2px, 2px); color: var(--vapor-pink); }
-    40% { transform: translate(-2px, -2px); color: var(--vapor-cyan); }
-    60% { transform: translate(2px, 2px); color: var(--matrix-green); }
-    80% { transform: translate(2px, -2px); color: var(--neon-purple); }
-    100% { transform: translate(0); }
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .poetry-section {
-        padding: 20px;
-    }
-    
-    .poem {
-        font-size: 1rem;
-    }
-    
-    .poem-break::before {
-        left: 20%;
-    }
-    
-    .poem-break::after {
-        right: 20%;
-    }
-}
-
         
-        /* Matrix-style terminal effect */
+        /* Terminal Text */
         .terminal-text {
             background: rgba(0, 0, 0, 0.9);
             border: 1px solid var(--matrix-green);
@@ -768,6 +644,12 @@
             overflow: hidden;
         }
         
+        .light-theme .terminal-text {
+            background: rgba(0, 0, 0, 0.05);
+            border-color: var(--dark-bg);
+            color: var(--dark-bg);
+        }
+        
         .terminal-text::before {
             content: ">";
             position: absolute;
@@ -775,13 +657,278 @@
             color: var(--matrix-green);
         }
         
+        .light-theme .terminal-text::before {
+            color: var(--dark-bg);
+        }
+        
         /* Cynic Quote */
         .cynic-quote {
             border-left: 3px solid var(--gold);
-            padding-left: 20px;
-            margin: 25px 0;
+            padding-left: 15px;
+            margin: 20px 0;
             font-style: italic;
             color: var(--text-secondary);
+        }
+        
+        .light-theme .cynic-quote {
+            color: var(--light-secondary);
+            border-left-color: var(--gold);
+        }
+        
+        /* Section Headers */
+        .section-header {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: 800;
+            margin: 40px 0 20px;
+            position: relative;
+            display: inline-block;
+            color: var(--matrix-green);
+        }
+        
+        .light-theme .section-header {
+            color: var(--dark-bg);
+        }
+        
+        .section-header::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--matrix-green), transparent);
+        }
+        
+        .light-theme .section-header::after {
+            background: linear-gradient(90deg, var(--dark-bg), transparent);
+        }
+        
+        /* Poetry Section Styles */
+        .poetry-section {
+            margin: 60px 0;
+            border: 1px solid var(--neon-purple);
+            padding: 30px;
+            background: rgba(0, 0, 0, 0.7);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .light-theme .poetry-section {
+            background: rgba(255, 255, 255, 0.7);
+        }
+        
+        .poetry-title {
+            font-size: 1.8rem;
+            color: var(--neon-purple);
+            margin-bottom: 25px;
+            text-align: center;
+            border-bottom: 1px solid var(--neon-purple);
+            padding-bottom: 10px;
+            text-shadow: 0 0 5px var(--neon-purple);
+            font-family: 'Times New Roman', serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+        }
+        
+        .poetry-title::after {
+            content: "▲";
+            position: absolute;
+            right: 20px;
+            color: var(--matrix-green);
+            animation: pulse 2s infinite;
+        }
+        
+        .poem {
+            font-family: 'Georgia', serif;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--text-primary);
+            position: relative;
+        }
+        
+        .light-theme .poem {
+            color: var(--light-text);
+        }
+        
+        .poem-line {
+            margin-bottom: 8px;
+            transition: all 0.3s ease;
+            position: relative;
+            padding-left: 10px;
+        }
+        
+        .poem-line::before {
+            content: ">";
+            position: absolute;
+            left: -15px;
+            color: var(--text-secondary);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .poem-line:hover {
+            color: var(--matrix-green);
+            transform: translateX(5px);
+        }
+        
+        .poem-line:hover::before {
+            opacity: 1;
+        }
+        
+        .poem-stanza {
+            margin-bottom: 20px;
+            padding: 15px;
+            border-left: 2px solid transparent;
+            transition: all 0.4s ease;
+            position: relative;
+        }
+        
+        .poem-stanza:nth-child(odd) {
+            border-left-color: rgba(0, 255, 65, 0.3);
+        }
+        
+        .poem-stanza:nth-child(even) {
+            border-left-color: rgba(188, 19, 254, 0.3);
+        }
+        
+        .poem-stanza:hover {
+            background: rgba(0, 0, 0, 0.3);
+            border-left-width: 4px;
+            transform: translateX(5px);
+        }
+        
+        .light-theme .poem-stanza:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .poem-break {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--gold);
+            margin: 25px 0;
+            position: relative;
+            padding: 10px;
+        }
+        
+        .poem-break::before,
+        .poem-break::after {
+            content: "✦";
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gold);
+            opacity: 0.5;
+        }
+        
+        .poem-break::before {
+            left: 30%;
+        }
+        
+        .poem-break::after {
+            right: 30%;
+        }
+        
+        .poem-signature {
+            text-align: right;
+            font-style: italic;
+            color: var(--text-secondary);
+            margin-top: 30px;
+            border-top: 1px solid var(--matrix-green);
+            padding-top: 15px;
+            font-family: 'Courier New', monospace;
+            position: relative;
+        }
+        
+        .light-theme .poem-signature {
+            color: var(--light-secondary);
+            border-top-color: var(--light-secondary);
+        }
+        
+        .poem-signature::before {
+            content: "//";
+            position: absolute;
+            left: 0;
+            color: var(--matrix-green);
+        }
+        
+        /* Music Toggle */
+        #musicToggle {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 10000;
+            background: var(--matrix-green);
+            color: black;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Courier New', monospace;
+            font-size: 0.8rem;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+        
+        .light-theme #musicToggle {
+            background: var(--dark-bg);
+            color: white;
+        }
+        
+        /* Meta bar styling */
+        .meta-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 50px;
+            margin: 40px auto;
+            max-width: 900px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            border: 1px solid var(--matrix-green);
+        }
+        
+        .light-theme .meta-bar {
+            background: rgba(255, 255, 255, 0.7);
+            color: var(--light-secondary);
+            border-color: var(--light-secondary);
+        }
+        
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .dot {
+            width: 8px;
+            height: 8px;
+            background: var(--matrix-green);
+            border-radius: 50%;
+            animation: blink 2s ease-in-out infinite;
+        }
+        
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+        
+        /* Glitch effect for specific emotional lines */
+        .poem-line:nth-child(3n):hover {
+            animation: text-glitch 0.3s linear;
+        }
+        
+        @keyframes text-glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); color: var(--vapor-pink); }
+            40% { transform: translate(-2px, -2px); color: var(--vapor-cyan); }
+            60% { transform: translate(2px, 2px); color: var(--matrix-green); }
+            80% { transform: translate(2px, -2px); color: var(--neon-purple); }
+            100% { transform: translate(0); }
         }
         
         /* Vaporwave scan lines */
@@ -802,27 +949,12 @@
             opacity: 0.3;
         }
         
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            .main-content {
-                grid-template-columns: 1fr;
-            }
-            
-            .newspaper-title {
-                font-size: 2.5rem;
-            }
-            
-            .article-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .diogenes-section {
-                flex-direction: column;
-            }
-            
-            .diogenes-image {
-                flex: 0 0 auto;
-            }
+        .light-theme .scan-lines {
+            background: linear-gradient(
+                to bottom,
+                transparent 50%,
+                rgba(0, 0, 0, 0.05) 50%
+            );
         }
         
         /* Wolf motif decorative elements */
@@ -860,63 +992,16 @@
             opacity: 0.3;
         }
         
-        /* Meta bar styling */
-        .meta-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 30px;
-            background: rgba(0, 0, 0, 0.7);
-            border-radius: 50px;
-            margin: 40px auto;
-            max-width: 900px;
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-            border: 1px solid var(--matrix-green);
-        }
-        
-        .meta-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .dot {
-            width: 8px;
-            height: 8px;
-            background: var(--matrix-green);
-            border-radius: 50%;
-            animation: blink 2s ease-in-out infinite;
-        }
-        
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; }
-        }
-        
-        /* Section Headers */
-        .section-header {
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin: 60px 0 30px;
-            position: relative;
-            display: inline-block;
-            color: var(--matrix-green);
-        }
-        
-        .section-header::after {
-            content: "";
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 60%;
-            height: 4px;
-            background: linear-gradient(90deg, var(--matrix-green), transparent);
+        .light-theme .vapor-sun {
+            background: radial-gradient(circle, rgba(0,0,0,0.1) 0%, transparent 70%);
+            box-shadow: 0 0 100px rgba(0,0,0,0.1);
         }
     </style>
 </head>
 <body>
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" id="themeToggle">🌙 DARK MODE</button>
+    
     <!-- Vaporwave Effects -->
     <div class="scan-lines"></div>
     <div class="vapor-sun"></div>
@@ -949,24 +1034,24 @@
             </div>
         </div>
         
-   <section id="exec-summary" class="terminal-text">
-    <p>SYSTEM BOOT: W0LFED_DISPATCH_v1.0</p>
-    <p>INITIALIZING DIGITAL RESISTANCE PROTOCOLS...</p>
-    <p>THIS WEEK: 
-        <span style="color: var(--blood-red);">Assad Mass Graves</span> | 
-        <span style="color: var(--gold);">African Fiscal Sovereignty</span> | 
-        <span style="color: var(--neon-purple);">Platform Capitalism</span> | 
-        <span style="color: var(--matrix-green);">Urban Counter-Platforms</span> | 
-        <span style="color: var(--vapor-cyan);">The Sora Paradox</span> | 
-        <span style="color: var(--vapor-pink);">new emojis!?!</span>
-    </p>
-    <p class="glitch-warning">WARNING: Information contained herein may disrupt established narratives</p>
-    <p>NEW INVESTIGATIONS: 
-        <span style="color: var(--blood-red);">Syria war crimes forensics</span> | 
-        <span style="color: var(--gold);">Tax infrastructure colonialism</span> | 
-        <span style="color: var(--neon-purple);">Celebrity as protocol assemblage</span>
-    </p>
-</section>
+        <section id="exec-summary" class="terminal-text">
+            <p>SYSTEM BOOT: W0LFED_DISPATCH_v1.0</p>
+            <p>INITIALIZING DIGITAL RESISTANCE PROTOCOLS...</p>
+            <p>THIS WEEK: 
+                <span style="color: var(--blood-red);">Assad Mass Graves</span> | 
+                <span style="color: var(--gold);">African Fiscal Sovereignty</span> | 
+                <span style="color: var(--neon-purple);">Platform Capitalism</span> | 
+                <span style="color: var(--matrix-green);">Urban Counter-Platforms</span> | 
+                <span style="color: var(--vapor-cyan);">The Sora Paradox</span> | 
+                <span style="color: var(--vapor-pink);">new emojis!?!</span>
+            </p>
+            <p style="color: var(--blood-red);">WARNING: Information contained herein may disrupt established narratives</p>
+            <p>NEW INVESTIGATIONS: 
+                <span style="color: var(--blood-red);">Network Monitoring Manual</span> | 
+                <span style="color: var(--gold);">Neuralink Regulatory Capture</span> | 
+                <span style="color: var(--neon-purple);">Digital Colonialism</span>
+            </p>
+        </section>
 
         <div class="main-content">
             <article class="headline-article">
@@ -995,6 +1080,8 @@
                         <li>Platform Capitalism Analysis</li>
                         <li>Urban Counter-Platforms</li>
                         <li>Louvre Heist Investigation</li>
+                        <li>Network Monitoring Manual</li>
+                        <li>Neuralink Investigation</li>
                     </ul>
                 </div>
                 
@@ -1009,6 +1096,8 @@
                         <li><a href="https://alx0r.github.io/Aartless/sudHRI.html" class="footer-link">Sudan Human Rights</a></li>
                         <li><a href="https://alx0r.github.io/Aartless/digitale.html" class="footer-link">The Closing Net</a></li>
                         <li><a href="https://alx0r.github.io/Aartless/call.html" class="footer-link">Digital Resistance Manual</a></li>
+                        <li><a href="https://alx0r.github.io/Aartless/nosey.html" class="footer-link">Network Monitoring Manual</a></li>
+                        <li><a href="https://alx0r.github.io/Aartless/brain.html" class="footer-link">Neuralink Investigation</a></li>
                     </ul>
                 </div>
                 
@@ -1034,42 +1123,42 @@
                     <span>OSINT + Reuters</span>
                 </div>
             </article>
-            <!-- Add these two new article cards to your existing article-grid section -->
-
-<article class="article-card">
-    <span class="article-category">Digital Colonialism</span>
-    <h3 class="article-title">From Telegraph to AI: 150 Years of Digital Colonialism</h3>
-    <p class="article-excerpt">How communication infrastructure has systematically disadvantaged the Global South for 150 years, from telegraph cables to AI tools like Sora. Early users set standards that become permanent disadvantages.</p>
-    <div class="article-meta">
-        <span><a href="https://alx0r.github.io/Aartless/sora.html" class="footer-link">Read Analysis</a></span>
-        <span>Historical Analysis</span>
-    </div>
-</article>
-
-<article class="article-card">
-    <span class="article-category">Neurodiversity & Tech</span>
-    <h3 class="article-title">Digital Dissonance: Ancient Wisdom for Modern Tech Overwhelm</h3>
-    <p class="article-excerpt">A guide for neurodivergent and alternative thinkers on navigating digital manipulation, using ancient stories and modern media studies. Designed for different processing styles with ND-specific impacts analysis.</p>
-    <div class="article-meta">
-        <span><a href="https://alx0r.github.io/Aartless/diss.html" class="footer-link">Read Guide</a></span>
-        <span>Accessibility Focused</span>
-    </div>
-</article>
-<!-- Add this to your existing article-grid section -->
-<article class="article-card">
-    <span class="article-category">Cultural Analysis</span>
-    <h3 class="article-title">Emoji Evolution: Semiotic Analysis</h3>
-    <p class="article-excerpt">Unicode 15.0 (identity focus) vs Emoji 17.0 (scenario focus). From psychological nuance to narrative objects and mythic symbols.</p>
-    <div class="emoji-preview">
-        <span class="old-emoji">🫠🫢🫣</span>
-        <span class="arrow">→</span>
-        <span class="new-emoji">😳🤯🩰🐋</span>
-    </div>
-    <div class="article-meta">
-        <span><a href="https://alx0r.github.io/Aartless/smiley.html" class="footer-link">Read Analysis</a></span>
-        <span>Intelligence Brief</span>
-    </div>
-</article>
+            
+            <article class="article-card">
+                <span class="article-category">Digital Colonialism</span>
+                <h3 class="article-title">From Telegraph to AI: 150 Years of Digital Colonialism</h3>
+                <p class="article-excerpt">How communication infrastructure has systematically disadvantaged the Global South for 150 years, from telegraph cables to AI tools like Sora. Early users set standards that become permanent disadvantages.</p>
+                <div class="article-meta">
+                    <span><a href="https://alx0r.github.io/Aartless/sora.html" class="footer-link">Read Analysis</a></span>
+                    <span>Historical Analysis</span>
+                </div>
+            </article>
+            
+            <article class="article-card">
+                <span class="article-category">Neurodiversity & Tech</span>
+                <h3 class="article-title">Digital Dissonance: Ancient Wisdom for Modern Tech Overwhelm</h3>
+                <p class="article-excerpt">A guide for neurodivergent and alternative thinkers on navigating digital manipulation, using ancient stories and modern media studies. Designed for different processing styles with ND-specific impacts analysis.</p>
+                <div class="article-meta">
+                    <span><a href="https://alx0r.github.io/Aartless/diss.html" class="footer-link">Read Guide</a></span>
+                    <span>Accessibility Focused</span>
+                </div>
+            </article>
+            
+            <article class="article-card">
+                <span class="article-category">Cultural Analysis</span>
+                <h3 class="article-title">Emoji Evolution: Semiotic Analysis</h3>
+                <p class="article-excerpt">Unicode 15.0 (identity focus) vs Emoji 17.0 (scenario focus). From psychological nuance to narrative objects and mythic symbols.</p>
+                <div class="emoji-preview">
+                    <span class="old-emoji">🫠🫢🫣</span>
+                    <span class="arrow">→</span>
+                    <span class="new-emoji">😳🤯🩰🐋</span>
+                </div>
+                <div class="article-meta">
+                    <span><a href="https://alx0r.github.io/Aartless/smiley.html" class="footer-link">Read Analysis</a></span>
+                    <span>Intelligence Brief</span>
+                </div>
+            </article>
+            
             <article class="article-card">
                 <span class="article-category">Fiscal Sovereignty</span>
                 <h3 class="article-title">Platformizing Sovereignty: Africa's Tax Crisis</h3>
@@ -1141,6 +1230,32 @@
             </article>
         </div>
         
+        <h2 class="section-header">New Investigations</h2>
+        
+        <div class="featured-investigations">
+            <article class="featured-card">
+                <span class="featured-badge">OSINT MANUAL</span>
+                <h3 class="featured-title">Network Monitoring Field Manual</h3>
+                <p class="featured-excerpt">IP Investigation & Connection Analysis for OSINT Researchers. Essential tools for every digital investigator to monitor network connections, identify potential data leaks, and maintain operational security.</p>
+                <p>Core Principle: Assume all traffic is monitored. Your operational security depends on knowing—and controlling—every network connection your device initiates.</p>
+                <div class="article-meta">
+                    <span><a href="https://alx0r.github.io/Aartless/nosey.html" class="footer-link">Read Manual</a></span>
+                    <span>Field Guide</span>
+                </div>
+            </article>
+            
+            <article class="featured-card">
+                <span class="featured-badge">INVESTIGATION</span>
+                <h3 class="featured-title">Neuralink's Regulatory Capture & Patient Safety Crisis</h3>
+                <p class="featured-excerpt">Investigating the systematic dismantling of oversight bodies by the very company being investigated, enabling unchecked human experimentation while suppressing adverse events.</p>
+                <p>Key Findings: 1,500+ animal deaths, 85% thread retraction in first human patient, and the "DOGE Nexus" - mass termination of regulatory staff.</p>
+                <div class="article-meta">
+                    <span><a href="https://alx0r.github.io/Aartless/brain.html" class="footer-link">Read Investigation</a></span>
+                    <span>Critical Alert</span>
+                </div>
+            </article>
+        </div>
+        
         <!-- Diogenes Section -->
         <section class="diogenes-section">
             <div class="diogenes-image">
@@ -1201,84 +1316,86 @@
                 "The foundation of every state is the education of its youth." - Diogenes
             </div>
         </section>
-        <!-- Add this section right after the Media Literacy section -->
-<section class="poetry-section">
-    <div class="poetry-container">
-        <h2 class="poetry-title">Digital Canticles</h2>
-        <div class="poem">
-            <div class="poem-line">Sometimes in life you never know what you'll get</div>
-            <div class="poem-line">It could be something magical</div>
-            <div class="poem-line">It could be something you forget</div>
-            
-            <div class="poem-stanza">
-                <div class="poem-line">Sometimes in life you may do things you'll regret</div>
-                <div class="poem-line">You may find moments dull or boring</div>
-                <div class="poem-line">You may find surprises you did not expect</div>
+        
+        <!-- Poetry Section -->
+        <section class="poetry-section">
+            <div class="poetry-container">
+                <h2 class="poetry-title">Digital Canticles</h2>
+                <div class="poem">
+                    <div class="poem-line">Sometimes in life you never know what you'll get</div>
+                    <div class="poem-line">It could be something magical</div>
+                    <div class="poem-line">It could be something you forget</div>
+                    
+                    <div class="poem-stanza">
+                        <div class="poem-line">Sometimes in life you may do things you'll regret</div>
+                        <div class="poem-line">You may find moments dull or boring</div>
+                        <div class="poem-line">You may find surprises you did not expect</div>
+                    </div>
+                    
+                    <div class="poem-stanza">
+                        <div class="poem-line">Sometimes in life it might feel like you are caught in a net</div>
+                        <div class="poem-line">You may find untangling some knots easy</div>
+                        <div class="poem-line">Or they may become an unforeseen beset</div>
+                    </div>
+                    
+                    <div class="poem-stanza">
+                        <div class="poem-line">Sometimes in life you may adopt a pet</div>
+                        <div class="poem-line">They could become your best friend,</div>
+                        <div class="poem-line">To only say goodbye forever at a vet.</div>
+                    </div>
+                    
+                    <div class="poem-stanza">
+                        <div class="poem-line">Sometimes in life you just never know what you'll get</div>
+                        <div class="poem-line">It could be a Dutch bicycle,</div>
+                        <div class="poem-line">It could be neverending debt.</div>
+                    </div>
+                    
+                    <div class="poem-stanza">
+                        <div class="poem-line">It could be sunlight in your garden.</div>
+                        <div class="poem-line">It could be storms and rain and getting wet</div>
+                    </div>
+                    
+                    <div class="poem-break">But</div>
+                    
+                    <div class="poem-stanza">
+                        <div class="poem-line">Even when it's hard</div>
+                        <div class="poem-line">Even if it makes you tired</div>
+                        <div class="poem-line">Even if it makes you sweat</div>
+                    </div>
+                    
+                    <div class="poem-stanza">
+                        <div class="poem-line">Or those stories ending with regret</div>
+                        <div class="poem-line">Or those sad days at the vet</div>
+                        <div class="poem-line">Or soggy clouds keep making you wet</div>
+                    </div>
+                    
+                    <div class="poem-stanza">
+                        <div class="poem-line">Even you're stuck and can't untangle your net</div>
+                        <div class="poem-line">Or when something safe turns to threat</div>
+                    </div>
+                    
+                    <div class="poem-stanza">
+                        <div class="poem-line">Especially when things don't go how you expect</div>
+                        <div class="poem-line">When simple days are burdened by debt</div>
+                    </div>
+                    
+                    <div class="poem-stanza">
+                        <div class="poem-line">Just never forget</div>
+                        <div class="poem-line">You will always have your bike</div>
+                        <div class="poem-line">A friend</div>
+                        <div class="poem-line">A pet</div>
+                    </div>
+                    
+                    <div class="poem-stanza">
+                        <div class="poem-line">And the most beautiful part is</div>
+                        <div class="poem-line">Sometimes in life you never know what you'll get.</div>
+                    </div>
+                    
+                    <div class="poem-signature">— w0lfed</div>
+                </div>
             </div>
-            
-            <div class="poem-stanza">
-                <div class="poem-line">Sometimes in life it might feel like you are caught in a net</div>
-                <div class="poem-line">You may find untangling some knots easy</div>
-                <div class="poem-line">Or they may become an unforeseen beset</div>
-            </div>
-            
-            <div class="poem-stanza">
-                <div class="poem-line">Sometimes in life you may adopt a pet</div>
-                <div class="poem-line">They could become your best friend,</div>
-                <div class="poem-line">To only say goodbye forever at a vet.</div>
-            </div>
-            
-            <div class="poem-stanza">
-                <div class="poem-line">Sometimes in life you just never know what you'll get</div>
-                <div class="poem-line">It could be a Dutch bicycle,</div>
-                <div class="poem-line">It could be neverending debt.</div>
-            </div>
-            
-            <div class="poem-stanza">
-                <div class="poem-line">It could be sunlight in your garden.</div>
-                <div class="poem-line">It could be storms and rain and getting wet</div>
-            </div>
-            
-            <div class="poem-break">But</div>
-            
-            <div class="poem-stanza">
-                <div class="poem-line">Even when it's hard</div>
-                <div class="poem-line">Even if it makes you tired</div>
-                <div class="poem-line">Even if it makes you sweat</div>
-            </div>
-            
-            <div class="poem-stanza">
-                <div class="poem-line">Or those stories ending with regret</div>
-                <div class="poem-line">Or those sad days at the vet</div>
-                <div class="poem-line">Or soggy clouds keep making you wet</div>
-            </div>
-            
-            <div class="poem-stanza">
-                <div class="poem-line">Even you're stuck and can't untangle your net</div>
-                <div class="poem-line">Or when something safe turns to threat</div>
-            </div>
-            
-            <div class="poem-stanza">
-                <div class="poem-line">Especially when things don't go how you expect</div>
-                <div class="poem-line">When simple days are burdened by debt</div>
-            </div>
-            
-            <div class="poem-stanza">
-                <div class="poem-line">Just never forget</div>
-                <div class="poem-line">You will always have your bike</div>
-                <div class="poem-line">A friend</div>
-                <div class="poem-line">A pet</div>
-            </div>
-            
-            <div class="poem-stanza">
-                <div class="poem-line">And the most beautiful part is</div>
-                <div class="poem-line">Sometimes in life you never know what you'll get.</div>
-            </div>
-            
-            <div class="poem-signature">— w0lfed</div>
-        </div>
-    </div>
-</section>
+        </section>
+        
         <footer class="footer">
             <div class="footer-links">
                 <a href="https://alx0r.github.io/Aartless/brostudio.html" class="footer-link">CONTACT</a>
@@ -1292,79 +1409,68 @@
         </footer>
     </div>
 
-    <!-- JSON-LD Schema -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Periodical",
-      "name": "The Weekly W0lfed",
-      "description": "Digital Resistance Dispatch providing unfiltered analysis and intelligence",
-      "publisher": {
-        "@type": "Organization",
-        "name": "Digital Resistance Network"
-      },
-      "license": "https://creativecommons.org/licenses/by-nc-sa/4.0/"
-    }
-    </script>
-<!-- Add this right before your closing </body> tag -->
+    <!-- Music Toggle -->
+    <button id="musicToggle">♫ Toggle Music</button>
 
-<!-- Alternative: Use multiple sources for better compatibility -->
-<audio id="bgMusic" loop>
-    <!-- Primary source -->
-    <source src="https://files.freemusicarchive.org/storage-freemusicarchive-org/music/no_curator/Tristan_Lohengrin/Welcome/The_Sky_Of_Our_Own_Tristan_Lohengrin.mp3" type="audio/mpeg">
-    
- 
-</audio>
-<button id="musicToggle" style="
-    position: fixed;
-    bottom: 20px;
-    left: 20px;
-    z-index: 10000;
-    background: var(--matrix-green);
-    color: black;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-family: 'Courier New', monospace;
-    font-size: 0.8rem;
-    opacity: 0.7;
-    transition: opacity 0.3s ease;
-">
-    ♫ Toggle Music
-</button>
-
-<script>
-    const audio = document.getElementById('bgMusic');
-    const toggle = document.getElementById('musicToggle');
-    let musicStarted = false;
-
-    // Toggle music on click
-    toggle.addEventListener('click', function() {
-        if (!musicStarted) {
-            audio.play().catch(e => console.log('Audio play failed:', e));
-            musicStarted = true;
-            toggle.textContent = '♫ Music On';
-            toggle.style.opacity = '1';
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        
+        // Check for saved theme preference or respect OS preference
+        const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+        const currentTheme = localStorage.getItem('theme');
+        
+        if (currentTheme === 'light' || (!currentTheme && !prefersDarkScheme.matches)) {
+            body.classList.add('light-theme');
+            themeToggle.textContent = '🌙 DARK MODE';
         } else {
-            if (audio.paused) {
-                audio.play();
-                toggle.textContent = '♫ Music On';
+            themeToggle.textContent = '☀️ LIGHT MODE';
+        }
+        
+        themeToggle.addEventListener('click', () => {
+            if (body.classList.contains('light-theme')) {
+                body.classList.remove('light-theme');
+                localStorage.setItem('theme', 'dark');
+                themeToggle.textContent = '☀️ LIGHT MODE';
             } else {
-                audio.pause();
-                toggle.textContent = '♫ Music Off';
+                body.classList.add('light-theme');
+                localStorage.setItem('theme', 'light');
+                themeToggle.textContent = '🌙 DARK MODE';
             }
-        }
-    });
-
-    // Auto-start on first user interaction (required by browsers)
-    document.addEventListener('click', function startMusicOnce() {
-        if (!musicStarted) {
-            audio.volume = 0.3; // Set volume low
-            document.removeEventListener('click', startMusicOnce);
-        }
-    }, { once: true });
-</script>
-
+        });
+        
+        // Music Toggle
+        const audio = new Audio('https://files.freemusicarchive.org/storage-freemusicarchive-org/music/no_curator/Tristan_Lohengrin/Welcome/The_Sky_Of_Our_Own_Tristan_Lohengrin.mp3');
+        audio.volume = 0.3;
+        audio.loop = true;
+        
+        const musicToggle = document.getElementById('musicToggle');
+        let musicStarted = false;
+        
+        // Toggle music on click
+        musicToggle.addEventListener('click', function() {
+            if (!musicStarted) {
+                audio.play().catch(e => console.log('Audio play failed:', e));
+                musicStarted = true;
+                musicToggle.textContent = '♫ Music On';
+            } else {
+                if (audio.paused) {
+                    audio.play();
+                    musicToggle.textContent = '♫ Music On';
+                } else {
+                    audio.pause();
+                    musicToggle.textContent = '♫ Music Off';
+                }
+            }
+        });
+        
+        // Auto-start on first user interaction (required by browsers)
+        document.addEventListener('click', function startMusicOnce() {
+            if (!musicStarted) {
+                document.removeEventListener('click', startMusicOnce);
+            }
+        }, { once: true });
+    </script>
 </body>
 </html>

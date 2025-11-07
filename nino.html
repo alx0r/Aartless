@@ -1,1 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nino's English Progress Dashboard | Tayla Pringle Tutoring</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2c1810;
+            --secondary: #5d4037;
+            --accent: #8d6e63;
+            --gold: #d4af37;
+            --light: #f5f1e8;
+            --paper: #f9f7f2;
+            --ink: #2c1810;
+            --shadow: rgba(44, 24, 16, 0.1);
+            --success: #2e7d32;
+            --warning: #ed6c02;
+            --info: #0288d1;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--ink);
+            background: var(--light);
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(212, 175, 55, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 85% 30%, rgba(141, 110, 99, 0.05) 0%, transparent 20%);
+            font-size: 16px;
+        }
+        
+        .dashboard-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+        
+        /* Header */
+        .dashboard-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 6px 20px var(--shadow);
+        }
+        
+        .dashboard-header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .student-info {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        
+        .student-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--gold);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+        
+        .student-details h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+            font-family: 'Crimson Text', serif;
+        }
+        
+        .student-details .tagline {
+            font-style: italic;
+            opacity: 0.9;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        
+        .stat-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+        
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--gold);
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        /* Dashboard Grid */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 1.5rem;
+        }
+        
+        .card {
+            background: var(--paper);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 12px var(--shadow);
+            border: 1px solid rgba(141, 110, 99, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent), var(--gold));
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .card-title {
+            color: var(--primary);
+            font-size: 1.4rem;
+            font-weight: 600;
+            font-family: 'Crimson Text', serif;
+        }
+        
+        .card-icon {
+            font-size: 1.5rem;
+            color: var(--accent);
+        }
+        
+        /* Card Sizing */
+        .card-wide {
+            grid-column: span 8;
+        }
+        
+        .card-medium {
+            grid-column: span 6;
+        }
+        
+        .card-narrow {
+            grid-column: span 4;
+        }
+        
+        .card-full {
+            grid-column: span 12;
+        }
+        
+        @media (max-width: 1200px) {
+            .card-wide, .card-medium, .card-narrow {
+                grid-column: span 12;
+            }
+        }
+        
+        /* Recent Sessions */
+        .session-timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .session-item {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.7);
+            border-left: 4px solid var(--accent);
+        }
+        
+        .session-date {
+            font-weight: 600;
+            color: var(--secondary);
+            min-width: 120px;
+        }
+        
+        .session-content {
+            flex: 1;
+        }
+        
+        .session-topic {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+        
+        .session-notes {
+            color: var(--ink);
+            opacity: 0.8;
+            margin-bottom: 0.5rem;
+        }
+        
+        .session-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .tag {
+            background: rgba(141, 110, 99, 0.1);
+            color: var(--secondary);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+        }
+        
+        .tag-success {
+            background: rgba(46, 125, 50, 0.1);
+            color: var(--success);
+        }
+        
+        .tag-warning {
+            background: rgba(237, 108, 2, 0.1);
+            color: var(--warning);
+        }
+        
+        /* Progress Chart */
+        .progress-chart {
+            height: 200px;
+            display: flex;
+            align-items: end;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        
+        .progress-bar {
+            flex: 1;
+            background: rgba(141, 110, 99, 0.2);
+            border-radius: 4px;
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: end;
+        }
+        
+        .progress-fill {
+            background: linear-gradient(to top, var(--accent), var(--secondary));
+            border-radius: 4px;
+            transition: height 0.5s ease;
+        }
+        
+        .progress-label {
+            text-align: center;
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--secondary);
+        }
+        
+        /* Goals */
+        .goals-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .goal-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.7);
+        }
+        
+        .goal-checkbox {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        .goal-checkbox.checked {
+            background: var(--accent);
+            color: white;
+        }
+        
+        .goal-content {
+            flex: 1;
+        }
+        
+        .goal-title {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        
+        .goal-description {
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+        
+        .goal-progress {
+            width: 100px;
+            height: 6px;
+            background: rgba(141, 110, 99, 0.2);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        
+        .goal-progress-fill {
+            height: 100%;
+            background: var(--accent);
+            border-radius: 3px;
+        }
+        
+        /* Resources */
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+        
+        .resource-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 8px var(--shadow);
+            transition: transform 0.3s ease;
+            border: 1px solid rgba(141, 110, 99, 0.1);
+        }
+        
+        .resource-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .resource-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+        
+        .resource-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+        
+        .resource-description {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 1rem;
+        }
+        
+        .resource-link {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        /* Language Toggle */
+        .language-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        
+        @media (max-width: 768px) {
+            .language-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .english, .georgian {
+            padding: 1rem;
+        }
+        
+        .georgian {
+            font-family: 'Noto Sans Georgian', sans-serif;
+            direction: ltr;
+        }
+        
+        /* Footer */
+        .dashboard-footer {
+            margin-top: 3rem;
+            padding: 2rem;
+            background: var(--primary);
+            color: white;
+            border-radius: 12px;
+            text-align: center;
+        }
+        
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .ai-instructions {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            text-align: left;
+        }
+        
+        .code-block {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 4px;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: monospace;
+            white-space: pre-wrap;
+            overflow-x: auto;
+        }
+        
+        /* Utility Classes */
+        .text-success { color: var(--success); }
+        .text-warning { color: var(--warning); }
+        .text-info { color: var(--info); }
+        
+        .mb-1 { margin-bottom: 1rem; }
+        .mb-2 { margin-bottom: 2rem; }
+        
+        .divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            margin: 1.5rem 0;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Dashboard Header -->
+        <header class="dashboard-header">
+            <div class="header-content">
+                <div class="student-info">
+                    <img src="https://i.pravatar.cc/150?img=32" alt="Nino" class="student-avatar">
+                    <div class="student-details">
+                        <h1>Nino's English Progress Dashboard</h1>
+                        <p class="tagline">Tbilisi State University • Intermediate English Learner</p>
+                        <p class="tagline georgian">თბილისის სახელმწიფო უნივერსიტეტი • ინგლისურის საშუალო დონის მოსწავლე</p>
+                    </div>
+                </div>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value">87%</div>
+                        <div class="stat-label">Overall Progress</div>
+                        <div class="stat-label georgian">ზოგადი პროგრესი</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">12</div>
+                        <div class="stat-label">Sessions Completed</div>
+                        <div class="stat-label georgian">დასრულებული სესიები</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">B1 → B2</div>
+                        <div class="stat-label">Level Progression</div>
+                        <div class="stat-label georgian">დონის პროგრესი</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">92%</div>
+                        <div class="stat-label">Assignment Completion</div>
+                        <div class="stat-label georgian">დავალებების შესრულება</div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        
+        <!-- Dashboard Grid -->
+        <div class="dashboard-grid">
+            <!-- Recent Sessions -->
+            <div class="card card-wide">
+                <div class="card-header">
+                    <h2 class="card-title">Recent Sessions & Notes</h2>
+                    <div class="card-icon">📝</div>
+                </div>
+                
+                <div class="session-timeline">
+                    <div class="session-item">
+                        <div class="session-date">Nov 5, 2025</div>
+                        <div class="session-content">
+                            <div class="session-topic">Advanced Grammar: Conditionals & Subjunctive Mood</div>
+                            <div class="session-notes">
+                                <p>Nino showed excellent grasp of second conditionals but needs more practice with third conditionals. We focused on hypothetical past situations.</p>
+                                <p class="georgian">ნინომ მეორე კონდიციონალების შესანიშნავად გაიგო, მაგრამ მესამე კონდიციონალებზე მეტი პრაქტიკა სჭირდება. ჩვენ ჰიპოთეტიკურ წარსულ სიტუაციებზე ვიმუშავეთ.</p>
+                            </div>
+                            <div class="session-tags">
+                                <span class="tag">Grammar</span>
+                                <span class="tag tag-warning">Needs Practice</span>
+                                <span class="tag">Homework Assigned</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="divider"></div>
+                    
+                    <div class="session-item">
+                        <div class="session-date">Oct 29, 2025</div>
+                        <div class="session-content">
+                            <div class="session-topic">Literature Analysis: Gothic Elements in Wuthering Heights</div>
+                            <div class="session-notes">
+                                <p>Nino delivered an impressive analysis of Gothic elements in the novel. Her vocabulary has improved significantly, using terms like "foreboding," "melancholy," and "supernatural."</p>
+                                <p class="georgian">ნინომ რომანში გოთიკური ელემენტების შთამბეჭდავი ანალიზი წარმოადგინა. მისი ლექსიკა მნიშვნელოვნად გაუმჯობესდა, ისეთი ტერმინების გამოყენებით, როგორიცაა "foreboding", "melancholy" და "supernatural".</p>
+                            </div>
+                            <div class="session-tags">
+                                <span class="tag">Literature</span>
+                                <span class="tag tag-success">Excellent Work</span>
+                                <span class="tag">Vocabulary</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="divider"></div>
+                    
+                    <div class="session-item">
+                        <div class="session-date">Oct 22, 2025</div>
+                        <div class="session-content">
+                            <div class="session-topic">Conversational Practice: Academic Discussions</div>
+                            <div class="session-notes">
+                                <p>Focus on fluency and natural phrasing. Nino sometimes translates directly from Georgian, creating unnatural English constructions. We practiced common academic discussion phrases.</p>
+                                <p class="georgian">ფოკუსი სიმარტივეზე და ბუნებრივ ფრაზირებაზე. ნინო ხანდახან პირდაპირ ქართულიდან თარგმნის, რაც ბუნებრივ ინგლისურ კონსტრუქციებს ქმნის. ჩვენ ვივარჯიშეთ საერთო აკადემიური დისკუსიის ფრაზებზე.</p>
+                            </div>
+                            <div class="session-tags">
+                                <span class="tag">Speaking</span>
+                                <span class="tag tag-warning">Needs Practice</span>
+                                <span class="tag">Fluency</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Progress Overview -->
+            <div class="card card-narrow">
+                <div class="card-header">
+                    <h2 class="card-title">Progress Overview</h2>
+                    <div class="card-icon">📊</div>
+                </div>
+                
+                <div class="progress-chart">
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="height: 85%"></div>
+                        <div class="progress-label">Grammar</div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="height: 78%"></div>
+                        <div class="progress-label">Vocabulary</div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="height: 92%"></div>
+                        <div class="progress-label">Reading</div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="height: 75%"></div>
+                        <div class="progress-label">Writing</div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="height: 70%"></div>
+                        <div class="progress-label">Speaking</div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="height: 88%"></div>
+                        <div class="progress-label">Listening</div>
+                    </div>
+                </div>
+                
+                <div class="divider"></div>
+                
+                <h3 class="mb-1">Recent Test Results</h3>
+                <div class="session-item">
+                    <div class="session-content">
+                        <div class="session-topic">Cambridge B1 Preliminary Practice Test</div>
+                        <div class="session-notes">
+                            <p>Score: 158/170 (93%) - Excellent result!</p>
+                            <p>Areas for improvement: Speaking (Part 3), Writing (formal letter)</p>
+                        </div>
+                        <div class="session-tags">
+                            <span class="tag tag-success">Excellent</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Current Goals -->
+            <div class="card card-medium">
+                <div class="card-header">
+                    <h2 class="card-title">Current Learning Goals</h2>
+                    <div class="card-icon">🎯</div>
+                </div>
+                
+                <div class="goals-list">
+                    <div class="goal-item">
+                        <div class="goal-checkbox checked">✓</div>
+                        <div class="goal-content">
+                            <div class="goal-title">Master Third Conditionals</div>
+                            <div class="goal-description">Use hypothetical past situations correctly in speech and writing</div>
+                        </div>
+                        <div class="goal-progress">
+                            <div class="goal-progress-fill" style="width: 100%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="goal-item">
+                        <div class="goal-checkbox checked">✓</div>
+                        <div class="goal-content">
+                            <div class="goal-title">Expand Academic Vocabulary</div>
+                            <div class="goal-description">Learn and use 50+ new academic words appropriately</div>
+                        </div>
+                        <div class="goal-progress">
+                            <div class="goal-progress-fill" style="width: 90%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="goal-item">
+                        <div class="goal-checkbox">○</div>
+                        <div class="goal-content">
+                            <div class="goal-title">Improve Speaking Fluency</div>
+                            <div class="goal-description">Reduce hesitation and translation from Georgian</div>
+                        </div>
+                        <div class="goal-progress">
+                            <div class="goal-progress-fill" style="width: 65%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="goal-item">
+                        <div class="goal-checkbox">○</div>
+                        <div class="goal-content">
+                            <div class="goal-title">Master Formal Writing Conventions</div>
+                            <div class="goal-description">Write academic essays with proper structure and style</div>
+                        </div>
+                        <div class="goal-progress">
+                            <div class="goal-progress-fill" style="width: 75%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Resources & Materials -->
+            <div class="card card-wide">
+                <div class="card-header">
+                    <h2 class="card-title">Learning Resources</h2>
+                    <div class="card-icon">📚</div>
+                </div>
+                
+                <div class="resources-grid">
+                    <div class="resource-card">
+                        <div class="resource-icon">📖</div>
+                        <div class="resource-title">Grammar Reference</div>
+                        <div class="resource-description">Complete guide to English conditionals with examples</div>
+                        <a href="#" class="resource-link">View Resource →</a>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <div class="resource-icon">🎧</div>
+                        <div class="resource-title">Listening Practice</div>
+                        <div class="resource-description">Academic lectures with comprehension questions</div>
+                        <a href="#" class="resource-link">Access Materials →</a>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <div class="resource-icon">✍️</div>
+                        <div class="resource-title">Writing Templates</div>
+                        <div class="resource-description">Formal letter and essay structure guides</div>
+                        <a href="#" class="resource-link">Download Templates →</a>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <div class="resource-icon">💬</div>
+                        <div class="resource-title">Speaking Prompts</div>
+                        <div class="resource-description">Discussion topics for fluency practice</div>
+                        <a href="#" class="resource-link">View Prompts →</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Areas for Improvement -->
+            <div class="card card-medium">
+                <div class="card-header">
+                    <h2 class="card-title">Focus Areas</h2>
+                    <div class="card-icon">🔍</div>
+                </div>
+                
+                <div class="session-item">
+                    <div class="session-content">
+                        <div class="session-topic text-warning">Speaking Fluency</div>
+                        <div class="session-notes">
+                            <p>Nino sometimes hesitates and translates directly from Georgian, which creates unnatural phrasing in English.</p>
+                            <p class="georgian">ნინო ხანდახან ყოყმანობს და პირდაპირ ქართულიდან თარგმნის, რაც ბუნებრივ ფრაზირებას ქმნის ინგლისურად.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="session-item">
+                    <div class="session-content">
+                        <div class="session-topic text-warning">Formal Writing</div>
+                        <div class="session-notes">
+                            <p>Needs to work on academic writing conventions, particularly formal letter structure and tone.</p>
+                            <p class="georgian">საჭიროებს მუშაობას აკადემიური წერის კონვენციებზე, განსაკუთრებით ფორმალური წერილის სტრუქტურასა და ტონზე.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="session-item">
+                    <div class="session-content">
+                        <div class="session-topic text-info">Idiomatic Expressions</div>
+                        <div class="session-notes">
+                            <p>Would benefit from learning more common English idioms and phrasal verbs.</p>
+                            <p class="georgian">სარგებელი მოაქვს მეტი ზოგადი ინგლისური იდიომებისა და ფრაზალური ზმნების სწავლას.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Upcoming Schedule -->
+            <div class="card card-narrow">
+                <div class="card-header">
+                    <h2 class="card-title">Upcoming Schedule</h2>
+                    <div class="card-icon">📅</div>
+                </div>
+                
+                <div class="session-item">
+                    <div class="session-content">
+                        <div class="session-topic">Next Session: Nov 12, 2025</div>
+                        <div class="session-notes">
+                            <p>Focus: Academic writing practice and review of conditionals</p>
+                            <p>Preparation: Complete writing assignment on Moodle</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="divider"></div>
+                
+                <div class="session-item">
+                    <div class="session-content">
+                        <div class="session-topic">Practice Test: Nov 19, 2025</div>
+                        <div class="session-notes">
+                            <p>Full B2 First practice test under exam conditions</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- AI Update Instructions -->
+        <footer class="dashboard-footer">
+            <div class="footer-content">
+                <h2 class="mb-1">How to Update This Dashboard</h2>
+                <p class="mb-2">Copy your session notes, test results, or student updates and paste them with this prompt to any AI:</p>
+                
+                <div class="ai-instructions">
+                    <div class="code-block">
+You are the English Tutoring Coordinator for Nino's learning dashboard.
 
+CURRENT DOCUMENT: [paste this entire HTML file]
+
+NEW UPDATES: [paste session notes, test results, or describe new materials]
+
+Please update the relevant sections:
+- Recent sessions timeline
+- Progress metrics and charts
+- Learning goals completion
+- Focus areas for improvement
+- Resources and materials
+- Upcoming schedule
+
+Generate the complete updated HTML.
+                    </div>
+                </div>
+                
+                <p>The AI will intelligently update the dashboard based on your new information.</p>
+                
+                <div class="divider"></div>
+                
+                <p>Nino's English Dashboard • Tayla Pringle Tutoring</p>
+                <p>Last Updated: November 6, 2025 • Document Version 1.0.0</p>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

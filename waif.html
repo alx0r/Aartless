@@ -1,1 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Waif Method™ | Where Ideas Become Heirlooms</title>
+    <style>
+        /* ===== VARIABLES & RESET ===== */
+        :root {
+            --color-dark: #0a0a0a;
+            --color-darker: #050505;
+            --color-gold: #c9a96e;
+            --color-gold-light: #d4b885;
+            --color-gold-dark: #b08c4e;
+            --color-cream: #f5f2eb;
+            --color-gray: #2a2a2a;
+            --color-gray-light: #3a3a3a;
+            --font-serif: 'Playfair Display', Georgia, serif;
+            --font-sans: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+            --font-mono: 'SF Mono', Monaco, monospace;
+            --border-radius: 4px;
+            --transition: all 0.3s ease;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            --shadow-light: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--color-dark);
+            color: var(--color-cream);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ===== TYPOGRAPHY ===== */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-serif);
+            font-weight: 400;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-top: 3rem;
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 60px;
+            height: 1px;
+            background-color: var(--color-gold);
+        }
+
+        h3 {
+            font-size: 1.75rem;
+            margin-top: 2rem;
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        a {
+            color: var(--color-gold);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        a:hover {
+            color: var(--color-gold-light);
+        }
+
+        blockquote {
+            border-left: 2px solid var(--color-gold);
+            padding-left: 1.5rem;
+            margin: 2rem 0;
+            font-style: italic;
+        }
+
+        /* ===== LAYOUT ===== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        section {
+            padding: 5rem 0;
+        }
+
+        .section-dark {
+            background-color: var(--color-darker);
+        }
+
+        .section-light {
+            background-color: var(--color-gray);
+        }
+
+        /* ===== HEADER & NAVIGATION ===== */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--color-gray);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+        }
+
+        .logo {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            color: var(--color-gold);
+            letter-spacing: 0.1em;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav li {
+            margin-left: 2rem;
+        }
+
+        nav a {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(10, 10, 10, 0.7), rgba(10, 10, 10, 0.9));
+            z-index: -1;
+        }
+
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            z-index: -2;
+            opacity: 0.4;
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: var(--color-gold);
+            margin-bottom: 2rem;
+        }
+
+        .hero-cta {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background-color: var(--color-gold);
+            color: var(--color-dark);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 600;
+            border: none;
+            transition: var(--transition);
+            margin-top: 1rem;
+        }
+
+        .hero-cta:hover {
+            background-color: var(--color-gold-light);
+            color: var(--color-dark);
+        }
+
+        /* ===== ADVANTAGES SECTION ===== */
+        .advantages-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .advantage {
+            padding: 2rem;
+            border: 1px solid var(--color-gray);
+            transition: var(--transition);
+        }
+
+        .advantage:hover {
+            border-color: var(--color-gold);
+            transform: translateY(-5px);
+        }
+
+        .advantage-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--color-gold);
+        }
+
+        .advantage h3 {
+            margin-top: 0;
+        }
+
+        /* ===== HOW IT WORKS SECTION ===== */
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .step {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background-color: var(--color-gold);
+            color: var(--color-dark);
+            border-radius: 50%;
+            line-height: 40px;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .step-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--color-gold);
+        }
+
+        /* ===== DEMOS SECTION ===== */
+        .demos-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 3rem;
+        }
+
+        .demo {
+            position: relative;
+            height: 400px;
+            overflow: hidden;
+            border-radius: var(--border-radius);
+        }
+
+        .demo-image {
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            transition: var(--transition);
+        }
+
+        .demo:hover .demo-image {
+            transform: scale(1.05);
+        }
+
+        .demo-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 2rem;
+            background: linear-gradient(transparent, rgba(10, 10, 10, 0.9));
+        }
+
+        .demo-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .demo-subtitle {
+            color: var(--color-gold);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .demo-link {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--color-gold);
+            color: var(--color-gold);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-size: 0.8rem;
+            transition: var(--transition);
+        }
+
+        .demo-link:hover {
+            background-color: rgba(201, 169, 110, 0.1);
+        }
+
+        /* ===== CTA SECTION ===== */
+        .cta-section {
+            text-align: center;
+            padding: 6rem 0;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .btn-primary {
+            background-color: var(--color-gold);
+            color: var(--color-dark);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--color-gold-light);
+        }
+
+        .btn-secondary {
+            border: 1px solid var(--color-gold);
+            color: var(--color-gold);
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(201, 169, 110, 0.1);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background-color: var(--color-darker);
+            padding: 4rem 0 2rem;
+            border-top: 1px solid var(--color-gray);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-logo {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            color: var(--color-gold);
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links h4 {
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid var(--color-gray);
+            font-size: 0.9rem;
+            color: var(--color-gray-light);
+        }
+
+        /* ===== RESPONSIVE DESIGN ===== */
+        @media (max-width: 992px) {
+            .advantages-grid, .process-steps, .demos-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero h1 {
+                font-size: 3rem;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+            
+            nav ul {
+                display: none;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">WAIF</div>
+                <nav>
+                    <ul>
+                        <li><a href="#advantages">Advantages</a></li>
+                        <li><a href="#process">How It Works</a></li>
+                        <li><a href="#demos">See Examples</a></li>
+                        <li><a href="#cta">Begin</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-background"></div>
+        <div class="container">
+            <div class="hero-content">
+                <h1>The Waif Method™</h1>
+                <p class="hero-subtitle">Where Ideas Become Heirlooms</p>
+                <p>A revolutionary approach to creative collaboration—documenting your journey in a beautiful, permanent living document that evolves with your project.</p>
+                <a href="#cta" class="hero-cta">Begin Your Journey</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="advantages" class="section-dark">
+        <div class="container">
+            <h2>Why The Waif Method™ Is Different</h2>
+            <p>In a world of temporary platforms and corporate timelines, we offer something truly unique</p>
+            
+            <div class="advantages-grid">
+                <div class="advantage">
+                    <div class="advantage-icon">🔒</div>
+                    <h3>Private & Bespoke</h3>
+                    <p>Your creative journey is documented in a completely private space, tailored specifically to your project. No templates, no corporate branding—just your unique story.</p>
+                </div>
+                
+                <div class="advantage">
+                    <div class="advantage-icon">🔄</div>
+                    <h3>Always Up-to-Date</h3>
+                    <p>Your document evolves in real-time as your project grows. No waiting for updates, no version confusion—just a single, living document that reflects your current progress.</p>
+                </div>
+                
+                <div class="advantage">
+                    <div class="advantage-icon">∞</div>
+                    <h3>Lasts Forever</h3>
+                    <p>Your document is yours permanently. No subscriptions, no platform dependencies. A beautiful heirloom of your creative process that you own forever.</p>
+                </div>
+                
+                <div class="advantage">
+                    <div class="advantage-icon">⏰</div>
+                    <h3>No Corporate Timelines</h3>
+                    <p>Work at your own pace without artificial deadlines or platform limitations. Your creative process dictates the timeline, not corporate requirements.</p>
+                </div>
+                
+                <div class="advantage">
+                    <div class="advantage-icon">📚</div>
+                    <h3>Complete Documentation</h3>
+                    <p>Every conversation, decision, and inspiration is beautifully preserved. From initial concept to final completion, nothing is lost to scattered emails or forgotten chats.</p>
+                </div>
+                
+                <div class="advantage">
+                    <div class="advantage-icon">💬</div>
+                    <h3>One-on-One Consultation</h3>
+                    <p>Direct collaboration with Giselle Human herself—no intermediaries, no account managers. Your vision meets her expertise in a true creative partnership.</p>
+                </div>
+            </div>
+            
+            <blockquote>
+                "The Waif Method™ isn't just a service—it's an antidote to the disposable, platform-driven creative culture. We believe your creative journey deserves to be treated as art itself."
+            </blockquote>
+        </div>
+    </section>
+
+    <section id="process">
+        <div class="container">
+            <h2>How The System Works</h2>
+            <p>Your creative process stays exactly the same—we just make it beautiful and permanent</p>
+            
+            <div class="process-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-icon">💭</div>
+                    <h3>You Create Naturally</h3>
+                    <p>Communicate however feels natural—WhatsApp, email, in-person conversations, phone calls. Nothing about your process needs to change.</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-icon">🤝</div>
+                    <h3>We Collect Everything</h3>
+                    <p>Using the Brotherly Protocol, we gather all your conversations, images, and ideas, organizing them into a coherent narrative structure.</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-icon">🎨</div>
+                    <h3>Beautiful Documentation</h3>
+                    <p>Your scattered communications transform into a beautiful, permanent document using the Untitled Format—elegant, timeless, and completely yours.</p>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 3rem;">
+                <h3>The Technology Behind The Magic</h3>
+                <p>Built on the <strong>Brotherly Protocol</strong> and <strong>Untitled Format</strong>, The Waif Method™ uses sophisticated technology to create simple, beautiful results.</p>
+                <p>Your document is a single HTML file—completely self-contained, platform-independent, and designed to last forever without any dependencies.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="demos" class="section-light">
+        <div class="container">
+            <h2>See The Waif Method™ In Action</h2>
+            <p>Explore real examples of how we transform creative journeys into beautiful heirlooms</p>
+            
+            <div class="demos-grid">
+                <div class="demo">
+                    <div class="demo-image" style="background-image: url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80')"></div>
+                    <div class="demo-overlay">
+                        <h3 class="demo-title">Alexander's SpeakHard</h3>
+                        <p class="demo-subtitle">Bookshop Café • Complete Brand & Space Design</p>
+                        <p>From ceramic design to interior planning—documenting the creation of a cultural institution in Cape Town.</p>
+                        <a href="https://alx0r.github.io/Aartless/waifdesign.html" class="demo-link">View Project</a>
+                    </div>
+                </div>
+                
+                <div class="demo">
+                    <div class="demo-image" style="background-image: url('https://images.unsplash.com/photo-1534447677768-be436bb09401?ixlib=rb-4.0.3&auto=format&fit=crop&w=2094&q=80')"></div>
+                    <div class="demo-overlay">
+                        <h3 class="demo-title">Lexi's Saturn Return Ring</h3>
+                        <p class="demo-subtitle">Custom Jewelry • Personal Mythology</p>
+                        <p>A deeply personal astrological talisman—documenting the entire creative journey from concept to completion.</p>
+                        <a href="https://alx0r.github.io/Aartless/waiflexi.html" class="demo-link">View Project</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 3rem;">
+                <h3>From Any Creative Endeavor</h3>
+                <p>The Waif Method™ works for jewelry design, brand identity, interior spaces, ceramic collections, personal commissions, and any creative project that deserves a beautiful story.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="cta" class="cta-section">
+        <div class="container">
+            <h2>Begin Your Waif Method™ Journey</h2>
+            <p>Your creative vision deserves a beautiful story. Let's create something extraordinary together.</p>
+            
+            <div class="cta-buttons">
+                <a href="#" class="btn btn-primary">Start a Conversation</a>
+                <a href="#demos" class="btn btn-secondary">View More Examples</a>
+            </div>
+            
+            <div style="margin-top: 3rem; max-width: 600px; margin-left: auto; margin-right: auto;">
+                <h3>What Happens Next?</h3>
+                <p>We'll have an initial conversation about your project—no commitment, just exploring possibilities. If we decide to work together, we'll begin documenting your journey from day one.</p>
+                <p>Your living document will grow with your project, becoming a beautiful keepsake of your creative process that you'll treasure forever.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="footer-logo">WAIF</div>
+                    <p>The Waif Method™ transforms your creative journey into a beautiful, permanent keepsake you'll treasure forever.</p>
+                    <p>Powered by the Brotherly Protocol™ and Forever Format™</p>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Explore</h4>
+                    <ul>
+                        <li><a href="#advantages">Advantages</a></li>
+                        <li><a href="#process">How It Works</a></li>
+                        <li><a href="#demos">Examples</a></li>
+                        <li><a href="#cta">Begin</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Connect</h4>
+                    <ul>
+                        <li><a href="#">Instagram</a></li>
+                        <li><a href="#">Journal</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Newsletter</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>© 2024 Waif by Giselle Human. All rights reserved.</p>
+                <p>Built with Forever Format™ v1.2.0 | Brotherly Protocol Ecosystem</p>
+                <p>Anti-platform • Anti-brand • Pro-original creative thought</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple script for smooth scrolling and header effect
+        document.addEventListener('DOMContentLoaded', function() {
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // Header scroll effect
+            window.addEventListener('scroll', function() {
+                const header = document.querySelector('header');
+                if (window.scrollY > 100) {
+                    header.style.backgroundColor = 'rgba(10, 10, 10, 0.98)';
+                } else {
+                    header.style.backgroundColor = 'rgba(10, 10, 10, 0.95)';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

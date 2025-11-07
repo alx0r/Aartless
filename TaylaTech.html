@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tayla Tutor Tech™ - Your Private, Intelligent Learning Companion</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2c1810;
+            --secondary: #5d4037;
+            --accent: #8d6e63;
+            --gold: #d4af37;
+            --light: #f5f1e8;
+            --paper: #f9f7f2;
+            --ink: #2c1810;
+            --shadow: rgba(44, 24, 16, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--ink);
+            background: var(--light);
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(212, 175, 55, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 85% 30%, rgba(141, 110, 99, 0.05) 0%, transparent 20%);
+            font-size: 18px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        /* Header */
+        .site-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 3rem 1rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .site-header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-family: 'Crimson Text', serif;
+            font-weight: 600;
+        }
+        
+        .tagline {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            font-style: italic;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: var(--gold);
+            color: var(--primary);
+            padding: 1rem 2rem;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            margin: 1rem 0.5rem;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+        }
+        
+        .cta-button.secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid var(--gold);
+        }
+        
+        /* Sections */
+        section {
+            padding: 4rem 1rem;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        h2 {
+            color: var(--primary);
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-family: 'Crimson Text', serif;
+            font-weight: 600;
+        }
+        
+        .section-subtitle {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+            opacity: 0.8;
+        }
+        
+        /* How It Works */
+        .steps-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .step-card {
+            background: var(--paper);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 12px var(--shadow);
+            border: 1px solid rgba(141, 110, 99, 0.1);
+            position: relative;
+            text-align: center;
+        }
+        
+        .step-number {
+            position: absolute;
+            top: -1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--accent);
+            color: white;
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .step-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+        
+        .step-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        /* Features */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .feature-card {
+            background: var(--paper);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 12px var(--shadow);
+            border: 1px solid rgba(141, 110, 99, 0.1);
+            position: relative;
+        }
+        
+        .feature-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent), var(--gold));
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+        
+        .feature-title {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        /* Examples */
+        .examples-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .example-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px var(--shadow);
+            transition: transform 0.3s ease;
+        }
+        
+        .example-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .example-image {
+            height: 200px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+        
+        .example-content {
+            padding: 1.5rem;
+        }
+        
+        .example-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+        
+        .example-link {
+            display: inline-block;
+            margin-top: 1rem;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .example-link:hover {
+            text-decoration: underline;
+        }
+        
+        /* Comparison */
+        .comparison {
+            background: var(--primary);
+            color: white;
+            border-radius: 12px;
+            padding: 3rem;
+            margin: 3rem 0;
+        }
+        
+        .comparison h2 {
+            color: white;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .comparison-column h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        
+        .comparison-list {
+            list-style: none;
+        }
+        
+        .comparison-list li {
+            margin-bottom: 1rem;
+            padding-left: 2rem;
+            position: relative;
+        }
+        
+        .comparison-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--gold);
+            font-weight: bold;
+        }
+        
+        .comparison-list.other li::before {
+            content: "✗";
+            color: #ff6b6b;
+        }
+        
+        /* FAQ */
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .faq-item {
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(141, 110, 99, 0.2);
+            padding-bottom: 1.5rem;
+        }
+        
+        .faq-question {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .faq-answer {
+            opacity: 0.8;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--primary);
+            color: white;
+            padding: 3rem 1rem;
+            text-align: center;
+        }
+        
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover {
+            color: var(--gold);
+        }
+        
+        .copyright {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            opacity: 0.7;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            h2 {
+                font-size: 2rem;
+            }
+            
+            section {
+                padding: 2rem 1rem;
+            }
+        }
+        
+        .divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            margin: 2rem 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="site-header">
+        <div class="header-content">
+            <h1>Tayla Tutor Tech™</h1>
+            <p class="tagline">Your Private, Intelligent Learning Companion</p>
+            <p>Revolutionizing English tutoring with privacy-first, AI-powered personal dashboards that grow with you.</p>
+            <div>
+                <a href="#how-it-works" class="cta-button">See How It Works</a>
+                <a href="#examples" class="cta-button secondary">View Examples</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- How It Works -->
+    <section id="how-it-works">
+        <div class="container">
+            <div class="section-header">
+                <h2>How Tayla Tutor Tech Works</h2>
+                <p class="section-subtitle">Keep communicating naturally while building your personalized learning dashboard automatically</p>
+            </div>
+            
+            <div class="steps-container">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <div class="step-icon">💬</div>
+                    <h3 class="step-title">Communicate Naturally</h3>
+                    <p>Continue your WhatsApp conversations, voice notes, and sessions with Tayla exactly as you always have. No new apps to learn, no changes to your routine.</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <div class="step-icon">🤖</div>
+                    <h3 class="step-title">AI Updates Your Dashboard</h3>
+                    <p>Copy-paste your conversations, test results, or any learning materials to our AI system. It intelligently updates your personal learning dashboard.</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <div class="step-icon">📊</div>
+                    <h3 class="step-title">Track Your Progress</h3>
+                    <p>Watch your personalized dashboard grow with session notes, progress charts, learning goals, and custom resources - all automatically organized.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Benefits -->
+    <section style="background: var(--paper);">
+        <div class="container">
+            <div class="section-header">
+                <h2>What Makes This Different</h2>
+                <p class="section-subtitle">A completely new approach to personalized learning</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3 class="feature-title">Completely Private</h3>
+                    <p>Your data stays with you. No corporate data harvesting, no selling your information. Single HTML file that you control and host anywhere.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">💎</div>
+                    <h3 class="feature-title">Fully Bespoke</h3>
+                    <p>Every dashboard is completely customized to your goals, learning style, and progress. Track what matters to you, your way.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🔄</div>
+                    <h3 class="feature-title">Zero Subscription</h3>
+                    <p>No monthly fees, no platform lock-in. Built on open-source infrastructure that you own forever. Pay once for setup, use forever.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">📈</div>
+                    <h3 class="feature-title">Lifetime Companion</h3>
+                    <p>Your learning dashboard evolves with you. From beginner to advanced, academic to professional - it adapts to your journey.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🌐</div>
+                    <h3 class="feature-title">Open Infrastructure</h3>
+                    <p>Built on the Untitled Format™ and Brotherhood Protocol - open standards that ensure your data remains accessible forever.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3 class="feature-title">Smart Intelligence</h3>
+                    <p>AI that actually understands context - connects your conversations, test results, and materials to build meaningful insights.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison -->
+    <div class="container">
+        <div class="comparison">
+            <h2>Why This Is Different</h2>
+            <div class="comparison-grid">
+                <div class="comparison-column">
+                    <h3>Tayla Tutor Tech</h3>
+                    <ul class="comparison-list">
+                        <li>Your data, your control</li>
+                        <li>One-time setup, use forever</li>
+                        <li>Completely customized to you</li>
+                        <li>Works with your existing apps</li>
+                        <li>No subscription fees</li>
+                        <li>Open source infrastructure</li>
+                        <li>Privacy-first design</li>
+                        <li>Lifetime ownership</li>
+                    </ul>
+                </div>
+                
+                <div class="comparison-column">
+                    <h3>Other Platforms</h3>
+                    <ul class="comparison-list other">
+                        <li>Platform owns your data</li>
+                        <li>Monthly subscription required</li>
+                        <li>One-size-fits-all approach</li>
+                        <li>Forced to use their system</li>
+                        <li>Recurring costs forever</li>
+                        <li>Proprietary, locked systems</li>
+                        <li>Data mining for profit</li>
+                        <li>Access ends with subscription</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Examples -->
+    <section id="examples">
+        <div class="container">
+            <div class="section-header">
+                <h2>See It In Action</h2>
+                <p class="section-subtitle">Real examples of how Tayla Tutor Tech transforms learning</p>
+            </div>
+            
+            <div class="examples-container">
+                <div class="example-card">
+                    <div class="example-image">👩‍🏫</div>
+                    <div class="example-content">
+                        <h3 class="example-title">Tayla's Teaching Profile</h3>
+                        <p>Explore Tayla's unique approach to English tutoring, her background, and teaching philosophy.</p>
+                        <a href="https://alx0r.github.io/Aartless/TaylaPringle.html" class="example-link" target="_blank">View Profile →</a>
+                    </div>
+                </div>
+                
+                <div class="example-card">
+                    <div class="example-image">📚</div>
+                    <div class="example-content">
+                        <h3 class="example-title">Student Progress Dashboard</h3>
+                        <p>See how a university student tracks their English learning journey with personalized insights.</p>
+                        <a href="https://alx0r.github.io/Aartless/nino.html" class="example-link" target="_blank">View Dashboard →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section style="background: var(--paper);">
+        <div class="container">
+            <div class="section-header">
+                <h2>Frequently Asked Questions</h2>
+            </div>
+            
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">Do I need to change how I communicate with Tayla?</div>
+                    <div class="faq-answer">No! Keep using WhatsApp, voice notes, email - whatever works for you. The system works with your existing communication style.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">How much technical knowledge do I need?</div>
+                    <div class="faq-answer">None at all. If you can copy-paste text, you can use Tayla Tutor Tech. The setup takes 20 minutes with guided assistance.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">What happens to my data?</div>
+                    <div class="faq-answer">Your data stays in a single HTML file that you control. You can host it anywhere or keep it locally. No cloud storage, no corporate access.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Can I customize what I track?</div>
+                    <div class="faq-answer">Absolutely! Every dashboard is completely bespoke. Track vocabulary, grammar, test scores, speaking fluency - whatever matters to your goals.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">What if I stop tutoring with Tayla?</div>
+                    <div class="faq-answer">You keep your dashboard forever. It becomes a permanent record of your progress that you can continue to update or reference anytime.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section>
+        <div class="container">
+            <div class="section-header">
+                <h2>Ready to Transform Your English Learning?</h2>
+                <p class="section-subtitle">Join the future of personalized, private education</p>
+                <a href="mailto:taylateachesenglish@gmail.com" class="cta-button">Start Your Journey Today</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <h3>Tayla Tutor Tech™</h3>
+            <p>Intelligent, Private Learning Companions</p>
+            
+            <div class="footer-links">
+                <a href="https://alx0r.github.io/Aartless/TaylaPringle.html">Tayla's Profile</a>
+                <a href="https://alx0r.github.io/Aartless/nino.html">Example Dashboard</a>
+                <a href="mailto:taylateachesenglish@gmail.com">Contact</a>
+            </div>
+            
+            <div class="copyright">
+                <p>Built on Untitled Format™ v2.1.0 & Brotherhood Protocol</p>
+                <p>© 2025 Tayla Tutor Tech. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple FAQ toggle
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
+            });
+        });
+
+        // Initially hide FAQ answers
+        document.querySelectorAll('.faq-answer').forEach(answer => {
+            answer.style.display = 'none';
+        });
+
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

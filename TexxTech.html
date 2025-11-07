@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TexxxTech™ | Artist-First Digital Solutions</title>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --texxx-red: #E63946;
+            --texxx-dark: #1D3557;
+            --texxx-blue: #457B9D;
+            --texxx-light: #F1FAEE;
+            --texxx-accent: #A8DADC;
+            --text-dark: #2B2D42;
+            --text-light: #F8F9FA;
+            --gradient-primary: linear-gradient(135deg, var(--texxx-red) 0%, var(--texxx-dark) 100%);
+            --gradient-secondary: linear-gradient(135deg, var(--texxx-blue) 0%, var(--texxx-accent) 100%);
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--texxx-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+        
+        /* Header */
+        header {
+            background: var(--gradient-primary);
+            color: var(--text-light);
+            padding: 40px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 3.5em;
+            font-weight: 800;
+            margin-bottom: 10px;
+            letter-spacing: -1px;
+        }
+        
+        .tagline {
+            font-size: 1.3em;
+            font-weight: 300;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        
+        .byline {
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+        
+        .texxxtech-badge {
+            display: inline-block;
+            background: var(--texxx-red);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.9em;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+        
+        /* Navigation */
+        .main-nav {
+            background: var(--texxx-dark);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .nav-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+        
+        .nav-button {
+            background: transparent;
+            color: var(--text-light);
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 10px 20px;
+            text-decoration: none;
+            font-weight: 500;
+            border-radius: 30px;
+            transition: all 0.3s;
+            font-size: 0.9em;
+        }
+        
+        .nav-button:hover, .nav-button.active {
+            background: var(--texxx-red);
+            border-color: var(--texxx-red);
+        }
+        
+        /* Sections */
+        .section {
+            padding: 80px 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.5em;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--texxx-dark);
+        }
+        
+        .section-subtitle {
+            font-size: 1.2em;
+            color: var(--texxx-blue);
+            margin-bottom: 40px;
+            max-width: 700px;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: var(--gradient-secondary);
+            color: var(--text-light);
+            text-align: center;
+        }
+        
+        .hero .section-title {
+            color: var(--text-light);
+        }
+        
+        .hero-badges {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 40px 0;
+        }
+        
+        .hero-badge {
+            background: rgba(255,255,255,0.2);
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: var(--texxx-red);
+            color: white;
+            padding: 15px 35px;
+            text-decoration: none;
+            font-weight: 700;
+            border-radius: 30px;
+            transition: all 0.3s;
+            font-size: 1.1em;
+            margin-top: 20px;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        
+        /* Problem/Solution */
+        .problem-solution {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 50px;
+        }
+        
+        @media (max-width: 768px) {
+            .problem-solution {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .problem-card, .solution-card {
+            background: white;
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .problem-card {
+            border-top: 5px solid var(--texxx-red);
+        }
+        
+        .solution-card {
+            border-top: 5px solid var(--texxx-blue);
+        }
+        
+        .card-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .card-title:before {
+            content: "";
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        
+        .problem-card .card-title:before {
+            background: var(--texxx-red);
+        }
+        
+        .solution-card .card-title:before {
+            background: var(--texxx-blue);
+        }
+        
+        /* How It Works */
+        .how-it-works {
+            background: var(--texxx-light);
+        }
+        
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .step-card {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+        }
+        
+        .step-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .step-number {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            background: var(--texxx-blue);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2em;
+            margin: 0 auto 20px;
+        }
+        
+        .step-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            color: var(--texxx-dark);
+        }
+        
+        /* Use Cases */
+        .use-cases {
+            background: white;
+        }
+        
+        .case-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .case-card {
+            background: var(--texxx-light);
+            border-radius: 10px;
+            padding: 30px;
+            border-left: 5px solid var(--texxx-red);
+        }
+        
+        .case-icon {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: var(--texxx-blue);
+        }
+        
+        .case-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.4em;
+            margin-bottom: 15px;
+            color: var(--texxx-dark);
+        }
+        
+        /* Technical */
+        .technical {
+            background: var(--texxx-dark);
+            color: var(--text-light);
+        }
+        
+        .technical .section-title {
+            color: var(--text-light);
+        }
+        
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .tech-card {
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+        
+        .tech-icon {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: var(--texxx-accent);
+        }
+        
+        .tech-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.3em;
+            margin-bottom: 15px;
+        }
+        
+        /* Workflow */
+        .workflow {
+            background: var(--texxx-light);
+        }
+        
+        .workflow-steps {
+            max-width: 800px;
+            margin: 50px auto 0;
+        }
+        
+        .workflow-step {
+            display: flex;
+            margin-bottom: 40px;
+            align-items: flex-start;
+        }
+        
+        .step-marker {
+            width: 40px;
+            height: 40px;
+            background: var(--texxx-blue);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+        
+        .step-content {
+            flex: 1;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .step-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.3em;
+            margin-bottom: 10px;
+            color: var(--texxx-dark);
+        }
+        
+        /* Examples */
+        .examples {
+            background: white;
+        }
+        
+        .example-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .example-card {
+            background: var(--texxx-light);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+        }
+        
+        .example-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .example-image {
+            height: 200px;
+            background: var(--gradient-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5em;
+            font-weight: 700;
+        }
+        
+        .example-content {
+            padding: 25px;
+        }
+        
+        .example-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.3em;
+            margin-bottom: 10px;
+            color: var(--texxx-dark);
+        }
+        
+        .example-link {
+            display: inline-block;
+            color: var(--texxx-blue);
+            font-weight: 600;
+            text-decoration: none;
+            margin-top: 15px;
+        }
+        
+        .example-link:after {
+            content: " →";
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            background: var(--gradient-primary);
+            color: var(--text-light);
+            text-align: center;
+            padding: 100px 20px;
+        }
+        
+        .cta-section .section-title {
+            color: var(--text-light);
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--texxx-dark);
+            color: var(--text-light);
+            padding: 60px 20px;
+            text-align: center;
+        }
+        
+        .footer-content {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .footer-logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2em;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+        
+        .footer-tagline {
+            opacity: 0.8;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .contact-info {
+            margin: 30px 0;
+        }
+        
+        .contact-link {
+            color: var(--texxx-accent);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .footer-note {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9em;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <h1 class="logo">TexxxTech™</h1>
+            <p class="tagline">Artist-First Digital Solutions for the Modern Music Industry</p>
+            <p class="byline">A <strong>Texx and the City</strong> Innovation</p>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <a href="#problem" class="nav-button">The Problem</a>
+            <a href="#solution" class="nav-button">Our Solution</a>
+            <a href="#how-it-works" class="nav-button">How It Works</a>
+            <a href="#use-cases" class="nav-button">Use Cases</a>
+            <a href="#technical" class="nav-button">Technical</a>
+            <a href="#workflow" class="nav-button">Workflow</a>
+            <a href="#examples" class="nav-button">Examples</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="section hero">
+        <div class="container">
+            <h2 class="section-title">Digital Presence, Reimagined</h2>
+            <p class="section-subtitle">Bespoke, accessible, and permanent digital experiences for artists, festivals, and brands. No ongoing costs. No platform dependency.</p>
+            
+            <div class="hero-badges">
+                <div class="hero-badge">🎵 Artist-First Design</div>
+                <div class="hero-badge">📱 Works Offline</div>
+                <div class="hero-badge">⚡ Lightning Fast</div>
+                <div class="hero-badge">🔒 Private & Secure</div>
+                <div class="hero-badge">💸 Zero Ongoing Costs</div>
+            </div>
+            
+            <a href="#examples" class="cta-button">See Examples</a>
+        </div>
+    </section>
+
+    <!-- Problem & Solution -->
+    <section class="section" id="problem">
+        <div class="container">
+            <h2 class="section-title">The Digital Dilemma</h2>
+            <p class="section-subtitle">Traditional digital platforms present challenges for artists and festivals seeking authentic connection with their audience.</p>
+            
+            <div class="problem-solution">
+                <div class="problem-card">
+                    <h3 class="card-title">The Problem</h3>
+                    <ul>
+                        <li>Generic templates that don't reflect artistic identity</li>
+                        <li>Platform algorithms controlling visibility</li>
+                        <li>Content disappears in endless feeds</li>
+                        <li>High costs for basic customization</li>
+                        <li>Poor mobile and offline experiences</li>
+                        <li>Data scraping and privacy concerns</li>
+                        <li>Limited creative control</li>
+                    </ul>
+                </div>
+                
+                <div class="solution-card" id="solution">
+                    <h3 class="card-title">Our Solution</h3>
+                    <ul>
+                        <li>Fully bespoke designs matching artist aesthetic</li>
+                        <li>Direct audience connection, no algorithm mediation</li>
+                        <li>Permanent, updateable digital artifacts</li>
+                        <li>One-time creation, zero ongoing costs</li>
+                        <li>Optimized for all devices and offline use</li>
+                        <li>Private, secure, and owned by you</li>
+                        <li>Complete creative freedom</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="section how-it-works" id="how-it-works">
+        <div class="container">
+            <h2 class="section-title">How TexxxTech™ Works</h2>
+            <p class="section-subtitle">A streamlined process that puts your creative vision first while leveraging modern web technologies.</p>
+            
+            <div class="steps">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h3 class="step-title">Share Your Vision</h3>
+                    <p>Send us your materials - artwork, music, notes, inspirations. However you normally share with your team.</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h3 class="step-title">Custom Design</h3>
+                    <p>We create a bespoke digital experience that reflects your unique aesthetic and tells your story.</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h3 class="step-title">Review & Refine</h3>
+                    <p>We share the live preview. You provide feedback. We refine until it's perfect.</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <h3 class="step-title">Launch & Update</h3>
+                    <p>Your digital experience goes live. Update it anytime with new content, tour dates, or announcements.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use Cases -->
+    <section class="section use-cases" id="use-cases">
+        <div class="container">
+            <h2 class="section-title">Endless Possibilities</h2>
+            <p class="section-subtitle">TexxxTech™ adapts to your needs, whether you're an emerging artist or established festival.</p>
+            
+            <div class="case-grid">
+                <div class="case-card">
+                    <div class="case-icon">🎵</div>
+                    <h3 class="case-title">EP & Album Launches</h3>
+                    <p>Track-by-track notes, inspirations, lyrics, and exclusive content in a beautifully designed package that sets your release apart.</p>
+                </div>
+                
+                <div class="case-card">
+                    <div class="case-icon">🎤</div>
+                    <h3 class="case-title">Artist Pages</h3>
+                    <p>Comprehensive artist hubs with bio, discography, press, tour dates, and multimedia content - all in your unique style.</p>
+                </div>
+                
+                <div class="case-card">
+                    <div class="case-icon">🎪</div>
+                    <h3 class="case-title">Festival Guides</h3>
+                    <p>Smart event guides with lineups, schedules, maps, survival tips, and live updates that work offline at the venue.</p>
+                </div>
+                
+                <div class="case-card">
+                    <div class="case-icon">🏷️</div>
+                    <h3 class="case-title">Brand Activities</h3>
+                    <p>Custom campaign microsites, product launches, or branded experiences that align with your visual identity.</p>
+                </div>
+                
+                <div class="case-card">
+                    <div class="case-icon">📅</div>
+                    <h3 class="case-title">Tour Announcements</h3>
+                    <p>Beautiful tour pages with dates, venues, ticket links, and special announcements that build excitement.</p>
+                </div>
+                
+                <div class="case-card">
+                    <div class="case-icon">🎨</div>
+                    <h3 class="case-title">Visual Projects</h3>
+                    <p>Digital galleries, photography projects, or visual albums presented in custom-designed online spaces.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Details -->
+    <section class="section technical" id="technical">
+        <div class="container">
+            <h2 class="section-title">Built Better</h2>
+            <p class="section-subtitle">TexxxTech™ leverages modern web standards to create experiences that are accessible, fast, and future-proof.</p>
+            
+            <div class="tech-grid">
+                <div class="tech-card">
+                    <div class="tech-icon">📱</div>
+                    <h3 class="tech-title">Offline-First</h3>
+                    <p>All essential content works without internet connection. Perfect for festivals with spotty service.</p>
+                </div>
+                
+                <div class="tech-card">
+                    <div class="tech-icon">⚡</div>
+                    <h3 class="tech-title">Lightning Fast</h3>
+                    <p>Optimized for speed with minimal data usage. Loads instantly on any device, anywhere.</p>
+                </div>
+                
+                <div class="tech-card">
+                    <div class="tech-icon">♿</div>
+                    <h3 class="tech-title">Fully Accessible</h3>
+                    <p>Built to WCAG standards so everyone can enjoy your content, regardless of ability.</p>
+                </div>
+                
+                <div class="tech-card">
+                    <div class="tech-icon">🔒</div>
+                    <h3 class="tech-title">Private & Secure</h3>
+                    <p>Your content isn't scraped by algorithms. You maintain complete ownership and control.</p>
+                </div>
+                
+                <div class="tech-card">
+                    <div class="tech-icon">🌐</div>
+                    <h3 class="tech-title">Universal Access</h3>
+                    <p>Works on any device with a web browser - no apps to download, no platform restrictions.</p>
+                </div>
+                
+                <div class="tech-card">
+                    <div class="tech-icon">🔄</div>
+                    <h3 class="tech-title">Always Updateable</h3>
+                    <p>Add new content, tour dates, or announcements anytime. Your digital presence evolves with you.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Workflow Integration -->
+    <section class="section workflow" id="workflow">
+        <div class="container">
+            <h2 class="section-title">Seamless Workflow Integration</h2>
+            <p class="section-subtitle">TexxxTech™ fits into your existing processes - no new tools to learn, no complicated systems to manage.</p>
+            
+            <div class="workflow-steps">
+                <div class="workflow-step">
+                    <div class="step-marker">1</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Share Materials Your Way</h3>
+                        <p>Send us your content via WhatsApp, email, Dropbox, or whatever method you prefer. We work with your existing workflow.</p>
+                    </div>
+                </div>
+                
+                <div class="workflow-step">
+                    <div class="step-marker">2</div>
+                    <div class="step-content">
+                        <h3 class="step-title">We Handle the Technical</h3>
+                        <p>Our team structures your content intelligently, applying the Untitled Framework for consistency and future-proofing.</p>
+                    </div>
+                </div>
+                
+                <div class="workflow-step">
+                    <div class="step-marker">3</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Review & Approve</h3>
+                        <p>We share a live preview link. You review on any device and provide feedback through your preferred channel.</p>
+                    </div>
+                </div>
+                
+                <div class="workflow-step">
+                    <div class="step-marker">4</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Launch & Maintain</h3>
+                        <p>Once approved, your digital experience goes live. Update it anytime by simply sending us new content.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Examples -->
+    <section class="section examples" id="examples">
+        <div class="container">
+            <h2 class="section-title">See It In Action</h2>
+            <p class="section-subtitle">Real examples of TexxxTech™ in practice across different use cases and artistic styles.</p>
+            
+            <div class="example-grid">
+                <div class="example-card">
+                    <div class="example-image">Wandile Mbambeni</div>
+                    <div class="example-content">
+                        <h3 class="example-title">You Love Who You Love</h3>
+                        <p>A soulful EP presentation with track-by-track insights, inspirations, and personal artist statements.</p>
+                        <a href="https://alx0r.github.io/Aartless/texxex.html" class="example-link" target="_blank">View Example</a>
+                    </div>
+                </div>
+                
+                <div class="example-card">
+                    <div class="example-image">Daisy Arson</div>
+                    <div class="example-content">
+                        <h3 class="example-title">D.O.A Single</h3>
+                        <p>Industrial riot grrrl aesthetic with content warnings, live show information, and duo breakdown.</p>
+                        <a href="https://alx0r.github.io/Aartless/texxex2.html" class="example-link" target="_blank">View Example</a>
+                    </div>
+                </div>
+                
+                <div class="example-card">
+                    <div class="example-image">Rocking the Daisies</div>
+                    <div class="example-content">
+                        <h3 class="example-title">Smart Festival Guide</h3>
+                        <p>Interactive festival guide with lineup, schedule, live updates, and survival tips that work offline.</p>
+                        <a href="https://alx0r.github.io/Aartless/texxex3.html" class="example-link" target="_blank">View Example</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2 class="section-title">Ready to Transform Your Digital Presence?</h2>
+            <p class="section-subtitle">Get a custom digital experience that truly represents your art. Zero ongoing costs. Complete creative freedom.</p>
+            <a href="#contact" class="cta-button">Get Started Today</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="footer-content">
+            <div class="footer-logo">TexxxTech™</div>
+            <p class="footer-tagline">Artist-first digital solutions built on open-source ethics, designed for accessibility, and crafted for permanence.</p>
+            
+            <div class="contact-info">
+                <p>A <strong>Texx and the City</strong> Innovation</p>
+                <p>Contact: <a href="mailto:texxandthecity@gmail.com" class="contact-link">texxandthecity@gmail.com</a></p>
+            </div>
+            
+            <div class="footer-note">
+                <p>Built with the Untitled Framework • Brotherly Protocol v1.2.0</p>
+                <p>Ethically crafted in South Africa • Zero platform dependency • Forever updateable</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple script for smooth scrolling and nav highlighting
+        document.addEventListener('DOMContentLoaded', function() {
+            const navButtons = document.querySelectorAll('.nav-button');
+            const sections = document.querySelectorAll('.section, footer');
+            
+            // Smooth scrolling for navigation links
+            navButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetSection = document.querySelector(targetId);
+                    
+                    window.scrollTo({
+                        top: targetSection.offsetTop - 20,
+                        behavior: 'smooth'
+                    });
+                });
+            });
+            
+            // Update active nav button on scroll
+            window.addEventListener('scroll', function() {
+                let current = '';
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    
+                    if (pageYOffset >= sectionTop - 100) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                
+                navButtons.forEach(button => {
+                    button.classList.remove('active');
+                    if (button.getAttribute('href') === `#${current}`) {
+                        button.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

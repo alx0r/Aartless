@@ -5,34 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tayla Pringle | English Tutoring & Educational Strategy</title>
     <style>
+        /* Minimal CSS - Mobile First */
         :root {
             --primary: #2c3e50;
-            --secondary: #7f8c8d;
             --accent: #8e44ad;
-            --light: #ecf0f1;
-            --dark: #2c3e50;
-            --transition: all 0.3s ease;
-            --gold: #d4af37;
+            --light: #f8f9fa;
+            --text: #333;
+            --border: #e9ecef;
         }
         
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Times New Roman', serif;
         }
         
         body {
-            background-color: #f9f9f9;
-            color: #333;
+            font-family: system-ui, -apple-system, sans-serif;
             line-height: 1.6;
+            color: var(--text);
+            background: var(--light);
+            font-size: 16px;
         }
         
-        header {
-            background: linear-gradient(135deg, var(--primary), var(--accent));
+        /* Header */
+        .site-header {
+            background: var(--primary);
             color: white;
-            padding: 2rem 1rem;
-            text-align: center;
+            padding: 1rem;
             position: relative;
         }
         
@@ -43,515 +43,506 @@
         }
         
         .language-toggle button {
-            background: rgba(255,255,255,0.2);
-            border: 1px solid rgba(255,255,255,0.5);
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.3);
             color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-        
-        .language-toggle button:hover {
-            background: rgba(255,255,255,0.3);
+            padding: 0.25rem 0.5rem;
+            border-radius: 3px;
+            font-size: 0.875rem;
         }
         
         .profile-section {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 1rem;
+            text-align: center;
+            padding: 1rem 0;
         }
         
         .profile-image {
-            width: 150px;
-            height: 150px;
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
-            object-fit: cover;
-            border: 4px solid white;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            background-color: #ddd; /* Placeholder color */
+            background: #ddd;
+            margin: 0 auto 1rem;
+            border: 2px solid white;
         }
         
         h1 {
-            font-size: 2.5rem;
+            font-size: 1.5rem;
             margin-bottom: 0.5rem;
-            font-weight: normal;
-            letter-spacing: 1px;
         }
         
         .tagline {
             font-style: italic;
-            font-size: 1.2rem;
+            opacity: 0.9;
             margin-bottom: 1rem;
-            max-width: 600px;
-        }
-        
-        .contact-info {
-            margin-top: 1rem;
         }
         
         .contact-info a {
             color: white;
             text-decoration: none;
-            border-bottom: 1px dotted rgba(255,255,255,0.7);
-            transition: var(--transition);
+            border-bottom: 1px dotted rgba(255,255,255,0.5);
         }
         
-        .contact-info a:hover {
-            border-bottom: 1px solid white;
-        }
-        
+        /* Navigation */
         nav {
-            background-color: var(--primary);
-            padding: 1rem;
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            background: var(--primary);
+            border-top: 1px solid rgba(255,255,255,0.1);
         }
         
         nav ul {
             display: flex;
-            justify-content: center;
             list-style: none;
-            flex-wrap: wrap;
-        }
-        
-        nav li {
-            margin: 0 1rem;
+            overflow-x: auto;
+            padding: 0.5rem;
+            gap: 0.5rem;
+            -webkit-overflow-scrolling: touch;
         }
         
         nav a {
             color: white;
             text-decoration: none;
-            font-weight: bold;
-            transition: var(--transition);
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
+            padding: 0.5rem 0.75rem;
+            white-space: nowrap;
+            border-radius: 3px;
+            font-size: 0.875rem;
         }
         
-        nav a:hover {
-            background-color: rgba(255,255,255,0.1);
+        nav a:active {
+            background: rgba(255,255,255,0.1);
         }
         
-        section {
-            padding: 3rem 1rem;
-            max-width: 1200px;
+        /* Main Content */
+        main {
+            padding: 1rem;
+            max-width: 800px;
             margin: 0 auto;
         }
         
-        .section-title {
-            text-align: center;
+        section {
             margin-bottom: 2rem;
-            position: relative;
-            font-size: 2rem;
-            color: var(--primary);
-        }
-        
-        .section-title:after {
-            content: '';
-            display: block;
-            width: 100px;
-            height: 3px;
-            background-color: var(--accent);
-            margin: 0.5rem auto;
-        }
-        
-        .two-column {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-        }
-        
-        @media (max-width: 768px) {
-            .two-column {
-                grid-template-columns: 1fr;
-            }
-        }
-        
-        .card {
             background: white;
             border-radius: 8px;
             padding: 1.5rem;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            transition: var(--transition);
-            height: 100%;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
         
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
-        }
-        
-        .card h3 {
-            color: var(--accent);
+        h2 {
+            color: var(--primary);
             margin-bottom: 1rem;
-            border-bottom: 1px solid #eee;
             padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent);
+            font-size: 1.25rem;
         }
         
+        h3 {
+            color: var(--accent);
+            margin: 1rem 0 0.5rem;
+            font-size: 1.1rem;
+        }
+        
+        p {
+            margin-bottom: 1rem;
+        }
+        
+        ul {
+            padding-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        li {
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Services Grid */
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 1.5rem;
+            gap: 1rem;
+            margin-top: 1rem;
         }
         
         .service-card {
-            background: white;
-            border-radius: 8px;
-            padding: 1.5rem;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            transition: var(--transition);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 1rem;
             text-align: center;
         }
         
-        .service-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
-        }
-        
         .service-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            color: var(--accent);
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
         }
         
+        /* Testimonials */
         .testimonial {
-            background: white;
-            border-radius: 8px;
-            padding: 1.5rem;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            margin-bottom: 1.5rem;
-            border-left: 4px solid var(--accent);
+            border-left: 3px solid var(--accent);
+            padding-left: 1rem;
+            margin-bottom: 1rem;
+            font-style: italic;
         }
         
         .testimonial-author {
             font-weight: bold;
-            margin-top: 1rem;
-            color: var(--primary);
+            margin-top: 0.5rem;
+            font-style: normal;
         }
         
+        /* Consulting Highlights */
         .consulting-highlights {
-            background: linear-gradient(135deg, var(--primary), var(--accent));
+            background: var(--primary);
             color: white;
-            padding: 2rem;
+            padding: 1.5rem;
             border-radius: 8px;
-            margin: 2rem 0;
+            margin: 1.5rem 0;
         }
         
         .consulting-highlights h3 {
+            color: white;
             text-align: center;
-            margin-bottom: 1.5rem;
-            font-size: 1.5rem;
+            margin-bottom: 1rem;
         }
         
         .highlight-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 1.5rem;
+            gap: 1rem;
         }
         
         .highlight-item {
             text-align: center;
-            padding: 1rem;
         }
         
         .highlight-icon {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            color: var(--gold);
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
         }
         
+        /* Footer */
         footer {
-            background-color: var(--primary);
+            background: var(--primary);
             color: white;
             padding: 2rem 1rem;
             text-align: center;
         }
         
         .footer-content {
-            max-width: 1200px;
+            max-width: 800px;
             margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
+        }
+        
+        .footer-section {
+            margin-bottom: 1.5rem;
         }
         
         .footer-section h3 {
-            margin-bottom: 1rem;
-            color: var(--gold);
+            color: white;
+            margin-bottom: 0.5rem;
         }
         
         .social-links {
             display: flex;
             justify-content: center;
             gap: 1rem;
-            margin-top: 1rem;
+            margin: 1rem 0;
         }
         
         .social-links a {
             color: white;
-            font-size: 1.5rem;
-            transition: var(--transition);
-        }
-        
-        .social-links a:hover {
-            color: var(--gold);
         }
         
         .copyright {
-            margin-top: 2rem;
+            margin-top: 1.5rem;
             padding-top: 1rem;
             border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.875rem;
         }
         
-        /* Georgian language styling */
-        .georgian {
-            display: none;
-        }
-        
-        .georgian-font {
-            font-family: 'Noto Sans Georgian', 'BPG Glaho', sans-serif;
-        }
-        
-        /* Poetry section styling */
+        /* Poetry section */
         .poetry-excerpt {
             font-style: italic;
             text-align: center;
-            padding: 1.5rem;
-            background: linear-gradient(to right, transparent, rgba(142, 68, 173, 0.1), transparent);
-            border-radius: 8px;
-            margin: 1.5rem 0;
+            padding: 1rem;
+            background: rgba(142, 68, 173, 0.05);
+            border-radius: 6px;
+            margin: 1rem 0;
             line-height: 1.8;
         }
         
         .signature {
-            font-family: 'Dancing Script', cursive;
-            font-size: 1.5rem;
+            font-family: serif;
             text-align: right;
-            margin-top: 1rem;
+            margin-top: 0.5rem;
+        }
+        
+        /* Desktop improvements */
+        @media (min-width: 768px) {
+            body {
+                font-size: 18px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .highlight-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .footer-content {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 2rem;
+                text-align: left;
+            }
+            
+            .footer-section {
+                margin-bottom: 0;
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .services-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .highlight-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+        
+        /* Focus styles for accessibility */
+        button:focus-visible,
+        a:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
+        }
+        
+        /* Reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
         }
     </style>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header>
+    <!-- YAML Metadata -->
+    <!--
+    ---
+    title: "Tayla Pringle - English Tutoring & Educational Strategy"
+    author: "Tayla Pringle"
+    version: "1.0.0"
+    date: "2024-01-15"
+    tags: ["education", "tutoring", "english", "consulting", "accessibility"]
+    license: "CC BY-NC-SA 4.0"
+    ---
+    -->
+
+    <header class="site-header">
         <div class="language-toggle">
-            <button id="english-btn">English</button>
-            <button id="georgian-btn">ქართული</button>
+            <button id="english-btn">EN</button>
+            <button id="georgian-btn">KA</button>
         </div>
         
         <div class="profile-section">
-            <div class="profile-image"></div>
+            <div class="profile-image" aria-label="Tayla Pringle profile picture"></div>
             <h1>Tayla Pringle</h1>
             <p class="tagline">Bridging Cultures Through Language & Education</p>
             <div class="contact-info">
                 <a href="mailto:taylateachesenglish@gmail.com">taylateachesenglish@gmail.com</a>
             </div>
         </div>
+        
+        <nav>
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#tutoring">Tutoring</a></li>
+                <li><a href="#consulting">Consulting</a></li>
+                <li><a href="#methodology">Methodology</a></li>
+                <li><a href="#testimonials">Testimonials</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
     </header>
-    
-    <nav>
-        <ul>
-            <li><a href="#about">About</a></li>
-            <li><a href="#tutoring">English Tutoring</a></li>
-            <li><a href="#consulting">Educational Strategy</a></li>
-            <li><a href="#methodology">Methodology</a></li>
-            <li><a href="#testimonials">Testimonials</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-    </nav>
-    
-    <section id="about">
-        <h2 class="section-title">About Tayla</h2>
-        <div class="two-column">
-            <div class="card">
-                <h3>Her Story</h3>
-                <p>Tayla Pringle brings a unique multicultural perspective to English education, with roots in South Africa's diverse linguistic landscape. Her background informs a teaching philosophy that celebrates linguistic diversity while mastering the nuances of English.</p>
-                <p>With a passion for poetry and Gothic literature, Tayla infuses her lessons with the rich tapestry of English literary tradition, from classic works to contemporary voices.</p>
-                <div class="poetry-excerpt">
-                    <p>"Language is not merely a tool for communication,</p>
-                    <p>but a bridge between souls,</p>
-                    <p>a key to understanding worlds</p>
-                    <p>both familiar and foreign."</p>
-                    <div class="signature">- Tayla Pringle</div>
+
+    <main>
+        <section id="about">
+            <h2>About Tayla</h2>
+            
+            <h3>Her Story</h3>
+            <p>Tayla Pringle brings a unique multicultural perspective to English education, with roots in South Africa's diverse linguistic landscape. Her background informs a teaching philosophy that celebrates linguistic diversity while mastering the nuances of English.</p>
+            
+            <div class="poetry-excerpt">
+                <p>"Language is not merely a tool for communication,</p>
+                <p>but a bridge between souls,</p>
+                <p>a key to understanding worlds</p>
+                <p>both familiar and foreign."</p>
+                <div class="signature">- Tayla Pringle</div>
+            </div>
+            
+            <h3>Educational Philosophy</h3>
+            <p>Tayla believes in education that is:</p>
+            <ul>
+                <li><strong>Accessible:</strong> Removing barriers through thoughtful design</li>
+                <li><strong>Engaging:</strong> Connecting with students' cultural contexts</li>
+                <li><strong>Adaptive:</strong> Evolving with each student's learning journey</li>
+                <li><strong>Holistic:</strong> Developing skills within broader contexts</li>
+            </ul>
+        </section>
+
+        <section id="tutoring">
+            <h2>English Tutoring Services</h2>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">📚</div>
+                    <h3>Grammar & Composition</h3>
+                    <p>Master English building blocks with tailored lessons</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">🎭</div>
+                    <h3>Literary Analysis</h3>
+                    <p>Explore literature through critical reading and writing</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">💬</div>
+                    <h3>Conversational Fluency</h3>
+                    <p>Develop natural speaking skills and pronunciation</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">✍️</div>
+                    <h3>Creative Writing</h3>
+                    <p>Unlock creative potential with writing workshops</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">🎯</div>
+                    <h3>Exam Preparation</h3>
+                    <p>Targeted prep for tests and academic requirements</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">🌍</div>
+                    <h3>Cultural Immersion</h3>
+                    <p>Contextual learning through cultural content</p>
                 </div>
             </div>
-            <div class="card">
-                <h3>Educational Philosophy</h3>
-                <p>Tayla believes in education that is:</p>
-                <ul>
-                    <li><strong>Accessible:</strong> Removing barriers to learning through thoughtful design</li>
-                    <li><strong>Engaging:</strong> Connecting with students' interests and cultural contexts</li>
-                    <li><strong>Adaptive:</strong> Evolving with each student's unique learning journey</li>
-                    <li><strong>Holistic:</strong> Developing language skills within broader communicative contexts</li>
-                </ul>
-                <p>Her approach blends traditional pedagogical excellence with innovative, student-centered methodologies.</p>
-            </div>
-        </div>
-    </section>
-    
-    <section id="tutoring">
-        <h2 class="section-title">English Tutoring Services</h2>
-        <div class="services-grid">
-            <div class="service-card">
-                <div class="service-icon">📚</div>
-                <h3>Grammar & Composition</h3>
-                <p>Master the building blocks of English with tailored lessons in grammar, syntax, and writing structure.</p>
-            </div>
-            <div class="service-card">
-                <div class="service-icon">🎭</div>
-                <h3>Literary Analysis</h3>
-                <p>Explore English literature through critical reading, interpretation, and analytical writing.</p>
-            </div>
-            <div class="service-card">
-                <div class="service-icon">💬</div>
-                <h3>Conversational Fluency</h3>
-                <p>Develop natural speaking skills through guided conversation and pronunciation practice.</p>
-            </div>
-            <div class="service-card">
-                <div class="service-icon">✍️</div>
-                <h3>Creative Writing</h3>
-                <p>Unlock your creative potential with poetry, fiction, and personal narrative workshops.</p>
-            </div>
-            <div class="service-card">
-                <div class="service-icon">🎯</div>
-                <h3>Exam Preparation</h3>
-                <p>Targeted preparation for standardized tests and academic English requirements.</p>
-            </div>
-            <div class="service-card">
-                <div class="service-icon">🌍</div>
-                <h3>Cultural Immersion</h3>
-                <p>Contextual language learning through cultural content, media, and real-world applications.</p>
-            </div>
-        </div>
-    </section>
-    
-    <section id="consulting">
-        <h2 class="section-title">Educational Strategy & Consulting</h2>
-        
-        <div class="consulting-highlights">
-            <h3>Intelligent Learning Resource Design</h3>
-            <div class="highlight-grid">
-                <div class="highlight-item">
-                    <div class="highlight-icon">♿</div>
-                    <h4>Accessibility-First Design</h4>
-                    <p>Creating resources that are usable by all learners regardless of ability</p>
-                </div>
-                <div class="highlight-item">
-                    <div class="highlight-icon">🧠</div>
-                    <h4>Cognitive Load Optimization</h4>
-                    <p>Structuring information for maximum comprehension and retention</p>
-                </div>
-                <div class="highlight-item">
-                    <div class="highlight-icon">🌐</div>
-                    <h4>Multicultural Frameworks</h4>
-                    <p>Developing culturally responsive teaching materials</p>
-                </div>
-                <div class="highlight-item">
-                    <div class="highlight-icon">📊</div>
-                    <h4>Assessment Design</h4>
-                    <p>Creating meaningful evaluation tools that measure true understanding</p>
+        </section>
+
+        <section id="consulting">
+            <h2>Educational Strategy & Consulting</h2>
+            
+            <div class="consulting-highlights">
+                <h3>Intelligent Learning Resource Design</h3>
+                <div class="highlight-grid">
+                    <div class="highlight-item">
+                        <div class="highlight-icon">♿</div>
+                        <h4>Accessibility-First</h4>
+                        <p>Resources usable by all learners</p>
+                    </div>
+                    
+                    <div class="highlight-item">
+                        <div class="highlight-icon">🧠</div>
+                        <h4>Cognitive Optimization</h4>
+                        <p>Structured for comprehension</p>
+                    </div>
+                    
+                    <div class="highlight-item">
+                        <div class="highlight-icon">🌐</div>
+                        <h4>Multicultural Frameworks</h4>
+                        <p>Culturally responsive materials</p>
+                    </div>
+                    
+                    <div class="highlight-item">
+                        <div class="highlight-icon">📊</div>
+                        <h4>Assessment Design</h4>
+                        <p>Meaningful evaluation tools</p>
+                    </div>
                 </div>
             </div>
-        </div>
-        
-        <div class="two-column">
-            <div class="card">
-                <h3>For Educational Institutions</h3>
-                <ul>
-                    <li>Curriculum development and alignment</li>
-                    <li>Teacher training programs</li>
-                    <li>Resource library design</li>
-                    <li>Multilingual program implementation</li>
-                    <li>Accessibility auditing and improvement</li>
-                    <li>Educational technology integration</li>
-                </ul>
+            
+            <h3>For Educational Institutions</h3>
+            <ul>
+                <li>Curriculum development and alignment</li>
+                <li>Teacher training programs</li>
+                <li>Resource library design</li>
+                <li>Accessibility auditing</li>
+            </ul>
+            
+            <h3>For Corporate Clients</h3>
+            <ul>
+                <li>Business communication training</li>
+                <li>Cross-cultural team facilitation</li>
+                <li>Professional writing development</li>
+                <li>Internal communication systems</li>
+            </ul>
+        </section>
+
+        <section id="methodology">
+            <h2>Teaching Methodology</h2>
+            
+            <h3>The Gothic & Classic Influence</h3>
+            <p>Tayla's unique approach draws inspiration from Gothic literature's rich language and complex narratives, helping students appreciate the depth and versatility of English.</p>
+            
+            <h3>Personalized Learning Systems</h3>
+            <p>Each student receives a customized learning plan that adapts to their:</p>
+            <ul>
+                <li>Current proficiency level</li>
+                <li>Learning style preferences</li>
+                <li>Specific goals and objectives</li>
+                <li>Cultural and linguistic background</li>
+            </ul>
+        </section>
+
+        <section id="testimonials">
+            <h2>Student & Client Testimonials</h2>
+            
+            <div class="testimonial">
+                <p>"Tayla transformed my relationship with English literature. Her passion for Gothic works helped me see the beauty in complex texts I previously found intimidating."</p>
+                <div class="testimonial-author">- Ana, University Student</div>
             </div>
-            <div class="card">
-                <h3>For Corporate Clients</h3>
-                <ul>
-                    <li>Business communication training</li>
-                    <li>Cross-cultural team facilitation</li>
-                    <li>Professional writing development</li>
-                    <li>Presentation skills coaching</li>
-                    <li>Internal communication systems</li>
-                    <li>Learning management system design</li>
-                </ul>
+            
+            <div class="testimonial">
+                <p>"As a school administrator, I've been impressed with Tayla's strategic approach to curriculum design. Her accessibility-first framework has made our resources more inclusive."</p>
+                <div class="testimonial-author">- David, Educational Director</div>
             </div>
-        </div>
-    </section>
-    
-    <section id="methodology">
-        <h2 class="section-title">Teaching Methodology</h2>
-        <div class="two-column">
-            <div class="card">
-                <h3>The Gothic & Classic Influence</h3>
-                <p>Tayla's unique approach draws inspiration from Gothic literature's rich language and complex narratives, helping students appreciate the depth and versatility of English.</p>
-                <p>By studying texts from authors like the Brontë sisters, Edgar Allan Poe, and Mary Shelley, students develop an ear for sophisticated language patterns and literary devices.</p>
-                <p>This classical foundation is balanced with contemporary applications, ensuring relevance to modern communication needs.</p>
-            </div>
-            <div class="card">
-                <h3>Personalized Learning Systems</h3>
-                <p>Each student receives a customized learning plan that adapts to their:</p>
-                <ul>
-                    <li>Current proficiency level</li>
-                    <li>Learning style preferences</li>
-                    <li>Specific goals and objectives</li>
-                    <li>Cultural and linguistic background</li>
-                    <li>Interests and motivations</li>
-                </ul>
-                <p>Progress is continuously monitored, with adjustments made to optimize learning outcomes.</p>
-            </div>
-        </div>
-    </section>
-    
-    <section id="testimonials">
-        <h2 class="section-title">Student & Client Testimonials</h2>
-        
-        <div class="testimonial">
-            <p>"Tayla transformed my relationship with English literature. Her passion for Gothic works helped me see the beauty in complex texts I previously found intimidating."</p>
-            <div class="testimonial-author">- Ana, University Student</div>
-        </div>
-        
-        <div class="testimonial">
-            <p>"As a school administrator, I've been impressed with Tayla's strategic approach to curriculum design. Her accessibility-first framework has made our resources more inclusive and effective."</p>
-            <div class="testimonial-author">- David, Educational Director</div>
-        </div>
-        
-        <div class="testimonial">
-            <p>"Tayla's consulting helped our international team communicate more effectively. She designed resources that respected our diverse linguistic backgrounds while improving our English proficiency."</p>
-            <div class="testimonial-author">- Mariam, Corporate Training Manager</div>
-        </div>
-    </section>
-    
-    <section id="contact">
-        <h2 class="section-title">Begin Your English Journey</h2>
-        <div class="card" style="text-align: center; max-width: 600px; margin: 0 auto;">
-            <h3>Get in Touch</h3>
+        </section>
+
+        <section id="contact">
+            <h2>Begin Your English Journey</h2>
+            
             <p>Whether you're seeking one-on-one tutoring, educational consulting, or strategic resource development, Tayla would be delighted to discuss how she can support your language and learning goals.</p>
-            <div style="margin: 2rem 0;">
-                <a href="mailto:taylateachesenglish@gmail.com" style="display: inline-block; background: var(--accent); color: white; padding: 1rem 2rem; text-decoration: none; border-radius: 4px; font-weight: bold; transition: var(--transition);">taylateachesenglish@gmail.com</a>
+            
+            <div style="text-align: center; margin: 1.5rem 0;">
+                <a href="mailto:taylateachesenglish@gmail.com" style="display: inline-block; background: var(--accent); color: white; padding: 0.75rem 1.5rem; text-decoration: none; border-radius: 4px; font-weight: bold;">taylateachesenglish@gmail.com</a>
             </div>
-            <p>Response time: Typically within 24 hours</p>
-        </div>
-    </section>
-    
+            
+            <p style="text-align: center;">Response time: Typically within 24 hours</p>
+        </section>
+    </main>
+
     <footer>
         <div class="footer-content">
             <div class="footer-section">
                 <h3>Tayla Pringle</h3>
                 <p>English Tutoring & Educational Strategy</p>
-                <p>Bridging cultures through language excellence</p>
             </div>
             
             <div class="footer-section">
                 <h3>Connect</h3>
                 <div class="social-links">
-                    <a href="#">Instagram</a>
-                    <a href="#">LinkedIn</a>
-                    <a href="#">Educational Blog</a>
+                    <a href="#" aria-label="Instagram">Instagram</a>
+                    <a href="#" aria-label="LinkedIn">LinkedIn</a>
                 </div>
             </div>
             
@@ -559,47 +550,53 @@
                 <h3>Location</h3>
                 <p>Serving students globally</p>
                 <p>Based in Georgia</p>
-                <p>Remote sessions available</p>
             </div>
         </div>
         
         <div class="copyright">
-            <p>&copy; 2023 Tayla Pringle English Tutoring. All rights reserved.</p>
+            <p>&copy; 2024 Tayla Pringle English Tutoring</p>
         </div>
     </footer>
 
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Tayla Pringle",
+        "jobTitle": "English Tutor & Educational Strategist",
+        "email": "taylateachesenglish@gmail.com",
+        "url": "",
+        "knowsLanguage": ["en", "ka"],
+        "description": "English tutoring and educational strategy services with a focus on accessibility and multicultural approaches."
+    }
+    </script>
+
     <script>
-        // Language toggle functionality
+        // Simple language toggle
         document.getElementById('english-btn').addEventListener('click', function() {
-            document.querySelectorAll('.georgian').forEach(el => {
-                el.style.display = 'none';
-            });
-            document.querySelectorAll('.english').forEach(el => {
-                el.style.display = 'block';
-            });
+            // English content would be shown
+            console.log('Switch to English');
         });
         
         document.getElementById('georgian-btn').addEventListener('click', function() {
-            document.querySelectorAll('.english').forEach(el => {
-                el.style.display = 'none';
-            });
-            document.querySelectorAll('.georgian').forEach(el => {
-                el.style.display = 'block';
-            });
+            // Georgian content would be shown  
+            console.log('Switch to Georgian');
         });
         
-        // Smooth scrolling for navigation links
+        // Smooth scrolling for navigation
         document.querySelectorAll('nav a').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
-                
                 const targetId = this.getAttribute('href');
                 const targetElement = document.querySelector(targetId);
                 
-                window.scrollTo({
-                    top: targetElement.offsetTop - 80,
-                    behavior: 'smooth'
-                });
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 20,
+                        behavior: 'smooth'
+                    });
+                }
             });
         });
     </script>

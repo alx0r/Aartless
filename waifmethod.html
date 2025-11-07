@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Waif Method™ | Where Ideas Become Heirlooms</title>
+    <style>
+        /* ===== VARIABLES & RESET ===== */
+        :root {
+            --color-dark: #0a0a0a;
+            --color-darker: #050505;
+            --color-gold: #c9a96e;
+            --color-gold-light: #d4b885;
+            --color-gold-dark: #b08c4e;
+            --color-cream: #f5f2eb;
+            --color-gray: #2a2a2a;
+            --color-gray-light: #3a3a3a;
+            --font-serif: 'Playfair Display', Georgia, serif;
+            --font-sans: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+            --font-mono: 'SF Mono', Monaco, monospace;
+            --border-radius: 2px;
+            --transition: all 0.3s ease;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            --shadow-light: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--color-dark);
+            color: var(--color-cream);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ===== TYPOGRAPHY ===== */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-serif);
+            font-weight: 400;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-top: 3rem;
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 60px;
+            height: 1px;
+            background-color: var(--color-gold);
+        }
+
+        h3 {
+            font-size: 1.75rem;
+            margin-top: 2rem;
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        a {
+            color: var(--color-gold);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        a:hover {
+            color: var(--color-gold-light);
+        }
+
+        blockquote {
+            border-left: 2px solid var(--color-gold);
+            padding-left: 1.5rem;
+            margin: 2rem 0;
+            font-style: italic;
+        }
+
+        /* ===== LAYOUT ===== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        section {
+            padding: 5rem 0;
+        }
+
+        .section-dark {
+            background-color: var(--color-darker);
+        }
+
+        .section-light {
+            background-color: var(--color-gray);
+        }
+
+        /* ===== HEADER & NAVIGATION ===== */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--color-gray);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+        }
+
+        .logo {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            color: var(--color-gold);
+            letter-spacing: 0.1em;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav li {
+            margin-left: 2rem;
+        }
+
+        nav a {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(10, 10, 10, 0.7), rgba(10, 10, 10, 0.9));
+            z-index: -1;
+        }
+
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            z-index: -2;
+            opacity: 0.4;
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: var(--color-gold);
+            margin-bottom: 2rem;
+        }
+
+        .hero-cta {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background-color: var(--color-gold);
+            color: var(--color-dark);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 600;
+            border: none;
+            transition: var(--transition);
+            margin-top: 1rem;
+        }
+
+        .hero-cta:hover {
+            background-color: var(--color-gold-light);
+            color: var(--color-dark);
+        }
+
+        /* ===== ABOUT SECTION ===== */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-text {
+            padding-right: 2rem;
+        }
+
+        .about-image {
+            position: relative;
+            height: 500px;
+            background-image: url('https://images.unsplash.com/photo-1589156191108-c762ff4b96ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');
+            background-size: cover;
+            background-position: center;
+            box-shadow: var(--shadow);
+        }
+
+        .about-image::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            width: 100%;
+            height: 100%;
+            border: 1px solid var(--color-gold);
+            z-index: -1;
+        }
+
+        /* ===== PILLARS SECTION ===== */
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .pillar {
+            padding: 2rem;
+            border: 1px solid var(--color-gray);
+            transition: var(--transition);
+        }
+
+        .pillar:hover {
+            border-color: var(--color-gold);
+            transform: translateY(-5px);
+        }
+
+        .pillar-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--color-gold);
+        }
+
+        .pillar h3 {
+            margin-top: 0;
+        }
+
+        /* ===== EXAMPLES SECTION ===== */
+        .examples-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .example {
+            position: relative;
+            height: 400px;
+            overflow: hidden;
+        }
+
+        .example-image {
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            transition: var(--transition);
+        }
+
+        .example:hover .example-image {
+            transform: scale(1.05);
+        }
+
+        .example-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 2rem;
+            background: linear-gradient(transparent, rgba(10, 10, 10, 0.9));
+        }
+
+        .example-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .example-subtitle {
+            color: var(--color-gold);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* ===== CTA SECTION ===== */
+        .cta-section {
+            text-align: center;
+            padding: 6rem 0;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .btn-primary {
+            background-color: var(--color-gold);
+            color: var(--color-dark);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--color-gold-light);
+        }
+
+        .btn-secondary {
+            border: 1px solid var(--color-gold);
+            color: var(--color-gold);
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(201, 169, 110, 0.1);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background-color: var(--color-darker);
+            padding: 4rem 0 2rem;
+            border-top: 1px solid var(--color-gray);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-logo {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            color: var(--color-gold);
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links h4 {
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid var(--color-gray);
+            font-size: 0.9rem;
+            color: var(--color-gray-light);
+        }
+
+        /* ===== RESPONSIVE DESIGN ===== */
+        @media (max-width: 992px) {
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .pillars-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .examples-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero h1 {
+                font-size: 3rem;
+            }
+            
+            .examples-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+            
+            nav ul {
+                display: none;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- YAML Metadata Block -->
+    <!--
+    title: "The Waif Method™ | Where Ideas Become Heirlooms"
+    author: "Giselle Human"
+    affiliation: "Waif"
+    forever_format: "1.2.0"
+    document_type: "Creative Process Documentation"
+    license: "CC BY-NC-SA 4.0"
+    version: "1.0.0"
+    created: "2024-01-01"
+    updated: "2024-01-15"
+    citation_style: "APA 7th"
+    tags: ["creative process", "bespoke", "documentation", "luxury"]
+    ai_context_tags: ["creative_synthesis", "process_documentation"]
+    bias_note: "Artistic perspective focusing on bespoke creative processes"
+    -->
+
+    <!-- JSON-LD Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "CreativeWork",
+        "name": "The Waif Method™ | Where Ideas Become Heirlooms",
+        "author": {
+            "@type": "Person",
+            "name": "Giselle Human"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Waif"
+        },
+        "datePublished": "2024-01-01",
+        "license": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+        "version": "1.0.0"
+    }
+    </script>
+
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">WAIF</div>
+                <nav>
+                    <ul>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#method">The Method</a></li>
+                        <li><a href="#examples">Examples</a></li>
+                        <li><a href="#cta">Begin</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-background"></div>
+        <div class="container">
+            <div class="hero-content">
+                <h1>The Waif Method™</h1>
+                <p class="hero-subtitle">Where Ideas Become Heirlooms</p>
+                <p>A revolutionary way to experience the creative process. Every sketch, every conversation, every moment of inspiration—captured forever in a beautiful, living document that is yours alone.</p>
+                <a href="#cta" class="hero-cta">Begin Your Journey</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="section-dark">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>Giselle Human & The Waif Ethos</h2>
+                    <p>Giselle Human is a South African conceptual creative thinker, jewelry maker, designer, and writer whose multidisciplinary approach transcends traditional boundaries. With over a decade of experience spanning creative direction, copywriting, and bespoke jewelry design, Giselle has developed a unique methodology for bringing ideas to life.</p>
+                    <p>Her company, Waif, began as a jewelry design brand in 2012 and has evolved into a holistic creative practice that applies the same meticulous attention to detail across disciplines—from branding and interior design to conceptual art installations.</p>
+                    <blockquote>
+                        "I don't just create objects; I create the story around them. The Waif Method™ is about honoring that entire journey—from the first spark of an idea to the final, tangible manifestation."
+                    </blockquote>
+                </div>
+                <div class="about-image"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="method">
+        <div class="container">
+            <h2>The Pillars of The Waif Method™</h2>
+            <p>Giselle's multidisciplinary approach, beautifully documented through the Brotherly Protocol and Forever Format.</p>
+            
+            <div class="pillars-grid">
+                <div class="pillar">
+                    <div class="pillar-icon">💎</div>
+                    <h3>Conceptual Creative Thinking</h3>
+                    <p>The foundation of everything. We document the "why" behind the "what," exploring the story, emotion, and concept that will give your project depth and meaning.</p>
+                </div>
+                
+                <div class="pillar">
+                    <div class="pillar-icon">🔮</div>
+                    <h3>Jewelry & Object Design</h3>
+                    <p>For one-of-a-kind pieces. From initial sketches to stone selection and metalwork, every decision that transforms precious materials into wearable art is captured.</p>
+                </div>
+                
+                <div class="pillar">
+                    <div class="pillar-icon">🎨</div>
+                    <h3>Brand & Identity Alchemy</h3>
+                    <p>For businesses and personal brands. We document the journey of defining your visual language, from mood boards and logo sketches to the final style guide.</p>
+                </div>
+                
+                <div class="pillar">
+                    <div class="pillar-icon">🏛️</div>
+                    <h3>Spatial & Interstitial Design</h3>
+                    <p>For the spaces you inhabit. Capture the process of designing a room, a cafe, or an installation, from initial floor plans to the final selection of textures and light.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="examples" class="section-light">
+        <div class="container">
+            <h2>See The Waif Method™ In Action</h2>
+            <p>Explore real examples of the method bringing projects to life.</p>
+            
+            <div class="examples-grid">
+                <div class="example">
+                    <div class="example-image" style="background-image: url('https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80')"></div>
+                    <div class="example-overlay">
+                        <h3 class="example-title">The Saturn Return Ring</h3>
+                        <p class="example-subtitle">Astrological Talisman • Completed</p>
+                    </div>
+                </div>
+                
+                <div class="example">
+                    <div class="example-image" style="background-image: url('https://images.unsplash.com/photo-1558618666-fcd25856cd63?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80')"></div>
+                    <div class="example-overlay">
+                        <h3 class="example-title">The Untitled Café Rebrand</h3>
+                        <p class="example-subtitle">Interior & Identity • In Progress</p>
+                    </div>
+                </div>
+                
+                <div class="example">
+                    <div class="example-image" style="background-image: url('https://images.unsplash.com/photo-1580338450484-8e90a04a5e2c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80')"></div>
+                    <div class="example-overlay">
+                        <h3 class="example-title">Ceramic Memory Vessels</h3>
+                        <p class="example-subtitle">Art Series • Completed</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="cta" class="cta-section">
+        <div class="container">
+            <h2>Begin Your Waif Method™ Journey</h2>
+            <p>Let's create something extraordinary, and document every step.</p>
+            <p>Your creative vision deserves a beautiful story.</p>
+            
+            <div class="cta-buttons">
+                <a href="#" class="btn btn-primary">Start a Conversation</a>
+                <a href="#" class="btn btn-secondary">View the Portfolio</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="footer-logo">WAIF</div>
+                    <p>The Waif Method™ transforms your bespoke creative journey into a beautiful, permanent keepsake you'll treasure forever.</p>
+                    <p>Powered by the Brotherly Protocol™ and Forever Format™</p>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Explore</h4>
+                    <ul>
+                        <li><a href="#about">About Giselle</a></li>
+                        <li><a href="#method">The Method</a></li>
+                        <li><a href="#examples">Examples</a></li>
+                        <li><a href="#cta">Begin</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Connect</h4>
+                    <ul>
+                        <li><a href="#">Instagram</a></li>
+                        <li><a href="#">Journal</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Newsletter</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>© 2024 Waif by Giselle Human. All rights reserved.</p>
+                <p>Built with Forever Format™ v1.2.0 | Brotherly Protocol Ecosystem</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple script for smooth scrolling and header effect
+        document.addEventListener('DOMContentLoaded', function() {
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // Header scroll effect
+            window.addEventListener('scroll', function() {
+                const header = document.querySelector('header');
+                if (window.scrollY > 100) {
+                    header.style.backgroundColor = 'rgba(10, 10, 10, 0.98)';
+                } else {
+                    header.style.backgroundColor = 'rgba(10, 10, 10, 0.95)';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

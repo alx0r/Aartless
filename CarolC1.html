@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Van der Merwe Family Relocation Dashboard | South Africa → Netherlands</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a4b7a;
+            --secondary: #4a8c5d;
+            --accent: #d4a574;
+            --gold: #d4af37;
+            --light: #f8f9fa;
+            --paper: #ffffff;
+            --ink: #2c3e50;
+            --shadow: rgba(26, 75, 122, 0.1);
+            --warning: #e67e22;
+            --success: #27ae60;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--ink);
+            background: var(--light);
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(26, 75, 122, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 85% 30%, rgba(74, 140, 93, 0.05) 0%, transparent 20%);
+        }
+        
+        .dashboard-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        /* Header */
+        .dashboard-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 2.5rem 1rem;
+            border-radius: 0 0 20px 20px;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .dashboard-header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .family-info {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .family-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--gold);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+        }
+        
+        .family-details h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            font-family: 'Merriweather', serif;
+        }
+        
+        .family-details .tagline {
+            font-style: italic;
+            opacity: 0.9;
+            margin-bottom: 0.5rem;
+        }
+        
+        .relocation-status {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        
+        .stat-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+        
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--gold);
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        /* Dashboard Grid */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+        
+        .card {
+            background: var(--paper);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 12px var(--shadow);
+            border: 1px solid rgba(26, 75, 122, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .card-title {
+            color: var(--primary);
+            font-size: 1.4rem;
+            font-weight: 600;
+            font-family: 'Merriweather', serif;
+        }
+        
+        .card-icon {
+            font-size: 1.5rem;
+            color: var(--secondary);
+        }
+        
+        /* Card Sizing */
+        .card-wide {
+            grid-column: span 8;
+        }
+        
+        .card-medium {
+            grid-column: span 6;
+        }
+        
+        .card-narrow {
+            grid-column: span 4;
+        }
+        
+        .card-full {
+            grid-column: span 12;
+        }
+        
+        @media (max-width: 1200px) {
+            .card-wide, .card-medium, .card-narrow {
+                grid-column: span 12;
+            }
+        }
+        
+        /* Children Profiles */
+        .children-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+        
+        .child-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 8px var(--shadow);
+            border-left: 4px solid var(--primary);
+        }
+        
+        .child-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .child-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
+        }
+        
+        .child-details h3 {
+            color: var(--primary);
+            margin-bottom: 0.25rem;
+        }
+        
+        .child-age {
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+        
+        .child-needs {
+            margin-top: 1rem;
+        }
+        
+        .need-tag {
+            display: inline-block;
+            background: rgba(26, 75, 122, 0.1);
+            color: var(--primary);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        /* School Comparison */
+        .schools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+        
+        .school-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 8px var(--shadow);
+            border-top: 4px solid var(--secondary);
+        }
+        
+        .school-header {
+            display: flex;
+            justify-content: between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+        
+        .school-name {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .school-rating {
+            background: var(--secondary);
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+        }
+        
+        .school-details {
+            margin-bottom: 1rem;
+        }
+        
+        .school-feature {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .match-meter {
+            height: 8px;
+            background: #eee;
+            border-radius: 4px;
+            margin-top: 1rem;
+            overflow: hidden;
+        }
+        
+        .match-fill {
+            height: 100%;
+            background: var(--secondary);
+            border-radius: 4px;
+        }
+        
+        /* Timeline */
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .timeline-item {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.7);
+            border-left: 4px solid var(--secondary);
+        }
+        
+        .timeline-date {
+            font-weight: 600;
+            color: var(--primary);
+            min-width: 120px;
+        }
+        
+        .timeline-content {
+            flex: 1;
+        }
+        
+        .timeline-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--ink);
+        }
+        
+        .timeline-status {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+        }
+        
+        .status-completed {
+            background: rgba(39, 174, 96, 0.1);
+            color: var(--success);
+        }
+        
+        .status-pending {
+            background: rgba(230, 126, 34, 0.1);
+            color: var(--warning);
+        }
+        
+        /* Document Tracker */
+        .documents-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .document-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1rem;
+            box-shadow: 0 2px 8px var(--shadow);
+            text-align: center;
+        }
+        
+        .document-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        .document-name {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+        
+        .document-status {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        /* Checklist */
+        .checklist {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.7);
+        }
+        
+        .checklist-checkbox {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        .checklist-checkbox.checked {
+            background: var(--accent);
+            color: white;
+        }
+        
+        .checklist-content {
+            flex: 1;
+        }
+        
+        .checklist-title {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        
+        .checklist-description {
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+        
+        .checklist-deadline {
+            font-size: 0.8rem;
+            color: var(--warning);
+        }
+        
+        /* Cultural Notes */
+        .cultural-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+        
+        .cultural-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 8px var(--shadow);
+            text-align: center;
+        }
+        
+        .cultural-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        .cultural-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+        
+        /* Footer */
+        .dashboard-footer {
+            background: var(--primary);
+            color: white;
+            padding: 3rem 1rem;
+            border-radius: 20px 20px 0 0;
+            margin-top: 3rem;
+        }
+        
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .ai-instructions {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            text-align: left;
+        }
+        
+        .code-block {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 4px;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: monospace;
+            white-space: pre-wrap;
+            overflow-x: auto;
+        }
+        
+        /* Utility Classes */
+        .text-primary { color: var(--primary); }
+        .text-secondary { color: var(--secondary); }
+        .text-accent { color: var(--accent); }
+        
+        .mb-1 { margin-bottom: 1rem; }
+        .mb-2 { margin-bottom: 2rem; }
+        
+        .divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            margin: 1.5rem 0;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .family-info {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .dashboard-grid {
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- YAML Metadata -->
+    <!--
+    ---
+    title: "Van der Merwe Family Relocation Dashboard"
+    family: "Van der Merwe"
+    consultant: "Carol Crouse"
+    version: "1.0.0"
+    date: "2025-10-23"
+    tags: ["relocation", "education", "south-africa", "netherlands", "family"]
+    license: "CC BY-NC-SA 4.0"
+    ---
+    -->
+
+    <div class="dashboard-container">
+        <!-- Dashboard Header -->
+        <header class="dashboard-header">
+            <div class="header-content">
+                <div class="family-info">
+                    <div class="family-avatar"></div>
+                    <div class="family-details">
+                        <h1>Van der Merwe Family Relocation</h1>
+                        <p class="tagline">South Africa → Netherlands | Educational Transition Dashboard</p>
+                        <div class="relocation-status">Relocation Phase: Pre-Departure Planning</div>
+                    </div>
+                </div>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value">42</div>
+                        <div class="stat-label">Days Until Move</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">68%</div>
+                        <div class="stat-label">Tasks Completed</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">3/5</div>
+                        <div class="stat-label">Documents Ready</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">2</div>
+                        <div class="stat-label">Schools Shortlisted</div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Dashboard Grid -->
+        <div class="dashboard-grid">
+            <!-- Children Profiles -->
+            <div class="card card-wide">
+                <div class="card-header">
+                    <h2 class="card-title">Children's Educational Profiles</h2>
+                    <div class="card-icon">👨‍👩‍👧‍👦</div>
+                </div>
+                
+                <div class="children-grid">
+                    <div class="child-card">
+                        <div class="child-header">
+                            <div class="child-avatar"></div>
+                            <div class="child-details">
+                                <h3>Liam van der Merwe</h3>
+                                <div class="child-age">15 years | Grade 10</div>
+                            </div>
+                        </div>
+                        
+                        <div class="child-needs">
+                            <h4 class="mb-1">Educational Needs & Considerations:</h4>
+                            <div class="need-tag">IB Diploma Preparation</div>
+                            <div class="need-tag">STEM Focus</div>
+                            <div class="need-tag">Dutch Language Support</div>
+                            <div class="need-tag">Extracurricular Sports</div>
+                            
+                            <div class="divider"></div>
+                            
+                            <h4 class="mb-1">Current Curriculum:</h4>
+                            <p>South African CAPS → Transitioning to International Baccalaureate</p>
+                            
+                            <h4 class="mb-1">Academic Strengths:</h4>
+                            <p>Mathematics, Physics, Computer Science</p>
+                            
+                            <h4 class="mb-1">Transition Notes:</h4>
+                            <p>Strong in sciences but needs Dutch language immersion. Interested in soccer and coding clubs.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="child-card">
+                        <div class="child-header">
+                            <div class="child-avatar"></div>
+                            <div class="child-details">
+                                <h3>Emma van der Merwe</h3>
+                                <div class="child-age">8 years | Grade 3</div>
+                            </div>
+                        </div>
+                        
+                        <div class="child-needs">
+                            <h4 class="mb-1">Educational Needs & Considerations:</h4>
+                            <div class="need-tag">Bilingual Education</div>
+                            <div class="need-tag">Social Integration</div>
+                            <div class="need-tag">Arts & Creativity</div>
+                            <div class="need-tag">Learning Support</div>
+                            
+                            <div class="divider"></div>
+                            
+                            <h4 class="mb-1">Current Curriculum:</h4>
+                            <p>South African CAPS → Transitioning to Dutch Primary System</p>
+                            
+                            <h4 class="mb-1">Academic Strengths:</h4>
+                            <p>Creative Arts, Language Arts, Social Skills</p>
+                            
+                            <h4 class="mb-1">Transition Notes:</h4>
+                            <p>Creative and social but may need learning support for Dutch immersion. Enjoys art and music.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- School Comparison -->
+            <div class="card card-narrow">
+                <div class="card-header">
+                    <h2 class="card-title">School Comparison</h2>
+                    <div class="card-icon">🏫</div>
+                </div>
+                
+                <div class="schools-grid">
+                    <div class="school-card">
+                        <div class="school-header">
+                            <div>
+                                <div class="school-name">International School of Amsterdam</div>
+                                <div class="school-details">IB World School • Ages 3-18</div>
+                            </div>
+                            <div class="school-rating">9.2/10</div>
+                        </div>
+                        
+                        <div class="school-features">
+                            <div class="school-feature">📍 Amsterdam (30min commute)</div>
+                            <div class="school-feature">🎓 IB Diploma Programme</div>
+                            <div class="school-feature">🌍 80+ nationalities</div>
+                            <div class="school-feature">💬 English primary language</div>
+                            <div class="school-feature">⚽ Strong sports programs</div>
+                        </div>
+                        
+                        <div class="match-meter">
+                            <div class="match-fill" style="width: 85%"></div>
+                        </div>
+                        <div class="school-status">85% Family Match</div>
+                    </div>
+                    
+                    <div class="school-card">
+                        <div class="school-header">
+                            <div>
+                                <div class="school-name">Amsterdam International Community School</div>
+                                <div class="school-details">International Education • Ages 4-19</div>
+                            </div>
+                            <div class="school-rating">8.7/10</div>
+                        </div>
+                        
+                        <div class="school-features">
+                            <div class="school-feature">📍 Amsterdam South (20min commute)</div>
+                            <div class="school-feature">🎓 IB & Dutch bilingual tracks</div>
+                            <div class="school-feature">🌍 International community</div>
+                            <div class="school-feature">💬 English & Dutch programs</div>
+                            <div class="school-feature">🎨 Strong arts focus</div>
+                        </div>
+                        
+                        <div class="match-meter">
+                            <div class="match-fill" style="width: 78%"></div>
+                        </div>
+                        <div class="school-status">78% Family Match</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Relocation Timeline -->
+            <div class="card card-wide">
+                <div class="card-header">
+                    <h2 class="card-title">Relocation Timeline</h2>
+                    <div class="card-icon">📅</div>
+                </div>
+                
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-date">Oct 15 - 30, 2025</div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">School Applications & Interviews</div>
+                            <p>Submit applications to shortlisted schools and schedule virtual interviews</p>
+                            <div class="timeline-status status-completed">Completed</div>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-date">Nov 1 - 15, 2025</div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">Visa Documentation Preparation</div>
+                            <p>Gather and submit required documents for Dutch residence permits</p>
+                            <div class="timeline-status status-pending">In Progress</div>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-date">Nov 20, 2025</div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">Housing Search Finalization</div>
+                            <p>Secure rental property in Amsterdam area near selected school</p>
+                            <div class="timeline-status status-pending">Upcoming</div>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-date">Dec 10, 2025</div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">Departure from South Africa</div>
+                            <p>Flight from Johannesburg to Amsterdam with family</p>
+                            <div class="timeline-status status-pending">Upcoming</div>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-date">Jan 8, 2026</div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">School Enrollment & Orientation</div>
+                            <p>First day at new school for both children with orientation programs</p>
+                            <div class="timeline-status status-pending">Upcoming</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Document Tracker -->
+            <div class="card card-medium">
+                <div class="card-header">
+                    <h2 class="card-title">Document Tracker</h2>
+                    <div class="card-icon">📋</div>
+                </div>
+                
+                <div class="documents-grid">
+                    <div class="document-card">
+                        <div class="document-icon">🛂</div>
+                        <div class="document-name">Residence Permits</div>
+                        <div class="document-status status-pending">Application in Progress</div>
+                    </div>
+                    
+                    <div class="document-card">
+                        <div class="document-icon">📄</div>
+                        <div class="document-name">School Records</div>
+                        <div class="document-status status-completed">Translated & Certified</div>
+                    </div>
+                    
+                    <div class="document-card">
+                        <div class="document-icon">💉</div>
+                        <div class="document-name">Medical Records</div>
+                        <div class="document-status status-completed">Ready for Transfer</div>
+                    </div>
+                    
+                    <div class="document-card">
+                        <div class="document-icon">🏠</div>
+                        <div class="document-name">Housing Contract</div>
+                        <div class="document-status status-pending">Under Negotiation</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Checklist -->
+            <div class="card card-medium">
+                <div class="card-header">
+                    <h2 class="card-title">Relocation Checklist</h2>
+                    <div class="card-icon">✅</div>
+                </div>
+                
+                <div class="checklist">
+                    <div class="checklist-item">
+                        <div class="checklist-checkbox checked">✓</div>
+                        <div class="checklist-content">
+                            <div class="checklist-title">School Research & Shortlisting</div>
+                            <div class="checklist-description">Identify potential schools matching children's needs</div>
+                        </div>
+                    </div>
+                    
+                    <div class="checklist-item">
+                        <div class="checklist-checkbox checked">✓</div>
+                        <div class="checklist-content">
+                            <div class="checklist-title">Initial School Applications</div>
+                            <div class="checklist-description">Submit applications to top 3 school choices</div>
+                        </div>
+                    </div>
+                    
+                    <div class="checklist-item">
+                        <div class="checklist-checkbox">○</div>
+                        <div class="checklist-content">
+                            <div class="checklist-title">Visa Documentation</div>
+                            <div class="checklist-description">Complete all required immigration paperwork</div>
+                            <div class="checklist-deadline">Deadline: Nov 30, 2025</div>
+                        </div>
+                    </div>
+                    
+                    <div class="checklist-item">
+                        <div class="checklist-checkbox">○</div>
+                        <div class="checklist-content">
+                            <div class="checklist-title">Housing Arrangements</div>
+                            <div class="checklist-description">Secure rental property in preferred location</div>
+                            <div class="checklist-deadline">Deadline: Dec 1, 2025</div>
+                        </div>
+                    </div>
+                    
+                    <div class="checklist-item">
+                        <div class="checklist-checkbox">○</div>
+                        <div class="checklist-content">
+                            <div class="checklist-title">Dutch Language Preparation</div>
+                            <div class="checklist-description">Begin basic Dutch lessons for both children</div>
+                            <div class="checklist-deadline">Start: Nov 15, 2025</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cultural Preparation -->
+            <div class="card card-full">
+                <div class="card-header">
+                    <h2 class="card-title">Cultural Preparation & Resources</h2>
+                    <div class="card-icon">🌍</div>
+                </div>
+                
+                <div class="cultural-grid">
+                    <div class="cultural-card">
+                        <div class="cultural-icon">💬</div>
+                        <div class="cultural-title">Language Transition</div>
+                        <p>Dutch basics for daily life + English support in international schools</p>
+                        <div class="divider"></div>
+                        <p><strong>Resources:</strong> Duolingo Dutch, Local language partners, School language support</p>
+                    </div>
+                    
+                    <div class="cultural-card">
+                        <div class="cultural-icon">🎓</div>
+                        <div class="cultural-title">Education System</div>
+                        <p>Understanding Dutch vs International school systems and expectations</p>
+                        <div class="divider"></div>
+                        <p><strong>Key Differences:</strong> Less homework, More independence, Focus on wellbeing</p>
+                    </div>
+                    
+                    <div class="cultural-card">
+                        <div class="cultural-icon">🤝</div>
+                        <div class="cultural-title">Social Integration</div>
+                        <p>Building social networks through school, activities, and expat communities</p>
+                        <div class="divider"></div>
+                        <p><strong>Strategies:</strong> Join school clubs, Expat meetups, Sports teams</p>
+                    </div>
+                    
+                    <div class="cultural-card">
+                        <div class="cultural-icon">🏠</div>
+                        <div class="cultural-title">Daily Life Adjustments</div>
+                        <p>Adapting to Dutch culture, biking, direct communication style</p>
+                        <div class="divider"></div>
+                        <p><strong>Preparation:</strong> Cultural workshops, Local guides, Practice cycling</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- AI Update Instructions -->
+        <footer class="dashboard-footer">
+            <div class="footer-content">
+                <h2 class="mb-1">How to Update This Dashboard</h2>
+                <p class="mb-2">Copy your family updates, document status, or school communications and paste them with this prompt to any AI:</p>
+                
+                <div class="ai-instructions">
+                    <div class="code-block">
+You are the Educational Intelligence Coordinator for the Van der Merwe family relocation.
+
+CURRENT DOCUMENT: [paste this entire HTML file]
+
+NEW UPDATES: [paste family communications, document status, school responses, or timeline changes]
+
+Please update the relevant sections:
+- Children's educational profiles and needs
+- School comparison and selection status
+- Relocation timeline progress
+- Document tracker status
+- Checklist completion
+- Cultural preparation notes
+
+Generate the complete updated HTML.
+                    </div>
+                </div>
+                
+                <p>The AI will intelligently update the dashboard based on your new information.</p>
+                
+                <div class="divider"></div>
+                
+                <p>Van der Merwe Family Relocation Dashboard • Carol Crouse Educational Intelligence</p>
+                <p>Last Updated: October 23, 2025 • Document Version 1.0.0</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Simple animations for cards on load
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 100 * index);
+            });
+        });
+
+        // Checklist toggle functionality
+        document.querySelectorAll('.checklist-checkbox').forEach(checkbox => {
+            checkbox.addEventListener('click', function() {
+                this.classList.toggle('checked');
+                this.textContent = this.classList.contains('checked') ? '✓' : '○';
+                
+                // Update completion stats (simplified demo)
+                const completedItems = document.querySelectorAll('.checklist-checkbox.checked').length;
+                const totalItems = document.querySelectorAll('.checklist-checkbox').length;
+                const completionRate = Math.round((completedItems / totalItems) * 100);
+                
+                // Update the completion stat in the header
+                document.querySelector('.stat-card:nth-child(2) .stat-value').textContent = `${completionRate}%`;
+            });
+        });
+    </script>
+</body>
+</html>

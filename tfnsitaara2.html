@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sitaara's Universe | Ethereal Thinker</title>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --mist: #f8f9fa;
+            --cloud: #e9ecef;
+            --stone: #6c757d;
+            --moon: #495057;
+            --dawn: #e2cfe4;
+            --dusk: #a5a8c4;
+            --sage: #8a9b68;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, var(--mist) 0%, var(--cloud) 100%);
+            color: var(--moon);
+            line-height: 1.8;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        /* Ethereal background with subtle gradients */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(226, 207, 228, 0.2) 0%, transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(165, 168, 196, 0.15) 0%, transparent 25%);
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* Minimalist header */
+        header {
+            text-align: center;
+            padding: 80px 20px 60px;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        
+        .ethereal-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 4.5em;
+            font-weight: 400;
+            color: var(--moon);
+            margin-bottom: 10px;
+            letter-spacing: -1px;
+        }
+        
+        .subtitle {
+            font-size: 1.3em;
+            color: var(--stone);
+            font-weight: 300;
+            margin-top: 10px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+        
+        .artist-statement {
+            max-width: 600px;
+            margin: 40px auto;
+            font-size: 1.2em;
+            line-height: 1.7;
+            text-align: center;
+            color: var(--moon);
+            font-weight: 300;
+            position: relative;
+            padding: 0 20px;
+        }
+        
+        /* Accomplishments Section - Minimalist Cards */
+        .accomplishments {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 80px;
+        }
+        
+        .accomplishment-card {
+            background: rgba(255, 255, 255, 0.7);
+            padding: 40px 30px;
+            border-radius: 2px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(0, 0, 0, 0.03);
+        }
+        
+        .accomplishment-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+        }
+        
+        .accomplishment-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--dawn) 0%, var(--dusk) 100%);
+        }
+        
+        .accomplishment-icon {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            display: block;
+            color: var(--stone);
+            opacity: 0.7;
+        }
+        
+        .accomplishment-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5em;
+            color: var(--moon);
+            margin-bottom: 15px;
+            font-weight: 400;
+        }
+        
+        .accomplishment-text {
+            font-size: 1em;
+            color: var(--stone);
+            line-height: 1.7;
+            font-weight: 300;
+        }
+        
+        .yes-badge {
+            display: inline-block;
+            background: transparent;
+            color: var(--sage);
+            padding: 5px 0;
+            font-size: 0.9em;
+            font-weight: 400;
+            margin-top: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+        }
+        
+        .yes-badge::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: var(--sage);
+        }
+        
+        /* Current Explorations */
+        .explorations {
+            background: rgba(255, 255, 255, 0.5);
+            padding: 60px 40px;
+            border-radius: 2px;
+            margin-bottom: 80px;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
+        }
+        
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2em;
+            color: var(--moon);
+            margin-bottom: 40px;
+            text-align: center;
+            font-weight: 400;
+        }
+        
+        .exploration-list {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .exploration-item {
+            margin-bottom: 25px;
+            padding: 15px 0;
+            position: relative;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .exploration-item:last-child {
+            border-bottom: none;
+        }
+        
+        .tbc-box {
+            background: transparent;
+            padding: 40px;
+            text-align: center;
+            margin-top: 50px;
+            position: relative;
+        }
+        
+        .tbc-box::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 1px;
+            background: var(--stone);
+            opacity: 0.3;
+        }
+        
+        .tbc-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8em;
+            color: var(--stone);
+            font-style: italic;
+            opacity: 0.7;
+        }
+        
+        /* Manifesto Section */
+        .manifesto {
+            background: rgba(255, 255, 255, 0.5);
+            padding: 60px 40px;
+            border-radius: 2px;
+            margin-bottom: 80px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
+        }
+        
+        .manifesto-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2em;
+            color: var(--moon);
+            margin-bottom: 40px;
+            text-align: center;
+            font-weight: 400;
+        }
+        
+        .manifesto-list {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .manifesto-item {
+            margin-bottom: 25px;
+            padding: 20px;
+            position: relative;
+        }
+        
+        .manifesto-item::before {
+            content: "”";
+            position: absolute;
+            top: 0;
+            left: -10px;
+            font-family: 'Playfair Display', serif;
+            font-size: 4em;
+            color: var(--dawn);
+            opacity: 0.3;
+            line-height: 1;
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 60px 20px 40px;
+            color: var(--stone);
+            opacity: 0.7;
+            font-size: 0.9em;
+            font-weight: 300;
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            color: var(--stone);
+            text-decoration: none;
+            padding: 8px 20px;
+            border: 1px solid var(--stone);
+            border-radius: 2px;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.8em;
+        }
+        
+        .back-link:hover {
+            background: var(--stone);
+            color: var(--mist);
+        }
+        
+        /* Geometric elements */
+        .geometric {
+            position: fixed;
+            opacity: 0.03;
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        .circle-1 {
+            top: 10%;
+            left: 5%;
+            width: 200px;
+            height: 200px;
+            border: 1px solid var(--moon);
+            border-radius: 50%;
+        }
+        
+        .circle-2 {
+            bottom: 20%;
+            right: 10%;
+            width: 150px;
+            height: 150px;
+            border: 1px solid var(--moon);
+            border-radius: 50%;
+        }
+        
+        .line-1 {
+            top: 40%;
+            left: 15%;
+            width: 300px;
+            height: 1px;
+            background: var(--moon);
+            transform: rotate(45deg);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .ethereal-title {
+                font-size: 3em;
+            }
+            
+            .accomplishments {
+                grid-template-columns: 1fr;
+            }
+            
+            .artist-statement {
+                font-size: 1.1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Geometric elements -->
+    <div class="geometric circle-1"></div>
+    <div class="geometric circle-2"></div>
+    <div class="geometric line-1"></div>
+
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <h1 class="ethereal-title">Sitaara</h1>
+            <p class="subtitle">Ethereal Thinker • Quiet Observer</p>
+            
+            <div class="artist-statement">
+                <p>I make art to understand the world. I ask questions that have no answers. I live in the spaces between certainty and mystery.</p>
+            </div>
+        </header>
+
+        <!-- Accomplishments -->
+        <section class="accomplishments">
+            <div class="accomplishment-card">
+                <span class="accomplishment-icon">🎙️</span>
+                <h2 class="accomplishment-title">Started a Podcast</h2>
+                <p class="accomplishment-text">Two Freaks Notice began as a conversation between friends and became a space to explore the beautiful chaos of being human.</p>
+                <span class="yes-badge">Yes</span>
+            </div>
+            
+            <div class="accomplishment-card">
+                <span class="accomplishment-icon">🎓</span>
+                <h2 class="accomplishment-title">Completed My Masters</h2>
+                <p class="accomplishment-text">Graduated cum laude with a thesis exploring the intersection of art, psychology, and consciousness.</p>
+                <span class="yes-badge">Yes</span>
+            </div>
+            
+            <div class="accomplishment-card">
+                <span class="accomplishment-icon">❓</span>
+                <h2 class="accomplishment-title">Answered The Question</h2>
+                <p class="accomplishment-text">Found clarity on the most important question of my life. The answer surprised even me.</p>
+                <span class="yes-badge">Yes</span>
+            </div>
+        </section>
+
+        <!-- Current Explorations -->
+        <section class="explorations">
+            <h2 class="section-title">Current Explorations</h2>
+            
+            <div class="exploration-list">
+                <div class="exploration-item">
+                    <p>The relationship between trauma and creativity - how pain transforms into beauty</p>
+                </div>
+                
+                <div class="exploration-item">
+                    <p>Abstract painting techniques that capture emotional landscapes</p>
+                </div>
+                
+                <div class="exploration-item">
+                    <p>Writing a book about the spaces between art and madness</p>
+                </div>
+                
+                <div class="exploration-item">
+                    <p>Building a community for artists who think too much</p>
+                </div>
+                
+                <div class="tbc-box">
+                    <p class="tbc-text">To Be Continued...</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Manifesto -->
+        <section class="manifesto">
+            <h2 class="manifesto-title">Artistic Manifesto</h2>
+            
+            <div class="manifesto-list">
+                <div class="manifesto-item">
+                    <p>I believe art should disturb the comfortable and comfort the disturbed.</p>
+                </div>
+                
+                <div class="manifesto-item">
+                    <p>True creativity requires vulnerability, not perfection.</p>
+                </div>
+                
+                <div class="manifesto-item">
+                    <p>The most interesting ideas live in the borderlands between disciplines.</p>
+                </div>
+                
+                <div class="manifesto-item">
+                    <p>We make art not to have answers, but to have better questions.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <p>© 2025 Sitaara · All Rights Reserved</p>
+            <p>This page is a glimpse into my universe - imperfect, evolving, and authentically mine.</p>
+            <a href="#" class="back-link">Return to Andie's Corner</a>
+        </footer>
+    </div>
+</body>
+</html>

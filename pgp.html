@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PGP Field Manual: Digital Sovereignty</title>
+    <style>
+        :root {
+            --matrix-green: #00ff41;
+            --cyber-blue: #00ccff;
+            --neon-purple: #bc13fe;
+            --terminal-black: #0a0a0a;
+            --hacker-gray: #1a1a1a;
+            --warning-orange: #ff8c00;
+            --alert-red: #ff003c;
+            --text-light: #e0e0e0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--terminal-black);
+            color: var(--text-light);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 255, 65, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(188, 19, 254, 0.05) 0%, transparent 20%);
+        }
+
+        /* Header Styles */
+        .cyber-header {
+            text-align: center;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--matrix-green);
+            position: relative;
+        }
+
+        .cyber-header::before, .cyber-header::after {
+            content: "◆";
+            color: var(--matrix-green);
+            position: absolute;
+            bottom: -10px;
+            font-size: 1.5rem;
+        }
+
+        .cyber-header::before {
+            left: 20%;
+        }
+
+        .cyber-header::after {
+            right: 20%;
+        }
+
+        h1 {
+            color: var(--matrix-green);
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
+            letter-spacing: 1px;
+        }
+
+        h2 {
+            color: var(--cyber-blue);
+            border-left: 3px solid var(--cyber-blue);
+            padding-left: 15px;
+            margin: 2rem 0 1rem 0;
+            text-shadow: 0 0 5px rgba(0, 204, 255, 0.3);
+        }
+
+        h3 {
+            color: var(--neon-purple);
+            margin: 1.5rem 0 0.5rem 0;
+        }
+
+        /* Content Sections */
+        .section {
+            background: rgba(26, 26, 26, 0.8);
+            border: 1px solid #333;
+            border-radius: 5px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--matrix-green), var(--cyber-blue), var(--neon-purple));
+        }
+
+        /* Visual Elements */
+        .cyber-card {
+            background: var(--hacker-gray);
+            border: 1px solid #333;
+            border-left: 4px solid var(--matrix-green);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 5px 5px 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .warning-box {
+            background: rgba(255, 140, 0, 0.1);
+            border-left: 4px solid var(--warning-orange);
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .alert-box {
+            background: rgba(255, 0, 60, 0.1);
+            border: 1px solid var(--alert-red);
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 5px;
+        }
+
+        /* Code and Command Blocks */
+        .code-block {
+            background: #000;
+            color: var(--matrix-green);
+            padding: 1.5rem;
+            border: 1px solid #333;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            position: relative;
+        }
+
+        .code-block::before {
+            content: ">_";
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: var(--matrix-green);
+            color: #000;
+            padding: 0.2rem 0.5rem;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .command {
+            color: var(--matrix-green);
+            font-weight: bold;
+            font-family: 'Courier New', monospace;
+        }
+
+        /* Visualizations */
+        .visualization {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid #333;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .flow-diagram {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .flow-step {
+            flex: 1;
+            min-width: 150px;
+            text-align: center;
+            padding: 1rem;
+            margin: 0.5rem;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid #333;
+            border-radius: 5px;
+            position: relative;
+        }
+
+        .flow-step::after {
+            content: "→";
+            position: absolute;
+            right: -20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--matrix-green);
+            font-weight: bold;
+        }
+
+        .flow-step:last-child::after {
+            display: none;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #333;
+        }
+
+        th {
+            background: rgba(0, 255, 65, 0.1);
+            color: var(--matrix-green);
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background: rgba(0, 255, 65, 0.05);
+        }
+
+        /* Navigation */
+        .nav-tabs {
+            display: flex;
+            border-bottom: 1px solid #333;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-tab {
+            padding: 0.8rem 1.5rem;
+            background: transparent;
+            border: none;
+            color: var(--text-light);
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .nav-tab:hover {
+            color: var(--cyber-blue);
+            background: rgba(0, 204, 255, 0.1);
+        }
+
+        .nav-tab.active {
+            color: var(--matrix-green);
+            border-bottom: 3px solid var(--matrix-green);
+            background: rgba(0, 255, 65, 0.05);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Progress Indicators */
+        .progress-container {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .progress-step {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .progress-step:last-child {
+            margin-bottom: 0;
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--hacker-gray);
+            border: 2px solid #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            flex-shrink: 0;
+            font-weight: bold;
+            color: var(--text-light);
+        }
+
+        .step-number.active {
+            background: var(--matrix-green);
+            color: #000;
+            border-color: var(--matrix-green);
+        }
+
+        .step-number.completed {
+            background: var(--cyber-blue);
+            color: #000;
+            border-color: var(--cyber-blue);
+        }
+
+        .step-content {
+            flex: 1;
+        }
+
+        /* Interactive Elements */
+        .interactive-demo {
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid #333;
+            border-radius: 5px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .demo-controls {
+            display: flex;
+            gap: 10px;
+            margin: 1rem 0;
+        }
+
+        button {
+            background: var(--hacker-gray);
+            border: 1px solid #333;
+            color: var(--text-light);
+            padding: 0.5rem 1rem;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background: rgba(0, 255, 65, 0.1);
+            border-color: var(--matrix-green);
+            color: var(--matrix-green);
+        }
+
+        button.primary {
+            background: var(--matrix-green);
+            color: #000;
+            font-weight: bold;
+        }
+
+        button.primary:hover {
+            background: #00cc33;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .flow-diagram {
+                flex-direction: column;
+            }
+            
+            .flow-step {
+                width: 100%;
+                margin-bottom: 1rem;
+            }
+            
+            .flow-step::after {
+                content: "↓";
+                right: 50%;
+                top: auto;
+                bottom: -20px;
+                transform: translateX(50%);
+            }
+            
+            .nav-tabs {
+                flex-direction: column;
+            }
+            
+            .nav-tab {
+                width: 100%;
+                text-align: left;
+            }
+        }
+
+        /* Animations */
+        @keyframes pulse {
+            0% { opacity: 0.7; }
+            50% { opacity: 1; }
+            100% { opacity: 0.7; }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        /* Glossary */
+        .glossary-term {
+            color: var(--cyber-blue);
+            border-bottom: 1px dashed var(--cyber-blue);
+            cursor: help;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+            border-top: 1px solid #333;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* Highlight important text */
+        .important {
+            color: var(--matrix-green);
+            font-weight: bold;
+        }
+
+        .note {
+            color: var(--cyber-blue);
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="cyber-header">
+        <h1>PGP FIELD MANUAL</h1>
+        <p>Digital Sovereignty in an Age of Surveillance</p>
+    </div>
+
+    <div class="nav-tabs">
+        <button class="nav-tab active" data-tab="intro">Introduction</button>
+        <button class="nav-tab" data-tab="how-it-works">How PGP Works</button>
+        <button class="nav-tab" data-tab="getting-started">Getting Started</button>
+        <button class="nav-tab" data-tab="best-practices">Best Practices</button>
+    </div>
+
+    <div class="section">
+        <div class="tab-content active" id="intro">
+            <h2>Welcome to the World of PGP</h2>
+            <p>If you're new to encryption, you're in the right place. This guide will walk you through everything you need to know about PGP (Pretty Good Privacy) in simple, accessible terms.</p>
+            
+            <div class="cyber-card">
+                <h3>What is PGP?</h3>
+                <p>PGP is a encryption program that provides cryptographic privacy and authentication for data communication. Think of it as an unbreakable digital envelope for your messages and files.</p>
+            </div>
+            
+            <div class="visualization">
+                <h3>Why PGP Matters</h3>
+                <div class="flow-diagram">
+                    <div class="flow-step">
+                        <h4>Your Message</h4>
+                        <p>Starts as plain text</p>
+                    </div>
+                    <div class="flow-step">
+                        <h4>PGP Encryption</h4>
+                        <p>Scrambles with math</p>
+                    </div>
+                    <div class="flow-step">
+                        <h4>Secure Transmission</h4>
+                        <p>Travels safely online</p>
+                    </div>
+                    <div class="flow-step">
+                        <h4>Recipient Decrypts</h4>
+                        <p>Only they can read it</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="warning-box">
+                <h3>Before We Begin</h3>
+                <p>PGP isn't just for tech experts or spies. Journalists, activists, businesses, and everyday privacy-conscious people use PGP to protect their communications from prying eyes.</p>
+            </div>
+        </div>
+
+        <div class="tab-content" id="how-it-works">
+            <h2>How PGP Encryption Works</h2>
+            <p>Let's break down the concepts without complicated math or jargon.</p>
+            
+            <div class="cyber-card">
+                <h3>The Key System</h3>
+                <p>PGP uses a special two-key system:</p>
+                <ul>
+                    <li><span class="important">Public Key</span> - You share this with everyone (like a padlock)</li>
+                    <li><span class="important">Private Key</span> - You keep this secret (like the key to that padlock)</li>
+                </ul>
+            </div>
+            
+            <div class="visualization">
+                <h3>The Encryption Process</h3>
+                <div class="flow-diagram">
+                    <div class="flow-step">
+                        <h4>1. Your Message</h4>
+                        <p>"Hello, let's meet at 5pm"</p>
+                    </div>
+                    <div class="flow-step">
+                        <h4>2. Use Their Public Key</h4>
+                        <p>Encrypt with recipient's public key</p>
+                    </div>
+                    <div class="flow-step">
+                        <h4>3. Send Encrypted</h4>
+                        <p>jF83kDla... (gibberish to anyone else)</p>
+                    </div>
+                    <div class="flow-step">
+                        <h4>4. They Decrypt</h4>
+                        <p>Use their private key to read it</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="interactive-demo">
+                <h3>Try It Yourself</h3>
+                <p>Type a message below to see how encryption works:</p>
+                <textarea id="demo-message" rows="3" style="width: 100%; background: #000; color: var(--matrix-green); border: 1px solid #333; padding: 10px; margin: 10px 0;"></textarea>
+                <div class="demo-controls">
+                    <button id="encrypt-btn">Encrypt</button>
+                    <button id="decrypt-btn">Decrypt</button>
+                    <button id="reset-btn">Reset</button>
+                </div>
+                <div id="demo-output" class="code-block" style="min-height: 60px; margin-top: 15px;">
+                    Your encrypted message will appear here...
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-content" id="getting-started">
+            <h2>Getting Started with PGP</h2>
+            <p>Follow these steps to set up PGP on your computer.</p>
+            
+            <div class="progress-container">
+                <div class="progress-step">
+                    <div class="step-number active">1</div>
+                    <div class="step-content">
+                        <h3>Install GPG Software</h3>
+                        <p>Download and install GnuPG for your operating system:</p>
+                        <div class="code-block">
+                            # Windows: Download Gpg4win<br>
+                            # macOS: Install GPG Suite or use Homebrew<br>
+                            # Linux: Usually pre-installed or use package manager
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="progress-step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Generate Your Key Pair</h3>
+                        <p>Create your public and private keys:</p>
+                        <div class="code-block">
+                            gpg --full-generate-key
+                        </div>
+                        <p class="note">Follow the prompts. Use a strong passphrase!</p>
+                    </div>
+                </div>
+                
+                <div class="progress-step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Share Your Public Key</h3>
+                        <p>Export and share your public key with others:</p>
+                        <div class="code-block">
+                            gpg --export --armor your@email.com > my_public_key.asc
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="progress-step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>Import Others' Keys</h3>
+                        <p>Add your contacts' public keys to your keyring:</p>
+                        <div class="code-block">
+                            gpg --import friend_public_key.asc
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="alert-box">
+                <h3>Important Security Note</h3>
+                <p>Your private key is the most sensitive part of your PGP setup. Never share it with anyone, and protect it with a strong passphrase.</p>
+            </div>
+        </div>
+
+        <div class="tab-content" id="best-practices">
+            <h2>PGP Best Practices</h2>
+            <p>Follow these guidelines to use PGP effectively and securely.</p>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Do</th>
+                        <th>Don't</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Use a strong, unique passphrase for your private key</td>
+                        <td>Use simple passwords or reuse existing ones</td>
+                    </tr>
+                    <tr>
+                        <td>Back up your keys in a secure location</td>
+                        <td>Store keys only on one device without backup</td>
+                    </tr>
+                    <tr>
+                        <td>Verify fingerprints when exchanging keys</td>
+                        <td>Trust keys without verification</td>
+                    </tr>
+                    <tr>
+                        <td>Set a reasonable expiration date for your keys</td>
+                        <td>Create keys that never expire</td>
+                    </tr>
+                    <tr>
+                        <td>Use PGP for sensitive communications</td>
+                        <td>Use PGP for everything (it's not always necessary)</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="cyber-card">
+                <h3>Common PGP Mistakes to Avoid</h3>
+                <ul>
+                    <li>Forgetting to encrypt the subject line (it often remains visible)</li>
+                    <li>Not verifying the authenticity of public keys</li>
+                    <li>Using weak passphrases for private keys</li>
+                    <li>Losing access to your private key (no recovery option)</li>
+                    <li>Assuming PGP protects metadata (it doesn't hide who you're talking to)</li>
+                </ul>
+            </div>
+            
+            <div class="warning-box">
+                <h3>Remember: PGP is a Tool</h3>
+                <p>PGP protects the content of your messages, but not the metadata (who you're talking to, when, etc.). For complete privacy, combine PGP with other tools like Tor or VPNs when necessary.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>PGP Field Manual v1.0 | Built for the privacy-conscious community</p>
+        <p>Remember: Your privacy is your right. Protect it.</p>
+    </footer>
+
+    <script>
+        // Tab functionality
+        document.querySelectorAll('.nav-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs and contents
+                document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                
+                // Add active class to clicked tab and corresponding content
+                tab.classList.add('active');
+                const tabId = tab.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+
+        // Demo encryption functionality
+        document.getElementById('encrypt-btn').addEventListener('click', () => {
+            const message = document.getElementById('demo-message').value;
+            if (message.trim() === '') {
+                alert('Please enter a message to encrypt');
+                return;
+            }
+            
+            // Simple "encryption" for demo purposes
+            let encrypted = '';
+            for (let i = 0; i < message.length; i++) {
+                // Just shift character codes for demo
+                encrypted += String.fromCharCode(message.charCodeAt(i) + 5);
+            }
+            
+            document.getElementById('demo-output').textContent = encrypted;
+        });
+
+        document.getElementById('decrypt-btn').addEventListener('click', () => {
+            const encrypted = document.getElementById('demo-output').textContent;
+            if (encrypted === 'Your encrypted message will appear here...') {
+                alert('Please encrypt a message first');
+                return;
+            }
+            
+            // Simple "decryption" for demo purposes
+            let decrypted = '';
+            for (let i = 0; i < encrypted.length; i++) {
+                // Reverse the shift
+                decrypted += String.fromCharCode(encrypted.charCodeAt(i) - 5);
+            }
+            
+            document.getElementById('demo-message').value = decrypted;
+            document.getElementById('demo-output').textContent = 'Message decrypted successfully!';
+        });
+
+        document.getElementById('reset-btn').addEventListener('click', () => {
+            document.getElementById('demo-message').value = '';
+            document.getElementById('demo-output').textContent = 'Your encrypted message will appear here...';
+        });
+
+        // Add some visual effects
+        document.querySelectorAll('.step-number').forEach((step, index) => {
+            setTimeout(() => {
+                step.classList.add('pulse');
+            }, index * 500);
+        });
+    </script>
+</body>
+</html>

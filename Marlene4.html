@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Domino System™ - Smart Home Care Demo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #8A7967;
+            --secondary: #649E8A;
+            --accent: #d4af37;
+            --light: #FAF3E0;
+            --paper: #f9f7f2;
+            --ink: #2c1810;
+            --shadow: rgba(44, 24, 16, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--ink);
+            background: var(--light);
+            font-size: 16px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        /* Header */
+        .site-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+        
+        .tagline {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+        
+        /* Dashboard Layout */
+        .dashboard {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        @media (max-width: 768px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .dashboard-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 12px var(--shadow);
+            border: 1px solid rgba(141, 110, 99, 0.1);
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid var(--light);
+        }
+        
+        .card-title {
+            font-size: 1.3rem;
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        .card-icon {
+            font-size: 1.5rem;
+            color: var(--secondary);
+        }
+        
+        /* Checklist */
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding: 0.75rem;
+            border-radius: 8px;
+            background: var(--paper);
+            transition: all 0.2s ease;
+        }
+        
+        .checklist-item:hover {
+            background: #f5f1e8;
+        }
+        
+        .checklist-item input[type="checkbox"] {
+            margin-right: 1rem;
+            width: 1.2rem;
+            height: 1.2rem;
+            accent-color: var(--secondary);
+        }
+        
+        .checklist-item label {
+            flex: 1;
+            cursor: pointer;
+        }
+        
+        .checklist-item.completed label {
+            text-decoration: line-through;
+            color: #888;
+        }
+        
+        .checklist-time {
+            font-size: 0.85rem;
+            color: #888;
+            margin-left: 0.5rem;
+        }
+        
+        /* Pet Profiles */
+        .pet-profile {
+            display: flex;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--light);
+        }
+        
+        .pet-profile:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .pet-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+        
+        .pet-details {
+            flex: 1;
+        }
+        
+        .pet-name {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            color: var(--primary);
+        }
+        
+        .pet-type {
+            font-size: 0.9rem;
+            color: #888;
+            margin-bottom: 0.5rem;
+        }
+        
+        .pet-notes {
+            font-size: 0.95rem;
+            color: #666;
+        }
+        
+        /* Home Notes */
+        .notes-list {
+            margin-bottom: 1.5rem;
+        }
+        
+        .note-item {
+            margin-bottom: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+            background: var(--paper);
+            border-left: 4px solid var(--accent);
+        }
+        
+        .note-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+        
+        .note-content {
+            color: #666;
+            font-size: 0.95rem;
+        }
+        
+        /* Updates */
+        .update-item {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--light);
+        }
+        
+        .update-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .update-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+        
+        .update-time {
+            font-size: 0.85rem;
+            color: #888;
+        }
+        
+        .update-content {
+            color: #666;
+        }
+        
+        .update-status {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+        
+        .status-info {
+            background: rgba(100, 158, 138, 0.1);
+            color: var(--secondary);
+        }
+        
+        .status-warning {
+            background: rgba(212, 175, 55, 0.1);
+            color: var(--accent);
+        }
+        
+        .status-success {
+            background: rgba(100, 158, 138, 0.2);
+            color: var(--secondary);
+        }
+        
+        /* Add Update Form */
+        .add-update {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--light);
+        }
+        
+        .add-update textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            resize: vertical;
+            margin-bottom: 0.75rem;
+        }
+        
+        .add-update button {
+            background: var(--secondary);
+            color: white;
+            border: none;
+            padding: 0.5rem 1.5rem;
+            border-radius: 8px;
+            font-family: inherit;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+        
+        .add-update button:hover {
+            background: #5a8e7a;
+        }
+        
+        /* Footer */
+        .footer {
+            background: var(--ink);
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-top: 3rem;
+        }
+        
+        .footer p {
+            margin-bottom: 0.5rem;
+            opacity: 0.8;
+        }
+        
+        .demo-note {
+            background: var(--accent);
+            color: var(--ink);
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            text-align: center;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="site-header">
+        <div class="container">
+            <h1>The Domino System™</h1>
+            <p class="tagline">Smart Home Care Dashboard</p>
+            <p>Live demo showing how Marlene's services are enhanced with intelligent tracking</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="demo-note">
+            <i class="fas fa-info-circle"></i> This is a live demo of The Domino System™. Try checking off tasks or adding updates!
+        </div>
+        
+        <div class="dashboard">
+            <!-- Daily Checklist -->
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <h2 class="card-title">Daily Checklist</h2>
+                    <i class="fas fa-tasks card-icon"></i>
+                </div>
+                <div class="checklist">
+                    <div class="checklist-item">
+                        <input type="checkbox" id="task1">
+                        <label for="task1">Feed pets (morning) <span class="checklist-time">8:00 AM</span></label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="task2">
+                        <label for="task2">Water indoor plants <span class="checklist-time">9:30 AM</span></label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="task3">
+                        <label for="task3">Take dogs for walk <span class="checklist-time">10:00 AM</span></label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="task4">
+                        <label for="task4">Check mail & packages <span class="checklist-time">2:00 PM</span></label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="task5">
+                        <label for="task5">Feed pets (evening) <span class="checklist-time">5:00 PM</span></label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="task6">
+                        <label for="task6">Evening security check <span class="checklist-time">8:00 PM</span></label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Pet Profiles -->
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <h2 class="card-title">Pet Profiles</h2>
+                    <i class="fas fa-paw card-icon"></i>
+                </div>
+                <div class="pet-profiles">
+                    <div class="pet-profile">
+                        <div class="pet-avatar">
+                            <i class="fas fa-dog"></i>
+                        </div>
+                        <div class="pet-details">
+                            <div class="pet-name">Bailey</div>
+                            <div class="pet-type">Golden Retriever, 4 years</div>
+                            <div class="pet-notes">Needs arthritis medication with breakfast. Loves long walks but gets tired after 30 mins.</div>
+                        </div>
+                    </div>
+                    <div class="pet-profile">
+                        <div class="pet-avatar">
+                            <i class="fas fa-cat"></i>
+                        </div>
+                        <div class="pet-details">
+                            <div class="pet-name">Luna</div>
+                            <div class="pet-type">Siamese Cat, 6 years</div>
+                            <div class="pet-notes">Special urinary diet food only. Hides under bed when nervous. Check water fountain is working.</div>
+                        </div>
+                    </div>
+                    <div class="pet-profile">
+                        <div class="pet-avatar">
+                            <i class="fas fa-fish"></i>
+                        </div>
+                        <div class="pet-details">
+                            <div class="pet-name">Bubbles & Friends</div>
+                            <div class="pet-type">Tropical Fish</div>
+                            <div class="pet-notes">Feed small pinch morning only. Check filter is running (green light). Temperature should be 76°F.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Home Notes -->
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <h2 class="card-title">Home Notes</h2>
+                    <i class="fas fa-home card-icon"></i>
+                </div>
+                <div class="notes-list">
+                    <div class="note-item">
+                        <div class="note-title">Security System</div>
+                        <div class="note-content">Arm when leaving, disarm code: 4582. Motion sensors in living room and hallway.</div>
+                    </div>
+                    <div class="note-item">
+                        <div class="note-title">Plants Care</div>
+                        <div class="note-content">Orchid in bathroom needs misting daily. Fern in living room - water every 3 days.</div>
+                    </div>
+                    <div class="note-item">
+                        <div class="note-title">Pool Maintenance</div>
+                        <div class="note-content">Check chlorine levels daily. Skim leaves in morning and evening.</div>
+                    </div>
+                    <div class="note-item">
+                        <div class="note-title">Mail & Packages</div>
+                        <div class="note-content">Expected package from Amazon on Thursday. Collect mail from box at end of driveway.</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Live Updates -->
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <h2 class="card-title">Live Updates</h2>
+                    <i class="fas fa-sync-alt card-icon"></i>
+                </div>
+                <div class="updates">
+                    <div class="update-item">
+                        <div class="update-header">
+                            <div class="update-status status-info">Info</div>
+                            <div class="update-time">Today, 8:15 AM</div>
+                        </div>
+                        <div class="update-content">All pets fed successfully. Bailey took his medication with breakfast without issues.</div>
+                    </div>
+                    <div class="update-item">
+                        <div class="update-header">
+                            <div class="update-status status-warning">Note</div>
+                            <div class="update-time">Yesterday, 3:30 PM</div>
+                        </div>
+                        <div class="update-content">Noticed small leak under kitchen sink. Placed bucket to catch drips. Homeowners notified.</div>
+                    </div>
+                    <div class="update-item">
+                        <div class="update-header">
+                            <div class="update-status status-success">Completed</div>
+                            <div class="update-time">Yesterday, 10:45 AM</div>
+                        </div>
+                        <div class="update-content">Took Bailey for his walk. He enjoyed the park but started limping slightly toward the end, so we cut it short.</div>
+                    </div>
+                </div>
+                
+                <div class="add-update">
+                    <h3>Add New Update</h3>
+                    <textarea id="new-update" placeholder="Enter update about the home, pets, or anything noteworthy..." rows="3"></textarea>
+                    <button id="add-update-btn">Add Update</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>The Domino System™ - Intelligent Home Care Dashboard</p>
+            <p>© 2024 Marlene's Care Services</p>
+        </div>
+    </footer>
+
+    <script>
+        // Checklist functionality
+        document.querySelectorAll('.checklist-item input[type="checkbox"]').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                const item = this.closest('.checklist-item');
+                if (this.checked) {
+                    item.classList.add('completed');
+                } else {
+                    item.classList.remove('completed');
+                }
+            });
+        });
+        
+        // Add update functionality
+        document.getElementById('add-update-btn').addEventListener('click', function() {
+            const updateText = document.getElementById('new-update').value.trim();
+            if (updateText) {
+                const updatesContainer = document.querySelector('.updates');
+                const now = new Date();
+                const timeString = now.toLocaleDateString() + ', ' + now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+                
+                const newUpdate = document.createElement('div');
+                newUpdate.className = 'update-item';
+                newUpdate.innerHTML = `
+                    <div class="update-header">
+                        <div class="update-status status-info">New</div>
+                        <div class="update-time">${timeString}</div>
+                    </div>
+                    <div class="update-content">${updateText}</div>
+                `;
+                
+                updatesContainer.prepend(newUpdate);
+                document.getElementById('new-update').value = '';
+                
+                // Show confirmation
+                alert('Update added successfully!');
+            } else {
+                alert('Please enter an update before adding.');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -59,6 +59,7 @@
             --accent: #ff6b9d;
             --comedy-pink: #ff85a2;
             --book-blue: #7bb3d7;
+            --substack-orange: #ff6719;
         }
         
         body {
@@ -202,6 +203,125 @@
             margin-bottom: 20px;
             border-bottom: 3px dotted var(--craft-orange);
             padding-bottom: 10px;
+        }
+        
+        /* Substack Section */
+        .substack-card {
+            border-color: var(--substack-orange);
+            background: linear-gradient(135deg, #fff8f5 0%, #fff0e8 100%);
+        }
+        
+        .substack-card::before {
+            background: var(--substack-orange);
+        }
+        
+        .substack-card h2 {
+            color: var(--substack-orange);
+            border-bottom-color: var(--substack-orange);
+        }
+        
+        .substack-feature {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        
+        .substack-info {
+            padding: 20px;
+        }
+        
+        .substack-description {
+            background: rgba(255, 103, 25, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            border-left: 5px solid var(--substack-orange);
+        }
+        
+        .substack-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--substack-orange) 0%, #e55a14 100%);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            margin: 10px 0;
+            box-shadow: 
+                0 6px 20px rgba(255, 103, 25, 0.3),
+                0 0 0 3px rgba(255,255,255,0.2),
+                inset 0 2px 0 rgba(255,255,255,0.3);
+            transition: all 0.3s ease;
+            border: 2px solid rgba(255,255,255,0.5);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .substack-button::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .substack-button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 
+                0 10px 25px rgba(255, 103, 25, 0.4),
+                0 0 0 3px rgba(255,255,255,0.3),
+                inset 0 2px 0 rgba(255,255,255,0.4);
+        }
+        
+        .substack-button:hover::before {
+            left: 100%;
+        }
+        
+        .substack-button:active {
+            transform: translateY(-1px) scale(1.02);
+        }
+        
+        .substack-icon {
+            font-size: 1.8em;
+            margin-right: 12px;
+            filter: drop-shadow(0 2px 3px rgba(0,0,0,0.2));
+        }
+        
+        .substack-preview {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            border: 3px dashed var(--substack-orange);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .preview-title {
+            font-weight: 700;
+            font-size: 1.3em;
+            color: var(--brown);
+            margin-bottom: 10px;
+            font-family: 'Caveat', cursive;
+            font-size: 1.8em;
+        }
+        
+        .preview-excerpt {
+            color: var(--brown);
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+        
+        .preview-meta {
+            display: flex;
+            justify-content: space-between;
+            color: var(--terracotta);
+            font-size: 0.9em;
+            font-weight: 600;
         }
         
         /* Book Recommendations */
@@ -753,6 +873,10 @@
                 padding: 10px;
                 font-size: 1.1em;
             }
+            
+            .substack-feature {
+                grid-template-columns: 1fr;
+            }
         }
         
         /* Decorative Elements */
@@ -782,14 +906,14 @@
             <h1 class="handwritten-title">Andie's Crafty Corner</h1>
             <p class="subtitle">✨ Where creativity meets community ✨</p>
             <div class="mini-bio">
-                <p><strong>Hey! I'm Andie</strong> — Craft Club organizer, DIY enthusiast, writer, comedian, and one half of <em>Two Freaks Notice</em>. This is my little corner of the internet where I share what I'm making, where I'll be performing, what I'm reading, and all the crafty chaos in between.</p>
+                <p><strong>Hey! I'm Andie</strong> — Cape Town-based writer, comedian, Craft Club organizer, and one half of <em>Two Freaks Notice</em> podcast. I make things with my hands because it keeps me sane. I perform comedy because making people laugh is the best feeling in the world. I read obsessively because books are cheaper than therapy. This is my little corner of the internet where I share what I'm making, where I'll be performing, what I'm reading, and all the crafty chaos in between. No algorithm, no performance, just me being me.</p>
             </div>
         </header>
 
         <!-- Welcome Message -->
         <div class="welcome-banner">
             <h2>Welcome to my crafty universe! 🌈</h2>
-            <p>This page is MY space to update whenever I want—totally independent from the main podcast feed. Check back here for Craft Club announcements, comedy show dates, book recs, random life updates, and whatever else I'm freaking out about this week (in the best way).</p>
+            <p>This page is MY space to update whenever I want—totally independent from the main podcast feed. No posting schedule, no content calendar, no "optimal engagement times." Just me, sharing what I'm excited about when I'm excited about it. Check back here for Craft Club announcements, comedy show dates, book recommendations that will ruin you emotionally, skincare experiments, random life updates, and whatever else I'm currently obsessing over (which changes weekly, let's be honest). This is the anti-algorithm. This is just... me.</p>
         </div>
 
         <!-- BIG ANNOUNCEMENTS -->
@@ -802,8 +926,8 @@
                     <div style="background: rgba(255,255,255,0.2); padding: 25px; border-radius: 15px; text-align: center; border: 3px dashed rgba(255,255,255,0.5);">
                         <div style="font-size: 3em; margin-bottom: 15px;">💍</div>
                         <h3 style="font-size: 1.5em; margin-bottom: 10px; font-family: 'Caveat', cursive;">SITAARA IS ENGAGED!</h3>
-                        <p style="margin-bottom: 15px;">Our co-host, chaos queen, and absolute legend said YES! 🥂</p>
-                        <p style="font-style: italic; opacity: 0.9;">Details, stories, and probably some very emotional podcast episodes coming soon...</p>
+                        <p style="margin-bottom: 15px;">My co-host, best friend, chaos queen, and absolute legend said YES! 🥂</p>
+                        <p style="font-style: italic; opacity: 0.9;">I cried. Obviously. There will be many emotional podcast episodes about this. Wedding planning commentary incoming. She's getting married and I'm not emotionally prepared but SO HAPPY.</p>
                     </div>
                     
                     <!-- YouTube Launch -->
@@ -824,416 +948,206 @@
                 </div>
                 
                 <div style="text-align: center; margin-top: 20px; padding: 15px; background: rgba(255,255,255,0.2); border-radius: 10px;">
-                    <p style="font-family: 'Caveat', cursive; font-size: 1.3em; margin: 0;">What a time to be alive! So much excitement! 🥳</p>
+                    <p style="font-family: 'Caveat', cursive; font-size: 1.3em; margin: 0;">What a time to be alive! So much excitement!</p>
                 </div>
             </div>
         </section>
 
-        <!-- Book Recommendations -->
-        <section id="book-recs">
+        <!-- SUBSTACK NEWSLETTER SECTION -->
+        <section id="substack-newsletter">
+            <div class="card substack-card">
+                <h2>📬 Join My Substack Community</h2>
+                <p>Get my writing delivered straight to your inbox! I share personal essays, behind-the-scenes stories, craft tutorials, and thoughts on creativity, community, and navigating life as a multi-passionate creative.</p>
+                
+                <div class="substack-feature">
+                    <div class="substack-info">
+                        <div class="substack-description">
+                            <h3 style="color: var(--substack-orange); margin-bottom: 10px;">What you'll get:</h3>
+                            <ul style="padding-left: 20px;">
+                                <li>Weekly essays on creativity and community</li>
+                                <li>Exclusive craft tutorials and patterns</li>
+                                <li>Behind-the-scenes of podcast life</li>
+                                <li>Personal stories and reflections</li>
+                                <li>Early access to event announcements</li>
+                            </ul>
+                        </div>
+                        
+                        <a href="https://happybirthdayparty.substack.com/?fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQPNTY3MDY3MzQzMzUyNDI3AAGnQSGpN5Jyb6etzd-J0BbTI2YxkjqZCvYzc786YID0pD8KGW1Z1yvs23WWUA4_aem_gXOiwbilqEw4Qejxk0LUmw" class="substack-button">
+                            <span class="substack-icon">📬</span>
+                            <span class="button-text">
+                                <span class="main-text">Subscribe to Happy Birthday Party</span>
+                                <span class="sub-text">(Free newsletter, no spam ever!)</span>
+                            </span>
+                        </a>
+                        
+                        <p style="margin-top: 15px; font-size: 0.9em; color: var(--terracotta);"><em>Join hundreds of readers who get my writing delivered weekly. It's free, and you can unsubscribe anytime.</em></p>
+                    </div>
+                    
+                    <div class="substack-preview">
+                        <h3 class="preview-title">Latest from the Newsletter</h3>
+                        <p class="preview-excerpt">"The thing about craft clubs is that they're not really about the crafts. They're about showing up with your messy, imperfect self and making something anyway. They're about the space between the stitches..."</p>
+                        <div class="preview-meta">
+                            <span>From "The Space Between Stitches"</span>
+                            <span>Nov 5, 2025</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BOOK RECOMMENDATIONS -->
+        <section id="book-recommendations">
             <div class="card book-card">
-                <h2>📚 This Week's Book Recs</h2>
-                <p style="margin-bottom: 20px;">What I'm reading, what you should be reading, and why books are better than people sometimes.</p>
+                <h2>📚 Currently Reading</h2>
+                <p>Books that are currently ruining me emotionally (in the best way):</p>
                 
                 <div class="book-item">
-                    <div class="book-title">📖 "The Vegetarian"</div>
-                    <div class="book-author">by Han Kang</div>
-                    <p>Haunting, surreal, and absolutely devastating. A woman's decision to stop eating meat spirals into something far more profound. This book will live in your brain rent-free for months.</p>
+                    <div class="book-title">The Vanishing Half</div>
+                    <div class="book-author">by Brit Bennett</div>
+                    <p>A stunning exploration of identity, family, and the lasting influence of the past. I'm only halfway through and already know this will be one of my favorite books of the year.</p>
                 </div>
                 
                 <div class="book-item">
-                    <div class="book-title">📖 "Pachinko"</div>
-                    <div class="book-author">by Min Jin Lee</div>
-                    <p>A multigenerational epic about a Korean family in Japan. Beautiful, heartbreaking, and impossible to put down. This is what great storytelling looks like.</p>
+                    <div class="book-title">Braiding Sweetgrass</div>
+                    <div class="book-author">by Robin Wall Kimmerer</div>
+                    <p>Re-reading this masterpiece. If you haven't experienced the beautiful blend of indigenous wisdom, scientific knowledge, and the teaching of plants, you're missing out.</p>
                 </div>
                 
-                <div class="book-item">
-                    <div class="book-title">📖 "The God of Small Things"</div>
-                    <div class="book-author">by Arundhati Roy</div>
-                    <p>Lyrical, tragic, and stunningly written. Set in Kerala, this novel breaks your heart in the most beautiful way. Roy's prose is pure magic.</p>
-                </div>
-                
-                <div class="book-item">
-                    <div class="book-title">📖 "Station Eleven"</div>
-                    <div class="book-author">by Emily St. John Mandel</div>
-                    <p>Post-apocalyptic but make it hopeful? A traveling theater troupe in a collapsed world. About art, survival, and what makes us human. Gorgeous.</p>
-                </div>
-                
-                <!-- Documentary Rec -->
                 <div class="doc-feature">
-                    <span class="doc-badge">🎬 DOCUMENTARY REC</span>
-                    <h3 style="font-size: 1.8em; margin-bottom: 10px;">LISTERS: The Birding Documentary</h3>
-                    <p style="margin-bottom: 10px;">If you thought birdwatching was for old people, think again. This doc follows competitive birders (yes, it's a thing) and it's absolutely fascinating. Obsession, nature, and weirdly relatable chaos.</p>
-                    <p style="font-style: italic; opacity: 0.9;">Where to watch: Check your local streaming services or birding forums (they're surprisingly active).</p>
+                    <div class="doc-badge">Documentary Pick</div>
+                    <h3 style="margin-bottom: 10px;">"The Booksellers" on Prime Video</h3>
+                    <p>A delightful documentary about New York City's rare book world. If you love books, the smell of old paper, and eccentric characters, this is a must-watch. It made me want to quit everything and open a tiny bookshop.</p>
                 </div>
             </div>
         </section>
 
-        <!-- Skincare Experiment -->
-        <section id="skincare">
-            <div class="card skincare-card">
-                <h2>✨ Andie's Skincare Saga</h2>
-                <p style="margin-bottom: 15px;">I'm trying to figure out if having a skincare routine makes me a functional adult or just someone who fell for targeted Instagram ads. Let's find out together.</p>
-                
-                <p><strong>Week 1 Update:</strong> Bought a fancy serum. Used it twice. Forgot what it does. Pretty sure it's expensive water.</p>
-                
-                <p style="margin-top: 10px;"><strong>The Products:</strong> Some vitamin C thing, a moisturizer with "ceramides" (??), and sunscreen (because skin cancer is not the vibe).</p>
-                
-                <p style="margin-top: 10px;"><strong>Current Status:</strong> My skin looks... the same? But I feel fancier? Is that the point?</p>
-                
-                <div class="to-be-continued">
-                    🌸 TO BE CONTINUED... 🌸
-                </div>
-                
-                <p style="margin-top: 15px; font-style: italic; text-align: center;">Check back next week to see if I remember to actually use these products.</p>
-            </div>
-        </section>
-
-        <!-- Writing & Substack Section -->
-        <section id="writing">
-            <div class="card" style="border-color: var(--terracotta); background: linear-gradient(135deg, #fff9f0 0%, var(--cream) 100%);">
-                <h2 style="color: var(--terracotta); border-bottom-color: var(--terracotta);">✍️ Andie Writes Things</h2>
-                <p style="margin-bottom: 20px; font-size: 1.1em;">Yes, I write! Essays, stories, observations, and general overthinking—all available on my Substack.</p>
-                
-                <div style="background: linear-gradient(135deg, var(--terracotta) 0%, var(--craft-orange) 100%); padding: 30px; border-radius: 20px; color: white; margin-bottom: 20px; text-align: center;">
-                    <h3 style="font-family: 'Caveat', cursive; font-size: 2em; margin-bottom: 15px;">Recent Essays</h3>
-                    
-                    <div style="background: rgba(255,255,255,0.2); padding: 20px; border-radius: 15px; margin: 15px 0; text-align: left;">
-                        <h4 style="font-size: 1.3em; margin-bottom: 10px;">"On Making Things Badly"</h4>
-                        <p style="opacity: 0.95; line-height: 1.6;">Why perfectionism is killing your creativity, and why making ugly art might be the most radical thing you can do.</p>
-                    </div>
-                    
-                    <div style="background: rgba(255,255,255,0.2); padding: 20px; border-radius: 15px; margin: 15px 0; text-align: left;">
-                        <h4 style="font-size: 1.3em; margin-bottom: 10px;">"The Weight of Small Kindnesses"</h4>
-                        <p style="opacity: 0.95; line-height: 1.6;">A meditation on the strangers who changed my life without knowing it, and why tiny gestures matter more than we think.</p>
-                    </div>
-                    
-                    <div style="background: rgba(255,255,255,0.2); padding: 20px; border-radius: 15px; margin: 15px 0; text-align: left;">
-                        <h4 style="font-size: 1.3em; margin-bottom: 10px;">"Craft as Protest"</h4>
-                        <p style="opacity: 0.95; line-height: 1.6;">Why making things with your hands is a revolutionary act in a world that wants you consuming, not creating.</p>
-                    </div>
-                    
-                    <a href="#" style="display: inline-block; background: white; color: var(--terracotta); padding: 15px 40px; border-radius: 30px; text-decoration: none; font-weight: bold; margin-top: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); transition: all 0.3s;">
-                        📝 Read on Substack
-                    </a>
-                </div>
-                
-                <p style="text-align: center; font-style: italic; opacity: 0.8;">New essays every other week (ish). Subscribe for free to get them in your inbox!</p>
-            </div>
-        </section>
-
-        <!-- Comedy Shows -->
+        <!-- COMEDY SHOWS -->
         <section id="comedy-shows">
             <div class="card comedy-card">
-                <h2>🎭 Catch Me Live!</h2>
-                <p style="margin-bottom: 20px;">Yes, I do comedy too! Here's where you can see me attempt to be funny in person. No pressure.</p>
+                <h2>🎤 Where I'm Performing</h2>
+                <p>Come laugh with me! Here's where you can catch my stand-up comedy shows:</p>
                 
                 <div class="show-announcement">
-                    <div class="show-date">📅 Friday, November 15 • 8:00 PM</div>
-                    <div class="show-venue">📍 The Armchair Theatre, Observatory</div>
-                    <p style="margin: 10px 0;">Lineup show with some of Cape Town's funniest humans (and me). Expect jokes about crafts, chaos, and questionable life choices.</p>
-                    <a href="#" class="ticket-button">🎟️ Get Tickets</a>
+                    <div class="show-date">November 15, 2025 | 8:00 PM</div>
+                    <div class="show-venue">Cape Town Comedy Club</div>
+                    <p>My monthly residency continues with all new material about craft fails, dating disasters, and the existential crisis of turning 30.</p>
+                    <a href="#" class="ticket-button">Get Tickets</a>
                 </div>
                 
                 <div class="show-announcement">
-                    <div class="show-date">📅 Saturday, December 7 • 7:30 PM</div>
-                    <div class="show-venue">📍 Cape Town Comedy Club</div>
-                    <p style="margin: 10px 0;">Special holiday show! I'm workshopping new material about family dinners and festive season survival tactics.</p>
-                    <a href="#" class="ticket-button">🎟️ Reserve Seats</a>
-                </div>
-                
-                <div class="show-announcement">
-                    <div class="show-date">📅 TBA - January 2026</div>
-                    <div class="show-venue">📍 Location Coming Soon!</div>
-                    <p style="margin: 10px 0;">New show in development. Something about birds? And books? And existential dread? Still figuring it out.</p>
+                    <div class="show-date">November 22, 2025 | 7:30 PM</div>
+                    <div class="show-venue">The Armchair Theatre</div>
+                    <p>Special guest spot at this intimate venue. I'll be trying out some vulnerable new material about grief, joy, and finding your people.</p>
+                    <a href="#" class="ticket-button">Get Tickets</a>
                 </div>
             </div>
         </section>
 
-        <!-- Word Puzzle -->
-        <section id="word-puzzle">
-            <div class="card puzzle-card">
-                <h2>🧩 Andie's Weekly Word Puzzle</h2>
-                <p style="margin-bottom: 20px;">Because I'm a writer and I love making you think. Unscramble the letters to find this week's theme!</p>
-                
-                <div style="margin: 20px 0;">
-                    <div class="puzzle-clue">
-                        <strong>CLUE:</strong> What every creative person battles with daily (13 letters)
-                    </div>
-                    
-                    <div class="puzzle-grid" style="grid-template-columns: repeat(13, 1fr); max-width: 100%;">
-                        <div class="puzzle-letter">P</div>
-                        <div class="puzzle-letter">R</div>
-                        <div class="puzzle-letter">O</div>
-                        <div class="puzzle-letter">C</div>
-                        <div class="puzzle-letter">R</div>
-                        <div class="puzzle-letter">A</div>
-                        <div class="puzzle-letter">S</div>
-                        <div class="puzzle-letter">T</div>
-                        <div class="puzzle-letter">I</div>
-                        <div class="puzzle-letter">N</div>
-                        <div class="puzzle-letter">A</div>
-                        <div class="puzzle-letter">T</div>
-                        <div class="puzzle-letter">E</div>
-                    </div>
-                    
-                    <button class="reveal-hint" onclick="document.getElementById('hint1').style.display='block'; this.style.display='none';">
-                        💡 Need a Hint?
-                    </button>
-                    
-                    <div class="hint-text" id="hint1">
-                        <strong>HINT:</strong> It's already scrambled! The letters spell out the exact thing you're probably doing right now instead of working on your project...
-                        <br><br>
-                        <strong>ANSWER:</strong> PROCRASTINATE (guilty as charged! We all do it!)
-                        <br><br>
-                        <em style="font-size: 0.9em;">Fun fact: The word comes from Latin "procrastinatus" - pro (forward) + crastinus (of tomorrow). Literally "putting forward until tomorrow." Ancient Romans were calling us out centuries ago.</em>
-                    </div>
-                </div>
-                
-                <p style="margin-top: 20px; font-style: italic; text-align: center;">New puzzle every week! DM me your answers on Instagram for a virtual high-five. 🙌</p>
-            </div>
-        </section>
-
-        <!-- Craft Club Section -->
+        <!-- CRAFT CLUB -->
         <section id="craft-club">
             <div class="card">
-                <h2>🎨 Craft Club Cape Town</h2>
                 <div class="craft-club-header">
-                    YOUR MONTHLY MAKER MEETUP
+                    🧵 ANDIE'S CRAFT CLUB 🧵
                 </div>
-                <p>Craft Club is where Cape Town's creative community comes together to make stuff, chat nonsense, and support each other's artistic chaos. No experience needed—just bring yourself and your vibe.</p>
+                <p>Join our IRL community of makers, creators, and crafty humans. All skill levels welcome—beginners are especially celebrated!</p>
                 
                 <div class="event-grid">
                     <div class="event-card">
                         <span class="event-emoji">🧶</span>
-                        <div class="event-title">November Knit Night</div>
-                        <p>Bring your yarn, bring your chaos</p>
-                        <span class="event-date">📅 Nov 15, 6-9pm</span>
-                    </div>
-                    
-                    <div class="event-card">
-                        <span class="event-emoji">🎄</span>
-                        <div class="event-title">Holiday Craft Market</div>
-                        <p>Festive makes & good vibes</p>
-                        <span class="event-date">📅 Dec 8, 10am-4pm</span>
+                        <div class="event-title">Knit & Natter</div>
+                        <p>Bring whatever you're working on—knitting, crochet, embroidery, mending—and enjoy good company.</p>
+                        <div class="event-date">Every Tuesday, 6-8 PM</div>
                     </div>
                     
                     <div class="event-card">
                         <span class="event-emoji">✂️</span>
-                        <div class="event-title">Zine Workshop</div>
-                        <p>Cut, paste, create your story</p>
-                        <span class="event-date">📅 Coming Soon!</span>
+                        <div class="event-title">Visible Mending Workshop</div>
+                        <p>Learn sashiko, darning, and creative patching to give your worn clothes new life.</p>
+                        <div class="event-date">Nov 12, 2025</div>
+                    </div>
+                    
+                    <div class="event-card">
+                        <span class="event-emoji">🎨</span>
+                        <div class="event-title">Zine Making Social</div>
+                        <p>Create your own mini-magazine! We'll provide supplies, you bring your ideas.</p>
+                        <div class="event-date">Nov 26, 2025</div>
                     </div>
                 </div>
-            </div>
-        </section>
-
-        <!-- Pop-Up Calendar -->
-        <section id="popup-calendar">
-            <div class="card">
-                <h2>📍 Where to Find Me IRL</h2>
-                <p style="margin-bottom: 20px;">I'm always popping up somewhere with handmade goodies, crafty kits, and good energy. Come say hi!</p>
                 
-                <div class="popup-item">
-                    <div class="popup-date">🗓️ Saturday, Nov 9</div>
-                    <h3>Neighbourgoods Market</h3>
-                    <p class="popup-location">📍 Old Biscuit Mill, Woodstock</p>
-                    <p>Stocking handmade journals, stickers, and craft kits!</p>
-                </div>
-                
-                <div class="popup-item">
-                    <div class="popup-date">🗓️ Sunday, Nov 17</div>
-                    <h3>Oranjezicht City Farm Market</h3>
-                    <p class="popup-location">📍 Granger Bay, V&A Waterfront</p>
-                    <p>Fresh batch of DIY kits and one-of-a-kind pieces</p>
-                </div>
-                
-                <div class="popup-item">
-                    <div class="popup-date">🗓️ December TBA</div>
-                    <h3>Holiday Pop-Up Shop</h3>
-                    <p class="popup-location">📍 Location dropping soon!</p>
-                    <p>Gift heaven for your crafty friends (or yourself, no judgment)</p>
+                <div style="text-align: center; margin-top: 25px;">
+                    <p><strong>Location:</strong> The Make Space, 42 Craft Street, Cape Town</p>
+                    <p><em>No RSVP needed for weekly events. Just show up with your project and good vibes!</em></p>
                 </div>
             </div>
         </section>
 
-        <!-- Current Projects -->
+        <!-- CURRENT PROJECTS -->
         <section id="current-projects">
             <div class="card">
-                <h2>🛠️ What I'm Making Right Now</h2>
-                <p style="margin-bottom: 20px;">A peek into my creative brain. These are the projects I'm currently obsessed with:</p>
+                <h2>🛠️ What I'm Making</h2>
+                <p>The current rotation of creative projects that are keeping my hands busy:</p>
                 
                 <div class="project-showcase">
                     <div class="project-box">
-                        <span class="project-icon">📓</span>
-                        <p class="project-name">Handbound Journals</p>
-                        <p style="margin-top: 10px; font-size: 0.9em;">Custom covers, blank pages for your chaos</p>
-                    </div>
-                    
-                    <div class="project-box">
-                        <span class="project-icon">🎴</span>
-                        <p class="project-name">Sticker Sheets</p>
-                        <p style="margin-top: 10px; font-size: 0.9em;">Weird, wonderful, very Cape Town</p>
-                    </div>
-                    
-                    <div class="project-box">
                         <span class="project-icon">🧵</span>
-                        <p class="project-name">Embroidery Kits</p>
-                        <p style="margin-top: 10px; font-size: 0.9em;">Everything you need to stitch your feelings</p>
+                        <div class="project-name">Memory Quilt</div>
+                        <p>Turning old t-shirts into a cozy quilt full of memories</p>
                     </div>
                     
                     <div class="project-box">
-                        <span class="project-icon">🎨</span>
-                        <p class="project-name">Secret Project...</p>
-                        <p style="margin-top: 10px; font-size: 0.9em;">Dropping soon. It's chaotic. You'll love it.</p>
+                        <span class="project-icon">📓</span>
+                        <div class="project-name">Commonplace Book</div>
+                        <p>Hand-bound journal for quotes, thoughts, and inspiration</p>
+                    </div>
+                    
+                    <div class="project-box">
+                        <span class="project-icon">🪴</span>
+                        <div class="project-name">Macrame Plant Hangers</div>
+                        <p>Because my plant collection needs to go vertical</p>
+                    </div>
+                    
+                    <div class="project-box">
+                        <span class="project-icon">✍️</span>
+                        <div class="project-name">Poetry Zine</div>
+                        <p>Small collection of poems about craft and community</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- WHY SMART POD EXISTS - THE MANIFESTO -->
-        <section id="smart-pod-manifesto">
-            <div class="card manifesto-card">
-                <h2>🌱 Why This Page Exists (The Smart Pod Manifesto)</h2>
-                
-                <p style="margin-bottom: 20px; font-size: 1.1em;">You might be wondering why I have my own separate page instead of just posting on Instagram or TikTok. Here's the thing: <strong>this is MY digital home</strong>, and that matters more than you might think.</p>
-
-                <div class="manifesto-section">
-                    <h3>🏠 Ownership & Independence</h3>
-                    <div class="principle-box">
-                        <strong>This space is MINE.</strong> No algorithm decides what you see. No platform can delete it overnight. No billionaire can change the rules on me. When you visit this page, you're getting exactly what I want to share—unfiltered, unmediated, unmonetized (unless I choose otherwise).
-                    </div>
-                    <div class="principle-box">
-                        <strong>I update on MY schedule.</strong> Not when an algorithm rewards me. Not when engagement is "optimal." When I have something to say, when I've made something cool, when there's a show to announce—that's when this page changes. It's <em>real</em> in a way social media can never be.
-                    </div>
-                </div>
-
-                <div class="manifesto-section">
-                    <h3>♿ Accessibility First</h3>
-                    <div class="principle-box">
-                        <strong>Works offline.</strong> Save this page to your device and you can access it anytime, anywhere—no internet needed. Perfect for South Africa's load shedding reality, for people with limited data, or for anyone who just wants information that STAYS PUT.
-                    </div>
-                    <div class="principle-box">
-                        <strong>Screen reader friendly.</strong> Proper semantic HTML means people using assistive technology can actually navigate this page. Social media platforms? Often a nightmare for accessibility. This? Built with care.
-                    </div>
-                    <div class="principle-box">
-                        <strong>Low bandwidth.</strong> No tracking scripts, no heavy ads, no unnecessary bloat. This page loads fast even on slow connections because it respects your data limits and your time.
-                    </div>
-                </div>
-
-                <div class="manifesto-section">
-                    <h3>🛡️ Anti-Platform Politics</h3>
-                    <div class="principle-box">
-                        <strong>No surveillance capitalism.</strong> There are no tracking cookies here. No data harvesting. No selling your attention to advertisers. You read what I write, I don't know who you are, and that's exactly how it should be.
-                    </div>
-                    <div class="principle-box">
-                        <strong>Platform-independent.</strong> Instagram could ban me tomorrow. TikTok could shut down. Twitter could become... whatever it's becoming. This page? Still here. My community can always find me because I OWN this space.
-                    </div>
-                    <div class="principle-box">
-                        <strong>No engagement manipulation.</strong> I'm not optimizing for likes. Not chasing viral moments. Not performing for an algorithm. This is just me, sharing what matters to me, in a format that respects both of us.
-                    </div>
-                </div>
-
-                <div class="manifesto-section">
-                    <h3>✨ Bespoke & Authentic</h3>
-                    <div class="principle-box">
-                        <strong>Designed to reflect ME.</strong> Every color, every font, every little decorative scissor emoji—it's all chosen to feel like my actual creative space. Social media gives everyone the same template. This? This is MINE.
-                    </div>
-                    <div class="principle-box">
-                        <strong>Living document.</strong> This page grows with me. New projects, new interests, new thoughts—I can add sections whenever I want. Try doing that in an Instagram bio.
-                    </div>
-                    <div class="principle-box">
-                        <strong>Archival & permanent.</strong> Everything I post here stays here (unless I decide to change it). No disappearing stories, no expired content, no "this post is no longer available." It's a real record of my creative journey.
-                    </div>
-                </div>
-
-                <div class="manifesto-section">
-                    <h3>🤝 Ethical Tech</h3>
-                    <div class="principle-box">
-                        <strong>Open web principles.</strong> Built with standard HTML, CSS, and minimal JavaScript. Anyone can view the source code and see exactly how it works. No mystery boxes, no proprietary nonsense.
-                    </div>
-                    <div class="principle-box">
-                        <strong>Sustainable digital practice.</strong> Low energy consumption, no server-intensive processes, designed to last. This is digital minimalism that actually respects resources.
-                    </div>
-                    <div class="principle-box">
-                        <strong>Community over metrics.</strong> Success here isn't measured in followers or engagement rates. It's measured in real connections, actual conversations, and whether this space helps me share my work authentically.
-                    </div>
-                </div>
-
-                <div style="background: var(--forest); color: white; padding: 25px; border-radius: 15px; margin-top: 30px; text-align: center;">
-                    <p style="font-size: 1.2em; font-weight: 600; margin-bottom: 15px;">This is what the indie web looks like.</p>
-                    <p style="font-style: italic; opacity: 0.9;">Small, personal, owned by the person who made it. Not because it's trendy, but because it's RIGHT.</p>
-                    <p style="margin-top: 15px; font-family: 'Caveat', cursive; font-size: 1.5em;">— Andie ✨</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Community & Newsletter -->
+        <!-- COMMUNITY CONNECTIONS -->
         <section id="community">
-            <div class="community-card">
-                <h2>💌 Join the Crafty Community</h2>
-                <p style="margin: 20px 0;">Want to know about events, new drops, comedy shows, book recs, and craft chaos before everyone else? Join the newsletter crew. I promise I won't spam you—I'm too busy making stuff.</p>
+            <div class="card community-card">
+                <h2>Find Me Elsewhere</h2>
+                <p>Let's connect across the internet! Here's where you can find more of my work:</p>
                 
-                <a href="#" class="cta-button">📧 Sign Up for Updates</a>
-                <a href="#" class="cta-button">🎁 Shop Merch & Kits</a>
-            </div>
-        </section>
-
-        <!-- Connect -->
-        <section id="connect">
-            <div class="card">
-                <h2>🔗 Let's Connect!</h2>
-                <p style="margin-bottom: 20px; text-align: center; font-style: italic;">Yes, I'm still on social media (for now), but this page is HOME BASE.</p>
                 <div class="social-grid">
-                    <a href="https://instagram.com/andiereeyes" class="social-button">📸 Instagram</a>
-                    <a href="https://tiktok.com/@andiereeyes" class="social-button">🎵 TikTok</a>
-                    <a href="#" class="social-button">🛍️ Shop</a>
-                    <a href="#" class="social-button">✉️ Email Me</a>
+                    <a href="#" class="social-button">Instagram</a>
+                    <a href="#" class="social-button">Twitter</a>
+                    <a href="#" class="social-button">Podcast</a>
+                    <a href="#" class="social-button">TikTok</a>
+                </div>
+                
+                <div style="margin-top: 30px;">
+                    <a href="#" class="cta-button">Listen to Two Freaks Notice</a>
+                    <a href="#" class="cta-button">Join Craft Club Chat</a>
                 </div>
             </div>
         </section>
 
-        <!-- Back to Main Podcast -->
+        <!-- Footer -->
         <footer>
-            <p style="font-family: 'Caveat', cursive; font-size: 1.5em; margin-bottom: 10px;">Thanks for stopping by! ✨</p>
-            <p>This is my personal Smart Pod—updates whenever I feel like it, styled exactly how I want it.</p>
-            <p style="margin-top: 10px;"><em>That's the beauty of owning your own digital space.</em></p>
-            
-            <a href="two-freaks-notice.html" class="back-link">← Back to Two Freaks Notice</a>
-            
-            <div style="margin-top: 30px; padding-top: 20px; border-top: 2px dashed var(--craft-orange);">
-                <p style="font-size: 0.9em; opacity: 0.8; margin-bottom: 10px;"><strong>Built with Untitled Format • Brotherly Protocol v1.2.0</strong></p>
-                <p style="font-size: 0.85em; opacity: 0.7;">Part of the Two Freaks Notice Smart Pod ecosystem</p>
-                <p style="font-size: 0.85em; opacity: 0.7;">Last updated: November 8, 2025</p>
-            </div>
+            <p>Made with ✂️🧵💖 in Cape Town</p>
+            <p>© 2025 Andie Reeves ·¬¿÷¢· brotherly protocol </p>
+            <a href="#" class="back-link">Back to Top</a>
         </footer>
     </div>
 
-    <!-- AI Update Markers for future autonomous updates -->
-    <!-- [PROMPT: UPDATE_SECTION | SECTION=book-recs | OWNER=andie | FREQUENCY=weekly] -->
-    <!-- [PROMPT: UPDATE_SECTION | SECTION=skincare | OWNER=andie | SERIES=ongoing] -->
-    <!-- [PROMPT: UPDATE_SECTION | SECTION=comedy-shows | OWNER=andie | FREQUENCY=as-needed] -->
-    <!-- [PROMPT: UPDATE_SECTION | SECTION=word-puzzle | OWNER=andie | FREQUENCY=weekly] -->
-    <!-- [PROMPT: UPDATE_SECTION | SECTION=craft-club | OWNER=andie | INDEPENDENT=true] -->
-    <!-- [PROMPT: UPDATE_SECTION | SECTION=popup-calendar | OWNER=andie | FREQUENCY=as-needed] -->
-    <!-- [PROMPT: UPDATE_SECTION | SECTION=current-projects | OWNER=andie | DYNAMIC=true] -->
-    
     <script>
-        // Simple interactivity
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('✨ Andie\'s Crafty Corner loaded!');
-            console.log('Built with the Brotherly Protocol - ethical, accessible, yours.');
-            
-            // Optional: Add smooth scrolling for anchor links
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const target = document.querySelector(this.getAttribute('href'));
-                    if (target) {
-                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }
-                });
-            });
+        // Simple JavaScript for the word puzzle hint
+        document.querySelector('.reveal-hint').addEventListener('click', function() {
+            const hintText = document.querySelector('.hint-text');
+            hintText.style.display = hintText.style.display === 'block' ? 'none' : 'block';
         });
     </script>
 </body>

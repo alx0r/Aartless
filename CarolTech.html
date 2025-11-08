@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carol Crouse | International Educational Consultant</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a4b7a;
+            --secondary: #4a8c5d;
+            --accent: #d4a574;
+            --gold: #d4af37;
+            --light: #f8f9fa;
+            --paper: #ffffff;
+            --ink: #2c3e50;
+            --shadow: rgba(26, 75, 122, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--ink);
+            background: var(--light);
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(26, 75, 122, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 85% 30%, rgba(74, 140, 93, 0.05) 0%, transparent 20%);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        /* Header & Navigation */
+        .site-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-family: 'Merriweather', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 5rem 1rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-family: 'Merriweather', serif;
+            font-weight: 700;
+        }
+        
+        .hero-tagline {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            font-style: italic;
+        }
+        
+        .hero-description {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: var(--gold);
+            color: var(--primary);
+            padding: 1rem 2rem;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            margin: 0.5rem;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+        }
+        
+        .cta-button.secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid var(--gold);
+        }
+        
+        /* Sections */
+        section {
+            padding: 4rem 1rem;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        h2 {
+            color: var(--primary);
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-family: 'Merriweather', serif;
+            font-weight: 700;
+        }
+        
+        .section-subtitle {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+            opacity: 0.8;
+        }
+        
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 3rem;
+            align-items: center;
+        }
+        
+        @media (max-width: 768px) {
+            .about-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+        
+        .profile-image {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid var(--primary);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            margin: 0 auto;
+        }
+        
+        .about-text h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        
+        .expertise-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .expertise-card {
+            background: var(--paper);
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 12px var(--shadow);
+            text-align: center;
+            border-top: 4px solid var(--secondary);
+        }
+        
+        .expertise-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+        
+        .project-card {
+            background: var(--paper);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px var(--shadow);
+            transition: transform 0.3s ease;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .project-image {
+            height: 200px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+        
+        .project-content {
+            padding: 1.5rem;
+        }
+        
+        .project-title {
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+            font-family: 'Merriweather', serif;
+        }
+        
+        .project-description {
+            margin-bottom: 1.5rem;
+            opacity: 0.8;
+        }
+        
+        .project-link {
+            display: inline-block;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .project-link:hover {
+            text-decoration: underline;
+        }
+        
+        /* Services Section */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .service-card {
+            background: var(--paper);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 12px var(--shadow);
+            text-align: center;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .service-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+        }
+        
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+        
+        .service-title {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+            font-family: 'Merriweather', serif;
+        }
+        
+        /* Testimonials */
+        .testimonials-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .testimonial-card {
+            background: var(--paper);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 12px var(--shadow);
+            margin-bottom: 2rem;
+            border-left: 4px solid var(--secondary);
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .author-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+        
+        .author-info h4 {
+            color: var(--primary);
+            margin-bottom: 0.25rem;
+        }
+        
+        .author-role {
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+        
+        /* Contact Section */
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+        
+        @media (max-width: 768px) {
+            .contact-content {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .contact-info {
+            background: var(--paper);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 12px var(--shadow);
+        }
+        
+        .contact-method {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .contact-icon {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--primary);
+            color: white;
+            padding: 3rem 1rem;
+            text-align: center;
+        }
+        
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover {
+            color: var(--gold);
+        }
+        
+        .copyright {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            opacity: 0.7;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            h2 {
+                font-size: 2rem;
+            }
+            
+            section {
+                padding: 2rem 1rem;
+            }
+            
+            .nav-links {
+                display: none; /* For mobile, you might want a hamburger menu */
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+        
+        .divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            margin: 2rem 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="site-header">
+        <div class="container nav-container">
+            <div class="logo">Carol Crouse</div>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#testimonials">Testimonials</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Carol Crouse</h1>
+            <p class="hero-tagline">International Educational Consultant & Intelligence Specialist</p>
+            <p class="hero-description">Transforming educational experiences through innovative technology, personalized strategies, and cross-cultural expertise.</p>
+            <div>
+                <a href="#projects" class="cta-button">View My Work</a>
+                <a href="#contact" class="cta-button secondary">Get In Touch</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <div class="section-header">
+                <h2>About Carol</h2>
+                <p class="section-subtitle">Bridging educational systems across continents with intelligence and empathy</p>
+            </div>
+            
+            <div class="about-content">
+                <div>
+                    <div class="profile-image"></div>
+                </div>
+                <div class="about-text">
+                    <h3>International Education Expert</h3>
+                    <p>With over 15 years of experience in international education, I specialize in helping families, schools, and educators navigate complex educational transitions across different countries and systems.</p>
+                    
+                    <p>My work spans South Africa, Turkey, Europe, and beyond, creating bespoke educational solutions that honor cultural contexts while maximizing student potential.</p>
+                    
+                    <div class="divider"></div>
+                    
+                    <h3>Areas of Expertise</h3>
+                    <div class="expertise-grid">
+                        <div class="expertise-card">
+                            <div class="expertise-icon">🌍</div>
+                            <h4>International Transitions</h4>
+                            <p>Seamless movement between educational systems and cultures</p>
+                        </div>
+                        <div class="expertise-card">
+                            <div class="expertise-icon">🏫</div>
+                            <h4>School Selection</h4>
+                            <p>Strategic matching of students to ideal educational environments</p>
+                        </div>
+                        <div class="expertise-card">
+                            <div class="expertise-icon">📊</div>
+                            <h4>Educational Intelligence</h4>
+                            <p>Data-driven insights for optimal educational decision-making</p>
+                        </div>
+                        <div class="expertise-card">
+                            <div class="expertise-icon">👨‍🏫</div>
+                            <h4>Tutor Development</h4>
+                            <p>Building exceptional educational support networks worldwide</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" style="background: var(--paper);">
+        <div class="container">
+            <div class="section-header">
+                <h2>Educational Intelligence Projects</h2>
+                <p class="section-subtitle">Innovative solutions for modern educational challenges</p>
+            </div>
+            
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-image">🔍</div>
+                    <div class="project-content">
+                        <h3 class="project-title">Educational Intelligence System</h3>
+                        <p class="project-description">The foundational framework for all my consulting work - a privacy-first, AI-powered system that transforms educational data into actionable intelligence.</p>
+                        <a href="https://alx0r.github.io/Aartless/CarolC.html" class="project-link" target="_blank">Explore System →</a>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-image">👨‍👩‍👧‍👦</div>
+                    <div class="project-content">
+                        <h3 class="project-title">Family Relocation Dashboard</h3>
+                        <p class="project-description">Comprehensive dashboard for families transitioning between countries, with educational tracking, school comparisons, and cultural preparation.</p>
+                        <a href="https://alx0r.github.io/Aartless/CarolC2.html" class="project-link" target="_blank">View Dashboard →</a>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-image">📚</div>
+                    <div class="project-content">
+                        <h3 class="project-title">Complete Educational Guide</h3>
+                        <p class="project-description">The full implementation guide showing how educational intelligence transforms consulting practices and client outcomes.</p>
+                        <a href="https://alx0r.github.io/Aartless/CarolC3.html" class="project-link" target="_blank">Read Guide →</a>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-image">🌐</div>
+                    <div class="project-content">
+                        <h3 class="project-title">Tutor Network Expansion</h3>
+                        <p class="project-description">Building global tutor networks with standardized processes, resource sharing, and quality assurance systems.</p>
+                        <a href="https://alx0r.github.io/Aartless/CarolC4.html" class="project-link" target="_blank">Explore Network →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services">
+        <div class="container">
+            <div class="section-header">
+                <h2>Consulting Services</h2>
+                <p class="section-subtitle">Tailored solutions for every educational challenge</p>
+            </div>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">🏠</div>
+                    <h3 class="service-title">Family Relocation Consulting</h3>
+                    <p>Complete support for families moving between countries, including school selection, curriculum transitions, and cultural adaptation.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">🏫</div>
+                    <h3 class="service-title">School Advisory Services</h3>
+                    <p>Strategic guidance for international schools on curriculum implementation, teacher development, and student support systems.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">👨‍🏫</div>
+                    <h3 class="service-title">Tutor Network Development</h3>
+                    <p>Building and managing global tutor networks with quality assurance, resource sharing, and professional development.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">💡</div>
+                    <h3 class="service-title">Educational Intelligence Setup</h3>
+                    <p>Implementation of bespoke educational intelligence systems for consultants, schools, and educational organizations.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" style="background: var(--paper);">
+        <div class="container">
+            <div class="section-header">
+                <h2>Client Success Stories</h2>
+                <p class="section-subtitle">Transforming educational journeys across the globe</p>
+            </div>
+            
+            <div class="testimonials-container">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Carol's educational intelligence system completely transformed our family's move from South Africa to the Netherlands. The dashboard kept us organized, informed, and confident throughout the entire process."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar"></div>
+                        <div class="author-info">
+                            <h4>Sarah van der Merwe</h4>
+                            <p class="author-role">Parent, Johannesburg to Amsterdam</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Working with Carol to develop our international tutor network has been transformative. Her systems ensure quality while allowing for local cultural adaptation."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar"></div>
+                        <div class="author-info">
+                            <h4>Dr. Mehmet Yılmaz</h4>
+                            <p class="author-role">Education Director, Istanbul</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"The educational intelligence approach gave us insights we never would have discovered on our own. Carol's system helped us find the perfect school match for our children's unique needs."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar"></div>
+                        <div class="author-info">
+                            <h4>James & Fatima Chen</h4>
+                            <p class="author-role">Parents, Cape Town to Rotterdam</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2>Get In Touch</h2>
+                <p class="section-subtitle">Ready to transform your educational journey? Let's connect.</p>
+            </div>
+            
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Contact Information</h3>
+                    <div class="divider"></div>
+                    
+                    <div class="contact-method">
+                        <div class="contact-icon">📧</div>
+                        <div>
+                            <h4>Email</h4>
+                            <p>carol@educationalintelligence.com</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-method">
+                        <div class="contact-icon">🌍</div>
+                        <div>
+                            <h4>Based In</h4>
+                            <p>Turkey & South Africa<br>Working with clients globally</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-method">
+                        <div class="contact-icon">💼</div>
+                        <div>
+                            <h4>LinkedIn</h4>
+                            <p>Connect for professional inquiries</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3>Start Your Educational Journey</h3>
+                    <p>Whether you're a family planning an international move, a school looking to enhance your services, or an educator wanting to join our global network, I'd love to hear from you.</p>
+                    
+                    <div style="margin-top: 2rem;">
+                        <a href="mailto:carol@educationalintelligence.com" class="cta-button">Send an Email</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <h3>Carol Crouse Educational Intelligence</h3>
+            <p>Transforming Education Through Intelligence and Innovation</p>
+            
+            <div class="footer-links">
+                <a href="https://alx0r.github.io/Aartless/CarolC.html">Intelligence System</a>
+                <a href="https://alx0r.github.io/Aartless/CarolC2.html">Family Dashboard</a>
+                <a href="https://alx0r.github.io/Aartless/CarolC3.html">Complete Guide</a>
+                <a href="https://alx0r.github.io/Aartless/CarolC4.html">Tutor Network</a>
+            </div>
+            
+            <div class="copyright">
+                <p>Built on Untitled Format™ & Brotherhood Protocol</p>
+                <p>© 2025 Carol Crouse Educational Intelligence. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add subtle animations to cards on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for animation
+        document.querySelectorAll('.project-card, .service-card, .expertise-card, .testimonial-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>

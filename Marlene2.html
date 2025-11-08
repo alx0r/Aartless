@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Learning Dashboard | Co-Created & Accessible</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Open+Dyslexic:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4a6fa5;
+            --secondary: #6b8cbc;
+            --accent: #ff9e64;
+            --light: #f0f7ff;
+            --paper: #ffffff;
+            --ink: #2c3e50;
+            --success: #66bb6a;
+            --warning: #ffb74d;
+            --calm: #80cbc4;
+            --shadow: rgba(44, 62, 80, 0.1);
+            --font-main: 'Inter', sans-serif;
+            --font-dyslexic: 'Open Dyslexic', sans-serif;
+        }
+
+        .dyslexic-font {
+            font-family: var(--font-dyslexic);
+        }
+
+        .high-contrast {
+            --light: #000000;
+            --paper: #000000;
+            --ink: #ffffff;
+            --primary: #ffff00;
+            --secondary: #ffa500;
+            --accent: #00ffff;
+        }
+
+        .reduced-motion * {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-main);
+            line-height: 1.6;
+            color: var(--ink);
+            background: var(--light);
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Header */
+        .site-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 1.5rem 1rem;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+
+        .student-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .student-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        /* Accessibility Panel */
+        .accessibility-panel {
+            background: var(--paper);
+            padding: 1rem;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .accessibility-btn {
+            background: var(--paper);
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-family: inherit;
+            font-size: 0.9rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.2s ease;
+        }
+
+        .accessibility-btn:hover, .accessibility-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Dashboard Layout */
+        .dashboard {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .dashboard-card {
+            background: var(--paper);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 12px var(--shadow);
+            border: 1px solid rgba(74, 111, 165, 0.1);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid var(--light);
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .card-icon {
+            font-size: 1.5rem;
+            color: var(--secondary);
+        }
+
+        /* Today's Session */
+        .session-agenda {
+            margin-bottom: 1.5rem;
+        }
+
+        .agenda-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+            background: var(--light);
+        }
+
+        .agenda-number {
+            background: var(--primary);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            flex-shrink: 0;
+            font-weight: bold;
+        }
+
+        .agenda-content {
+            flex: 1;
+        }
+
+        .agenda-title {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            color: var(--ink);
+        }
+
+        .agenda-duration {
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        /* Focus Timer */
+        .timer-container {
+            text-align: center;
+            margin: 1.5rem 0;
+        }
+
+        .timer-display {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 1rem 0;
+        }
+
+        .timer-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .timer-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-family: inherit;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .timer-btn:hover {
+            background: var(--secondary);
+        }
+
+        .timer-btn.secondary {
+            background: var(--light);
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+
+        /* Learning Goals */
+        .goals-list {
+            margin-bottom: 1.5rem;
+        }
+
+        .goal-item {
+            margin-bottom: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+            background: var(--light);
+            border-left: 4px solid var(--calm);
+        }
+
+        .goal-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+
+        .goal-title {
+            font-weight: 600;
+            color: var(--ink);
+        }
+
+        .goal-progress {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 4px;
+            overflow: hidden;
+            flex: 1;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--success);
+            border-radius: 4px;
+        }
+
+        .goal-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .goal-btn {
+            background: var(--paper);
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .goal-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Notes Section */
+        .notes-tabs {
+            display: flex;
+            border-bottom: 1px solid #e0e0e0;
+            margin-bottom: 1rem;
+        }
+
+        .notes-tab {
+            padding: 0.75rem 1.5rem;
+            background: none;
+            border: none;
+            border-bottom: 3px solid transparent;
+            font-family: inherit;
+            font-weight: 500;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .notes-tab.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        .notes-content {
+            min-height: 200px;
+        }
+
+        .notes-textarea {
+            width: 100%;
+            height: 150px;
+            padding: 1rem;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1rem;
+            resize: vertical;
+            background: var(--light);
+            color: var(--ink);
+        }
+
+        .notes-list {
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .note-item {
+            padding: 1rem;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .note-item:last-child {
+            border-bottom: none;
+        }
+
+        .note-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Sensory Tools */
+        .sensory-tools {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .sensory-tool {
+            background: var(--light);
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .sensory-tool:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px var(--shadow);
+        }
+
+        .sensory-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        /* Resources */
+        .resources-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .resource-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            border-radius: 8px;
+            background: var(--light);
+            text-decoration: none;
+            color: var(--ink);
+            transition: all 0.2s ease;
+        }
+
+        .resource-item:hover {
+            background: #e3f2fd;
+        }
+
+        .resource-icon {
+            font-size: 1.5rem;
+            margin-right: 1rem;
+            color: var(--primary);
+        }
+
+        /* Break Reminder */
+        .break-reminder {
+            background: var(--warning);
+            color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--ink);
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-top: 3rem;
+        }
+
+        .footer p {
+            margin-bottom: 0.5rem;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="site-header">
+        <div class="container">
+            <div class="header-content">
+                <h1>My Learning Dashboard</h1>
+                <div class="student-info">
+                    <div class="student-avatar">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+                    <div>
+                        <div>Welcome, Alex!</div>
+                        <div>Today: English Session with Tayla</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Accessibility Panel -->
+    <section class="accessibility-panel">
+        <button class="accessibility-btn" id="dyslexic-font">
+            <i class="fas fa-font"></i> Dyslexic Font
+        </button>
+        <button class="accessibility-btn" id="high-contrast">
+            <i class="fas fa-adjust"></i> High Contrast
+        </button>
+        <button class="accessibility-btn" id="reduce-motion">
+            <i class="fas fa-running"></i> Reduce Motion
+        </button>
+        <button class="accessibility-btn" id="larger-text">
+            <i class="fas fa-text-height"></i> Larger Text
+        </button>
+        <button class="accessibility-btn" id="calm-mode">
+            <i class="fas fa-cloud"></i> Calm Colors
+        </button>
+    </section>
+
+    <div class="container">
+        <div class="dashboard">
+            <!-- Today's Session -->
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <h2 class="card-title">Today's Session</h2>
+                    <i class="fas fa-calendar-day card-icon"></i>
+                </div>
+                <div class="session-agenda">
+                    <div class="agenda-item">
+                        <div class="agenda-number">1</div>
+                        <div class="agenda-content">
+                            <div class="agenda-title">Grammar Review: Present Perfect Tense</div>
+                            <div class="agenda-duration">15 minutes</div>
+                        </div>
+                    </div>
+                    <div class="agenda-item">
+                        <div class="agenda-number">2</div>
+                        <div class="agenda-content">
+                            <div class="agenda-title">Reading Comprehension Practice</div>
+                            <div class="agenda-duration">20 minutes</div>
+                        </div>
+                    </div>
+                    <div class="agenda-item">
+                        <div class="agenda-number">3</div>
+                        <div class="agenda-content">
+                            <div class="agenda-title">Vocabulary Building: Academic Words</div>
+                            <div class="agenda-duration">15 minutes</div>
+                        </div>
+                    </div>
+                    <div class="agenda-item">
+                        <div class="agenda-number">4</div>
+                        <div class="agenda-content">
+                            <div class="agenda-title">Conversation Practice & Feedback</div>
+                            <div class="agenda-duration">10 minutes</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timer-container">
+                    <h3>Focus Timer</h3>
+                    <div class="timer-display" id="timer">25:00</div>
+                    <div class="timer-controls">
+                        <button class="timer-btn" id="start-timer">
+                            <i class="fas fa-play"></i> Start
+                        </button>
+                        <button class="timer-btn secondary" id="pause-timer">
+                            <i class="fas fa-pause"></i> Pause
+                        </button>
+                        <button class="timer-btn secondary" id="reset-timer">
+                            <i class="fas fa-redo"></i> Reset
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Learning Goals -->
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <h2 class="card-title">My Learning Goals</h2>
+                    <i class="fas fa-bullseye card-icon"></i>
+                </div>
+                <div class="goals-list">
+                    <div class="goal-item">
+                        <div class="goal-header">
+                            <div class="goal-title">Improve Essay Writing</div>
+                            <div class="goal-progress">
+                                <span>70%</span>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 70%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <p>Focus on structure, thesis statements, and supporting arguments</p>
+                        <div class="goal-actions">
+                            <button class="goal-btn">Update</button>
+                            <button class="goal-btn">Add Note</button>
+                        </div>
+                    </div>
+                    <div class="goal-item">
+                        <div class="goal-header">
+                            <div class="goal-title">Expand Vocabulary</div>
+                            <div class="goal-progress">
+                                <span>45%</span>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 45%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <p>Learn 5 new academic words each week and use them in context</p>
+                        <div class="goal-actions">
+                            <button class="goal-btn">Update</button>
+                            <button class="goal-btn">Add Note</button>
+                        </div>
+                    </div>
+                    <div class="goal-item">
+                        <div class="goal-header">
+                            <div class="goal-title">Improve Reading Speed</div>
+                            <div class="goal-progress">
+                                <span>30%</span>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 30%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <p>Practice reading comprehension with timed exercises</p>
+                        <div class="goal-actions">
+                            <button class="goal-btn">Update</button>
+                            <button class="goal-btn">Add Note</button>
+                        </div>
+                    </div>
+                </div>
+                <button class="timer-btn" style="width: 100%; margin-top: 1rem;">
+                    <i class="fas fa-plus"></i> Add New Goal
+                </button>
+            </div>
+            
+            <!-- Notes & Reflections -->
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <h2 class="card-title">Notes & Reflections</h2>
+                    <i class="fas fa-sticky-note card-icon"></i>
+                </div>
+                <div class="notes-tabs">
+                    <button class="notes-tab active">My Notes</button>
+                    <button class="notes-tab">Tutor Notes</button>
+                    <button class="notes-tab">Shared Notes</button>
+                </div>
+                <div class="notes-content">
+                    <textarea class="notes-textarea" placeholder="Write your notes, thoughts, or reflections here..."></textarea>
+                    <button class="timer-btn" style="margin-top: 1rem;">
+                        <i class="fas fa-save"></i> Save Note
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Sensory Tools -->
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <h2 class="card-title">Focus & Sensory Tools</h2>
+                    <i class="fas fa-tools card-icon"></i>
+                </div>
+                <div class="sensory-tools">
+                    <div class="sensory-tool">
+                        <div class="sensory-icon">
+                            <i class="fas fa-volume-up"></i>
+                        </div>
+                        <div>Background Sounds</div>
+                    </div>
+                    <div class="sensory-tool">
+                        <div class="sensory-icon">
+                            <i class="fas fa-palette"></i>
+                        </div>
+                        <div>Color Overlay</div>
+                    </div>
+                    <div class="sensory-tool">
+                        <div class="sensory-icon">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                        <div>Reading Guide</div>
+                    </div>
+                    <div class="sensory-tool">
+                        <div class="sensory-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <div>Breathing Exercise</div>
+                    </div>
+                </div>
+
+                <div class="break-reminder">
+                    <i class="fas fa-clock"></i> Next break in: <strong id="break-timer">15 minutes</strong>
+                </div>
+            </div>
+            
+            <!-- Resources -->
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <h2 class="card-title">My Resources</h2>
+                    <i class="fas fa-book-open card-icon"></i>
+                </div>
+                <div class="resources-list">
+                    <a href="#" class="resource-item">
+                        <i class="fas fa-file-pdf resource-icon"></i>
+                        <div>
+                            <div>Grammar Guide: Present Perfect</div>
+                            <div style="font-size: 0.85rem; color: #666;">Updated last week</div>
+                        </div>
+                    </a>
+                    <a href="#" class="resource-item">
+                        <i class="fas fa-link resource-icon"></i>
+                        <div>
+                            <div>Vocabulary Flashcards</div>
+                            <div style="font-size: 0.85rem; color: #666;">Interactive quiz</div>
+                        </div>
+                    </a>
+                    <a href="#" class="resource-item">
+                        <i class="fas fa-video resource-icon"></i>
+                        <div>
+                            <div>Reading Practice Video</div>
+                            <div style="font-size: 0.85rem; color: #666;">15 minutes</div>
+                        </div>
+                    </a>
+                    <a href="#" class="resource-item">
+                        <i class="fas fa-microphone resource-icon"></i>
+                        <div>
+                            <div>Pronunciation Practice</div>
+                            <div style="font-size: 0.85rem; color: #666;">Record and compare</div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Progress Tracking -->
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <h2 class="card-title">My Progress</h2>
+                    <i class="fas fa-chart-line card-icon"></i>
+                </div>
+                <div style="text-align: center; padding: 2rem 0;">
+                    <div style="font-size: 3rem; color: var(--success); margin-bottom: 1rem;">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <h3>Great Progress This Month!</h3>
+                    <p>You've completed 12 sessions and improved your vocabulary by 22%</p>
+                    <button class="timer-btn" style="margin-top: 1rem;">
+                        <i class="fas fa-chart-bar"></i> View Detailed Stats
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>Co-Created Learning Dashboard | Designed with Accessibility in Mind</p>
+            <p>© 2024 Tayla Tutor Tech</p>
+        </div>
+    </footer>
+
+    <script>
+        // Timer functionality
+        let timerInterval;
+        let timerSeconds = 25 * 60; // 25 minutes
+        let timerRunning = false;
+
+        const timerDisplay = document.getElementById('timer');
+        const startBtn = document.getElementById('start-timer');
+        const pauseBtn = document.getElementById('pause-timer');
+        const resetBtn = document.getElementById('reset-timer');
+
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timerSeconds / 60);
+            const seconds = timerSeconds % 60;
+            timerDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        function startTimer() {
+            if (!timerRunning) {
+                timerRunning = true;
+                timerInterval = setInterval(() => {
+                    if (timerSeconds > 0) {
+                        timerSeconds--;
+                        updateTimerDisplay();
+                    } else {
+                        clearInterval(timerInterval);
+                        timerRunning = false;
+                        alert("Time's up! Take a break.");
+                    }
+                }, 1000);
+            }
+        }
+
+        function pauseTimer() {
+            clearInterval(timerInterval);
+            timerRunning = false;
+        }
+
+        function resetTimer() {
+            clearInterval(timerInterval);
+            timerRunning = false;
+            timerSeconds = 25 * 60;
+            updateTimerDisplay();
+        }
+
+        startBtn.addEventListener('click', startTimer);
+        pauseBtn.addEventListener('click', pauseTimer);
+        resetBtn.addEventListener('click', resetTimer);
+
+        // Accessibility features
+        document.getElementById('dyslexic-font').addEventListener('click', function() {
+            document.body.classList.toggle('dyslexic-font');
+            this.classList.toggle('active');
+        });
+
+        document.getElementById('high-contrast').addEventListener('click', function() {
+            document.body.classList.toggle('high-contrast');
+            this.classList.toggle('active');
+        });
+
+        document.getElementById('reduce-motion').addEventListener('click', function() {
+            document.body.classList.toggle('reduced-motion');
+            this.classList.toggle('active');
+        });
+
+        document.getElementById('larger-text').addEventListener('click', function() {
+            document.body.style.fontSize = document.body.style.fontSize === '18px' ? '16px' : '18px';
+            this.classList.toggle('active');
+        });
+
+        document.getElementById('calm-mode').addEventListener('click', function() {
+            document.documentElement.style.setProperty('--primary', '#80cbc4');
+            document.documentElement.style.setProperty('--secondary', '#b2dfdb');
+            document.documentElement.style.setProperty('--accent', '#ffab91');
+            this.classList.toggle('active');
+        });
+
+        // Notes tabs
+        const notesTabs = document.querySelectorAll('.notes-tab');
+        notesTabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                notesTabs.forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Break timer simulation
+        let breakMinutes = 15;
+        const breakTimer = document.getElementById('break-timer');
+        
+        setInterval(() => {
+            if (breakMinutes > 0) {
+                breakMinutes--;
+                breakTimer.textContent = `${breakMinutes} minutes`;
+            } else {
+                breakTimer.textContent = "Time for a break!";
+                breakMinutes = 15;
+            }
+        }, 60000); // Update every minute
+    </script>
+</body>
+</html>

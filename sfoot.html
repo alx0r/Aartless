@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpiderFoot OSINT Guide | Digital Investigation Toolkit</title>
+    <style>
+        :root {
+            --matrix-green: #00ff41;
+            --dark-matrix: #0d0208;
+            --deep-blue: #0a192f;
+            --hacker-blue: #1a365d;
+            --electric-blue: #0077ff;
+            --terminal-text: #ccd6f6;
+            --light-gray: #8892b0;
+            --warning-red: #ff5555;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Courier New', monospace;
+            line-height: 1.6;
+            color: var(--terminal-text);
+            background: var(--deep-blue);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 119, 255, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(0, 255, 65, 0.05) 0%, transparent 20%);
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: rgba(10, 25, 47, 0.9);
+            border: 1px solid var(--electric-blue);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 119, 255, 0.2);
+        }
+        
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--matrix-green), transparent);
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 0.5rem;
+            color: var(--matrix-green);
+            text-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+            letter-spacing: 1px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--light-gray);
+            font-weight: 300;
+            margin-bottom: 1rem;
+        }
+        
+        .tagline {
+            font-style: italic;
+            color: var(--electric-blue);
+            border-left: 3px solid var(--electric-blue);
+            padding-left: 1rem;
+            margin: 1.5rem 0;
+        }
+        
+        .meta-bar {
+            background: rgba(26, 54, 93, 0.7);
+            border: 1px solid rgba(0, 119, 255, 0.3);
+            border-radius: 6px;
+            padding: 1rem;
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+        
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .meta-item strong {
+            color: var(--matrix-green);
+        }
+        
+        section {
+            background: rgba(10, 25, 47, 0.8);
+            border: 1px solid rgba(0, 119, 255, 0.2);
+            margin-bottom: 2rem;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        section:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 119, 255, 0.3);
+        }
+        
+        h2 {
+            background: linear-gradient(90deg, var(--hacker-blue), rgba(26, 54, 93, 0.7));
+            color: var(--matrix-green);
+            padding: 1rem 1.5rem;
+            font-size: 1.4rem;
+            border-bottom: 1px solid rgba(0, 119, 255, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        h2::before {
+            content: "> ";
+            color: var(--electric-blue);
+        }
+        
+        .section-content {
+            padding: 1.5rem;
+        }
+        
+        h3 {
+            color: var(--electric-blue);
+            margin: 1.5rem 0 0.5rem 0;
+            font-size: 1.2rem;
+            border-bottom: 1px dotted rgba(0, 119, 255, 0.3);
+            padding-bottom: 0.5rem;
+        }
+        
+        h3:first-child {
+            margin-top: 0;
+        }
+        
+        p {
+            margin-bottom: 1rem;
+        }
+        
+        ul, ol {
+            margin: 1rem 0 1rem 2rem;
+        }
+        
+        li {
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+        
+        li::before {
+            content: "•";
+            color: var(--matrix-green);
+            position: absolute;
+            left: -1rem;
+        }
+        
+        code {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(0, 119, 255, 0.2);
+            border-radius: 4px;
+            padding: 0.2rem 0.4rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            color: var(--matrix-green);
+        }
+        
+        pre {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(0, 119, 255, 0.3);
+            color: var(--matrix-green);
+            padding: 1rem;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.4;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+        
+        pre::before {
+            content: "Terminal";
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: var(--hacker-blue);
+            color: var(--light-gray);
+            font-size: 0.7rem;
+            padding: 0.2rem 0.5rem;
+            border-bottom-left-radius: 4px;
+        }
+        
+        .warning {
+            background: rgba(255, 85, 85, 0.1);
+            border-left: 4px solid var(--warning-red);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .success {
+            background: rgba(0, 255, 65, 0.1);
+            border-left: 4px solid var(--matrix-green);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .card {
+            background: rgba(26, 54, 93, 0.5);
+            border: 1px solid rgba(0, 119, 255, 0.2);
+            border-radius: 6px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+            border-color: var(--electric-blue);
+            box-shadow: 0 0 15px rgba(0, 119, 255, 0.2);
+        }
+        
+        .card h3 {
+            margin-top: 0;
+            color: var(--matrix-green);
+            border: none;
+        }
+        
+        .step-number {
+            display: inline-block;
+            background: var(--electric-blue);
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 24px;
+            margin-right: 0.5rem;
+            font-size: 0.8rem;
+        }
+        
+        .use-case-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        
+        .use-case {
+            background: rgba(26, 54, 93, 0.4);
+            border: 1px solid rgba(0, 119, 255, 0.2);
+            border-radius: 6px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+        
+        .use-case h4 {
+            color: var(--matrix-green);
+            margin-bottom: 0.5rem;
+        }
+        
+        .use-case p {
+            font-size: 0.9rem;
+            color: var(--light-gray);
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(0, 119, 255, 0.3);
+            color: var(--light-gray);
+            font-size: 0.9rem;
+        }
+        
+        a {
+            color: var(--electric-blue);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        a:hover {
+            color: var(--matrix-green);
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .meta-bar {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Matrix-style scan animation */
+        @keyframes scan {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
+        
+        .scan-line {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--matrix-green), transparent);
+            animation: scan 3s linear infinite;
+            opacity: 0.5;
+            pointer-events: none;
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(0, 255, 65, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(0, 255, 65, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 255, 65, 0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="scan-line"></div>
+    
+    <header>
+        <h1>SpiderFoot OSINT</h1>
+        <p class="subtitle">Automated Open Source Intelligence Gathering</p>
+        <p class="tagline">"The web crawls with data. SpiderFoot helps you make sense of it."</p>
+    </header>
+    
+    <div class="meta-bar">
+        <div class="meta-item">
+            <strong>Format:</strong> Digital Investigation Guide
+        </div>
+        <div class="meta-item">
+            <strong>Focus:</strong> OSINT & Digital Reconnaissance
+        </div>
+        <div class="meta-item">
+            <strong>Level:</strong> Journalists · Researchers · Investigators
+        </div>
+        <div class="meta-item">
+            <strong>Updated:</strong> 2024
+        </div>
+    </div>
+
+    <section id="what-is-spiderfoot">
+        <h2>What is SpiderFoot?</h2>
+        <div class="section-content">
+            <p>SpiderFoot is an open-source intelligence (OSINT) automation tool designed to help investigators, journalists, and security professionals gather information from hundreds of public data sources.</p>
+            
+            <p>Think of it as your digital detective that automatically queries domains, IP addresses, email addresses, usernames, and more across the internet, then maps the relationships between these entities to reveal hidden connections.</p>
+            
+            <div class="use-case-grid">
+                <div class="use-case">
+                    <h4>🔍 Journalists</h4>
+                    <p>Track digital footprints, verify sources, uncover connections between entities</p>
+                </div>
+                <div class="use-case">
+                    <h4>🕵️ Researchers</h4>
+                    <p>Map organizational structures, track threat actors, analyze online presence</p>
+                </div>
+                <div class="use-case">
+                    <h4>🔒 Security Teams</h4>
+                    <p>Discover exposed information, identify potential threats, map attack surfaces</p>
+                </div>
+                <div class="use-case">
+                    <h4>⚖️ Investigators</h4>
+                    <p>Gather evidence, establish timelines, connect digital identities</p>
+                </div>
+            </div>
+            
+            <div class="warning">
+                <strong>Legal & Ethical Notice:</strong> Only use SpiderFoot on systems you own or have explicit written permission to investigate. Unauthorized scanning may violate laws and ethical guidelines.
+            </div>
+        </div>
+    </section>
+
+    <section id="quick-start">
+        <h2>Quick Start</h2>
+        <div class="section-content">
+            <h3>Option A: Docker (Recommended for Beginners)</h3>
+            <pre><code>git clone https://github.com/smicallef/spiderfoot.git
+cd spiderfoot
+docker build -t spiderfoot .
+docker run --rm -p 5001:5001 spiderfoot</code></pre>
+            <p>Then open: <code>http://127.0.0.1:5001</code> in your browser</p>
+            
+            <h3>Option B: Python (For Developers & Customization)</h3>
+            <pre><code>git clone https://github.com/smicallef/spiderfoot.git
+cd spiderfoot
+pip install -r requirements.txt
+python3 sf.py -l 127.0.0.1:5001</code></pre>
+            <p>Then open: <code>http://127.0.0.1:5001</code> in your browser</p>
+            
+            <div class="success">
+                <strong>Pro Tip:</strong> Docker isolates dependencies and avoids Python version conflicts - perfect for quick setup.
+            </div>
+        </div>
+    </section>
+
+    <section id="why-spiderfoot-matters">
+        <h2>Why SpiderFoot Matters</h2>
+        <div class="section-content">
+            <p>In today's digital landscape, information is scattered across hundreds of platforms, databases, and services. Manual investigation is time-consuming and prone to oversight.</p>
+            
+            <h3>SpiderFoot solves this by:</h3>
+            <ul>
+                <li><strong>Automating data collection</strong> from 200+ public sources</li>
+                <li><strong>Visualizing relationships</strong> between entities in interactive graphs</li>
+                <li><strong>Correlating information</strong> that would take days to gather manually</li>
+                <li><strong>Exporting findings</strong> in formats usable for reports and analysis</li>
+            </ul>
+            
+            <h3>Real-World Applications:</h3>
+            <div class="grid">
+                <div class="card">
+                    <h3>Threat Intelligence</h3>
+                    <p>Track malicious infrastructure, identify phishing campaigns, monitor threat actors</p>
+                </div>
+                <div class="card">
+                    <h3>Due Diligence</h3>
+                    <p>Background checks on companies, verification of business partners, investment research</p>
+                </div>
+                <div class="card">
+                    <h3>Incident Response</h3>
+                    <p>Quickly gather context during security incidents, map attack infrastructure</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="detailed-installation">
+        <h2>Detailed Installation</h2>
+        <div class="section-content">
+            <h3>Docker Method (All Platforms)</h3>
+            
+            <p><span class="step-number">1</span> Install Docker Desktop</p>
+            <ul>
+                <li>Windows/macOS: Download from <a href="https://docker.com">docker.com</a></li>
+                <li>Linux: Use your package manager (<code>sudo apt install docker.io</code>)</li>
+            </ul>
+            
+            <p><span class="step-number">2</span> Clone and Build</p>
+            <pre><code>git clone https://github.com/smicallef/spiderfoot.git
+cd spiderfoot
+docker build -t spiderfoot .</code></pre>
+            
+            <p><span class="step-number">3</span> Run Container</p>
+            <pre><code>docker run --rm -p 5001:5001 spiderfoot</code></pre>
+            
+            <div class="success">
+                <strong>Alternative:</strong> If the repo has <code>docker-compose.yml</code>, simply run <code>docker compose up</code>
+            </div>
+            
+            <h3>Python Method (macOS/Linux/WSL)</h3>
+            
+            <p><span class="step-number">1</span> Prerequisites</p>
+            <ul>
+                <li>Python 3.7+ (3.9+ recommended)</li>
+                <li>pip package manager</li>
+                <li>Git</li>
+            </ul>
+            
+            <p><span class="step-number">2</span> Clone Repository</p>
+            <pre><code>git clone https://github.com/smicallef/spiderfoot.git
+cd spiderfoot</code></pre>
+            
+            <p><span class="step-number">3</span> Install Dependencies</p>
+            <pre><code>python3 -m pip install -r requirements.txt</code></pre>
+            
+            <p><span class="step-number">4</span> Launch Server</p>
+            <pre><code>python3 sf.py -l 127.0.0.1:5001</code></pre>
+            
+            <h3>Windows-Specific Notes</h3>
+            <ul>
+                <li><strong>Recommended:</strong> Use Docker Desktop for Windows</li>
+                <li><strong>Alternative:</strong> Install Windows Subsystem for Linux (WSL) and follow Linux instructions</li>
+                <li><strong>Native:</strong> Use Python for Windows but expect potential dependency issues</li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="first-run">
+        <h2>First Run & Investigation Workflow</h2>
+        <div class="section-content">
+            <p><span class="step-number">1</span> Access the Web UI at <code>http://127.0.0.1:5001</code></p>
+            
+            <p><span class="step-number">2</span> Create Your First Scan</p>
+            <ul>
+                <li>Click "New Scan"</li>
+                <li>Enter target (domain, IP, email, etc.)</li>
+                <li>Select scan type (start with "Passive Only")</li>
+                <li>Click "Run Scan Now"</li>
+            </ul>
+            
+            <p><span class="step-number">3</span> Review Results</p>
+            <ul>
+                <li>View findings in the scan results table</li>
+                <li>Explore relationships in the Graph/Visualization tab</li>
+                <li>Export data as JSON, CSV, or GEXF</li>
+            </ul>
+            
+            <div class="warning">
+                <strong>Scan Types:</strong> "Passive" uses public data sources only. "Active" performs direct reconnaissance that may be detected. Always start with passive scans.
+            </div>
+            
+            <h3>Investigation Tips:</h3>
+            <div class="grid">
+                <div class="card">
+                    <h3>Start Broad</h3>
+                    <p>Begin with domains or organizations before drilling down to specific individuals</p>
+                </div>
+                <div class="card">
+                    <h3>Follow the Data</h3>
+                    <p>Let discovered entities lead to new investigation paths</p>
+                </div>
+                <div class="card">
+                    <h3>Document Everything</h3>
+                    <p>Export and save findings regularly for analysis and reporting</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="troubleshooting">
+        <h2>Troubleshooting</h2>
+        <div class="section-content">
+            <h3>Common Issues</h3>
+            
+            <p><strong>Port 5001 already in use</strong></p>
+            <pre><code># Use a different port
+python3 sf.py -l 127.0.0.1:5002</code></pre>
+            
+            <p><strong>Python dependency errors</strong></p>
+            <pre><code># Try virtual environment
+python3 -m venv spiderfoot-env
+source spiderfoot-env/bin/activate  # Linux/macOS
+# spiderfoot-env\Scripts\activate  # Windows
+pip install -r requirements.txt</code></pre>
+            
+            <p><strong>Docker build fails</strong></p>
+            <ul>
+                <li>Ensure Docker Desktop is running</li>
+                <li>Check you're in the correct directory with Dockerfile</li>
+                <li>Try <code>docker system prune</code> to clean cache</li>
+            </ul>
+            
+            <p><strong>Module API keys required</strong></p>
+            <ul>
+                <li>Some modules need API keys (Shodan, VirusTotal, etc.)</li>
+                <li>Add keys in Settings → Integrations</li>
+                <li>Many modules work without keys</li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="checklist">
+        <h2>Investigator's Checklist</h2>
+        <div class="section-content">
+            <ul>
+                <li>✅ Choose Docker (easy) or Python (flexible)</li>
+                <li>✅ Clone the official repository</li>
+                <li>✅ Build container or install dependencies</li>
+                <li>✅ Run server on localhost:5001</li>
+                <li>✅ Open web UI in browser</li>
+                <li>✅ Start with passive scan on authorized target</li>
+                <li>✅ Review results and export findings</li>
+                <li>✅ Document methodology and maintain ethical boundaries</li>
+            </ul>
+            
+            <div class="success pulse" style="margin-top: 1.5rem; padding: 1rem; text-align: center;">
+                <strong>Remember:</strong> With great power comes great responsibility. Use SpiderFoot ethically and legally.
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>SpiderFoot OSINT Guide | Digital Investigation Toolkit</p>
+        <p>Based on official SpiderFoot documentation | Always verify hashes and use official sources</p>
+        <p style="margin-top: 0.5rem; font-size: 0.8rem; color: var(--light-gray);">The web is watching. Now you are too.</p>
+    </footer>
+</body>
+</html>

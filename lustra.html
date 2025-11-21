@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lustra - Democracy, Simplified</title>
+    <meta name="description" content="Unbiased political information in 30 seconds. Download now.">
+    
+    <!-- Untitled Format™° -->
+    <!--
+    title: "Lustra Landing Page"
+    untitled_format: "1.2.0"
+    version: "1.0.0"
+    created: "2025-11-21"
+    tags: ["civic-tech", "democracy"]
+    -->
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --blue: #2563eb;
+            --dark: #0f172a;
+            --gray: #64748b;
+            --light: #f8fafc;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            color: var(--dark);
+            line-height: 1.6;
+            background: var(--light);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+
+        /* Header */
+        header {
+            background: white;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            height: 40px;
+        }
+
+        .brand {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--dark);
+        }
+
+        /* Hero */
+        .hero {
+            text-align: center;
+            padding: 4rem 1rem 3rem;
+            background: linear-gradient(135deg, #e0f2fe 0%, #ddd6fe 100%);
+        }
+
+        h1 {
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            font-weight: 900;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--blue), #7c3aed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .tagline {
+            font-size: 1.3rem;
+            color: var(--gray);
+            margin-bottom: 2.5rem;
+        }
+
+        /* Download Buttons */
+        .downloads {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            background: var(--blue);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+        }
+
+        .btn svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Quick Links */
+        .quick-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .link-card {
+            background: white;
+            padding: 1rem;
+            border-radius: 12px;
+            border: 2px solid #e2e8f0;
+            font-size: 0.85rem;
+        }
+
+        .link-card strong {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--gray);
+        }
+
+        .link-card a {
+            color: var(--blue);
+            word-break: break-all;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        /* Features */
+        .features {
+            padding: 3rem 1rem;
+            background: white;
+        }
+
+        .feat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .feat {
+            text-align: center;
+        }
+
+        .feat-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .feat h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .feat p {
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+
+        /* Roadmap */
+        .roadmap {
+            padding: 3rem 1rem;
+            background: linear-gradient(135deg, #faf5ff 0%, #f0f9ff 100%);
+        }
+
+        .roadmap h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .milestone {
+            position: relative;
+            padding-left: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .milestone::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.5rem;
+            width: 1.5rem;
+            height: 1.5rem;
+            background: var(--blue);
+            border-radius: 50%;
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.2);
+        }
+
+        .milestone.done::before {
+            background: #10b981;
+            box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.2);
+        }
+
+        .milestone.current::before {
+            background: #f59e0b;
+            box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.2);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .milestone h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .milestone-date {
+            font-size: 0.85rem;
+            color: var(--gray);
+            font-weight: 600;
+        }
+
+        .milestone p {
+            margin-top: 0.5rem;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* Mission */
+        .mission {
+            padding: 3rem 1rem;
+            background: var(--dark);
+            color: white;
+            text-align: center;
+        }
+
+        .mission h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .mission p {
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            opacity: 0.9;
+            line-height: 1.7;
+        }
+
+        .mission .btn {
+            background: white;
+            color: var(--blue);
+        }
+
+        /* Footer */
+        footer {
+            background: #020617;
+            color: rgba(255,255,255,0.7);
+            padding: 2rem 1rem;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        /* Mobile */
+        @media (max-width: 640px) {
+            .downloads {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .btn {
+                justify-content: center;
+            }
+
+            .feat-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Accessibility */
+        *:focus {
+            outline: 3px solid var(--blue);
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <img src="https://lustra.dev/img/logo.png" alt="Lustra" class="logo">
+            <span class="brand">Lustra</span>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero -->
+        <section class="hero">
+            <div class="container">
+                <h1>Democracy, Simplified</h1>
+                <p class="tagline">Unbiased political info in 30 seconds</p>
+                
+                <div class="downloads">
+                    <a href="https://play.google.com/store/apps/details?id=dev.lustra" class="btn">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.5,12.92 20.16,13.19L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z"/></svg>
+                        Android
+                    </a>
+                    <a href="https://apps.apple.com/app/id6751850630" class="btn">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71,19.5C17.88,20.74 17,21.95 15.66,21.97C14.32,22 13.89,21.18 12.37,21.18C10.84,21.18 10.37,21.95 9.1,22C7.79,22.05 6.8,20.68 5.96,19.47C4.25,17 2.94,12.45 4.7,9.39C5.57,7.87 7.13,6.91 8.82,6.88C10.1,6.86 11.32,7.75 12.11,7.75C12.89,7.75 14.37,6.68 15.92,6.84C16.57,6.87 18.39,7.1 19.56,8.82C19.47,8.88 17.39,10.1 17.41,12.63C17.44,15.65 20.06,16.66 20.09,16.67C20.06,16.74 19.67,18.11 18.71,19.5M13,3.5C13.73,2.67 14.94,2.04 15.94,2C16.07,3.17 15.6,4.35 14.9,5.19C14.21,6.04 13.07,6.7 11.95,6.61C11.8,5.46 12.36,4.26 13,3.5Z"/></svg>
+                        iOS
+                    </a>
+                </div>
+
+                <div class="quick-links">
+                    <div class="link-card">
+                        <strong>Android:</strong>
+                        <a href="https://play.google.com/store/apps/details?id=dev.lustra">play.google.com/store/apps/details?id=dev.lustra</a>
+                    </div>
+                    <div class="link-card">
+                        <strong>iOS:</strong>
+                        <a href="https://apps.apple.com/app/id6751850630">apps.apple.com/app/id6751850630</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features -->
+        <section class="features">
+            <div class="container">
+                <div class="feat-grid">
+                    <div class="feat">
+                        <div class="feat-icon">📊</div>
+                        <h3>Clear Data</h3>
+                        <p>Bills & votes, explained simply</p>
+                    </div>
+                    <div class="feat">
+                        <div class="feat-icon">🔍</div>
+                        <h3>Zero Bias</h3>
+                        <p>Facts, not opinions</p>
+                    </div>
+                    <div class="feat">
+                        <div class="feat-icon">⚡</div>
+                        <h3>30 Seconds</h3>
+                        <p>Quick info, big impact</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Roadmap -->
+        <section class="roadmap">
+            <div class="container">
+                <h2>📍 Roadmap</h2>
+                <div class="timeline">
+                    <div class="milestone done">
+                        <h4>Launch</h4>
+                        <span class="milestone-date">Q4 2024</span>
+                        <p>iOS & Android apps released</p>
+                    </div>
+
+                    <div class="milestone current">
+                        <h4>Multi-Country Expansion</h4>
+                        <span class="milestone-date">Q1 2025</span>
+                        <p>Adding more countries & languages</p>
+                    </div>
+
+                    <div class="milestone">
+                        <h4>Community Features</h4>
+                        <span class="milestone-date">Q2 2025</span>
+                        <p>Polls, discussions & civic engagement</p>
+                    </div>
+
+                    <div class="milestone">
+                        <h4>Local Legislation</h4>
+                        <span class="milestone-date">Q3 2025</span>
+                        <p>City & regional government tracking</p>
+                    </div>
+
+                    <div class="milestone">
+                        <h4>Election Mode</h4>
+                        <span class="milestone-date">Q4 2025</span>
+                        <p>Candidate comparisons & live results</p>
+                    </div>
+
+                    <div class="milestone">
+                        <h4>Open API</h4>
+                        <span class="milestone-date">2026</span>
+                        <p>Public access to political data</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mission -->
+        <section class="mission">
+            <div class="container">
+                <h2>Take Back Control</h2>
+                <p>Modern politics became a battlefield. We're trapped in a system that rewards loyalty over honesty. But there's another way—it's about evolution, not revolution.</p>
+                <p><strong>This is your personal filter.</strong> Transform complex government data into facts you can absorb instantly. No agenda. Just transparency.</p>
+                <a href="https://reddit.com/r/CivicEvolution" class="btn">Join r/CivicEvolution</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="https://lustra.dev/terms">Terms</a>
+                <a href="https://lustra.dev/privacy">Privacy</a>
+                <a href="https://lustra.dev/manifest">Manifest</a>
+                <a href="https://lustra.dev/contact">Contact</a>
+            </div>
+            <p>© 2025 Lustra • Built for citizens, by citizens</p>
+        </div>
+    </footer>
+</body>
+</html>

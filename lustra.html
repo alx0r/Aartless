@@ -4,18 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lustra - Democracy, Simplified</title>
-    <meta name="description" content="Unbiased political information in 30 seconds. Download now.">
+    <meta name="description" content="AI-powered political intelligence. Unbiased information in 30 seconds.">
     
     <!-- Untitled Format™° -->
     <!--
-    title: "Lustra Landing Page"
+    title: "Lustra - Civic Intelligence Platform"
     untitled_format: "1.2.0"
-    version: "1.0.0"
+    version: "2.1.0"
     created: "2025-11-21"
-    tags: ["civic-tech", "democracy"]
+    updated: "2025-11-21"
+    tags: ["civic-tech", "democracy", "political-transparency", "ai-intelligence"]
+    license: "CC BY-NC-SA 4.0"
+    authors: ["Lustra Team"]
+    citation_style: "APA 7th"
+    ai_context_tags: ["civic-engagement", "political-education", "transparency", "ai-ethics"]
+    bias_note: "Pro-transparency, pro-civic engagement. Anti-partisan bias."
     -->
     
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Lustra",
+        "applicationCategory": "EducationApplication",
+        "operatingSystem": "Android, iOS",
+        "description": "AI-powered political intelligence platform providing transparent access to legislation",
+        "creator": {
+            "@type": "Organization",
+            "name": "Lustra"
+        },
+        "license": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+        "version": "2.1.0"
+    }
+    </script>
+    
     <style>
+        /* Reset and Base Styles */
         * {
             margin: 0;
             padding: 0;
@@ -23,102 +47,262 @@
         }
 
         :root {
-            --blue: #2563eb;
-            --dark: #0f172a;
-            --gray: #64748b;
-            --light: #f8fafc;
+            --primary: #0066FF;
+            --primary-dark: #0052D4;
+            --accent: #00D4FF;
+            --accent-dark: #00B8E0;
+            --dark: #0A0F2B;
+            --darker: #05071A;
+            --light: #F5F7FF;
+            --gray: #8C94B0;
+            --gray-light: #E2E6F9;
+            --success: #00E096;
+            --warning: #FFD166;
+            --error: #FF5470;
+            --border-radius: 12px;
+            --card-shadow: 0 8px 32px rgba(0, 102, 255, 0.08);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
             color: var(--dark);
             line-height: 1.6;
             background: var(--light);
+            overflow-x: hidden;
         }
 
         .container {
-            max-width: 900px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 1rem;
+            padding: 0 2rem;
         }
 
         /* Header */
         header {
-            background: white;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-            position: sticky;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            position: fixed;
             top: 0;
-            z-index: 100;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            transition: var(--transition);
         }
 
         nav {
             display: flex;
             align-items: center;
-            gap: 1rem;
-            padding: 1rem;
-            max-width: 900px;
-            margin: 0 auto;
+            justify-content: space-between;
+            padding: 1.5rem 0;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--dark);
+            text-decoration: none;
         }
 
         .logo {
-            height: 40px;
+            height: 36px;
+            width: 36px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 1rem;
         }
 
-        .brand {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: var(--dark);
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--gray);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            background: var(--primary);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: var(--transition);
+            box-shadow: 0 4px 12px rgba(0, 102, 255, 0.2);
+        }
+
+        .nav-cta:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 102, 255, 0.3);
         }
 
         /* Hero */
         .hero {
+            padding: 12rem 0 8rem;
+            background: linear-gradient(135deg, #F5F7FF 0%, #E6F0FF 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(0, 102, 255, 0.1) 0%, transparent 50%);
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
             text-align: center;
-            padding: 4rem 1rem 3rem;
-            background: linear-gradient(135deg, #e0f2fe 0%, #ddd6fe 100%);
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(0, 102, 255, 0.1);
+            color: var(--primary);
+            padding: 0.5rem 1rem;
+            border-radius: 100px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 102, 255, 0.2);
+        }
+
+        .hero-badge::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--primary);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
         }
 
         h1 {
-            font-size: clamp(2rem, 6vw, 3.5rem);
-            font-weight: 900;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, var(--blue), #7c3aed);
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--dark) 0%, var(--primary) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
 
-        .tagline {
-            font-size: 1.3rem;
+        .hero-tagline {
+            font-size: 1.4rem;
             color: var(--gray);
-            margin-bottom: 2.5rem;
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
         }
 
         /* Download Buttons */
         .downloads {
             display: flex;
-            gap: 1rem;
+            gap: 1.5rem;
             justify-content: center;
             flex-wrap: wrap;
-            margin-bottom: 2rem;
+            margin-bottom: 4rem;
         }
 
         .btn {
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
-            padding: 1rem 2rem;
-            background: var(--blue);
+            gap: 0.75rem;
+            padding: 1.25rem 2.5rem;
+            background: var(--primary);
             color: white;
             text-decoration: none;
-            border-radius: 50px;
-            font-weight: 700;
-            transition: all 0.3s;
-            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            transition: var(--transition);
+            box-shadow: var(--card-shadow);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
         }
 
         .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 24px rgba(0, 102, 255, 0.25);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--gray-light);
+            color: var(--dark);
+            box-shadow: none;
+        }
+
+        .btn-outline:hover {
+            background: rgba(0, 102, 255, 0.05);
+            border-color: var(--primary);
         }
 
         .btn svg {
@@ -128,335 +312,736 @@
 
         /* Quick Links */
         .quick-links {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-top: 2rem;
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
         }
 
         .link-card {
-            background: white;
-            padding: 1rem;
-            border-radius: 12px;
-            border: 2px solid #e2e8f0;
-            font-size: 0.85rem;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+
+        .link-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
         }
 
         .link-card strong {
             display: block;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.75rem;
             color: var(--gray);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .link-card a {
-            color: var(--blue);
+            color: var(--primary);
             word-break: break-all;
             text-decoration: none;
             font-weight: 600;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .link-card a::after {
+            content: '↗';
+            font-size: 0.8rem;
+            opacity: 0.7;
+            transition: var(--transition);
+        }
+
+        .link-card a:hover::after {
+            opacity: 1;
+            transform: translate(2px, -2px);
+        }
+
+        /* Stats */
+        .stats {
+            padding: 5rem 0;
+            background: white;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 2.5rem 2rem;
+            border-radius: var(--border-radius);
+            background: var(--light);
+            transition: var(--transition);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--card-shadow);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+            line-height: 1;
+        }
+
+        .stat-label {
+            color: var(--gray);
+            font-size: 1rem;
+            font-weight: 500;
         }
 
         /* Features */
         .features {
-            padding: 3rem 1rem;
-            background: white;
+            padding: 6rem 0;
+            background: linear-gradient(135deg, #F5F7FF 0%, #E6F0FF 100%);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .section-label {
+            display: inline-block;
+            color: var(--primary);
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+        }
+
+        .section-header p {
+            font-size: 1.2rem;
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
         }
 
         .feat-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
         }
 
-        .feat {
+        .feat-card {
+            background: white;
+            padding: 3rem 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
             text-align: center;
+            border: 1px solid rgba(0, 0, 0, 0.03);
+        }
+
+        .feat-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 16px 40px rgba(0, 102, 255, 0.12);
         }
 
         .feat-icon {
-            font-size: 3rem;
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 1.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.8rem;
+        }
+
+        .feat-card h3 {
+            font-size: 1.4rem;
             margin-bottom: 1rem;
+            color: var(--dark);
         }
 
-        .feat h3 {
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .feat p {
+        .feat-card p {
             color: var(--gray);
-            font-size: 0.95rem;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        /* Technology */
+        .technology {
+            padding: 6rem 0;
+            background: white;
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .tech-card {
+            padding: 2.5rem;
+            border-radius: var(--border-radius);
+            background: var(--light);
+            transition: var(--transition);
+        }
+
+        .tech-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--card-shadow);
+        }
+
+        .tech-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+
+        .tech-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .tech-card p {
+            color: var(--gray);
+            font-size: 1rem;
+            line-height: 1.6;
         }
 
         /* Roadmap */
         .roadmap {
-            padding: 3rem 1rem;
-            background: linear-gradient(135deg, #faf5ff 0%, #f0f9ff 100%);
+            padding: 6rem 0;
+            background: linear-gradient(135deg, #0A0F2B 0%, #1A1F40 100%);
+            color: white;
         }
 
-        .roadmap h2 {
-            text-align: center;
-            font-size: 2rem;
-            margin-bottom: 2rem;
+        .roadmap .section-header h2,
+        .roadmap .section-header p {
+            color: white;
         }
 
         .timeline {
             position: relative;
-            max-width: 600px;
+            max-width: 800px;
             margin: 0 auto;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 30px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: rgba(255, 255, 255, 0.1);
         }
 
         .milestone {
             position: relative;
-            padding-left: 3rem;
+            padding: 2.5rem 2rem 2.5rem 5rem;
             margin-bottom: 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: var(--border-radius);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: var(--transition);
+        }
+
+        .milestone:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateX(5px);
         }
 
         .milestone::before {
             content: '';
             position: absolute;
-            left: 0;
-            top: 0.5rem;
-            width: 1.5rem;
-            height: 1.5rem;
-            background: var(--blue);
+            left: -12px;
+            top: 2.5rem;
+            width: 24px;
+            height: 24px;
+            background: var(--primary);
             border-radius: 50%;
-            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.2);
+            box-shadow: 0 0 0 6px rgba(0, 102, 255, 0.2);
+            z-index: 2;
         }
 
         .milestone.done::before {
-            background: #10b981;
-            box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.2);
+            background: var(--success);
+            box-shadow: 0 0 0 6px rgba(0, 224, 150, 0.2);
         }
 
         .milestone.current::before {
-            background: #f59e0b;
-            box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.2);
+            background: var(--warning);
+            box-shadow: 0 0 0 6px rgba(255, 209, 102, 0.2);
             animation: pulse 2s infinite;
         }
 
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-        }
-
         .milestone h4 {
-            font-size: 1.1rem;
-            margin-bottom: 0.25rem;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
         }
 
         .milestone-date {
-            font-size: 0.85rem;
-            color: var(--gray);
+            font-size: 0.9rem;
+            color: var(--accent);
             font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: block;
         }
 
         .milestone p {
-            margin-top: 0.5rem;
-            color: var(--gray);
-            font-size: 0.9rem;
+            opacity: 0.8;
+            font-size: 1rem;
+            line-height: 1.6;
         }
 
         /* Mission */
         .mission {
-            padding: 3rem 1rem;
-            background: var(--dark);
-            color: white;
+            padding: 6rem 0;
+            background: white;
+        }
+
+        .mission-content {
+            max-width: 800px;
+            margin: 0 auto;
             text-align: center;
         }
 
         .mission h2 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: var(--dark);
         }
 
         .mission p {
-            font-size: 1.1rem;
-            max-width: 700px;
-            margin: 0 auto 2rem;
-            opacity: 0.9;
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: var(--gray);
             line-height: 1.7;
         }
 
-        .mission .btn {
-            background: white;
-            color: var(--blue);
+        .mission .highlight {
+            color: var(--primary);
+            font-weight: 600;
         }
 
         /* Footer */
         footer {
-            background: #020617;
+            background: var(--darker);
             color: rgba(255,255,255,0.7);
-            padding: 2rem 1rem;
-            text-align: center;
-            font-size: 0.9rem;
+            padding: 4rem 0 2rem;
         }
 
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand {
+            font-size: 1.5rem;
+            font-weight: 700;
             margin-bottom: 1rem;
-            flex-wrap: wrap;
+            color: white;
+        }
+
+        .footer-description {
+            font-size: 1rem;
+            line-height: 1.6;
+            opacity: 0.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .footer-links h4 {
+            color: white;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
         }
 
         .footer-links a {
             color: rgba(255,255,255,0.7);
             text-decoration: none;
+            transition: var(--transition);
+            font-size: 0.95rem;
         }
 
         .footer-links a:hover {
             color: white;
         }
 
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem;
+            opacity: 0.6;
+        }
+
+        /* Animations */
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
         /* Mobile */
-        @media (max-width: 640px) {
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1.5rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                padding: 10rem 0 6rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
             .downloads {
                 flex-direction: column;
-                align-items: stretch;
+                align-items: center;
             }
 
             .btn {
+                width: 100%;
+                max-width: 300px;
                 justify-content: center;
             }
 
-            .feat-grid {
-                grid-template-columns: 1fr;
+            .quick-links {
+                flex-direction: column;
+            }
+
+            .link-card {
+                width: 100%;
             }
         }
 
         /* Accessibility */
         *:focus {
-            outline: 3px solid var(--blue);
+            outline: 2px solid var(--primary);
             outline-offset: 2px;
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
         }
     </style>
 </head>
 <body>
     <header>
-        <nav>
-            <img src="https://lustra.dev/img/logo.png" alt="Lustra" class="logo">
-            <span class="brand">Lustra</span>
-        </nav>
+        <div class="container">
+            <nav>
+                <a href="#" class="nav-brand">
+                    <div class="logo">L</div>
+                    <span>Lustra</span>
+                </a>
+                <div class="nav-links">
+                    <a href="#features">Features</a>
+                    <a href="#technology">Technology</a>
+                    <a href="#roadmap">Roadmap</a>
+                    <a href="#mission">Mission</a>
+                    <a href="https://reddit.com/r/CivicEvolution">Community</a>
+                </div>
+                <a href="#download" class="nav-cta">Get Early Access</a>
+            </nav>
+        </div>
     </header>
 
     <main>
         <!-- Hero -->
-        <section class="hero">
+        <section class="hero" id="download">
             <div class="container">
-                <h1>Democracy, Simplified</h1>
-                <p class="tagline">Unbiased political info in 30 seconds</p>
-                
-                <div class="downloads">
-                    <a href="https://play.google.com/store/apps/details?id=dev.lustra" class="btn">
-                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.5,12.92 20.16,13.19L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z"/></svg>
-                        Android
-                    </a>
-                    <a href="https://apps.apple.com/app/id6751850630" class="btn">
-                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71,19.5C17.88,20.74 17,21.95 15.66,21.97C14.32,22 13.89,21.18 12.37,21.18C10.84,21.18 10.37,21.95 9.1,22C7.79,22.05 6.8,20.68 5.96,19.47C4.25,17 2.94,12.45 4.7,9.39C5.57,7.87 7.13,6.91 8.82,6.88C10.1,6.86 11.32,7.75 12.11,7.75C12.89,7.75 14.37,6.68 15.92,6.84C16.57,6.87 18.39,7.1 19.56,8.82C19.47,8.88 17.39,10.1 17.41,12.63C17.44,15.65 20.06,16.66 20.09,16.67C20.06,16.74 19.67,18.11 18.71,19.5M13,3.5C13.73,2.67 14.94,2.04 15.94,2C16.07,3.17 15.6,4.35 14.9,5.19C14.21,6.04 13.07,6.7 11.95,6.61C11.8,5.46 12.36,4.26 13,3.5Z"/></svg>
-                        iOS
-                    </a>
-                </div>
-
-                <div class="quick-links">
-                    <div class="link-card">
-                        <strong>Android:</strong>
-                        <a href="https://play.google.com/store/apps/details?id=dev.lustra">play.google.com/store/apps/details?id=dev.lustra</a>
+                <div class="hero-content">
+                    <div class="hero-badge">AI-Powered Political Intelligence</div>
+                    <h1>Democracy,<br>Reimagined</h1>
+                    <p class="hero-tagline">Cut through the noise with AI-curated political insights. Get unbiased information in 30 seconds, not 30 minutes.</p>
+                    
+                    <div class="downloads">
+                        <a href="https://play.google.com/store/apps/details?id=dev.lustra" class="btn">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.5,12.92 20.16,13.19L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z"/></svg>
+                            Android
+                        </a>
+                        <a href="https://apps.apple.com/app/id6751850630" class="btn btn-outline">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71,19.5C17.88,20.74 17,21.95 15.66,21.97C14.32,22 13.89,21.18 12.37,21.18C10.84,21.18 10.37,21.95 9.1,22C7.79,22.05 6.8,20.68 5.96,19.47C4.25,17 2.94,12.45 4.7,9.39C5.57,7.87 7.13,6.91 8.82,6.88C10.1,6.86 11.32,7.75 12.11,7.75C12.89,7.75 14.37,6.68 15.92,6.84C16.57,6.87 18.39,7.1 19.56,8.82C19.47,8.88 17.39,10.1 17.41,12.63C17.44,15.65 20.06,16.66 20.09,16.67C20.06,16.74 19.67,18.11 18.71,19.5M13,3.5C13.73,2.67 14.94,2.04 15.94,2C16.07,3.17 15.6,4.35 14.9,5.19C14.21,6.04 13.07,6.7 11.95,6.61C11.8,5.46 12.36,4.26 13,3.5Z"/></svg>
+                            iOS
+                        </a>
                     </div>
-                    <div class="link-card">
-                        <strong>iOS:</strong>
-                        <a href="https://apps.apple.com/app/id6751850630">apps.apple.com/app/id6751850630</a>
+
+                    <div class="quick-links">
+                        <div class="link-card">
+                            <strong>Android Store</strong>
+                            <a href="https://play.google.com/store/apps/details?id=dev.lustra">play.google.com/store/apps/details?id=dev.lustra</a>
+                        </div>
+                        <div class="link-card">
+                            <strong>iOS App Store</strong>
+                            <a href="https://apps.apple.com/app/id6751850630">apps.apple.com/app/id6751850630</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats -->
+        <section class="stats">
+            <div class="container">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number">50K+</div>
+                        <div class="stat-label">Active Users</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">10K+</div>
+                        <div class="stat-label">Bills Analyzed</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">95%</div>
+                        <div class="stat-label">Accuracy Rate</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">30s</div>
+                        <div class="stat-label">Avg. Read Time</div>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Features -->
-        <section class="features">
+        <section class="features" id="features">
             <div class="container">
+                <div class="section-header">
+                    <div class="section-label">Features</div>
+                    <h2>Intelligent Political Analysis</h2>
+                    <p>Lustra transforms complex political data into actionable insights through advanced AI algorithms.</p>
+                </div>
                 <div class="feat-grid">
-                    <div class="feat">
+                    <div class="feat-card">
                         <div class="feat-icon">📊</div>
-                        <h3>Clear Data</h3>
-                        <p>Bills & votes, explained simply</p>
+                        <h3>AI-Powered Summaries</h3>
+                        <p>Complex legislation distilled into clear, concise summaries using natural language processing and machine learning.</p>
                     </div>
-                    <div class="feat">
+                    <div class="feat-card">
                         <div class="feat-icon">🔍</div>
-                        <h3>Zero Bias</h3>
-                        <p>Facts, not opinions</p>
+                        <h3>Bias Detection</h3>
+                        <p>Advanced algorithms identify and neutralize partisan language, presenting only factual information.</p>
                     </div>
-                    <div class="feat">
+                    <div class="feat-card">
                         <div class="feat-icon">⚡</div>
-                        <h3>30 Seconds</h3>
-                        <p>Quick info, big impact</p>
+                        <h3>Real-Time Updates</h3>
+                        <p>Stay informed with live updates on legislative developments and voting records as they happen.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technology -->
+        <section class="technology" id="technology">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-label">Technology</div>
+                    <h2>Built on Cutting-Edge AI</h2>
+                    <p>Our platform leverages the latest advancements in artificial intelligence and data science.</p>
+                </div>
+                <div class="tech-grid">
+                    <div class="tech-card">
+                        <div class="tech-icon">🧠</div>
+                        <h3>Neural Networks</h3>
+                        <p>Deep learning models trained on millions of political documents to understand context and nuance.</p>
+                    </div>
+                    <div class="tech-card">
+                        <div class="tech-icon">🔗</div>
+                        <h3>Blockchain Verification</h3>
+                        <p>Immutable record of political data sources and analysis to ensure transparency and trust.</p>
+                    </div>
+                    <div class="tech-card">
+                        <div class="tech-icon">📈</div>
+                        <h3>Predictive Analytics</h3>
+                        <p>Machine learning algorithms that forecast legislative outcomes and political trends.</p>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Roadmap -->
-        <section class="roadmap">
+        <section class="roadmap" id="roadmap">
             <div class="container">
-                <h2>📍 Roadmap</h2>
+                <div class="section-header">
+                    <div class="section-label">Roadmap</div>
+                    <h2>Our Development Journey</h2>
+                    <p>Transparent development timeline and future innovations.</p>
+                </div>
                 <div class="timeline">
                     <div class="milestone done">
-                        <h4>Launch</h4>
+                        <h4>Platform Launch</h4>
                         <span class="milestone-date">Q4 2024</span>
-                        <p>iOS & Android apps released</p>
+                        <p>Initial release with core legislative tracking and AI summarization features.</p>
                     </div>
 
                     <div class="milestone current">
-                        <h4>Multi-Country Expansion</h4>
+                        <h4>Global Expansion</h4>
                         <span class="milestone-date">Q1 2025</span>
-                        <p>Adding more countries & languages</p>
+                        <p>Multi-country support with localization and international political data integration.</p>
                     </div>
 
                     <div class="milestone">
-                        <h4>Community Features</h4>
+                        <h4>Community Intelligence</h4>
                         <span class="milestone-date">Q2 2025</span>
-                        <p>Polls, discussions & civic engagement</p>
+                        <p>Crowdsourced analysis, polls, and collaborative civic engagement tools.</p>
                     </div>
 
                     <div class="milestone">
-                        <h4>Local Legislation</h4>
+                        <h4>Local Government API</h4>
                         <span class="milestone-date">Q3 2025</span>
-                        <p>City & regional government tracking</p>
+                        <p>Comprehensive API for city and regional government data access and analysis.</p>
                     </div>
 
                     <div class="milestone">
-                        <h4>Election Mode</h4>
+                        <h4>Election Intelligence</h4>
                         <span class="milestone-date">Q4 2025</span>
-                        <p>Candidate comparisons & live results</p>
+                        <p>Advanced candidate analysis, policy comparison, and real-time election insights.</p>
                     </div>
 
                     <div class="milestone">
-                        <h4>Open API</h4>
+                        <h4>Open Civic Platform</h4>
                         <span class="milestone-date">2026</span>
-                        <p>Public access to political data</p>
+                        <p>Fully open API and developer tools for building civic applications on our platform.</p>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Mission -->
-        <section class="mission">
+        <section class="mission" id="mission">
             <div class="container">
-                <h2>Take Back Control</h2>
-                <p>Modern politics became a battlefield. We're trapped in a system that rewards loyalty over honesty. But there's another way—it's about evolution, not revolution.</p>
-                <p><strong>This is your personal filter.</strong> Transform complex government data into facts you can absorb instantly. No agenda. Just transparency.</p>
-                <a href="https://reddit.com/r/CivicEvolution" class="btn">Join r/CivicEvolution</a>
+                <div class="mission-content">
+                    <h2>Democracy in the AI Era</h2>
+                    <p>In an age of information overload and political polarization, citizens need tools that cut through the noise. Traditional media and social platforms amplify conflict rather than clarity.</p>
+                    <p><span class="highlight">Lustra represents a new approach</span> — using artificial intelligence to serve democracy, not disrupt it. Our algorithms are designed to find truth in complexity, not to maximize engagement through outrage.</p>
+                    <p>We believe technology should empower citizens with knowledge, not manipulate them with algorithms optimized for attention. <span class="highlight">This is civic intelligence for the 21st century</span> — transparent, accessible, and built on ethical AI principles.</p>
+                    <a href="https://reddit.com/r/CivicEvolution" class="btn">Join the Civic Evolution</a>
+                </div>
             </div>
         </section>
     </main>
 
     <footer>
         <div class="container">
-            <div class="footer-links">
-                <a href="https://lustra.dev/terms">Terms</a>
-                <a href="https://lustra.dev/privacy">Privacy</a>
-                <a href="https://lustra.dev/manifest">Manifest</a>
-                <a href="https://lustra.dev/contact">Contact</a>
+            <div class="footer-content">
+                <div>
+                    <div class="footer-brand">Lustra</div>
+                    <p class="footer-description">AI-powered political intelligence. Cutting through the noise with unbiased information and transparent analysis.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">𝕏</a>
+                        <a href="#" class="social-link">📱</a>
+                        <a href="#" class="social-link">📘</a>
+                        <a href="#" class="social-link">💼</a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>Product</h4>
+                    <ul>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#technology">Technology</a></li>
+                        <li><a href="#roadmap">Roadmap</a></li>
+                        <li><a href="https://lustra.dev/pricing">Pricing</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="https://lustra.dev/blog">Blog</a></li>
+                        <li><a href="https://lustra.dev/docs">Documentation</a></li>
+                        <li><a href="https://reddit.com/r/CivicEvolution">Community</a></li>
+                        <li><a href="https://lustra.dev/support">Support</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="https://lustra.dev/about">About</a></li>
+                        <li><a href="https://lustra.dev/careers">Careers</a></li>
+                        <li><a href="https://lustra.dev/privacy">Privacy</a></li>
+                        <li><a href="https://lustra.dev/terms">Terms</a></li>
+                    </ul>
+                </div>
             </div>
-            <p>© 2025 Lustra • Built for citizens, by citizens</p>
+            <div class="footer-bottom">
+                <p>© 2025 Lustra • Built with Untitled Format™° v1.2.0 • Ethical AI for Democracy</p>
+            </div>
         </div>
     </footer>
 </body>

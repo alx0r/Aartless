@@ -6,41 +6,6 @@
     <title>OldBoy - South-East Asian Grill | Menu</title>
     <meta name="description" content="Fresh South-East Asian cuisine. Menu updated daily.">
     
-    <!-- Untitled Format™° Metadata -->
-    <!--
-    title: "OldBoy Restaurant Living Menu"
-    restaurant: "OldBoy - South-East Asian Grill"
-    untitled_format: "1.2.0"
-    document_type: "Living Restaurant Menu"
-    version: "1.0.0"
-    created: "2025-11-22"
-    updated: "2025-11-22"
-    license: "Proprietary - OldBoy Restaurant"
-    tags: ["menu", "restaurant", "living-document", "multi-language"]
-    features: ["real-time-availability", "allergen-info", "dietary-filters"]
-    
-    OWNERSHIP NOTICE:
-    This menu is 100% owned by OldBoy Restaurant.
-    - No platform fees or subscriptions
-    - No external dependencies
-    - Update anytime, anywhere
-    - Works offline forever
-    - Single HTML file (~15KB)
-    - Version controlled with Git
-    
-    TO UPDATE THIS MENU:
-    1. Open this file in any text editor
-    2. Edit prices, dishes, or availability in the <script> section below
-    3. Save the file
-    4. Upload to your website or share via QR code
-    
-    QUICK TIPS:
-    - Set available: false to hide sold-out items
-    - Add "stock: 'low'" to show "Almost Gone" badge
-    - Update prices instantly
-    - Add allergen arrays: ["gluten", "nuts", "dairy"]
-    -->
-    
     <style>
         * {
             margin: 0;
@@ -135,7 +100,8 @@
             justify-content: center;
             flex-wrap: wrap;
             border-bottom: 3px solid var(--oldboy-mint);
-            sticky: top 0;
+            position: sticky;
+            top: 0;
             z-index: 100;
         }
 
@@ -362,25 +328,25 @@
 <body>
     <header>
         <div class="lang-switch">
-            <button class="lang-btn active" onclick="switchLang('en')">EN</button>
-            <button class="lang-btn" onclick="switchLang('nl')">NL</button>
-            <button class="lang-btn" onclick="switchLang('fr')">FR</button>
+            <button class="lang-btn active" data-lang="en">EN</button>
+            <button class="lang-btn" data-lang="nl">NL</button>
+            <button class="lang-btn" data-lang="fr">FR</button>
         </div>
         <h1 class="brand">OldBoy</h1>
         <p class="tagline" data-en="South-East Asian Grill" data-nl="Zuid-Aziatische Grill" data-fr="Grill d'Asie du Sud-Est">South-East Asian Grill</p>
     </header>
 
     <nav class="filters">
-        <button class="filter-btn active" onclick="filterMenu('all')">
+        <button class="filter-btn active" data-filter="all">
             🍽️ <span data-en="All Dishes" data-nl="Alle Gerechten" data-fr="Tous les Plats">All Dishes</span>
         </button>
-        <button class="filter-btn" onclick="filterMenu('vegetarian')">
+        <button class="filter-btn" data-filter="vegetarian">
             🥬 <span data-en="Vegetarian" data-nl="Vegetarisch" data-fr="Végétarien">Vegetarian</span>
         </button>
-        <button class="filter-btn" onclick="filterMenu('spicy')">
+        <button class="filter-btn" data-filter="spicy">
             🌶️ <span data-en="Spicy" data-nl="Pittig" data-fr="Épicé">Spicy</span>
         </button>
-        <button class="filter-btn" onclick="filterMenu('available')">
+        <button class="filter-btn" data-filter="available">
             ✅ <span data-en="Available Now" data-nl="Nu Beschikbaar" data-fr="Disponible">Available Now</span>
         </button>
     </nav>
@@ -670,6 +636,26 @@
         let currentLang = 'en';
         let currentFilter = 'all';
 
+        // Event listeners for buttons
+        document.addEventListener('DOMContentLoaded', function() {
+            // Language buttons
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    switchLang(this.getAttribute('data-lang'));
+                });
+            });
+            
+            // Filter buttons
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    filterMenu(this.getAttribute('data-filter'));
+                });
+            });
+            
+            // Initial render
+            renderMenu();
+        });
+
         function switchLang(lang) {
             currentLang = lang;
             
@@ -677,7 +663,7 @@
             document.querySelectorAll('.lang-btn').forEach(btn => {
                 btn.classList.remove('active');
             });
-            event.target.classList.add('active');
+            document.querySelector(`.lang-btn[data-lang="${lang}"]`).classList.add('active');
             
             // Update all translatable elements
             document.querySelectorAll('[data-en]').forEach(el => {
@@ -698,7 +684,7 @@
             document.querySelectorAll('.filter-btn').forEach(btn => {
                 btn.classList.remove('active');
             });
-            event.target.closest('.filter-btn').classList.add('active');
+            document.querySelector(`.filter-btn[data-filter="${type}"]`).classList.add('active');
             
             renderMenu();
         }
@@ -766,7 +752,7 @@
                             ${item.dietary.includes('vegetarian') ? `<span class="badge veg">${{en:'Vegetarian', nl:'Vegetarisch', fr:'Végétarien'}[currentLang]}</span>` : ''}
                             ${item.stock === 'low' ? `<span class="badge low-stock">${{en:'Almost Gone!', nl:'Bijna Op!', fr:'Presque Épuisé!'}[currentLang]}</span>` : ''}
                             ${!item.available ? `<span class="badge sold-out">${{en:'Sold Out', nl:'Uitverkocht', fr:'Épuisé'}[currentLang]}</span>` : ''}
-                            ${item.allergens.includes('gluten') ? `<span class="badge gluten-free" style="background: #fee2e2; color: #dc2626;">Contains Gluten</span>` : ''}
+                            ${item.allergens.includes('gluten') ? `<span class="badge gluten-free" style="background: #fee2e2; color: #dc2626;">${{en:'Contains Gluten', nl:'Bevat Gluten', fr:'Contient du Gluten'}[currentLang]}</span>` : ''}
                         </div>
                         ${item.allergens.length > 0 ? `
                             <div class="allergen-info">
@@ -822,9 +808,6 @@
             const translated = allergens.map(a => allergenTranslations[currentLang][a]).join(', ');
             return `${prefix[currentLang]} ${translated}`;
         }
-
-        // Initial render
-        renderMenu();
     </script>
 </body>
 </html>

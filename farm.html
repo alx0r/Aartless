@@ -3,55 +3,56 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Gemini ♡ Enter if you dare</title>
+  <title>Gemini ♡ Password = slut</title>
   <style>
-    /* Password screen */
+    /* Password gate */
     #password-screen {
-      position: fixed;
-      inset: 0;
-      background: #000;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-      font-family: Georgia, serif;
-      color: #bfff00;
-      text-align: center;
-      padding: 2rem;
+      position:fixed; inset:0; background:#000; display:flex; flex-direction:column;
+      align-items:center; justify-content:center; z-index:9999; text-align:center;
+      font-family:Georgia,serif; color:#bfff00; padding:2rem;
     }
-    #password-screen h1 {
-      font-size: 3.5rem;
-      background: linear-gradient(90deg, #bfff00, #ff1493);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 1rem;
-    }
-    #password-input {
-      margin: 2rem 0;
-      padding: 1rem;
-      font-size: 1.5rem;
-      width: 80%;
-      max-width: 300px;
-      border: 3px solid #bfff00;
-      background: #000;
-      color: #fff;
-      text-align: center;
-      border-radius: 12px;
-    }
-    #enter-btn {
-      padding: 1rem 2rem;
-      font-size: 1.4rem;
-      background: #bfff00;
-      color: #000;
-      border: none;
-      border-radius: 50px;
-      cursor: pointer;
-    }
-    #wrong { color: #ff1493; margin-top: 1rem; display: none; }
+    #password-screen h1 {font-size:3.8rem; background:linear-gradient(90deg,#bfff00,#ff1493);
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent;}
+    #password-input {padding:1rem; font-size:1.6rem; width:80%; max-width:320px;
+      border:3px solid #bfff00; background:#000; color:#fff; text-align:center; border-radius:12px;}
+    #enter-btn {padding:1rem 2.5rem; margin-top:1rem; background:#bfff00; color:#000;
+      border:none; border-radius:50px; font-size:1.5rem; cursor:pointer;}
+    #wrong {color:#ff1493; margin-top:1rem; display:none;}
 
-    /* Hide the menu until unlocked */
-    #content { display: none; }
+    /* Main page - dripping wet theme */
+    body {margin:0; background:#0a0000; color:#fff; font-family:Georgia,serif;
+      background-image:repeating-linear-gradient(45deg, rgba(255,20,147,0.03) 0px, transparent 1px, transparent 10px, rgba(255,20,147,0.03) 11px);}
+    #content {display:none; padding:2rem 1rem; min-height:100vh;}
+    h1 {font-size:4.2rem; text-align:center; background:linear-gradient(90deg,#bfff00,#ff1493);
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent;}
+    .weed {font-size:2.8rem; text-align:center;}
+    .tagline {font-size:1.4rem; text-align:center; font-weight:bold; max-width:90%; margin:1rem auto;}
+    .hero {width:100%; max-width:440px; border-radius:20px; box-shadow:0 0 50px rgba(255,20,147,0.6); margin:1.5rem auto; display:block;}
+    .menu {display:grid; gap:1.7rem; max-width:600px; margin:3rem auto;}
+    .item {
+      background:rgba(191,255,0,0.12); border:3px solid #bfff00; border-radius:20px;
+      padding:1.8rem; position:relative; overflow:hidden;
+    }
+    .item::before {
+      content:""; position:absolute; inset:0; background:radial-gradient(circle at 30% 30%, rgba(255,20,147,0.15), transparent 70%);
+      pointer-events:none;
+    }
+    .item h3 {color:#bfff00; font-size:1.8rem; text-align:center; text-transform:uppercase; margin-bottom:1rem;}
+    .desc {
+      background:rgba(255,20,147,0.15); padding:1rem; border-radius:14px; border-left:5px solid #ff1493;
+      font-size:1.28rem; margin:1rem 0;
+    }
+    .price {
+      text-align:center; background:rgba(0,0,0,0.5); padding:0.9rem; border-radius:14px;
+      margin:0.8rem 0; font-size:1.45rem;
+    }
+    .price strong {color:#ff1493; font-size:1.65rem;}
+    .pay {
+      display:block; margin:4rem auto; padding:1.5rem 2rem; background:#bfff00; color:#000;
+      text-align:center; text-decoration:none; font-weight:bold; font-size:1.7rem;
+      border-radius:50px; max-width:380px; box-shadow:0 12px 40px rgba(191,255,0,0.6);
+    }
+    .pay:hover {background:#ff1493; color:#fff;}
   </style>
 </head>
 <body>
@@ -59,93 +60,128 @@
   <!-- PASSWORD GATE -->
   <div id="password-screen">
     <h1>Gemini ♡</h1>
-    <p style="font-size:1.4rem;">This page is for dirty boys only.<br>Prove you belong here.</p>
-    <input type="password" id="password-input" placeholder="Enter password..." autocomplete="off" />
-    <br>
-    <button id="enter-btn">Enter the barn</button>
-    <p id="wrong">Wrong password, try again you filthy animal.</p>
+    <p style="font-size:1.5rem;">Only real perverts get in.<br>Type the magic word.</p>
+    <input type="password" id="password-input" placeholder="????">
+    <button id="enter-btn">Open the barn doors</button>
+    <p id="wrong">Nah, try again you dirty fucker.</p>
   </div>
 
-  <!-- FULL MENU (hidden until correct password) -->
+  <!-- FULL DRIPPING MENU -->
   <div id="content">
-    <!-- Everything from the previous filthy version goes here -->
-    <header style="text-align:center; padding:2rem 1rem;">
-      <h1>Gemini ♡</h1>
-      <p style="font-size:1.4rem; font-weight:bold; max-width:90%; margin:1rem auto;">
-        Your high-as-fuck farm slut who milks cocks harder than cows. 
-        I cum so hard I squirt across the barn and beg my husband to breed me raw every single day.
-      </p>
-      <div style="font-size:2.5rem;">weed weed weed</div>
-      <img src="https://images.unsplash.com/photo-1587573034455-5734778f5c05?auto=format&fit=crop&w=800&q=80" 
-           alt="Gemini covered in sweat and cum on the farm" style="width:100%; max-width:420px; border-radius:20px; margin:1.5rem 0; box-shadow:0 0 40px rgba(191,255,0,0.5);" loading="lazy" />
-    </header>
 
-    <main style="max-width:560px; margin:0 auto; padding:0 1rem;">
-      <div style="display:grid; gap:1.6rem; margin:2.5rem 0;">
+    <h1>Gemini ♡</h1>
+    <p class="tagline">
+      Your married stoner farm whore who stays high, soaked, and begging to be used 24/7.<br>
+      I squirt like a broken hose and milk my husband’s cock dry every single day.
+    </p>
+    <div class="weed">weed weed weed weed</div>
+    <img src="https://images.unsplash.com/photo-1587573034455-5734778f5c05?auto=format&fit=crop&w=800&q=80" alt="Gemini dripping on the farm" class="hero" loading="lazy">
 
-        <div style="background:rgba(191,255,0,0.12); border:2.5px solid #bfff00; border-radius:18px; padding:1.6rem;">
-          <h3 style="color:#bfff00; font-size:1.75rem; text-align:center; text-transform:uppercase;">Filthy Lingerie Pics</h3>
-          <div style="font-size:1.25rem; margin:1rem 0; padding:0.9rem; background:rgba(255,20,147,0.1); border-radius:12px; border-left:4px solid #ff1493;">
-            Me dripping wet in tiny lace, nipples poking through, pussy lips outlined and soaked
-          </div>
-          <div style="font-size:1.4rem; text-align:center; padding:0.8rem; background:rgba(0,0,0,0.5); border-radius:12px; margin:0.7rem 0;">
-            5 pics – <strong style="color:#ff1493;">$15</strong>
-          </div>
-          <div style="font-size:1.4rem; text-align:center; padding:0.8rem; background:rgba(0,0,0,0.5); border-radius:12px; margin:0.7rem 0;">
-            10 pics – <strong style="color:#ff1493;">$25</strong>
-          </div>
-        </div>
+    <div class="menu">
 
-        <!-- (Copy the rest of your items exactly the same as the previous version – I'm keeping it short here for space, but paste ALL of them) -->
-
-        <div style="background:rgba(191,255,0,0.12); border:2.5px solid #bfff00; border-radius:18px; padding:1.6rem;">
-          <h3 style="color:#bfff00; font-size:1.75rem; text-align:center; text-transform:uppercase;">Getting Bred by Hubby</h3>
-          <div style="font-size:1.25rem; margin:1rem 0; padding:0.9rem; background:rgba(255,20,147,0.1); border-radius:12px; border-left:4px solid #ff1493;">
-            Real raw couple sex – he slams me doggy in the dirt, makes me cum until I’m crying, then pumps me full of cum
-          </div>
-          <div style="font-size:1.4rem; text-align:center; padding:0.8rem; background:rgba(0,0,0,0.5); border-radius:12px; margin:0.7rem 0;">
-            5–8 min hard pounding – <strong style="color:#ff1493;">$65</strong>
-          </div>
-          <div style="font-size:1.4rem; text-align:center; padding:0.8rem; background:rgba(0,0,0,0.5); border-radius:12px; margin:0.7rem 0;">
-            10–15 min full breeding tape – <strong style="color:#ff1493;">$100</strong>
-          </div>
-          <div style="font-size:1.4rem; text-align:center; padding:0.8rem; background:rgba(0,0,0,0.5); border-radius:12px; margin:0.7rem 0;">
-            Custom (he says your name while he fills me) – <strong style="color:#ff1493;">$180+</strong>
-          </div>
-        </div>
-
-        <!-- Paste ALL the other items here exactly as before -->
-
+      <div class="item">
+        <h3>Lingerie Tease Pics</h3>
+        <div class="desc">Tiny lace soaked through, nipples hard, pussy print dripping wet</div>
+        <div class="price">5 pics – <strong>$15</strong></div>
+        <div class="price">10 pics – <strong>$25</strong></div>
       </div>
 
-      <a href="https://onlyfans.com/yourusername" target="_blank" style="display:block; margin:3.5rem auto; padding:1.4rem 2rem; background:#bfff00; color:#000; text-align:center; text-decoration:none; font-weight:bold; font-size:1.6rem; border-radius:50px; max-width:360px; box-shadow:0 10px 30px rgba(191,255,0,0.5);">
-        Come Pay & Use Me Daddy ♡
-      </a>
-    </main>
+      <div class="item">
+        <h3>Spread-Eagle Nudes</h3>
+        <div class="desc">Legs behind my head on hay, fingers buried in my creamy cunt, close-ups of my throbbing clit</div>
+        <div class="price">5 nudes – <strong>$20</strong></div>
+        <div class="price">10 nudes – <strong>$35</strong></div>
+      </div>
 
-    <footer style="text-align:center; padding:3rem 1rem; opacity:0.7;">
-      © 2025 Gemini • 18+ • Real married farm whore who lives to fuck and cum
-    </footer>
+      <div class="item">
+        <h3>Solo Squirting Meltdown</h3>
+        <div class="desc">Fucking myself stupid until I scream and flood everything in sight</div>
+        <div class="price">3-5 min – <strong>$35</strong></div>
+        <div class="price">10 min multi-squirt – <strong>$60</strong></div>
+      </div>
+
+      <div class="item">
+        <h3>Dildo Breeding</h3>
+        <div class="desc">Riding monster cocks, ass bouncing, begging to be filled while I cream all over them</div>
+        <div class="price">5-8 min – <strong>$55</strong></div>
+        <div class="price">10+ min destruction – <strong>$85</strong></div>
+      </div>
+
+      <div class="item">
+        <h3>Real Husband Breeding Tapes</h3>
+        <div class="desc">Raw married sex — he pounds me into the dirt until I cry and squirt, then pumps me full of cum</div>
+        <div class="price">5-8 min – <strong>$70</strong></div>
+        <div class="price">10-15 min full creampie – <strong>$110</strong></div>
+        <div class="price">Custom (he moans YOUR name while breeding me) – <strong>$200+</strong></div>
+      </div>
+
+      <div class="item">
+        <h3>Live Edging & Denial Sessions</h3>
+        <div class="desc">I edge my sloppy pussy on cam while you stroke — I decide if you cum or stay denied and leaking</div>
+        <div class="price">20 min – <strong>$80</strong></div>
+        <div class="price">40 min ruin/denial – <strong>$140</strong></div>
+      </div>
+
+      <div class="item">
+        <h3>Brutal Dick Ratings</h3>
+        <div class="desc">Send your cock — I’ll tell you exactly how pathetic or perfect it is (text or video)</div>
+        <div class="price">Honest written – <strong>$10</strong></div>
+        <div class="price">Humiliating video rating – <strong>$25</strong></div>
+        <div class="price">SPH + tasks – <strong>$40</strong></div>
+      </div>
+
+      <div class="item">
+        <h3>JOI with My Name Moaning</h3>
+        <div class="desc">I moan your name while I cum, telling you exactly how to stroke and when to explode for me</div>
+        <div class="price">5-7 min custom JOI – <strong>$60</strong></div>
+        <div class="price">10 min countdown + squirt – <strong>$90</strong></div>
+      </div>
+
+      <div class="item">
+        <h3>Live Sexting & Fresh Content</h3>
+        <div class="desc">High and horny, flooding you with new nudes/vids while describing how I’d milk you dry</div>
+        <div class="price">30 min – <strong>$50</strong></div>
+        <div class="price">60 min non-stop filth – <strong>$90</strong></div>
+      </div>
+
+      <div class="item">
+        <h3>24-Hour Owned Slut GFE</h3>
+        <div class="desc">Your personal stoner wife all day — constant pics, squirting vids, voice notes begging for your cum, goodnight creampie story</div>
+        <div class="price">Full 24 hours – <strong>$180</strong></div>
+      </div>
+
+      <div class="item">
+        <h3>Moan Your Name Voice Notes</h3>
+        <div class="desc">Me high and cumming, screaming your name like you’re balls-deep in me</div>
+        <div class="price">30-second clip – <strong>$15</strong></div>
+        <div class="price">2-minute orgasm – <strong>$30</strong></div>
+      </div>
+
+    </div>
+
+    <a href="https://onlyfans.com/yourusername" class="pay" target="_blank">
+      Pay Up & Drain Your Balls Daddy ♡
+    </a>
+
+    <p style="text-align:center; margin-top:4rem; opacity:0.8;">
+      © 2025 Gemini • Real married farm whore who lives to squirt and get bred
+    </p>
   </div>
 
   <script>
-    const correctPassword = "slut";  // ← Change this if you ever want a different password
-
-    document.getElementById("enter-btn").addEventListener("click", check);
-    document.getElementById("password-input").addEventListener("keypress", e => {
-      if (e.key === "Enter") check();
-    });
-
-    function check() {
-      const input = document.getElementById("password-input").value;
-      if (input === correctPassword) {
-        document.getElementById("password-screen").style.display = "none";
+    const pass = "slut";
+    document.getElementById("enter-btn").onclick = () => {
+      if (document.getElementById("password-input").value === pass) {
+        document.getElementById("password-screen").remove();
         document.getElementById("content").style.display = "block";
       } else {
         document.getElementById("wrong").style.display = "block";
         document.getElementById("password-input").value = "";
       }
-    }
+    };
+    document.getElementById("password-input").addEventListener("keypress", e => {
+      if (e.key === "Enter") document.getElementById("enter-btn").click();
+    });
   </script>
 </body>
 </html>

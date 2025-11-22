@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OldBoy - South-East Asian Grill | Menu</title>
+    <meta name="description" content="Fresh South-East Asian cuisine. Menu updated daily.">
+    
+    <!-- Untitled Format™° Metadata -->
+    <!--
+    title: "OldBoy Restaurant Living Menu"
+    restaurant: "OldBoy - South-East Asian Grill"
+    untitled_format: "1.2.0"
+    document_type: "Living Restaurant Menu"
+    version: "1.0.0"
+    created: "2025-11-22"
+    updated: "2025-11-22"
+    license: "Proprietary - OldBoy Restaurant"
+    tags: ["menu", "restaurant", "living-document", "multi-language"]
+    features: ["real-time-availability", "allergen-info", "dietary-filters"]
+    
+    OWNERSHIP NOTICE:
+    This menu is 100% owned by OldBoy Restaurant.
+    - No platform fees or subscriptions
+    - No external dependencies
+    - Update anytime, anywhere
+    - Works offline forever
+    - Single HTML file (~15KB)
+    - Version controlled with Git
+    
+    TO UPDATE THIS MENU:
+    1. Open this file in any text editor
+    2. Edit prices, dishes, or availability in the <script> section below
+    3. Save the file
+    4. Upload to your website or share via QR code
+    
+    QUICK TIPS:
+    - Set available: false to hide sold-out items
+    - Add "stock: 'low'" to show "Almost Gone" badge
+    - Update prices instantly
+    - Add allergen arrays: ["gluten", "nuts", "dairy"]
+    -->
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --oldboy-mint: #9FE5C5;
+            --oldboy-dark: #2C3E3F;
+            --oldboy-text: #1a1a1a;
+            --oldboy-gray: #6b7280;
+            --oldboy-light: #f8faf9;
+            --accent-orange: #ff6b35;
+            --accent-gold: #f4a261;
+        }
+
+        body {
+            font-family: 'Courier New', 'Courier', monospace;
+            color: var(--oldboy-text);
+            background: var(--oldboy-light);
+            line-height: 1.6;
+        }
+
+        /* Header */
+        header {
+            background: var(--oldboy-mint);
+            padding: 2rem 1rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .brand {
+            font-size: clamp(3rem, 10vw, 5rem);
+            font-weight: 900;
+            font-style: italic;
+            color: var(--oldboy-dark);
+            letter-spacing: -0.03em;
+            text-transform: lowercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .tagline {
+            font-size: 1rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--oldboy-dark);
+            font-weight: 700;
+        }
+
+        /* Language Switcher */
+        .lang-switch {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            display: flex;
+            gap: 0.5rem;
+            background: white;
+            padding: 0.5rem;
+            border-radius: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .lang-btn {
+            padding: 0.4rem 0.8rem;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.9rem;
+            border-radius: 15px;
+            transition: all 0.2s;
+            font-family: 'Courier New', monospace;
+        }
+
+        .lang-btn.active {
+            background: var(--oldboy-mint);
+            color: var(--oldboy-dark);
+        }
+
+        .lang-btn:hover {
+            background: var(--oldboy-mint);
+        }
+
+        /* Filter Bar */
+        .filters {
+            background: white;
+            padding: 1rem;
+            display: flex;
+            gap: 0.75rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            border-bottom: 3px solid var(--oldboy-mint);
+            sticky: top 0;
+            z-index: 100;
+        }
+
+        .filter-btn {
+            padding: 0.6rem 1.2rem;
+            border: 2px solid var(--oldboy-dark);
+            background: white;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.85rem;
+            border-radius: 25px;
+            transition: all 0.2s;
+            font-family: 'Courier New', monospace;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--oldboy-dark);
+            color: white;
+        }
+
+        /* Menu Container */
+        .menu-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        /* Section */
+        .section {
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1.5rem;
+            color: var(--oldboy-dark);
+            border-bottom: 3px solid var(--oldboy-mint);
+            padding-bottom: 0.5rem;
+        }
+
+        /* Menu Item */
+        .menu-item {
+            background: white;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border-radius: 12px;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+            position: relative;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .menu-item:hover {
+            border-color: var(--oldboy-mint);
+            box-shadow: 0 4px 12px rgba(159, 229, 197, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .menu-item.unavailable {
+            opacity: 0.5;
+            background: #f5f5f5;
+        }
+
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 0.75rem;
+            gap: 1rem;
+        }
+
+        .item-name {
+            font-size: 1.3rem;
+            font-weight: 900;
+            color: var(--oldboy-dark);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex: 1;
+        }
+
+        .item-price {
+            font-size: 1.3rem;
+            font-weight: 900;
+            color: var(--oldboy-dark);
+            white-space: nowrap;
+        }
+
+        .item-description {
+            color: var(--oldboy-gray);
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 0.75rem;
+        }
+
+        /* Badges */
+        .badges {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-top: 0.75rem;
+        }
+
+        .badge {
+            padding: 0.3rem 0.7rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            border-radius: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .badge.spicy {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+
+        .badge.veg {
+            background: #dcfce7;
+            color: #16a34a;
+        }
+
+        .badge.low-stock {
+            background: #fef3c7;
+            color: #d97706;
+            animation: pulse 2s infinite;
+        }
+
+        .badge.sold-out {
+            background: #fecaca;
+            color: #dc2626;
+        }
+
+        .badge.gluten-free {
+            background: #e0e7ff;
+            color: #4f46e5;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        /* Allergen Info */
+        .allergen-info {
+            font-size: 0.85rem;
+            color: #dc2626;
+            margin-top: 0.5rem;
+            font-weight: 600;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--oldboy-dark);
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .footer-info {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+
+        .untitled-badge {
+            display: inline-block;
+            background: var(--oldboy-mint);
+            color: var(--oldboy-dark);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            margin-top: 1rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 640px) {
+            .brand {
+                font-size: 3rem;
+            }
+
+            .lang-switch {
+                position: static;
+                justify-content: center;
+                margin-top: 1rem;
+            }
+
+            .item-header {
+                flex-direction: column;
+                align-items: start;
+            }
+
+            .filters {
+                justify-content: start;
+                overflow-x: auto;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            .filters, .lang-switch, footer { display: none; }
+            .menu-item { page-break-inside: avoid; }
+        }
+
+        /* Hidden class for filtering */
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="lang-switch">
+            <button class="lang-btn active" onclick="switchLang('en')">EN</button>
+            <button class="lang-btn" onclick="switchLang('nl')">NL</button>
+            <button class="lang-btn" onclick="switchLang('fr')">FR</button>
+        </div>
+        <h1 class="brand">OldBoy</h1>
+        <p class="tagline" data-en="South-East Asian Grill" data-nl="Zuid-Aziatische Grill" data-fr="Grill d'Asie du Sud-Est">South-East Asian Grill</p>
+    </header>
+
+    <nav class="filters">
+        <button class="filter-btn active" onclick="filterMenu('all')">
+            🍽️ <span data-en="All Dishes" data-nl="Alle Gerechten" data-fr="Tous les Plats">All Dishes</span>
+        </button>
+        <button class="filter-btn" onclick="filterMenu('vegetarian')">
+            🥬 <span data-en="Vegetarian" data-nl="Vegetarisch" data-fr="Végétarien">Vegetarian</span>
+        </button>
+        <button class="filter-btn" onclick="filterMenu('spicy')">
+            🌶️ <span data-en="Spicy" data-nl="Pittig" data-fr="Épicé">Spicy</span>
+        </button>
+        <button class="filter-btn" onclick="filterMenu('available')">
+            ✅ <span data-en="Available Now" data-nl="Nu Beschikbaar" data-fr="Disponible">Available Now</span>
+        </button>
+    </nav>
+
+    <main class="menu-container" id="menu">
+        <!-- Menu items will be generated by JavaScript -->
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p class="footer-info" data-en="Menu updated daily • Fresh ingredients • Made with love" 
+               data-nl="Menu dagelijks bijgewerkt • Verse ingrediënten • Met liefde gemaakt"
+               data-fr="Menu mis à jour quotidiennement • Ingrédients frais • Fait avec amour">
+                Menu updated daily • Fresh ingredients • Made with love
+            </p>
+            <p style="font-size: 0.85rem; opacity: 0.8; margin-top: 1rem;">
+                📍 OldBoy Restaurant • oldboyrestaurant.be
+            </p>
+            <div class="untitled-badge">
+                Powered by Untitled Format™° • No subscription • Forever yours
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // MENU DATA - Easy to update!
+        // Set available: false to hide sold-out items
+        // Set stock: 'low' to show "Almost Gone" badge
+        // Add allergens as needed
+        
+        const menuData = {
+            small: {
+                title: { en: "Small", nl: "Klein", fr: "Petit" },
+                items: [
+                    {
+                        name: "Holstein Skewer",
+                        nameTranslations: { nl: "Holstein Spies", fr: "Brochette Holstein" },
+                        description: { 
+                            en: "Holstein ribeye, gochujang, chives & fried garlic",
+                            nl: "Holstein ribeye, gochujang, bieslook & gebakken knoflook",
+                            fr: "Entrecôte Holstein, gochujang, ciboulette & ail frit"
+                        },
+                        price: 7,
+                        dietary: [],
+                        spicy: 1,
+                        available: true,
+                        allergens: []
+                    },
+                    {
+                        name: "Butternut Skewer",
+                        nameTranslations: { nl: "Butternut Spies", fr: "Brochette Butternut" },
+                        description: { 
+                            en: "Butternut, satay sauce, coriander, fried shallots",
+                            nl: "Butternut, satésaus, koriander, gebakken sjalotten",
+                            fr: "Courge musquée, sauce satay, coriandre, échalotes frites"
+                        },
+                        price: 4.5,
+                        dietary: ['vegetarian'],
+                        spicy: 0,
+                        available: true,
+                        allergens: ['peanuts']
+                    },
+                    {
+                        name: "Char Siu Tofu Bao",
+                        nameTranslations: { nl: "Char Siu Tofu Bao", fr: "Bao Tofu Char Siu" },
+                        description: { 
+                            en: "Steamed bun, char siu glazed tofu",
+                            nl: "Gestoomde bun, char siu geglazuurde tofu",
+                            fr: "Pain vapeur, tofu glacé char siu"
+                        },
+                        price: 6,
+                        dietary: ['vegetarian'],
+                        spicy: 0,
+                        available: true,
+                        allergens: ['gluten', 'soy']
+                    }
+                ]
+            },
+            larger: {
+                title: { en: "Larger", nl: "Groter", fr: "Plus Grand" },
+                items: [
+                    {
+                        name: "Tod Man Corn",
+                        nameTranslations: { nl: "Tod Man Mais", fr: "Galettes de Maïs" },
+                        description: { 
+                            en: "Fritters of red curry, makrut lime, coconut & corn, Nam Jim Gai sauce",
+                            nl: "Beignets van rode curry, makrut limoen, kokos & mais, Nam Jim Gai saus",
+                            fr: "Beignets au curry rouge, lime makrut, noix de coco & maïs, sauce Nam Jim Gai"
+                        },
+                        price: 13,
+                        dietary: ['vegetarian'],
+                        spicy: 2,
+                        available: true,
+                        stock: 'low',
+                        allergens: []
+                    },
+                    {
+                        name: "Tom Yam Seafood",
+                        nameTranslations: { nl: "Tom Yam Zeevruchten", fr: "Fruits de Mer Tom Yam" },
+                        description: { 
+                            en: "Tiger prawn, clams stir fried with nam prik pao, krachai oil, galangal, lemongrass & makrut leaves",
+                            nl: "Tijgergarnaal, mosselen gebakken met nam prik pao, krachai olie, galanga, citroengras & makrut bladeren",
+                            fr: "Crevette tigre, palourdes sautées au nam prik pao, huile de krachai, galanga, citronnelle & feuilles de makrut"
+                        },
+                        price: 18,
+                        dietary: [],
+                        spicy: 3,
+                        available: true,
+                        allergens: ['shellfish']
+                    },
+                    {
+                        name: "Bun Thit Nuong",
+                        nameTranslations: { nl: "Bun Thit Nuong", fr: "Bun Thit Nuong" },
+                        description: { 
+                            en: "Vietnamese cold noodle salad, Dierendonck boudin blanc, white carrot, daikon, mint, coriander & nuoc cham",
+                            nl: "Vietnamese koude noedelsalade, Dierendonck boudin blanc, witte wortel, daikon, munt, koriander & nuoc cham",
+                            fr: "Salade de nouilles froides vietnamienne, boudin blanc Dierendonck, carotte blanche, daikon, menthe, coriandre & nuoc cham"
+                        },
+                        price: 17,
+                        dietary: [],
+                        spicy: 1,
+                        available: true,
+                        allergens: ['gluten']
+                    },
+                    {
+                        name: "Pad Pak Fai Daeng",
+                        nameTranslations: { nl: "Pad Pak Fai Daeng", fr: "Pad Pak Fai Daeng" },
+                        description: { 
+                            en: "Thai stir-fry of green cabbage, kale, kohlrabi, fai daeng sauce, garlic & bird's eye chili",
+                            nl: "Thaise roerbak van groene kool, boerenkool, koolrabi, fai daeng saus, knoflook & vogelpeper",
+                            fr: "Sauté thaï de chou vert, chou frisé, chou-rave, sauce fai daeng, ail & piment oiseau"
+                        },
+                        price: 16,
+                        dietary: ['vegetarian'],
+                        spicy: 2,
+                        available: true,
+                        allergens: ['soy']
+                    },
+                    {
+                        name: "Kaprao Mussels",
+                        nameTranslations: { nl: "Kaprao Mosselen", fr: "Moules Kaprao" },
+                        description: { 
+                            en: "Mussels stir-fried in oyster sauce, chili, garlic & Thai basil",
+                            nl: "Mosselen gebakken in oesters saus, chili, knoflook & Thaise basilicum",
+                            fr: "Moules sautées à la sauce d'huître, piment, ail & basilic thaï"
+                        },
+                        price: 18,
+                        dietary: [],
+                        spicy: 2,
+                        available: true,
+                        allergens: ['shellfish', 'soy']
+                    },
+                    {
+                        name: "Pad See Ew",
+                        nameTranslations: { nl: "Pad See Ew", fr: "Pad See Ew" },
+                        description: { 
+                            en: "Thai rice noodle stir-fry, eggs, broccolini, seasonal mushrooms, garlic & mushroom oyster sauce",
+                            nl: "Thaise rijstnoedel roerbak, eieren, broccolini, seizoensgebonden paddenstoelen, knoflook & paddenstoel oesters saus",
+                            fr: "Nouilles de riz thaï sautées, œufs, broccolini, champignons de saison, ail & sauce aux huîtres et champignons"
+                        },
+                        price: 17,
+                        dietary: ['vegetarian'],
+                        spicy: 0,
+                        available: true,
+                        allergens: ['gluten', 'eggs', 'soy']
+                    }
+                ]
+            },
+            mains: {
+                title: { en: "Mains", nl: "Hoofdgerechten", fr: "Plats Principaux" },
+                items: [
+                    {
+                        name: "Sweet Tamarind Fish",
+                        nameTranslations: { nl: "Zoete Tamarinde Vis", fr: "Poisson Tamarin Sucré" },
+                        description: { 
+                            en: "Fried whole Sea bass, sweet salty tamarind sauce, pak chi farang, green & red onion and coriander",
+                            nl: "Gebakken hele zeebaars, zoute zoete tamarinde saus, pak chi farang, groene & rode ui en koriander",
+                            fr: "Bar entier frit, sauce tamarind sucrée salée, pak chi farang, oignon vert et rouge et coriandre"
+                        },
+                        price: 29,
+                        dietary: [],
+                        spicy: 1,
+                        available: true,
+                        allergens: ['fish']
+                    },
+                    {
+                        name: "Tom Kha Cabbage",
+                        nameTranslations: { nl: "Tom Kha Kool", fr: "Chou Tom Kha" },
+                        description: { 
+                            en: "Grilled pointed cabbage, Tom Kha sauce, daikon pickles, chili & coriander oil",
+                            nl: "Gegrilde spitskool, Tom Kha saus, daikon augurken, chili & koriander olie",
+                            fr: "Chou pointu grillé, sauce Tom Kha, pickles de daikon, huile de piment & coriandre"
+                        },
+                        price: 18,
+                        dietary: ['vegetarian'],
+                        spicy: 1,
+                        available: true,
+                        allergens: []
+                    },
+                    {
+                        name: "Panang Curry Duck",
+                        nameTranslations: { nl: "Panang Curry Eend", fr: "Canard Curry Panang" },
+                        description: { 
+                            en: "Grilled duck magret, housemade red panang curry, pickled shallots",
+                            nl: "Gegrilde eendenborst, huisgemaakte rode panang curry, ingemaakte sjalotten",
+                            fr: "Magret de canard grillé, curry panang rouge maison, échalotes marinées"
+                        },
+                        price: 33,
+                        dietary: [],
+                        spicy: 2,
+                        available: false,
+                        allergens: ['peanuts']
+                    }
+                ]
+            },
+            special: {
+                title: { en: "Special", nl: "Speciaal", fr: "Spécial" },
+                items: [
+                    {
+                        name: "Wontons",
+                        nameTranslations: { nl: "Wontons", fr: "Wontons" },
+                        description: { 
+                            en: "Pork & shrimp wontons, shrimp broth, crispy chili oil, pak chi farang and green oil",
+                            nl: "Varkensvlees & garnalen wontons, garnalenbouillon, krokante chili olie, pak chi farang en groene olie",
+                            fr: "Wontons porc & crevettes, bouillon de crevettes, huile de piment croustillante, pak chi farang et huile verte"
+                        },
+                        price: 14,
+                        dietary: [],
+                        spicy: 2,
+                        available: true,
+                        allergens: ['shellfish', 'gluten']
+                    },
+                    {
+                        name: "Menapii Pork Belly",
+                        nameTranslations: { nl: "Menapii Varkensbuik", fr: "Poitrine de Porc Menapii" },
+                        description: { 
+                            en: "14h slow cooked pork belly from Dierendonck on the grill, Nam Jim Jaew dipping sauce",
+                            nl: "14u langzaam gegaarde varkensbuik van Dierendonck op de grill, Nam Jim Jaew dipsaus",
+                            fr: "Poitrine de porc cuite lentement 14h de Dierendonck au grill, sauce trempette Nam Jim Jaew"
+                        },
+                        price: 28,
+                        priceOptions: "250G / 500G",
+                        prices: { "250g": 28, "500g": 53 },
+                        dietary: [],
+                        spicy: 2,
+                        available: true,
+                        stock: 'low',
+                        allergens: []
+                    }
+                ]
+            },
+            dessert: {
+                title: { en: "Dessert", nl: "Dessert", fr: "Dessert" },
+                items: [
+                    {
+                        name: "Coconut Red Fruits",
+                        nameTranslations: { nl: "Kokos Rode Vruchten", fr: "Fruits Rouges Coco" },
+                        description: { 
+                            en: "Coconut milk ice cream, red fruits, peanut crumble",
+                            nl: "Kokosmelk ijs, rode vruchten, pinda crumble",
+                            fr: "Glace au lait de coco, fruits rouges, crumble cacahuète"
+                        },
+                        price: 9,
+                        dietary: ['vegetarian'],
+                        spicy: 0,
+                        available: true,
+                        allergens: ['peanuts', 'dairy']
+                    },
+                    {
+                        name: "Sticky Rice",
+                        nameTranslations: { nl: "Plakrijst", fr: "Riz Gluant" },
+                        description: { 
+                            en: "Seasonal fruit & coconut milk",
+                            nl: "Seizoensfruit & kokosmelk",
+                            fr: "Fruit de saison & lait de coco"
+                        },
+                        price: 9,
+                        dietary: ['vegetarian'],
+                        spicy: 0,
+                        available: true,
+                        allergens: []
+                    }
+                ]
+            }
+        };
+
+        let currentLang = 'en';
+        let currentFilter = 'all';
+
+        function switchLang(lang) {
+            currentLang = lang;
+            
+            // Update active button
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Update all translatable elements
+            document.querySelectorAll('[data-en]').forEach(el => {
+                const key = `data-${lang}`;
+                if (el.hasAttribute(key)) {
+                    el.textContent = el.getAttribute(key);
+                }
+            });
+            
+            // Regenerate menu
+            renderMenu();
+        }
+
+        function filterMenu(type) {
+            currentFilter = type;
+            
+            // Update active button
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.closest('.filter-btn').classList.add('active');
+            
+            renderMenu();
+        }
+
+        function renderMenu() {
+            const container = document.getElementById('menu');
+            container.innerHTML = '';
+            
+            Object.keys(menuData).forEach(sectionKey => {
+                const section = menuData[sectionKey];
+                const sectionEl = document.createElement('section');
+                sectionEl.className = 'section';
+                
+                const titleEl = document.createElement('h2');
+                titleEl.className = 'section-title';
+                titleEl.textContent = section.title[currentLang];
+                sectionEl.appendChild(titleEl);
+                
+                section.items.forEach(item => {
+                    // Apply filters
+                    if (currentFilter === 'vegetarian' && !item.dietary.includes('vegetarian')) return;
+                    if (currentFilter === 'spicy' && item.spicy === 0) return;
+                    if (currentFilter === 'available' && !item.available) return;
+                    
+                    const itemEl = document.createElement('div');
+                    itemEl.className = 'menu-item';
+                    if (!item.available) itemEl.classList.add('unavailable');
+                    
+                    const itemName = item.nameTranslations && item.nameTranslations[currentLang] 
+                        ? item.nameTranslations[currentLang] 
+                        : item.name;
+                    
+                    const description = item.description[currentLang];
+                    
+                    // Build spicy indicator
+                    let spicyIndicator = '';
+                    if (item.spicy > 0) {
+                        spicyIndicator = '🌶️'.repeat(item.spicy);
+                    }
+                    
+                    // Build dietary indicators
+                    let dietaryIndicator = '';
+                    if (item.dietary.includes('vegetarian')) {
+                        dietaryIndicator = '🥬';
+                    }
+                    
+                    // Price display
+                    let priceDisplay = `€${item.price}`;
+                    if (item.priceOptions) {
+                        priceDisplay = `€${item.prices['250g']} / €${item.prices['500g']}`;
+                    }
+                    
+                    itemEl.innerHTML = `
+                        <div class="item-header">
+                            <div class="item-name">
+                                ${itemName}
+                                ${spicyIndicator}
+                                ${dietaryIndicator}
+                            </div>
+                            <div class="item-price">${priceDisplay}</div>
+                        </div>
+                        <div class="item-description">${description}</div>
+                        <div class="badges">
+                            ${item.spicy > 0 ? `<span class="badge spicy">${{en:'Spicy', nl:'Pittig', fr:'Épicé'}[currentLang]}</span>` : ''}
+                            ${item.dietary.includes('vegetarian') ? `<span class="badge veg">${{en:'Vegetarian', nl:'Vegetarisch', fr:'Végétarien'}[currentLang]}</span>` : ''}
+                            ${item.stock === 'low' ? `<span class="badge low-stock">${{en:'Almost Gone!', nl:'Bijna Op!', fr:'Presque Épuisé!'}[currentLang]}</span>` : ''}
+                            ${!item.available ? `<span class="badge sold-out">${{en:'Sold Out', nl:'Uitverkocht', fr:'Épuisé'}[currentLang]}</span>` : ''}
+                            ${item.allergens.includes('gluten') ? `<span class="badge gluten-free" style="background: #fee2e2; color: #dc2626;">Contains Gluten</span>` : ''}
+                        </div>
+                        ${item.allergens.length > 0 ? `
+                            <div class="allergen-info">
+                                ⚠️ ${getAllergenText(item.allergens)}
+                            </div>
+                        ` : ''}
+                    `;
+                    
+                    sectionEl.appendChild(itemEl);
+                });
+                
+                container.appendChild(sectionEl);
+            });
+        }
+
+        function getAllergenText(allergens) {
+            const allergenTranslations = {
+                en: {
+                    peanuts: 'Peanuts',
+                    gluten: 'Gluten',
+                    soy: 'Soy',
+                    shellfish: 'Shellfish',
+                    fish: 'Fish',
+                    eggs: 'Eggs',
+                    dairy: 'Dairy'
+                },
+                nl: {
+                    peanuts: 'Pinda\'s',
+                    gluten: 'Gluten',
+                    soy: 'Soja',
+                    shellfish: 'Schaaldieren',
+                    fish: 'Vis',
+                    eggs: 'Eieren',
+                    dairy: 'Zuivel'
+                },
+                fr: {
+                    peanuts: 'Arachides',
+                    gluten: 'Gluten',
+                    soy: 'Soja',
+                    shellfish: 'Crustacés',
+                    fish: 'Poisson',
+                    eggs: 'Œufs',
+                    dairy: 'Produits Laitiers'
+                }
+            };
+
+            const prefix = {
+                en: 'Contains:',
+                nl: 'Bevat:',
+                fr: 'Contient:'
+            };
+
+            const translated = allergens.map(a => allergenTranslations[currentLang][a]).join(', ');
+            return `${prefix[currentLang]} ${translated}`;
+        }
+
+        // Initial render
+        renderMenu();
+    </script>
+</body>
+</html>

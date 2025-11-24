@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Guide: Encrypted Documents — Forever Format™ / Untitled Format</title>
+  <meta name="description" content="Simple guide to understanding and using encrypted documents">
+  <meta name="author" content="Format Protocol Contributors">
+  <meta name="license" content="CC BY-NC-SA 4.0">
+  <meta name="version" content="1.0.0">
+  
+  <!-- YAML Metadata
+  ---
+  title: "User Guide: Encrypted Documents"
+  type: "user-guide"
+  version: "1.0.0"
+  parent_spec: "v1.2.0"
+  date: "2025-11-25"
+  tags: ["user-guide", "encryption", "privacy", "tutorial"]
+  license: "CC BY-NC-SA 4.0"
+  audience: "non-technical"
+  ---
+  -->
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    :root {
+      --bg: #0c0f12;
+      --bg-alt: #161a1f;
+      --text: #e9e9e9;
+      --text-dim: #b8b8b8;
+      --accent: #d4af37;
+      --cyan: #3fc1c9;
+      --red: #ff004f;
+      --green: #89ffb5;
+      --purple: #9d4edd;
+      --orange: #ff9f1c;
+      --border: #2a2f35;
+    }
+    
+    html { scroll-behavior: smooth; }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      font-size: 17px;
+    }
+    
+    h1, h2, h3 { font-weight: 600; line-height: 1.3; }
+    h1 { font-size: 2.5rem; color: var(--accent); margin-bottom: 0.5rem; }
+    h2 { font-size: 1.8rem; color: var(--cyan); margin: 2rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--border); }
+    h3 { font-size: 1.3rem; margin: 1.5rem 0 0.75rem; color: var(--green); }
+    
+    p { margin-bottom: 1rem; color: var(--text-dim); }
+    a { color: var(--cyan); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    
+    header {
+      background: var(--bg-alt);
+      border-bottom: 3px solid var(--accent);
+      padding: 2rem 1rem;
+      margin-bottom: 2rem;
+    }
+    
+    .header-content { max-width: 820px; margin: 0 auto; }
+    
+    .subtitle {
+      font-size: 1.2rem;
+      color: var(--text-dim);
+      margin-top: 0.5rem;
+    }
+    
+    nav {
+      background: var(--bg-alt);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid var(--border);
+      padding: 1rem;
+    }
+    
+    nav ul {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      max-width: 820px;
+      margin: 0 auto;
+    }
+    
+    nav a {
+      font-size: 0.9rem;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+      display: block;
+    }
+    
+    nav a:hover { background: var(--bg); text-decoration: none; }
+    
+    main {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 2rem 1rem 4rem;
+    }
+    
+    section { margin-bottom: 3rem; }
+    
+    ul, ol {
+      margin: 1rem 0 1rem 2rem;
+      color: var(--text-dim);
+    }
+    
+    li { margin-bottom: 0.75rem; }
+    
+    .callout {
+      background: var(--bg-alt);
+      border-left: 4px solid var(--cyan);
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+      border-radius: 4px;
+    }
+    
+    .callout.info { border-left-color: var(--purple); }
+    .callout.tip { border-left-color: var(--green); }
+    .callout.warning { border-left-color: var(--orange); }
+    .callout.danger { border-left-color: var(--red); }
+    
+    .callout-title {
+      font-weight: 600;
+      font-size: 1.1rem;
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .step-card {
+      background: var(--bg-alt);
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem;
+      margin: 2rem 0;
+    }
+    
+    .step-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--accent);
+      color: var(--bg);
+      width: 3rem;
+      height: 3rem;
+      border-radius: 50%;
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-right: 1rem;
+      flex-shrink: 0;
+    }
+    
+    .step-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+    
+    .step-title {
+      font-size: 1.4rem;
+      color: var(--cyan);
+    }
+    
+    .analogy-box {
+      background: linear-gradient(135deg, #1a1d23 0%, #2a2f35 100%);
+      border: 1px solid var(--purple);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+    }
+    
+    .analogy-box::before {
+      content: "💡 Simple Analogy";
+      display: block;
+      font-weight: 600;
+      color: var(--purple);
+      margin-bottom: 0.75rem;
+    }
+    
+    .comparison-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+    
+    .comparison-card {
+      background: var(--bg-alt);
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+    }
+    
+    .comparison-card.encrypted {
+      border-color: var(--green);
+    }
+    
+    .comparison-card.unencrypted {
+      border-color: var(--red);
+    }
+    
+    .comparison-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .faq-item {
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin: 1rem 0;
+    }
+    
+    .faq-question {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--cyan);
+      margin-bottom: 0.75rem;
+    }
+    
+    .icon {
+      font-size: 1.5rem;
+    }
+    
+    footer {
+      background: var(--bg-alt);
+      border-top: 3px solid var(--accent);
+      padding: 2rem 1rem;
+      margin-top: 4rem;
+      text-align: center;
+    }
+    
+    @media (max-width: 768px) {
+      h1 { font-size: 2rem; }
+      h2 { font-size: 1.5rem; }
+      .comparison-grid { grid-template-columns: 1fr; }
+      nav ul { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-content">
+      <h1>🔐 Understanding Encrypted Documents</h1>
+      <p class="subtitle">A simple guide for everyone — no technical expertise required</p>
+    </div>
+  </header>
+
+  <nav>
+    <ul>
+      <li><a href="#what-is">What is Encryption?</a></li>
+      <li><a href="#why">Why Use It?</a></li>
+      <li><a href="#how-it-works">How It Works</a></li>
+      <li><a href="#using">Using Encrypted Docs</a></li>
+      <li><a href="#sharing">Sharing Securely</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    
+    <section id="what-is">
+      <h2>What is Encryption?</h2>
+      
+      <div class="analogy-box">
+        <p>
+          <strong>Think of encryption like a locked safe.</strong> Your document goes inside the safe, 
+          and only people with the correct key can open it and read what's inside. Even if someone 
+          steals the safe, they can't see what's in it without the key.
+        </p>
+      </div>
+
+      <p>
+        Encryption is a way of scrambling your information so that only you (and people you choose) 
+        can read it. To everyone else, it looks like random gibberish.
+      </p>
+
+      <div class="comparison-grid">
+        <div class="comparison-card unencrypted">
+          <div class="comparison-title">
+            <span class="icon">📄</span>
+            Without Encryption
+          </div>
+          <ul>
+            <li>Anyone can read your document</li>
+            <li>Service providers can see everything</li>
+            <li>Easy for hackers to steal information</li>
+            <li>Data can be sold or misused</li>
+          </ul>
+        </div>
+        
+        <div class="comparison-card encrypted">
+          <div class="comparison-title">
+            <span class="icon">🔒</span>
+            With Encryption
+          </div>
+          <ul>
+            <li>Only you can read your document</li>
+            <li>Service can't see your content</li>
+            <li>Protected from hackers</li>
+            <li>You control who has access</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="why">
+      <h2>Why Should I Use Encrypted Documents?</h2>
+      
+      <h3>🏥 For Sensitive Information</h3>
+      <p>Use encryption when your documents contain:</p>
+      <ul>
+        <li><strong>Medical records</strong> - your health information should stay private</li>
+        <li><strong>Financial documents</strong> - bank statements, tax returns, passwords</li>
+        <li><strong>Legal documents</strong> - contracts, agreements, personal correspondence</li>
+        <li><strong>Research data</strong> - confidential studies or proprietary information</li>
+        <li><strong>Personal journals</strong> - your private thoughts and experiences</li>
+      </ul>
+
+      <h3>🛡️ Protection You Get</h3>
+      <div class="callout tip">
+        <div class="callout-title">✅ What Encryption Protects Against</div>
+        <ul>
+          <li><strong>Data breaches:</strong> Even if a company gets hacked, your encrypted data stays safe</li>
+          <li><strong>Snooping:</strong> No one can read your documents without permission - not even the service provider</li>
+          <li><strong>Identity theft:</strong> Your personal information stays scrambled and useless to thieves</li>
+          <li><strong>Unauthorized access:</strong> Only people with the right key can decrypt and view your content</li>
+        </ul>
+      </div>
+
+      <h3>🌍 When You DON'T Need Encryption</h3>
+      <p>Not everything needs to be encrypted. Skip encryption for:</p>
+      <ul>
+        <li>Public information you want to share widely</li>
+        <li>Documents with no personal or sensitive data</li>
+        <li>Content meant for search engines to find</li>
+        <li>Situations where simplicity is more important than privacy</li>
+      </ul>
+    </section>
+
+    <section id="how-it-works">
+      <h2>How Does It Actually Work?</h2>
+      
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-number">1</span>
+          <h3 class="step-title">You Create a Password</h3>
+        </div>
+        <p>
+          Think of this as the master key to your safe. Choose a strong password that you'll remember, 
+          but others can't guess. This password never leaves your device and is never sent to any server.
+        </p>
+        <div class="callout tip">
+          <div class="callout-title">💡 Password Tips</div>
+          <ul>
+            <li>Use at least 12 characters</li>
+            <li>Mix letters, numbers, and symbols</li>
+            <li>Don't use personal information (birthdays, names)</li>
+            <li>Consider using a passphrase: "CorrectHorseBatteryStaple"</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-number">2</span>
+          <h3 class="step-title">Your Device Creates Keys</h3>
+        </div>
+        <p>
+          From your password, your device automatically creates special cryptographic "keys." 
+          Think of these as the actual physical keys that lock and unlock your safe.
+        </p>
+        <div class="analogy-box">
+          You have two types of keys: a <strong>public key</strong> (like your home address - anyone 
+          can send you mail) and a <strong>private key</strong> (like your house key - only you have it). 
+          People use your public key to send you encrypted documents, but only your private key can open them.
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-number">3</span>
+          <h3 class="step-title">Your Content Gets Scrambled</h3>
+        </div>
+        <p>
+          Before anything leaves your device, it's scrambled using your keys. This happens automatically 
+          in your web browser or app. The original, readable version never leaves your device.
+        </p>
+        <p style="font-family: monospace; color: var(--green); margin-top: 1rem;">
+          Original: "My confidential research notes"<br>
+          Encrypted: "8f3a9c2e5b7d1f4a6c8e0b2d4f6a8c0e..."
+        </p>
+      </div>
+
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-number">4</span>
+          <h3 class="step-title">Scrambled Data is Stored</h3>
+        </div>
+        <p>
+          Only the scrambled version is stored on servers. Even if someone breaks into the server, 
+          all they see is gibberish. Without your keys, the data is useless.
+        </p>
+        <div class="callout info">
+          <div class="callout-title">🔐 Zero-Knowledge Architecture</div>
+          <p>
+            This means the service provider has <strong>zero knowledge</strong> of what's in your documents. 
+            They can't read them, sell them, or be forced to hand them over to anyone.
+          </p>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-number">5</span>
+          <h3 class="step-title">You Decrypt to Read</h3>
+        </div>
+        <p>
+          When you want to read your document, you log in with your password. Your device uses this 
+          to recreate your private key, downloads the scrambled data, and unscrambles it locally. 
+          Everything happens on your device - the service never sees your readable content.
+        </p>
+      </div>
+    </section>
+
+    <section id="using">
+      <h2>Using Encrypted Documents</h2>
+      
+      <h3>📝 Creating Your First Encrypted Document</h3>
+      <div class="step-card">
+        <ol style="margin-left: 0; list-style-position: inside;">
+          <li><strong>Set up your account</strong> with a strong password</li>
+          <li><strong>Save your recovery key</strong> (explained below)</li>
+          <li><strong>Create a new document</strong> and enable encryption</li>
+          <li><strong>Write your content</strong> - it's automatically encrypted as you type</li>
+          <li><strong>Close and reopen</strong> to verify you can access it</li>
+        </ol>
+      </div>
+
+      <h3>🔑 About Recovery Keys</h3>
+      <div class="callout warning">
+        <div class="callout-title">⚠️ Important: Save Your Recovery Key!</div>
+        <p>
+          When you set up encryption, you'll get a <strong>recovery key</strong> - a long random string 
+          of letters and numbers. This is your backup in case you forget your password.
+        </p>
+        <p><strong>Critical actions:</strong></p>
+        <ul>
+          <li>✅ Write it down on paper</li>
+          <li>✅ Store it in a safe place (like a physical safe or safety deposit box)</li>
+          <li>✅ Never store it digitally on the same device</li>
+          <li>❌ Don't email it to yourself</li>
+          <li>❌ Don't save it in an unencrypted note</li>
+        </ul>
+      </div>
+
+      <div class="callout danger">
+        <div class="callout-title">🚨 Without Your Password or Recovery Key</div>
+        <p>
+          <strong>Your data is permanently lost.</strong> This is the trade-off for true security - 
+          nobody can recover your data if you lose your keys. Not the service provider, not a government, 
+          nobody. This is a feature, not a bug!
+        </p>
+      </div>
+    </section>
+
+    <section id="sharing">
+      <h2>Sharing Encrypted Documents</h2>
+      
+      <h3>👥 Sharing with Other Users</h3>
+      <p>
+        When you want to share an encrypted document with someone, the system automatically:
+      </p>
+      <ol>
+        <li>Finds their public key</li>
+        <li>Creates a copy of the document's key encrypted for them</li>
+        <li>Sends them access to the document</li>
+        <li>They can now decrypt and read it using their private key</li>
+      </ol>
+
+      <div class="analogy-box">
+        It's like making a copy of your safe key and putting it in their personal lockbox. Only they 
+        can get that key out, but once they have it, they can open the safe anytime.
+      </div>
+
+      <h3>🔗 Sharing via Link</h3>
+      <p>
+        You can also share encrypted documents via a special link. The encryption key is hidden in the 
+        link itself (after the # symbol), so anyone with the full link can access the document.
+      </p>
+
+      <div class="callout warning">
+        <div class="callout-title">⚠️ Link Sharing Security</div>
+        <ul>
+          <li><strong>Secure:</strong> Send links via encrypted messaging apps (Signal, WhatsApp)</li>
+          <li><strong>Risky:</strong> Posting links publicly or sending via unencrypted email</li>
+          <li><strong>Best practice:</strong> Use link expiration and view limits when available</li>
+        </ul>
+      </div>
+
+      <h3>🔒 Verifying People Are Who They Say They Are</h3>
+      <p>
+        Before sharing sensitive documents, you can verify someone's identity using their 
+        <strong>verification phrase</strong> - a unique set of words generated from their public key.
+      </p>
+      <div class="step-card">
+        <p><strong>How to verify:</strong></p>
+        <ol style="margin-left: 0; list-style-position: inside;">
+          <li>Look up their verification phrase in the app</li>
+          <li>Contact them through another channel (phone call, in person)</li>
+          <li>Ask them to read their verification phrase</li>
+          <li>If they match, mark them as "verified"</li>
+          <li>Now you can safely share encrypted documents with them</li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="faq">
+      <h2>Frequently Asked Questions</h2>
+      
+      <div class="faq-item">
+        <div class="faq-question">❓ Is encryption legal?</div>
+        <p>
+          Yes! Encryption is legal in most countries and is widely used by banks, hospitals, and 
+          businesses to protect sensitive information. It's a standard security practice.
+        </p>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">❓ Will encryption slow down my documents?</div>
+        <p>
+          Modern encryption is very fast. You might notice a brief moment when opening large documents, 
+          but day-to-day use feels the same as unencrypted documents.
+        </p>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">❓ Can the government/police access my encrypted documents?</div>
+        <p>
+          With true end-to-end encryption, even the service provider can't decrypt your documents. 
+          Law enforcement would need your password or recovery key. This is why it's critical to 
+          keep your keys secure.
+        </p>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">❓ What if I forget my password?</div>
+        <p>
+          This is why your recovery key is so important! If you have your recovery key saved safely, 
+          you can use it to reset your password and regain access. Without either your password or 
+          recovery key, your data is permanently inaccessible.
+        </p>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">❓ Can I use encryption on my phone?</div>
+        <p>
+          Yes! Modern encryption works on phones, tablets, and computers. The apps handle all the 
+          complex cryptography automatically - you just need to remember your password.
+        </p>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">❓ Is this the same encryption banks use?</div>
+        <p>
+          Yes and no. Banks use encryption to protect data in transit (when it travels over the internet). 
+          This is <strong>end-to-end encryption</strong>, which means your data is encrypted on your device 
+          and stays encrypted everywhere - even the service provider can't read it. This is actually 
+          stronger than what most banks offer.
+        </p>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">❓ What happens if the company gets hacked?</div>
+        <p>
+          Because everything is encrypted with your keys (which the company doesn't have), hackers 
+          would only get encrypted gibberish. They can't decrypt your documents without your password 
+          and keys.
+        </p>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">❓ Can I switch from unencrypted to encrypted later?</div>
+        <p>
+          Usually yes, but check with your specific service. Generally, you can enable encryption and 
+          your existing documents will be encrypted going forward. Some services can encrypt existing 
+          documents retroactively.
+        </p>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">❓ Is encryption hard to use?</div>
+        <p>
+          Not anymore! Modern encryption systems handle all the complicated math automatically. You 
+          just need to: (1) create a strong password, (2) save your recovery key safely, and (3) use 
+          your documents normally. The encryption happens invisibly in the background.
+        </p>
+      </div>
+    </section>
+
+    <section id="best-practices">
+      <h2>Best Practices Summary</h2>
+      
+      <div class="callout tip">
+        <div class="callout-title">✅ Do These Things</div>
+        <ul>
+          <li>Use a strong, unique password for your encrypted documents</li>
+          <li>Save your recovery key in a safe physical location</li>
+          <li>Enable two-factor authentication (2FA) if available</li>
+          <li>Verify people's identities before sharing sensitive documents</li>
+          <li>Keep your devices updated with security patches</li>
+          <li>Use encrypted messaging for sharing document links</li>
+          <li>Log out from shared/public computers</li>
+        </ul>
+      </div>
+
+      <div class="callout danger">
+        <div class="callout-title">❌ Don't Do These Things</div>
+        <ul>
+          <li>Don't use the same password for multiple services</li>
+          <li>Don't share your password with anyone</li>
+          <li>Don't store your recovery key digitally without encryption</li>
+          <li>Don't share encrypted links over unsecure channels</li>
+          <li>Don't ignore software updates</li>
+          <li>Don't use public Wi-Fi without a VPN for sensitive work</li>
+          <li>Don't assume "Delete" means gone - revoke access properly</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="reflexive">
+      <h2>About This Guide</h2>
+      
+      <p>
+        This guide was created to make encryption accessible to everyone, not just technical experts. 
+        We believe privacy is a fundamental human right, and encryption should be easy to understand 
+        and use.
+      </p>
+
+      <h3>Simplifications Made</h3>
+      <p>
+        To keep this guide accessible, we've simplified some technical concepts:
+      </p>
+      <ul>
+        <li>The actual cryptographic algorithms are more complex than described</li>
+        <li>Key derivation involves multiple steps we didn't detail</li>
+        <li>The "scrambling" process uses sophisticated mathematical operations</li>
+        <li>We used analogies that prioritize understanding over technical precision</li>
+      </ul>
+
+      <p>
+        For technical details, see the <a href="#implementation-guide">Implementation Guide</a> and 
+        <a href="#whitepaper">White Paper</a>.
+      </p>
+    </section>
+
+    <section id="meta">
+      <h2>Document Information</h2>
+      
+      <p><strong>Document Type:</strong> User Guide</p>
+      <p><strong>Version:</strong> 1.0.0</p>
+      <p><strong>Created:</strong> 2025-11-25</p>
+      <p><strong>License:</strong> <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a></p>
+      <p><strong>Target Audience:</strong> Non-technical users</p>
+      <p><strong>Reading Time:</strong> ~15 minutes</p>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <p>&copy; 2025 Format Protocol Community | <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a></p>
+      <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--text-dim);">
+        User-friendly guide for Forever Format™ / Untitled Format encrypted documents
+      </p>
+      <p style="margin-top: 0.5rem; font-size: 0.85rem; color: var(--text-dim);">
+        Built with the protocol itself | Accessible | Privacy-focused
+      </p>
+    </div>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Security Audit Checklist — Forever Format™ / Untitled Format v1.2.0</title>
+  <meta name="description" content="Comprehensive security audit checklist for encrypted document implementations">
+  <meta name="author" content="Format Protocol Contributors">
+  <meta name="license" content="CC BY-NC-SA 4.0">
+  <meta name="version" content="1.0.0">
+  
+  <!-- YAML Metadata
+  ---
+  title: "Security Audit Checklist"
+  type: "security-guide"
+  version: "1.0.0"
+  parent_spec: "v1.2.0"
+  date: "2025-11-25"
+  tags: ["security", "audit", "checklist", "cryptography"]
+  license: "CC BY-NC-SA 4.0"
+  encryption: "documented"
+  ---
+  -->
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    :root {
+      --bg: #0c0f12;
+      --bg-alt: #161a1f;
+      --text: #e9e9e9;
+      --text-dim: #b8b8b8;
+      --accent: #d4af37;
+      --cyan: #3fc1c9;
+      --red: #ff004f;
+      --green: #89ffb5;
+      --purple: #9d4edd;
+      --orange: #ff9f1c;
+      --border: #2a2f35;
+    }
+    
+    html { scroll-behavior: smooth; }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      font-size: 16px;
+    }
+    
+    h1, h2, h3 { font-weight: 600; line-height: 1.3; }
+    h1 { font-size: 2.5rem; color: var(--accent); margin-bottom: 0.5rem; }
+    h2 { font-size: 1.8rem; color: var(--cyan); margin: 2rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--border); }
+    h3 { font-size: 1.3rem; margin: 1.5rem 0 0.75rem; }
+    
+    p { margin-bottom: 1rem; color: var(--text-dim); }
+    a { color: var(--cyan); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    
+    header {
+      background: var(--bg-alt);
+      border-bottom: 3px solid var(--red);
+      padding: 2rem 1rem;
+      margin-bottom: 2rem;
+    }
+    
+    .header-content { max-width: 920px; margin: 0 auto; }
+    
+    .subtitle {
+      font-size: 1.2rem;
+      color: var(--text-dim);
+      font-style: italic;
+      margin-top: 0.5rem;
+    }
+    
+    .severity-badge {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-left: 0.5rem;
+    }
+    
+    .severity-critical { background: var(--red); color: white; }
+    .severity-high { background: var(--orange); color: white; }
+    .severity-medium { background: #ffc107; color: black; }
+    .severity-low { background: var(--cyan); color: white; }
+    
+    nav {
+      background: var(--bg-alt);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid var(--border);
+      padding: 1rem;
+    }
+    
+    nav ul {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      max-width: 920px;
+      margin: 0 auto;
+    }
+    
+    nav a {
+      font-size: 0.9rem;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+      display: block;
+    }
+    
+    nav a:hover { background: var(--bg); text-decoration: none; }
+    
+    main {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 2rem 1rem 4rem;
+    }
+    
+    section { margin-bottom: 3rem; }
+    
+    .checklist-item {
+      background: var(--bg-alt);
+      border-left: 4px solid var(--cyan);
+      padding: 1rem 1.5rem;
+      margin: 1rem 0;
+      border-radius: 4px;
+    }
+    
+    .checklist-item.critical { border-left-color: var(--red); }
+    .checklist-item.high { border-left-color: var(--orange); }
+    .checklist-item.medium { border-left-color: #ffc107; }
+    
+    .checklist-item input[type="checkbox"] {
+      width: 1.25rem;
+      height: 1.25rem;
+      margin-right: 0.75rem;
+      cursor: pointer;
+    }
+    
+    .checklist-item label {
+      cursor: pointer;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
+    
+    .check-details {
+      margin-top: 0.75rem;
+      padding-left: 2rem;
+      font-size: 0.9rem;
+      color: var(--text-dim);
+    }
+    
+    .callout {
+      background: var(--bg-alt);
+      border-left: 4px solid var(--cyan);
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+      border-radius: 4px;
+    }
+    
+    .callout.warning { border-left-color: var(--red); }
+    .callout.info { border-left-color: var(--purple); }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+      font-size: 0.95rem;
+    }
+    
+    th, td {
+      padding: 0.75rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    th {
+      background: var(--bg-alt);
+      color: var(--accent);
+      font-weight: 600;
+    }
+    
+    tr:hover { background: var(--bg-alt); }
+    
+    code {
+      font-family: 'Courier New', monospace;
+      background: var(--bg-alt);
+      padding: 0.2rem 0.4rem;
+      border-radius: 3px;
+      font-size: 0.9em;
+      color: var(--green);
+    }
+    
+    .progress-bar {
+      width: 100%;
+      height: 2rem;
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+      margin: 1rem 0;
+    }
+    
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--red), var(--orange), var(--green));
+      transition: width 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 600;
+    }
+    
+    footer {
+      background: var(--bg-alt);
+      border-top: 3px solid var(--accent);
+      padding: 2rem 1rem;
+      margin-top: 4rem;
+      text-align: center;
+    }
+    
+    @media (max-width: 768px) {
+      h1 { font-size: 2rem; }
+      h2 { font-size: 1.5rem; }
+      nav ul { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-content">
+      <h1>🛡️ Security Audit Checklist</h1>
+      <p class="subtitle">Forever Format™ / Untitled Format v1.2.0 — Cryptographic Security Verification</p>
+    </div>
+  </header>
+
+  <nav>
+    <ul>
+      <li><a href="#overview">Overview</a></li>
+      <li><a href="#cryptography">Cryptography</a></li>
+      <li><a href="#key-management">Key Management</a></li>
+      <li><a href="#implementation">Implementation</a></li>
+      <li><a href="#network">Network Security</a></li>
+      <li><a href="#client">Client Security</a></li>
+      <li><a href="#compliance">Compliance</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    
+    <section id="overview">
+      <h2>Audit Overview</h2>
+      
+      <p>
+        This checklist provides a comprehensive security audit framework for implementations of the 
+        Forever Format / Untitled Format encryption model. Each item is categorized by severity and 
+        includes verification methods.
+      </p>
+
+      <div class="callout warning">
+        <p><strong>⚠️ Critical:</strong> This audit checklist should be performed by qualified security professionals 
+        before deploying any encryption-enabled implementation to production.</p>
+      </div>
+
+      <h3>Severity Levels</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Level</th>
+            <th>Impact</th>
+            <th>Required Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="severity-badge severity-critical">🔴 CRITICAL</span></td>
+            <td>Complete security compromise</td>
+            <td>Must fix before any deployment</td>
+          </tr>
+          <tr>
+            <td><span class="severity-badge severity-high">🟠 HIGH</span></td>
+            <td>Major security vulnerability</td>
+            <td>Fix before production use</td>
+          </tr>
+          <tr>
+            <td><span class="severity-badge severity-medium">🟡 MEDIUM</span></td>
+            <td>Moderate security concern</td>
+            <td>Fix in near-term update</td>
+          </tr>
+          <tr>
+            <td><span class="severity-badge severity-low">🔵 LOW</span></td>
+            <td>Minor improvement opportunity</td>
+            <td>Address when convenient</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Audit Progress</h3>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progress" style="width: 0%">0%</div>
+      </div>
+      <p id="progress-text" style="text-align: center; margin-top: 0.5rem;">0 of 0 checks completed</p>
+    </section>
+
+    <section id="cryptography">
+      <h2>Cryptographic Implementation</h2>
+
+      <div class="checklist-item critical">
+        <label>
+          <input type="checkbox" class="audit-check" data-category="crypto">
+          <div>
+            <strong>Only audited cryptographic libraries are used</strong>
+            <span class="severity-badge severity-critical">CRITICAL</span>
+            <div class="check-details">
+              Verify: TweetNaCl, libsodium, or noble-curves. Never custom crypto implementations.
+              <br><strong>Test:</strong> Review all crypto imports and verify library versions.
+            </div>
+          </div>
+        </label>
+      </div>
+
+      <div class="checklist-item critical">
+        <label>
+          <input type="checkbox" class="audit-check" data-category="crypto">
+          <div>
+            <strong>Authenticated encryption (AEAD) is used for all encrypted data</strong>
+            <span class="severity-badge severity-critical">CRITICAL</span>
+            <div class="check-details">
+              Verify: XSalsa20-Poly1305 (nacl.secretbox) or equivalent AEAD cipher.
+              <br><strong>Test:</strong> Tamper with ciphertext and verify decryption fails with authentication error.
+            </div>
+          </div>
+        </label>
+      </div>
+
+      <div class="checklist-item critical">
+        <label>
+          <input type="checkbox" class="audit-check" data-category="crypto">
+          <div>
+            <strong>Nonces are never reused</strong>
+            <span class="severity-badge severity-critical">CRITICAL</span>
+            <div class="check-details">
+              Verify: New random nonce generated for each encryption operation.
+              <br><strong>Test:</strong> Encrypt 10,000 times and verify all nonces are unique.
+            </div>
+          </div>
+        </label>
+      </div>
+
+      <div class="checklist-item critical">
+        <label>
+          <input type="checkbox" class="audit-check" data-category="crypto">
+          <div>
+            <strong>Cryptographically secure random number generator is used</strong>
+            <span class="severity-badge severity-critical">CRITICAL</span>
+            <div class="check-details">
+              Verify: crypto.getRandomValues() or nacl.randomBytes(), never Math.random().
+              <br><strong>Test:</strong> Check PRNG source in key generation and nonce creation code.
+            </div>
+          </div>
+        </label>
+      </div>
+
+      <div class="checklist-item critical">
+        <label>
+          <input type="checkbox" class="audit-check" data-category="crypto">
+          <div>
+            <strong>Key sizes are appropriate (minimum 256-bit)</strong>
+            <span class="severity-badge severity-critical">CRITICAL</span>
+            <div class="check-details">
+              Verify: Session keys, encryption keys, and signing keys are all ≥256 bits.
+              <br><strong>Test:</strong> Check key generation code and verify byte length.
+            </div>
+          </div>
+        </label>
+      </div>
+
+      <div class="checklist-item high">
+        <label>
+          <input type="checkbox" class="audit-check" data-category="crypto">
+          <div>
+            <strong>Public key cryptography uses Curve25519 or equivalent</strong>
+            <span class="severity-badge severity-high">HIGH</span>
+            <div class="check-details">
+              Verify: Curve25519 for key exchange, Ed25519 for signatures.
+              <br><strong>Test:</strong> Check keypair generation algorithm.
+            </div>
+          </div>
+        </label>
+      </div>
+
+      <div class="checklist-item high">
+        <label>
+          <input type="checkbox" class="audit-check" data-category="crypto">
+          <div>
+            <strong>Password-based key derivation uses Argon2id</strong>
+            <span class="severity-badge severity-high">HIGH</span>
+            <div class="check-details">
+              Verify: Argon2id with appropriate parameters (time=3, mem=64MB minimum).
+              <br><strong>Test:</strong> Check password hashing implementation and parameters.
+            </div>
+          </div>
+        </label>
+      </div>
+    </section>
+
+    <section id="key-management">
+      <h2>Key Management</h2>
+
+      <div class="checklist-item critical">
+        <label>
+          <input type="checkbox" class="audit-check" data-category="keys">
+          <div>
+            <strong>Private keys are NEVER stored unencrypted</strong>
+            <span class="severity-badge severity-critical">CRITICAL</span>
+            <div class="check-details">
+              Verify: Private keys are always encrypted with password-derived key before storage.
+              <br><strong>Test:</strong> Check localStorage, sessionStorage, server database for plaintext keys.
+            </div>
+          </div>
+        </label>
+      </div>
+
+      <div class="checklist-item critical">
+        <label>
+          <input type="checkbox" class="audit-check" data-category="keys">
+          <div>
+            <strong>Private keys are NEVER sent over network</strong>
+            <span class="severity-badge severity-critical">CRITICAL</span>
+            <div class="check-details">
+              Verify: Only encrypted private keys are transmitted.
+              <br><strong>Test:</strong> Monitor network traffic and verify no plaintext private keys in any request.
+            </div>
+          </div>
+        </label>
+      </div>
+
+      <div class="checklist-item critical">
+        <label>
+          <input type="checkbox" class="audit-check" data-category="keys">
+          <div>
+            <strong>Passwords are NEVER stored (even encrypted)</strong>
+            <span class="severity-badge severity-critical">CRITICAL</span>
+            <div class="check-details">
+              Verify: Only password-derived keys are used, original password discarded immediately.
+              <br><strong>Test:</strong> Check all storage locations for password data.
+            </div>
+          </div>
+        </label>
+      </div>
+
+      <div class="checklist-item critical">
+        <label>
+          <input type="checkbox" class="audit-check" data-category="keys">
+          <div>
+            <strong>Session keys are unique per document</strong>
+            <span class="severity-badge severity-critical">CRITICAL</span>
+            <div class="check-details">
+              Verify: Each document has its own randomly generated session key.
+              <br><strong>Test:</strong> Create multiple documents and verify session keys are different.
+            </div>
+          </div>
+        </label>
+      </div>
+
+      <div class="checklist-item high">
+        <label>
+          <input type="checkbox" class="audit-check" data-category="keys">
+          <div>
+            <strong>Keys are cleared from memory on logout</strong>
+            <span class="severity-badge severity-high">HIGH</span>
+            <div class="check-details">
+              Verify: Key data is overwritten (not just dereferenced) before clearing.
+              <br><strong>Test:</strong> Check logout function for explicit memory zeroing.
+            </div>
+          </div>
+        </label>
+      </div>
+
+      <div class="checklist-item high">
+        <label>
+          <input type="checkbox" class="audit-check" data-category="keys">
+          <div>
+            <strong>Public key verification mechanism exists</strong>
+            <span class="severity-badge severity-high">HIGH</span>
+            <div class="check-details">
+              Verify: Out-of-band verification (e.g., verification phrases) is implemented.
+              <br><strong>Test:</strong> Attempt to share with unverified key and check for warning.
+            </div>
+          </div>
+        </label>
+      </div>
+
+      <div class="checklist-item medium">
+        <label>
+          <input type="checkbox" class="audit-check" data-category="keys">
+          <div>
+            <strong>Key rotation policy is documented</strong>
+            <span class="severity-badge severity-medium">MEDIUM</span>
+            <div class="check-details">
+              Verify: Process for rotating compromised keys exists.
+              <br><strong>Test:</strong> Review key rotation procedures and documentation.
+            </div>
+          </div>
+        </label>
+      </div>
+    </section>
+
+    <section id="implementation">
+      <h2>Implementation Security</h2>
+
+      <div class="checklist-item critical">
+        <label>
+          <input type="checkbox" class="audit-check" data-category="impl">
+          <div>
+            <strong>No private keys in localStorage or sessionStorage</strong>
+            <span class="severity-badge severity-critical">CRITICAL</span>
+            <div class="check-details">
+              Verify: Keys only in memory or encrypted server-side storage.
+              <br><strong>Test:</strong> Check browser dev tools Application tab for any key material.
+            </div>
+          </div>
+        </label>
+      </div>
+
+      <div class="checklist-item critical">
+        <label>
+          <input type="checkbox" class="audit-check" data-category="impl">
+          <div>
+            <strong>XSS protection is properly implemented</strong>
+            <span class="severity-badge severity-critical">CRITICAL</span>
+            <div class="check-details">
+              Verify: All user input is sanitized, CSP headers are set.
+              <br><strong>Test:</strong> Attempt XSS attacks with script injection in various fields.
+            </div>
+          </div>
+        </label>
+      </div>
+
+      <div class="checklist-item critical">
+        <label>
+          <input type="checkbox" class="audit-check" data-category="impl">
+          <div>
+            <strong>Timing attack protection for comparisons</strong>
+            <span class="severity-badge severity-critical">CRITICAL</span>
+            <div class="check-details">
+              Verify: Constant-time comparison for keys, tokens, and secrets.
+              <br><strong>Test:</strong> Measure comparison times for matching vs. non-matching values.
+            </div>
+          </div>
+        </label>
+      </div>
+
+      <div class="checklist-item high">
+        <label>
+          <input type="checkbox" class="audit-check" data-category="impl">
+          <div>
+            <strong>Error messages don't leak information</strong>
+            <span class="severity-badge severity-high">HIGH</span>
+            <div class="check-details">
+              Verify: Generic error messages, no distinction between "user not found" vs "wrong password".
+              <br><strong>Test:</strong> Try invalid credentials and check error messages.
+            </div>
+          </div>
+        </label>
+      </div>
+
+      <div class="checklist-item high">
+        <label>
+          <input type="checkbox" class="audit-check" data-category="impl">
+          <div>
+            <strong>Rate limiting prevents brute force</strong>
+            <span class="severity-badge severity-high">HIGH</span>
+            <div class="check-details">
+              Verify: Login attempts, key derivation, and API calls are rate-limited.
+              <br><strong>Test:</strong> Attempt rapid repeated login attempts.
+            </div>
+          </div>
+        </label>
+      </div>
+
+      <div class="checklist-item medium">
+        <label>
+          <input type="checkbox" class="audit-check" data-category="impl">
+          <div>
+            <strong>Dependencies are up-to-date and vulnerability-free</strong>
+            <span class="severity-badge severity-medium">MEDIUM</span>
+            <div class="check-details">
+              Verify: Run npm audit or equivalent, check for known CVEs.
+              <br><strong>Test:</strong> Run security scanners on all dependencies.
+            </div>
+          </div>
+        </label>
+      </div>
+    </section>
+
+    <section id="network">
+      <h2>Network Security</h2>
+
+      <div class="checklist-item critical">
+        <label>
+          <input type="checkbox" class="audit-check" data-category="network">
+          <div>
+            <strong>All connections use TLS 1.3 or 1.2</strong>
+            <span class="severity-badge severity-critical">CRITICAL</span>
+            <div class="check-details">
+              Verify: No unencrypted HTTP connections, TLS configured properly.
+              <br><strong>Test:</strong> Check SSL Labs server test, verify TLS version.
+            </div>
+          </div>
+        </label>
+      </div>
+
+      <div class="checklist-item critical">
+        <label>
+          <input type="checkbox" class="audit-check" data-category="network">
+          <div>
+            <strong>Link keys never appear in server logs</strong>
+            <span class="severity-badge severity-critical">CRITICAL</span>
+            <div class="check-details">
+              Verify: URL fragments (after #) are client-side only and never logged.
+              <br><strong>Test:</strong> Check server logs after accessing encrypted link.
+            </div>
+          </div>
+        </label>
+      </div>
+
+      <div class="checklist-item high">
+        <label>
+          <input type="checkbox" class="audit-check" data-category="network">
+          <div>
+            <strong>Content Security Policy (CSP) is properly configured</strong>
+            <span class="severity-badge severity-high">HIGH</span>
+            <div class="check-details">
+              Verify: CSP headers restrict script sources, prevent inline scripts.
+              <br><strong>Test:</strong> Check response headers and test policy violations.
+            </div>
+          </div>
+        </label>
+      </div>
+
+      <div class="checklist-item high">
+        <label>
+          <input type="checkbox" class="audit-check" data-category="network">
+          <div>
+            <strong>WebSocket connections are encrypted (WSS)</strong>
+            <span class="severity-badge severity-high">HIGH</span>
+            <div class="check-details">
+              Verify: All real-time collaboration uses wss:// protocol.
+              <br><strong>Test:</strong> Monitor WebSocket connections in browser dev tools.
+            </div>
+          </div>
+        </label>
+      </div>
+
+      <div class="checklist-item medium">
+        <label>
+          <input type="checkbox" class="audit-check" data-category="network">
+          <div>
+            <strong>HSTS header is properly set</strong>
+            <span class="severity-badge severity-medium">MEDIUM</span>
+            <div class="check-details">
+              Verify: Strict-Transport-Security header with appropriate max-age.
+              <br><strong>Test:</strong> Check HTTP headers for HSTS presence.
+            </div>
+          </div>
+        </label>
+      </div>
+    </section>
+
+    <section id="client">
+      <h2>Client-Side Security</h2>
+
+      <div class="checklist-item critical">
+        <label>
+          <input type="checkbox" class="audit-check" data-category="client">
+          <div>
+            <strong>Encryption/decryption happens client-side only</strong>
+            <span class="severity-badge severity-critical">CRITICAL</span>
+            <div class="check-details">
+              Verify: Server never sees plaintext content or unencrypted keys.
+              <br><strong>Test:</strong> Monitor network traffic and verify all content is encrypted before transmission.
+            </div>
+          </div>
+        </label>
+      </div>
+
+      <div class="checklist-item high">
+        <label>
+          <input type="checkbox" class="audit-check" data-category="client">
+          <div>
+            <strong>Subresource Integrity (SRI) for external scripts</strong>
+            <span class="severity-badge severity-high">HIGH</span>
+            <div class="check-details">
+              Verify: All CDN-loaded scripts have integrity attributes.
+              <br><strong>Test:</strong> Check script tags for integrity and crossorigin attributes.
+            </div>
+          </div>
+        </label>
+      </div>
+
+      <div class="checklist-item high">
+        <label>
+          <input type="checkbox" class="audit-check" data-category="client">
+          <div>
+            <strong>Client-side code is minified and obfuscated</strong>
+            <span class="severity-badge severity-high">HIGH</span>
+            <div class="check-details">
+              Verify: Production builds use minification (but maintain readability for audit).
+              <br><strong>Test:</strong> Check JavaScript file sizes and structure.
+            </div>
+          </div>
+        </label>
+      </div>
+
+      <div class="checklist-item medium">
+        <label>
+          <input type="checkbox" class="audit-check" data-category="client">
+          <div>
+            <strong>Browser console warnings for development mode</strong>
+            <span class="severity-badge severity-medium">MEDIUM</span>
+            <div class="check-details">
+              Verify: Clear warnings when debug/development mode is enabled.
+              <br><strong>Test:</strong> Check console output in various modes.
+            </div>
+          </div>
+        </label>
+      </div>
+    </section>
+
+    <section id="compliance">
+      <h2>Compliance & Documentation</h2>
+
+      <div class="checklist-item high">
+        <label>
+          <input type="checkbox" class="audit-check" data-category="compliance">
+          <div>
+            <strong>Security documentation is complete and accurate</strong>
+            <span class="severity-badge severity-high">HIGH</span>
+            <div class="check-details">
+              Verify: Threat model, encryption model, and security properties documented.
+              <br><strong>Test:</strong> Review documentation for completeness and accuracy.
+            </div>
+          </div>
+        </label>
+      </div>
+
+      <div class="checklist-item high">
+        <label>
+          <input type="checkbox" class="audit-check" data-category="compliance">
+          <div>
+            <strong>Security incident response plan exists</strong>
+            <span class="severity-badge severity-high">HIGH</span>
+            <div class="check-details">
+              Verify: Documented procedures for handling security breaches.
+              <br><strong>Test:</strong> Review incident response documentation.
+            </div>
+          </div>
+        </label>
+      </div>
+
+      <div class="checklist-item medium">
+        <label>
+          <input type="checkbox" class="audit-check" data-category="compliance">
+          <div>
+            <strong>Security audit trail is maintained</strong>
+            <span class="severity-badge severity-medium">MEDIUM</span>
+            <div class="check-details">
+              Verify: Key operations and security events are logged (without exposing sensitive data).
+              <br><strong>Test:</strong> Review audit log implementation.
+            </div>
+          </div>
+        </label>
+      </div>
+
+      <div class="checklist-item medium">
+        <label>
+          <input type="checkbox" class="audit-check" data-category="compliance">
+          <div>
+            <strong>Responsible disclosure policy is published</strong>
+            <span class="severity-badge severity-medium">MEDIUM</span>
+            <div class="check-details">
+              Verify: security.txt or equivalent with contact information.
+              <br><strong>Test:</strong> Check /.well-known/security.txt exists.
+            </div>
+          </div>
+        </label>
+      </div>
+
+      <div class="checklist-item low">
+        <label>
+          <input type="checkbox" class="audit-check" data-category="compliance">
+          <div>
+            <strong>Regular security audits are scheduled</strong>
+            <span class="severity-badge severity-low">LOW</span>
+            <div class="check-details">
+              Verify: Annual or bi-annual third-party security audits planned.
+              <br><strong>Test:</strong> Review audit schedule and past audit reports.
+            </div>
+          </div>
+        </label>
+      </div>
+    </section>
+
+    <section id="reflexive">
+      <h2>Reflexive Statement</h2>
+      
+      <h3>On Security Auditing</h3>
+      <p>
+        This checklist represents current best practices in cryptographic security as of 2025. However, 
+        security is a moving target. What's secure today may be vulnerable tomorrow as:
+      </p>
+      <ul>
+        <li>New attack vectors are discovered</li>
+        <li>Computational power increases</li>
+        <li>Implementation flaws are identified</li>
+        <li>Standards evolve</li>
+      </ul>
+
+      <h3>On Limitations</h3>
+      <p>
+        This checklist cannot guarantee security. It provides a framework for verification, but:
+      </p>
+      <ul>
+        <li>Checklists can't catch every vulnerability</li>
+        <li>Context-specific threats may not be covered</li>
+        <li>Human error remains the weakest link</li>
+        <li>Zero-day vulnerabilities exist in all software</li>
+      </ul>
+
+      <h3>On Professional Audits</h3>
+      <p>
+        While this checklist is comprehensive, it's not a substitute for professional security audits. 
+        Production systems handling sensitive data should undergo:
+      </p>
+      <ul>
+        <li>Independent third-party security audits</li>
+        <li>Penetration testing</li>
+        <li>Code review by cryptography experts</li>
+        <li>Regular vulnerability assessments</li>
+      </ul>
+
+      <h3>On Continuous Improvement</h3>
+      <p>
+        Security is not a one-time achievement but an ongoing process. This checklist will be updated as:
+      </p>
+      <ul>
+        <li>New vulnerabilities are discovered</li>
+        <li>Best practices evolve</li>
+        <li>Community feedback is received</li>
+        <li>The threat landscape changes</li>
+      </ul>
+    </section>
+
+    <section id="meta">
+      <h2>Document Metadata</h2>
+      
+      <table>
+        <tbody>
+          <tr>
+            <td><strong>Document Type</strong></td>
+            <td>Security Audit Checklist</td>
+          </tr>
+          <tr>
+            <td><strong>Parent Specification</strong></td>
+            <td>Forever Format™ / Untitled Format v1.2.0</td>
+          </tr>
+          <tr>
+            <td><strong>Version</strong></td>
+            <td>1.0.0</td>
+          </tr>
+          <tr>
+            <td><strong>Created</strong></td>
+            <td>2025-11-25</td>
+          </tr>
+          <tr>
+            <td><strong>License</strong></td>
+            <td><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a></td>
+          </tr>
+          <tr>
+            <td><strong>Total Checks</strong></td>
+            <td id="total-checks">35</td>
+          </tr>
+          <tr>
+            <td><strong>Status</strong></td>
+            <td>Living Document</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Recommended Audit Frequency</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Event</th>
+            <th>Audit Type</th>
+            <th>Frequency</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Before production deployment</td>
+            <td>Full security audit</td>
+            <td>Required</td>
+          </tr>
+          <tr>
+            <td>Major version updates</td>
+            <td>Full security audit</td>
+            <td>Every major release</td>
+          </tr>
+          <tr>
+            <td>Routine maintenance</td>
+            <td>This checklist</td>
+            <td>Quarterly</td>
+          </tr>
+          <tr>
+            <td>After security incidents</td>
+            <td>Full security audit</td>
+            <td>Immediately</td>
+          </tr>
+          <tr>
+            <td>Dependency updates</td>
+            <td>Vulnerability scan</td>
+            <td>Weekly automated</td>
+          </tr>
+          <tr>
+            <td>Professional audit</td>
+            <td>Third-party penetration test</td>
+            <td>Annually</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Citation</h3>
+      <div class="callout">
+        <p><strong>APA 7th:</strong></p>
+        <p>Format Protocol Community. (2025). <em>Security Audit Checklist — Forever Format / Untitled Format v1.2.0</em>. https://alimcforever.com/docs/security-audit</p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <p>&copy; 2025 Format Protocol Community | <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a></p>
+      <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--text-dim);">
+        Security audit framework for Forever Format™ / Untitled Format v1.2.0
+      </p>
+      <p style="margin-top: 0.5rem; font-size: 0.85rem; color: var(--text-dim);">
+        Built with the protocol itself | Interactive checklist | ~25KB
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    // Interactive checklist functionality
+    (function() {
+      const checkboxes = document.querySelectorAll('.audit-check');
+      const progressBar = document.getElementById('progress');
+      const progressFill = progressBar.querySelector('.progress-fill');
+      const progressText = document.getElementById('progress-text');
+      const totalChecks = document.getElementById('total-checks');
+      
+      totalChecks.textContent = checkboxes.length;
+      
+      function updateProgress() {
+        const checked = document.querySelectorAll('.audit-check:checked').length;
+        const total = checkboxes.length;
+        const percentage = Math.round((checked / total) * 100);
+        
+        progressFill.style.width = percentage + '%';
+        progressFill.textContent = percentage + '%';
+        progressText.textContent = `${checked} of ${total} checks completed`;
+        
+        // Save state to sessionStorage
+        const state = Array.from(checkboxes).map(cb => cb.checked);
+        sessionStorage.setItem('auditState', JSON.stringify(state));
+      }
+      
+      // Load saved state
+      const savedState = sessionStorage.getItem('auditState');
+      if (savedState) {
+        const state = JSON.parse(savedState);
+        checkboxes.forEach((cb, index) => {
+          if (state[index]) cb.checked = true;
+        });
+        updateProgress();
+      }
+      
+      // Add event listeners
+      checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', updateProgress);
+      });
+      
+      // Export functionality
+      function exportResults() {
+        const results = {
+          timestamp: new Date().toISOString(),
+          total: checkboxes.length,
+          completed: document.querySelectorAll('.audit-check:checked').length,
+          items: []
+        };
+        
+        checkboxes.forEach(cb => {
+          const item = cb.closest('.checklist-item');
+          const label = item.querySelector('strong').textContent;
+          const severity = item.classList.contains('critical') ? 'CRITICAL' :
+                          item.classList.contains('high') ? 'HIGH' :
+                          item.classList.contains('medium') ? 'MEDIUM' : 'LOW';
+          
+          results.items.push({
+            label,
+            severity,
+            completed: cb.checked
+          });
+        });
+        
+        return results;
+      }
+      
+      // Add export button
+      const exportBtn = document.createElement('button');
+      exportBtn.textContent = '📥 Export Audit Results';
+      exportBtn.style.cssText = `
+        margin: 2rem auto;
+        display: block;
+        padding: 1rem 2rem;
+        background: var(--accent);
+        color: var(--bg);
+        border: none;
+        border-radius: 4px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+      `;
+      
+      exportBtn.addEventListener('click', () => {
+        const results = exportResults();
+        const blob = new Blob([JSON.stringify(results, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `security-audit-${new Date().toISOString().split('T')[0]}.json`;
+        a.click();
+        URL.revokeObjectURL(url);
+      });
+      
+      document.querySelector('main').appendChild(exportBtn);
+      
+      // Add reset button
+      const resetBtn = document.createElement('button');
+      resetBtn.textContent = '🔄 Reset Checklist';
+      resetBtn.style.cssText = exportBtn.style.cssText;
+      resetBtn.style.background = 'var(--red)';
+      resetBtn.style.color = 'white';
+      
+      resetBtn.addEventListener('click', () => {
+        if (confirm('Are you sure you want to reset all checkboxes?')) {
+          checkboxes.forEach(cb => cb.checked = false);
+          sessionStorage.removeItem('auditState');
+          updateProgress();
+        }
+      });
+      
+      document.querySelector('main').appendChild(resetBtn);
+    })();
+  </script>
+
+</body>
+</html>

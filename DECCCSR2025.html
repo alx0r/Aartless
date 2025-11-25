@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice - December 2025 Final Launch Phase</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+            padding: 40px 20px;
+        }
+        
+        .invoice-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 60px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 50px;
+            padding-bottom: 30px;
+            border-bottom: 3px solid #2c3e50;
+        }
+        
+        .company-info h1 {
+            font-size: 2em;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        
+        .company-info p {
+            color: #7f8c8d;
+            font-size: 0.95em;
+        }
+        
+        .invoice-details {
+            text-align: right;
+        }
+        
+        .invoice-number {
+            font-size: 1.8em;
+            color: #2c3e50;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .invoice-date {
+            color: #7f8c8d;
+            font-size: 0.95em;
+        }
+        
+        .phase-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            background: #e74c3c;
+            color: white;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        
+        .billing-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+        
+        .bill-to, .payment-info {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 8px;
+        }
+        
+        .bill-to h3, .payment-info h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .bill-to p, .payment-info p {
+            margin: 5px 0;
+            color: #555;
+        }
+        
+        .services-table {
+            width: 100%;
+            margin-bottom: 30px;
+            border-collapse: collapse;
+        }
+        
+        .services-table thead {
+            background: #2c3e50;
+            color: white;
+        }
+        
+        .services-table th {
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9em;
+            letter-spacing: 0.5px;
+        }
+        
+        .services-table td {
+            padding: 15px;
+            border-bottom: 1px solid #ecf0f1;
+        }
+        
+        .services-table tbody tr:hover {
+            background: #f8f9fa;
+        }
+        
+        .service-description {
+            color: #555;
+            font-size: 0.95em;
+        }
+        
+        .service-detail {
+            color: #7f8c8d;
+            font-size: 0.85em;
+            margin-top: 5px;
+        }
+        
+        .totals {
+            margin-left: auto;
+            width: 300px;
+            margin-top: 20px;
+        }
+        
+        .totals-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #ecf0f1;
+        }
+        
+        .totals-row.subtotal {
+            font-weight: 600;
+        }
+        
+        .totals-row.total {
+            background: #2c3e50;
+            color: white;
+            padding: 15px 20px;
+            margin-top: 10px;
+            font-size: 1.3em;
+            font-weight: bold;
+            border-radius: 5px;
+        }
+        
+        .payment-details {
+            background: #ebf5fb;
+            border-left: 5px solid #3498db;
+            padding: 25px;
+            margin: 40px 0;
+            border-radius: 5px;
+        }
+        
+        .payment-details h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        .bank-details {
+            margin-top: 15px;
+            color: #333;
+        }
+        
+        .notes {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 2px solid #ecf0f1;
+        }
+        
+        .notes h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        .notes p {
+            color: #666;
+            line-height: 1.8;
+        }
+        
+        .footer {
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 2px solid #ecf0f1;
+            text-align: center;
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            background: #f39c12;
+            color: white;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            
+            .invoice-container {
+                box-shadow: none;
+                padding: 40px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .invoice-container {
+                padding: 30px 20px;
+            }
+            
+            .header {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .invoice-details {
+                text-align: left;
+            }
+            
+            .billing-info {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .totals {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="invoice-container">
+        <div class="header">
+            <div class="company-info">
+                <h1>Alexander [Last Name]</h1>
+                <p>Digital Strategy & Content Development</p>
+            </div>
+            <div class="invoice-details">
+                <div class="invoice-number">INVOICE #003-12-2025</div>
+                <div class="invoice-date">Date: December 1, 2025</div>
+                <div class="invoice-date">Period: December 2025</div>
+                <span class="phase-badge">FINAL LAUNCH PHASE</span>
+                <span class="status-badge">PENDING</span>
+            </div>
+        </div>
+
+        <div class="billing-info">
+            <div class="bill-to">
+                <h3>Bill To</h3>
+                <p><strong>Carol Crous</strong></p>
+                <p>International Educational Consultant</p>
+                <p>Location: Turkey</p>
+            </div>
+            
+            <div class="payment-info">
+                <h3>Contract Phase</h3>
+                <p><strong>3-Month Launch Strategy:</strong> October - December 2025</p>
+                <p><strong>Current Phase:</strong> Refinement & Quality Assurance</p>
+                <p><strong>Retainer:</strong> Monthly (R5,000)</p>
+                <p><strong>Payment:</strong> Flexible timing - whenever suits you</p>
+            </div>
+        </div>
+
+        <table class="services-table">
+            <thead>
+                <tr>
+                    <th>Service Description</th>
+                    <th style="text-align: right;">Amount (ZAR)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <div class="service-description"><strong>Strategic Oversight & Project Management</strong></div>
+                        <div class="service-detail">Overall strategy direction, team coordination, quality control, and ensuring all deliverables meet standards and align with project objectives</div>
+                    </td>
+                    <td style="text-align: right;">Included</td>
+                </tr>
+                
+                <tr>
+                    <td>
+                        <div class="service-description"><strong>Strategy Sessions & Progress Reviews</strong></div>
+                        <div class="service-detail">Regular check-ins, refinement discussions, and strategic guidance throughout December to ensure successful completion of launch phase</div>
+                    </td>
+                    <td style="text-align: right;">Included</td>
+                </tr>
+                
+                <tr>
+                    <td>
+                        <div class="service-description"><strong>Content Copywriting & Refinement</strong></div>
+                        <div class="service-detail">Educational content review and optimization with support from Rebecca (Educational English expert and teacher) for quality assurance and messaging clarity</div>
+                    </td>
+                    <td style="text-align: right;">Included</td>
+                </tr>
+                
+                <tr>
+                    <td>
+                        <div class="service-description"><strong>Website Development Quality Assurance</strong></div>
+                        <div class="service-detail">Technical review and quality control with support from Darren (Front-end developer) to ensure smooth functionality and user experience</div>
+                    </td>
+                    <td style="text-align: right;">Included</td>
+                </tr>
+                
+                <tr>
+                    <td>
+                        <div class="service-description"><strong>Final Platform & Content Integration</strong></div>
+                        <div class="service-detail">Ensuring all elements work cohesively together - website, LinkedIn presence, content messaging, and overall digital strategy</div>
+                    </td>
+                    <td style="text-align: right;">Included</td>
+                </tr>
+                
+                <tr>
+                    <td>
+                        <div class="service-description"><strong>LinkedIn Content Strategy Continuation</strong></div>
+                        <div class="service-detail">Ongoing support for LinkedIn presence, content planning, and professional network growth as platform launches</div>
+                    </td>
+                    <td style="text-align: right;">Included</td>
+                </tr>
+                
+                <tr>
+                    <td>
+                        <div class="service-description"><strong>Pre-Launch Preparation & Testing</strong></div>
+                        <div class="service-detail">Final checks, testing, and preparation to ensure everything is ready for successful launch at completion of 3-month phase</div>
+                    </td>
+                    <td style="text-align: right;">Included</td>
+                </tr>
+                
+                <tr>
+                    <td>
+                        <div class="service-description"><strong>Documentation & Handoff Materials</strong></div>
+                        <div class="service-detail">Creating necessary documentation and materials for ongoing management and future reference</div>
+                    </td>
+                    <td style="text-align: right;">Included</td>
+                </tr>
+                
+                <tr>
+                    <td>
+                        <div class="service-description"><strong>Ongoing Support & Communication</strong></div>
+                        <div class="service-detail">WhatsApp support, email correspondence, quick consultations, and ad-hoc guidance throughout December</div>
+                    </td>
+                    <td style="text-align: right;">Included</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="totals">
+            <div class="totals-row subtotal">
+                <span>Subtotal:</span>
+                <span>R 5,000.00</span>
+            </div>
+            <div class="totals-row">
+                <span>Tax (VAT):</span>
+                <span>R 0.00</span>
+            </div>
+            <div class="totals-row total">
+                <span>TOTAL DUE:</span>
+                <span>R 5,000.00</span>
+            </div>
+        </div>
+
+        <div class="payment-details">
+            <h3>Payment Information</h3>
+            <div class="bank-details">
+                <p><strong>Reference:</strong> CAROL-DEC2025</p>
+                <p style="margin-top: 15px;"><strong>Payment Timing:</strong> As always, pay whenever suits you. Early payment this month would help with coordinating Rebecca and Darren's contributions and ensuring everything is completed before the Christmas period.</p>
+            </div>
+        </div>
+
+        <div class="notes">
+            <h3>Service Notes</h3>
+            <p><strong>Final Launch Phase:</strong> This is the third and final month of our October-December 2025 launch strategy retainer. We're transitioning from active development to refinement, quality assurance, and final preparation for launch.</p>
+            
+            <p style="margin-top: 15px;"><strong>Refinement Focus:</strong> With the core strategy and systems now in place from October and November, December focuses on polishing, testing, and ensuring everything meets the high standards we've established together.</p>
+            
+            <p style="margin-top: 15px;"><strong>Team Support:</strong> This month incorporates specialized support from Rebecca for educational content refinement and Darren for development quality assurance. I'll be managing and overseeing all work to ensure it meets our standards and integrates seamlessly with the overall strategy.</p>
+            
+            <p style="margin-top: 15px;"><strong>Pre-Christmas Completion:</strong> We're working to have everything finalized before the holiday season, ensuring you can move into 2026 with a fully launched and refined digital presence.</p>
+            
+            <p style="margin-top: 15px;"><strong>Next Steps:</strong> Upon completion of this phase, we'll have a comprehensive, launch-ready system with all elements working together seamlessly.</p>
+            
+            <p style="margin-top: 15px;"><strong>Questions?</strong> As always, reach out anytime via WhatsApp or email if you have questions about this invoice or the work planned for December.</p>
+        </div>
+
+        <div class="footer">
+            <p><strong>Thank you for your continued partnership!</strong></p>
+            <p style="margin-top: 10px;">Final phase of 3-month launch strategy retainer (October-December 2025)</p>
+            <p style="margin-top: 10px;">Invoice generated: December 1, 2025</p>
+        </div>
+    </div>
+</body>
+</html>

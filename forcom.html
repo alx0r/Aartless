@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <title>FOREVER COMMERCE™ • White Paper</title>
+  <meta name="description" content="Forever Commerce™ White Paper — open protocol for durable, transparent, AI-readable commerce.">
+  <!-- Font Awesome 6 for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Courier New', 'Fira Code', monospace;
+    }
+    :root {
+      --primary: #00ff00;
+      --primary-dark: #00cc00;
+      --primary-light: #99ff99;
+      --bg-dark: #0a0a0a;
+      --bg-darker: #000000;
+      --text: #f0f0f0;
+      --text-dim: #888888;
+      --border: #003300;
+      --glow: 0 0 10px rgba(0, 255, 0, 0.7);
+    }
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    header {
+      background-color: var(--bg-darker);
+      border-bottom: 1px solid var(--primary);
+      padding: 1rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--glow);
+    }
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1400px;
+      margin: 0 auto;
+      flex-wrap: wrap;
+    }
+    .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: var(--primary);
+      text-shadow: 0 0 5px var(--primary);
+    }
+    .logo-subtitle {
+      font-size: 0.9rem;
+      color: var(--text-dim);
+      margin-top: 0.2rem;
+    }
+    nav ul {
+      display: flex;
+      list-style: none;
+      flex-wrap: wrap;
+      gap: 1.2rem;
+    }
+    nav a {
+      color: var(--primary);
+      text-decoration: none;
+      transition: color 0.3s, text-shadow 0.3s;
+      position: relative;
+    }
+    nav a:hover {
+      color: #ffffff;
+      text-shadow: 0 0 8px var(--primary);
+    }
+    nav a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -5px;
+      left: 0;
+      background-color: var(--primary);
+      transition: width 0.3s;
+    }
+    nav a:hover::after {
+      width: 100%;
+    }
+    main {
+      max-width: 1400px;
+      margin: 2rem auto;
+      padding: 0 2rem;
+    }
+    .hero {
+      text-align: center;
+      margin-bottom: 3rem;
+      padding: 2rem;
+      border: 1px solid var(--primary);
+      background-color: rgba(0, 255, 0, 0.05);
+      box-shadow: 0 0 15px rgba(0, 255, 0, 0.1);
+    }
+    .hero h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      text-shadow: 0 0 10px var(--primary);
+      color: var(--primary);
+    }
+    .hero p {
+      font-size: 1.2rem;
+      max-width: 800px;
+      margin: 0 auto 1.5rem;
+    }
+    .content-grid {
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 2rem;
+    }
+    .main-content {
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 2rem;
+      border: 1px solid var(--primary);
+      box-shadow: 0 0 10px rgba(0, 255, 0, 0.1);
+    }
+    .sidebar {
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 1.5rem;
+      border: 1px solid var(--primary);
+      box-shadow: 0 0 10px rgba(0, 255, 0, 0.1);
+      position: sticky;
+      top: 100px;
+      height: fit-content;
+    }
+    section {
+      margin-bottom: 3rem;
+    }
+    h2 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      color: var(--primary);
+      border-bottom: 1px solid var(--primary);
+      padding-bottom: 0.5rem;
+    }
+    h3 {
+      font-size: 1.4rem;
+      margin: 1.5rem 0 0.5rem;
+      color: var(--primary);
+    }
+    h4 {
+      font-size: 1.2rem;
+      margin: 1rem 0 0.5rem;
+      color: var(--primary-light);
+    }
+    p {
+      margin-bottom: 1rem;
+    }
+    ul, ol {
+      margin-left: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    li {
+      margin-bottom: 0.5rem;
+    }
+    code {
+      background-color: rgba(0, 255, 0, 0.1);
+      padding: 0.2rem 0.4rem;
+      border-radius: 3px;
+      color: var(--primary-light);
+    }
+    pre {
+      background-color: rgba(0, 0, 0, 0.8);
+      padding: 1rem;
+      border: 1px solid var(--primary);
+      overflow-x: auto;
+      margin-bottom: 1rem;
+      color: var(--primary-light);
+    }
+    .terminal {
+      background-color: #000;
+      border: 1px solid var(--primary);
+      padding: 1rem;
+      margin: 1rem 0;
+      box-shadow: 0 0 10px rgba(0, 255, 0, 0.2);
+    }
+    .terminal-line {
+      margin-bottom: 0.5rem;
+    }
+    .terminal-prompt {
+      color: var(--primary);
+    }
+    .terminal-command {
+      color: #ffffff;
+    }
+    .terminal-output {
+      color: #cccccc;
+    }
+    .card {
+      background-color: rgba(0, 0, 0, 0.8);
+      border: 1px solid var(--primary);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0, 255, 0, 0.2);
+    }
+    .btn {
+      display: inline-block;
+      background-color: transparent;
+      color: var(--primary);
+      border: 1px solid var(--primary);
+      padding: 0.5rem 1rem;
+      text-decoration: none;
+      transition: all 0.3s;
+      cursor: pointer;
+      margin-top: 0.5rem;
+      text-align: center;
+    }
+    .btn:hover {
+      background-color: var(--primary);
+      color: #000;
+    }
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+    .team-member {
+      background-color: rgba(0, 0, 0, 0.8);
+      border: 1px solid var(--primary);
+      padding: 1.5rem;
+      text-align: center;
+    }
+    .team-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+    .team-name {
+      font-weight: bold;
+      color: var(--primary);
+      margin-bottom: 0.3rem;
+    }
+    .team-role {
+      font-style: italic;
+      color: var(--text-dim);
+      margin-bottom: 1rem;
+    }
+    .roadmap-container {
+      position: relative;
+      margin: 2rem 0;
+    }
+    .roadmap-line {
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background-color: var(--primary);
+      transform: translateX(-50%);
+    }
+    .roadmap-item {
+      position: relative;
+      width: 45%;
+      margin-bottom: 2rem;
+      padding: 1.5rem;
+      background-color: rgba(0, 0, 0, 0.8);
+      border: 1px solid var(--primary);
+    }
+    .roadmap-item:nth-child(odd) {
+      margin-left: 0;
+      margin-right: auto;
+    }
+    .roadmap-item:nth-child(even) {
+      margin-left: auto;
+      margin-right: 0;
+    }
+    .roadmap-item::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      width: 15px;
+      height: 15px;
+      background-color: var(--primary);
+      border-radius: 50%;
+      transform: translateY(-50%);
+    }
+    .roadmap-item:nth-child(odd)::after {
+      right: -8px;
+    }
+    .roadmap-item:nth-child(even)::after {
+      left: -8px;
+    }
+    .roadmap-title {
+      font-weight: bold;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+    .roadmap-year {
+      color: var(--text-dim);
+      font-size: 0.9rem;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 1.5rem;
+    }
+    th, td {
+      border: 1px solid var(--primary);
+      padding: 0.75rem;
+      text-align: left;
+    }
+    th {
+      background-color: rgba(0, 255, 0, 0.1);
+      color: var(--primary);
+    }
+    footer {
+      background-color: #000;
+      border-top: 1px solid var(--primary);
+      padding: 2rem;
+      text-align: center;
+      margin-top: 3rem;
+    }
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .footer-links a {
+      color: var(--primary);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .footer-links a:hover {
+      color: #ffffff;
+    }
+    .section-nav {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .section-nav li {
+      margin-bottom: 0.75rem;
+    }
+    .section-nav a {
+      color: var(--primary);
+      text-decoration: none;
+      display: block;
+      padding: 0.25rem 0;
+    }
+    .section-nav a:hover {
+      color: #ffffff;
+      text-shadow: 0 0 5px var(--primary);
+    }
+    .metadata-block {
+      background-color: rgba(0, 0, 0, 0.8);
+      border: 1px solid var(--primary);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      font-size: 0.9rem;
+    }
+    .metadata-title {
+      color: var(--primary);
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+    @media (max-width: 768px) {
+      .content-grid {
+        grid-template-columns: 1fr;
+      }
+      .header-content {
+        flex-direction: column;
+        text-align: center;
+      }
+      nav ul {
+        margin-top: 1rem;
+        justify-content: center;
+      }
+      .hero h1 {
+        font-size: 2rem;
+      }
+      .roadmap-line {
+        left: 20px;
+      }
+      .roadmap-item {
+        width: calc(100% - 40px);
+        margin-left: 40px !important;
+        margin-right: 0 !important;
+      }
+      .roadmap-item:nth-child(odd)::after,
+      .roadmap-item:nth-child(even)::after {
+        left: -28px;
+        right: auto;
+      }
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+    .cursor {
+      animation: blink 1s infinite;
+    }
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #000; }
+    ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--primary-dark); }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <div>
+        <div class="logo">🜂 FOREVER COMMERCE™</div>
+        <div class="logo-subtitle">COMMERCE THAT LEARNS, REMEMBERS & COMPOUNDS</div>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="#executive-summary">Summary</a></li>
+          <li><a href="#principles">Principles</a></li>
+          <li><a href="#architecture">Architecture</a></li>
+          <li><a href="#roadmap">Roadmap</a></li>
+          <li><a href="#governance">Governance</a></li>
+          <li><a href="#reflexive">Reflexive</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1>FOREVER COMMERCE™ WHITE PAPER</h1>
+      <p>A decentralized intelligence framework for building enduring commerce ecosystems through AI, media, memory and networked trust.</p>
+      <div class="terminal">
+        <div class="terminal-line"><span class="terminal-prompt">system@forever:~$ </span><span class="terminal-command">status --commerce</span></div>
+        <div class="terminal-line terminal-output">Network Status: <span style="color: #00ff00;">ACTIVE</span></div>
+        <div class="terminal-line terminal-output">Protocol Version: v1.0.0 (Lakshmi)</div>
+        <div class="terminal-line terminal-output">Intelligence Layer: ENABLED</div>
+        <div class="terminal-line terminal-output">Markets Indexed: EXPANDING</div>
+      </div>
+    </section>
+
+    <div class="content-grid">
+      <div class="main-content">
+        <!-- Executive Summary -->
+        <section id="executive-summary">
+          <h2>Executive Summary</h2>
+          <div class="card">
+            <p>Forever Commerce™ is an intelligence-first commerce protocol. It treats brands as living entities, media as memory, trust as infrastructure, and transactions as moments in an evolving relationship.</p>
+            <p>Rather than optimizing for immediate conversion, Forever Commerce optimizes for compounding trust, network intelligence, and long-term cultural relevance.</p>
+            <div class="terminal">
+              <div class="terminal-line"><span class="terminal-prompt">user@forever:~$ </span><span class="terminal-command">verify --commerce</span></div>
+              <div class="terminal-line terminal-output">Identity Layer: VERIFIED</div>
+              <div class="terminal-line terminal-output">Memory Graph: ACTIVE</div>
+              <div class="terminal-line terminal-output">AI Agents: CONNECTED</div>
+            </div>
+          </div>
+          <div class="card">
+            <p><em>“The first age of the web connected documents. The second connected people. The third connected algorithms. Forever Commerce™ argues for a fourth age: commerce built from documents again — durable, transparent, owned by those who create them.”</em></p>
+          </div>
+        </section>
+
+        <!-- Core Principles -->
+        <section id="principles">
+          <h2>Core Principles</h2>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem;">
+            <div class="card">
+              <h3>🧠 Memory</h3>
+              <p>Commerce should remember. Every interaction, purchase, story, and relationship becomes part of a persistent memory graph. Memory transforms transactions into continuity.</p>
+            </div>
+            <div class="card">
+              <h3>🤖 Intelligence</h3>
+              <p>Commerce should think. AI agents assist discovery, strategy, recommendation, and ecosystem growth. Human judgement remains sovereign.</p>
+            </div>
+            <div class="card">
+              <h3>⏳ Permanence</h3>
+              <p>Commerce should compound. Brands are not campaigns. Brands are evolving systems of meaning operating across generations.</p>
+            </div>
+            <div class="card">
+              <h3>🔓 Openness</h3>
+              <p>Commerce should interoperate. Open standards. Portable identities. No platform should own the relationship.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Architecture -->
+        <section id="architecture">
+          <h2>Commerce Architecture</h2>
+          <div class="card">
+            <table>
+              <thead><tr><th>Layer</th><th>Name</th><th>Function</th></tr></thead>
+              <tbody>
+                <tr><td>L1</td><td>Identity Layer</td><td>Brands, people, agents</td></tr>
+                <tr><td>L2</td><td>Media Layer</td><td>Stories, campaigns, content</td></tr>
+                <tr><td>L3</td><td>Memory Layer</td><td>Persistent customer graph</td></tr>
+                <tr><td>L4</td><td>Intelligence Layer</td><td>AI agents and reasoning</td></tr>
+                <tr><td>L5</td><td>Commerce Layer</td><td>Transactions and marketplaces</td></tr>
+                <tr><td>L6</td><td>Governance Layer</td><td>Ethics and transparency</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="terminal">
+            <div class="terminal-line"><span class="terminal-prompt">sys@forever:~$ </span><span class="terminal-command">inspect --stack</span></div>
+            <div class="terminal-line terminal-output">Identity Layer: ACTIVE</div>
+            <div class="terminal-line terminal-output">Media Layer: ACTIVE</div>
+            <div class="terminal-line terminal-output">Memory Layer: ACTIVE</div>
+            <div class="terminal-line terminal-output">Intelligence Layer: ACTIVE</div>
+            <div class="terminal-line terminal-output">Commerce Layer: DEVELOPMENT</div>
+            <div class="terminal-line terminal-output">Governance Layer: ENABLED</div>
+          </div>
+        </section>
+
+        <!-- Commerce Stack -->
+        <section id="stack">
+          <h2>The Forever Commerce Stack</h2>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem;">
+            <div class="card">
+              <h4>🆔 Identity Engine</h4>
+              <p>Persistent identities for people, brands, creators, AI agents, and communities.</p>
+            </div>
+            <div class="card">
+              <h4>📣 Media Engine</h4>
+              <p>Articles, social media, podcasts, video, live streams, knowledge graphs.</p>
+            </div>
+            <div class="card">
+              <h4>🧿 Memory Engine</h4>
+              <p>Customer histories, relationship mapping, intent graphs, shared knowledge.</p>
+            </div>
+            <div class="card">
+              <h4>🧠 Intelligence Engine</h4>
+              <p>Agentic commerce, predictive discovery, semantic search, adaptive interfaces.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Roadmap -->
+        <section id="roadmap">
+          <h2>Development Roadmap</h2>
+          <div class="roadmap-container">
+            <div class="roadmap-line"></div>
+            <div class="roadmap-item">
+              <div class="roadmap-title">I — Genesis</div>
+              <div class="roadmap-year">2026 · FOUNDATIONAL COMMERCE</div>
+              <p>Identity, media and memory primitives. Core store architecture.</p>
+            </div>
+            <div class="roadmap-item">
+              <div class="roadmap-title">II — Atlas</div>
+              <div class="roadmap-year">2026 · NETWORKED MARKETS</div>
+              <p>Cross-brand interoperability and intelligence graphs.</p>
+            </div>
+            <div class="roadmap-item">
+              <div class="roadmap-title">III — Mnemosyne</div>
+              <div class="roadmap-year">2027 · COMMERCE MEMORY</div>
+              <p>Persistent consumer and ecosystem memory.</p>
+            </div>
+            <div class="roadmap-item">
+              <div class="roadmap-title">IV — Prometheus</div>
+              <div class="roadmap-year">2027 · AGENTIC COMMERCE</div>
+              <p>AI agents negotiate, discover and transact.</p>
+            </div>
+            <div class="roadmap-item">
+              <div class="roadmap-title">V — Hyperion</div>
+              <div class="roadmap-year">2028+ · PERMANENT NETWORKS</div>
+              <p>Decentralized commerce infrastructure operating across generations.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Governance & Ethics -->
+        <section id="governance">
+          <h2>Governance & Ethics</h2>
+          <div class="card">
+            <h3>👤 Human Sovereignty</h3>
+            <p>Humans remain accountable. AI advises. Humans decide.</p>
+          </div>
+          <div class="card">
+            <h3>🔍 Transparent Intelligence</h3>
+            <p>AI systems must disclose capabilities, limitations, training assumptions, and decision boundaries.</p>
+          </div>
+          <div class="card">
+            <h3>🤝 Durable Trust</h3>
+            <p>Trust is treated as infrastructure. Manipulation is incompatible with Forever Commerce. Transparency compounds.</p>
+          </div>
+        </section>
+
+        <!-- Reflexive Statement -->
+        <section id="reflexive">
+          <h2>Reflexive Statement</h2>
+          <div class="card">
+            <p>Forever Commerce™ assumes that commerce is more than exchange. It assumes markets are cultural systems, brands are memory structures, and intelligence is increasingly distributed between humans and machines.</p>
+            <p>These assumptions may prove incomplete. The protocol privileges openness, long-term thinking, and human-AI collaboration. Its greatest risk is idealism: that durable trust and transparency can outcompete extraction.</p>
+            <p>This document therefore remains intentionally unfinished. Forever Commerce is not presented as a final answer. It is a framework for asking better questions about how commerce should endure.</p>
+          </div>
+        </section>
+
+        <!-- Metadata -->
+        <section id="meta">
+          <h2>Metadata & Version Information</h2>
+          <div class="metadata-block">
+            <div class="metadata-title">VERSION INFORMATION</div>
+            <p><strong>Format:</strong> Forever Commerce™ v1.0.0 · Codename: Lakshmi</p>
+            <p><strong>Parent Protocol:</strong> Forever Format™ v1.2.0 (Erebus)</p>
+            <p><strong>License:</strong> CC BY-NC-SA 4.0</p>
+            <p><strong>Status:</strong> Public Draft — open for community review</p>
+            <p><strong>Updated:</strong> 2026-06-18</p>
+          </div>
+          <div class="terminal">
+            <div class="terminal-line"><span class="terminal-prompt">sys@forever:~$ </span><span class="terminal-command">metadata --show</span></div>
+            <div class="terminal-line terminal-output">Document: Forever Commerce™ White Paper</div>
+            <div class="terminal-line terminal-output">Version: 1.0.0</div>
+            <div class="terminal-line terminal-output">Codename: Lakshmi</div>
+            <div class="terminal-line terminal-output">Built on: Forever Format™ v1.2.0</div>
+          </div>
+        </section>
+      </div>
+
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <section>
+          <h2>Quick Navigation</h2>
+          <ul class="section-nav">
+            <li><a href="#executive-summary">Executive Summary</a></li>
+            <li><a href="#principles">Core Principles</a></li>
+            <li><a href="#architecture">Architecture</a></li>
+            <li><a href="#stack">Commerce Stack</a></li>
+            <li><a href="#roadmap">Roadmap</a></li>
+            <li><a href="#governance">Governance</a></li>
+            <li><a href="#reflexive">Reflexive</a></li>
+            <li><a href="#meta">Metadata</a></li>
+          </ul>
+        </section>
+        <section>
+          <h2>System Status</h2>
+          <div class="terminal">
+            <div class="terminal-line"><span class="terminal-prompt">sys@forever:~$ </span><span class="terminal-command">status</span></div>
+            <div class="terminal-line terminal-output">Core Protocol: <span style="color:#00ff00;">ACTIVE</span></div>
+            <div class="terminal-line terminal-output">Memory Graph: <span style="color:#00ff00;">SYNCHRONIZED</span></div>
+            <div class="terminal-line terminal-output">License: CC BY-NC-SA 4.0</div>
+          </div>
+        </section>
+        <section>
+          <h2>Verification</h2>
+          <div class="metadata-block">
+            <div class="metadata-title">CHECKSUM</div>
+            <p>SHA-256: <span style="word-break: break-all;">a1b2c3d4e5f6...</span></p>
+          </div>
+          <a href="#" class="btn" style="display:block; margin-bottom:0.5rem;">Verify Integrity</a>
+          <a href="#" class="btn" style="display:block;">Download Source</a>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-links">
+        <a href="#">GitHub</a>
+        <a href="#">License</a>
+        <a href="#">Community</a>
+        <a href="#">Contact</a>
+      </div>
+      <p>🜂 Forever Commerce™ v1.0.0 · Codename Lakshmi</p>
+      <p>Built on Forever Format™ · “Stores that endure, sell, and evolve.”</p>
+      <p style="color: var(--text-dim); font-size:0.8rem;">© 2026 Forever Commerce Community · CC BY-NC-SA 4.0</p>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const prompts = document.querySelectorAll('.terminal-prompt');
+      prompts.forEach(prompt => {
+        if (!prompt.querySelector('.cursor')) {
+          const cursor = document.createElement('span');
+          cursor.className = 'cursor';
+          cursor.textContent = '_';
+          prompt.appendChild(cursor);
+        }
+      });
+
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+          const targetId = this.getAttribute('href');
+          if (targetId === "#") return;
+          e.preventDefault();
+          const target = document.querySelector(targetId);
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>

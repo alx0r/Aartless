@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Forever Format™ v1.3.1 — Unified Specification</title>
+
+<!--
+YAML Metadata
+---
+title: "Forever Format™ v1.3.1 — Unified Specification"
+subtitle: "Core, Secure & Intelligence, combined"
+author: "Forever Format Community"
+forever_format: "1.3.1"
+document_type: "Protocol Specification"
+license: "CC BY-NC-SA 4.0"
+version: "1.3.1"
+created: "2025-10-23"
+updated: "2026-07-26"
+citation_style: "APA 7th"
+tags: ["protocol", "sovereign", "encryption", "e2ee", "ai-governance", "specification"]
+depends_on: ["Forever Core v1.0", "Forever Secure v1.0", "Forever Intelligence v1.0"]
+bias_note: "Western-centric cryptographic and mythological framing; see Reflexive Statement"
+---
+-->
+
+<script type="application/ld+json">
+{
+  "@context": "https://forever-format.org/v1.3.1",
+  "@type": "TechArticle",
+  "name": "Forever Format™ v1.3.1 — Unified Specification",
+  "author": { "@type": "Organization", "name": "Forever Format Community" },
+  "datePublished": "2025-10-23",
+  "dateModified": "2026-07-26",
+  "license": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+  "version": "1.3.1",
+  "inLanguage": "en"
+}
+</script>
+
+<style>
+:root{
+  --void:       #0a0e16;
+  --void-2:     #10151f;
+  --void-3:     #171d2b;
+  --void-4:     #1f2635;
+  --border:     #232b3d;
+  --border-2:   #2e3750;
+  --text:       #e7e4da;
+  --text-dim:   #8b93a7;
+  --text-faint: #5b637a;
+  --cipher:     #5eead4;
+  --cipher-dim: #2f6b62;
+  --amber:      #f0a94e;
+  --amber-dim:  #7a5a2c;
+  --violet:     #9d8cff;
+  --violet-dim: #4a4380;
+  --danger:     #f0705e;
+
+  --serif: "Iowan Old Style","Source Serif 4","Georgia","Palatino Linotype",serif;
+  --display: "Fraunces","Iowan Old Style","Georgia",serif;
+  --mono: "IBM Plex Mono","SF Mono","JetBrains Mono",ui-monospace,"Cascadia Code",Consolas,monospace;
+
+  --maxw: 1220px;
+  --radius: 3px;
+}
+*{ margin:0; padding:0; box-sizing:border-box; }
+html{ scroll-behavior:smooth; }
+body{ background:var(--void); color:var(--text); font-family:var(--serif); font-size:16px; line-height:1.7; -webkit-font-smoothing:antialiased; }
+@media (prefers-reduced-motion:reduce){ html{ scroll-behavior:auto; } *{ animation-duration:0.001ms !important; transition-duration:0.001ms !important; } }
+::selection{ background:var(--cipher-dim); color:var(--text); }
+a{ color:var(--cipher); text-decoration:none; }
+a:hover{ text-decoration:underline; }
+a:focus-visible, button:focus-visible, input:focus-visible{ outline:2px solid var(--cipher); outline-offset:2px; }
+img,svg{ display:block; max-width:100%; }
+
+.void-grid{ position:fixed; inset:0; z-index:0; pointer-events:none; opacity:0.5;
+  background-image:
+    radial-gradient(circle at 15% 10%, rgba(94,234,212,0.05), transparent 40%),
+    radial-gradient(circle at 85% 90%, rgba(157,140,255,0.045), transparent 45%),
+    radial-gradient(circle at 50% 50%, rgba(240,169,78,0.02), transparent 60%);
+}
+
+.shell{ position:relative; z-index:1; display:flex; max-width:var(--maxw); margin:0 auto; }
+
+.topbar{ display:none; position:sticky; top:0; z-index:40; align-items:center; justify-content:space-between;
+  padding:0.85rem 1.1rem; background:rgba(10,14,22,0.92); backdrop-filter:blur(8px); border-bottom:1px solid var(--border); }
+.topbar .mark{ font-family:var(--mono); font-size:0.8rem; letter-spacing:0.06em; color:var(--cipher); }
+.topbar button{ background:none; border:1px solid var(--border-2); color:var(--text); font-family:var(--mono); font-size:0.75rem; padding:0.4rem 0.6rem; border-radius:var(--radius); }
+
+.sidenav{ position:sticky; top:0; align-self:flex-start; height:100vh; width:256px; flex-shrink:0;
+  padding:2.1rem 1.1rem 2rem 0; overflow-y:auto; border-right:1px solid var(--border); }
+.sidenav .brand{ margin-bottom:1.4rem; padding-right:0.4rem; }
+.sidenav .brand .glyph{ font-size:1.5rem; color:var(--amber); }
+.sidenav .brand .name{ font-family:var(--display); font-size:1.02rem; font-weight:600; margin-top:0.3rem; letter-spacing:0.01em; }
+.sidenav .brand .ver{ font-family:var(--mono); font-size:0.66rem; color:var(--text-faint); margin-top:0.25rem; display:block; }
+.sidenav nav{ display:flex; flex-direction:column; }
+.sidenav .navgroup{ margin-bottom:1.1rem; }
+.sidenav .navgroup-label{ font-family:var(--mono); font-size:0.62rem; letter-spacing:0.11em; text-transform:uppercase; color:var(--text-faint); margin-bottom:0.45rem; display:flex; align-items:center; gap:0.4rem; }
+.sidenav .navgroup-label .dot{ width:6px; height:6px; border-radius:50%; flex-shrink:0; }
+.sidenav a{ display:block; color:var(--text-dim); font-size:0.81rem; text-decoration:none; padding:0.28rem 0.5rem; border-left:2px solid transparent; margin-left:-0.5rem; }
+.sidenav a:hover{ color:var(--text); border-left-color:var(--border-2); }
+.sidenav a.active{ color:var(--cipher); border-left-color:var(--cipher); }
+
+main{ flex:1; min-width:0; padding:2.4rem 2.6rem 6rem; }
+.container{ max-width:840px; }
+
+.hero{ padding:1.2rem 0 2.6rem; border-bottom:1px solid var(--border); margin-bottom:2.6rem; }
+.hero .eyebrow{ font-family:var(--mono); font-size:0.72rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--amber); margin-bottom:1.1rem; display:flex; align-items:center; gap:0.6rem; }
+.hero .eyebrow::before{ content:"§"; color:var(--text-faint); }
+.hero h1{ font-family:var(--display); font-weight:600; font-size:clamp(2rem,4.6vw,3.1rem); line-height:1.1; letter-spacing:-0.01em; max-width:20ch; margin-bottom:1.1rem; }
+.hero h1 em{ font-style:italic; color:var(--cipher); }
+.hero .tagline{ font-size:1.08rem; color:var(--text-dim); max-width:60ch; line-height:1.6; margin-bottom:1.8rem; }
+
+.trilogy{ display:grid; grid-template-columns:repeat(3,1fr); gap:0.9rem; }
+.trilogy .tcard{ border-radius:6px; padding:1.1rem 1.2rem; border:1px solid var(--border); background:var(--void-2); border-top:3px solid var(--border-2); }
+.trilogy .tcard.core{ border-top-color:var(--text-faint); }
+.trilogy .tcard.secure{ border-top-color:var(--amber); }
+.trilogy .tcard.intel{ border-top-color:var(--violet); }
+.trilogy .tcard .tlabel{ font-family:var(--mono); font-size:0.66rem; color:var(--text-faint); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:0.4rem; }
+.trilogy .tcard .tname{ font-weight:600; font-size:1rem; margin-bottom:0.4rem; }
+.trilogy .tcard p{ font-size:0.83rem; color:var(--text-dim); max-width:none; margin-bottom:0; }
+@media (max-width:760px){ .trilogy{ grid-template-columns:1fr; } }
+
+/* part divider */
+.part-divider{ display:flex; align-items:baseline; gap:1rem; margin:4.2rem 0 2rem; padding-top:1.5rem; border-top:1px solid var(--border-2); }
+.part-divider .pnum{ font-family:var(--mono); font-size:0.85rem; color:var(--text-faint); }
+.part-divider h2{ font-family:var(--display); font-size:2.1rem; font-weight:600; }
+.part-divider.core h2{ color:var(--text); }
+.part-divider.secure h2{ color:var(--amber); }
+.part-divider.intel h2{ color:var(--violet); }
+.part-divider .pdesc{ font-size:0.85rem; color:var(--text-dim); margin-top:0.3rem; max-width:60ch; }
+.part-wrap{ }
+
+section.doc-section{ margin-bottom:3rem; scroll-margin-top:1.5rem; }
+.sec-head{ display:flex; align-items:baseline; gap:0.7rem; margin-bottom:1rem; }
+.sec-num{ font-family:var(--mono); font-size:0.76rem; color:var(--text-faint); }
+h2{ font-family:var(--display); font-size:1.55rem; font-weight:600; letter-spacing:-0.005em; }
+h3{ font-family:var(--display); font-size:1.14rem; font-weight:600; margin:1.7rem 0 0.75rem; color:var(--text); }
+h4{ font-family:var(--mono); font-size:0.75rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--cipher); margin:1.3rem 0 0.55rem; }
+p{ margin-bottom:1rem; color:var(--text); max-width:72ch; }
+p.lede{ font-size:1.03rem; color:var(--text-dim); max-width:66ch; }
+ul, ol{ margin:0 0 1.05rem 1.3rem; max-width:70ch; }
+li{ margin-bottom:0.4rem; color:var(--text); }
+li::marker{ color:var(--text-faint); }
+strong{ color:var(--text); font-weight:600; }
+code{ font-family:var(--mono); font-size:0.85em; background:var(--void-3); padding:0.1em 0.4em; border-radius:3px; color:var(--cipher); border:1px solid var(--border); }
+
+/* RFC-2119 keyword legend + inline keyword styling */
+.kwlegend{ display:flex; flex-wrap:wrap; gap:0.5rem 0.9rem; background:var(--void-2); border:1px solid var(--border); border-radius:6px; padding:0.9rem 1.1rem; margin:1.2rem 0 1.6rem; font-size:0.78rem; }
+.kwlegend .kwitem{ color:var(--text-dim); }
+.kwlegend .kwitem b{ font-family:var(--mono); color:var(--amber); font-weight:600; }
+.kw-must{ font-family:var(--mono); font-weight:600; color:var(--amber); }
+.kw-should{ font-family:var(--mono); font-weight:600; color:var(--cipher); }
+.kw-may{ font-family:var(--mono); font-weight:600; color:var(--text-dim); }
+
+.pill{ display:inline-flex; align-items:center; gap:0.4rem; font-family:var(--mono); font-size:0.67rem; padding:0.2rem 0.55rem; border-radius:20px; border:1px solid var(--border-2); color:var(--text-dim); }
+.pill.cipher{ color:var(--cipher); border-color:var(--cipher-dim); }
+.pill.amber{ color:var(--amber); border-color:var(--amber-dim); }
+.pill.violet{ color:var(--violet); border-color:var(--violet-dim); }
+
+.grid{ display:grid; gap:1rem; margin:1.3rem 0; }
+.grid-2{ grid-template-columns:1fr 1fr; }
+.grid-3{ grid-template-columns:repeat(3,1fr); }
+.grid-4{ grid-template-columns:repeat(4,1fr); }
+@media (max-width:760px){ .grid-2,.grid-3,.grid-4{ grid-template-columns:1fr; } }
+
+.card{ background:var(--void-2); border:1px solid var(--border); border-radius:6px; padding:1.1rem 1.2rem; }
+.card .card-title{ font-weight:600; font-size:0.93rem; margin-bottom:0.4rem; display:flex; align-items:center; gap:0.5rem; }
+.card .card-title .num{ font-family:var(--mono); font-size:0.7rem; color:var(--text-faint); }
+.card p{ font-size:0.86rem; color:var(--text-dim); margin-bottom:0; max-width:none; }
+
+.state-card{ border-radius:6px; border:1px solid var(--border); background:var(--void-2); padding:1.1rem 1.25rem; border-left:3px solid var(--border-2); }
+.state-card.st-public{ border-left-color:var(--text-faint); }
+.state-card.st-password{ border-left-color:var(--amber); }
+.state-card.st-e2ee{ border-left-color:var(--violet); }
+.state-card.st-link{ border-left-color:var(--cipher); }
+.state-card .st-head{ display:flex; align-items:center; gap:0.6rem; margin-bottom:0.5rem; }
+.state-card .st-icon{ font-size:1.1rem; }
+.state-card .st-name{ font-weight:600; font-size:0.98rem; }
+.state-card .st-tag{ font-family:var(--mono); font-size:0.66rem; color:var(--text-faint); margin-left:auto; }
+.state-card ul{ margin-bottom:0; font-size:0.85rem; }
+.state-card li{ color:var(--text-dim); }
+
+.tbl-wrap{ overflow-x:auto; margin:1.2rem 0; border:1px solid var(--border); border-radius:6px; }
+table{ width:100%; border-collapse:collapse; font-size:0.85rem; min-width:480px; }
+thead th{ text-align:left; font-family:var(--mono); font-size:0.66rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-faint); background:var(--void-3); padding:0.6rem 0.85rem; border-bottom:1px solid var(--border); }
+tbody td{ padding:0.6rem 0.85rem; border-bottom:1px solid var(--border); color:var(--text-dim); vertical-align:top; }
+tbody tr:last-child td{ border-bottom:none; }
+tbody td:first-child{ color:var(--text); font-weight:600; white-space:nowrap; }
+tbody tr:hover{ background:rgba(255,255,255,0.015); }
+
+.codeblock{ background:var(--void-3); border:1px solid var(--border); border-radius:6px; padding:1rem 1.1rem; font-family:var(--mono); font-size:0.76rem; line-height:1.62; overflow-x:auto; color:var(--text-dim); margin:1.05rem 0; }
+.codeblock .k{ color:var(--violet); }
+.codeblock .s{ color:var(--cipher); }
+.codeblock .c{ color:var(--text-faint); font-style:italic; }
+.codeblock .fn{ color:var(--amber); }
+
+/* governance ladder — numbered rungs */
+.rungs{ display:flex; flex-direction:column; gap:0; margin:1.4rem 0; border:1px solid var(--border); border-radius:6px; overflow:hidden; }
+.rung{ display:grid; grid-template-columns:52px 140px 1fr; gap:1rem; padding:0.85rem 1.1rem; border-bottom:1px solid var(--border); background:var(--void-2); align-items:center; }
+.rung:last-child{ border-bottom:none; background:var(--void-3); }
+.rung .rn{ font-family:var(--mono); font-size:1rem; color:var(--violet); font-weight:700; }
+.rung .rname{ font-family:var(--mono); font-size:0.82rem; color:var(--text); font-weight:600; }
+.rung .rdesc{ font-size:0.84rem; color:var(--text-dim); }
+@media (max-width:640px){ .rung{ grid-template-columns:1fr; gap:0.2rem; } .rung .rn{ display:none; } }
+
+.decision{ background:var(--void-2); border:1px solid var(--border); border-radius:6px; padding:1.05rem 1.25rem; margin-bottom:0.85rem; }
+.decision .q{ font-weight:600; margin-bottom:0.35rem; display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap; }
+.decision .a{ font-size:0.87rem; color:var(--text-dim); }
+.decision .a .rec{ color:var(--cipher); }
+.status-tag{ font-family:var(--mono); font-size:0.6rem; padding:0.15rem 0.5rem; border-radius:10px; text-transform:uppercase; letter-spacing:0.05em; }
+.status-tag.resolved{ background:var(--cipher-dim); color:var(--cipher); }
+.status-tag.open{ background:var(--amber-dim); color:var(--amber); }
+
+.timeline{ position:relative; margin:1.5rem 0; padding-left:1.6rem; border-left:1px solid var(--border-2); }
+.tstep{ position:relative; padding-bottom:1.7rem; }
+.tstep:last-child{ padding-bottom:0; }
+.tstep::before{ content:""; position:absolute; left:-1.75rem; top:0.25rem; width:9px; height:9px; border-radius:50%; background:var(--void); border:2px solid var(--cipher); }
+.tstep .tm-head{ display:flex; align-items:baseline; gap:0.7rem; margin-bottom:0.3rem; flex-wrap:wrap; }
+.tstep .tm-id{ font-family:var(--mono); font-size:0.73rem; color:var(--cipher); }
+.tstep .tm-title{ font-weight:600; font-size:0.95rem; }
+.tstep .tm-dur{ font-family:var(--mono); font-size:0.68rem; color:var(--text-faint); }
+.tstep ul{ margin-top:0.45rem; margin-bottom:0; }
+.tstep li{ font-size:0.85rem; color:var(--text-dim); }
+
+.callout{ border:1px solid var(--border-2); border-left:3px solid var(--amber); border-radius:4px; background:var(--void-2); padding:1.05rem 1.25rem; margin:1.15rem 0; }
+.callout h4{ margin-top:0; color:var(--amber); }
+.callout.violet{ border-left-color:var(--violet); } .callout.violet h4{ color:var(--violet); }
+.callout.cipher{ border-left-color:var(--cipher); } .callout.cipher h4{ color:var(--cipher); }
+
+.citebox{ background:var(--void-3); border:1px solid var(--border); border-radius:6px; padding:1rem 1.2rem; margin-bottom:0.9rem; }
+.citebox .clabel{ font-family:var(--mono); font-size:0.66rem; color:var(--text-faint); text-transform:uppercase; letter-spacing:0.07em; margin-bottom:0.5rem; }
+.citebox pre{ font-family:var(--mono); font-size:0.76rem; color:var(--text-dim); white-space:pre-wrap; word-break:break-word; }
+
+.meta-grid{ display:grid; grid-template-columns:1fr 1fr; gap:0.85rem 2rem; margin:1.1rem 0; }
+.meta-grid .mrow{ font-size:0.85rem; border-bottom:1px solid var(--border); padding-bottom:0.55rem; }
+.meta-grid .mlabel{ font-family:var(--mono); font-size:0.64rem; text-transform:uppercase; letter-spacing:0.07em; color:var(--text-faint); display:block; margin-bottom:0.22rem; }
+@media (max-width:600px){ .meta-grid{ grid-template-columns:1fr; } }
+
+footer{ border-top:1px solid var(--border); margin-top:3.5rem; padding-top:1.8rem; }
+footer .fmark{ font-family:var(--mono); font-size:0.7rem; color:var(--text-faint); }
+footer .flinks{ margin-top:0.7rem; display:flex; gap:1.1rem; flex-wrap:wrap; }
+footer .flinks a{ font-size:0.8rem; color:var(--text-dim); }
+
+.hr{ height:1px; background:var(--border); border:none; margin:2.2rem 0; }
+.small{ font-size:0.82rem; color:var(--text-dim); }
+.mt0{ margin-top:0; }
+.checklist{ list-style:none; margin-left:0; }
+.checklist li{ position:relative; padding-left:1.5rem; font-size:0.88rem; }
+.checklist li::before{ content:"☐"; position:absolute; left:0; color:var(--text-faint); }
+
+.drawer-backdrop{ display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:45; }
+.drawer-backdrop.open{ display:block; }
+
+@media (max-width:920px){
+  .topbar{ display:flex; }
+  .sidenav{ position:fixed; top:0; left:0; z-index:50; height:100vh; width:82vw; max-width:300px; background:var(--void); border-right:1px solid var(--border); transform:translateX(-100%); transition:transform 0.25s ease; padding:1.6rem 1.3rem 2rem; }
+  .sidenav.open{ transform:translateX(0); }
+  main{ padding:1.6rem 1.2rem 4rem; }
+  .grid-3, .grid-4{ grid-template-columns:1fr 1fr; }
+}
+@media (max-width:480px){ .grid-3, .grid-4{ grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+<div class="void-grid" aria-hidden="true"></div>
+
+<div class="topbar">
+  <span class="mark">FOREVER FORMAT · v1.3.1</span>
+  <button id="drawerToggle" aria-expanded="false" aria-controls="sidenav">☰ Menu</button>
+</div>
+<div class="drawer-backdrop" id="drawerBackdrop"></div>
+
+<div class="shell">
+  <aside class="sidenav" id="sidenav">
+    <div class="brand">
+      <div class="glyph">🜂</div>
+      <div class="name">Forever Format™</div>
+      <span class="ver">v1.3.1 · Unified Specification</span>
+    </div>
+    <nav aria-label="Document sections">
+      <div class="navgroup">
+        <div class="navgroup-label">Orientation</div>
+        <a href="#abstract">Abstract</a>
+        <a href="#principles">Core Principles</a>
+        <a href="#layers">Five-Layer Architecture</a>
+      </div>
+      <div class="navgroup">
+        <div class="navgroup-label"><span class="dot" style="background:var(--text-faint)"></span>Part I · Core</div>
+        <a href="#cid">Canonical Identifier</a>
+        <a href="#doc-model">Document Model</a>
+        <a href="#taxonomy">Section Taxonomy</a>
+        <a href="#metadata">Metadata</a>
+        <a href="#provenance">Provenance &amp; Versioning</a>
+        <a href="#serialization">HTML Serialization</a>
+        <a href="#core-compliance">Compliance</a>
+      </div>
+      <div class="navgroup">
+        <div class="navgroup-label"><span class="dot" style="background:var(--amber)"></span>Part II · Secure</div>
+        <a href="#primitives">Cryptographic Primitives</a>
+        <a href="#identity">Identity Model</a>
+        <a href="#enc-model">Encryption Model</a>
+        <a href="#doc-states">Document States</a>
+        <a href="#key-mgmt">Key Management</a>
+        <a href="#signatures">Signatures &amp; Integrity</a>
+        <a href="#secure-security">Security Considerations</a>
+      </div>
+      <div class="navgroup">
+        <div class="navgroup-label"><span class="dot" style="background:var(--violet)"></span>Part III · Intelligence</div>
+        <a href="#ladder">Governance Ladder</a>
+        <a href="#memory">Memory Scopes</a>
+        <a href="#policy">Intelligence Policy</a>
+        <a href="#transparency">Transparency &amp; Logging</a>
+        <a href="#rep">Rapid Environment Protocol</a>
+        <a href="#environment">Environment Model</a>
+        <a href="#intel-compliance">Compliance</a>
+      </div>
+      <div class="navgroup">
+        <div class="navgroup-label">Implementation</div>
+        <a href="#quickstart">Quick Start</a>
+        <a href="#code-crypto">Encryption in Practice</a>
+        <a href="#code-agent">Policy-Aware Agent</a>
+        <a href="#validation">Validation Checklist</a>
+      </div>
+      <div class="navgroup">
+        <div class="navgroup-label">Delivery</div>
+        <a href="#roadmap">Roadmap</a>
+        <a href="#decisions">Open Decisions</a>
+      </div>
+      <div class="navgroup">
+        <div class="navgroup-label">Provenance</div>
+        <a href="#reflexive">Reflexive Statement</a>
+        <a href="#meta">Metadata &amp; Citation</a>
+      </div>
+    </nav>
+  </aside>
+
+  <main>
+    <div class="container">
+
+      <!-- ============ HERO ============ -->
+      <section class="hero">
+        <div class="eyebrow">Forever Format™ v1.3.1 · Unified Specification</div>
+        <h1>One protocol, three parts: <em>Core</em>, <em>Secure</em>, <em>Intelligence</em>.</h1>
+        <p class="tagline">Forever Format is an open protocol for sovereign digital knowledge. It combines portable documents, end-to-end encryption, governed AI assistance, and long-term interoperability into a single self-contained object — a single <code>.html</code> file that carries its own structure, its own keys, and its own rules for how intelligence may touch it.</p>
+
+        <div class="trilogy">
+          <div class="tcard core">
+            <div class="tlabel">Part I</div>
+            <div class="tname">Forever Core</div>
+            <p>The canonical document model: metadata, section taxonomy, provenance, and serialization. Defines what a Forever document <em>is</em>.</p>
+          </div>
+          <div class="tcard secure">
+            <div class="tlabel">Part II</div>
+            <div class="tname">Forever Secure</div>
+            <p>Cryptographic identity, end-to-end encryption, document states, and integrity. Defines who can <em>read</em> it.</p>
+          </div>
+          <div class="tcard intel">
+            <div class="tlabel">Part III</div>
+            <div class="tname">Forever Intelligence</div>
+            <p>The governance ladder, memory scopes, and the Rapid Environment Protocol. Defines what AI may <em>do</em> with it.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ ABSTRACT ============ -->
+      <section class="doc-section" id="abstract">
+        <div class="sec-head"><span class="sec-num">§0</span><h2>Abstract</h2></div>
+        <p class="lede">This specification unifies the three-part Forever Format protocol into a single reference document. Each part was previously drafted independently — Core, Secure, and Intelligence — so that developers could implement one without depending on the others. v1.3.1 brings them together for readability without collapsing their boundaries: a compliant implementation MAY support Core alone, Core plus Secure, or the full trilogy, and MUST declare which it supports.</p>
+        <p>A Forever document is a single <code>.html</code> file that is human-writeable, machine-producible, and readable by any modern browser — self-contained, offline-capable, and free of server or vendor dependency. It carries a globally unique canonical identifier, an optional cryptographic identity, and an optional, inspectable AI governance policy.</p>
+        <div class="kwlegend">
+          <span class="kwitem"><b>MUST</b> / <b>MUST NOT</b> — absolute requirement</span>
+          <span class="kwitem"><b>SHOULD</b> / <b>SHOULD NOT</b> — strong recommendation, exceptions must be understood</span>
+          <span class="kwitem"><b>MAY</b> — truly optional</span>
+          <span class="kwitem" style="color:var(--text-faint)">per RFC 2119</span>
+        </div>
+      </section>
+
+      <!-- ============ PRINCIPLES ============ -->
+      <section class="doc-section" id="principles">
+        <div class="sec-head"><span class="sec-num">§0.1</span><h2>Core Principles</h2></div>
+        <div class="grid grid-2">
+          <div class="card"><div class="card-title">Sovereign by default</div><p>The user owns the document, the keys, the memory, the export path, and the intelligence policy. No document should depend on a vendor to remain usable.</p></div>
+          <div class="card"><div class="card-title">Encryption-native, not bolted on</div><p>Every document exists in exactly one of four defined states. Encryption is a document property, not a feature flag.</p></div>
+          <div class="card"><div class="card-title">Governed intelligence</div><p>AI assistance is scoped, inspectable, revocable, and exportable at every layer — a collaborator bound by policy, not a background process.</p></div>
+          <div class="card"><div class="card-title">Mobile-first, offline-first</div><p>A single file under ~150KB with crypto inlined, usable with zero bars of signal.</p></div>
+        </div>
+      </section>
+
+      <!-- ============ LAYERS ============ -->
+      <section class="doc-section" id="layers">
+        <div class="sec-head"><span class="sec-num">§0.2</span><h2>Five-Layer Architecture</h2></div>
+        <p>The three specification parts map directly onto the architecture's layers. Core defines L1; Secure defines L2; Intelligence defines L3. L4 and L5 are named here and specified in future extensions.</p>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th>Layer</th><th>Name</th><th>Defined by</th><th>Adds</th></tr></thead>
+            <tbody>
+              <tr><td>L1</td><td>Document Core</td><td>Forever Core</td><td>Semantic structure, metadata, provenance, canonical identity</td></tr>
+              <tr><td>L2</td><td>Sovereignty</td><td>Forever Secure</td><td>Identity, encryption, sharing permissions, integrity</td></tr>
+              <tr><td>L3</td><td>Intelligence</td><td>Forever Intelligence</td><td>Governance ladder, memory scopes, policy, REP</td></tr>
+              <tr><td>L4</td><td>Collaboration</td><td class="small">not yet specified</td><td>Comments, approvals, conflict resolution</td></tr>
+              <tr><td>L5</td><td>Mobile &amp; Sync</td><td class="small">not yet specified</td><td>Offline capture, device linking, field workflows</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ================================================================ -->
+      <!-- PART I — CORE -->
+      <!-- ================================================================ -->
+      <div class="part-divider core">
+        <span class="pnum">Part I</span>
+        <div>
+          <h2>Forever Core</h2>
+          <p class="pdesc">The canonical document model, metadata, section taxonomy, provenance, and serialization. Status: Draft. Depends on: nothing — Core is the base.</p>
+        </div>
+      </div>
+
+      <section class="doc-section" id="cid">
+        <div class="sec-head"><span class="sec-num">§1</span><h2>Canonical Identifier</h2></div>
+        <p>Every document revision <span class="kw-must">MUST</span> have a canonical identifier (CID) that is globally unique and immutable, using the <code>forever</code> URI scheme:</p>
+        <div class="codeblock">forever://document/&lt;hash&gt;</div>
+        <p>Where <code>&lt;hash&gt;</code> is a SHA-256 digest, lowercase hex, of the document's immutable content envelope (see §5 Provenance). The CID <span class="kw-must">MUST</span> be present in the <code>&lt;meta name="forever-cid"&gt;</code> tag, the JSON-LD block, and the YAML frontmatter as <code>cid</code>.</p>
+        <p>The CID is derived from the canonical serialized form of the document — excluding mutable rendering content like CSS, but including all semantic content, metadata, and provenance fields. Documents not yet finalized <span class="kw-may">MAY</span> use a temporary CID with a draft flag, but any published or citable version <span class="kw-must">MUST</span> carry a permanent one.</p>
+      </section>
+
+      <section class="doc-section" id="doc-model">
+        <div class="sec-head"><span class="sec-num">§2</span><h2>Abstract Document Model</h2></div>
+        <p>A Forever document consists of four parts:</p>
+        <div class="grid grid-2">
+          <div class="card"><div class="card-title">Metadata</div><p>Properties describing the document — title, author, version, license, CID, and related fields.</p></div>
+          <div class="card"><div class="card-title">Content</div><p>A sequence of semantically typed sections.</p></div>
+          <div class="card"><div class="card-title">Provenance</div><p>References to prior revisions, and optionally signed identity (optional in Core, required in Secure).</p></div>
+          <div class="card"><div class="card-title">Rendering hints</div><p>Optional CSS and structural markup — presentation only, never part of the semantic core.</p></div>
+        </div>
+        <p>All resources <span class="kw-should">SHOULD</span> be embedded to ensure long-term portability. External resources <span class="kw-may">MAY</span> be loaded for presentation only; semantic integrity must never depend on them.</p>
+      </section>
+
+      <section class="doc-section" id="taxonomy">
+        <div class="sec-head"><span class="sec-num">§3</span><h2>Section Taxonomy</h2></div>
+        <p>A compliant document <span class="kw-should">SHOULD</span> use these standard IDs for top-level <code>&lt;section&gt;</code> elements. Additional custom sections are permitted. Sections <span class="kw-must">MUST</span> use a corresponding <code>id</code> attribute and <span class="kw-should">SHOULD</span> begin with an <code>&lt;h2&gt;</code> heading.</p>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th>Section ID</th><th>Requirement</th><th>Purpose</th></tr></thead>
+            <tbody>
+              <tr><td>#exec-summary</td><td>RECOMMENDED</td><td>High-level overview and key findings</td></tr>
+              <tr><td>#context</td><td>RECOMMENDED</td><td>Background and historical framing</td></tr>
+              <tr><td>#methodology</td><td>OPTIONAL</td><td>Process, sources, limitations</td></tr>
+              <tr><td>#findings</td><td>OPTIONAL</td><td>Core data, evidence, results</td></tr>
+              <tr><td>#analysis</td><td>OPTIONAL</td><td>Interpretation, critical evaluation</td></tr>
+              <tr><td>#timeline</td><td>OPTIONAL</td><td>Chronology of events</td></tr>
+              <tr><td>#discussion</td><td>OPTIONAL</td><td>Synthesis and implications</td></tr>
+              <tr><td>#recommendations</td><td>OPTIONAL</td><td>Actionable guidance</td></tr>
+              <tr><td>#citations</td><td>RECOMMENDED</td><td>Formal references, BibTeX-ready</td></tr>
+              <tr><td>#appendix</td><td>OPTIONAL</td><td>Supplementary material</td></tr>
+              <tr><td>#reflexive</td><td><strong style="color:var(--amber)">REQUIRED</strong></td><td>Self-critique, bias disclosure, ethical statement</td></tr>
+              <tr><td>#meta</td><td><strong style="color:var(--amber)">REQUIRED</strong></td><td>Version, license, provenance, CID</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="small">#reflexive and #meta are the only two sections a compliant reader is required to validate for presence.</p>
+      </section>
+
+      <section class="doc-section" id="metadata">
+        <div class="sec-head"><span class="sec-num">§4</span><h2>Metadata</h2></div>
+        <p>Forever Core uses three layers of metadata, all embedded in <code>&lt;head&gt;</code>: YAML frontmatter in an HTML comment (human-readable), JSON-LD in a <code>&lt;script type="application/ld+json"&gt;</code> (machine-readable), and <code>&lt;meta&gt;</code> tags for quick access.</p>
+        <h3>Required fields</h3>
+        <p><code>title</code>, <code>author</code>, <code>document_type</code>, <code>license</code>, <code>version</code>, <code>created</code>, <code>cid</code> — all <span class="kw-must">MUST</span> be present in both the YAML block and the JSON-LD.</p>
+        <h3>Recommended fields</h3>
+        <p><code>updated</code>, <code>citation_style</code>, <code>tags</code>, <code>ai_context_tags</code>, <code>forever_format_version</code>.</p>
+        <div class="codeblock">
+<span class="c">&lt;!--</span>
+---
+<span class="fn">title</span>: <span class="s">"My Document"</span>
+<span class="fn">author</span>: <span class="s">"Contributor Name"</span>
+<span class="fn">document_type</span>: <span class="s">"Research Note"</span>
+<span class="fn">license</span>: <span class="s">"CC BY-NC-SA 4.0"</span>
+<span class="fn">version</span>: <span class="s">"1.0.0"</span>
+<span class="fn">created</span>: <span class="s">"2026-01-15"</span>
+<span class="fn">cid</span>: <span class="s">"forever://document/3a4b..."</span>
+<span class="fn">tags</span>: [<span class="s">"intelligence"</span>, <span class="s">"analysis"</span>]
+<span class="fn">forever_format_version</span>: <span class="s">"1.0"</span>
+---
+<span class="c">--&gt;</span>
+</div>
+        <p>The JSON-LD <span class="kw-must">MUST</span> mirror this data using schema.org types (typically <code>ScholarlyArticle</code> or <code>TechArticle</code>), including <code>@context</code>, <code>@type</code>, <code>name</code>, <code>author</code>, <code>version</code>, <code>datePublished</code>, <code>license</code>, and an <code>identifier</code> property carrying the CID.</p>
+      </section>
+
+      <section class="doc-section" id="provenance">
+        <div class="sec-head"><span class="sec-num">§5</span><h2>Provenance &amp; Versioning</h2></div>
+        <p>Each document <span class="kw-must">MUST</span> include a provenance block recording its lineage, stored inside <code>#meta</code> as a structured list (and optionally mirrored in JSON-LD).</p>
+        <p>The <code>#meta</code> section <span class="kw-must">MUST</span> contain a <code>&lt;div class="provenance"&gt;</code> listing revisions, each with <code>cid</code>, <code>version</code>, <code>date</code>, <code>author</code>, and a change <code>note</code>.</p>
+        <p>If a document derives from another Forever document, <code>#meta</code> <span class="kw-must">MUST</span> include a <code>&lt;link rel="predecessor-version" href="&lt;cid&gt;"&gt;</code> tag plus a clear statement in the provenance block. The CID of a new revision is computed from its content <em>including</em> the new provenance entry referencing its predecessor — this creates an immutable chain.</p>
+      </section>
+
+      <section class="doc-section" id="serialization">
+        <div class="sec-head"><span class="sec-num">§6</span><h2>HTML Serialization</h2></div>
+        <p>A Forever Core document is a valid HTML5 document. It <span class="kw-must">MUST</span> be usable standalone (<code>file://</code>) or served via HTTP, with CSS and essential scripts inlined. Sections use <code>&lt;section id="..."&gt;</code> with headings; encoding is UTF-8 throughout.</p>
+        <p>Recommended MIME type: <code>application/vnd.forever+html</code>. Documents <span class="kw-may">MAY</span> also be served as <code>text/html</code> for broad compatibility.</p>
+        <div class="codeblock">
+&lt;!DOCTYPE html&gt;
+&lt;html lang=<span class="s">"en"</span>&gt;
+&lt;head&gt;
+  &lt;meta charset=<span class="s">"UTF-8"</span>&gt;
+  &lt;title&gt;Title&lt;/title&gt;
+  <span class="c">&lt;!-- YAML metadata --&gt;</span>
+  &lt;script type=<span class="s">"application/ld+json"</span>&gt;{ <span class="c">/* JSON-LD */</span> }&lt;/script&gt;
+  &lt;style&gt;<span class="c">/* inlined minimal styling */</span>&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;article&gt;
+    &lt;section id=<span class="s">"exec-summary"</span>&gt;&lt;h2&gt;Executive Summary&lt;/h2&gt;...&lt;/section&gt;
+    &lt;section id=<span class="s">"reflexive"</span>&gt;&lt;h2&gt;Reflexive Statement&lt;/h2&gt;...&lt;/section&gt;
+    &lt;section id=<span class="s">"meta"</span>&gt;
+      &lt;h2&gt;Metadata&lt;/h2&gt;
+      &lt;div class=<span class="s">"provenance"</span>&gt;...&lt;/div&gt;
+    &lt;/section&gt;
+  &lt;/article&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</div>
+      </section>
+
+      <section class="doc-section" id="core-compliance">
+        <div class="sec-head"><span class="sec-num">§7</span><h2>Core Compliance</h2></div>
+        <div class="grid grid-2">
+          <div class="card"><div class="card-title">A reader (parser) claiming compliance MUST</div><p>Extract the CID from metadata · parse section structure by <code>id</code> · validate presence of #reflexive and #meta · reject documents with missing or malformed required metadata.</p></div>
+          <div class="card"><div class="card-title">A writer (generator) MUST</div><p>Produce a valid HTML5 document with all required metadata · include a #reflexive section · compute and embed a permanent CID once finalized.</p></div>
+        </div>
+        <p class="small">Forever Secure and Forever Intelligence layer on top of Core and must not violate these base requirements.</p>
+      </section>
+
+      <!-- ================================================================ -->
+      <!-- PART II — SECURE -->
+      <!-- ================================================================ -->
+      <div class="part-divider secure">
+        <span class="pnum">Part II</span>
+        <div>
+          <h2>Forever Secure</h2>
+          <p class="pdesc">Cryptographic identity, end-to-end encryption, and integrity. Status: Draft. Depends on: Forever Core v1.0.</p>
+        </div>
+      </div>
+
+      <section class="doc-section" id="primitives">
+        <div class="sec-head"><span class="sec-num">§8</span><h2>Cryptographic Primitives</h2></div>
+        <p>All implementations <span class="kw-must">MUST</span> use the following algorithms. No other ciphers or curves are permitted within this specification — cryptographic agility is deliberately excluded to avoid downgrade attacks (see §14).</p>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th>Purpose</th><th>Algorithm</th><th>Details</th></tr></thead>
+            <tbody>
+              <tr><td>Public-key encryption</td><td>X25519 + XSalsa20-Poly1305</td><td>NaCl <code>crypto_box</code> — Curve25519 ECDH, AEAD</td></tr>
+              <tr><td>Symmetric encryption</td><td>XSalsa20-Poly1305</td><td>NaCl <code>crypto_secretbox</code> — authenticated encryption</td></tr>
+              <tr><td>Digital signatures</td><td>Ed25519</td><td>NaCl <code>crypto_sign</code></td></tr>
+              <tr><td>Password key derivation</td><td>Argon2id</td><td>Salt: 256 bits · output: 256 bits · params: t=3, m=65536 KiB, p=2; salt stored in the clear</td></tr>
+              <tr><td>Hashing</td><td>SHA-256</td><td>Fingerprints, canonical identifiers</td></tr>
+              <tr><td>Public-key fingerprint</td><td>BIP39 (first 80 bits of SHA-256)</td><td>6-word phrase for out-of-band verification</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="small">Nonces: a 192-bit random nonce MUST be generated per encryption operation and stored with the ciphertext. Nonce reuse with the same key MUST NOT occur. All randomness MUST come from a cryptographically secure source (e.g. <code>crypto.getRandomValues</code>).</p>
+      </section>
+
+      <section class="doc-section" id="identity">
+        <div class="sec-head"><span class="sec-num">§9</span><h2>Identity Model</h2></div>
+        <p>An agent <span class="kw-may">MAY</span> possess a Forever Identity: an X25519 encryption keypair plus an Ed25519 signing keypair.</p>
+        <div class="codeblock">
+{
+  <span class="fn">"@context"</span>: <span class="s">"https://forever-format.org/identity/v1"</span>,
+  <span class="fn">"id"</span>: <span class="s">"forever://identity/&lt;hash-of-signing-public-key&gt;"</span>,
+  <span class="fn">"encryptionPublicKey"</span>: <span class="s">"&lt;base64&gt;"</span>,
+  <span class="fn">"signingPublicKey"</span>: <span class="s">"&lt;base64&gt;"</span>,
+  <span class="fn">"verified"</span>: <span class="k">false</span>
+}
+</div>
+        <p>Private keys <span class="kw-must">MUST NOT</span> appear in any document in plaintext. They <span class="kw-may">MAY</span> be stored locally (IndexedDB, or a file) encrypted with a password-derived key.</p>
+        <h3>Public key verification phrases</h3>
+        <p>The signing public key <span class="kw-should">SHOULD</span> be presentable as a BIP39 mnemonic for out-of-band verification: SHA-256 the raw signing public key, truncate to 10 bytes (80 bits), encode as a 6-word BIP39 phrase. Agents <span class="kw-should">SHOULD</span> mark an identity "verified" only after this out-of-band check — voice call, in person, never over the same channel carrying the document.</p>
+      </section>
+
+      <section class="doc-section" id="enc-model">
+        <div class="sec-head"><span class="sec-num">§10</span><h2>Document Encryption Model</h2></div>
+        <h3>Key hierarchy</h3>
+        <ul>
+          <li><strong>SK_doc</strong> — random 256-bit key encrypting document content (secretbox)</li>
+          <li><strong>Password-protected</strong> — SK_doc wrapped with an Argon2id-derived key, salt included</li>
+          <li><strong>E2EE shared</strong> — SK_doc wrapped to each recipient's public key via <code>crypto_box</code></li>
+          <li><strong>Link-shared</strong> — SK_doc wrapped with a random link key (LK) embedded only in the URL fragment, never transmitted to a server</li>
+        </ul>
+        <p>All wrapped keys are stored in the <code>encrypted_keys</code> metadata block.</p>
+        <h3>Decryption process</h3>
+        <ol>
+          <li>Determine document state from metadata</li>
+          <li>Retrieve wrapped SK_doc for the current reader — or prompt for password, or extract link key from the URL fragment</li>
+          <li>Unwrap SK_doc</li>
+          <li>Decrypt ciphertext with SK_doc and its nonce</li>
+          <li>Replace document body with decrypted content</li>
+        </ol>
+        <p>If decryption fails, the reader <span class="kw-must">MUST</span> display an appropriate error and <span class="kw-must">MUST NOT</span> render any plaintext from the encrypted block.</p>
+      </section>
+
+      <section class="doc-section" id="doc-states">
+        <div class="sec-head"><span class="sec-num">§11</span><h2>Document States</h2></div>
+        <p>A document is in exactly one of four states, indicated by <code>&lt;meta name="forever-encryption-state"&gt;</code>.</p>
+        <div class="grid grid-2">
+          <div class="state-card st-public">
+            <div class="st-head"><span class="st-icon">🔓</span><span class="st-name">Public</span><span class="st-tag">state: none</span></div>
+            <ul><li>No encryption; plain HTML</li><li>The meta tag is optional but SHOULD be present for explicit signaling</li></ul>
+          </div>
+          <div class="state-card st-password">
+            <div class="st-head"><span class="st-icon">🔒</span><span class="st-name">Password-protected</span><span class="st-tag">state: password</span></div>
+            <ul><li>SK_doc wrapped with an Argon2id-derived key</li><li>Salt + params stored in the clear</li><li>Single <code>encrypted_keys</code> entry, <code>kid: "password"</code></li></ul>
+          </div>
+          <div class="state-card st-e2ee">
+            <div class="st-head"><span class="st-icon">🗝️</span><span class="st-name">E2EE shared</span><span class="st-tag">state: e2ee</span></div>
+            <ul><li>SK_doc wrapped per recipient public key</li><li>Each entry carries <code>kid</code>, <code>encrypted_key</code>, <code>sender_public_key</code></li><li>Author MAY hold a self-wrap for later access</li></ul>
+          </div>
+          <div class="state-card st-link">
+            <div class="st-head"><span class="st-icon">🔗</span><span class="st-name">Link-shared</span><span class="st-tag">state: link</span></div>
+            <ul><li>256-bit link key (LK) generated, appended after <code>#</code> in the URL</li><li>Server, if any, MUST NOT receive the fragment</li><li>Optionally augmented with expiration or view limits, enforced client-side</li></ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="doc-section" id="key-mgmt">
+        <div class="sec-head"><span class="sec-num">§12</span><h2>Key Management &amp; Sharing</h2></div>
+        <h3>Sharing (Alice → Bob, via E2EE)</h3>
+        <ol>
+          <li>Retrieve Bob's public encryption key</li>
+          <li>Verify Bob's identity — RECOMMENDED, via BIP39 phrase</li>
+          <li>Decrypt the document's current session key</li>
+          <li>Wrap a copy of SK_doc to Bob's public key</li>
+          <li>Add Bob's entry to <code>encrypted_keys</code></li>
+          <li>Re-serialize the document</li>
+          <li>If previously password-protected, Alice MAY remove that entry, converting to pure E2EE</li>
+        </ol>
+        <h3>Unsharing</h3>
+        <p>With no server to enforce revocation, unsharing means: re-encrypt with a new SK_doc, wrap it to all remaining collaborators except the one being removed, and redistribute. The revoked party retains access to the content they already have, but not to future revisions.</p>
+        <h3>Identity export/import</h3>
+        <p>An identity SHOULD be exportable as a password-encrypted JSON file, or a paper wallet containing a BIP39 mnemonic of the private key seed.</p>
+      </section>
+
+      <section class="doc-section" id="signatures">
+        <div class="sec-head"><span class="sec-num">§13</span><h2>Signatures &amp; Integrity</h2></div>
+        <p>The CID serves as a content hash over the document's immutable core — any modification to semantic content or encryption metadata yields a different CID.</p>
+        <p>An agent <span class="kw-may">MAY</span> sign a document via a <code>&lt;section id="signatures"&gt;</code> containing one or more Ed25519 signatures, each with <code>signer</code>, <code>signature</code> (base64, over the CID), and an optional <code>timestamp</code>. Verifiers <span class="kw-must">MUST</span> check the signer's identity public key against the signature.</p>
+      </section>
+
+      <section class="doc-section" id="secure-security">
+        <div class="sec-head"><span class="sec-num">§14</span><h2>Security Considerations</h2></div>
+        <ul>
+          <li><strong>Key storage</strong> — browser localStorage/IndexedDB is not inherently XSS-safe; minimize exposure, consider Web Worker isolation.</li>
+          <li><strong>Password strength</strong> — password-based encryption is only as strong as the password; applications SHOULD enforce minimum length and complexity.</li>
+          <li><strong>Link sharing</strong> — a link key in the URL fragment may end up in browser history; users SHOULD be warned to transmit links over secure channels.</li>
+          <li><strong>Cryptographic agility</strong> — deliberately absent. Upgrades require a new spec version, avoiding downgrade attacks at the cost of a defined migration path.</li>
+          <li><strong>Timing attacks</strong> — constant-time comparisons MUST be used where feasible.</li>
+          <li><strong>Randomness</strong> — a failure of the RNG compromises all security; platforms must guarantee a properly seeded CSPRNG.</li>
+        </ul>
+      </section>
+
+      <!-- ================================================================ -->
+      <!-- PART III — INTELLIGENCE -->
+      <!-- ================================================================ -->
+      <div class="part-divider intel">
+        <span class="pnum">Part III</span>
+        <div>
+          <h2>Forever Intelligence</h2>
+          <p class="pdesc">AI governance, cognitive policy, and environment generation. Status: Draft. Depends on: Forever Core v1.0, Forever Secure v1.0.</p>
+        </div>
+      </div>
+
+      <section class="doc-section" id="ladder">
+        <div class="sec-head"><span class="sec-num">§15</span><h2>The Governance Ladder</h2></div>
+        <p class="lede">Every cognitive agent interacting with a Forever document MUST obey the ladder — six sequential, cumulative permission levels. An agent granted a given rung implicitly holds all lower rungs; higher rungs require explicit, auditable escalation. Rungs MUST NOT be skipped.</p>
+        <div class="rungs">
+          <div class="rung"><span class="rn">0</span><span class="rname">Read</span><span class="rdesc">Inspect content within approved scopes only. No modification, no retention beyond session.</span></div>
+          <div class="rung"><span class="rn">1</span><span class="rname">Suggest</span><span class="rdesc">Propose changes — annotations, comments, suggested edits — without modifying the canonical document.</span></div>
+          <div class="rung"><span class="rn">2</span><span class="rname">Write</span><span class="rdesc">Generate content into a sandboxed draft area. Drafts are not part of the document until committed.</span></div>
+          <div class="rung"><span class="rn">3</span><span class="rname">Commit</span><span class="rdesc">Agent-originated changes may enter the canonical document, subject to review policy.</span></div>
+          <div class="rung"><span class="rn">4</span><span class="rname">Forget</span><span class="rdesc">Must be able to delete memory on request and honor time-bound retention limits.</span></div>
+          <div class="rung"><span class="rn">5</span><span class="rname">Export</span><span class="rdesc">User may export all prompts, outputs, and memory to an open format. No data lock-in.</span></div>
+        </div>
+        <h3>Policy scoping</h3>
+        <p>The ladder applies at three levels — <strong>document</strong>, <strong>workspace</strong>, and <strong>user default</strong> — with document overriding workspace overriding user default. The effective policy for any action <span class="kw-must">MUST</span> be the most restrictive combination of all applicable policies.</p>
+      </section>
+
+      <section class="doc-section" id="memory">
+        <div class="sec-head"><span class="sec-num">§16</span><h2>Memory Scopes</h2></div>
+        <p>Agents <span class="kw-may">MAY</span> retain state across interactions only within an explicitly declared scope — the maximum permitted scope is set in the document's intelligence policy.</p>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th>Scope</th><th>Symbol</th><th>Description</th></tr></thead>
+            <tbody>
+              <tr><td>None</td><td><code>none</code></td><td>No state retained between interactions; every request is stateless</td></tr>
+              <tr><td>Session</td><td><code>session</code></td><td>Persists for one editing/viewing session; discarded on close, logout, or timeout</td></tr>
+              <tr><td>Document-scoped</td><td><code>document</code></td><td>Persists across sessions for this document only</td></tr>
+              <tr><td>Workspace-scoped</td><td><code>workspace</code></td><td>Persists across all documents in a defined workspace</td></tr>
+              <tr><td>User-approved persistent</td><td><code>persistent</code></td><td>Persists indefinitely, only with explicit user approval</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>An agent <span class="kw-must">MUST</span> discard all memory exceeding the declared scope. The user <span class="kw-must">MUST</span> be able to inspect all retained state, delete individual memories or clear everything, and export retained state as machine-readable JSON — this is what the Forget rung requires in practice.</p>
+      </section>
+
+      <section class="doc-section" id="policy">
+        <div class="sec-head"><span class="sec-num">§17</span><h2>Intelligence Policy</h2></div>
+        <p>A document <span class="kw-may">MAY</span> carry an intelligence policy in a <code>&lt;script type="application/forever+intelligence-policy"&gt;</code> block in <code>&lt;head&gt;</code>.</p>
+        <div class="codeblock">
+{
+  <span class="fn">"@context"</span>: <span class="s">"https://forever-format.org/intelligence/v1"</span>,
+  <span class="fn">"governance"</span>: { <span class="fn">"max_rung"</span>: <span class="s">"suggest"</span>, <span class="fn">"require_approval_for_commit"</span>: <span class="k">true</span> },
+  <span class="fn">"memory"</span>: { <span class="fn">"scope"</span>: <span class="s">"document"</span>, <span class="fn">"retention_days"</span>: 30, <span class="fn">"auto_delete_on_close"</span>: <span class="k">false</span> },
+  <span class="fn">"inference"</span>: {
+    <span class="fn">"mode"</span>: <span class="s">"hybrid"</span>,
+    <span class="fn">"allowed_models"</span>: [{ <span class="fn">"provider"</span>: <span class="s">"anthropic"</span>, <span class="fn">"model"</span>: <span class="s">"claude-*"</span> }],
+    <span class="fn">"forbidden_models"</span>: [{ <span class="fn">"provider"</span>: <span class="s">"*"</span>, <span class="fn">"model"</span>: <span class="s">"*"</span>, <span class="fn">"training_data_unknown"</span>: <span class="k">true</span> }]
+  },
+  <span class="fn">"actions"</span>: {
+    <span class="fn">"allow_read"</span>: [<span class="s">"#exec-summary"</span>, <span class="s">"#findings"</span>],
+    <span class="fn">"allow_write"</span>: [<span class="s">"#analysis"</span>],
+    <span class="fn">"allow_suggest"</span>: <span class="k">true</span>,
+    <span class="fn">"allow_summarize"</span>: <span class="k">true</span>,
+    <span class="fn">"allow_auto_commit"</span>: <span class="k">false</span>
+  },
+  <span class="fn">"transparency"</span>: { <span class="fn">"show_confidence"</span>: <span class="k">true</span>, <span class="fn">"show_sources"</span>: <span class="k">true</span>, <span class="fn">"show_reasoning"</span>: <span class="k">true</span>, <span class="fn">"log_all_interactions"</span>: <span class="k">true</span> },
+  <span class="fn">"review"</span>: { <span class="fn">"require_approval"</span>: <span class="s">"all"</span>, <span class="fn">"approval_mode"</span>: <span class="s">"human"</span> }
+}
+</div>
+        <div class="grid grid-2">
+          <div class="card"><div class="card-title">Inference mode</div><p><code>local</code> — on-device only · <code>remote</code> — cloud models permitted · <code>hybrid</code> — sensitive ops local, rest remote · <code>off</code> — no AI assistance permitted.</p></div>
+          <div class="card"><div class="card-title">Model policy</div><p><code>allowed_models</code> / <code>forbidden_models</code> constrain provider and model by name or wildcard, with optional constraints like <code>audited</code> or <code>jurisdiction</code>.</p></div>
+          <div class="card"><div class="card-title">Action policy</div><p>Section-level read/write scoping, plus booleans for suggest, summarize, and auto-commit.</p></div>
+          <div class="card"><div class="card-title">Review policy</div><p><code>require_approval</code>: all / structural / none · <code>approval_mode</code>: human / threshold.</p></div>
+        </div>
+        <p>A document with <code>inference.mode: "off"</code> <span class="kw-must">MUST NOT</span> be processed by any cognitive agent beyond basic indexing.</p>
+      </section>
+
+      <section class="doc-section" id="transparency">
+        <div class="sec-head"><span class="sec-num">§18</span><h2>Transparency &amp; Logging</h2></div>
+        <p>Every interaction between a cognitive agent and a document <span class="kw-must">MUST</span> be logged: timestamp, agent identifier, rung exercised, scope of data accessed, actions taken, confidence scores, and sources referenced. The log <span class="kw-should">SHOULD</span> live in <code>#meta</code> as a <code>&lt;div class="ai-interaction-log"&gt;</code> JSON block, or reference an external append-only log, and <span class="kw-must">MUST</span> remain accessible to the user.</p>
+        <p>Generated content <span class="kw-must">MUST</span> be tagged with a confidence score, source citations where applicable, and a brief reasoning summary — visible in the rendered document and machine-readable in metadata.</p>
+      </section>
+
+      <section class="doc-section" id="rep">
+        <div class="sec-head"><span class="sec-num">§19</span><h2>Rapid Environment Protocol (REP)</h2></div>
+        <p>A declarative JSON schema enabling an AI system to generate a complete, functional Forever document in a single output.</p>
+        <div class="codeblock">
+{
+  <span class="fn">"@context"</span>: <span class="s">"https://forever-format.org/rep/v1"</span>,
+  <span class="fn">"document"</span>: { <span class="fn">"title"</span>: <span class="s">"string"</span>, <span class="fn">"author"</span>: <span class="s">"string"</span>, <span class="fn">"document_type"</span>: <span class="s">"string"</span>, <span class="fn">"tags"</span>: [], <span class="fn">"license"</span>: <span class="s">"string"</span> },
+  <span class="fn">"structure"</span>: { <span class="fn">"sections"</span>: [<span class="s">"exec-summary"</span>, <span class="s">"findings"</span>, <span class="s">"reflexive"</span>, <span class="s">"meta"</span>] },
+  <span class="fn">"style"</span>: { <span class="fn">"theme"</span>: <span class="s">"dark | light"</span>, <span class="fn">"accent_color"</span>: <span class="s">"hex"</span>, <span class="fn">"font_family"</span>: <span class="s">"serif | sans | mono"</span> },
+  <span class="fn">"encryption"</span>: { <span class="fn">"mode"</span>: <span class="s">"none | password | e2ee | link"</span>, <span class="fn">"recipients"</span>: [] },
+  <span class="fn">"intelligence_policy"</span>: { <span class="c">"..."</span> },
+  <span class="fn">"output"</span>: { <span class="fn">"format"</span>: <span class="s">"html"</span>, <span class="fn">"inline_css"</span>: <span class="k">true</span>, <span class="fn">"inline_crypto"</span>: <span class="k">true</span>, <span class="fn">"standalone"</span>: <span class="k">true</span> }
+}
+</div>
+        <p>An AI system receiving a REP schema and a prompt <span class="kw-must">MUST</span> produce a document that passes Core compliance, includes all requested sections populated, applies the specified styling, wraps keys correctly if E2EE is requested, and embeds the intelligence policy if provided. The output <span class="kw-must">MUST</span> be immediately openable in a browser with no post-processing.</p>
+        <p class="small">Suggested template library: intelligence-brief · investigative-report · research-notebook · threat-assessment · field-log · meeting-minutes · project-room · briefing-pack.</p>
+      </section>
+
+      <section class="doc-section" id="environment">
+        <div class="sec-head"><span class="sec-num">§20</span><h2>Environment Model</h2></div>
+        <p>A document configured with an intelligence policy, memory scope, and section structure functions as a cognitive environment.</p>
+        <div class="timeline">
+          <div class="tstep"><div class="tm-head"><span class="tm-id">1</span><span class="tm-title">Create</span></div><ul><li>User or AI generates a document from a REP template</li></ul></div>
+          <div class="tstep"><div class="tm-head"><span class="tm-id">2</span><span class="tm-title">Configure</span></div><ul><li>Set the governance ladder ceiling, memory scope, inference mode</li></ul></div>
+          <div class="tstep"><div class="tm-head"><span class="tm-id">3</span><span class="tm-title">Populate</span></div><ul><li>Add content manually, via agent suggestions, or automated pipelines</li></ul></div>
+          <div class="tstep"><div class="tm-head"><span class="tm-id">4</span><span class="tm-title">Interact</span></div><ul><li>Agents operate within policy bounds; interactions are logged</li></ul></div>
+          <div class="tstep"><div class="tm-head"><span class="tm-id">5</span><span class="tm-title">Evolve</span></div><ul><li>Document may be revised, re-encrypted, shared, or forked</li></ul></div>
+          <div class="tstep"><div class="tm-head"><span class="tm-id">6</span><span class="tm-title">Archive or destroy</span></div><ul><li>Export, encrypt for long-term storage, or securely delete — including all agent memory</li></ul></div>
+        </div>
+        <p>Multiple agents <span class="kw-may">MAY</span> interact with the same document simultaneously, each with its own policy entry via <code>intelligence_policy.agents[]</code>. Agent-to-agent communication <span class="kw-must">MUST</span> be logged and subject to the same ladder.</p>
+      </section>
+
+      <section class="doc-section" id="intel-compliance">
+        <div class="sec-head"><span class="sec-num">§21</span><h2>Intelligence Compliance &amp; Security</h2></div>
+        <p>A compliant implementation <span class="kw-must">MUST</span> enforce the ladder for all agents, support and honor the full policy schema, log all interactions accessibly, tag generated content with confidence/source/reasoning, support REP generation and validation, and permit memory inspection, deletion, and export. Partial compliance <span class="kw-may">MAY</span> be claimed for policy-schema-only implementations, but limitations <span class="kw-must">MUST</span> be declared clearly.</p>
+        <ul>
+          <li><strong>Policy bypass</strong> — an agent running outside the document's execution context has limited technical enforcement; the policy MUST be treated as a binding contract, with cryptographic attestation used where possible.</li>
+          <li><strong>Memory leakage</strong> — agents MUST isolate memory between documents unless workspace scope is explicitly authorized; cross-document leakage is a confidentiality violation.</li>
+          <li><strong>Model integrity</strong> — a compromised model may ignore policy; implementations SHOULD verify model identity via attestation and MUST log all invocations.</li>
+          <li><strong>Log integrity</strong> — interaction logs MUST be append-only and tamper-evident, MAY be cryptographically chained to the document's provenance.</li>
+        </ul>
+      </section>
+
+      <!-- ================================================================ -->
+      <!-- IMPLEMENTATION -->
+      <!-- ================================================================ -->
+      <div class="part-divider">
+        <span class="pnum">Part IV</span>
+        <div>
+          <h2 style="color:var(--cipher)">Implementation Guide</h2>
+          <p class="pdesc">Practical, code-level guidance for building, encrypting, and governing Forever documents. Applies to all three specification parts.</p>
+        </div>
+      </div>
+
+      <section class="doc-section" id="quickstart">
+        <div class="sec-head"><span class="sec-num">§22</span><h2>Quick Start</h2></div>
+        <p>Companion libraries: <code>tweetnacl-js</code> (box, secretbox, sign), <code>argon2-browser</code> (Argon2id), <code>bip39</code> (optional, verification phrases). All examples assume ES2020+.</p>
+        <h3>Computing a CID (pseudocode)</h3>
+        <div class="codeblock">
+<span class="k">async function</span> <span class="fn">computeCID</span>(htmlDoc) {
+  <span class="c">// 1. extract sections in canonical order</span>
+  <span class="c">// 2. sort metadata fields alphabetically</span>
+  <span class="c">// 3. serialize provenance as JSON</span>
+  <span class="k">const</span> canonical = sortedMeta + <span class="s">'\n'</span> + provStr + <span class="s">'\n'</span> + content;
+  <span class="k">const</span> hash = <span class="k">await</span> crypto.subtle.digest(<span class="s">'SHA-256'</span>, encode(canonical));
+  <span class="k">return</span> <span class="s">`forever://document/${toHex(hash)}`</span>;
+}
+</div>
+      </section>
+
+      <section class="doc-section" id="code-crypto">
+        <div class="sec-head"><span class="sec-num">§23</span><h2>Encryption in Practice</h2></div>
+        <h3>Password-protected encryption</h3>
+        <div class="codeblock">
+<span class="k">async function</span> <span class="fn">encryptWithPassword</span>(htmlContent, password) {
+  <span class="k">const</span> sk = nacl.randomBytes(<span class="k">32</span>);
+  <span class="k">const</span> nonce = nacl.randomBytes(nacl.secretbox.nonceLength);
+  <span class="k">const</span> ciphertext = nacl.secretbox(encode(htmlContent), nonce, sk);
+
+  <span class="k">const</span> salt = nacl.randomBytes(<span class="k">32</span>);
+  <span class="k">const</span> derived = <span class="k">await</span> argon2.hash({ pass: password, salt, time: <span class="k">3</span>, mem: <span class="k">65536</span>, parallelism: <span class="k">2</span> });
+  <span class="k">const</span> wrapNonce = nacl.randomBytes(nacl.secretbox.nonceLength);
+  <span class="k">const</span> wrappedSK = nacl.secretbox(sk, wrapNonce, derived.hash);
+
+  <span class="c">// embed: forever-encryption-state, salt, params, wrapped key, ciphertext</span>
+}
+</div>
+        <h3>Decryption</h3>
+        <div class="codeblock">
+<span class="k">async function</span> <span class="fn">decryptPasswordDoc</span>(encryptedHTML, password) {
+  <span class="c">// 1. read salt + params from meta tags</span>
+  <span class="c">// 2. derive key via Argon2id</span>
+  <span class="c">// 3. unwrap SK_doc with nacl.secretbox.open — throws on wrong password</span>
+  <span class="c">// 4. decrypt content ciphertext with SK_doc — throws if corrupted</span>
+  <span class="k">return</span> decodedHTML;
+}
+</div>
+        <h3>E2EE sharing</h3>
+        <div class="codeblock">
+<span class="k">function</span> <span class="fn">encryptForRecipient</span>(sk, recipientPublicKey, senderSecretKey) {
+  <span class="k">const</span> nonce = nacl.randomBytes(nacl.box.nonceLength);
+  <span class="k">const</span> encryptedKey = nacl.box(sk, nonce, recipientPublicKey, senderSecretKey);
+  <span class="k">return</span> { nonce, encryptedKey }; <span class="c">// → entry in encrypted_keys[]</span>
+}
+</div>
+      </section>
+
+      <section class="doc-section" id="code-agent">
+        <div class="sec-head"><span class="sec-num">§24</span><h2>Policy-Aware Agent Proxy</h2></div>
+        <p>An agent implementation should check policy before any operation — never after.</p>
+        <div class="codeblock">
+<span class="k">class</span> <span class="fn">ForeverAgentProxy</span> {
+  constructor(documentDOM) {
+    <span class="k">this</span>.policy = JSON.parse(documentDOM.getElementById(<span class="s">'forever-intelligence-policy'</span>).textContent);
+    <span class="k">this</span>.log = [];
+  }
+  canRead(sectionId) {
+    <span class="k">const</span> allowed = <span class="k">this</span>.policy.actions.allow_read;
+    <span class="k">return</span> allowed.includes(<span class="s">'*'</span>) || allowed.includes(sectionId);
+  }
+  suggest(sectionId, proposal) {
+    <span class="k">if</span> (!<span class="k">this</span>.canRead(sectionId)) <span class="k">throw new</span> Error(<span class="s">'Read access denied'</span>);
+    <span class="k">this</span>.log.push({ action: <span class="s">'suggest'</span>, section: sectionId, timestamp: Date.now() });
+  }
+  commit(change) {
+    <span class="k">if</span> (<span class="k">this</span>.policy.review.approval_mode === <span class="s">'human'</span>) {
+      <span class="k">if</span> (!confirm(<span class="s">'Approve AI change?'</span>)) <span class="k">return</span>;
+    }
+    <span class="k">this</span>.log.push({ action: <span class="s">'commit'</span>, change });
+  }
+}
+</div>
+      </section>
+
+      <section class="doc-section" id="validation">
+        <div class="sec-head"><span class="sec-num">§25</span><h2>Validation Checklist</h2></div>
+        <p>Before releasing a Forever document, verify:</p>
+        <ul class="checklist">
+          <li>HTML5 validity</li>
+          <li>All required metadata present — YAML and JSON-LD</li>
+          <li>#reflexive section exists and is substantive</li>
+          <li>#meta contains a provenance block</li>
+          <li>If encrypted: state metadata, encrypted keys, and content blocks present; key wrapping valid</li>
+          <li>CID computed, embedded, and matches recomputation</li>
+          <li>Intelligence policy, if present, is well-formed and internally consistent</li>
+          <li>Document loads and decrypts correctly in a fresh browser profile</li>
+        </ul>
+      </section>
+
+      <!-- ============ ROADMAP ============ -->
+      <section class="doc-section" id="roadmap">
+        <div class="sec-head"><span class="sec-num">§26</span><h2>Implementation Roadmap</h2></div>
+        <div class="timeline">
+          <div class="tstep">
+            <div class="tm-head"><span class="tm-id">M1</span><span class="tm-title">Sovereign Core</span><span class="tm-dur">2–3 weeks</span></div>
+            <ul><li>Inline tweetnacl-js + argon2-browser</li><li>Password encryption/decryption of document content</li><li>CID computation and embedding</li></ul>
+          </div>
+          <div class="tstep">
+            <div class="tm-head"><span class="tm-id">M2</span><span class="tm-title">E2EE Sharing</span><span class="tm-dur">2–3 weeks</span></div>
+            <ul><li>Identity keypair generation</li><li>Session key wrapping/unwrapping for multiple recipients</li><li>BIP39 verification phrase display</li></ul>
+          </div>
+          <div class="tstep">
+            <div class="tm-head"><span class="tm-id">M3</span><span class="tm-title">Link Sharing &amp; Unsharing</span><span class="tm-dur">1 week</span></div>
+            <ul><li>Link key generation and URL fragment handling</li><li>Re-encryption workflow for revocation</li></ul>
+          </div>
+          <div class="tstep">
+            <div class="tm-head"><span class="tm-id">M4</span><span class="tm-title">Intelligence Policy &amp; REP</span><span class="tm-dur">1–2 weeks</span></div>
+            <ul><li>Governance ladder enforcement</li><li>Policy-aware agent proxy reference implementation</li><li>REP schema + template library</li></ul>
+          </div>
+          <div class="tstep">
+            <div class="tm-head"><span class="tm-id">M5</span><span class="tm-title">Mobile Hardening &amp; Offline</span><span class="tm-dur">1 week</span></div>
+            <ul><li>Service Worker offline caching</li><li>Responsive and touch-navigation audit</li></ul>
+          </div>
+          <div class="tstep">
+            <div class="tm-head"><span class="tm-id">M6</span><span class="tm-title">Community Release</span></div>
+            <ul><li>Publish the unified v1.3.1 spec</li><li>Ship example documents across all four document states</li></ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ OPEN DECISIONS ============ -->
+      <section class="doc-section" id="decisions">
+        <div class="sec-head"><span class="sec-num">§27</span><h2>Open Decisions</h2></div>
+        <div class="decision"><div class="q">Canonical data format <span class="status-tag resolved">Resolved — Core §1–2</span></div><div class="a">Single-file HTML5, semantic sections plus YAML/JSON-LD metadata, identified by a <span class="rec">forever://document/&lt;hash&gt;</span> CID.</div></div>
+        <div class="decision"><div class="q">Password-only vs. identity keys as default <span class="status-tag resolved">Resolved — Secure §11</span></div><div class="a"><span class="rec">Password is the default on-ramp</span>; identity keypairs layer in for E2EE once a user opts in.</div></div>
+        <div class="decision"><div class="q">Cryptographic agility <span class="status-tag resolved">Resolved — Secure §14</span></div><div class="a">Deliberately excluded. <span class="rec">One fixed primitive set per spec version</span> to avoid downgrade attacks.</div></div>
+        <div class="decision"><div class="q">How much intelligence is local by default? <span class="status-tag open">Open</span></div><div class="a">The policy schema supports it (<code>inference.mode: "local"</code>), but no default is mandated by the spec — <span class="rec">left to implementers</span>.</div></div>
+        <div class="decision"><div class="q">Partial (section-level) encryption <span class="status-tag open">Open</span></div><div class="a">Not defined in Secure v1.0. Powerful, but adds real complexity — <span class="rec">deferred to a future extension</span>.</div></div>
+        <div class="decision"><div class="q">Minimal relay server for E2EE key exchange <span class="status-tag open">Open</span></div><div class="a">Not required for sovereignty. A small optional WebRTC signaler <span class="rec">could improve UX</span> without becoming a dependency.</div></div>
+        <div class="decision"><div class="q">Canonicalization algorithm for CID computation <span class="status-tag open">Open</span></div><div class="a">Pseudocode is given (§22), but the exact deterministic algorithm — field ordering, whitespace handling, encrypted-content inclusion — <span class="rec">needs a separate implementation note</span> before independent implementations can interoperate.</div></div>
+      </section>
+
+      <hr class="hr">
+
+      <!-- ============ REFLEXIVE ============ -->
+      <section class="doc-section" id="reflexive">
+        <div class="sec-head"><span class="sec-num">§28</span><h2>Reflexive Statement</h2></div>
+
+        <div class="callout amber">
+          <h4>On specification maturity</h4>
+          <p class="mt0">This unified draft is an improvement over its predecessor precisely because it separates vision from protocol: RFC-2119 language, explicit algorithm tables, and defined compliance criteria replace prose aspiration. It is still not a finished protocol. Version negotiation, a fully specified canonicalization algorithm, and independent interoperability testing are all outstanding — see Open Decisions.</p>
+        </div>
+        <div class="callout amber">
+          <h4>On mythological and cryptographic framing</h4>
+          <p class="mt0">Earlier phase naming drew on Greek mythology — an intentional but Western-centric frame, open to revision. This spec's cryptography inherits the same lineage: Curve25519, Argon2id, and Web Crypto are NIST/Western-standard-adjacent choices. Neither framing is universal, and both are named here rather than left implicit.</p>
+        </div>
+        <div class="callout amber">
+          <h4>On limitations</h4>
+          <p class="mt0">This protocol cannot solve misinformation or deliberately deceptive content, access inequality that requires web literacy, or power imbalances in publishing and citation. A security specification is a verification framework, not a guarantee — production implementations should undergo independent cryptographic review, not rely on this document alone.</p>
+        </div>
+        <div class="callout amber">
+          <h4>On governance</h4>
+          <p class="mt0">Governance structures for the project itself — as distinct from the governance ladder the protocol defines for AI agents — remain unformalized. This is acknowledged rather than resolved, and critique is invited.</p>
+        </div>
+      </section>
+
+      <!-- ============ META ============ -->
+      <section class="doc-section" id="meta">
+        <div class="sec-head"><span class="sec-num">§29</span><h2>Metadata &amp; Citation</h2></div>
+        <div class="meta-grid">
+          <div class="mrow"><span class="mlabel">Format version</span>Forever Format™ v1.3.1 — Unified Specification</div>
+          <div class="mrow"><span class="mlabel">Document version</span>1.3.1</div>
+          <div class="mrow"><span class="mlabel">Created</span>2025-10-23</div>
+          <div class="mrow"><span class="mlabel">Last modified</span>2026-07-26</div>
+          <div class="mrow"><span class="mlabel">License</span>CC BY-NC-SA 4.0</div>
+          <div class="mrow"><span class="mlabel">Status</span>Draft — community review</div>
+          <div class="mrow"><span class="mlabel">Maintainers</span>Forever Format Community</div>
+          <div class="mrow"><span class="mlabel">Combines</span>Forever Core v1.0 · Forever Secure v1.0 · Forever Intelligence v1.0</div>
+        </div>
+
+        <h3>Citation</h3>
+        <div class="citebox">
+          <div class="clabel">APA 7th</div>
+          <pre>Forever Format Community. (2026). Forever Format™ v1.3.1 — Unified specification (Core, Secure, Intelligence).</pre>
+        </div>
+        <div class="citebox">
+          <div class="clabel">BibTeX</div>
+          <pre>@techreport{foreverformat2026v131,
+  title  = {Forever Format v1.3.1 -- Unified Specification},
+  author = {{Forever Format Community}},
+  year   = {2026},
+  note   = {Combines Forever Core v1.0, Forever Secure v1.0, and Forever Intelligence v1.0}
+}</pre>
+        </div>
+      </section>
+
+      <footer>
+        <div class="fmark">🜂 Forever Format™ v1.3.1 · Documents that think, cite, evolve, protect themselves, and govern their own intelligence.</div>
+        <div class="flinks">
+          <a href="#abstract">Top</a>
+          <span class="small">© 2025–2026 Forever Format Community</span>
+          <span class="small">CC BY-NC-SA 4.0</span>
+        </div>
+      </footer>
+
+    </div>
+  </main>
+</div>
+
+<script>
+const drawerToggle = document.getElementById("drawerToggle");
+const sidenav = document.getElementById("sidenav");
+const backdrop = document.getElementById("drawerBackdrop");
+function closeDrawer(){ sidenav.classList.remove("open"); backdrop.classList.remove("open"); drawerToggle.setAttribute("aria-expanded","false"); }
+function openDrawer(){ sidenav.classList.add("open"); backdrop.classList.add("open"); drawerToggle.setAttribute("aria-expanded","true"); }
+drawerToggle.addEventListener("click", ()=> sidenav.classList.contains("open") ? closeDrawer() : openDrawer());
+backdrop.addEventListener("click", closeDrawer);
+sidenav.querySelectorAll("a").forEach(a=> a.addEventListener("click", closeDrawer));
+
+const navLinks = Array.from(document.querySelectorAll(".sidenav nav a"));
+const sections = navLinks.map(a=> document.querySelector(a.getAttribute("href"))).filter(Boolean);
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      const id = "#" + entry.target.id;
+      navLinks.forEach(a=> a.classList.toggle("active", a.getAttribute("href")===id));
+    }
+  });
+}, { rootMargin: "-15% 0px -75% 0px" });
+sections.forEach(s=> io.observe(s));
+</script>
+</body>
+</html>

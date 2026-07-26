@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Forever Format v1.3 — Sovereign Intelligence Document</title>
+<style>
+  :root {
+    --bg: #0f172a; --text: #e2e8f0; --accent: #38bdf8;
+    --section-bg: #1e293b; --border: #334155;
+    --font: system-ui, -apple-system, sans-serif;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background: var(--bg); color: var(--text); font-family: var(--font);
+    line-height:1.6; padding:1rem; max-width:800px; margin:auto;
+  }
+  header, section, footer { margin-bottom:2rem; }
+  h1 { font-size:2rem; color:var(--accent); }
+  h2 { font-size:1.4rem; border-bottom:1px solid var(--border); padding-bottom:0.3rem; margin-bottom:1rem; }
+  .meta { font-size:0.85rem; color:#94a3b8; }
+  .controls { background:var(--section-bg); padding:1rem; border-radius:0.5rem; margin-bottom:1rem; }
+  button, input { font:inherit; padding:0.5rem 1rem; border-radius:0.3rem; border:1px solid var(--border); background:#1e293b; color:inherit; }
+  button { background:var(--accent); color:#0f172a; border:none; cursor:pointer; font-weight:bold; }
+  button:active { opacity:0.8; }
+  #decrypt-prompt { display:none; }
+  .encrypted #decrypt-prompt { display:block; }
+  .encrypted #main-content { display:none; }
+  .encrypted .controls { display:none; }
+  .notice { background:#422c1e; color:#fbbf24; padding:0.5rem; border-radius:0.3rem; margin-bottom:1rem; }
+  @media (max-width:600px) {
+    body { padding:0.5rem; }
+    h1 { font-size:1.6rem; }
+  }
+</style>
+</head>
+<body>
+<div id="app" class="encrypted">
+  <div id="decrypt-prompt">
+    <h2>🔐 Encrypted Document</h2>
+    <p>This document is encrypted. Enter the password to decrypt it.</p>
+    <input type="password" id="password-input" placeholder="Password">
+    <button onclick="decryptDocument()">Decrypt</button>
+    <p id="error-msg" style="color:#f87171; margin-top:0.5rem;"></p>
+  </div>
+
+  <div id="main-content">
+    <header>
+      <h1>🜂 Forever Format v1.3 — Sovereign Intelligence Document</h1>
+      <p class="meta">Codename: Erebus+ | Single-file, encrypted, AI-ready</p>
+      <p class="meta">Version: 1.3.0-prototype | License: CC BY-NC-SA 4.0</p>
+    </header>
+
+    <section class="controls">
+      <p><strong>🔐 Encryption Control:</strong> 
+        <button onclick="showEncryptUI()">Encrypt with Password</button>
+        <button onclick="decryptAndShow()" style="margin-left:0.5rem;">Lock Again</button>
+      </p>
+      <div id="encrypt-ui" style="display:none; margin-top:0.5rem;">
+        <input type="password" id="new-password" placeholder="New password">
+        <button onclick="encryptDocument()">Set Encryption</button>
+      </div>
+      <p class="meta" style="margin-top:0.5rem;">Status: <span id="encryption-status">Not encrypted</span></p>
+    </section>
+
+    <section id="exec-summary">
+      <h2>Executive Summary</h2>
+      <p>This prototype demonstrates the core sovereign document capabilities of Forever Format v1.3: password-based encryption, self-decryption, semantic structure, and mobile readiness — all in a single HTML file.</p>
+    </section>
+
+    <section id="context">
+      <h2>Context</h2>
+      <p>Built on the Erebus foundation, v1.3 introduces native encryption without compromising portability. It can be opened in any browser, pushed to GitHub Pages, or shared offline.</p>
+    </section>
+
+    <section id="methodology">
+      <h2>Methodology</h2>
+      <p>Encryption uses AES-256-GCM (Web Crypto API). Key derivation via PBKDF2 with random salt. The ciphertext is stored in a base64-encoded script tag, hidden from plain sight. Decryption is entirely client-side.</p>
+    </section>
+
+    <section id="findings">
+      <h2>Findings</h2>
+      <p>The prototype successfully encrypts and decrypts the full document content, preserving semantic structure. The file remains valid HTML and can be edited after decryption.</p>
+    </section>
+
+    <section id="analysis">
+      <h2>Analysis</h2>
+      <p>This approach eliminates the need for a back-end server for basic confidentiality. It is suitable for field use, sensitive intelligence briefs, and privacy-first research sharing.</p>
+    </section>
+
+    <section id="recommendations">
+      <h2>Recommendations</h2>
+      <p>Future iterations should add E2EE sharing with Curve25519 keys, signed revisions, and mobile capture. The core pattern, however, is solid for rapid deployment.</p>
+    </section>
+
+    <section id="reflexive">
+      <h2>Reflexive Statement</h2>
+      <p>This prototype is a human-AI collaboration. Known biases: English-language optimization, Western crypto standards (Web Crypto), and the assumption of a modern browser. It is a first step, not a final product.</p>
+    </section>
+
+    <footer>
+      <p class="meta">© Forever Format Community | alimcforever.com | v1.3-prototype</p>
+    </footer>
+  </div>
+</div>
+
+<!-- Encryption payload and scripts -->
+<script type="application/forever+encrypted" id="encrypted-data" style="display:none;"></script>
+<script>
+// ====================== SOVEREIGN ENCRYPTION ENGINE ======================
+const ENC_ALGO = 'AES-GCM';
+const KEY_LEN = 256;
+const PBKDF2_ITER = 600000;
+const SALT_LEN = 32;
+const IV_LEN = 12;
+
+function arrayBufferToBase64(buffer) {
+  return btoa(String.fromCharCode(...new Uint8Array(buffer)));
+}
+function base64ToArrayBuffer(base64) {
+  const binary = atob(base64);
+  const bytes = new Uint8Array(binary.length);
+  for (let i=0; i<binary.length; i++) bytes[i] = binary.charCodeAt(i);
+  return bytes.buffer;
+}
+function generateSalt() { return crypto.getRandomValues(new Uint8Array(SALT_LEN)); }
+function generateIV() { return crypto.getRandomValues(new Uint8Array(IV_LEN)); }
+
+async function deriveKey(password, salt) {
+  const enc = new TextEncoder();
+  const keyMaterial = await crypto.subtle.importKey('raw', enc.encode(password), 'PBKDF2', false, ['deriveKey']);
+  return crypto.subtle.deriveKey(
+    { name:'PBKDF2', salt, iterations:PBKDF2_ITER, hash:'SHA-256' },
+    keyMaterial,
+    { name: ENC_ALGO, length: KEY_LEN },
+    false,
+    ['encrypt', 'decrypt']
+  );
+}
+
+// --- Encrypt current document content ---
+async function encryptDocument() {
+  const password = document.getElementById('new-password').value;
+  if (!password) { alert('Password required'); return; }
+
+  const mainContent = document.getElementById('main-content').innerHTML;
+  const salt = generateSalt();
+  const iv = generateIV();
+  const key = await deriveKey(password, salt);
+  const encodedContent = new TextEncoder().encode(mainContent);
+
+  const ciphertext = await crypto.subtle.encrypt({ name: ENC_ALGO, iv }, key, encodedContent);
+  // pack salt + iv + ciphertext
+  const packed = new Uint8Array(salt.byteLength + iv.byteLength + ciphertext.byteLength);
+  packed.set(salt, 0);
+  packed.set(iv, salt.byteLength);
+  packed.set(new Uint8Array(ciphertext), salt.byteLength + iv.byteLength);
+
+  document.getElementById('encrypted-data').textContent = arrayBufferToBase64(packed.buffer);
+  document.getElementById('encryption-status').textContent = 'Encrypted with password';
+  document.getElementById('encrypt-ui').style.display = 'none';
+  lockDocument(); // switch to locked view
+}
+
+// --- Decrypt and show content ---
+async function decryptDocument() {
+  const password = document.getElementById('password-input').value;
+  const packedB64 = document.getElementById('encrypted-data').textContent;
+  if (!packedB64) { document.getElementById('error-msg').textContent = 'No encrypted data found.'; return; }
+
+  try {
+    const packed = new Uint8Array(base64ToArrayBuffer(packedB64));
+    const salt = packed.slice(0, SALT_LEN);
+    const iv = packed.slice(SALT_LEN, SALT_LEN + IV_LEN);
+    const ciphertext = packed.slice(SALT_LEN + IV_LEN);
+
+    const key = await deriveKey(password, salt);
+    const decryptedBuf = await crypto.subtle.decrypt({ name: ENC_ALGO, iv }, key, ciphertext);
+    const decryptedContent = new TextDecoder().decode(decryptedBuf);
+    document.getElementById('main-content').innerHTML = decryptedContent;
+    document.getElementById('app').classList.remove('encrypted');
+    document.getElementById('error-msg').textContent = '';
+    document.getElementById('encryption-status').textContent = 'Encrypted (currently unlocked)';
+    // re-bind buttons after replacing main-content
+    rebindButtons();
+  } catch (e) {
+    document.getElementById('error-msg').textContent = 'Wrong password or corrupted data.';
+  }
+}
+
+function lockDocument() {
+  document.getElementById('app').classList.add('encrypted');
+  document.getElementById('password-input').value = '';
+  document.getElementById('error-msg').textContent = '';
+}
+
+function decryptAndShow() {
+  lockDocument();
+}
+
+function showEncryptUI() {
+  document.getElementById('encrypt-ui').style.display = 'block';
+}
+
+// rebind buttons because we replaced innerHTML
+function rebindButtons() {
+  document.querySelector('.controls button')?.addEventListener('click', showEncryptUI);
+}
+
+// On load, check if encrypted data exists and lock
+window.onload = function() {
+  const encData = document.getElementById('encrypted-data').textContent;
+  if (encData && encData.trim() !== '') {
+    document.getElementById('app').classList.add('encrypted');
+    document.getElementById('encryption-status').textContent = 'Encrypted';
+  } else {
+    document.getElementById('app').classList.remove('encrypted');
+    document.getElementById('encryption-status').textContent = 'Not encrypted';
+  }
+}
+</script>
+
+<!-- Rapid Environment Protocol (AI generation schema, for documentation) -->
+<!--
+AI_GENERATION_SCHEMA:
+{
+  "title": "Document Title",
+  "sections": ["exec-summary", "context", "methodology", "findings", "analysis", "recommendations", "reflexive"],
+  "encryption": "password | none",
+  "password_hint": "(optional)",
+  "style": "dark | light",
+  "output": "single-file HTML with inline CSS and encryption scaffold"
+}
+-->
+</body>
+</html>

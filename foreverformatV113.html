@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Forever Format™ v1.3 — Sovereign Intelligence Document</title>
+
+<!--
+YAML Metadata
+---
+title: "Forever Format™ v1.3 — Sovereign Intelligence Document"
+codename: "Mnemosyne+"
+author: "Forever Format Community"
+affiliation: "Project Erebus"
+forever_format: "1.3.0"
+document_type: "White Paper / Technical Specification"
+license: "CC BY-NC-SA 4.0"
+version: "1.3.0-draft"
+created: "2025-10-23"
+updated: "2026-07-26"
+citation_style: "APA 7th"
+tags: ["sovereign", "encryption", "e2ee", "ai-governance", "mobile-first", "protocol"]
+ai_context_tags: ["synthesis", "critical_analysis", "cryptographic_spec"]
+bias_note: "Western-centric cryptographic and mythological framing; see Reflexive Statement"
+---
+-->
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "name": "Forever Format™ v1.3 — Sovereign Intelligence Document",
+  "alternateName": "Mnemosyne+",
+  "author": { "@type": "Organization", "name": "Forever Format Community" },
+  "publisher": { "@type": "Organization", "name": "Project Erebus" },
+  "datePublished": "2025-10-23",
+  "dateModified": "2026-07-26",
+  "license": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+  "version": "1.3.0-draft",
+  "inLanguage": "en"
+}
+</script>
+
+<style>
+/* ============================================================
+   FOREVER FORMAT v1.3 — DESIGN SYSTEM
+   Void ink background · dual cipher/amber accent · serif+mono
+   ============================================================ */
+:root{
+  --void:       #0a0e16;
+  --void-2:     #10151f;
+  --void-3:     #171d2b;
+  --void-4:     #1f2635;
+  --border:     #232b3d;
+  --border-2:   #2e3750;
+  --text:       #e7e4da;
+  --text-dim:   #8b93a7;
+  --text-faint: #5b637a;
+  --cipher:     #5eead4;
+  --cipher-dim: #2f6b62;
+  --amber:      #f0a94e;
+  --amber-dim:  #7a5a2c;
+  --violet:     #9d8cff;
+  --violet-dim: #4a4380;
+  --danger:     #f0705e;
+
+  --serif: "Iowan Old Style","Source Serif 4","Georgia","Palatino Linotype",serif;
+  --display: "Fraunces","Iowan Old Style","Georgia",serif;
+  --mono: "IBM Plex Mono","SF Mono","JetBrains Mono",ui-monospace,"Cascadia Code",Consolas,monospace;
+
+  --maxw: 1180px;
+  --radius: 3px;
+}
+
+*{ margin:0; padding:0; box-sizing:border-box; }
+html{ scroll-behavior:smooth; }
+body{
+  background:var(--void);
+  color:var(--text);
+  font-family:var(--serif);
+  font-size:16px;
+  line-height:1.7;
+  -webkit-font-smoothing:antialiased;
+}
+@media (prefers-reduced-motion:reduce){ html{ scroll-behavior:auto; } *{ animation-duration:0.001ms !important; transition-duration:0.001ms !important; } }
+
+::selection{ background:var(--cipher-dim); color:var(--text); }
+
+a{ color:var(--cipher); text-decoration:none; }
+a:hover{ text-decoration:underline; }
+a:focus-visible, button:focus-visible, input:focus-visible, summary:focus-visible{
+  outline:2px solid var(--cipher); outline-offset:2px;
+}
+
+img,svg{ display:block; max-width:100%; }
+
+/* ---------- background texture: faint cipher grid ---------- */
+.void-grid{
+  position:fixed; inset:0; z-index:0; pointer-events:none; opacity:0.5;
+  background-image:
+    radial-gradient(circle at 15% 10%, rgba(94,234,212,0.05), transparent 40%),
+    radial-gradient(circle at 85% 90%, rgba(157,140,255,0.045), transparent 45%);
+}
+
+/* ---------- layout shell ---------- */
+.shell{ position:relative; z-index:1; display:flex; max-width:var(--maxw); margin:0 auto; }
+
+/* ---------- top bar (mobile) ---------- */
+.topbar{
+  display:none;
+  position:sticky; top:0; z-index:40;
+  align-items:center; justify-content:space-between;
+  padding:0.85rem 1.1rem;
+  background:rgba(10,14,22,0.92); backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--border);
+}
+.topbar .mark{ font-family:var(--mono); font-size:0.8rem; letter-spacing:0.06em; color:var(--cipher); }
+.topbar button{
+  background:none; border:1px solid var(--border-2); color:var(--text);
+  font-family:var(--mono); font-size:0.75rem; padding:0.4rem 0.6rem; border-radius:var(--radius);
+}
+
+/* ---------- sidebar nav ---------- */
+.sidenav{
+  position:sticky; top:0; align-self:flex-start; height:100vh;
+  width:248px; flex-shrink:0;
+  padding:2.1rem 1.2rem 2rem 0;
+  overflow-y:auto;
+  border-right:1px solid var(--border);
+}
+.sidenav .brand{ margin-bottom:1.6rem; padding-right:0.4rem; }
+.sidenav .brand .glyph{ font-size:1.5rem; color:var(--amber); }
+.sidenav .brand .name{ font-family:var(--display); font-size:1.05rem; font-weight:600; margin-top:0.3rem; letter-spacing:0.01em; }
+.sidenav .brand .ver{ font-family:var(--mono); font-size:0.68rem; color:var(--text-faint); margin-top:0.25rem; display:block; }
+
+.sidenav nav{ display:flex; flex-direction:column; }
+.sidenav .navgroup{ margin-bottom:1.3rem; }
+.sidenav .navgroup-label{
+  font-family:var(--mono); font-size:0.64rem; letter-spacing:0.12em; text-transform:uppercase;
+  color:var(--text-faint); margin-bottom:0.5rem;
+}
+.sidenav a{
+  display:block; color:var(--text-dim); font-size:0.83rem; text-decoration:none;
+  padding:0.32rem 0.5rem; border-left:2px solid transparent; margin-left:-0.5rem;
+}
+.sidenav a:hover{ color:var(--text); border-left-color:var(--border-2); }
+.sidenav a.active{ color:var(--cipher); border-left-color:var(--cipher); }
+
+/* ---------- main column ---------- */
+main{ flex:1; min-width:0; padding:2.4rem 2.6rem 6rem; }
+.container{ max-width:820px; }
+
+/* ---------- hero ---------- */
+.hero{ padding:1.2rem 0 3.2rem; border-bottom:1px solid var(--border); margin-bottom:3rem; }
+.hero .eyebrow{
+  font-family:var(--mono); font-size:0.72rem; letter-spacing:0.14em; text-transform:uppercase;
+  color:var(--amber); margin-bottom:1.1rem; display:flex; align-items:center; gap:0.6rem;
+}
+.hero .eyebrow::before{ content:"§"; color:var(--text-faint); }
+.hero h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(2.1rem,5vw,3.4rem);
+  line-height:1.08; letter-spacing:-0.01em; max-width:14ch; margin-bottom:1.1rem;
+}
+.hero h1 em{ font-style:italic; color:var(--cipher); }
+.hero .tagline{ font-size:1.12rem; color:var(--text-dim); max-width:46ch; line-height:1.6; margin-bottom:2.2rem; }
+
+/* signature element: live document-state demo */
+.state-demo{
+  background:var(--void-2); border:1px solid var(--border); border-radius:6px; padding:1.4rem 1.5rem;
+  max-width:560px;
+}
+.state-demo .label{ font-family:var(--mono); font-size:0.68rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--text-faint); margin-bottom:0.9rem; }
+.state-tabs{ display:flex; flex-wrap:wrap; gap:0.5rem; margin-bottom:1.1rem; }
+.state-tab{
+  font-family:var(--mono); font-size:0.72rem; padding:0.4rem 0.7rem; border-radius:20px;
+  border:1px solid var(--border-2); background:transparent; color:var(--text-dim); cursor:pointer;
+}
+.state-tab[aria-pressed="true"]{ border-color:var(--cipher); color:var(--void); background:var(--cipher); font-weight:600; }
+.state-panel{ display:flex; gap:0.9rem; align-items:flex-start; min-height:74px; }
+.state-icon{
+  flex-shrink:0; width:38px; height:38px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+  font-size:1.05rem; border:1px solid var(--border-2); background:var(--void-3);
+}
+.state-panel .desc-title{ font-weight:600; font-size:0.95rem; margin-bottom:0.25rem; }
+.state-panel .desc-body{ font-size:0.86rem; color:var(--text-dim); line-height:1.55; }
+.state-key{ display:block; font-family:var(--mono); font-size:0.66rem; color:var(--text-faint); margin-top:0.5rem; }
+
+/* ---------- sections ---------- */
+section.doc-section{ margin-bottom:3.6rem; scroll-margin-top:1.5rem; }
+.sec-head{ display:flex; align-items:baseline; gap:0.7rem; margin-bottom:1.1rem; }
+.sec-num{ font-family:var(--mono); font-size:0.78rem; color:var(--text-faint); }
+h2{ font-family:var(--display); font-size:1.68rem; font-weight:600; letter-spacing:-0.005em; }
+h3{ font-family:var(--display); font-size:1.2rem; font-weight:600; margin:1.8rem 0 0.8rem; color:var(--text); }
+h4{ font-family:var(--mono); font-size:0.78rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--cipher); margin:1.4rem 0 0.6rem; }
+p{ margin-bottom:1rem; color:var(--text); max-width:70ch; }
+p.lede{ font-size:1.08rem; color:var(--text-dim); max-width:66ch; }
+ul, ol{ margin:0 0 1.1rem 1.3rem; max-width:68ch; }
+li{ margin-bottom:0.42rem; color:var(--text); }
+li::marker{ color:var(--text-faint); }
+strong{ color:var(--text); font-weight:600; }
+code{ font-family:var(--mono); font-size:0.86em; background:var(--void-3); padding:0.1em 0.4em; border-radius:3px; color:var(--cipher); border:1px solid var(--border); }
+
+/* ---------- pill / badge ---------- */
+.pill{
+  display:inline-flex; align-items:center; gap:0.4rem; font-family:var(--mono); font-size:0.68rem;
+  padding:0.22rem 0.6rem; border-radius:20px; border:1px solid var(--border-2); color:var(--text-dim);
+}
+.pill.cipher{ color:var(--cipher); border-color:var(--cipher-dim); }
+.pill.amber{ color:var(--amber); border-color:var(--amber-dim); }
+.pill.violet{ color:var(--violet); border-color:var(--violet-dim); }
+
+/* ---------- cards / grid ---------- */
+.grid{ display:grid; gap:1rem; margin:1.4rem 0; }
+.grid-2{ grid-template-columns:1fr 1fr; }
+.grid-3{ grid-template-columns:repeat(3,1fr); }
+.grid-5{ grid-template-columns:repeat(5,1fr); }
+@media (max-width:760px){ .grid-2,.grid-3,.grid-5{ grid-template-columns:1fr; } }
+
+.card{
+  background:var(--void-2); border:1px solid var(--border); border-radius:6px; padding:1.15rem 1.25rem;
+}
+.card .card-title{ font-weight:600; font-size:0.95rem; margin-bottom:0.4rem; display:flex; align-items:center; gap:0.5rem; }
+.card .card-title .num{ font-family:var(--mono); font-size:0.72rem; color:var(--text-faint); }
+.card p{ font-size:0.88rem; color:var(--text-dim); margin-bottom:0; max-width:none; }
+
+.principle-card{ border-left:2px solid var(--cipher-dim); padding-left:1.1rem; background:none; border-radius:0; border-top:none; border-right:none; border-bottom:none; }
+.principle-card .card-title{ color:var(--text); }
+
+/* ---------- layer stack (architecture) ---------- */
+.layer-stack{ display:flex; flex-direction:column; gap:0.55rem; margin:1.6rem 0; }
+.layer{
+  display:grid; grid-template-columns:120px 1fr; gap:1rem; align-items:center;
+  background:var(--void-2); border:1px solid var(--border); border-left:3px solid var(--border-2);
+  border-radius:4px; padding:0.85rem 1.1rem;
+}
+.layer:nth-child(1){ border-left-color:var(--text-faint); }
+.layer:nth-child(2){ border-left-color:var(--amber); }
+.layer:nth-child(3){ border-left-color:var(--violet); }
+.layer:nth-child(4){ border-left-color:var(--cipher); }
+.layer:nth-child(5){ border-left-color:#7fb8f0; }
+.layer .lnum{ font-family:var(--mono); font-size:0.72rem; color:var(--text-faint); }
+.layer .lname{ font-weight:600; font-size:0.95rem; }
+.layer .ladds{ font-size:0.82rem; color:var(--text-dim); margin-top:0.2rem; }
+@media (max-width:600px){ .layer{ grid-template-columns:1fr; } }
+
+/* ---------- table ---------- */
+.tbl-wrap{ overflow-x:auto; margin:1.3rem 0; border:1px solid var(--border); border-radius:6px; }
+table{ width:100%; border-collapse:collapse; font-size:0.87rem; min-width:480px; }
+thead th{
+  text-align:left; font-family:var(--mono); font-size:0.68rem; text-transform:uppercase; letter-spacing:0.07em;
+  color:var(--text-faint); background:var(--void-3); padding:0.65rem 0.9rem; border-bottom:1px solid var(--border);
+}
+tbody td{ padding:0.65rem 0.9rem; border-bottom:1px solid var(--border); color:var(--text-dim); vertical-align:top; }
+tbody tr:last-child td{ border-bottom:none; }
+tbody td:first-child{ color:var(--text); font-weight:600; white-space:nowrap; }
+tbody tr:hover{ background:rgba(255,255,255,0.015); }
+
+/* ---------- code block ---------- */
+.codeblock{
+  background:var(--void-3); border:1px solid var(--border); border-radius:6px; padding:1rem 1.1rem;
+  font-family:var(--mono); font-size:0.78rem; line-height:1.65; overflow-x:auto; color:var(--text-dim);
+  margin:1.1rem 0;
+}
+.codeblock .k{ color:var(--violet); }
+.codeblock .s{ color:var(--cipher); }
+.codeblock .c{ color:var(--text-faint); font-style:italic; }
+
+/* ---------- governance ladder ---------- */
+.ladder{ display:flex; flex-direction:column; gap:0; margin:1.5rem 0; border:1px solid var(--border); border-radius:6px; overflow:hidden; }
+.rung{ display:grid; grid-template-columns:150px 1fr; gap:1rem; padding:0.9rem 1.1rem; border-bottom:1px solid var(--border); background:var(--void-2); }
+.rung:last-child{ border-bottom:none; background:var(--void-3); }
+.rung .rname{ font-family:var(--mono); font-size:0.82rem; color:var(--violet); font-weight:600; }
+.rung .rdesc{ font-size:0.85rem; color:var(--text-dim); }
+@media (max-width:600px){ .rung{ grid-template-columns:1fr; gap:0.25rem; } }
+
+/* ---------- roadmap timeline ---------- */
+.timeline{ position:relative; margin:1.6rem 0; padding-left:1.6rem; border-left:1px solid var(--border-2); }
+.tstep{ position:relative; padding-bottom:1.8rem; }
+.tstep:last-child{ padding-bottom:0; }
+.tstep::before{
+  content:""; position:absolute; left:-1.75rem; top:0.25rem; width:9px; height:9px; border-radius:50%;
+  background:var(--void); border:2px solid var(--cipher);
+}
+.tstep .tm-head{ display:flex; align-items:baseline; gap:0.7rem; margin-bottom:0.35rem; flex-wrap:wrap; }
+.tstep .tm-id{ font-family:var(--mono); font-size:0.75rem; color:var(--cipher); }
+.tstep .tm-title{ font-weight:600; font-size:0.98rem; }
+.tstep .tm-dur{ font-family:var(--mono); font-size:0.7rem; color:var(--text-faint); }
+.tstep ul{ margin-top:0.5rem; margin-bottom:0; }
+.tstep li{ font-size:0.87rem; color:var(--text-dim); }
+
+/* ---------- feature scope tiers ---------- */
+.tier{ margin-bottom:1.3rem; }
+.tier-head{ display:flex; align-items:center; gap:0.6rem; margin-bottom:0.6rem; }
+.tier-dot{ width:8px; height:8px; border-radius:50%; }
+.tier.must .tier-dot{ background:var(--amber); }
+.tier.should .tier-dot{ background:var(--cipher); }
+.tier.could .tier-dot{ background:var(--text-faint); }
+.tier-name{ font-family:var(--mono); font-size:0.75rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-dim); }
+.tier-list{ display:grid; grid-template-columns:1fr 1fr; gap:0.35rem 1.5rem; margin-left:0; list-style:none; }
+.tier-list li{ font-size:0.87rem; padding-left:1.1rem; position:relative; }
+.tier-list li::before{ content:"–"; position:absolute; left:0; color:var(--text-faint); }
+@media (max-width:600px){ .tier-list{ grid-template-columns:1fr; } }
+
+/* ---------- decision cards ---------- */
+.decision{ background:var(--void-2); border:1px solid var(--border); border-radius:6px; padding:1.1rem 1.3rem; margin-bottom:0.9rem; }
+.decision .q{ font-weight:600; margin-bottom:0.4rem; }
+.decision .a{ font-size:0.88rem; color:var(--text-dim); }
+.decision .a .rec{ color:var(--cipher); }
+
+/* ---------- team ---------- */
+.team-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:1rem; margin:1.4rem 0; }
+.team-card{ text-align:left; }
+.team-card .glyph{ font-size:1.4rem; margin-bottom:0.5rem; }
+.team-card .tname{ font-weight:600; font-size:0.92rem; }
+.team-card .trole{ font-family:var(--mono); font-size:0.68rem; color:var(--cipher); margin:0.2rem 0 0.5rem; }
+.team-card .tdesc{ font-size:0.8rem; color:var(--text-dim); }
+
+/* ---------- reflexive / callout ---------- */
+.callout{
+  border:1px solid var(--border-2); border-left:3px solid var(--amber); border-radius:4px;
+  background:var(--void-2); padding:1.1rem 1.3rem; margin:1.2rem 0;
+}
+.callout h4{ margin-top:0; color:var(--amber); }
+.callout.violet{ border-left-color:var(--violet); }
+.callout.violet h4{ color:var(--violet); }
+.callout.cipher{ border-left-color:var(--cipher); }
+.callout.cipher h4{ color:var(--cipher); }
+
+/* ---------- citation box ---------- */
+.citebox{ background:var(--void-3); border:1px solid var(--border); border-radius:6px; padding:1rem 1.2rem; margin-bottom:0.9rem; }
+.citebox .clabel{ font-family:var(--mono); font-size:0.68rem; color:var(--text-faint); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:0.5rem; }
+.citebox pre{ font-family:var(--mono); font-size:0.78rem; color:var(--text-dim); white-space:pre-wrap; word-break:break-word; }
+
+/* ---------- meta table ---------- */
+.meta-grid{ display:grid; grid-template-columns:1fr 1fr; gap:0.9rem 2rem; margin:1.2rem 0; }
+.meta-grid .mrow{ font-size:0.86rem; border-bottom:1px solid var(--border); padding-bottom:0.6rem; }
+.meta-grid .mlabel{ font-family:var(--mono); font-size:0.66rem; text-transform:uppercase; letter-spacing:0.07em; color:var(--text-faint); display:block; margin-bottom:0.25rem; }
+@media (max-width:600px){ .meta-grid{ grid-template-columns:1fr; } }
+
+/* ---------- footer ---------- */
+footer{ border-top:1px solid var(--border); margin-top:4rem; padding-top:2rem; }
+footer .fmark{ font-family:var(--mono); font-size:0.72rem; color:var(--text-faint); }
+footer .flinks{ margin-top:0.8rem; display:flex; gap:1.2rem; flex-wrap:wrap; }
+footer .flinks a{ font-size:0.82rem; color:var(--text-dim); }
+
+/* ---------- utility ---------- */
+.hr{ height:1px; background:var(--border); border:none; margin:2.4rem 0; }
+.small{ font-size:0.83rem; color:var(--text-dim); }
+.mt0{ margin-top:0; }
+
+/* ---------- mobile nav drawer ---------- */
+.drawer-backdrop{ display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:45; }
+.drawer-backdrop.open{ display:block; }
+
+@media (max-width:920px){
+  .topbar{ display:flex; }
+  .sidenav{
+    position:fixed; top:0; left:0; z-index:50; height:100vh; width:82vw; max-width:300px;
+    background:var(--void); border-right:1px solid var(--border);
+    transform:translateX(-100%); transition:transform 0.25s ease; padding:1.6rem 1.3rem 2rem;
+  }
+  .sidenav.open{ transform:translateX(0); }
+  main{ padding:1.6rem 1.2rem 4rem; }
+  .grid-3{ grid-template-columns:1fr 1fr; }
+}
+@media (max-width:480px){
+  .grid-3{ grid-template-columns:1fr; }
+  .state-tabs{ gap:0.4rem; }
+}
+</style>
+</head>
+<body>
+<div class="void-grid" aria-hidden="true"></div>
+
+<div class="topbar">
+  <span class="mark">FOREVER FORMAT · v1.3</span>
+  <button id="drawerToggle" aria-expanded="false" aria-controls="sidenav">☰ Menu</button>
+</div>
+<div class="drawer-backdrop" id="drawerBackdrop"></div>
+
+<div class="shell">
+  <aside class="sidenav" id="sidenav">
+    <div class="brand">
+      <div class="glyph">🜂</div>
+      <div class="name">Forever Format™</div>
+      <span class="ver">v1.3.0-draft · Mnemosyne+</span>
+    </div>
+    <nav aria-label="Document sections">
+      <div class="navgroup">
+        <div class="navgroup-label">Orientation</div>
+        <a href="#exec-summary">Executive Summary</a>
+        <a href="#context">Context</a>
+        <a href="#principles">Core Principles</a>
+      </div>
+      <div class="navgroup">
+        <div class="navgroup-label">Architecture</div>
+        <a href="#layers">Five-Layer Stack</a>
+        <a href="#encryption">Encryption Model</a>
+        <a href="#doc-states">Document States</a>
+        <a href="#intelligence">Intelligence Governance</a>
+        <a href="#environments">Rapid Environments</a>
+        <a href="#mobile">Mobile &amp; Offline</a>
+      </div>
+      <div class="navgroup">
+        <div class="navgroup-label">Delivery</div>
+        <a href="#roadmap">Roadmap</a>
+        <a href="#scope">Feature Scope</a>
+        <a href="#decisions">Open Decisions</a>
+        <a href="#team">Founding Team</a>
+      </div>
+      <div class="navgroup">
+        <div class="navgroup-label">Provenance</div>
+        <a href="#reflexive">Reflexive Statement</a>
+        <a href="#meta">Metadata &amp; Citation</a>
+      </div>
+    </nav>
+  </aside>
+
+  <main>
+    <div class="container">
+
+      <!-- ============ HERO ============ -->
+      <section class="hero">
+        <div class="eyebrow">Forever Format™ v1.3 · Codename Mnemosyne+ · White Paper</div>
+        <h1>Documents that protect <em>themselves</em>, travel anywhere, and carry their own intelligence.</h1>
+        <p class="tagline">A sovereign, single-file document protocol that embeds Skiff-grade end-to-end encryption, works offline and mobile-first, and treats AI assistance as a governed collaborator — not a background process with delusions of grandeur.</p>
+
+        <div class="state-demo">
+          <div class="label">Live demo — document state</div>
+          <div class="state-tabs" role="tablist" aria-label="Document encryption state">
+            <button class="state-tab" data-state="public" aria-pressed="true" role="tab">Public</button>
+            <button class="state-tab" data-state="password" aria-pressed="false" role="tab">Password</button>
+            <button class="state-tab" data-state="e2ee" aria-pressed="false" role="tab">E2EE Shared</button>
+            <button class="state-tab" data-state="link" aria-pressed="false" role="tab">Link-Shared</button>
+          </div>
+          <div class="state-panel" id="statePanel">
+            <div class="state-icon" id="stateIcon">🔓</div>
+            <div>
+              <div class="desc-title" id="stateTitle">Public</div>
+              <div class="desc-body" id="stateDesc">No encryption. Anyone with the file can read it. Suitable for published specs, open documentation, and anything meant to be found.</div>
+              <span class="state-key" id="stateKey">Key management: none</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ EXEC SUMMARY ============ -->
+      <section class="doc-section" id="exec-summary">
+        <div class="sec-head"><span class="sec-num">§1</span><h2>Executive Summary</h2></div>
+        <p class="lede">Forever Format v1.2 (Erebus) established the foundation: a semantic, citable, AI-readable single-file HTML protocol. v1.3 is the control layer — it does not replace that foundation, it governs it.</p>
+        <p>v1.3 adapts Skiff's end-to-end encryption architecture into a self-contained, server-less document model; introduces a formal policy engine for AI inference, memory, and action; and hardens the format for mobile and offline field use. The result is a document that can be public, password-protected, shared with named collaborators, or distributed via a self-decrypting link — all without a backend, an account, or a vendor in the loop.</p>
+        <div class="grid grid-3">
+          <div class="card"><div class="card-title"><span class="num">01</span> Sovereign by default</div><p>The user owns the document, the keys, the memory, the export path, and the intelligence policy.</p></div>
+          <div class="card"><div class="card-title"><span class="num">02</span> Intelligent but governed</div><p>AI assistance is scoped, inspectable, revocable, and exportable at every layer.</p></div>
+          <div class="card"><div class="card-title"><span class="num">03</span> Mobile, modular, interoperable</div><p>Works as a local-first document, a mobile workspace, and a networked environment builder.</p></div>
+        </div>
+      </section>
+
+      <!-- ============ CONTEXT ============ -->
+      <section class="doc-section" id="context">
+        <div class="sec-head"><span class="sec-num">§2</span><h2>Context</h2></div>
+        <p>v1.2 shipped the semantic core: section taxonomy, YAML + JSON-LD metadata, mandatory reflexive disclosure, and citation tooling. It answered <em>how documents are structured</em>. v1.3 answers a harder question — <em>who controls them once they leave your hands</em>.</p>
+        <p>The center of gravity shifts from pretty, structured output to control, trust, portability, and intelligence governance. Encryption, identity, inference, sync, and user-owned memory become first-class primitives rather than add-ons bolted on after the leaks start.</p>
+      </section>
+
+      <!-- ============ PRINCIPLES ============ -->
+      <section class="doc-section" id="principles">
+        <div class="sec-head"><span class="sec-num">§3</span><h2>Core Principles</h2></div>
+        <p class="lede">Five commitments that every architectural decision in this document is judged against.</p>
+        <div class="grid grid-2">
+          <div class="card principle-card"><div class="card-title">1 · Sovereign by default</div><p>Self-host, export in open formats, revoke access cleanly, inspect provenance, choose whether AI is local, remote, or disabled. No vendor dependency required for a document to remain usable.</p></div>
+          <div class="card principle-card"><div class="card-title">2 · Encryption-native, not bolted on</div><p>Every document can exist in plaintext, password-encrypted, or fully E2EE-shared states. Encryption is a document property, not a feature flag.</p></div>
+          <div class="card principle-card"><div class="card-title">3 · Mobile-first, offline-first</div><p>A single <code>.html</code> file, comfortably under 150KB with crypto libraries inlined, that works in any modern mobile browser — Service Worker optional, not required.</p></div>
+          <div class="card principle-card"><div class="card-title">4 · Rapid AI-driven generation</div><p>AI can produce a fully functional, encrypted, styled, section-populated document in one shot from a machine-readable schema.</p></div>
+          <div class="card principle-card" style="grid-column:1/-1;"><div class="card-title">5 · GitHub Pages / file:// ready</div><p>No build step, no server-side rendering, no back-end dependency. Open the file, or push it to a repo — both are first-class distribution paths.</p></div>
+        </div>
+
+        <h3>Sovereignty states</h3>
+        <p>Beyond encryption, v1.3 defines a formal sovereignty model describing how a document exists in the world:</p>
+        <div class="grid grid-5">
+          <div class="card"><div class="card-title">Public</div><p>Open and shareable</p></div>
+          <div class="card"><div class="card-title">Private</div><p>Encrypted, user-controlled</p></div>
+          <div class="card"><div class="card-title">Collaborative</div><p>Shared, explicit access rules</p></div>
+          <div class="card"><div class="card-title">Ephemeral</div><p>Temporary, auto-expiring</p></div>
+          <div class="card"><div class="card-title">Air-gapped</div><p>Fully offline, local-only</p></div>
+        </div>
+      </section>
+
+      <!-- ============ ARCHITECTURE / LAYERS ============ -->
+      <section class="doc-section" id="layers">
+        <div class="sec-head"><span class="sec-num">§4</span><h2>Five-Layer Architecture</h2></div>
+        <p class="lede">Each layer adds capability without breaking the layer beneath it. The document core stays intact from v1.2; everything else wraps around it.</p>
+        <div class="layer-stack">
+          <div class="layer"><div><span class="lnum">L1</span><div class="lname">Document Core</div></div><div class="ladds">HTML/JSON canonical output, strict metadata schema, section taxonomy, immutable section IDs, versioned revision log.</div></div>
+          <div class="layer"><div><span class="lnum">L2</span><div class="lname">Sovereignty</div></div><div class="ladds">Auth, keys, sharing permissions, export/import, trust states, offline survivability.</div></div>
+          <div class="layer"><div><span class="lnum">L3</span><div class="lname">Intelligence</div></div><div class="ladds">Prompt orchestration, memory scopes, model routing, policy enforcement, source tracking, generation review.</div></div>
+          <div class="layer"><div><span class="lnum">L4</span><div class="lname">Collaboration</div></div><div class="ladds">Comments, annotations, shared workspaces, approvals, conflict resolution, change proposals.</div></div>
+          <div class="layer"><div><span class="lnum">L5</span><div class="lname">Mobile &amp; Sync</div></div><div class="ladds">Offline capture, encrypted sync, device linking, push updates, low-data operation, field workflows.</div></div>
+        </div>
+      </section>
+
+      <!-- ============ ENCRYPTION MODEL ============ -->
+      <section class="doc-section" id="encryption">
+        <div class="sec-head"><span class="sec-num">§5</span><h2>Encryption Model</h2></div>
+        <p class="lede">Adapted from Skiff's end-to-end encryption architecture, with the server removed. The document itself becomes the unit of trust.</p>
+
+        <h3>Key hierarchy (per document)</h3>
+        <ul>
+          <li><strong>Document Session Key (SK_doc)</strong> — a 256-bit symmetric key (XSalsa20-Poly1305 via <code>nacl.secretbox</code>) that encrypts all document content and metadata.</li>
+          <li><strong>Per-user key wraps</strong> — for each intended reader or writer, SK_doc is encrypted with that user's public Curve25519 key and stored in the document header.</li>
+          <li><strong>Password-derived key</strong> — if password-protected, SK_doc is wrapped with a key derived via Argon2id, salt stored in the clear.</li>
+          <li><strong>Link key</strong> — a random key generated for URL-based sharing; SK_doc is encrypted with it and the key lives only in the URL fragment. The server — if one exists at all — never sees it.</li>
+        </ul>
+        <p>Private keys remain entirely in browser memory. Nothing is transmitted anywhere unless the user explicitly shares it.</p>
+
+        <h3>Encryption workflow</h3>
+        <div class="codeblock">
+<span class="c">// document encryption, browser-side, no server round-trip</span>
+1. <span class="k">generate</span> random SK_doc <span class="c">(nacl.randomBytes(32))</span>
+2. <span class="k">serialize</span> content to JSON / HTML sections → plaintext
+3. <span class="k">encrypt</span> plaintext with SK_doc <span class="c">(nacl.secretbox, random nonce)</span>
+4. <span class="k">for each</span> recipient: <span class="k">encrypt</span> SK_doc with recipient's public key <span class="c">(nacl.box)</span>
+5. <span class="k">embed</span> ciphertext + encrypted keys + nonces + salts
+   in a <span class="s">&lt;script type="application/forever+encrypted"&gt;</span> block
+6. document remains valid HTML — decryption JS prompts for
+   password or local identity keys, unwraps SK_doc, renders in place
+</div>
+
+        <h3>Sharing &amp; verification — Skiff-style, no server</h3>
+        <ul>
+          <li><strong>Out-of-band key verification</strong> — a public signing key rendered as a BIP39 phrase, verified by voice or in person.</li>
+          <li><strong>Link sharing</strong> — the <code>#link_key</code> fragment is never transmitted to a server. Opening the link extracts the key client-side and decrypts in place. No login, no cookies.</li>
+          <li><strong>Unsharing</strong> — with no server to revoke access, unsharing means re-encrypting with a new SK_doc and redistributing to remaining collaborators. Acceptable for a single-file document model.</li>
+        </ul>
+      </section>
+
+      <!-- ============ DOCUMENT STATES TABLE ============ -->
+      <section class="doc-section" id="doc-states">
+        <div class="sec-head"><span class="sec-num">§6</span><h2>Document States</h2></div>
+        <p>A document exists in exactly one of four encryption states at any moment. Users can move between them client-side by re-encrypting the session key — no server required.</p>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th>State</th><th>Description</th><th>Key management</th></tr></thead>
+            <tbody>
+              <tr><td>Public</td><td>No encryption</td><td>No keys</td></tr>
+              <tr><td>Password-protected</td><td>Symmetric encryption, one password for all readers</td><td>SK_doc wrapped with Argon2id-derived key; salt stored in document</td></tr>
+              <tr><td>E2EE shared</td><td>Encrypted to specific Curve25519 public keys</td><td>SK_doc wrapped per recipient; <code>encrypted_keys</code> array in header</td></tr>
+              <tr><td>Link-shared</td><td>Encrypted with a key embedded in the URL fragment</td><td>SK_doc wrapped with link key; server (if any) stays blind</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Encryption metadata extensions to the section taxonomy</h3>
+        <p>v1.2's section taxonomy is unchanged. v1.3 adds encryption-aware metadata and blocks:</p>
+        <ul>
+          <li><code>encryption:</code> <code>none | password | e2ee | link</code></li>
+          <li><code>session_key_fingerprint:</code> SHA-256 of SK_doc, for integrity checking</li>
+          <li><code>recipients:</code> array of public key fingerprints</li>
+          <li><code>&lt;script id="forever-encrypted"&gt;</code> — the ciphertext payload</li>
+          <li><code>#signatures</code> section — Ed25519 signatures over the document hash</li>
+          <li><code>#provenance</code> section — prior document hashes and timestamps</li>
+        </ul>
+        <p class="small">Decryption is handled by a minimal inlined JS library (~20KB gzipped, tweetnacl-js + argon2-browser) so the document stays self-contained — no CDN dependency, no network call required to read an encrypted file you already hold the key for.</p>
+      </section>
+
+      <!-- ============ INTELLIGENCE GOVERNANCE ============ -->
+      <section class="doc-section" id="intelligence">
+        <div class="sec-head"><span class="sec-num">§7</span><h2>Intelligence Governance Model</h2></div>
+        <p class="lede">The signature innovation of v1.3: AI assistance selectable like a power tool, not smuggled in like bad office coffee.</p>
+
+        <div class="grid grid-2">
+          <div class="card"><div class="card-title">Inference mode</div><p>Local, remote, hybrid, or off.</p></div>
+          <div class="card"><div class="card-title">Memory mode</div><p>None, session-only, document-scoped, workspace-scoped, or user-approved persistent.</p></div>
+          <div class="card"><div class="card-title">Model policy</div><p>Which models are permitted for which tasks.</p></div>
+          <div class="card"><div class="card-title">Action policy</div><p>What AI may read, write, suggest, delete, summarize, or automate.</p></div>
+          <div class="card"><div class="card-title">Transparency policy</div><p>Always show source usage, confidence, and reasoning summaries.</p></div>
+          <div class="card"><div class="card-title">Review policy</div><p>Every AI-generated change can require explicit approval before commit.</p></div>
+        </div>
+
+        <h3>The governance ladder</h3>
+        <p>Every AI action on a document climbs a fixed ladder — it cannot skip a rung.</p>
+        <div class="ladder">
+          <div class="rung"><div class="rname">Read</div><div class="rdesc">AI may inspect only approved scopes.</div></div>
+          <div class="rung"><div class="rname">Suggest</div><div class="rdesc">AI may propose changes but not commit them.</div></div>
+          <div class="rung"><div class="rname">Write</div><div class="rdesc">AI may generate drafts into a sandbox, isolated from the canonical document.</div></div>
+          <div class="rung"><div class="rname">Commit</div><div class="rdesc">The user approves changes into the official version.</div></div>
+          <div class="rung"><div class="rname">Forget</div><div class="rdesc">Memory can be deleted or time-bounded, on request or automatically.</div></div>
+          <div class="rung"><div class="rname">Export</div><div class="rdesc">The user can move all prompts, outputs, and memory out — no lock-in.</div></div>
+        </div>
+        <div class="callout violet">
+          <h4>Why this matters</h4>
+          <p class="mt0">This turns intelligence into a governed collaborator instead of a background process that quietly expands its own permissions. Every AI-touched document should let its owner answer, in plain terms: who can read it, where the keys live, what AI can access, whether data leaves the device, and what happens if a device is lost.</p>
+        </div>
+      </section>
+
+      <!-- ============ RAPID ENVIRONMENTS ============ -->
+      <section class="doc-section" id="environments">
+        <div class="sec-head"><span class="sec-num">§8</span><h2>Rapid Environment Protocol</h2></div>
+        <p class="lede">Where Erebus evolves from a document system into a generative workspace system. A document should be able to become an environment.</p>
+        <p>A user should be able to spin up an intelligence brief, a research dossier, an investigative notebook, a project room, a briefing pack, a field log, a client-ready report, a mobile capture space, or an ephemeral collaboration room — from the same underlying protocol.</p>
+
+        <h3>Template-to-environment pipeline</h3>
+        <p>template → workspace → variables → connected data sources → permissions → intelligence layer → export destination</p>
+
+        <h3>AI generation schema</h3>
+        <p>An AI assistant receives a JSON schema plus a user prompt, and outputs a complete, ready-to-save <code>.html</code> file — inlined CSS, semantic sections, metadata, and optionally an encrypted payload.</p>
+        <div class="codeblock">
+<span class="c">// forever-env-schema.json — machine-readable generation contract</span>
+{
+  <span class="s">"title"</span>: <span class="s">"Document Title"</span>,
+  <span class="s">"sections"</span>: [<span class="s">"exec-summary"</span>, <span class="s">"context"</span>, <span class="s">"methodology"</span>,
+                <span class="s">"findings"</span>, <span class="s">"analysis"</span>, <span class="s">"recommendations"</span>, <span class="s">"reflexive"</span>],
+  <span class="s">"encryption"</span>: <span class="s">"none | password | e2ee | link"</span>,
+  <span class="s">"recipients"</span>: [<span class="c">"public key fingerprints, if e2ee"</span>],
+  <span class="s">"intelligence_policy"</span>: { <span class="s">"memory"</span>: <span class="s">"document-scoped"</span>, <span class="s">"inference"</span>: <span class="s">"hybrid"</span> },
+  <span class="s">"style"</span>: <span class="s">"dark | light"</span>,
+  <span class="s">"output"</span>: <span class="s">"single-file HTML, inline CSS + encryption scaffold"</span>
+}
+</div>
+        <p class="small">Example: "Create an encrypted intelligence brief on the energy sector in the South China Sea, shareable with my team using these public keys." The output is encrypted, wrapped per recipient, responsive, dark-mode ready, print-optimized, and self-decrypting on open.</p>
+      </section>
+
+      <!-- ============ MOBILE ============ -->
+      <section class="doc-section" id="mobile">
+        <div class="sec-head"><span class="sec-num">§9</span><h2>Mobile &amp; Offline Implementation</h2></div>
+        <p class="lede">A sovereign system that's awkward on mobile loses half the battle. The mobile layer should behave like a field instrument, not a shrunken desktop tragedy.</p>
+        <div class="grid grid-2">
+          <div class="card"><div class="card-title">Single-file PWA pattern</div><p>Optional Service Worker caches the file itself and any external resources for offline use.</p></div>
+          <div class="card"><div class="card-title">Responsive by default</div><p>CSS Grid + <code>clamp()</code> for fluid type, no frameworks.</p></div>
+          <div class="card"><div class="card-title">Touch-optimized UI</div><p>Large tap targets, swipe navigation between sections, minimal chrome.</p></div>
+          <div class="card"><div class="card-title">Offline decryption</div><p>All cryptography runs in the main thread or a Web Worker — zero network calls required.</p></div>
+        </div>
+        <h3>Field workflows</h3>
+        <ul>
+          <li>Offline capture with sync queues for reconnection</li>
+          <li>Low-bandwidth mode and quick share links</li>
+          <li>Voice note ingestion; camera-to-structure capture</li>
+          <li>Scan / clip / annotate workflows</li>
+          <li>Notification-based collaboration handoff</li>
+        </ul>
+        <p class="small">Goal: open the file in a mobile browser, decrypt with a password, and read or edit with full fidelity — zero bars of signal.</p>
+      </section>
+
+      <!-- ============ ROADMAP ============ -->
+      <section class="doc-section" id="roadmap">
+        <div class="sec-head"><span class="sec-num">§10</span><h2>Implementation Roadmap</h2></div>
+        <p class="lede">Six milestones, ordered so each one produces something usable on its own.</p>
+        <div class="timeline">
+          <div class="tstep">
+            <div class="tm-head"><span class="tm-id">M1</span><span class="tm-title">Sovereign Core</span><span class="tm-dur">2–3 weeks</span></div>
+            <ul><li>Port tweetnacl-js and argon2-browser as inlined, minified scripts</li><li>Password-based encryption/decryption of document content</li><li>Extend HTML template with encryption metadata and ciphertext block</li><li>File remains valid HTML and self-decrypts on open</li></ul>
+          </div>
+          <div class="tstep">
+            <div class="tm-head"><span class="tm-id">M2</span><span class="tm-title">E2EE Sharing</span><span class="tm-dur">2–3 weeks</span></div>
+            <ul><li>User identity keypair generation (Curve25519 + Ed25519)</li><li>Session key wrapping/unwrapping for multiple recipients</li><li>Manual key import/export (copy-paste, QR)</li><li>BIP39 verification phrase display</li></ul>
+          </div>
+          <div class="tstep">
+            <div class="tm-head"><span class="tm-id">M3</span><span class="tm-title">Link Sharing &amp; Unsharing</span><span class="tm-dur">1 week</span></div>
+            <ul><li>Link key generation and URL fragment handling</li><li>Re-encryption workflow for unsharing</li></ul>
+          </div>
+          <div class="tstep">
+            <div class="tm-head"><span class="tm-id">M4</span><span class="tm-title">Rapid Environment Schema &amp; AI Integration</span><span class="tm-dur">1 week</span></div>
+            <ul><li>Define <code>forever-env-schema.json</code></li><li>Provide examples and a prompt template for AI-generated documents</li><li>Validate that AI output is directly usable, unmodified</li></ul>
+          </div>
+          <div class="tstep">
+            <div class="tm-head"><span class="tm-id">M5</span><span class="tm-title">Mobile Hardening &amp; Offline</span><span class="tm-dur">1 week</span></div>
+            <ul><li>Service Worker for offline caching</li><li>Responsive design audit</li><li>Touch navigation and performance pass</li></ul>
+          </div>
+          <div class="tstep">
+            <div class="tm-head"><span class="tm-id">M6</span><span class="tm-title">Documentation &amp; Community Release</span></div>
+            <ul><li>Publish v1.3 spec as a Forever Format document</li><li>Update the community hub with guides</li><li>Ship example documents: password-protected, E2EE-shared, link-shared</li></ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ FEATURE SCOPE ============ -->
+      <section class="doc-section" id="scope">
+        <div class="sec-head"><span class="sec-num">§11</span><h2>Feature Scope</h2></div>
+        <div class="tier must">
+          <div class="tier-head"><span class="tier-dot"></span><span class="tier-name">Must-have</span></div>
+          <ul class="tier-list">
+            <li>Sovereign identity and access model</li><li>E2EE document storage and sharing</li>
+            <li>Document-level permissions</li><li>AI policy engine</li>
+            <li>Local-first editing</li><li>Offline sync queue</li>
+            <li>Provenance and audit trail</li><li>Export to open formats</li>
+            <li>Mobile PWA or native-wrapper support</li><li>Template-based workspace generation</li>
+          </ul>
+        </div>
+        <div class="tier should">
+          <div class="tier-head"><span class="tier-dot"></span><span class="tier-name">Should-have</span></div>
+          <ul class="tier-list">
+            <li>Section-level encryption</li><li>Signed revisions</li>
+            <li>Collaborative roles</li><li>Workspace memory boundaries</li>
+            <li>Model selection by task</li><li>Confidence and source indicators</li>
+            <li>Attachment encryption</li><li>Device trust management</li>
+            <li>Session expiry controls</li><li>Conflict resolution for collaborative edits</li>
+          </ul>
+        </div>
+        <div class="tier could">
+          <div class="tier-head"><span class="tier-dot"></span><span class="tier-name">Could-have</span></div>
+          <ul class="tier-list">
+            <li>Peer-to-peer sync</li><li>Encrypted comments</li>
+            <li>QR-based secure device pairing</li><li>Voice-to-structured-document capture</li>
+            <li>Secure clipboard mode</li><li>Auto-redaction suggestions</li>
+            <li>Federation support</li><li>Trust graphs for collaborators</li>
+            <li>Local semantic search across encrypted corpora</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ============ OPEN DECISIONS ============ -->
+      <section class="doc-section" id="decisions">
+        <div class="sec-head"><span class="sec-num">§12</span><h2>Open Decisions</h2></div>
+        <p class="lede">The real forks in the road — settle these before M1 starts in earnest.</p>
+        <div class="decision"><div class="q">How much intelligence is local by default?</div><div class="a">Leaning <span class="rec">as much as feasible</span> — remote inference should be an opt-in, not the default posture.</div></div>
+        <div class="decision"><div class="q">Encryption by default, or opt-in?</div><div class="a">For a sovereign-design product, <span class="rec">default-on with a clear, visible user choice</span> is the stronger position.</div></div>
+        <div class="decision"><div class="q">Document-first or workspace-first?</div><div class="a">Leaning <span class="rec">workspace-first for v1.3</span>, while keeping the single document canonical underneath.</div></div>
+        <div class="decision"><div class="q">Account-based collaboration, or key-based invites?</div><div class="a"><span class="rec">Key-based invites</span> are the cleaner fit for a sovereignty-first model.</div></div>
+        <div class="decision"><div class="q">What is the canonical data format?</div><div class="a">Must be locked early — <span class="rec">unresolved</span>. Delay here risks a format swamp downstream.</div></div>
+        <div class="decision"><div class="q">Password-only vs. identity keys as the default?</div><div class="a">Password-based encryption is the simplest on-ramp for rapid adoption; <span class="rec">advanced users generate keypairs later</span>.</div></div>
+        <div class="decision"><div class="q">Partial (section-level) encryption in v1.3, or deferred?</div><div class="a">Powerful, but adds real complexity — <span class="rec">tentatively deferred to v1.3.1</span>.</div></div>
+        <div class="decision"><div class="q">Do we need a minimal relay server for E2EE key exchange?</div><div class="a">Not required for sovereignty; a small optional WebRTC signaler <span class="rec">could improve UX</span> without becoming a dependency.</div></div>
+      </section>
+
+      <!-- ============ TEAM ============ -->
+      <section class="doc-section" id="team">
+        <div class="sec-head"><span class="sec-num">§13</span><h2>Founding Team &amp; Governance</h2></div>
+        <p class="small">Project Erebus Founding Collective</p>
+        <div class="team-grid">
+          <div class="card team-card"><div class="glyph">🧠</div><div class="tname">Ali</div><div class="trole">Knowledge Producer</div><div class="tdesc">Epistemic design, research integrity, content synthesis and academic calibration.</div></div>
+          <div class="card team-card"><div class="glyph">♎</div><div class="tname">Alexander</div><div class="trole">Strategic Architect</div><div class="tdesc">System logic, governance models, and foresight pathways for sustainable intelligence architecture.</div></div>
+          <div class="card team-card"><div class="glyph">♿</div><div class="tname">Andie</div><div class="trole">Accessibility &amp; Ethics Lead</div><div class="tdesc">Inclusivity, universal design, ethical compliance, multilingual translation, adaptive interfaces.</div></div>
+          <div class="card team-card"><div class="glyph">⚙️</div><div class="tname">Son</div><div class="trole">Technological Director</div><div class="tdesc">Infrastructure, platformization, and integration of decentralized protocols and AI systems.</div></div>
+          <div class="card team-card"><div class="glyph">🌿</div><div class="tname">Emm</div><div class="trole">Growth &amp; Guidance Strategist</div><div class="tdesc">Outreach, partnerships, and narrative cohesion aligned with open-source community ethics.</div></div>
+        </div>
+      </section>
+
+      <hr class="hr">
+
+      <!-- ============ REFLEXIVE ============ -->
+      <section class="doc-section" id="reflexive">
+        <div class="sec-head"><span class="sec-num">§14</span><h2>Reflexive Statement</h2></div>
+
+        <div class="callout amber">
+          <h4>On mythological naming</h4>
+          <p class="mt0">The use of Greek mythology for phase naming is intentional but not universal — it represents a Western-centric cultural framework. Future phases may draw from other traditions (African, Indigenous, Asian, and others) as the community evolves. We're open to renaming phases if the community finds better metaphors.</p>
+        </div>
+        <div class="callout amber">
+          <h4>On cryptographic assumptions</h4>
+          <p class="mt0">This spec inherits Skiff's threat model and its Western/NIST-derived cryptographic standards (Curve25519, Argon2id, Web Crypto). It assumes a modern browser, meaningful device security, and a user capable of safeguarding a recovery key. None of these assumptions are universal.</p>
+        </div>
+        <div class="callout amber">
+          <h4>On funding and accessibility</h4>
+          <p class="mt0">Requiring funding for open-source infrastructure creates barriers. The goal is self-sustaining institutional partnerships while keeping all tools freely available — core functionality will never be paywalled. Accessibility funding is treated as a floor, not a ceiling, and true accessibility requires more than technical features: it requires ongoing input from disabled users and accessibility advocates.</p>
+        </div>
+        <div class="callout amber">
+          <h4>On limitations</h4>
+          <p class="mt0">This protocol cannot solve misinformation or deliberately deceptive content, access inequality that requires web literacy, or power imbalances in publishing and citation. Encryption checklists cannot guarantee security — they provide a verification framework, not a substitute for professional audits, penetration testing, and independent cryptography review.</p>
+        </div>
+        <div class="callout amber">
+          <h4>On governance</h4>
+          <p class="mt0">As Forever Format grows, governance structures will need to formalize. The commitment is to inclusive, democratic process — but this is still being figured out, and critique is invited.</p>
+        </div>
+      </section>
+
+      <!-- ============ META ============ -->
+      <section class="doc-section" id="meta">
+        <div class="sec-head"><span class="sec-num">§15</span><h2>Document Metadata</h2></div>
+        <div class="meta-grid">
+          <div class="mrow"><span class="mlabel">Format version</span>Forever Format™ v1.3.0 — Mnemosyne+</div>
+          <div class="mrow"><span class="mlabel">Document version</span>1.3.0-draft</div>
+          <div class="mrow"><span class="mlabel">Created</span>2025-10-23</div>
+          <div class="mrow"><span class="mlabel">Last modified</span>2026-07-26</div>
+          <div class="mrow"><span class="mlabel">License</span>CC BY-NC-SA 4.0</div>
+          <div class="mrow"><span class="mlabel">Status</span>Community review draft</div>
+          <div class="mrow"><span class="mlabel">Contributors</span>Forever Format Community</div>
+          <div class="mrow"><span class="mlabel">Predecessor</span>Forever Format v1.2.0 — Erebus</div>
+        </div>
+
+        <h3>Citation</h3>
+        <div class="citebox">
+          <div class="clabel">APA 7th</div>
+          <pre>Forever Format Community. (2025). Forever Format™ v1.3 — Sovereign intelligence document (Mnemosyne+). https://alimcforever.com/v1.3</pre>
+        </div>
+        <div class="citebox">
+          <div class="clabel">BibTeX</div>
+          <pre>@techreport{foreverformat2025v13,
+  title  = {Forever Format v1.3 -- Sovereign Intelligence Document},
+  author = {{Forever Format Community}},
+  year   = {2025},
+  url    = {https://alimcforever.com/v1.3},
+  note   = {Codename: Mnemosyne+, Version 1.3.0-draft}
+}</pre>
+        </div>
+      </section>
+
+      <footer>
+        <div class="fmark">🜂 Forever Format™ v1.3.0 · Documents that think, cite, evolve — and now, protect themselves.</div>
+        <div class="flinks">
+          <a href="#exec-summary">Top</a>
+          <span class="small">© 2025–2026 Forever Format Community</span>
+          <span class="small">CC BY-NC-SA 4.0</span>
+        </div>
+      </footer>
+
+    </div>
+  </main>
+</div>
+
+<script>
+// ---------- state demo (hero signature element) ----------
+const STATES = {
+  public:   { icon:"🔓", title:"Public", desc:"No encryption. Anyone with the file can read it. Suitable for published specs, open documentation, and anything meant to be found.", key:"Key management: none" },
+  password: { icon:"🔒", title:"Password-protected", desc:"Symmetric encryption via Argon2id-derived key. One password unlocks the document for every reader who holds it.", key:"Key management: SK_doc wrapped with Argon2id-derived key, salt in the clear" },
+  e2ee:     { icon:"🗝️", title:"E2EE shared", desc:"Encrypted to specific Curve25519 public keys. Only named collaborators — verified out-of-band — can decrypt.", key:"Key management: SK_doc wrapped per recipient in encrypted_keys[]" },
+  link:     { icon:"🔗", title:"Link-shared", desc:"Encrypted with a key embedded in the URL fragment. The server, if one exists, never sees the key or the plaintext.", key:"Key management: SK_doc wrapped with link key; key lives only after the # in the URL" }
+};
+const tabs = document.querySelectorAll(".state-tab");
+tabs.forEach(tab=>{
+  tab.addEventListener("click", ()=>{
+    tabs.forEach(t=>t.setAttribute("aria-pressed","false"));
+    tab.setAttribute("aria-pressed","true");
+    const s = STATES[tab.dataset.state];
+    document.getElementById("stateIcon").textContent = s.icon;
+    document.getElementById("stateTitle").textContent = s.title;
+    document.getElementById("stateDesc").textContent = s.desc;
+    document.getElementById("stateKey").textContent = s.key;
+  });
+});
+
+// ---------- mobile drawer ----------
+const drawerToggle = document.getElementById("drawerToggle");
+const sidenav = document.getElementById("sidenav");
+const backdrop = document.getElementById("drawerBackdrop");
+function closeDrawer(){ sidenav.classList.remove("open"); backdrop.classList.remove("open"); drawerToggle.setAttribute("aria-expanded","false"); }
+function openDrawer(){ sidenav.classList.add("open"); backdrop.classList.add("open"); drawerToggle.setAttribute("aria-expanded","true"); }
+drawerToggle.addEventListener("click", ()=> sidenav.classList.contains("open") ? closeDrawer() : openDrawer());
+backdrop.addEventListener("click", closeDrawer);
+sidenav.querySelectorAll("a").forEach(a=> a.addEventListener("click", closeDrawer));
+
+// ---------- scrollspy ----------
+const navLinks = Array.from(document.querySelectorAll(".sidenav nav a"));
+const sections = navLinks.map(a=> document.querySelector(a.getAttribute("href"))).filter(Boolean);
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      const id = "#" + entry.target.id;
+      navLinks.forEach(a=> a.classList.toggle("active", a.getAttribute("href")===id));
+    }
+  });
+}, { rootMargin: "-15% 0px -75% 0px" });
+sections.forEach(s=> io.observe(s));
+</script>
+</body>
+</html>

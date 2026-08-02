@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ryan Cox — Portfolio</title>
+<meta name="description" content="Ryan Cox — Guest services and retail professional, Fine Arts graduate, based in Cape Town.">
+<meta name="theme-color" content="#F1E8D6">
+
+<!-- YAML Metadata
+---
+title: "Ryan Cox — Portfolio"
+author: "Ryan Cox"
+document_type: "Portfolio / CV"
+forever_format: "1.2.0"
+version: "1.0.0"
+created: "2026-08-02"
+updated: "2026-08-02"
+license: "CC BY-NC-SA 4.0"
+tags: ["portfolio", "cv", "guest-services", "retail", "fine-arts"]
+adaptation_note: "Forever Format applied to a personal CV. #reflexive and detailed #meta kept as
+  metadata (this comment block) rather than a visible page section, so the document reads as a
+  CV to hiring audiences while still carrying full provenance for anyone who views source."
+-->
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Ryan Cox",
+  "jobTitle": "Guest Services & Retail Professional",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Cape Town"
+  },
+  "telephone": "073 886 4058",
+  "email": "rycox13@gmail.com",
+  "alumniOf": [
+    { "@type": "CollegeOrUniversity", "name": "University of New Mexico" },
+    { "@type": "HighSchool", "name": "Taos High School" }
+  ],
+  "award": [
+    "Helene Wurlitzer Foundation Scholarship (4 years)",
+    "Varsity Tennis Award — Team Player",
+    "Varsity Letter, Soccer and Tennis (two years)"
+  ]
+}
+</script>
+
+<style>
+  /* ============================================================
+     FOREVER FORMAT — Ryan Cox Portfolio
+     L1 Semantic Core / L2 Design Engine
+     Token system
+     ============================================================ */
+  :root{
+    /* Color — high-desert / kiln-glaze palette, drawn from Ryan's ceramics
+       and Taos background rather than a generic accent */
+    --sand:        #F1E8D6;
+    --sand-deep:   #E4D5B4;
+    --paper:       #FBF6EC;
+    --ink:         #2A2118;
+    --ink-soft:    #5B4A39;
+    --clay:        #9C4A26;
+    --clay-dark:   #7A3A1D;
+    --glaze:       #2E6E6E;
+    --glaze-dark:  #1F4F4F;
+    --sage:        #6E7A56;
+    --charcoal:    #241C15;
+    --charcoal-2:  #33281D;
+    --line:        rgba(42,33,24,0.14);
+    --shadow:      0 1px 2px rgba(42,33,24,0.06), 0 8px 24px -12px rgba(42,33,24,0.22);
+
+    /* Type */
+    --font-display: 'Iowan Old Style', 'Palatino Linotype', 'URW Palladio L', Palatino, Georgia, serif;
+    --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    --font-mono: ui-monospace, 'SF Mono', 'Cascadia Mono', 'Segoe UI Mono', Consolas, monospace;
+
+    /* Scale */
+    --step-0: clamp(1rem, 0.95rem + 0.25vw, 1.0625rem);
+    --step-1: clamp(1.125rem, 1.05rem + 0.4vw, 1.3rem);
+    --step-2: clamp(1.4rem, 1.25rem + 0.8vw, 1.85rem);
+    --step-3: clamp(1.9rem, 1.6rem + 1.6vw, 2.75rem);
+    --step-4: clamp(2.5rem, 2rem + 2.8vw, 4rem);
+
+    --radius: 3px;
+    --wrap: 780px;
+  }
+
+  *,*::before,*::after{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    *,*::before,*::after{ animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; scroll-behavior:auto !important; }
+  }
+
+  body{
+    margin:0;
+    background:var(--sand);
+    color:var(--ink);
+    font-family:var(--font-body);
+    font-size:var(--step-0);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .wrap{ max-width:var(--wrap); margin-inline:auto; padding-inline:1.25rem; }
+
+  h1,h2,h3{ font-family:var(--font-display); font-weight:600; line-height:1.15; margin:0; color:var(--ink); }
+  a{ color:var(--clay-dark); text-decoration-thickness:1px; text-underline-offset:3px; }
+  a:hover{ color:var(--glaze-dark); }
+  a:focus-visible, button:focus-visible, [tabindex]:focus-visible{
+    outline:2.5px solid var(--glaze-dark);
+    outline-offset:3px;
+    border-radius:2px;
+  }
+
+  .skip-link{
+    position:absolute; left:-999px; top:auto;
+    background:var(--charcoal); color:var(--paper); padding:0.75rem 1.25rem;
+    z-index:100; border-radius:0 0 var(--radius) 0; font-family:var(--font-mono); font-size:0.85rem;
+  }
+  .skip-link:focus{ left:0; top:0; }
+
+  .eyebrow{
+    font-family:var(--font-mono);
+    font-size:0.72rem;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--glaze-dark);
+    display:inline-flex; align-items:center; gap:0.5em;
+  }
+  .eyebrow::before{ content:""; width:0.9em; height:1px; background:currentColor; display:inline-block; }
+
+  /* ============ Signature element: throwing lines ============
+     Concentric rings referencing a pottery wheel — Ryan's ceramics
+     background — used once boldly in the hero, echoed faintly at the
+     footer. Purely decorative; hidden from assistive tech. */
+  .rings{
+    position:absolute; inset:0; z-index:0; pointer-events:none;
+    background:
+      repeating-radial-gradient(circle at 82% 18%,
+        transparent 0, transparent 26px,
+        rgba(156,74,38,0.10) 27px, rgba(156,74,38,0.10) 28px);
+  }
+  .rings--footer{
+    background:
+      repeating-radial-gradient(circle at 12% 85%,
+        transparent 0, transparent 22px,
+        rgba(241,232,214,0.06) 23px, rgba(241,232,214,0.06) 24px);
+  }
+
+  /* ============ Header / Hero ============ */
+  header.hero{
+    position:relative;
+    overflow:hidden;
+    padding:4.5rem 0 3.25rem;
+    border-bottom:1px solid var(--line);
+  }
+  .hero-inner{ position:relative; z-index:1; }
+  .hero h1{ font-size:var(--step-4); letter-spacing:-0.01em; margin-top:0.9rem; }
+  .hero .tagline{
+    font-size:var(--step-1);
+    color:var(--ink-soft);
+    max-width:34ch;
+    margin-top:0.85rem;
+    font-family:var(--font-display);
+    font-style:italic;
+  }
+  .contact-row{
+    display:flex; flex-wrap:wrap; gap:0.6rem 1.1rem;
+    margin-top:1.75rem;
+    font-family:var(--font-mono); font-size:0.85rem;
+  }
+  .contact-row a, .contact-row span{
+    display:inline-flex; align-items:center; gap:0.45em;
+    color:var(--ink); text-decoration:none;
+    padding:0.4rem 0.7rem;
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+  }
+  .contact-row a:hover{ border-color:var(--clay); color:var(--clay-dark); }
+  .contact-row svg{ width:14px; height:14px; flex:none; }
+
+  /* ============ Sections ============ */
+  section{ padding:3rem 0; border-bottom:1px solid var(--line); }
+  section:last-of-type{ border-bottom:none; }
+  .section-head{ display:flex; align-items:baseline; gap:0.85rem; margin-bottom:1.75rem; }
+  .section-head h2{ font-size:var(--step-2); }
+  .section-head .eyebrow{ order:-1; }
+
+  #profile p{
+    font-family:var(--font-display);
+    font-size:var(--step-1);
+    color:var(--ink-soft);
+    max-width:62ch;
+    line-height:1.65;
+  }
+  #profile p::first-letter{
+    font-size:2.6em; float:left; line-height:0.8; padding-right:0.08em; padding-top:0.08em;
+    color:var(--clay); font-weight:600;
+  }
+
+  /* ---- Experience ---- */
+  .job{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:0.35rem 1.5rem;
+    padding:1.5rem 0;
+    border-top:1px solid var(--line);
+  }
+  .job:first-of-type{ border-top:none; padding-top:0; }
+  .job-dates{ font-family:var(--font-mono); font-size:0.78rem; color:var(--glaze-dark); letter-spacing:0.02em; }
+  .job-title{ font-family:var(--font-display); font-size:var(--step-1); font-weight:600; margin-top:0.15rem; }
+  .job-org{ color:var(--ink-soft); font-size:0.92rem; margin-top:0.1rem; }
+  .job ul{ margin:0.85rem 0 0; padding-left:1.15rem; }
+  .job li{ margin:0.35rem 0; color:var(--ink); }
+  .job li::marker{ color:var(--clay); }
+
+  /* ---- Education ---- */
+  .edu-list{ display:grid; gap:1.1rem; }
+  .edu-item{ display:flex; justify-content:space-between; gap:1rem; align-items:baseline; flex-wrap:wrap; padding:0.9rem 0; border-top:1px solid var(--line); }
+  .edu-item:first-child{ border-top:none; padding-top:0; }
+  .edu-name{ font-family:var(--font-display); font-size:var(--step-1); font-weight:600; }
+  .edu-school{ color:var(--ink-soft); font-size:0.92rem; }
+  .edu-dates{ font-family:var(--font-mono); font-size:0.78rem; color:var(--glaze-dark); white-space:nowrap; }
+
+  /* ---- Skills ---- */
+  .chip-row{ display:flex; flex-wrap:wrap; gap:0.6rem; }
+  .chip{
+    font-family:var(--font-mono); font-size:0.82rem;
+    padding:0.55rem 0.85rem;
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    color:var(--ink);
+  }
+
+  /* ---- Awards & Volunteer ---- */
+  .plain-list{ list-style:none; margin:0; padding:0; display:grid; gap:0.9rem; }
+  .plain-list li{
+    display:flex; gap:0.75rem; align-items:flex-start;
+    padding-bottom:0.9rem; border-bottom:1px solid var(--line);
+  }
+  .plain-list li:last-child{ border-bottom:none; padding-bottom:0; }
+  .plain-list svg{ flex:none; width:18px; height:18px; margin-top:0.2rem; color:var(--clay); }
+  .plain-list .label-strong{ font-weight:600; }
+  .plain-list .label-sub{ color:var(--ink-soft); font-size:0.92rem; display:block; margin-top:0.1rem; }
+
+  /* ============ Footer ============ */
+  footer{
+    position:relative; overflow:hidden;
+    background:var(--charcoal); color:var(--sand);
+    padding:3rem 0 2.25rem;
+  }
+  footer .wrap{ position:relative; z-index:1; }
+  footer h2{ color:var(--paper); font-size:var(--step-2); }
+  footer .tagline{ color:rgba(241,232,214,0.72); font-family:var(--font-display); font-style:italic; margin-top:0.6rem; max-width:36ch; }
+  footer .contact-row a, footer .contact-row span{
+    background:rgba(241,232,214,0.06);
+    border-color:rgba(241,232,214,0.18);
+    color:var(--sand);
+  }
+  footer .contact-row a:hover{ border-color:var(--sand); color:#fff; }
+  footer .colophon{
+    margin-top:2.5rem; padding-top:1.5rem;
+    border-top:1px solid rgba(241,232,214,0.14);
+    font-family:var(--font-mono); font-size:0.72rem;
+    color:rgba(241,232,214,0.45);
+    display:flex; flex-wrap:wrap; gap:0.4rem 1rem;
+  }
+
+  /* ============ Motion (respects reduced-motion above) ============ */
+  .reveal{ opacity:0; transform:translateY(14px); transition:opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.is-visible{ opacity:1; transform:translateY(0); }
+
+  /* ============ Layout — tablet / desktop ============ */
+  @media (min-width:640px){
+    .wrap{ padding-inline:2rem; }
+    .job{ grid-template-columns:180px 1fr; gap:0.25rem 2rem; }
+    .job-dates{ padding-top:0.35rem; }
+  }
+  @media (min-width:900px){
+    .wrap{ padding-inline:0; }
+    header.hero{ padding:6rem 0 4rem; }
+  }
+
+  /* ============ Print ============ */
+  @media print{
+    .rings, .skip-link{ display:none !important; }
+    body{ background:#fff; color:#111; font-size:11.5pt; }
+    header.hero{ padding:0 0 1.5rem; border-bottom:1px solid #999; }
+    .contact-row a, .contact-row span{ background:none; border:1px solid #999; color:#111; }
+    section{ padding:1.1rem 0; border-bottom:1px solid #ccc; }
+    footer{ background:#fff; color:#111; }
+    footer .contact-row a, footer .contact-row span{ background:none; border:1px solid #999; color:#111; }
+    footer .colophon{ color:#666; border-top:1px solid #ccc; }
+    a{ color:#111; text-decoration:none; }
+    .reveal{ opacity:1 !important; transform:none !important; }
+  }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<!-- L1 Semantic Core -->
+<header class="hero" id="hero">
+  <div class="rings" aria-hidden="true"></div>
+  <div class="wrap hero-inner">
+    <span class="eyebrow">Cape Town · Guest Services &amp; Retail</span>
+    <h1>Ryan Cox</h1>
+    <p class="tagline">Four years of reading a room fast — gallery floor, coffee bar, front desk — and making people feel looked after.</p>
+    <div class="contact-row">
+      <a href="tel:+27738864058">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        073 886 4058
+      </a>
+      <a href="mailto:rycox13@gmail.com">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16v16H4z" opacity="0"/><path d="M22 6 12 13 2 6"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg>
+        rycox13@gmail.com
+      </a>
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        Cape Town, South Africa
+      </span>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <div class="wrap">
+
+    <section id="profile" class="reveal" aria-labelledby="profile-h">
+      <div class="section-head">
+        <h2 id="profile-h">Profile</h2>
+        <span class="eyebrow">Overview</span>
+      </div>
+      <p>Customer-focused professional with 4+ years of experience in retail, hospitality, and guest services. Fine Arts graduate with a proven record of reliability, clear communication, and delivering strong customer experiences in fast-paced environments. Seeking to bring strong organizational skills and a collaborative mindset to a new role.</p>
+    </section>
+
+    <section id="experience" class="reveal" aria-labelledby="experience-h">
+      <div class="section-head">
+        <h2 id="experience-h">Experience</h2>
+        <span class="eyebrow">Reverse chronological</span>
+      </div>
+
+      <article class="job">
+        <div class="job-dates">2024 – May 2025</div>
+        <div>
+          <h3 class="job-title">Sales Representative</h3>
+          <div class="job-org">Taos Ceramics Center</div>
+          <ul>
+            <li>Managed and organized displays and inventory for the fine arts gallery.</li>
+            <li>Assisted customers with purchases, drawing on knowledge of ceramics and fine art to support sales.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="job">
+        <div class="job-dates">2023 – 2024</div>
+        <div>
+          <h3 class="job-title">Waitress, Barista &amp; Front Desk Operator</h3>
+          <div class="job-org">Manzanita Market</div>
+          <ul>
+            <li>Provided friendly, efficient service to ensure an exceptional guest experience.</li>
+            <li>Operated the front desk, handling customer inquiries and transactions.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="job">
+        <div class="job-dates">Oct 2022 – 2023</div>
+        <div>
+          <h3 class="job-title">Waitress / Barista, Cashier &amp; Stocker</h3>
+          <div class="job-org">Sol Food Cafe and Market</div>
+          <ul>
+            <li>Served customers as both waitress and barista in the cafe while also working as cashier and stocker in the adjoining market.</li>
+            <li>Balanced dual roles across food service and retail, maintaining accuracy and speed during high-volume shifts.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="job">
+        <div class="job-dates">Summer 2021</div>
+        <div>
+          <h3 class="job-title">Visitor Services Team Member</h3>
+          <div class="job-org">Meow Wolf — House of Eternal Return</div>
+          <ul>
+            <li>Assisted guests throughout the exhibit, ensuring a smooth and engaging visitor experience.</li>
+            <li>Staffed the front desk, informing visitors of exhibit rules and environment before entry.</li>
+          </ul>
+        </div>
+      </article>
+    </section>
+
+    <section id="education" class="reveal" aria-labelledby="education-h">
+      <div class="section-head">
+        <h2 id="education-h">Education</h2>
+        <span class="eyebrow">Degrees</span>
+      </div>
+      <div class="edu-list">
+        <div class="edu-item">
+          <div>
+            <div class="edu-name">Bachelor of Arts in Fine Arts (BAFA)</div>
+            <div class="edu-school">University of New Mexico</div>
+          </div>
+          <div class="edu-dates">Aug 2020 – 2021</div>
+        </div>
+        <div class="edu-item">
+          <div>
+            <div class="edu-name">High School Diploma</div>
+            <div class="edu-school">Taos High School</div>
+          </div>
+          <div class="edu-dates">Aug 2016 – May 2020</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills" class="reveal" aria-labelledby="skills-h">
+      <div class="section-head">
+        <h2 id="skills-h">Skills</h2>
+        <span class="eyebrow">Working toolkit</span>
+      </div>
+      <div class="chip-row">
+        <span class="chip">Microsoft Office ecosystem</span>
+        <span class="chip">Verbal communication &amp; team leadership</span>
+        <span class="chip">Cash handling &amp; POS operation</span>
+        <span class="chip">Fast learner — attentive under pressure</span>
+      </div>
+    </section>
+
+    <section id="awards" class="reveal" aria-labelledby="awards-h">
+      <div class="section-head">
+        <h2 id="awards-h">Awards</h2>
+        <span class="eyebrow">Recognition</span>
+      </div>
+      <ul class="plain-list">
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="6"/><path d="M15.5 13.5 17 22l-5-3-5 3 1.5-8.5"/></svg>
+          <span><span class="label-strong">Helene Wurlitzer Foundation Scholarship</span><span class="label-sub">Recipient, 4 years</span></span>
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="6"/><path d="M15.5 13.5 17 22l-5-3-5 3 1.5-8.5"/></svg>
+          <span><span class="label-strong">Varsity Tennis Award</span><span class="label-sub">Team Player</span></span>
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="6"/><path d="M15.5 13.5 17 22l-5-3-5 3 1.5-8.5"/></svg>
+          <span><span class="label-strong">Varsity Letter</span><span class="label-sub">Soccer and Tennis, two years</span></span>
+        </li>
+      </ul>
+    </section>
+
+    <section id="volunteer" class="reveal" aria-labelledby="volunteer-h">
+      <div class="section-head">
+        <h2 id="volunteer-h">Volunteer Experience</h2>
+        <span class="eyebrow">Community</span>
+      </div>
+      <ul class="plain-list">
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          <span><span class="label-strong">Stray Hearts Animal Shelter</span><span class="label-sub">Socialized dogs and cats</span></span>
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          <span><span class="label-strong">DreamTree Project</span><span class="label-sub">Community service</span></span>
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          <span><span class="label-strong">The Paseo Project</span><span class="label-sub">Community service</span></span>
+        </li>
+      </ul>
+    </section>
+
+  </div>
+</main>
+
+<footer id="contact" aria-labelledby="contact-h">
+  <div class="rings rings--footer" aria-hidden="true"></div>
+  <div class="wrap">
+    <span class="eyebrow">Get in touch</span>
+    <h2 id="contact-h">Let's talk</h2>
+    <p class="tagline">Available for retail, hospitality, and guest-services roles in Cape Town.</p>
+    <div class="contact-row">
+      <a href="tel:+27738864058">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        073 886 4058
+      </a>
+      <a href="mailto:rycox13@gmail.com">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 6 12 13 2 6"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg>
+        rycox13@gmail.com
+      </a>
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        Cape Town, South Africa
+      </span>
+    </div>
+    <div class="colophon">
+      <span>Forever Format™ v1.2.0 — Erebus</span>
+      <span>Document v1.0.0</span>
+      <span>CC BY-NC-SA 4.0</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // L5 Generative Layer (optional) — restrained scroll-reveal, fully
+  // inert when prefers-reduced-motion is set.
+  (function(){
+    var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var targets = document.querySelectorAll('.reveal');
+    if(prefersReduced || !('IntersectionObserver' in window)){
+      targets.forEach(function(el){ el.classList.add('is-visible'); });
+      return;
+    }
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          entry.target.classList.add('is-visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    targets.forEach(function(el){ io.observe(el); });
+  })();
+</script>
+</body>
+</html>
